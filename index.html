@@ -1,9 +1,58 @@
----
-layout: page
-description: {{site.description}}
-keywords: {{site.keywords}}
----
-<style>
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>lilyum ensemble</title>
+  <meta name="description" content="lily, Aikatsu, Linux, Lua/MoonScript, and more">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://nymphium.github.io/">
+  <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+	<div class="wrapper">
+		<a class="site-title" href="/">lilyum ensemble</a>
+		<nav class="site-nav">
+			<div class="trigger">
+				
+					
+				
+					
+				
+					
+				
+					
+					<a class="page-link" href="/slide.html">Slides</a>
+					
+				
+					
+					<a class="page-link" href="/tags.html">Tags</a>
+					
+				
+			</div>
+		</nav>
+	</div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <div class="post-content">
+    <style>
 .page-header {
 	padding-bottom: 17px;
 	margin: 18px 0;
@@ -21,7 +70,7 @@ keywords: {{site.keywords}}
 
 <div class="home">
 	<div class="page-header">
-		<h4>{{site.description}}</h4>
+		<h4>lily, Aikatsu, Linux, Lua/MoonScript, and more</h4>
 		<div style="font-size: 0.9rem;">
 			<div class="homecont"><span><a href="https://twitter.com/Nymphium" target="_blank">@Nymphium</a></span></div>
 			<div class="homecont"><span><a href="https://github.com/Nymphium" target="_blank">GitHub</a></span></div>
@@ -30,19 +79,71 @@ keywords: {{site.keywords}}
 		</div>
 	</div>
 	<ul class="posts">
-		<ul class="post-list">{% assign posts_collate = site.posts %}{% for post in posts_collate %}{% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}{% capture this_month %}{{ post.date | date: "%B" }}{% endcapture %}{% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}{% capture next_month %}{{ post.previous.date | date: "%B" }}{% endcapture %}{% if forloop.first %}
-			<h3 class="post-meta">{{this_year}}</h3>
-			<h4 class="post-meta">{{this_month}}</h4>
-			<ul> {% endif %}
-				<li><span class="post-meta">{{ post.date | date: "%e (%a)" }}</span> <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>{% if forloop.last %}
-			</ul> {% else %}{% if this_year != next_year %}
+		<ul class="post-list">
+			<h3 class="post-meta">2016</h3>
+			<h4 class="post-meta">March</h4>
+			<ul> 
+				<li><span class="post-meta">19 (Sat)</span> <a href="/2016/03/19/awesome_timer.html">awesome WMでタイマー</a></li>
 			</ul>
-			<h3 class="post-meta">{{next_year}}</h3>
-			<h4 class="post-meta">{{next_month}}</h4>
-			<ul>{% else %}{% if this_month != next_month %}
+			<h4 class="post-meta">February</h4>
+			<ul>
+				<li><span class="post-meta">29 (Mon)</span> <a href="/2016/02/29/llix_typeanotation.html">自作Lua処理系に型注釈をつけた(嘘)</a></li>
+				<li><span class="post-meta">28 (Sun)</span> <a href="/2016/02/28/gtk3_2.html">Gtk3アプリケーションのキーバインド</a></li>
+				<li><span class="post-meta">25 (Thu)</span> <a href="/2016/02/25/3rd2nd.html">3年次2年任期満了記念</a></li>
 			</ul>
-			<h4 class="post-meta">{{next_month}}</h4>
-			<ul>{% endif %}{% endif %}{% endif %}{% endfor %}
+			<h4 class="post-meta">January</h4>
+			<ul>
+				<li><span class="post-meta">13 (Wed)</span> <a href="/2016/01/13/llix.html">通年でLua処理系を作った</a></li>
+			</ul>
+			<h3 class="post-meta">2015</h3>
+			<h4 class="post-meta">December</h4>
+			<ul>
+				<li><span class="post-meta">24 (Thu)</span> <a href="/2015/12/24/hurikaeri2015.html">振り返り2015</a></li>
+				<li><span class="post-meta">20 (Sun)</span> <a href="/2015/12/20/coinsac.html">Beamerを書く</a></li>
+				<li><span class="post-meta">17 (Thu)</span> <a href="/2015/12/17/niceyuri.html">百合漫画と今年</a></li>
+			</ul>
+			<h4 class="post-meta">November</h4>
+			<ul>
+				<li><span class="post-meta">23 (Mon)</span> <a href="/2015/11/23/beamertemplate.html">スライドを書いてると思ったらBeamerのテンプレートだけが肥大化した</a></li>
+			</ul>
+			<h4 class="post-meta">October</h4>
+			<ul>
+				<li><span class="post-meta"> 3 (Sat)</span> <a href="/2015/10/03/intern_andother.html">インターン､など</a></li>
+			</ul>
+			<h4 class="post-meta">July</h4>
+			<ul>
+				<li><span class="post-meta">25 (Sat)</span> <a href="/2015/07/25/arch_install.html">ArchLinuxをインストールしました｡</a></li>
+				<li><span class="post-meta">23 (Thu)</span> <a href="/2015/07/23/lpeg2.html">LPegの使い方 patternその2</a></li>
+				<li><span class="post-meta">11 (Sat)</span> <a href="/2015/07/11/x1_carbon.html">X1 Carbon 2015にArchをインストールした後におこなう儀式</a></li>
+				<li><span class="post-meta"> 5 (Sun)</span> <a href="/2015/07/05/lpeg1.html">LPegの使い方 patternその1</a></li>
+			</ul>
+			<h4 class="post-meta">June</h4>
+			<ul>
+				<li><span class="post-meta">29 (Mon)</span> <a href="/2015/06/29/staranis_live.html">STAR☆ANIS アイカツ！スペシャルLIVE TOUR 2015 SHINING STAR*</a></li>
+			</ul>
+			<h4 class="post-meta">May</h4>
+			<ul>
+				<li><span class="post-meta">19 (Tue)</span> <a href="/2015/05/19/lualatex_asluastring.html">texluaとtex.print</a></li>
+				<li><span class="post-meta">10 (Sun)</span> <a href="/2015/05/10/apriled.html">Apriled</a></li>
+			</ul>
+			<h4 class="post-meta">March</h4>
+			<ul>
+				<li><span class="post-meta">24 (Tue)</span> <a href="/2015/03/24/fight_luarocks_2.html">LuaRocksとの戦い2</a></li>
+				<li><span class="post-meta">15 (Sun)</span> <a href="/2015/03/15/ikou.html">3/15は星宮いちごちゃんの誕生日､はてブからの移住</a></li>
+			</ul> 
 		</ul>
 	</ul>
 </div>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    
+
+  </body>
+
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>自作Lua処理系に型注釈をつけた(嘘)</title>
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://nymphium.github.io/2016/02/29/llix_typeanotation.html">
+  <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+	<div class="wrapper">
+		<a class="site-title" href="/">lilyum ensemble</a>
+		<nav class="site-nav">
+			<div class="trigger">
+				
+					
+				
+					
+				
+					
+				
+					
+					<a class="page-link" href="/slide.html">Slides</a>
+					
+				
+					
+					<a class="page-link" href="/tags.html">Tags</a>
+					
+				
+			</div>
+		</nav>
+	</div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<header class="post-header">
+		<h1 class="post-title" itemprop="name headline">自作Lua処理系に型注釈をつけた(嘘)</h1>
+		<span class="post-meta">
+			<time datetime="2016-02-29T00:00:00+09:00" itemprop="datePublished">Feb 29, 2016</time>
+			<p>tag: &#91;
+				
+				<a href="/tags.html#Lua-ref">Lua</a>
+				
+				<a href="/tags.html#MoonScript-ref">MoonScript</a>
+				
+			&#93;</p>
+		</span>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<link href="/../github-widget/gh-widget.css" rel="stylesheet">
+	</header>
+	<div class="post-content" itemprop="articleBody">
+		<!--sectionize on-->
+
+<p>こんにちは､びしょ〜じょです｡梅祭りということでT山に行ったら本場のガマ口上が聞けたんですが､老人が景気の良い話しててムカついた｡</p>
+
+<hr>
+
+<h1 id="1-はじめに">1. はじめに</h1>
+
+<p>ネタがないのでまたこれの話です｡</p>
+
+<div class="github-widget" data-repo="Nymphium/llix"></div>
+
+<p>動機は特に無く､時間を大きく潰す必要がありながらも徹夜で頭がうまく働かないというシナリオの上で何をするのが良いかというと既存の拙作いじるのが無難かなと｡</p>
+
+<p>だらだらツイタッーをみていたら構文木の最適化の話がちょっとでて､パーサーをいじろうという気持ちがフッとわいてきた｡
+ところでRustのチュートリアルを読み進めていて､Rustにはコメントによる型注釈というものが将来できるらしい<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>｡
+じゃ､型注釈実装しよっか｡</p>
+
+<h1 id="2-実装">2. 実装</h1>
+
+<p><noscript><pre>-- ......
+  Comment:
+    (P&#39;--&#39; * V&#39;Longstring&#39; +
+    P&#39;--&#39; * V&#39;Space&#39; * (V&#39;TACore&#39; + ast(P(1) - (P&#39;\n&#39; + P&#39;T@&#39;))) * (P&#39;\n&#39; + -P(1)))</p>
+
+<p>TACore:
+    with types = {&quot;number&quot;, &quot;string&quot;, &quot;table&quot;, &quot;function&quot;, &quot;coroutine&quot;, &quot;userdata&quot;, &quot;nil&quot;}
+      return spaces(P&#39;T@&#39;, CV&#39;Name&#39;, P&#39;::&#39;, C foldmap types, ((x) =&gt; P(x) + @), #(-P&#39;.&#39;)) / (n, t) -&gt;
+        (parse&quot;assert((type(#{n}) == &amp;quot;#{t}&amp;quot;), [[`#{n}&#39; is not &amp;quot;#{t}&amp;quot;]])&quot;)[1]</p>
+
+<p>-- ......</p>
+
+<p>parse = (msg) -&gt;
+  tree = {llix\match msg}</p>
+
+<p>if h = tree[1]
+    #tree &gt; 1 and tree or h
+  else nil, &quot;Failed to parse&quot;</p>
+
+<p>parse</pre></noscript><script src="https://gist.github.com/Nymphium/f47cecb4744ed6d023f0.js"> </script></p>
+
+<p>型注釈とはいったものの､つまるところ<code>--T@ foo :: T</code>が<code>assert(type(foo) == &quot;T&quot;)</code>の糖衣構文という見方でいいです､というか実際そうです｡
+ですので<em><code>foo</code>の定義以降なら</em>どこに書いてもいいことになります｡しかし定義と注釈のあいだに何かあると､型検査(ただの<code>assert</code>)がされずに進んでいきます｡だめじゃん(完)｡</p>
+
+<p><code>@ foo :: T</code>でもよかったと思うけど､｢luadocとかぶってはマズい｣という全く必要のない心配をしたので<code>T@</code>という目印にしました｡</p>
+
+<p><code>assert(A == B)</code>の構文木を手で書くのはアレだし今後書き換わる可能性も考えてパーサー内でパーサーを使うことにした｡これが一番ミソですね｡嘘です｡</p>
+
+<h1 id="3-後に出す先行研究">3. 後に出す先行研究</h1>
+
+<div class="github-widget" data-repo="andremm/typedlua"></div>
+
+<p><em>(Lua+Rustとか風の型注釈)→コンパイル→Lua</em></p>
+
+<p>という物体です｡こちらは今回の型注釈と違いコメント外にダイレクトに書くのでLuaとしてのポータビリティ(?)にやや欠ける､
+しかしTypedLuaコンパイラ<code>tld</code>にオプションを渡せば､プレーンなLuaもコンパイル時にWarningやError出してくれるのでGod100%｡完敗ですおわり｡
+さらにはHOGE.tldというファイルに型情報を記述するだけでそれもしっかりチェキしてくれるのでもう言うことなしです最高｡
+今日お客さんがたにお伝えしたかったのはこのTypedLuaです!!! 以上!!!!</p>
+
+<hr>
+
+<h1 id="4-おわりに">4. おわりに</h1>
+
+<p>今月中にはRust Tutorialを抜けたい､あと倉敷に行くぞ､六識美砂さんの働いていた場所で『受胎告知』を観るぞ｡
+あと<a href="https://twitter.com/ranha">@ranha </a>さんが大量に捨てていった本を大量に拾ったので､どんどん読んで行かないとね…｡</p>
+
+<p>とりあえず『集合とはなにか』､『理科系のための英文作法』を読んだ｡両方とも共通しているのは&quot;読み進めさせる文章力&quot;ですね｡
+内容をより面白く思わせる文というのは名著たらしめるファクターだと思う｡どちらも面白かった､内容も然り｡
+特に後者は英作文に関する本ですが､まず日本語として正しい文を英語に翻訳していくという進みなので､日本語文の勉強にもなった(が､この文は死んだ脳で書いてるので本の内容があまり適用されていない)｡</p>
+
+<p>本を読んで百合を楽しんで積んでるゲームと本を消化してプログラム書いて百合を楽しんで寝る時間が欲しいミャオ…</p>
+
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p><a href="https://doc.rust-lang.org/nightly/book/variable-bindings.html#type-annotations">https://doc.rust-lang.org/nightly/book/variable-bindings.html#type-annotations</a>&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a></p>
+</li>
+
+</ol>
+</div>
+
+	</div>
+	<hr>
+		<div class="pagination btn-group" style="text-align: center">
+			
+			<a class="btn prev" href="/2016/02/28/gtk3_2.html" title="Gtk3アプリケーションのキーバインド">&larr; Previous</a>
+			
+			&#47;<a class="btn" href="/">Top</a>&#47;
+			
+			<a class="btn next" href="/2016/03/19/awesome_timer.html" title="awesome WMでタイマー">Next &rarr;</a>
+			
+			<span style="padding-right: 4rem;"/>
+		</div>
+	</hr>
+</article>
+
+      </div>
+    </div>
+
+    
+
+  </body>
+
+</html>

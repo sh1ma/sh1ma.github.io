@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ArchLinuxをインストールしました｡</title>
+  <meta name="description" content="どうもX1 Carbonのグラフィックドライバ調子が悪いように見える｡あるいは適切なドライバがインストールされていない｡">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://nymphium.github.io/2015/07/25/arch_install.html">
+  <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+	<div class="wrapper">
+		<a class="site-title" href="/">lilyum ensemble</a>
+		<nav class="site-nav">
+			<div class="trigger">
+				
+					
+				
+					
+				
+					
+				
+					
+					<a class="page-link" href="/slide.html">Slides</a>
+					
+				
+					
+					<a class="page-link" href="/tags.html">Tags</a>
+					
+				
+			</div>
+		</nav>
+	</div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<header class="post-header">
+		<h1 class="post-title" itemprop="name headline">ArchLinuxをインストールしました｡</h1>
+		<span class="post-meta">
+			<time datetime="2015-07-25T00:00:00+09:00" itemprop="datePublished">Jul 25, 2015</time>
+			<p>tag: &#91;
+				
+				<a href="/tags.html#Linux-ref">Linux</a>
+				
+			&#93;</p>
+		</span>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<link href="/../github-widget/gh-widget.css" rel="stylesheet">
+	</header>
+	<div class="post-content" itemprop="articleBody">
+		<p>どうもX1 Carbonのグラフィックドライバ調子が悪いように見える｡あるいは適切なドライバがインストールされていない｡</p>
+
+<p>しんどくなってきた.jpなので､こういうところをよしなにしてくれるUbuntuでも使おう｡でもUnity(Wndow Manager)は好きじゃないのでXubuntuでも入れようか｡</p>
+
+<p>―5年後―</p>
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">Ubuntuに~/.xinitrcないんだけどなんだこいつふざけてんのか</p>&mdash; びしょ～じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/624712527516073984">July 24, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">initとsystemdがごちゃごちゃになってるの戦慄恐怖ファイルコワすぎなんですが｡</p>&mdash; びしょ～じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/624733566245564416">July 25, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">Arch以外ほとんど触ってないもやしっこにつき死亡</p>&mdash; びしょ～じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/624712750858547200">July 24, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>ドライバとかなんとかの前に大惨事だった｡ただこれはUbuntu特有の慣れが必要なのでこうなったとも言える｡
+しかしインターネッツにある解説サイトがことごとくGUIの説明だけで､XubuntuとかLubuntuとか派生品が死亡するのはどうなんですかね｡
+設定ファイルの場所と書き方とかそういうところを知りたかったわけよ｡</p>
+
+<p>仕方がないのでArchに戻った｡せっかくだし､T芝を見習って個人的にチャレンジングなことをした｡</p>
+
+<h2 id="refind">rEFInd</h2>
+
+<p>GRUBよりもモダンな感じがするので入れた｡</p>
+<div class="highlight"><pre><code class="language-" data-lang=""># pacman -S refind-efi
+# refind-install
+</code></pre></div>
+<p>なんて簡単な導入なんだ｡</p>
+
+<h2 id="no-display-manager">No Display Manager</h2>
+
+<p>Display ManagerにはいつもSLiMを使っていた｡一番軽い(と思う)し､いつもオートログインなので機能はぶっちゃけ全く要らない｡</p>
+
+<p><strong><em>が､しかし</em></strong></p>
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">なんで開発止まっててsystemdに完全に対応してないSLiMを使いたがる人が多いんだろう</p>&mdash; うどん (@mohemohe) <a href="https://twitter.com/mohemohe/status/624737072989863937">July 25, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>確認したところ､たしかにSLiMはアレだった｡でも他のDMもなんか微妙だしなぁオイ…｡と探していたところ､ちょうどいい物体が見つかった｡</p>
+
+<p><a href="https://aur.archlinux.org/packages/xlogin-git/">xlogin</a></p>
+
+<p>これでミニマリズムをね､</p>
+<div class="highlight"><pre><code class="language-" data-lang=""># yaourt -S xlogin-git
+# systemctl enable xlogin@username
+</code></pre></div>
+<p>~/.xinitrcを読んでくれるだけなので､これといった設定は要らず｡</p>
+
+<h2 id="dnsmasq">dnsmasq</h2>
+
+<p><a href="https://wiki.archlinuxjp.org/index.php/Dnsmasq#NetworkManager">dnsmasq</a></p>
+
+<p>DNSクエリをキャッスしてほげほげ…速くなる…</p>
+
+<p>たしかに速くなった｡</p>
+
+<h2 id="other-daemons">other daemons</h2>
+
+<p><a href="https://wiki.archlinux.org/index.php/VeryNice?redirect=no">verynice</a>とか<a href="https://wiki.archlinux.org/index.php/Preload">preload</a>とかそういえば入れてなかった｡</p>
+
+<hr>
+
+<p>Archを何度インストールしてもだいたい同じような感じになるので､Chefとかなんとか使わなきゃと毎回思う(が使わない)｡</p>
+
+	</div>
+	<hr>
+		<div class="pagination btn-group" style="text-align: center">
+			
+			<a class="btn prev" href="/2015/07/23/lpeg2.html" title="LPegの使い方 patternその2">&larr; Previous</a>
+			
+			&#47;<a class="btn" href="/">Top</a>&#47;
+			
+			<a class="btn next" href="/2015/10/03/intern_andother.html" title="インターン､など">Next &rarr;</a>
+			
+			<span style="padding-right: 4rem;"/>
+		</div>
+	</hr>
+</article>
+
+      </div>
+    </div>
+
+    
+
+  </body>
+
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>LuaRocksとの戦い2</title>
+  <meta name="description" content="こんにちは､びしょ〜じょです｡クズ極まって奨学金が廃止になりましたが､とりあえず学籍は保持されました｡">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://nymphium.github.io/2015/03/24/fight_luarocks_2.html">
+  <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+	<div class="wrapper">
+		<a class="site-title" href="/">lilyum ensemble</a>
+		<nav class="site-nav">
+			<div class="trigger">
+				
+					
+				
+					
+				
+					
+				
+					
+					<a class="page-link" href="/slide.html">Slides</a>
+					
+				
+					
+					<a class="page-link" href="/tags.html">Tags</a>
+					
+				
+			</div>
+		</nav>
+	</div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<header class="post-header">
+		<h1 class="post-title" itemprop="name headline">LuaRocksとの戦い2</h1>
+		<span class="post-meta">
+			<time datetime="2015-03-24T00:00:00+09:00" itemprop="datePublished">Mar 24, 2015</time>
+			<p>tag: &#91;
+				
+				<a href="/tags.html#Lua-ref">Lua</a>
+				
+				<a href="/tags.html#LuaRocks-ref">LuaRocks</a>
+				
+			&#93;</p>
+		</span>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<link href="/../github-widget/gh-widget.css" rel="stylesheet">
+	</header>
+	<div class="post-content" itemprop="articleBody">
+		<p>こんにちは､びしょ〜じょです｡クズ極まって奨学金が廃止になりましたが､とりあえず学籍は保持されました｡</p>
+
+<p>さて本題</p>
+
+<hr>
+
+<p>戦い1は<a href="http://nymphium.hateblo.jp/entry/2015/02/01/153037">こちら</a>｡</p>
+
+<p><a href="https://github.com/Nymphium/luakatsu">これ</a>をウッピデートしていたら色々問題が見えてきた｡いや､問題か…?</p>
+
+<hr>
+
+<h3 id="luarocksがショボい">luarocksがショボい</h3>
+
+<p>ぶっちゃけluarocksコマンドがショボい｡write_rockspecオプションでrockspecファイルを作るわけだが､source.urlはrockspecファイルを自力で編集する必要がある｡そのくらいオプションに追加してくれよ｡</p>
+
+<p>そしてdescription.detailedも､detailedオプションの記述よりもREADME.mdのよく分からない部分を優先してしまうなど色々残念感が多い｡</p>
+
+<p>というわけでひどく簡易的だがluarocks/write_rockspec.luaを一部書き換えた｡</p>
+<div class="highlight"><pre><code class="language-diff" data-lang="diff">89c89
+&lt;          rockspec.description.detailed = paragraph
+---
+&gt;          -- rockspec.description.detailed = paragraph
+95c95
+&lt;          rockspec.description.detailed = paragraph
+---
+&gt;          -- rockspec.description.detailed = paragraph
+222c222
+&lt; 
+---
+&gt;    
+258c258,259
+&lt;          url = "*** please add URL for source tarball, zip or repository here ***",
+---
+&gt;          url = flags["url"],
+</code></pre></div>
+<p>何もしないとdetailedはREADMEの一部を適当に引っ張ってくる｡これはwrite_rockspec.luaのdetect_description関数を見ていただければわかる｡</p>
+
+<p>で､luarocksコマンドはLuaで記述されており､どうやらwrite_rockspecオプションでは以後に続く<code>--hoge=huga</code>の形式のサブオプションを<code>flags[&quot;hoge&quot;] = &quot;huga&quot;</code>のようにflagsというtableに突っ込んでいるようだ｡</p>
+
+<p>というわけでsource.urlもオプションで記述できるように<code>flags[&quot;url&quot;]</code>を用いた｡</p>
+
+<p>これでとりあえずはrockspecを触ることも少なくなることを祈るしか無い｡</p>
+
+<hr>
+
+<h4 id="追記-3-25">追記 3/25</h4>
+
+<p>教えてもらいました｡</p>
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/Nymphium">@Nymphium</a> Oh, you&#39;re right! The priority is inverted there. I&#39;ll fix this!</p>&mdash; Hisham (@hisham_hm) <a href="https://twitter.com/hisham_hm/status/580435538357944321">March 24, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/Nymphium">@Nymphium</a> it gets the URL from the last parameter:<br><br>luarocks write_rockspec bla 1.0-1 <a href="http://t.co/mBRo5RtgcK">http://t.co/mBRo5RtgcK</a></p>&mdash; Hisham (@hisham_hm) <a href="https://twitter.com/hisham_hm/status/580436720354750464">March 24, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>&quot;--detailed&quot;がREADMEを優先するのはバグだが､source.urlに関してはやはりボクが悪いですね｡</p>
+
+<p>追記終わり｡</p>
+
+<hr>
+
+<h3 id="tagについて">tagについて</h3>
+
+<p>無事にluakatsuもv1.3になったということで､<a href="https://rocks.moonscript.org/" title="LuaRocks">LuaRocks</a>にrockspecを登録し､無事にインストールできるか試してみた</p>
+
+<p><em>…が､ダメ…っ!!</em></p>
+
+<p>これはボクが完全に悪く､バージョンはGitでtagを付けて分けており､<a href="https://github.com/keplerproject/luarocks/wiki/Documentation">LuaRocksnのDocumentation</a>を読むと､soure.urlが&quot;git://&quot;から始まっていると､source.tagやsource.branchから､文字通りtagやbranchを指定することができるようだ｡</p>
+
+<p>逆に､指定しないとmaster branchなどから引っ張ってくるようで､そのせいでインストールがうまく行かなかった｡</p>
+
+<p>ということで､write_rockspecオプションのサブオプションに<code>--tag=TAG</code>を付けることで解決｡</p>
+
+<p>Documentationは読もう(アイカツ格言)｡</p>
+
+<hr>
+
+<h2 id="全く関係ないその他">全く関係ないその他</h2>
+
+<p>アイカツ2015年第3段､もう弾が切れそうなのでスミレちゃんのレアドレスが揃いそうにない｡
+第4段のPVが公式から上がっており､ニューカマーの二人には期待が募るばかりである｡</p>
+
+	</div>
+	<hr>
+		<div class="pagination btn-group" style="text-align: center">
+			
+			<a class="btn prev" href="/2015/03/15/ikou.html" title="3/15は星宮いちごちゃんの誕生日､はてブからの移住">&larr; Previous</a>
+			
+			&#47;<a class="btn" href="/">Top</a>&#47;
+			
+			<a class="btn next" href="/2015/05/10/apriled.html" title="Apriled">Next &rarr;</a>
+			
+			<span style="padding-right: 4rem;"/>
+		</div>
+	</hr>
+</article>
+
+      </div>
+    </div>
+
+    
+
+  </body>
+
+</html>

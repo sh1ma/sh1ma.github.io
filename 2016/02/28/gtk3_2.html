@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Gtk3アプリケーションのキーバインド</title>
+  <meta name="description" content="こんにちは､びしょ〜じょです｡">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://nymphium.github.io/2016/02/28/gtk3_2.html">
+  <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+	<div class="wrapper">
+		<a class="site-title" href="/">lilyum ensemble</a>
+		<nav class="site-nav">
+			<div class="trigger">
+				
+					
+				
+					
+				
+					
+				
+					
+					<a class="page-link" href="/slide.html">Slides</a>
+					
+				
+					
+					<a class="page-link" href="/tags.html">Tags</a>
+					
+				
+			</div>
+		</nav>
+	</div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<header class="post-header">
+		<h1 class="post-title" itemprop="name headline">Gtk3アプリケーションのキーバインド</h1>
+		<span class="post-meta">
+			<time datetime="2016-02-28T00:00:00+09:00" itemprop="datePublished">Feb 28, 2016</time>
+			<p>tag: &#91;
+				
+				<a href="/tags.html#Linux-ref">Linux</a>
+				
+			&#93;</p>
+		</span>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<link href="/../github-widget/gh-widget.css" rel="stylesheet">
+	</header>
+	<div class="post-content" itemprop="articleBody">
+		<p>こんにちは､びしょ〜じょです｡</p>
+
+<hr>
+
+<p>さて､過去に<a href="http://nymphium.hateblo.jp/entry/2015/02/10/043136">こんなもの</a>を書きました｡
+が､仕様が変わったのでしょうか何なんでしょうか､Gtk3アプリケーションでキーバインドが効かない｡</p>
+
+<p>最近はGoogle Chromeがメモリ食いすぎてRAM 8GBのノートpcを半日放置すると実に4GBがChromeに食われててまずい､Firefox使おう｡
+というシナリオですが､キーバインドがうまく動かん｡ChromeはGtk2なので､上記URLでの設定通り色々できる｡
+使い馴染みのキーバインドが動かないことに起因するイライラというのは誰もが感じたことあるでしょう｡最悪ですねこれは｡</p>
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">Chromeが重くなりすぎ､さらにはしばらく放置してるとメモリ4GBくらい持ってくので最悪になった｡で､Firefoxを使うも､メニューの一部の背景が透明100%で見づらくてムカつく｡あとGtkキーバインドよりもFirefoxのショートカットを優先するのでちょっと困る｡</p>&mdash; びしょ～じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/699047655700168704">February 15, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>白頭山の稲妻のようにひらめきが脳を駆け巡り､｢これはまさかGtk3がアレなのでは…?｣ ――</p>
+
+<p><code>~/.theme/Vi/gtk-keys.css</code>をみにいってほしいので､<code>inotifywait -m ~/.theme/</code>で待ってみます｡
+Firefoxを起動してもOPENも何もないので即終了｡</p>
+
+<p><code>/usr/share/themes/</code>にGtkのテーマが置かれているので､ここに<code>sudo ln -s ~/.theme/Vi/ /usr/share/thems/</code>します｡
+有効になりました｡おわり｡</p>
+
+<hr>
+
+<p>Firefoxでalt押すと普段隠してるメニューバーがチラチラ出てきて鬱陶しい｡ 
+<code>bind &quot;&lt;alt&gt;&quot; {&quot;none&quot; ()};</code>などとすると､Firefoxのログをみるにエラーが出てしまっている｡
+何がダメってキーバインドが<code>&quot;&lt;alt&gt;&quot;</code>単体なのがダメなんですが､なんとかならんかなぁ､あとOpen menuで出てくるアレも背景が透明100%で見づらい｡これは<code>~/.config/gtk-3.0/</code>以下のファイル群の何かをいじればどうにかなりそうだけど､どれですかね｡</p>
+
+	</div>
+	<hr>
+		<div class="pagination btn-group" style="text-align: center">
+			
+			<a class="btn prev" href="/2016/02/25/3rd2nd.html" title="3年次2年任期満了記念">&larr; Previous</a>
+			
+			&#47;<a class="btn" href="/">Top</a>&#47;
+			
+			<a class="btn next" href="/2016/02/29/llix_typeanotation.html" title="自作Lua処理系に型注釈をつけた(嘘)">Next &rarr;</a>
+			
+			<span style="padding-right: 4rem;"/>
+		</div>
+	</hr>
+</article>
+
+      </div>
+    </div>
+
+    
+
+  </body>
+
+</html>

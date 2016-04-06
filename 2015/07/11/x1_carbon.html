@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>X1 Carbon 2015にArchをインストールした後におこなう儀式</title>
+  <meta name="description" content="こんにちは､びしょ〜じょです｡LPegが分かりません｡">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://nymphium.github.io/2015/07/11/x1_carbon.html">
+  <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+	<div class="wrapper">
+		<a class="site-title" href="/">lilyum ensemble</a>
+		<nav class="site-nav">
+			<div class="trigger">
+				
+					
+				
+					
+				
+					
+				
+					
+					<a class="page-link" href="/slide.html">Slides</a>
+					
+				
+					
+					<a class="page-link" href="/tags.html">Tags</a>
+					
+				
+			</div>
+		</nav>
+	</div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<header class="post-header">
+		<h1 class="post-title" itemprop="name headline">X1 Carbon 2015にArchをインストールした後におこなう儀式</h1>
+		<span class="post-meta">
+			<time datetime="2015-07-11T00:00:00+09:00" itemprop="datePublished">Jul 11, 2015</time>
+			<p>tag: &#91;
+				
+				<a href="/tags.html#雑感-ref">雑感</a>
+				
+				<a href="/tags.html#Linux-ref">Linux</a>
+				
+				<a href="/tags.html#Arch-ref">Arch</a>
+				
+			&#93;</p>
+		</span>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<link href="/../github-widget/gh-widget.css" rel="stylesheet">
+	</header>
+	<div class="post-content" itemprop="articleBody">
+		<p>こんにちは､びしょ〜じょです｡LPegが分かりません｡</p>
+
+<hr>
+
+<p>4月に買ったThinkPad X1 Carbon 2015はハードウェアの不調ということで修理に出した｡しかしLinuxConに行っている時に､｢部品がどうしても調達できず滞っている｣という電話をもらう｡</p>
+
+<p>｢2週間ほどで部品はなんとか手に入りそうだからもう少し待ってほしい｣という締めだったが､2週間後には部品が手に入らなかったという旨の電話が来る｡仕方がないので商品交換という形になった｡</p>
+
+<blockquote class="twitter-tweet"><p lang="und" dir="ltr">2X1 <a href="http://t.co/ZecYCZ4Iux">pic.twitter.com/ZecYCZ4Iux</a></p>&mdash; びしょ～じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/619357181704601600">July 10, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>右の方を天に還す｡</p>
+
+<p>で､Archをまたインストールバトルでな､はい｡インストール記事はインターネットの海にいっぱいあるのでそちらにアウトソーシングし､インストール直後の設定について書きたい｡インストーラでブートローダなどを設定した後のあたりから｡yaourtくらいは入れておいてほしい｡</p>
+
+<h2 id="f2fs">F2FS</h2>
+
+<p>推しFS｡Linux4.1でmisellaneousから昇格した｡4.2ではencryptionが入る｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">$ sudo pacman -S f2fs-tools
+$ sudo modprove f2fs
+$ sudo vim /etc/mkinitcpio.conf
+...
+MODULES="... f2fs ..."
+...
+$ mkinitcpio -p linux
+</code></pre></div>
+<h2 id="network">Network</h2>
+
+<p>なんでもかんでも<a href="https://wiki.archlinux.org/index.php/Systemd-networkd">systemd</a>に飲み込まれろ｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">% pacman -S vim wpa_supplicant
+% cat /etc/systemd/network/eth0.network
+[Match]
+Name=eth0
+
+[Network]
+DHCP=both
+% cat /etc/systemd/network/wlan0.network
+[Match]
+Name=wlan0
+
+[Network]
+DHCP=both
+% systemctl enable systemd-{network,resolve}d.service
+% ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+% vim /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
+% systemctl enable wpa_supplicant@wlan0.service
+% cat /etc/modprobe.d/iwlwifi.conf
+# prefer performacnce to powersave
+options iwlwifi 11n_disable=8 power_level=5
+options iwlwifi swcrypto=1
+# set frequirency band
+options cfg80211 ieee80211_regdom=JP
+%
+</code></pre></div>
+<p>(追記 7/22)</p>
+
+<p>なんか上記は安定せず､dhcp + wpa_supplicantもびみょうだったのでNetworkManager落ちしました｡<code>nmtui</code>は便利｡</p>
+
+<p>(追記おわり)</p>
+
+<p><code>network/hoge.network</code>は名前なんでも良さそう｡</p>
+
+<h2 id="powertop">powertop</h2>
+
+<p>バッテリーのみでも最大12hくらい動くようになる｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">$ yaourt -S powertop-autotune-systemd
+$ sudo powertop --calibrate
+$ sudo systemctl enable powertop-autotune.service
+</code></pre></div>
+<h2 id="trackpoint">TrackPoint</h2>
+
+<p>BIOSでTrackpadを抹殺してください｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">% pacman -S xf86-input-synaptics
+% modprobe -rv psmouse &amp;&amp; modprobe -v psmouse
+% cat /etc/X11/xorg.conf.d/20-thinkpad.conf
+# ThinkPad trackpoint wheel emulation
+Section "InputClass"
+    Identifier      "Elantech Trackpoint"
+    MatchProduct    "PS/2 Generic Mouse"
+    MatchDevicePath "/dev/input/event*"
+    Option          "EmulateWheel" "true"
+    Option          "EmulateWheelButton" "2"
+    Option          "EmulateWheelTimeout" "200" 
+    Option          "YAxisMapping" "4 5" # vertikales Scrollen
+    Option          "XAxisMapping" "6 7" # horizontales Scrollen
+EndSection
+</code></pre></div>
+<h2 id="追記-7-22-でぃすぷれい">追記 7/22: でぃすぷれい</h2>
+
+<p>(追記 7/23)</p>
+
+<p>全然ダメだった｡なんでX死んでしまうん…｡</p>
+
+<p>(追記終わり)</p>
+
+<p>蓋を閉じたりサスペンドから戻ったりしてXアプリケーションなどを動かすと</p>
+<div class="highlight"><pre><code class="language-" data-lang="">$ xbacklight
+No protocol specified
+</code></pre></div>
+<p>など抜かして動かない｡<code>dmesg</code>を見てみるとxf86-video-intelが悪い気もするが真偽は不明｡</p>
+
+<p>Ctrl+Alt+F1とかでコンソールに移動すると文字が反復横飛びを繰り返している(語彙の欠如)｡</p>
+<div class="highlight"><pre><code class="language-" data-lang=""># echo "thinkpad_acpi" &gt; /etc/modules-load.d/thinkpad_acpi.conf
+# echo "options thinkpad_acpi force_load=1" &gt; /etc/modprobe.d/thinkpad.conf
+# reboot
+</code></pre></div>
+<p>OK｡でもマイクラ1.8.7をやっているとi965-drvなんちゃらとかでエラーが出て落ちる｡でも他のpcでも起きているのでマイクラが悪い(断定)｡</p>
+
+<p>追記おわり</p>
+
+<h2 id="other">other</h2>
+
+<p>tilda-gitはショートカットキーをどんなに変えてもCtrl+wで必ず&quot;タブを閉じる&quot;になるため､おとなしくcommunity/tildaを入れよう｡</p>
+
+<p>あとはHiDPIの項目を参照</p>
+
+<hr>
+
+<p>よく考えたらX1特有のことはあまりなかった｡</p>
+
+	</div>
+	<hr>
+		<div class="pagination btn-group" style="text-align: center">
+			
+			<a class="btn prev" href="/2015/07/05/lpeg1.html" title="LPegの使い方 patternその1">&larr; Previous</a>
+			
+			&#47;<a class="btn" href="/">Top</a>&#47;
+			
+			<a class="btn next" href="/2015/07/23/lpeg2.html" title="LPegの使い方 patternその2">Next &rarr;</a>
+			
+			<span style="padding-right: 4rem;"/>
+		</div>
+	</hr>
+</article>
+
+      </div>
+    </div>
+
+    
+
+  </body>
+
+</html>

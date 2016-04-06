@@ -1,30 +1,1127 @@
----
-layout: null
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ site.title | xml_escape }}</title>
-    <description>{{ site.description | xml_escape }}</description>
-    <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml"/>
-    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
-    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-    <generator>Jekyll v{{ jekyll.version }}</generator>
-    {% for post in site.posts limit:10 %}
+    <title>lilyum ensemble</title>
+    <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
+    <link>http://nymphium.github.io/</link>
+    <atom:link href="http://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 06 Apr 2016 23:35:18 +0900</pubDate>
+    <lastBuildDate>Wed, 06 Apr 2016 23:35:18 +0900</lastBuildDate>
+    <generator>Jekyll v3.0.3</generator>
+    
       <item>
-        <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.content | xml_escape }}</description>
-        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
-        {% for tag in post.tags %}
-        <category>{{ tag | xml_escape }}</category>
-        {% endfor %}
-        {% for cat in post.categories %}
-        <category>{{ cat | xml_escape }}</category>
-        {% endfor %}
+        <title>awesome WMでタイマー</title>
+        <description>&lt;!--sectionize on--&gt;
+
+&lt;p&gt;こんにちは､びしょ〜じょです｡映画プリパラとミルキィホームズを観てきました｡連続で森脇ふでやすペアの作品は疲れますね｡&lt;/p&gt;
+
+&lt;h1 id=&quot;1-はじめに&quot;&gt;1. はじめに&lt;/h1&gt;
+
+&lt;p&gt;世の中にはこんな便利なLuaモジュールがあります｡&lt;/p&gt;
+
+&lt;div class=&quot;github-widget&quot; data-repo=&quot;nymphium/luakatsu&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;ところでawesomeというLuaで設定ファイルを記述できるウィンドウマネージャがあります｡ピンときましたね｡&lt;/p&gt;
+
+&lt;p&gt;そうですね､&lt;em&gt;お誕生日にメッセージが出る&lt;/em&gt;とハッピーですね｡&lt;/p&gt;
+
+&lt;h1 id=&quot;2-awesome-timer-api&quot;&gt;2. awesome timer API&lt;/h1&gt;
+
+&lt;p&gt;awesomeには実はtimer APIというものがあったんですねぇ…｡&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://awesomewm.org/doc/api/modules/timer.html#timer&quot;&gt;awesome API Document: timer module&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;せっかくなのでちょっとみてみます｡ドキュメントは(個人的に)初見だと若干不親切だったので補足ッピよ｡&lt;/p&gt;
+
+&lt;h2 id=&quot;table&quot;&gt;table&lt;/h2&gt;
+
+&lt;h3 id=&quot;timer&quot;&gt;timer&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;timer&lt;/code&gt;はtableですが､オブジェクト指向のクラスだと思ってください｡
+awesome実行時に_Gに展開されます｡
+&lt;code&gt;{timeout = N}&lt;/code&gt;というtableを渡すことでインスタンスを生成します｡
+この&lt;code&gt;N&lt;/code&gt;は､number型で､N秒ごとにこのインスタンスに登録されているイベントを､やっていく｡
+また､読み取り専用でインスタンスには&lt;code&gt;started&lt;/code&gt;というbool型のメンバ変数があり､インスタンスのタイマーが開始されているか(後述)がわかります｡&lt;/p&gt;
+
+&lt;p&gt;このtimreインスタンスにイベントを追加していくということです｡&lt;/p&gt;
+
+&lt;h2 id=&quot;function&quot;&gt;function&lt;/h2&gt;
+
+&lt;h3 id=&quot;t-start&quot;&gt;t:start()&lt;/h3&gt;
+
+&lt;p&gt;timerのインスタンスtを開始します｡これによりtのタイマーが起動し､&lt;code&gt;t.timeout&lt;/code&gt;秒ごとにイベントを繰り出します｡
+&lt;code&gt;T:f()&lt;/code&gt;は&lt;code&gt;T.f(T)&lt;/code&gt;の糖衣構文なのでもちろん&lt;code&gt;timer.start(t)&lt;/code&gt;とすることもできます｡&lt;/p&gt;
+
+&lt;p&gt;このとき､&lt;code&gt;t.started&lt;/code&gt;は&lt;code&gt;true&lt;/code&gt;となります｡&lt;/p&gt;
+
+&lt;h3 id=&quot;t-stop&quot;&gt;t:stop()&lt;/h3&gt;
+
+&lt;p&gt;インスタンスtのタイマーを止めます｡&lt;/p&gt;
+
+&lt;p&gt;このとき､&lt;code&gt;t.started&lt;/code&gt;は&lt;code&gt;false&lt;/code&gt;となります｡&lt;/p&gt;
+
+&lt;h3 id=&quot;t-again&quot;&gt;t:again()&lt;/h3&gt;
+
+&lt;p&gt;止まっているtを再開します｡&lt;/p&gt;
+
+&lt;h3 id=&quot;t-connect_signal-signame-func&quot;&gt;t:connect_signal(signame, func)&lt;/h3&gt;
+
+&lt;p&gt;これがイベントの追加関数です｡&lt;code&gt;signame&lt;/code&gt;にはstring型でsignal名を追加します｡
+signal is 何な人はawesome のsignalを学んでほしい｡と言いたいところですが､timerは&lt;code&gt;&amp;quot;timeout&amp;quot;&lt;/code&gt;signalを見るので､ここは&lt;code&gt;&amp;quot;timeout&amp;quot;&lt;/code&gt;とでもしておいてください｡
+&lt;code&gt;func&lt;/code&gt;には関数を追加します｡この登録する関数は第1引数にtを取ります｡第2引数以降にブツをわたしたいときは､後述の&lt;code&gt;t:emmit_signal()&lt;/code&gt;を使います｡&lt;/p&gt;
+
+&lt;h3 id=&quot;t-disconnect_signal-signame-func&quot;&gt;t:disconnect_signal(signame, func)&lt;/h3&gt;
+
+&lt;p&gt;イベントを削除します｡&lt;code&gt;signame&lt;/code&gt;は上記と同じですね｡&lt;code&gt;&amp;quot;timeout&amp;quot;&lt;/code&gt;としておいてください｡
+&lt;code&gt;func&lt;/code&gt;ですが､例えば&lt;code&gt;foo&lt;/code&gt;という関数を登録した場合､&lt;code&gt;t:disconnect_signal(&amp;quot;timeout&amp;quot;, foo)&lt;/code&gt;としないといかんのですな｡&lt;/p&gt;
+
+&lt;p&gt;ところでLuaでは各関数にidが振ってあります｡
+&lt;code&gt;tostring(foo)&lt;/code&gt;などしてみるとidが伺えます｡
+これはtableも同じで､中身が同じでもidが異なると､&lt;code&gt;foo == bar&lt;/code&gt;は&lt;code&gt;false&lt;/code&gt;を返します｡&lt;/p&gt;
+
+&lt;p&gt;なにが言いたいかというと､&lt;code&gt;disconnect_signal()&lt;/code&gt;の第2引数には登録した関数そのものを渡したいので
+､イベントを削除したい場合は&lt;code&gt;connect_signal()&lt;/code&gt;に無名関数を渡すのはまずく､適当な変数にバインドしてください｡&lt;/p&gt;
+
+&lt;h3 id=&quot;t-emit_signal-signame&quot;&gt;t:emit_signal(signame, ...)&lt;/h3&gt;
+
+&lt;p&gt;インスタンスtの&lt;code&gt;signame&lt;/code&gt; signalに登録されている関数すべてを適用します｡各関数の第1引数にはtが､それ以降には&lt;code&gt;...&lt;/code&gt;が渡されます｡&lt;/p&gt;
+
+&lt;h3 id=&quot;timer-instances&quot;&gt;timer.instances()&lt;/h3&gt;
+
+&lt;p&gt;timer全体で登録されているイベントの数を返します｡インスタンス毎じゃないぞ､timer全体だぞ｡なので引数はいりません｡&lt;/p&gt;
+
+&lt;h1 id=&quot;3-実装&quot;&gt;3. 実装&lt;/h1&gt;
+
+&lt;p&gt;まず考えよっか｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;luakatsuの&lt;code&gt;find_birthday()&lt;/code&gt;を使います｡&lt;code&gt;find_birthday(today)&lt;/code&gt;でアイドル情報が帰ってきたらそれを出力します｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idol&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Aikatsu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_birthday&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;os.date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;%m/%d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idol&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;awesomeの通知モジュールというとnaughtyです｡これは&lt;code&gt;naughty.notify {title = ..., text = ...}&lt;/code&gt;といった感じで､うん｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;n&quot;&gt;naughty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;notify&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;notificatoin&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;今日は&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ちゃんの誕生日だよ!&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これを関数にして､例えば毎日0000､0600､1200､1800あたりに発火してみます｡
+でもこのままだと起動時即&lt;code&gt;t:start()&lt;/code&gt;するとよくわからない時間に通知が出ますね｡調節します｡&lt;/p&gt;
+
+&lt;p&gt;区切りのいい時間になったら通知タイマーを開始させるタイマーを作ってみます｡
+パディング用のタイマーのtimeoutをうまくやります｡とりあえずベタな方法でいってみます｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;os.date&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;*t&quot;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hour&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21600&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21600&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;elseif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;43200&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;43200&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;elseif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64800&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64800&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;elseif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;86400&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;86400&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;次に行く前に通知タイマーを作ってしまおう｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;luakatsutime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21600&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- every 6 hours&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;luakatsutimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connect_signal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;timeout&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;celebrate_notify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;登録する関数はこんな感じですか｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Luaは外のブロックで定義された変数も見えるので特に必要はないですが高階関数にしてあります｡
+実際に実行したいタイマー&lt;code&gt;timer&lt;/code&gt;を引数にとり､期を待ちます｡
+第一引数には登録したインスタンスが来るので､&lt;code&gt;self&lt;/code&gt;で受けます｡で､中で&lt;code&gt;stop()&lt;/code&gt; &amp;amp; &lt;code&gt;start()&lt;/code&gt;｡&lt;/p&gt;
+
+&lt;p&gt;この関数をパディング用タイマーに登録してさっきの泥臭い手法で計算した&lt;code&gt;sec&lt;/code&gt;秒後に発火させておわり｡&lt;/p&gt;
+
+&lt;h2 id=&quot;3-1-全体&quot;&gt;3-1. 全体&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;package.path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;package.path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LUAKATSU_PATH&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;naughty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;naughty&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;naughty&#39;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timer&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;timer&#39;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;luakatsu&#39;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tsig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;timeout&quot;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;oiwai&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;today&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;os.date&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;*t&quot;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;today&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;md&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;%02d/%02d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;today&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;today&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idol&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Aikatsu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_birthday&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;today&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;md&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idol&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;naughty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;notify&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;today&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;month&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;がつ&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;today&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;にち&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;  &lt;span class=&quot;s2&quot;&gt;&quot;今日は&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ちゃんのお誕生日だよ!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;whdth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;160&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;fg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ff0000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 黄色背景に赤文字でアイカツ感を出す&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;bg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ffff00&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- notificatoinをクリックするとお祝いツイートができる&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;awful&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;util&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spawn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                            &lt;span class=&quot;s2&quot;&gt;&quot;xdg-open https://twitter.com/intent/tweet?text=&quot;&lt;/span&gt;
+                            &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;idol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;%s&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;+&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                            &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ちゃん誕生日おめでとう!&quot;&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;naughty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;destroy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- そして消える&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;luakatsutimer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21600&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- every 6 hours&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;luakatsutimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connect_signal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tsig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;celebrate_notify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;os.date&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;*t&quot;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hour&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21600&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21600&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elseif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;43200&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;43200&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elseif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64800&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64800&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elseif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;86400&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;86400&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;celebrate_notify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 起動時にも出したい&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;paddingtimer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;paddingtimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connect_signal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tsig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;luakatsutimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;paddingtimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;実装の全体図です｡
+awesome-clientなどで&lt;code&gt;error(pcakage.path)&lt;/code&gt;などdirtyな方法で&lt;code&gt;package.path&lt;/code&gt;をさっと確認してもらえればわかりますが､luakatsuなどがありそうなパスは読んでくれませんね｡
+ということで､&lt;code&gt;package.path&lt;/code&gt;にパスを追加します｡設定ファイル内の名前空間を汚したくないので､&lt;code&gt;do ... end&lt;/code&gt;でくくっています｡&lt;/p&gt;
+
+&lt;h1 id=&quot;4-demo&quot;&gt;4. demo&lt;/h1&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;awesomeでやっとちゃんとした定刻での自動通知ができた｡ &lt;a href=&quot;https://t.co/AIxhOJrmJb&quot;&gt;pic.twitter.com/AIxhOJrmJb&lt;/a&gt;&lt;/p&gt;&amp;mdash; びしょ～じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/711097741535895552&quot;&gt;March 19, 2016&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;今日は3/19で､あいにくアイカツキャラで誕生日の人はいませんでした｡が､アイマスなら人間が多いので今日もだれか誕生日だろうという予想がずばりあたり､後略&lt;/p&gt;
+
+&lt;h1 id=&quot;5-おわりに&quot;&gt;5. おわりに&lt;/h1&gt;
+
+&lt;p&gt;awesomeは実はまだまだ機能が豊富なんですよねぇ〜使ってない機能は多々あるのでガンガン発掘していきたい｡
+awesomeは今年に入ってから3.5.6→3.5.9と開発がぐんぐん進んでいるので注目していきたい｡&lt;/p&gt;
+
+&lt;p&gt;おわりだよー(○・▽・○)&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;明日はアイカツのあれのライブですが､自由席で整理番号がなんと41番だったのでやっぱり日頃の行いがな〜最高〜〜&lt;/p&gt;
+</description>
+        <pubDate>Sat, 19 Mar 2016 00:00:00 +0900</pubDate>
+        <link>http://nymphium.github.io/2016/03/19/awesome_timer.html</link>
+        <guid isPermaLink="true">http://nymphium.github.io/2016/03/19/awesome_timer.html</guid>
+        
+        <category>awesome</category>
+        
+        <category>Lua</category>
+        
+        
       </item>
-    {% endfor %}
+    
+      <item>
+        <title>自作Lua処理系に型注釈をつけた(嘘)</title>
+        <description>&lt;!--sectionize on--&gt;
+
+&lt;p&gt;こんにちは､びしょ〜じょです｡梅祭りということでT山に行ったら本場のガマ口上が聞けたんですが､老人が景気の良い話しててムカついた｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h1 id=&quot;1-はじめに&quot;&gt;1. はじめに&lt;/h1&gt;
+
+&lt;p&gt;ネタがないのでまたこれの話です｡&lt;/p&gt;
+
+&lt;div class=&quot;github-widget&quot; data-repo=&quot;Nymphium/llix&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;動機は特に無く､時間を大きく潰す必要がありながらも徹夜で頭がうまく働かないというシナリオの上で何をするのが良いかというと既存の拙作いじるのが無難かなと｡&lt;/p&gt;
+
+&lt;p&gt;だらだらツイタッーをみていたら構文木の最適化の話がちょっとでて､パーサーをいじろうという気持ちがフッとわいてきた｡
+ところでRustのチュートリアルを読み進めていて､Rustにはコメントによる型注釈というものが将来できるらしい&lt;sup id=&quot;fnref1&quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;｡
+じゃ､型注釈実装しよっか｡&lt;/p&gt;
+
+&lt;h1 id=&quot;2-実装&quot;&gt;2. 実装&lt;/h1&gt;
+
+&lt;p&gt;&lt;noscript&gt;&lt;pre&gt;-- ......
+  Comment:
+    (P&amp;#39;--&amp;#39; * V&amp;#39;Longstring&amp;#39; +
+    P&amp;#39;--&amp;#39; * V&amp;#39;Space&amp;#39; * (V&amp;#39;TACore&amp;#39; + ast(P(1) - (P&amp;#39;\n&amp;#39; + P&amp;#39;T@&amp;#39;))) * (P&amp;#39;\n&amp;#39; + -P(1)))&lt;/p&gt;
+
+&lt;p&gt;TACore:
+    with types = {&amp;quot;number&amp;quot;, &amp;quot;string&amp;quot;, &amp;quot;table&amp;quot;, &amp;quot;function&amp;quot;, &amp;quot;coroutine&amp;quot;, &amp;quot;userdata&amp;quot;, &amp;quot;nil&amp;quot;}
+      return spaces(P&amp;#39;T@&amp;#39;, CV&amp;#39;Name&amp;#39;, P&amp;#39;::&amp;#39;, C foldmap types, ((x) =&amp;gt; P(x) + @), #(-P&amp;#39;.&amp;#39;)) / (n, t) -&amp;gt;
+        (parse&amp;quot;assert((type(#{n}) == &amp;amp;quot;#{t}&amp;amp;quot;), [[`#{n}&amp;#39; is not &amp;amp;quot;#{t}&amp;amp;quot;]])&amp;quot;)[1]&lt;/p&gt;
+
+&lt;p&gt;-- ......&lt;/p&gt;
+
+&lt;p&gt;parse = (msg) -&amp;gt;
+  tree = {llix\match msg}&lt;/p&gt;
+
+&lt;p&gt;if h = tree[1]
+    #tree &amp;gt; 1 and tree or h
+  else nil, &amp;quot;Failed to parse&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;parse&lt;/pre&gt;&lt;/noscript&gt;&lt;script src=&quot;https://gist.github.com/Nymphium/f47cecb4744ed6d023f0.js&quot;&gt; &lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;型注釈とはいったものの､つまるところ&lt;code&gt;--T@ foo :: T&lt;/code&gt;が&lt;code&gt;assert(type(foo) == &amp;quot;T&amp;quot;)&lt;/code&gt;の糖衣構文という見方でいいです､というか実際そうです｡
+ですので&lt;em&gt;&lt;code&gt;foo&lt;/code&gt;の定義以降なら&lt;/em&gt;どこに書いてもいいことになります｡しかし定義と注釈のあいだに何かあると､型検査(ただの&lt;code&gt;assert&lt;/code&gt;)がされずに進んでいきます｡だめじゃん(完)｡&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;@ foo :: T&lt;/code&gt;でもよかったと思うけど､｢luadocとかぶってはマズい｣という全く必要のない心配をしたので&lt;code&gt;T@&lt;/code&gt;という目印にしました｡&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;assert(A == B)&lt;/code&gt;の構文木を手で書くのはアレだし今後書き換わる可能性も考えてパーサー内でパーサーを使うことにした｡これが一番ミソですね｡嘘です｡&lt;/p&gt;
+
+&lt;h1 id=&quot;3-後に出す先行研究&quot;&gt;3. 後に出す先行研究&lt;/h1&gt;
+
+&lt;div class=&quot;github-widget&quot; data-repo=&quot;andremm/typedlua&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;(Lua+Rustとか風の型注釈)→コンパイル→Lua&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;という物体です｡こちらは今回の型注釈と違いコメント外にダイレクトに書くのでLuaとしてのポータビリティ(?)にやや欠ける､
+しかしTypedLuaコンパイラ&lt;code&gt;tld&lt;/code&gt;にオプションを渡せば､プレーンなLuaもコンパイル時にWarningやError出してくれるのでGod100%｡完敗ですおわり｡
+さらにはHOGE.tldというファイルに型情報を記述するだけでそれもしっかりチェキしてくれるのでもう言うことなしです最高｡
+今日お客さんがたにお伝えしたかったのはこのTypedLuaです!!! 以上!!!!&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h1 id=&quot;4-おわりに&quot;&gt;4. おわりに&lt;/h1&gt;
+
+&lt;p&gt;今月中にはRust Tutorialを抜けたい､あと倉敷に行くぞ､六識美砂さんの働いていた場所で『受胎告知』を観るぞ｡
+あと&lt;a href=&quot;https://twitter.com/ranha&quot;&gt;@ranha &lt;/a&gt;さんが大量に捨てていった本を大量に拾ったので､どんどん読んで行かないとね…｡&lt;/p&gt;
+
+&lt;p&gt;とりあえず『集合とはなにか』､『理科系のための英文作法』を読んだ｡両方とも共通しているのは&amp;quot;読み進めさせる文章力&amp;quot;ですね｡
+内容をより面白く思わせる文というのは名著たらしめるファクターだと思う｡どちらも面白かった､内容も然り｡
+特に後者は英作文に関する本ですが､まず日本語として正しい文を英語に翻訳していくという進みなので､日本語文の勉強にもなった(が､この文は死んだ脳で書いてるので本の内容があまり適用されていない)｡&lt;/p&gt;
+
+&lt;p&gt;本を読んで百合を楽しんで積んでるゲームと本を消化してプログラム書いて百合を楽しんで寝る時間が欲しいミャオ…&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://doc.rust-lang.org/nightly/book/variable-bindings.html#type-annotations&quot;&gt;https://doc.rust-lang.org/nightly/book/variable-bindings.html#type-annotations&lt;/a&gt;&amp;nbsp;&lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 29 Feb 2016 00:00:00 +0900</pubDate>
+        <link>http://nymphium.github.io/2016/02/29/llix_typeanotation.html</link>
+        <guid isPermaLink="true">http://nymphium.github.io/2016/02/29/llix_typeanotation.html</guid>
+        
+        <category>Lua</category>
+        
+        <category>MoonScript</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Gtk3アプリケーションのキーバインド</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;さて､過去に&lt;a href=&quot;http://nymphium.hateblo.jp/entry/2015/02/10/043136&quot;&gt;こんなもの&lt;/a&gt;を書きました｡
+が､仕様が変わったのでしょうか何なんでしょうか､Gtk3アプリケーションでキーバインドが効かない｡&lt;/p&gt;
+
+&lt;p&gt;最近はGoogle Chromeがメモリ食いすぎてRAM 8GBのノートpcを半日放置すると実に4GBがChromeに食われててまずい､Firefox使おう｡
+というシナリオですが､キーバインドがうまく動かん｡ChromeはGtk2なので､上記URLでの設定通り色々できる｡
+使い馴染みのキーバインドが動かないことに起因するイライラというのは誰もが感じたことあるでしょう｡最悪ですねこれは｡&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Chromeが重くなりすぎ､さらにはしばらく放置してるとメモリ4GBくらい持ってくので最悪になった｡で､Firefoxを使うも､メニューの一部の背景が透明100%で見づらくてムカつく｡あとGtkキーバインドよりもFirefoxのショートカットを優先するのでちょっと困る｡&lt;/p&gt;&amp;mdash; びしょ～じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/699047655700168704&quot;&gt;February 15, 2016&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;白頭山の稲妻のようにひらめきが脳を駆け巡り､｢これはまさかGtk3がアレなのでは…?｣ ――&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;~/.theme/Vi/gtk-keys.css&lt;/code&gt;をみにいってほしいので､&lt;code&gt;inotifywait -m ~/.theme/&lt;/code&gt;で待ってみます｡
+Firefoxを起動してもOPENも何もないので即終了｡&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;/usr/share/themes/&lt;/code&gt;にGtkのテーマが置かれているので､ここに&lt;code&gt;sudo ln -s ~/.theme/Vi/ /usr/share/thems/&lt;/code&gt;します｡
+有効になりました｡おわり｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Firefoxでalt押すと普段隠してるメニューバーがチラチラ出てきて鬱陶しい｡ 
+&lt;code&gt;bind &amp;quot;&amp;lt;alt&amp;gt;&amp;quot; {&amp;quot;none&amp;quot; ()};&lt;/code&gt;などとすると､Firefoxのログをみるにエラーが出てしまっている｡
+何がダメってキーバインドが&lt;code&gt;&amp;quot;&amp;lt;alt&amp;gt;&amp;quot;&lt;/code&gt;単体なのがダメなんですが､なんとかならんかなぁ､あとOpen menuで出てくるアレも背景が透明100%で見づらい｡これは&lt;code&gt;~/.config/gtk-3.0/&lt;/code&gt;以下のファイル群の何かをいじればどうにかなりそうだけど､どれですかね｡&lt;/p&gt;
+</description>
+        <pubDate>Sun, 28 Feb 2016 00:00:00 +0900</pubDate>
+        <link>http://nymphium.github.io/2016/02/28/gtk3_2.html</link>
+        <guid isPermaLink="true">http://nymphium.github.io/2016/02/28/gtk3_2.html</guid>
+        
+        <category>Linux</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>3年次2年任期満了記念</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡無事に進級確定しました｡来年は情報システム専攻です｡&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;｢たとえ落としたとしても(必修だけど)二度と履修するか｣という気持ちになった『システムプログラミング序論』がCだったり､&lt;/li&gt;
+&lt;li&gt;レポートの発展課題でプログラムによる実装はしたが､必須部分があきらかに記述不足だった『情報理論』がA+だったり､&lt;/li&gt;
+&lt;li&gt;雑な態度で臨んだスタートアップについて学ぶ講義がAだったり､&lt;/li&gt;
+&lt;li&gt;通年で心血注いだ『情報特別演習I』がAだったり&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;まぁ進級できたんでGPAはなんでもいいです､はい…｡
+去年の全取得単位数が16.5だったのに対し､今年は34ですよ､圧倒的成長👊ですね｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;ところでアイカツのライブイリュージョンとその翌日GLFes16に行ってきた｡&lt;/p&gt;
+
+&lt;h2 id=&quot;アイのカツ&quot;&gt;アイのカツ&lt;/h2&gt;
+
+&lt;p&gt;もう開幕から大変だった｡まど凛の『フレンド』で脳が破裂した｡フライングして171話観といてよかった…👼
+あとはずっときいちゃんのMCが可愛くて､大空お天気のきいちゃんが､もう､いい…｡&lt;/p&gt;
+
+&lt;p&gt;で､あの発表ですね｡きいちゃんに会えなくなる可能性が非常に高く寂しい､けどキービジュアルがかわいいので期待､あと筐体もGPUが強化されるのかCGも今よりいい感じですね｡
+でもきいちゃんが､うーん､どうなるんだ｡あとアイカツルームも｡&lt;/p&gt;
+
+&lt;h2 id=&quot;glfes16&quot;&gt;GLFes16&lt;/h2&gt;
+
+&lt;p&gt;行こう行こうとは思いつつも同人イベント自体行ったことがなかったので行かずじまいだった｡
+が､前日にライブイリュージョンがあるので帝都に行ったついでということで､行った｡&lt;/p&gt;
+
+&lt;p&gt;まずはInnocent Greyのクイズ大会に参戦せねばと入場即購入列に並んだ｡秋篇のCMを観てたらぐっと気持ちがこみ上げてきた｡
+で､鈴湯さんにクリアファイルを手渡ししてもらいました｡&lt;/p&gt;
+
+&lt;p&gt;あとはぶらぶら回りました｡ほとんどサークルはノーチェックだったので､何が売られているのかすべて走査していく必要があり､一周すると目から入ってくる情報量が多すぎてどっと疲れてしまった｡
+一周目で気になったものを二周目で買うというスタイルでいった｡｢わー漫画の作者ってマジで人間なんだな!!｣というアホっぽい感想と共に､気づけばいっぱい買ってた｡&lt;/p&gt;
+
+&lt;p&gt;で､1430からInnocent Greyのクイズ大会に参加した｡OXカードがなかったので急遽錬成してもらって参加したが､ダメでした｡林檎ちゃんが乙女ゲームをね､忘れてましたね｡&lt;/p&gt;
+
+&lt;p&gt;そのあと男二人で『同級生』を観た｡いい…｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;移動中などの時間に『集合とはなにか』､『理科系のための英文作法』を読んだ｡あと1冊くらいは読む予定だったが寝て過ごしたりしたので寝た｡&lt;/p&gt;
+</description>
+        <pubDate>Thu, 25 Feb 2016 00:00:00 +0900</pubDate>
+        <link>http://nymphium.github.io/2016/02/25/3rd2nd.html</link>
+        <guid isPermaLink="true">http://nymphium.github.io/2016/02/25/3rd2nd.html</guid>
+        
+        <category>雑感</category>
+        
+        <category>百合</category>
+        
+        <category>アイカツ</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>通年でLua処理系を作った</title>
+        <description>&lt;!--sectionize on--&gt;
+
+&lt;p&gt;こんにちは､びしょ〜じょです｡ではいきます｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;T大学の&lt;a href=&quot;http://www.coins.tsukuba.ac.jp/syllabus/GB13312_GB13322.html&quot;&gt;情報特別演習&lt;/a&gt;というものでLuaの処理系を作りました｡&lt;/p&gt;
+
+&lt;div class=&quot;github-widget&quot; data-repo=&quot;Nymphium/llix&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;発表スライドは&lt;a href=&quot;http://nymphium.github.io/pdf/information_special_seminar.html&quot;&gt;こちら&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;どうしても百合感を出したかったのでネーミングがやや強引ですが､OKです｡&lt;/p&gt;
+
+&lt;p&gt;関数やデフォルトのモジュールはllixを動かしているLuaからコピーしてくるので実は大したことしてない疑惑を拭えない｡&lt;/p&gt;
+
+&lt;p&gt;本稿では8分の発表に現れなかった部分を供養したい｡&lt;/p&gt;
+
+&lt;h1 id=&quot;1-実装&quot;&gt;1. 実装&lt;/h1&gt;
+
+&lt;p&gt;MoonScriptで実装されている｡&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/Nymphium/llix/blob/master/llix/eval.moon#L17&quot;&gt;17行目&lt;/a&gt;はLuaへのDeepCopy関数をデフォルトで作ってくれという訴えであり､
+&lt;a href=&quot;https://github.com/Nymphium/llix/blob/master/llix/eval.moon#L19&quot;&gt;19行目&lt;/a&gt;はOCamlなどのmatch文のようなことがしたかった､これはMoonScrriptへの要望ですね｡&lt;code&gt;guard&lt;/code&gt;というのは当時の彼がガードとなにか混同してますね｡
+プログラムから叫びが見える｡&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/Nymphium/llix/blob/master/llix/eval.moon#L56&quot;&gt;関数呼び出しの管理にはcoroutineとスタックを用いている&lt;/a&gt;｡
+後述する&lt;a href=&quot;https://gist.github.com/Nymphium/e3740faa63d1f8292ab4&quot;&gt;CPS変換する前&lt;/a&gt;のevaluatorでは､ループ中でのbreakの実現にもこのcoroutine+スタックが用いられていた｡
+coroutineを用いるのは実はこれが初めてなのだが､自分でもなかなかよくやったと思った｡でもCPS変換するとループの制御も簡単にできるのだ〜〜この構造は消えた｡
+関数の方も継続に突っ込めばできそう(実際できる)ですが今発表までに間に合わないと思ってやってない｡
+発表の質問でcoroutineに関するものがあり､つまりこのコールスタックの構造のままだとllixで動かすcoroutineなどを途中で破棄すると中のスタックはどうなるんだというものがあり､後ほど調査するかもしれない｡&lt;/p&gt;
+
+&lt;p&gt;CPS変換すると､末尾再帰の後に&lt;code&gt;k&lt;/code&gt;を最後に適用するというスタイルを貫く必要があるため､実装がうまく思いつかなかったりな部分が多かった｡
+逆にCPS変換することでできたのがイテレーターだったりする｡&lt;/p&gt;
+
+&lt;h1 id=&quot;2-ウルルン制作秘話&quot;&gt;2. ウルルン制作秘話&lt;/h1&gt;
+
+&lt;h2 id=&quot;2-1-序&quot;&gt;2-1. 序&lt;/h2&gt;
+
+&lt;p&gt;最初は｢とりあえずLua処理系でも作ってみるか｣というモチベーションで挑んだのですが､本当にそれだけで､そもそも言語処理系を作るというのが個人的に初めての試みだった｡
+そしてそれだけではちょっと微妙かなと担当のK先生に言われてしまったので､K先生が｢彼なら相談に乗ってくれるんじゃないかな?｣といって紹介した院生のLさんとアレコレ考えた｡
+Lさんは人曰く､Luaとあまり関係ないし､先生の気まぐれに付き合わされたという形の可能性が極めた高いということを聞いたので､申し訳ない気持ちになりながらも数回ミーティングさせていただいた｡&lt;/p&gt;
+
+&lt;p&gt;何で書くかというのはMoonScriptでと最初から決めていた｡
+で､コンパイラーかインタプリターか､バイトコードにするのかJVMで動かすのか､など話したが､ずぶの素人であるボクはウンウン唸るくらいしかできなかった｡&lt;/p&gt;
+
+&lt;p&gt;で､例外処理機構のあるインタプリタということになった｡あがった中で自分の実力で目標へ到達するのに一番現実的だったというのもある｡&lt;/p&gt;
+
+&lt;p&gt;7月になっていた｡&lt;/p&gt;
+
+&lt;h2 id=&quot;2-2-破&quot;&gt;2-2. 破&lt;/h2&gt;
+
+&lt;p&gt;とりあえずCPSとかなしにインタプリターをつくった｡パースしたものをグヨグヨしていくだけなのでここはわりとスッといった｡
+デバッグなどで用いていたモジュール&lt;a href=&quot;https://github.com/kikito/inspect.lua&quot;&gt;inspect&lt;/a&gt;が謎の挙動をたまに見せるので調査してpr送ってマージされたりした｡&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://nymphium.github.io/2015/10/03/intern_andother/&quot;&gt;9月いっぱいはF社にインターン&lt;/a&gt;だったが､御社は無慈悲にもインターネッツ回線を一切よこしてこなかった｡
+テザリングやモバイルWifiでしのいでいたが､後半は速度制限がかかったので128kbpsでbitbucketにpushした｡&lt;/p&gt;
+
+&lt;p&gt;インターンとevaluatorの実装で9月が終わった｡&lt;/p&gt;
+
+&lt;h2 id=&quot;2-3-急&quot;&gt;2-3. 急&lt;/h2&gt;
+
+&lt;p&gt;CPSに関するものはSchemeで例示されているものが多く､選民ではないので読むのに､CPSを理解するのに難儀した｡
+とりあえず書きながら覚えるということをやっていってなんとか概念が手に染みこんできた｡&lt;/p&gt;
+
+&lt;p&gt;手にCPSがなじみはじめたところでevaluatorをCPSにしていった｡ここにきてMoonScriptのReferenceを見直したりすることでウオッという感じになった｡&lt;/p&gt;
+
+&lt;p&gt;しかしCPSとオフサイドルールは相性がぶっちゃけ最悪だ｡ガンガン深くしていく必要があり大変なことになった｡
+それでもLuaで&lt;code&gt;function()... end&lt;/code&gt;地獄になるよりはマシだったかな｡eval.moonをLuaにトランスパイルすると行が2倍になる｡
+&lt;code&gt;k with y do ...&lt;/code&gt;とか&lt;code&gt;-&amp;gt; switch x&lt;/code&gt;などから苦労が窺える｡&lt;/p&gt;
+
+&lt;p&gt;小慣れてきたあたりで&lt;a href=&quot;https://gist.github.com/Nymphium/48c909f622cb0f567c9e&quot;&gt;適当な言語&lt;/a&gt;をつくったりもした｡&lt;/p&gt;
+
+&lt;p&gt;12月ごろCPS変換が大方完了すると同時にスライドを書き始め､今年になってからREPLにlinenoiseなどを突っ込んだり突然リッチにした｡&lt;/p&gt;
+
+&lt;h1 id=&quot;shaji&quot;&gt;Shaji&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;なんの考えなしに来た学生を見捨てなかったK先生&lt;/li&gt;
+&lt;li&gt;親身になってミーティングに参加してくださったLさん&lt;/li&gt;
+&lt;li&gt;度々おじゃました研究室の皆さん&lt;/li&gt;
+&lt;li&gt;御社の皆さん&lt;/li&gt;
+&lt;li&gt;精神を強く支えてくれたアイカツ､プリパラ&lt;/li&gt;
+&lt;li&gt;etc&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;追記-2016-02-08&quot;&gt;追記 2016/02/08&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://nymphium.github.io/pdf/appendix-160113.pdf&quot;&gt;もうすこしまともなもの&lt;/a&gt;を書いて提出しました｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;なんで序破急かというと､エバンゲリオンが2015年冬に放映されなかったからです｡エヴァはそれほど好きではない｡&lt;/p&gt;
+</description>
+        <pubDate>Wed, 13 Jan 2016 00:00:00 +0900</pubDate>
+        <link>http://nymphium.github.io/2016/01/13/llix.html</link>
+        <guid isPermaLink="true">http://nymphium.github.io/2016/01/13/llix.html</guid>
+        
+        <category>Lua</category>
+        
+        <category>MoonScript</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>振り返り2015</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
+クレカ使いすぎて上限にあたったので久しぶりにアマゾンギフト券を買って百合漫画を入手しているため､発売日に手元に来ない不具合に見舞われています｡みなさんも気をつけましょう｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;そろそろ2015年も終わるが､うっかり解約し忘れて契約更新してしまったバンダイチャンネルにてゆるゆり3期を観ていたら､ふと今年一番多く使ったコマンドは何か気になった｡
+というわけでレッツゴルフ&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-Bash&quot; data-lang=&quot;Bash&quot;&gt;history | sed -e &quot;s/^\s*\S*\s\+//&quot; | awk &#39;{a[$1]++}END{for(k in a){print a[k], k}}&#39; | sort -n
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;history&lt;/code&gt;と打つと&lt;code&gt;index コマンド&lt;/code&gt;と出るタイプのものを&lt;code&gt;sed&lt;/code&gt;で頭の数字と空白を削って､&lt;code&gt;awk&lt;/code&gt;でコマンド名を連想配列に突っ込んでforeachでkey(コマンド名)､value(コマンドの使用回数)を出す､&lt;code&gt;sort&lt;/code&gt;で使用回数が多い順に並べる｡
+そんなものは見れば分かる｡何が出たかが重要だ｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;まずは専らネッツサーヒンと指の運動などに使っている､アパートに据え置き状態のノートpcでやってみる｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;84 g
+211 V
+263 S
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;はい｡&lt;/p&gt;
+
+&lt;h3 id=&quot;3位-g&quot;&gt;3位 &lt;code&gt;g&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;alias g=&amp;#39;git&amp;#39;&lt;/code&gt;はoh-my-zshを使っていればそうなりますね｡はい｡&lt;/p&gt;
+
+&lt;h3 id=&quot;2位-v&quot;&gt;2位 &lt;code&gt;V&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;alias V=&amp;#39;nvim&amp;#39;&lt;/code&gt;ですね｡そうです､&lt;strong&gt;&lt;em&gt;Neovim&lt;/em&gt;&lt;/strong&gt;です｡指の運動に最適｡&lt;/p&gt;
+
+&lt;h3 id=&quot;1位-s&quot;&gt;1位 &lt;code&gt;S&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;alias S=&amp;#39;sudo&amp;#39;&lt;/code&gt;｡ArchLinuxを管理するというのはつまりそういうことである｡力には責任が云々&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;メインで使っているX1では&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;345 S
+348 ag
+1135 V
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;3位-s&quot;&gt;3位 &lt;code&gt;S&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;そらそうよ&lt;/p&gt;
+
+&lt;h3 id=&quot;2位-ag&quot;&gt;2位 &lt;code&gt;ag&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;the_silver_searcherというめっぽう便利なコマンド｡aliasではなくコマンド名は元から&lt;code&gt;ag&lt;/code&gt;で､何がthe_silver_searcherだよオイっざっけんなよ…&lt;/p&gt;
+
+&lt;h3 id=&quot;1位-v&quot;&gt;1位 &lt;code&gt;V&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;いっぱいコードかいたりするかもしれないのでやっぱりね､そうよね｡ダントツですね｡&lt;code&gt;alias -g L=&amp;#39;nvim - -R&amp;#39;&lt;/code&gt;とすると出力をパイプしてNeovimで開けるというさいつよなので､さいつよ｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;ついでに&lt;code&gt;history&lt;/code&gt;以降をMoonScriptで書いてみる｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-MoonScript&quot; data-lang=&quot;MoonScript&quot;&gt;-- sedawksort.moon
+a = {}
+l = io.read!
+
+while l
+    l = l\match &quot;^%s*%S*%s+(%S+)&quot;
+
+    a[l] = (a[l]) and (a[l] + 1) or 1
+
+    l = io.read!
+
+with sa = [{k, v} for k, v in pairs a]
+    table.sort(sa, (a, b) -&amp;gt; a[2] &amp;lt; b[2])
+
+    for k, v in pairs sa
+        print v[2], v[1]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-Bash&quot; data-lang=&quot;Bash&quot;&gt;$ history | moon sedawksort.moon | tail -n3
+84      g
+213     V
+263     S
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;全然スマートじゃないですね｡おわり｡良いお年を｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;これよく考えたら今年使ったコマンドってわけじゃないよね｡まぁどちらも今年になってArchインストールしなおしたわけだし､実質2015年に使ったコマンドランキングですね｡OK｡本当におわり｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;ゆるゆり3期本当に良いですね､3部構成なので適度に引き締まっており､1､2期の数倍の百合力を視聴者にぶつけてくる…｡でも可愛いのであまり百合感無いな〜なんて油断しているとガツン!! とね､ああぁ〜…最高…&lt;/p&gt;
+</description>
+        <pubDate>Thu, 24 Dec 2015 00:00:00 +0900</pubDate>
+        <link>http://nymphium.github.io/2015/12/24/hurikaeri2015.html</link>
+        <guid isPermaLink="true">http://nymphium.github.io/2015/12/24/hurikaeri2015.html</guid>
+        
+        <category>雑感</category>
+        
+        <category>sh</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Beamerを書く</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡これは&lt;a href=&quot;http://www.adventar.org/calendars/1211&quot;&gt;coins Advent Calendar2015&lt;/a&gt; 20日目の記事ですが､あまり大学と関係ないです｡&lt;/p&gt;
+
+&lt;p&gt;さて､先日は一発ネタ大会で&lt;a href=&quot;/pdf/lonely_advent_calendar.html&quot;&gt;ネタ&lt;/a&gt;を披露しました｡
+ネタの解説という愚かな行為をすると､5分でスライド20枚捌くというものでしたがリハーサルなど一切せず臨んだため､なんと4分で終わってしまいました｡ありがとうございました｡
+で､だ｡早口おじさんという印象もどうかなと思ってきたのでスライドについて書きます｡LaTeXについて書くけどLaTeX Advent Calendarなどに投書しないということは､まぁその程度の内容です｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;a href=&quot;/2015/12/17/niceyuri.html&quot;&gt;前の記事&lt;/a&gt;と同じようなことが書きたい｡前回はあまりにも適当だったので｡
+みなさんはスライドショーとか作るときに何使ってますか(中略)ということでBeamerのアレです｡リポジトリの&lt;a href=&quot;https://github.com/Nymphium/my_LaTeX_template/tree/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1&quot;&gt;commit d05c4c7&lt;/a&gt;を解説します｡
+LuaLaTeX使ったので&lt;code&gt;\zw&lt;/code&gt;とか出てきますが気にせず脳内変換してください｡&lt;/p&gt;
+
+&lt;p&gt;やったことは&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;section/subsection開始時にTOCページを挿入&lt;/li&gt;
+&lt;li&gt;タイトルをTOCページに挿入&lt;/li&gt;
+&lt;li&gt;フッターに&lt;em&gt;現フレーム数/総フレーム数&lt;/em&gt;を挿入&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;上からみていきます｡&lt;/p&gt;
+
+&lt;h2 id=&quot;section-subsection開始時にtocページを挿入&quot;&gt;section/subsection開始時にTOCページを挿入&lt;/h2&gt;
+
+&lt;p&gt;なんとなく入れたくなったわけですな｡&lt;a href=&quot;https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#l97&quot;&gt;97行目&lt;/a&gt;からの&lt;code&gt;\AtBeginSection&lt;/code&gt;､&lt;code&gt;\AtBeginSubsection&lt;/code&gt;がソレ｡
+98行目でifがいっぱいあるが､これはTOCを入れたくなかったり次のTOCだけ消したりするため｡
+99､100､107､108行目の&lt;code&gt;\switchなんちゃら&lt;/code&gt;は､上のほうのboolを切り替えてます(&lt;code&gt;\ifnofooter&lt;/code&gt;､&lt;code&gt;\ifnoheader&lt;/code&gt;)｡&lt;/p&gt;
+
+&lt;p&gt;肝は101〜105行目です｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-LaTeX&quot; data-lang=&quot;LaTeX&quot;&gt;&lt;span class=&quot;nt&quot;&gt;\begin{frame}&lt;/span&gt;&amp;lt;beamer&amp;gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;\begin{multicols}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;2&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;\tableofcontents&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[currentsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;\end{multicols}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;\end{frame}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;今スライドはsectionが25個くらいあってアレだったのでmulticolパッケージを用いて2段組にしています&lt;sup id=&quot;fnref1&quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;｡
+で､&lt;code&gt;\tableofcontents&lt;/code&gt;にオプション引数を渡しています｡&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;currentsection&lt;/code&gt; を表示&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sectionstyle=show/hide&lt;/code&gt;が他のsectionをどう表示するか&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;と､みたまんまです｡subsectionも同じです｡
+で､106行目で&lt;code&gt;tocpage&lt;/code&gt;というカウンタをインクリメントしています｡これは後ほど効いてきます｡&lt;/p&gt;
+
+&lt;p&gt;といったぐあいにTOCページができたわけだ｡&lt;code&gt;\AtBeginSection&lt;/code&gt;の説明をするだけで終わりですね｡&lt;/p&gt;
+
+&lt;h2 id=&quot;タイトルをtocページに挿入&quot;&gt;タイトルをTOCページに挿入&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#L86&quot;&gt;86行目&lt;/a&gt;からの&lt;code&gt;\setbeamertemplate{beamer}&lt;/code&gt;です｡
+&lt;code&gt;\beamercolorbox&lt;/code&gt;は便利なんじゃ(天才博士bot並の感想)｡で､colorboxにheaderのboxを突っ込む｡88行目ですね｡ミソは｡
+&lt;code&gt;\noheaderfalse&lt;/code&gt;なら&lt;code&gt;\thetitle&lt;/code&gt;を突っ込む｡だけ｡で､この&lt;code&gt;\thetitle&lt;/code&gt;は実は自家製で､&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-LaTeX&quot; data-lang=&quot;LaTeX&quot;&gt;&lt;span class=&quot;k&quot;&gt;\long\def\beamer&lt;/span&gt;@title[#1]#2&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;\def\thetitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;#2&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;\def\inserttitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;#2&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;\def\beamer&lt;/span&gt;@shorttitle&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;#1&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;\title&lt;/code&gt;の定義場所を探して､無事突き止めたbeamerbasetitle.styから借用した｡ごっそさん｡上記2行目でわかるように&lt;code&gt;\thetitle&lt;/code&gt;をここで頂く｡で､使う｡
+87〜89行がsectionで､90〜92行がsubsection｡&lt;/p&gt;
+
+&lt;h2 id=&quot;フッターに現フレーム数-総フレーム数を挿入&quot;&gt;フッターに現フレーム数/総フレーム数を挿入&lt;/h2&gt;
+
+&lt;h3 id=&quot;注意&quot;&gt;注意&lt;/h3&gt;
+
+&lt;p&gt;フレーム数 is not ページ数です｡フレーム数というのはframe環境の数で､ページ数はコンパイルしてpdfにしたときのpdfのページ数です｡&lt;/p&gt;
+
+&lt;p&gt;やることといえば根性です｡Beamerなものをコンパイルすると .navファイルというものが生成される｡ここをよくみてみるとなんか色々書いてある｡
+例えば&lt;code&gt;\beamer@documentpages&lt;/code&gt;なんてものがある｡&lt;code&gt;locate beamer.cls&lt;/code&gt;とかやると&lt;code&gt;/usr/share/texmf-dixt/tex/latex/beamer&lt;/code&gt;というディレクトリが&amp;quot;くさい&amp;quot;ことに気づく｡
+そのへんで､例えば.navファイルの下のほうにある&lt;code&gt;\beamer@documentages&lt;/code&gt;とかを&lt;code&gt;ag&lt;/code&gt;コマンドなんかで拾ってみると､&lt;code&gt;beamerbasemisc.sty&lt;/code&gt;というものがでてきた｡
+&lt;code&gt;\AtEndDocument&lt;/code&gt;の中で .navファイルに色々書き込んでいるようだ｡&lt;/p&gt;
+
+&lt;p&gt;ん､たしちゃおw&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-LaTeX&quot; data-lang=&quot;LaTeX&quot;&gt;&lt;span class=&quot;k&quot;&gt;\AtEndDocument&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;\clearpage&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;\beamer&lt;/span&gt;@tempcount=&lt;span class=&quot;k&quot;&gt;\c&lt;/span&gt;@page&lt;span class=&quot;k&quot;&gt;\advance\beamer&lt;/span&gt;@tempcount by -1&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;\if&lt;/span&gt;@filesw&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;\immediate\write\@&lt;/span&gt;auxout&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\string\@&lt;/span&gt;writefile&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;nav&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\noexpand\headcommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\noexpand\def\noexpand\inserttotaltocpage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\thetocpage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}}}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;\fi&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;.navファイルに&lt;code&gt;\inserttotaltocpage&lt;/code&gt;というものを作る｡まず&lt;code&gt;\thetocpage&lt;/code&gt;を32行目で定義し､ここで伏線回収､106､120行目の&lt;code&gt;\stepcounter{tocpage}&lt;/code&gt;が効くわけやな｡
+TOCページを挿入するたびに&lt;code&gt;tocpage&lt;/code&gt;がインクリメントされ､コンパイル1回めにTOCページの数がわかる｡
+これが .navファイルに書かれ､コンパイル2回めに .navファイルの中身が読まれ､&lt;code&gt;\inserttotaltocpage&lt;/code&gt;というコマンドが機能するようになる｡&lt;/p&gt;
+
+&lt;p&gt;で､47､48行目に怪しげなカウンタを定義する｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-LaTeX&quot; data-lang=&quot;LaTeX&quot;&gt;&lt;span class=&quot;k&quot;&gt;\newcounter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;currentwotocframenumber&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\newcounter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;wotoctotalframenumber&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;で､&lt;a href=&quot;https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#L71&quot;&gt;71行目&lt;/a&gt;からのね…｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-LaTeX&quot; data-lang=&quot;LaTeX&quot;&gt;&lt;span class=&quot;k&quot;&gt;\setbeamertemplate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;footline&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;\leavevmode&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;\vspace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;1&lt;span class=&quot;k&quot;&gt;\zw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;\begin{beamercolorbox}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;footline&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;\tiny&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;\hspace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;.4&lt;span class=&quot;k&quot;&gt;\zw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\hbox&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\ifnofooter\else\insertsectionhead\ifx\insertsubsectionhead\empty\else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;.&lt;span class=&quot;k&quot;&gt;\insertsubsectionhead\fi\fi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;\setcounter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;wotoctotalframenumber&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\inserttotalframenumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% とりあえずwotoctotalframenumberに総フレーム数をセット&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;\addtocounter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;wotoctotalframenumber&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;-&lt;span class=&quot;k&quot;&gt;\inserttotaltocpage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% TOCページ数を引く&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;\addtocounter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;wotoctotalframenumber&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;-1&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% 1引く(これを表示するフレーム自身の分)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;\setcounter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;currentwotocframenumber&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\theframenumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% currentwotocframenumberに現フレーム数をセット&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;\addtocounter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;currentwotocframenumber&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;-1&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% 1引く&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;\addtocounter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;currentwotocframenumber&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;-&lt;span class=&quot;k&quot;&gt;\thetocpage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% 現TOCページ数を引く&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;\hfill\hbox&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\ifnofooter\else\thecurrentwotocframenumber&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;\thewotoctotalframenumber\fi\hspace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;.8&lt;span class=&quot;k&quot;&gt;\zw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;\end{beamercolorbox}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;font size=&quot;36pt&quot;&gt;&lt;strong&gt;&lt;em&gt;あ〜〜〜〜\(\LaTeX\)最高!! Power Pointはクソ!!!!!!!!!&lt;/em&gt;&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
+
+&lt;p&gt;などと言ってると老害認定されるので気をつけよう｡気合で何でも書けるということは気合で色々書く必要があるということです｡が､ もっと拡張しよう､拡張するときはソースを参考にすると参考になる､いいぞ､頑張れ｡&lt;/p&gt;
+
+&lt;h2 id=&quot;beamer-lualatex-ultimate-fuckin-39-awesome-tip&quot;&gt;Beamer + LuaLaTeX Ultimate fuckin&amp;#39; awesome Tip&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;\documentclass&lt;/code&gt;のオプションに&lt;code&gt;unicode&lt;/code&gt;を渡すとpdfのタイトルや著者名が文字化けしないぞい&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;のちのcommitではn段組にするのを指定できるようにした｡&amp;nbsp;&lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sun, 20 Dec 2015 00:00:00 +0900</pubDate>
+        <link>http://nymphium.github.io/2015/12/20/coinsac.html</link>
+        <guid isPermaLink="true">http://nymphium.github.io/2015/12/20/coinsac.html</guid>
+        
+        <category>LaTeX</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>百合漫画と今年</title>
+        <description>&lt;!--sectionize on--&gt;
+
+&lt;p&gt;こんにちは､びしょ〜じょです｡これは&lt;a href=&quot;http://www.adventar.org/calendars/1030&quot;&gt;百合 Advente Calendar 2015&lt;/a&gt; 17日目の記事です｡&lt;/p&gt;
+
+&lt;p&gt;ふわふわと百合について書こうかとも思いましたが､よく分からなくなったあたりで霧散してモヤモヤした気持ちになるので､concreteな内容にしようと思います｡&lt;/p&gt;
+
+&lt;h1 id=&quot;1-だれぼく&quot;&gt;1. だれぼく&lt;/h1&gt;
+
+&lt;p&gt;百合とかアイカツとかプリパラとかプリキュアとかが好きな男性ですが日頃はパソコンカタカタしてます｡趣味で大学生やってます｡
+大学でも百合とか百合以外について書いてたりするのでよろしくお願いします｡&lt;a href=&quot;http://urx.red/pRk4&quot;&gt;コミケのお誕生日席がうっかり手に入ってしまった&lt;/a&gt;ので､そういうところにでるかもしれません｡&lt;/p&gt;
+
+&lt;h2 id=&quot;1-1-百合バックグラウンド&quot;&gt;1-1. 百合バックグラウンド&lt;/h2&gt;
+
+&lt;p&gt;ゆるゆりのカップリングからみる人格判断に拠ると､&amp;quot;京子ちゃんと結衣ちゃんはふ〜ふだが京子×綾乃にはロマンがある&amp;quot;という具合で､一番好きな百合作品は『青い花』と『ささめきこと』です｡&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;百合作品として&lt;/em&gt;おすすめされた『魍魎の匣』などを読んだりSB69やアイマス､アイカツのライブに行ったり鎌倉に行ったので､今年の百合カツは高水準だったと思います｡&lt;/p&gt;
+
+&lt;p&gt;では本題に移ります｡&lt;/p&gt;
+
+&lt;h1 id=&quot;2-2015年に読んだ百合漫画&quot;&gt;2. 2015年に読んだ百合漫画&lt;/h1&gt;
+
+&lt;p&gt;別に今年出版されたというわけではなく､単にボクが今年読んだというだけ｡特にグワ〜〜ッと来たのを書いていくというだけにします｡&lt;/p&gt;
+
+&lt;h2 id=&quot;2-1-philosophia&quot;&gt;2-1. &lt;a href=&quot;http://www.amazon.co.jp/philosophia-ID%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9-%E7%99%BE%E5%90%88%E5%A7%AB%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9-%E5%A4%A9%E9%87%8E-%E3%81%97%E3%82%85%E3%81%AB%E3%82%93%E3%81%9F/dp/4758073333/ref=tmm_other_meta_binding_title_0&quot;&gt;philosophia&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;人とは､生きるとは､なんてことを考えながら本を読んだりタバコを吸ったり､うっかり海に落ちる話｡大学百合｡愛と知の話｡
+主人公が二人とも大人っぽく､シガーキスがすごく映えるなどハードボイルドな百合に仕上がっている｡学生のうちに読んでおいて良かった｡
+思い出したらどんどんふわふわしたことを書きたくなってきた｡これが百合たる所以､人､…いや､固めていくぞ｡&lt;/p&gt;
+
+&lt;p&gt;百合漫画は紙媒体が良い､百合漫画のページをめくる時が好きなんですが､Kindleが手に入ったのでとりあえず手始めに買ったんだな｡そういう意味でも個人的に感慨深い作品｡
+この作品のつらさや烈しさを他の学生にどうしても伝えたかったので､初めて布教用に漫画を買ったのもこれだな｡
+これですっかり天野しゅにんた先生のファンになったというか､『&lt;a href=&quot;http://www.amazon.co.jp/%E5%88%9D%E6%81%8B%E6%A7%8B%E9%80%A0%E5%BC%8F-%E7%99%BE%E5%90%88%E5%A7%AB%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9-%E5%A4%A9%E9%87%8E-%E3%81%97%E3%82%85%E3%81%AB%E3%82%93%E3%81%9F/dp/4758071942/&quot;&gt;恋愛構造式&lt;/a&gt;』とか『&lt;a href=&quot;http://www.amazon.co.jp/%E7%A7%81%E3%81%AE%E4%B8%96%E7%95%8C%E3%82%92%E6%A7%8B%E6%88%90%E3%81%99%E3%82%8B%E5%A1%B5%E3%81%AE%E3%82%88%E3%81%86%E3%81%AA%E4%BD%95%E3%81%8B%E3%80%82-ID%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9-%E7%99%BE%E5%90%88%E5%A7%AB%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9-%E5%A4%A9%E9%87%8E-%E3%81%97%E3%82%85%E3%81%AB%E3%82%93%E3%81%9F/dp/4758072078/&quot;&gt;私の世界を構成する塵のような何か｡&lt;/a&gt;』とか読んだ｡この人の作品はヤバイぞ｡&lt;/p&gt;
+
+&lt;h2 id=&quot;2-2-百合男子&quot;&gt;2-2. &lt;a href=&quot;http://www.amazon.co.jp/%E7%99%BE%E5%90%88%E7%94%B7%E5%AD%90-1-%E6%88%91%E6%80%9D%E3%81%86%E3%80%81%E3%82%86%E3%81%88%E3%81%AB%E7%99%BE%E5%90%88%E3%81%82%E3%82%8A%E3%80%82-ID%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9-%E7%99%BE%E5%90%88%E5%A7%AB%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9/dp/4758071632&quot;&gt;百合男子&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;なんかでちらっとみて面白そうだったので買ったら8割位ボクだった｡グワ〜〜ッというよりはうぅ〜〜〜ん…という心になった｡許容し､許容されていこう｡&lt;/p&gt;
+
+&lt;p&gt;第二部 『&lt;a href=&quot;http://www.amazon.co.jp/%E4%BF%BA%E3%81%AE%E5%AB%81%E3%81%AA%E3%82%93%E3%81%A6%E3%81%84%E3%81%AD%E3%81%87-1-ID%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9-%E7%99%BE%E5%90%88%E5%A7%AB%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9-%E5%80%89%E7%94%B0/dp/4758074763/&quot;&gt;俺の嫁なんて居ねぇ!&lt;/a&gt;』では物語性が増してきましたね｡悲しい生き物の末路はどうなるのか｡&lt;/p&gt;
+
+&lt;h2 id=&quot;2-3-ピュア百合アンソロジーひらり、無料マガジンvol-0&quot;&gt;2-3. &lt;a href=&quot;http://www.amazon.co.jp/gp/product/B013QLL37I/&quot;&gt;ピュア百合アンソロジーひらり、無料マガジンVol.0 &lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;いろんな作品の1話だけ読めるというものでぶっちゃけただのサンプル集ヤンケ､ですがこれを読んでいくつか漫画買ったりしたのでよかったです｡
+こちらKindleのみ｡しかも0円!&lt;/p&gt;
+
+&lt;p&gt;素晴らしい百合ゲー『&lt;a href=&quot;http://www.amazon.co.jp/Liar-Soft-%E5%B1%8B%E4%B8%8A%E3%81%AE%E7%99%BE%E5%90%88%E9%9C%8A%E3%81%95%E3%82%93/dp/B006O4VM76/&quot;&gt;屋上の百合霊さん&lt;/a&gt;』のアレも1話がA､Bともにあって､これがまた良いんですな｡伊藤ハチ先生のなぁ〜〜…『&lt;a href=&quot;http://www.amazon.co.jp/gp/product/404067863X/&quot;&gt;小百合さんの妹は天使&lt;/a&gt;』3巻が数日後に発売なんだよな｡最高｡次｡&lt;/p&gt;
+
+&lt;h2 id=&quot;2-4-となりのロボット&quot;&gt;2-4. &lt;a href=&quot;http://www.amazon.co.jp/%E3%81%A8%E3%81%AA%E3%82%8A%E3%81%AE%E3%83%AD%E3%83%9C%E3%83%83%E3%83%88-%E8%A5%BF-UKO/dp/&quot;&gt;となりのロボット&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;SF百合｡ざっくばらんに言うと『アンドリュー NDR114』みたいな話です｡少女がやがて女性に変わっていくその様を､ロボットが見守る｡二人一緒に心は成長する｡そして…｡&lt;/p&gt;
+
+&lt;p&gt;ロボットということをうまく活用して､それが百合にもしっかりと還元されている本当に素晴らしい作品｡&lt;/p&gt;
+
+&lt;h2 id=&quot;2-5-りりうむあんさんぶる&quot;&gt;2-5. &lt;a href=&quot;http://www.amazon.co.jp/%E3%83%AA%E3%83%AA%E3%82%A6%E3%83%A0%E3%81%82%E3%82%93%E3%81%95%E3%82%93%E3%81%B6%E3%82%8B-1-%E3%81%BE%E3%82%93%E3%81%8C%E3%82%BF%E3%82%A4%E3%83%A0KR%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9-%E3%81%82%E3%81%9D%E3%81%8B/dp/4832243535/&quot;&gt;りりうむあんさんぶる&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;フレームとしてはごちうさですが､きららですがガッツリ百合で､キャラクターが5人であることからふむふむなるほど､となる｡
+空気感や人間の心理的な距離をうまく表現しているので､ウオーーッ!! 4コマで人がーッ!! あああ〜〜!!!&lt;/p&gt;
+
+&lt;p&gt;This is ブログタイトルです｡今年になって読んだのはunReleasedのほうですが､残念ながら再販のめどは無し｡うーん､やっぱきららでは読者層が微妙に違うのかな､でも桜Trickあるしなぁ…うーん…書いて欲しい…｡ &lt;/p&gt;
+
+&lt;h2 id=&quot;2-6-やがて君になる&quot;&gt;2-6. &lt;a href=&quot;http://www.amazon.co.jp/gp/product/4048654322/&quot;&gt;やがて君になる&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;2015年後半のlilycalな話題をさらった作品｡もうみんないっぱい書いてるのであまり書くことがない…｡
+先輩に後輩が憧れるという構図をボクはよく読んでいるので､だいぶ新鮮だった｡クーデレな先輩とさらにクールな後輩､最高…｡&lt;/p&gt;
+
+&lt;p&gt;英題の『Bloom into you』もなんて素晴らしいんだ｡電撃コミックスから出た! ということでね､もっと新しい風を巻き起こしてほしい｡&lt;/p&gt;
+
+&lt;h2 id=&quot;2-7-百合漫画ではないが書きたい漫画&quot;&gt;2-7. 百合漫画ではないが書きたい漫画&lt;/h2&gt;
+
+&lt;p&gt;好意が､気持ちが明示されないと安易に百合作品認定するのはマズイ､と個人的に思っているのでこのような事になりました｡でも秘めたる気持ちって百合だよな…｡&lt;/p&gt;
+
+&lt;h3 id=&quot;2-7-1-ストレッチ&quot;&gt;2-7-1. &lt;a href=&quot;http://www.amazon.co.jp/%E3%82%B9%E3%83%88%E3%83%AC%E3%83%83%E3%83%81-1-%E3%83%93%E3%83%83%E3%82%B0%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9%E3%82%B9%E3%83%9A%E3%82%B7%E3%83%A3%E3%83%AB-%E3%82%A2%E3%82%AD%E3%83%AA/dp/4091860885/&quot;&gt;ストレッチ&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;先輩と後輩が同棲｡社会人｡OK｡なんてことない同棲生活と､人の関わり｡相方のマジとも本気ともつかない言動にドキッとしたりする相方がね､良い…｡
+仲の良さがすごく微笑ましくてね､1巻35pとか､15話とか25話とか29話とか…と言っていくと全部良いので､読んでということで､読んで…｡&lt;/p&gt;
+
+&lt;p&gt;つい先日最終巻が出ました読みましたはい最高｡&lt;a href=&quot;http://lyrical-logical.hatenablog.com/entry/2015/12/06/135634&quot;&gt;lilycal_logicalさんもおっしゃる通り&lt;/a&gt;Webでも読めるので､読んで…｡&lt;/p&gt;
+
+&lt;p&gt;めんどくさいオタクなのでこの作品を社会人百合モノとして読みましたが､世間としては百合verifiedされてないと思うのでこの位置で｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;もうモヤモヤふわふわしてしまった｡シオいろの話とかシオみれの話とかしたかったけど抽象性が増してなんの話してるのかわからなくなるので､この辺で｡
+いやよおく考えてみたら最初からふわふわとしたことしか書いてない気がする｡おわり｡&lt;/p&gt;
+
+&lt;p&gt;ここからしばらくはどうでもいい小話ですが､いやぁ『ハーモニー』映画は良かったです本当に｡LINEスタンプとか知らんけど良かった｡
+この百合体験を得るためには是非原作読んでから行って欲しいですね｡最後のシーンがなぁ〜〜｢百合だ〜!!｣とか叫んで拍手しだすのをぐっと抑えました｡&lt;/p&gt;
+
+&lt;p&gt;ここ1年ちょっと鎌倉に行くのがマイブームになっていて､歩いたり電車に乗ったりしてた｡
+で､先日異常に暖かい日があって頭がぽわわ〜ってなったので『青い花』のBDをスッと出して観たら実際に見たところがいっぱいでてきて､うわわぁ〜〜&lt;/p&gt;
+
+&lt;p&gt;来年は『ゆるゆり』14巻とか､『FLOWERS』秋篇とか､『りりくる Rainbow Stage!!』とか､良い年になるぞ〜!! アイカツのイベント2つ当選したので気分爆上がりお財布爆散!!&lt;/p&gt;
+
+&lt;p&gt;おわり&lt;/p&gt;
+</description>
+        <pubDate>Thu, 17 Dec 2015 00:00:00 +0900</pubDate>
+        <link>http://nymphium.github.io/2015/12/17/niceyuri.html</link>
+        <guid isPermaLink="true">http://nymphium.github.io/2015/12/17/niceyuri.html</guid>
+        
+        <category>雑感</category>
+        
+        <category>百合</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>スライドを書いてると思ったらBeamerのテンプレートだけが肥大化した</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡先日書いたエントリーは私が&lt;code&gt;git push -f&lt;/code&gt;したので消えました｡私は十字架を背負って生きていきます｡&lt;/p&gt;
+
+&lt;p&gt;ところで今日の『「桜Trick」オールナイト一挙上映 ～夜通しWon(＊3＊)Chu KissMe!～』は最高でしたね…!
+漫画は1巻から発売日付近に買っていますがアニメはテレビがないなどで未視聴でした｡
+最初の相坂さんと五十嵐さんのトークはいつもどおりなんだこれって感じで､よかった…｡
+席は最後列の一つ前なうえに左端というだいぶアレでしたが､アニメを観るには問題なかった｡
+いやしかしアニメはね､本当に最高でな､うん…よかった…｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;beamerの拡張&quot;&gt;Beamerの拡張&lt;/h2&gt;
+
+&lt;div class=&quot;github-widget&quot; data-repo=&quot;Nymphium/my_LaTeX_template&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;の､&lt;a href=&quot;https://github.com/Nymphium/my_LaTeX_template/blob/master/beamertemp.tex&quot;&gt;これ&lt;/a&gt;をご覧ください｡&lt;/p&gt;
+
+&lt;p&gt;section/subsectionが始まる時点でTOCを突っ込んでいる｡
+TOCの上部にはスライドのタイトルを入れたいので､&lt;code&gt;\title&lt;/code&gt;を再定義して&lt;code&gt;\thetitle&lt;/code&gt;でタイトルを参照できるようにしている｡&lt;/p&gt;
+
+&lt;p&gt;beamerbasemisc.styから一部拝借してTOCページの総数をsrc.navファイルに&lt;code&gt;\inserttotaltocpage&lt;/code&gt;として突っ込む｡&lt;/p&gt;
+
+&lt;p&gt;フッタをねじ込む&lt;code&gt;\Setfooter&lt;/code&gt;なんかを定義してね｡&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;左端にsection - subsection&lt;/li&gt;
+&lt;li&gt;右端に(現frame - 現在のTOCページ数)/(総frame数 - 総TOCページ数)&lt;/li&gt;
+&lt;li&gt;タイトルページ､TOCページには何も入れたくない&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;このワガママを解消した｡まぁ1はどうでもよくて､2のためにTOCのページをnavファイルに書き込んでおいたのさ!  あとは適当に…｡&lt;/p&gt;
+
+&lt;p&gt;これで&lt;code&gt;\input{beamertemp.tex}&lt;/code&gt;するだけでBeamerがデラックスな感じになりました｡&lt;code&gt;\zw&lt;/code&gt;使っちゃってるのでLuaLaTeXでしか動きませんが､気が向いたら&lt;code&gt;\ifluatex&lt;/code&gt;などで条件分岐させるかもしれん｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;土曜はデレマス3rdや!&lt;/p&gt;
+</description>
+        <pubDate>Mon, 23 Nov 2015 00:00:00 +0900</pubDate>
+        <link>http://nymphium.github.io/2015/11/23/beamertemplate.html</link>
+        <guid isPermaLink="true">http://nymphium.github.io/2015/11/23/beamertemplate.html</guid>
+        
+        <category>LaTeX</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>インターン､など</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡というわけで富士通のインターンに行ってきました｡イェーイ御社〜〜ッ&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;ニャオ &lt;a href=&quot;http://t.co/9hZg8PvOvX&quot;&gt;pic.twitter.com/9hZg8PvOvX&lt;/a&gt;&lt;/p&gt;&amp;mdash; びしょ～じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/649174082974445568&quot;&gt;September 30, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;｢寝てた｣とか｢鹿を刎ねた｣とかしかインターンについてあまり触れていないので(まぁどちらも事実ですが)､OSSを触っていたので､成果は是非発信して欲しいということでね､うん｡&lt;/p&gt;
+
+&lt;p&gt;でも鹿を刎ねたのは本当にすごく興奮しまして｡高校の友人と静岡近辺を車で散策していたわけですが､4人のうちボクだけ自動車運転免許がなくて｡
+伊豆半島からの帰りに山道を通ったわけだがそこでね､ドーンという感じに｡助手席に座っていたので大迫力だった｡
+軽自動車に座っていて目線の高さが鹿の背中だったのでなかなか立派な鹿だったと思う｡交差点付近のため減速中だったので車が凹んだりはしなかった｡鹿も死ななかった｡
+4人中ボクが一番興奮してドライバーが一番青ざめていた｡でもその1hくらい後にはドライバーも刎ねられた鹿の真似(?)を始めて､うん｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;btrfs-on-bcacheの性能調査&quot;&gt;Btrfs on Bcacheの性能調査&lt;/h2&gt;
+
+&lt;p&gt;Linux3.10でメインラインにねじ込まれた､SSDを他のデバイスのキャッシュとして扱うという機能がBtrfsの上でもちゃんと動くのかということをまずひとつやった｡&lt;/p&gt;
+
+&lt;p&gt;Fedora22､社のデカいマシンの1ノードを使った｡X5690とかそのへんのが積んであった｡メモリが16GB｡&lt;/p&gt;
+
+&lt;p&gt;ベンチマークの自動化スクリプトではシェルスクリプトを500行くらい書いた｡ShellCheckの教えにより全然知らない記法などを覚えたり脳が柔軟になって&lt;code&gt;awk&lt;/code&gt;1つで結果の統計が取れたりするようになった｡&lt;/p&gt;
+
+&lt;p&gt;FIOのパラメータ調整は職人感があって､メンターの方も以前やったベンチマークのパラメータを見せるだけで､｢あとはがんばってくれ｣という感じになった｡
+FIOを使ったことがなかったのでパラメータ調節にはだいぶ手こずった｡最終的にはこんな感じだったと記憶している｡記憶の中なので違うかも｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;[global]
+stonewall
+direct=1
+bs=4m
+size=40m
+jobs=100
+iodepth=32
+io_dept_batch=32
+
+[job1]
+rw=randread
+
+[job2]
+rw=randwrite
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;成果&quot;&gt;成果&lt;/h3&gt;
+
+&lt;p&gt;結果はこんな感じ｡RAIDはBtrfsの機能で組んだやつ｡なので比較のXFSはシングルデバイスのみ｡
+Btrfs RAIDもデバイス数は最小(RAID0は2つ､RAID5は3つ)｡BcacheのモードはWriteback｡単位はIOPS｡&lt;/p&gt;
+
+&lt;table&gt;&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align: right&quot;&gt;read&lt;/th&gt;
+&lt;th style=&quot;text-align: right&quot;&gt;write&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Btrfs Single&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;XFS Signle&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Btrfs Single Bcached&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;3000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;XFS Single Bcached&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;2200&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Btrfs RAID0&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Btrfs RAID5&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;80&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Btrfs RAID0 Bcached&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;3300&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Btrfs RAID5 Bcached&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
+&lt;td style=&quot;text-align: right&quot;&gt;80&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+
+&lt;p&gt;RAID0がSingleと同じ速度というのはなんかおかしいんだよな…｡
+SSDもHDDも型が古かったのでもう少しいいものを使えば結果が変わりそう｡
+readはキャッシュに当たらないので変わらない｡Single/RAID0なら書き込みが6倍速という結果になった｡
+Btrfsの他のモードはほとんど変わらなかったので割愛だにゃ｡他のRAIDとか､デバイス数との関係とかは皆さん頑張ってくれ給えよといった具合に｡
+RAMをブロックデバイスにしてSSDのキャッシュデバイスにするとかできるのかな､できたら楽しそう｡&lt;/p&gt;
+
+&lt;h3 id=&quot;bcacheについて&quot;&gt;Bcacheについて&lt;/h3&gt;
+
+&lt;p&gt;ファックです｡ベンチマーク自動化スクリプトの一番の障害だったのがBcacheです｡まぁ&lt;code&gt;make-bcache&lt;/code&gt;は許すよ｡うん｡
+でも解除の方法が適当なファイルに1やUUIDを書き込んで&lt;code&gt;wipefs&lt;/code&gt;でキレイにするというね､面倒｡
+うっかり変なファイルに書き込むとカーネルパニックしたりBcache作成時に何故かカーネルパニックしたり､お前なんでマージされたんだよ…｡&lt;/p&gt;
+
+&lt;h3 id=&quot;インターンについて&quot;&gt;インターンについて&lt;/h3&gt;
+
+&lt;p&gt;というわけでね､上記ともうひとつやったけどこれは成果0なので割愛｡&lt;/p&gt;
+
+&lt;p&gt;社員寮に1ヶ月住んで､休日は本を読んだり港へ行ったり山を登ったり､友人と静岡旅行したりとそれなりに楽しかったが､平日はつらかった｡
+寮なのになぜか社までバスで40分もかかるところに立地しており朝は0700くらいにおきる必要があった｡
+帰ってからもめぼしい飲食店はなく､唯一まともだった大勝軒ディストリビューションに行くか､あるいは近所の薬局で50%引きの食パンを食べては枕を濡らす日々だった｡&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;楽しいインターンの様子 &lt;a href=&quot;http://t.co/OJOVeTf32h&quot;&gt;pic.twitter.com/OJOVeTf32h&lt;/a&gt;&lt;/p&gt;&amp;mdash; びしょ～じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/639759336818933760&quot;&gt;September 4, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;ヤマノススメ 沼津アルプス &lt;a href=&quot;http://t.co/dBRAKs6mu3&quot;&gt;pic.twitter.com/dBRAKs6mu3&lt;/a&gt;&lt;/p&gt;&amp;mdash; びしょ～じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/642560500388130816&quot;&gt;September 12, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;浜松 &lt;a href=&quot;http://t.co/2zqTcTwM6t&quot;&gt;pic.twitter.com/2zqTcTwM6t&lt;/a&gt;&lt;/p&gt;&amp;mdash; びしょ～じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/646147815660392448&quot;&gt;September 22, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;ボクが配属された部署は社の中でもだいぶ特殊なようで､にわかに恐れていた挨拶をしないと殺されるとかそういう感じでは全く無くて安心した｡
+会社ではまぁ普通に｡先述の通りベンチマークを眺めながらだんだん意識が遠のき…とかカフェオレを飲みまくって腹を壊してトイレにこもるというのを日中何回もやったりしていた｡
+技術的な議論がよく聞こえてきて面白かった(小並感)｡
+最終日前日はもうやることがなくなったのでサーバールームや社員研修として社の概要や変遷を聞くコースなどに行き､京の1ノードや海底の光ケーブルなどを見た｡&lt;/p&gt;
+
+&lt;p&gt;インターンは他の営業所でも行われており､最終日は横浜でそのインターン生たちの成果発表会という感じで発表をした｡
+人数が70人くらい居たので､8人ほどのグループに分けられてその中で発表という形になった｡
+SEなどのみならず営業のインターンとかもあって､その発表では本当に圧倒的成長みたいな感じで…｢サークルにバイトがんばってます! 将来は自分に何ができるかを考えて､営業でお客様に笑顔を届けるのがry｣…正直聞いててげっそりした｡
+でもVirtuora NCでXMLで設計を書けばちょっとしたネットワークを簡単に作れるし監視などもできるしみたいな発表は面白かった｡Fujitsuの製品なのでメンターも気合が入っていたんだろう｡&lt;/p&gt;
+
+&lt;p&gt;で､沼津工場にはボクの他に2人いたわけだが､一人はOpenStack上に構築したブツをIronicを用いて物理マシンにスッと置くということをやっていた｡
+もう一人はDockerの調査でrunCとか調べてた｡&lt;/p&gt;
+
+&lt;p&gt;沼津編おわり&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;github-pagesとjekyll&quot;&gt;GitHub PagesとJekyll&lt;/h2&gt;
+
+&lt;p&gt;当サイトがね､うん｡&lt;/p&gt;
+
+&lt;p&gt;Jekyllのプラギンなどを用いてスマートに書きたいということで､&lt;a href=&quot;http://gosyujin.github.io/2013/05/21/jekyll-plugin-githubpages/&quot;&gt;こちら&lt;/a&gt;を参考にした｡
+それはよかったんだけど､&lt;a href=&quot;https://github.com/JoelSutherland/GitHub-jQuery-Repo-Widget&quot;&gt;GitHub jQuery Repo Widget&lt;/a&gt;がGoogle Chromeで見てみると表示されず…なんでや…｡&lt;/p&gt;
+
+&lt;div class=&quot;github-widget&quot; data-repo=&quot;JoelSutherland/GitHub-jQuery-Repo-Widget&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;早く世界中のブラウザがひとつになってほしい｡&lt;/p&gt;
+
+&lt;h3 id=&quot;追記&quot;&gt;追記&lt;/h3&gt;
+
+&lt;p&gt;これは&lt;a href=&quot;http://qiita.com/futoase/items/39cb4b7d704b1e53e7f6&quot;&gt;こういう&lt;/a&gt;ことです｡&lt;/p&gt;
+
+&lt;p&gt;追記おわり&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;シェル力極まってtmuxのステータスラインに表示するためのスクリプトとかも書きなおしてみたらパイプでつなぐなどするとワンライナーに収まったりして気持ちよかった(小並感)｡
+またちまちまと書いているMoonScriptのSyntastic向けのチェッカも2倍速になった(元がひどすぎたのもある)｡&lt;/p&gt;
+
+&lt;div class=&quot;github-widget&quot; data-repo=&quot;Nymphium/syntastic-moonscript&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;アイカツもいよいよ149話まで観たし本当に最高だった｡感極まって叫んだりして､同居していたインターン生のインディアン先輩には申し訳ないと思っている(おわり)｡&lt;/p&gt;
+</description>
+        <pubDate>Sat, 03 Oct 2015 00:00:00 +0900</pubDate>
+        <link>http://nymphium.github.io/2015/10/03/intern_andother.html</link>
+        <guid isPermaLink="true">http://nymphium.github.io/2015/10/03/intern_andother.html</guid>
+        
+        <category>雑感</category>
+        
+        <category>Linux</category>
+        
+        <category>sh</category>
+        
+        
+      </item>
+    
   </channel>
 </rss>
