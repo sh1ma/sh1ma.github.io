@@ -137,16 +137,16 @@ pre {
  * Wrapper
  */
 .wrapper {
-  max-width: -webkit-calc(800px - (30px * 2));
-  max-width: calc(800px - (30px * 2));
+  max-width: -webkit-calc(1200px - (30px * 2));
+  max-width: calc(1200px - (30px * 2));
   margin-right: auto;
   margin-left: auto;
   padding-right: 30px;
   padding-left: 30px; }
   @media screen and (max-width: 800px) {
     .wrapper {
-      max-width: -webkit-calc(800px - (30px));
-      max-width: calc(800px - (30px));
+      max-width: -webkit-calc(1200px - (30px));
+      max-width: calc(1200px - (30px));
       padding-right: 15px;
       padding-left: 15px; } }
 
@@ -324,20 +324,20 @@ pre {
 
 .post-content {
   margin-bottom: 30px; }
-  .post-content h2 {
+  .post-content h1 {
     font-size: 32px; }
     @media screen and (max-width: 800px) {
-      .post-content h2 {
+      .post-content h1 {
         font-size: 28px; } }
-  .post-content h3 {
+  .post-content h2 {
     font-size: 26px; }
     @media screen and (max-width: 800px) {
-      .post-content h3 {
+      .post-content h2 {
         font-size: 22px; } }
-  .post-content h4 {
+  .post-content h3 {
     font-size: 20px; }
     @media screen and (max-width: 800px) {
-      .post-content h4 {
+      .post-content h3 {
         font-size: 18px; } }
 
 /* http://mattn.kaoriya.net/software/20160215110235.htm */
@@ -628,39 +628,3 @@ code {
   color: #2AA198; }
 
 /* Literal.Number.Integer.Long */
-h1 {
-  font-size: 32px;
-  line-height: 33.6px; }
-
-h1 small {
-  font-size: 19.2px; }
-
-h2 {
-  font-size: 24px;
-  line-height: 27.2px;
-  /* line-height: 36px; */ }
-
-h2 small {
-  font-size: 18.4px; }
-
-h3 {
-  font-size: 16px;
-  line-height: 17.6px;
-  /* line-height: 27px; */ }
-
-h3 small {
-  font-size: 16px; }
-
-h4,
-h5,
-h6 {
-  line-height: 16px; }
-
-h4 {
-  font-size: 16px; }
-
-h4 small {
-  font-size: 12.8px; }
-
-h5 {
-  font-size: 12.8px; }
