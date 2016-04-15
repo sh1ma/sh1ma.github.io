@@ -87,6 +87,9 @@ li > ol {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400; }
 
+article .post-content h1, h2, h3, h4, h5, h6 {
+  border-bottom: solid 1px #eee; }
+
 /**
  * Links
  */
