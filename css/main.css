@@ -87,8 +87,18 @@ li > ol {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400; }
 
-article .post-content h1, h2, h3, h4, h5, h6 {
-  border-bottom: solid 1px #eee; }
+article header {
+  background: rgba(166, 200, 212, 0.3);
+  padding: 0pt 20pt 5pt 20pt; }
+article .post-content[itemprop="articleBody"] {
+  margin-bottom: -3rem; }
+  article .post-content[itemprop="articleBody"] h1, article .post-content[itemprop="articleBody"] h2, article .post-content[itemprop="articleBody"] h3, article .post-content[itemprop="articleBody"] h4, article .post-content[itemprop="articleBody"] h5, article .post-content[itemprop="articleBody"] h6 {
+    border-bottom: solid 1px #eee;
+    margin-top: 2rem; }
+
+.github-widget {
+  margin-top: 1rem;
+  margin-bottom: 1rem; }
 
 /**
  * Links
