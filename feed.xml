@@ -5,9 +5,226 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>http://nymphium.github.io/</link>
     <atom:link href="http://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 17 Apr 2016 09:03:35 +0900</pubDate>
-    <lastBuildDate>Sun, 17 Apr 2016 09:03:35 +0900</lastBuildDate>
+    <pubDate>Mon, 25 Apr 2016 11:35:42 +0900</pubDate>
+    <lastBuildDate>Mon, 25 Apr 2016 11:35:42 +0900</lastBuildDate>
     <generator>Jekyll v3.0.3</generator>
+    
+      <item>
+        <title>Luaでは関数外でもreturnが書ける､これな〜んでだ?</title>
+        <description>&lt;!--sectionize on--&gt;
+
+&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;
+
+&lt;p&gt;昨日はやっとアイカツ2016年第4弾をやりました｡
+｢馬鹿野郎お前俺は1万円は使うぞお前｣という気持ちで行ったんですが､2hほど筐体前で気持ちよくなってたけど結局3､4000円程度しか使えませんでした｡
+実際文章をちゃんと読んで聞いてしてると1プレイが結構長いんですね､3ヶ月ぶりだったので忘れてました｡
+結局1000円札5枚を100円玉50枚にしたら､全部使うことなく閉店時間になり小銭入れがパンパンのまま帰る羽目になりました｡&lt;/p&gt;
+
+&lt;p&gt;データカードダス アイカツスターズ! は5月19日から! ということでまたやりに行こうと思います｡CPのスクールドレスは絶対にそろえたいなぁ､あときいちゃんが書いてあるやつ!&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h1 id=&quot;1-q-luaでは関数外でもreturnが書ける､これな〜んで&quot;&gt;1. Q. Luaでは関数外でもreturnが書ける､これな〜んで?&lt;/h1&gt;
+
+&lt;p&gt;実はLuaでは関数外でも&lt;code&gt;retun&lt;/code&gt;書けるし構文的には何の問題もないんですねぇ…｡
+Luaの予約語である&lt;code&gt;return&lt;/code&gt;は､CとかJavaなどと同じで､関数の戻り値を書くわけです(多値という違いはありますが)｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;c1&quot;&gt;-- foo.lua&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello&quot;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;--!!!&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;......&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1 id=&quot;2-a-requireの戻り値に渡すため&quot;&gt;2. A. &lt;code&gt;require&lt;/code&gt;の戻り値に渡すため&lt;/h1&gt;
+
+&lt;p&gt;実はなんてことない話で､&lt;code&gt;require(&amp;#39;foo&amp;#39;)&lt;/code&gt;したときの戻り値に&lt;code&gt;return 5&lt;/code&gt;が渡されるというだけです｡&lt;/p&gt;
+
+&lt;p&gt;luaファイルは全て&lt;code&gt;require([[filename]])&lt;/code&gt;することでモジュールとして呼び出すことができ､&lt;code&gt;filename.lua&lt;/code&gt;の&lt;em&gt;戻り値&lt;/em&gt;､つまり&lt;code&gt;return ...&lt;/code&gt;が&lt;code&gt;require([[filename]])&lt;/code&gt;の戻り値になります｡
+&lt;code&gt;filename.lua&lt;/code&gt;に戻り値がなければ&lt;code&gt;require([[filename]])&lt;/code&gt;は&lt;code&gt;true&lt;/code&gt;(または呼び出し時に失敗すれば&lt;code&gt;false&lt;/code&gt;)を返します｡&lt;/p&gt;
+
+&lt;h1 id=&quot;3-関数との関係&quot;&gt;3. 関数との関係&lt;/h1&gt;
+
+&lt;p&gt;さて､関数の&lt;code&gt;return&lt;/code&gt;と何か関係があるのではないか､という考えをするのが人間です｡
+実はだいぶあります｡&lt;/p&gt;
+
+&lt;p&gt;ところで､ここで関数のおさらいです｡以下の関数&lt;code&gt;f&lt;/code&gt;と&lt;code&gt;g&lt;/code&gt;は&lt;em&gt;全く&lt;/em&gt;同じ意味を持ちます｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;また､次の関数&lt;code&gt;f_&lt;/code&gt;と&lt;code&gt;g_&lt;/code&gt;は違います｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;c1&quot;&gt;-- f_ contains f_&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f_&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;f_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f_&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;-- g_ DOES NOT contains g_&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g_&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;3-1-string-dump&quot;&gt;3-1. &lt;code&gt;string.dump&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;まず関係を示すために､ユーザー定義関数をバイナリ表現にしてくれる&lt;code&gt;string.dump&lt;/code&gt;について｡&lt;/p&gt;
+
+&lt;p&gt;言ったまんまですが､定義した関数を渡すと､実際にLua VM上で動くバイトコードに変換してくれます｡
+使いどころがよくわからない気もしますが､今が使い時です｡&lt;/p&gt;
+
+&lt;p&gt;簡単な関数について考えてみます｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;kantannna_kansuu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;string.dump&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kantannna_kansuu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これを実行するとよくわからない文字列が出力されます｡&lt;/p&gt;
+
+&lt;p&gt;うーん､では&lt;em&gt;この文字列をファイルに吐き出して&lt;/em&gt;みましょう｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;kantannna_kansuu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;assert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;io.open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;kantannna_kansuu.out&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;wb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;string.dump&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kantannna_kansuu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;じゃあ&lt;code&gt;lua&lt;/code&gt;で実行してみるか｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$ lua kantannna_kansuu.out
+hello   3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;はわわ､なんだかよくわからなくなってきました……｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;もう少し頑張ってください｡次のようなファイルを作ります｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;c1&quot;&gt;-- kantannna_kansuu.lua&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;そうです､&lt;code&gt;kantannna_kansuu()&lt;/code&gt;の中身と同じです｡これをコンパイルします｡はい､Luaはコンパイラがあります｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;luac -o compiled_kantannna_kansuu.out kantannna_kansuu.lua
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;kantannna_kansuu.lua&lt;/code&gt;をLua VMのバイトコードにコンパイルし､&lt;code&gt;compiled_kantannna_kansuu.out&lt;/code&gt;というファイルに書き出しました｡&lt;/p&gt;
+
+&lt;p&gt;ここで!! おもむろにバイナリエディタなどで&lt;code&gt;kantannna_kansuu.out&lt;/code&gt;と&lt;code&gt;compiled_kantannna_kansuu.out&lt;/code&gt;を見比べてみてください｡
+実はこれ&lt;strong&gt;&lt;em&gt;全く同じ&lt;/em&gt;&lt;/strong&gt;なんですね｡&lt;/p&gt;
+
+&lt;h1 id=&quot;4-関数の実態&quot;&gt;4. 関数の実態&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;luac&lt;/code&gt;コマンドには便利なオプションがああります｡&lt;code&gt;luac -l luac.out&lt;/code&gt;でLua VMの挙動がわかります｡&lt;/p&gt;
+
+&lt;p&gt;これで&lt;code&gt;kantannna_kansuu.out&lt;/code&gt;を見てみます｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$ luac -l kantannna_kansuu.out
+function &amp;lt;stdin:1,3&amp;gt; (5 instructions at 0x129ba30)
+0 params, 3 slots, 1 upvalue, 0 locals, 3 constants, 0 functions
+        1       [2]     GETTABUP        0 0 -1  ; _ENV &quot;print&quot;
+        2       [2]     LOADK           1 -2    ; &quot;hello&quot;
+        3       [2]     LOADK           2 -3    ; 3
+        4       [2]     CALL            0 3 1
+        5       [3]     RETURN          0 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;簡単に説明すると､&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;_ENV&lt;/code&gt;から&lt;code&gt;print&lt;/code&gt;をスタックに積む&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;hello&amp;quot;&lt;/code&gt;をスタックに積む&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;3&lt;/code&gt;をスタックに積む&lt;/li&gt;
+&lt;li&gt;関数呼び出し&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;といった感じでしょうか｡VMについてはまだわかってないので適当ですが､雰囲気としては問題ないはず｡&lt;/p&gt;
+
+&lt;p&gt;あれ､お前､元は関数だったはずじゃ……これではただの実行ファイルじゃん｡&lt;/p&gt;
+
+&lt;p&gt;そうなんです､Luaにおける関数とは､まさに&lt;strong&gt;引数をとる環境&lt;/strong&gt;と言えるわけですね〜､逆にファイルなど一つのLuaチャンクはただの関数なんですね｡&lt;/p&gt;
+
+&lt;p&gt;これは以下の2関数について､&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;c1&quot;&gt;-- f_ contains f_&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f_&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;f_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f_&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;-- g_ DOES NOT contains g_&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g_&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;f_&lt;/code&gt;はまず&lt;code&gt;_ENV&lt;/code&gt;に&lt;code&gt;f_&lt;/code&gt;を登録して､次に値を与えています｡このため､定義時に&lt;code&gt;_ENV.f_&lt;/code&gt;が存在はするため､戻り値に(&lt;code&gt;_ENV.&lt;/code&gt;)&lt;code&gt;f_&lt;/code&gt;を返せる｡
+一方&lt;code&gt;g_&lt;/code&gt;は&lt;code&gt;g_&lt;/code&gt;自身の定義時に&lt;code&gt;_ENV&lt;/code&gt;に&lt;code&gt;g_&lt;/code&gt;がないため､戻り値は&lt;code&gt;g_&lt;/code&gt;(つまり&lt;code&gt;nil&lt;/code&gt;)ではなく&lt;code&gt;1&lt;/code&gt;になるんです｡&lt;/p&gt;
+
+&lt;p&gt;｢引数を取る環境｣とか言っておいて引数のある関数について見てませんね｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;compound&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;compound.out&quot;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;assert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;io.open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;wb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;string.dump&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compound&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;os.execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;luac -l &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;function &amp;lt;stdin:1,3&amp;gt; (3 instructions at 0x155ea10)
+2 params, 3 slots, 0 upvalues, 2 locals, 0 constants, 1 function
+        1       [2]     CLOSURE         2 0     ; 0x155eae0
+        2       [2]     RETURN          2 2
+        3       [3]     RETURN          0 1
+
+function &amp;lt;stdin:2,2&amp;gt; (7 instructions at 0x155eae0)
+1 param, 4 slots, 2 upvalues, 1 local, 0 constants, 0 functions
+        1       [2]     GETUPVAL        1 0     ; g
+        2       [2]     GETUPVAL        2 1     ; f
+        3       [2]     MOVE            3 0
+        4       [2]     CALL            2 2 0
+        5       [2]     TAILCALL        1 0 0
+        6       [2]     RETURN          1 0
+        7       [2]     RETURN          0 1
+true    exit    0 # これは`os.execute()`の戻り値
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ウオア〜なんか2つ(?)出た､冷静に見てみよう｡&lt;/p&gt;
+
+&lt;p&gt;上の方の命令に&lt;code&gt;CLOSURE&lt;/code&gt;というのがあるので､クロージャを作ってる&lt;code&gt;compound()&lt;/code&gt;がこれかな｡
+下が､&lt;code&gt;compound()&lt;/code&gt;が返している関数の中身のようなので､これを見てみますと､まず&lt;code&gt;GETUPVAL&lt;/code&gt;で引数の&lt;code&gt;f&lt;/code&gt;と&lt;code&gt;g&lt;/code&gt;を取得しているようだ｡
+&lt;code&gt;MOVE&lt;/code&gt;命令で&lt;code&gt;x&lt;/code&gt;を引っ張って&lt;code&gt;CALL&lt;/code&gt;してるように見えるおわり｡&lt;/p&gt;
+
+&lt;h1 id=&quot;5-おわりに&quot;&gt;5. おわりに&lt;/h1&gt;
+
+&lt;p&gt;｢だから何だ｣という話ですが､クイズの答えとその解説というだけで､どうするかは考えてください｡&lt;/p&gt;
+
+&lt;h2 id=&quot;あわせて読みたい&quot;&gt;あわせて読みたい&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://luaforge.net/docman/83/98/ANoFrillsIntroToLua51VMInstructions.pdf&quot;&gt;A No-Frills Introduction to Lua 5.1 VM instructions&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Lua VMの命令の解説です｡Lua 5.1に関するものですが､VM自体は5.3になってもあまり進化してない(気がする)ので､現在でも使える知識です｡&lt;/p&gt;
+
+&lt;p&gt;この記事と関係があるかないかで言うと､今ボクが読んでます｡&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://connpass.com/event/30661/?utm_campaign=recent_events&amp;amp;utm_medium=atom&amp;amp;utm_source=feed&quot;&gt;Tsukuba.pm #3&lt;/a&gt;で話すことになりました｡
+&lt;a href=&quot;https://twitter.com/VienosNotes&quot;&gt;@VienosNotes &lt;/a&gt;さんはボクがPerl書けないことは知ってるはずですが声をかけてもらったので､堂々とLuaについて話します｡よろしくお願いします｡&lt;/p&gt;
+</description>
+        <pubDate>Mon, 25 Apr 2016 00:00:00 +0900</pubDate>
+        <link>http://nymphium.github.io/2016/04/25/luaquiz.html</link>
+        <guid isPermaLink="true">http://nymphium.github.io/2016/04/25/luaquiz.html</guid>
+        
+        <category>Lua</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>りりくるRSは最高</title>
+        <description>&lt;p&gt;草は緑 空は青 りりくる Rainbow Stage!!! は最高
+&lt;div align=&quot;center&quot;&gt;
+&lt;a href=&quot;http://www.particle.jp.net/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;http://www.particle.jp.net/lilycle_rs/banner/600150_05.jpg&quot; width=&quot;600&quot; height=&quot;150&quot; alt=&quot;『りりくる Rainbow Stage!!!』応援中！2016年4月28日発売予定！&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;
+&lt;/div&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 23 Apr 2016 00:00:00 +0900</pubDate>
+        <link>http://nymphium.github.io/2016/04/23/lilycle.html</link>
+        <guid isPermaLink="true">http://nymphium.github.io/2016/04/23/lilycle.html</guid>
+        
+        <category>百合</category>
+        
+        
+      </item>
     
       <item>
         <title>awesome WMでタイマー</title>
@@ -887,238 +1104,6 @@ TOCページを挿入するたびに&lt;code&gt;tocpage&lt;/code&gt;がインク
         <category>雑感</category>
         
         <category>百合</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>スライドを書いてると思ったらBeamerのテンプレートだけが肥大化した</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡先日書いたエントリーは私が&lt;code&gt;git push -f&lt;/code&gt;したので消えました｡私は十字架を背負って生きていきます｡&lt;/p&gt;
-
-&lt;p&gt;ところで今日の『「桜Trick」オールナイト一挙上映 ～夜通しWon(＊3＊)Chu KissMe!～』は最高でしたね…!
-漫画は1巻から発売日付近に買っていますがアニメはテレビがないなどで未視聴でした｡
-最初の相坂さんと五十嵐さんのトークはいつもどおりなんだこれって感じで､よかった…｡
-席は最後列の一つ前なうえに左端というだいぶアレでしたが､アニメを観るには問題なかった｡
-いやしかしアニメはね､本当に最高でな､うん…よかった…｡&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h2 id=&quot;beamerの拡張&quot;&gt;Beamerの拡張&lt;/h2&gt;
-
-&lt;div class=&quot;github-widget&quot; data-repo=&quot;Nymphium/my_LaTeX_template&quot;&gt;&lt;/div&gt;
-
-&lt;p&gt;の､&lt;a href=&quot;https://github.com/Nymphium/my_LaTeX_template/blob/master/beamertemp.tex&quot;&gt;これ&lt;/a&gt;をご覧ください｡&lt;/p&gt;
-
-&lt;p&gt;section/subsectionが始まる時点でTOCを突っ込んでいる｡
-TOCの上部にはスライドのタイトルを入れたいので､&lt;code&gt;\title&lt;/code&gt;を再定義して&lt;code&gt;\thetitle&lt;/code&gt;でタイトルを参照できるようにしている｡&lt;/p&gt;
-
-&lt;p&gt;beamerbasemisc.styから一部拝借してTOCページの総数をsrc.navファイルに&lt;code&gt;\inserttotaltocpage&lt;/code&gt;として突っ込む｡&lt;/p&gt;
-
-&lt;p&gt;フッタをねじ込む&lt;code&gt;\Setfooter&lt;/code&gt;なんかを定義してね｡&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;左端にsection - subsection&lt;/li&gt;
-&lt;li&gt;右端に(現frame - 現在のTOCページ数)/(総frame数 - 総TOCページ数)&lt;/li&gt;
-&lt;li&gt;タイトルページ､TOCページには何も入れたくない&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;このワガママを解消した｡まぁ1はどうでもよくて､2のためにTOCのページをnavファイルに書き込んでおいたのさ!  あとは適当に…｡&lt;/p&gt;
-
-&lt;p&gt;これで&lt;code&gt;\input{beamertemp.tex}&lt;/code&gt;するだけでBeamerがデラックスな感じになりました｡&lt;code&gt;\zw&lt;/code&gt;使っちゃってるのでLuaLaTeXでしか動きませんが､気が向いたら&lt;code&gt;\ifluatex&lt;/code&gt;などで条件分岐させるかもしれん｡&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;土曜はデレマス3rdや!&lt;/p&gt;
-</description>
-        <pubDate>Mon, 23 Nov 2015 00:00:00 +0900</pubDate>
-        <link>http://nymphium.github.io/2015/11/23/beamertemplate.html</link>
-        <guid isPermaLink="true">http://nymphium.github.io/2015/11/23/beamertemplate.html</guid>
-        
-        <category>LaTeX</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>インターン､など</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡というわけで富士通のインターンに行ってきました｡イェーイ御社〜〜ッ&lt;/p&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;ニャオ &lt;a href=&quot;http://t.co/9hZg8PvOvX&quot;&gt;pic.twitter.com/9hZg8PvOvX&lt;/a&gt;&lt;/p&gt;&amp;mdash; びしょ～じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/649174082974445568&quot;&gt;September 30, 2015&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;｢寝てた｣とか｢鹿を刎ねた｣とかしかインターンについてあまり触れていないので(まぁどちらも事実ですが)､OSSを触っていたので､成果は是非発信して欲しいということでね､うん｡&lt;/p&gt;
-
-&lt;p&gt;でも鹿を刎ねたのは本当にすごく興奮しまして｡高校の友人と静岡近辺を車で散策していたわけですが､4人のうちボクだけ自動車運転免許がなくて｡
-伊豆半島からの帰りに山道を通ったわけだがそこでね､ドーンという感じに｡助手席に座っていたので大迫力だった｡
-軽自動車に座っていて目線の高さが鹿の背中だったのでなかなか立派な鹿だったと思う｡交差点付近のため減速中だったので車が凹んだりはしなかった｡鹿も死ななかった｡
-4人中ボクが一番興奮してドライバーが一番青ざめていた｡でもその1hくらい後にはドライバーも刎ねられた鹿の真似(?)を始めて､うん｡&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h2 id=&quot;btrfs-on-bcacheの性能調査&quot;&gt;Btrfs on Bcacheの性能調査&lt;/h2&gt;
-
-&lt;p&gt;Linux3.10でメインラインにねじ込まれた､SSDを他のデバイスのキャッシュとして扱うという機能がBtrfsの上でもちゃんと動くのかということをまずひとつやった｡&lt;/p&gt;
-
-&lt;p&gt;Fedora22､社のデカいマシンの1ノードを使った｡X5690とかそのへんのが積んであった｡メモリが16GB｡&lt;/p&gt;
-
-&lt;p&gt;ベンチマークの自動化スクリプトではシェルスクリプトを500行くらい書いた｡ShellCheckの教えにより全然知らない記法などを覚えたり脳が柔軟になって&lt;code&gt;awk&lt;/code&gt;1つで結果の統計が取れたりするようになった｡&lt;/p&gt;
-
-&lt;p&gt;FIOのパラメータ調整は職人感があって､メンターの方も以前やったベンチマークのパラメータを見せるだけで､｢あとはがんばってくれ｣という感じになった｡
-FIOを使ったことがなかったのでパラメータ調節にはだいぶ手こずった｡最終的にはこんな感じだったと記憶している｡記憶の中なので違うかも｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;[global]
-stonewall
-direct=1
-bs=4m
-size=40m
-jobs=100
-iodepth=32
-io_dept_batch=32
-
-[job1]
-rw=randread
-
-[job2]
-rw=randwrite
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;成果&quot;&gt;成果&lt;/h3&gt;
-
-&lt;p&gt;結果はこんな感じ｡RAIDはBtrfsの機能で組んだやつ｡なので比較のXFSはシングルデバイスのみ｡
-Btrfs RAIDもデバイス数は最小(RAID0は2つ､RAID5は3つ)｡BcacheのモードはWriteback｡単位はIOPS｡&lt;/p&gt;
-
-&lt;table&gt;&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th style=&quot;text-align: right&quot;&gt;read&lt;/th&gt;
-&lt;th style=&quot;text-align: right&quot;&gt;write&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Btrfs Single&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;XFS Signle&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Btrfs Single Bcached&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;3000&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;XFS Single Bcached&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;2200&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Btrfs RAID0&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Btrfs RAID5&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;80&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Btrfs RAID0 Bcached&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;3300&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Btrfs RAID5 Bcached&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;500&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;80&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;&lt;/table&gt;
-
-&lt;p&gt;RAID0がSingleと同じ速度というのはなんかおかしいんだよな…｡
-SSDもHDDも型が古かったのでもう少しいいものを使えば結果が変わりそう｡
-readはキャッシュに当たらないので変わらない｡Single/RAID0なら書き込みが6倍速という結果になった｡
-Btrfsの他のモードはほとんど変わらなかったので割愛だにゃ｡他のRAIDとか､デバイス数との関係とかは皆さん頑張ってくれ給えよといった具合に｡
-RAMをブロックデバイスにしてSSDのキャッシュデバイスにするとかできるのかな､できたら楽しそう｡&lt;/p&gt;
-
-&lt;h3 id=&quot;bcacheについて&quot;&gt;Bcacheについて&lt;/h3&gt;
-
-&lt;p&gt;ファックです｡ベンチマーク自動化スクリプトの一番の障害だったのがBcacheです｡まぁ&lt;code&gt;make-bcache&lt;/code&gt;は許すよ｡うん｡
-でも解除の方法が適当なファイルに1やUUIDを書き込んで&lt;code&gt;wipefs&lt;/code&gt;でキレイにするというね､面倒｡
-うっかり変なファイルに書き込むとカーネルパニックしたりBcache作成時に何故かカーネルパニックしたり､お前なんでマージされたんだよ…｡&lt;/p&gt;
-
-&lt;h3 id=&quot;インターンについて&quot;&gt;インターンについて&lt;/h3&gt;
-
-&lt;p&gt;というわけでね､上記ともうひとつやったけどこれは成果0なので割愛｡&lt;/p&gt;
-
-&lt;p&gt;社員寮に1ヶ月住んで､休日は本を読んだり港へ行ったり山を登ったり､友人と静岡旅行したりとそれなりに楽しかったが､平日はつらかった｡
-寮なのになぜか社までバスで40分もかかるところに立地しており朝は0700くらいにおきる必要があった｡
-帰ってからもめぼしい飲食店はなく､唯一まともだった大勝軒ディストリビューションに行くか､あるいは近所の薬局で50%引きの食パンを食べては枕を濡らす日々だった｡&lt;/p&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;楽しいインターンの様子 &lt;a href=&quot;http://t.co/OJOVeTf32h&quot;&gt;pic.twitter.com/OJOVeTf32h&lt;/a&gt;&lt;/p&gt;&amp;mdash; びしょ～じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/639759336818933760&quot;&gt;September 4, 2015&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;ヤマノススメ 沼津アルプス &lt;a href=&quot;http://t.co/dBRAKs6mu3&quot;&gt;pic.twitter.com/dBRAKs6mu3&lt;/a&gt;&lt;/p&gt;&amp;mdash; びしょ～じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/642560500388130816&quot;&gt;September 12, 2015&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;浜松 &lt;a href=&quot;http://t.co/2zqTcTwM6t&quot;&gt;pic.twitter.com/2zqTcTwM6t&lt;/a&gt;&lt;/p&gt;&amp;mdash; びしょ～じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/646147815660392448&quot;&gt;September 22, 2015&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;ボクが配属された部署は社の中でもだいぶ特殊なようで､にわかに恐れていた挨拶をしないと殺されるとかそういう感じでは全く無くて安心した｡
-会社ではまぁ普通に｡先述の通りベンチマークを眺めながらだんだん意識が遠のき…とかカフェオレを飲みまくって腹を壊してトイレにこもるというのを日中何回もやったりしていた｡
-技術的な議論がよく聞こえてきて面白かった(小並感)｡
-最終日前日はもうやることがなくなったのでサーバールームや社員研修として社の概要や変遷を聞くコースなどに行き､京の1ノードや海底の光ケーブルなどを見た｡&lt;/p&gt;
-
-&lt;p&gt;インターンは他の営業所でも行われており､最終日は横浜でそのインターン生たちの成果発表会という感じで発表をした｡
-人数が70人くらい居たので､8人ほどのグループに分けられてその中で発表という形になった｡
-SEなどのみならず営業のインターンとかもあって､その発表では本当に圧倒的成長みたいな感じで…｢サークルにバイトがんばってます! 将来は自分に何ができるかを考えて､営業でお客様に笑顔を届けるのがry｣…正直聞いててげっそりした｡
-でもVirtuora NCでXMLで設計を書けばちょっとしたネットワークを簡単に作れるし監視などもできるしみたいな発表は面白かった｡Fujitsuの製品なのでメンターも気合が入っていたんだろう｡&lt;/p&gt;
-
-&lt;p&gt;で､沼津工場にはボクの他に2人いたわけだが､一人はOpenStack上に構築したブツをIronicを用いて物理マシンにスッと置くということをやっていた｡
-もう一人はDockerの調査でrunCとか調べてた｡&lt;/p&gt;
-
-&lt;p&gt;沼津編おわり&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h2 id=&quot;github-pagesとjekyll&quot;&gt;GitHub PagesとJekyll&lt;/h2&gt;
-
-&lt;p&gt;当サイトがね､うん｡&lt;/p&gt;
-
-&lt;p&gt;Jekyllのプラギンなどを用いてスマートに書きたいということで､&lt;a href=&quot;http://gosyujin.github.io/2013/05/21/jekyll-plugin-githubpages/&quot;&gt;こちら&lt;/a&gt;を参考にした｡
-それはよかったんだけど､&lt;a href=&quot;https://github.com/JoelSutherland/GitHub-jQuery-Repo-Widget&quot;&gt;GitHub jQuery Repo Widget&lt;/a&gt;がGoogle Chromeで見てみると表示されず…なんでや…｡&lt;/p&gt;
-
-&lt;div class=&quot;github-widget&quot; data-repo=&quot;JoelSutherland/GitHub-jQuery-Repo-Widget&quot;&gt;&lt;/div&gt;
-
-&lt;p&gt;早く世界中のブラウザがひとつになってほしい｡&lt;/p&gt;
-
-&lt;h3 id=&quot;追記&quot;&gt;追記&lt;/h3&gt;
-
-&lt;p&gt;これは&lt;a href=&quot;http://qiita.com/futoase/items/39cb4b7d704b1e53e7f6&quot;&gt;こういう&lt;/a&gt;ことです｡&lt;/p&gt;
-
-&lt;p&gt;追記おわり&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;シェル力極まってtmuxのステータスラインに表示するためのスクリプトとかも書きなおしてみたらパイプでつなぐなどするとワンライナーに収まったりして気持ちよかった(小並感)｡
-またちまちまと書いているMoonScriptのSyntastic向けのチェッカも2倍速になった(元がひどすぎたのもある)｡&lt;/p&gt;
-
-&lt;div class=&quot;github-widget&quot; data-repo=&quot;Nymphium/syntastic-moonscript&quot;&gt;&lt;/div&gt;
-
-&lt;p&gt;アイカツもいよいよ149話まで観たし本当に最高だった｡感極まって叫んだりして､同居していたインターン生のインディアン先輩には申し訳ないと思っている(おわり)｡&lt;/p&gt;
-</description>
-        <pubDate>Sat, 03 Oct 2015 00:00:00 +0900</pubDate>
-        <link>http://nymphium.github.io/2015/10/03/intern_andother.html</link>
-        <guid isPermaLink="true">http://nymphium.github.io/2015/10/03/intern_andother.html</guid>
-        
-        <category>雑感</category>
-        
-        <category>Linux</category>
-        
-        <category>sh</category>
         
         
       </item>
