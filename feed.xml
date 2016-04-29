@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>http://nymphium.github.io/</link>
     <atom:link href="http://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 25 Apr 2016 11:35:42 +0900</pubDate>
-    <lastBuildDate>Mon, 25 Apr 2016 11:35:42 +0900</lastBuildDate>
+    <pubDate>Fri, 29 Apr 2016 23:58:39 +0900</pubDate>
+    <lastBuildDate>Fri, 29 Apr 2016 23:58:39 +0900</lastBuildDate>
     <generator>Jekyll v3.0.3</generator>
     
       <item>
@@ -198,7 +198,7 @@ true    exit    0 # これは`os.execute()`の戻り値
 
 &lt;hr&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://connpass.com/event/30661/?utm_campaign=recent_events&amp;amp;utm_medium=atom&amp;amp;utm_source=feed&quot;&gt;Tsukuba.pm #3&lt;/a&gt;で話すことになりました｡
+&lt;p&gt;&lt;a href=&quot;http://connpass.com/event/30661/&quot;&gt;Tsukuba.pm #3&lt;/a&gt;で話すことになりました｡
 &lt;a href=&quot;https://twitter.com/VienosNotes&quot;&gt;@VienosNotes &lt;/a&gt;さんはボクがPerl書けないことは知ってるはずですが声をかけてもらったので､堂々とLuaについて話します｡よろしくお願いします｡&lt;/p&gt;
 </description>
         <pubDate>Mon, 25 Apr 2016 00:00:00 +0900</pubDate>
