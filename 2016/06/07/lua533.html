@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <title>Lua 5.3.3 release - 変更に&quot;python rule&quot;とありますが - &#47; lilyum ensemble</title>
+    <meta name="description" content="こんにちは､びしょ〜じょです｡イベントに複数行ったらお金がなくなりました｡">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://nymphium.github.io/2016/06/07/lua533.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Lua 5.3.3 release - 変更に"python rule"とありますが -</h1>
+            <span class="post-meta">
+              <time datetime="2016-06-07T00:00:00+09:00" itemprop="datePublished">Jun 7, 2016</time>
+              <p>tag: &#123;<a href="/tags.html#Lua-ref">Lua</a>&#125;</p>
+            </span>
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+            <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡イベントに複数行ったらお金がなくなりました｡</p>
+
+<hr>
+
+<h1 id="1-はじめに">1. はじめに</h1>
+
+<p>Lua 5.3.3がリリースされました｡</p>
+
+<p><a href="http://www.lua.org/work/diffu-lua-5.3.2-lua-5.3.3.html">diffu-lua-5.3.2-lua-5.3.3</a></p>
+
+<p>5.3.2からのアップデートなのでbug fix <em>だけ</em> かと思いきや…｡</p>
+
+<h1 id="2-new-semantics-for-empty-matches-quot-python-rule-quot">2. new semantics for empty matches (&quot;python rule&quot;)</h1>
+
+<p>Lua 5.3.3-rc1のリリースではこんな感じのことが書かれてました｡</p>
+
+<p><a href="http://lua-users.org/lists/lua-l/2016-05/msg00068.html">Re&#58; &#91;ANN&#93; Lua 5.3.3 &#40;rc1&#41; now available</a></p>
+
+<blockquote>
+<ul>
+<li>new semantics for empty matches (&quot;Python rule&quot;)</li>
+</ul>
+</blockquote>
+
+<p>なるほど｡ところで以下のようなコードを考える｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="k">for</span> <span class="n">k</span> <span class="k">in</span> <span class="p">(</span><span class="s2">"a,,b,c"</span><span class="p">):</span><span class="n">gmatch</span><span class="s2">"[^,]*"</span> <span class="k">do</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Lua5.3.2までは以下のようになる｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">$ lua
+Lua 5.3.2  Copyright (C) 1994-2015 Lua.org, PUC-Rio
+&gt; for k in ("a,,b,c"):gmatch"[^,]*" do
+&gt;   print(k)
+&gt; end
+a
+
+
+b
+
+c
+
+</code></pre></div>
+<p>さて､&quot;python rule&quot;なLua 5.3.3では｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">$ lua533
+Lua 5.3.3  Copyright (C) 1994-2016 Lua.org, PUC-Rio
+&gt; for k in ("a,,b,c"):gmatch"[^,]*" do
+&gt;   print(k)
+&gt; end
+a
+
+b
+c
+</code></pre></div>
+<p>文字通り､Lua 5.3.3ではempty matchにpython ruleを適用しているようですね｡</p>
+
+<h1 id="3-python-rule-is-何">3. python rule is 何</h1>
+
+<p>Pythonに明るくないので､python ruleがよくわからなかった｡検索してみても出てこなかったので､まぁ､&quot;empty matchはPythonでのように扱われる&quot;という話です｡</p>
+
+<p>いやPython知らんのでどうなるか分からんのだが｡</p>
+
+<h2 id="3-1-case1-gmatch">3-1. case1: gmatch</h2>
+
+<p>ということで上記を見てみます｡
+<code>&quot;a,,b,c&quot;</code>に<code>gmatch()</code>で<code>&quot;[^,]*&quot;</code>にマッチする文字列を次々取り出すファクトリー(イテレーター)となり､<code>k</code>に値を渡して出力していく｡</p>
+
+<h3 id="3-1-1-before-533">3-1-1. before 533</h3>
+
+<ol>
+<li><code>&quot;a,,b,c&quot;</code>を見ていき､<code>&quot;a&quot;</code>にマッチし､出力します｡</li>
+<li><code>&quot;,,b,c&quot;</code>を見ていき､マッチしないので<em><code>k</code>に<code>&quot;&quot;</code>を渡し</em>､長さ0の文字列を出力します｡</li>
+<li><code>&quot;,b,c&quot;</code>を見ていき､同上</li>
+<li><code>&quot;b,c&quot;</code>を見ていき､<code>&quot;b&quot;</code>にマッチするので略</li>
+<li><code>&quot;,c&quot;</code>を見ていき､0 length</li>
+<li><code>&quot;c&quot;</code>を見ていき略</li>
+<li><code>&quot;&quot;</code>を見ていき､マッチしないので0len出力</li>
+<li>ファクトリーが全てを消費したので<code>for</code>ループが終了｡</li>
+</ol>
+
+<h3 id="3-1-2-after-533">3-1-2. after 533</h3>
+
+<p>操作自体は同じだが…｡</p>
+
+<ol>
+<li><code>&quot;a,,b,c&quot;</code>を見ていき､<code>&quot;a&quot;</code>にマッチし､出力｡</li>
+<li>(?) <code>&quot;,,b,c&quot;</code>を見ていき､<code>&quot;&quot;</code>を出力?</li>
+<li>(?) <code>&quot;,b,c&quot;</code>を見ていき何もしない?</li>
+<li><code>&quot;b,c&quot;</code>を見ていき､<code>&quot;b&quot;</code></li>
+<li>(?) <code>&quot;,c&quot;</code>を見ていき､マッチしないので何もしない…?</li>
+<li><code>&quot;c&quot;</code>を見ていき､<code>&quot;c&quot;</code>を出力</li>
+<li>(?) <code>&quot;&quot;</code> を見ていき…??</li>
+<li><code>for</code>終了</li>
+</ol>
+
+<p><strong><em>よくわからないですね!!</em></strong> もすうこし見てみます｡</p>
+
+<h2 id="3-2-case2-gsub">3-2. case2: gsub</h2>
+
+<p>置換してみます｡こんな感じ｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">print</span><span class="p">((</span><span class="s2">"a12b3c"</span><span class="p">):</span><span class="n">gsub</span><span class="p">(</span><span class="s2">"[^0-9]*"</span><span class="p">,</span> <span class="s2">"X"</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="3-2-1-before-533">3-2-1. before 533</h3>
+
+<p>まず､以下の結果が得られる｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">$ lua
+Lua 5.3.2  Copyright (C) 1994-2015 Lua.org, PUC-Rio
+&gt; print(("a12b3c"):gsub("[^0-9]*", "X"))
+XX1X2XX3XX      7
+</code></pre></div>
+<h3 id="3-2-2-after-533">3-2-2. after 533</h3>
+<div class="highlight"><pre><code class="language-" data-lang="">$ lua533
+Lua 5.3.3  Copyright (C) 1994-2016 Lua.org, PUC-Rio
+&gt; print(("a12b3c"):gsub("[^0-9]*", "X"))
+X1X2X3X 4
+</code></pre></div>
+<p>どちらも <strong><em>よくわからないですね!!</em></strong></p>
+
+<h1 id="4-おわりに">4. おわりに</h1>
+
+<p>メーリングリストでもこの変更に関しては&quot;Lua 5.4でやれ&quot;という意見もあったんですがリリースしてしまいましたね｡
+みなさん気をつけてください｡ボクは今月お金がないので食費に気をつけます｡</p>
+
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center">
+        <a class="btn prev" href="/2016/05/16/luatable.html" title="Luaのtableについて">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <a class="btn next" href="/2016/06/11/%E4%BB%8A%E6%97%A5%E3%81%AFSB69%E3%81%AE%E6%97%A5.html" title="今日はSB69の日">Next &rarr;</a>
+      </div>
+    </footer>
+
+  </body>
+</html>

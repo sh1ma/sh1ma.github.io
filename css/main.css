@@ -90,24 +90,19 @@ h1, h2, h3, h4, h5, h6 {
 article header {
   background: rgba(166, 200, 212, 0.3);
   padding: 0pt 20pt 5pt 20pt; }
-article .post-content[itemprop="articleBody"] {
-  margin-bottom: -2rem; }
-  article .post-content[itemprop="articleBody"] h1 {
-    border-bottom: solid 3px #eee;
-    margin-top: 2rem; }
-  article .post-content[itemprop="articleBody"] h2 {
-    border-bottom: solid 2px #eee;
-    margin-top: 2rem; }
-  article .post-content[itemprop="articleBody"] h3, article .post-content[itemprop="articleBody"] h4, article .post-content[itemprop="articleBody"] h5, article .post-content[itemprop="articleBody"] h6 {
-    border-bottom: solid 1px #eee;
-    margin-top: 1rem; }
+article .post-content[itemprop="articleBody"] h1 {
+  border-bottom: solid 3px #eee;
+  margin-top: 2rem; }
+article .post-content[itemprop="articleBody"] h2 {
+  border-bottom: solid 2px #eee;
+  margin-top: 2rem; }
+article .post-content[itemprop="articleBody"] h3, article .post-content[itemprop="articleBody"] h4, article .post-content[itemprop="articleBody"] h5, article .post-content[itemprop="articleBody"] h6 {
+  border-bottom: solid 1px #eee;
+  margin-top: 1rem; }
 
 .github-widget {
   margin-top: 1rem;
   margin-bottom: 1rem; }
-
-div.pagination.btn-group {
-  padding-top: 3rem; }
 
 code {
   margin: 0px 5px 0px 5px; }
@@ -179,7 +174,7 @@ pre {
 /**
  * Clearfix
  */
-.wrapper:after, .footer-col-wrapper:after {
+.wrapper:after {
   content: "";
   display: table;
   clear: both; }
@@ -196,127 +191,14 @@ pre {
     fill: #828282; }
 
 /**
- * Site header
- */
-.site-header {
-  /* border-top: 5px solid $grey-color-dark; */
-  border-bottom: 1px solid #e8e8e8;
-  min-height: 56px;
-  position: relative; }
-
-.site-title {
-  font-size: 26px;
-  font-weight: 300;
-  line-height: 56px;
-  letter-spacing: -1px;
-  margin-bottom: 0;
-  float: left; }
-  .site-title, .site-title:visited {
-    color: #424242; }
-
-.site-nav {
-  float: right;
-  line-height: 56px; }
-  .site-nav .menu-icon {
-    display: none; }
-  .site-nav .page-link {
-    color: #2b2e2f;
-    line-height: 1.5; }
-    .site-nav .page-link:not(:last-child) {
-      margin-right: 20px; }
-  @media screen and (max-width: 600px) {
-    .site-nav {
-      position: absolute;
-      top: 9px;
-      right: 15px;
-      background-color: #cddee3;
-      border: 1px solid #e8e8e8;
-      border-radius: 5px;
-      text-align: right;
-      /* .trigger { */
-      /* clear: both; */
-      /* display: none; */
-      /* } */ }
-      .site-nav .menu-icon {
-        display: block;
-        float: right;
-        width: 36px;
-        height: 26px;
-        line-height: 0;
-        padding-top: 10px;
-        text-align: center; }
-        .site-nav .menu-icon > svg {
-          width: 18px;
-          height: 15px; }
-          .site-nav .menu-icon > svg path {
-            fill: #424242; }
-      .site-nav:hover .trigger {
-        display: block;
-        padding-bottom: 5px; }
-      .site-nav .page-link {
-        display: block;
-        padding: 5px 10px;
-        margin-left: 20px; }
-        .site-nav .page-link:not(:last-child) {
-          margin-right: 0; } }
-
-/**
- * Site footer
- */
-.site-footer {
-  border-top: 1px solid #e8e8e8;
-  padding: 30px 0; }
-
-.footer-heading {
-  font-size: 18px;
-  margin-bottom: 15px; }
-
-.contact-list,
-.social-media-list {
-  list-style: none;
-  margin-left: 0; }
-
-.footer-col-wrapper {
-  font-size: 15px;
-  color: #828282;
-  margin-left: -15px; }
-
-.footer-col {
-  float: left;
-  margin-bottom: 15px;
-  padding-left: 15px; }
-
-.footer-col-1 {
-  width: -webkit-calc(35% - (30px / 2));
-  width: calc(35% - (30px / 2)); }
-
-.footer-col-2 {
-  width: -webkit-calc(20% - (30px / 2));
-  width: calc(20% - (30px / 2)); }
-
-.footer-col-3 {
-  width: -webkit-calc(45% - (30px / 2));
-  width: calc(45% - (30px / 2)); }
-
-@media screen and (max-width: 800px) {
-  .footer-col-1,
-  .footer-col-2 {
-    width: -webkit-calc(50% - (30px / 2));
-    width: calc(50% - (30px / 2)); }
-
-  .footer-col-3 {
-    width: -webkit-calc(100% - (30px / 2));
-    width: calc(100% - (30px / 2)); } }
-@media screen and (max-width: 600px) {
-  .footer-col {
-    float: none;
-    width: -webkit-calc(100% - (30px / 2));
-    width: calc(100% - (30px / 2)); } }
-/**
  * Page content
  */
 .page-content {
-  padding: 30px 0; }
+  padding: 30px 0;
+  padding-top: 56pt; }
+  @media screen and (max-width: 600px) {
+    .page-content {
+      padding-top: 65pt; } }
 
 .page-heading {
   font-size: 20px; }
@@ -655,3 +537,67 @@ code {
   color: #2AA198; }
 
 /* Literal.Number.Integer.Long */
+.site-header {
+  border-bottom: 1px solid #e8e8e8;
+  min-height: 56px;
+  position: fixed;
+  background: rgba(190, 220, 223, 0.8);
+  width: 100%;
+  z-index: 10; }
+  @media screen and (max-width: 600px) {
+    .site-header {
+      height: 68px; }
+      .site-header .site-title {
+        margin-top: 8px; } }
+
+.site-title {
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 56px;
+  letter-spacing: -1px;
+  margin-bottom: 0;
+  float: left;
+  white-space: nowrap; }
+  .site-title, .site-title:visited {
+    color: #424242; }
+
+.site-nav {
+  float: right;
+  line-height: 56px; }
+  .site-nav .menu-icon {
+    display: none; }
+  .site-nav .page-link {
+    color: #2b2e2f;
+    line-height: 1.5; }
+    .site-nav .page-link:not(:last-child) {
+      margin-right: 20px; }
+  @media screen and (max-width: 600px) {
+    .site-nav {
+      position: absolute;
+      right: 0;
+      background: 0, 0, 0, 0;
+      border-left: 1px solid #e8e8e8;
+      text-align: right; }
+      .site-nav:hover .trigger {
+        display: block;
+        padding-bottom: 5px; }
+      .site-nav .page-link {
+        display: block;
+        padding: 5px 10px;
+        margin-left: 10px;
+        margin-right: 10px; }
+        .site-nav .page-link:not(:last-child) {
+          margin-right: 0; } }
+
+.pagination.btn-group {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(190, 220, 223, 0.8);
+  padding-bottom: 1rem;
+  border-top: 1px solid #e8e8e8; }
+  @media screen and (max-width: 600px) {
+    .pagination.btn-group {
+      padding-bottom: 0; } }
