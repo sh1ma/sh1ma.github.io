@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PFDS in Typed Racket その1 &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="PFDS in Typed Racket その1">
+    <meta name="twitter:title" content="PFDS in Typed Racket その1"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2017/05/22/pfds2.html"> 
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="https://nymphium.github.io/2017/05/22/pfds2.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">PFDS in Typed Racket その1</h1>
+            <span class="post-meta">
+              <time datetime="2017-05-22T00:00:00+09:00" itemprop="datePublished">May 22, 2017</time>
+              <p>tag: &#123;<a href="/tags.html#Typed Racket-ref">Typed Racket</a>, <a href="/tags.html#pfds-ref">pfds</a>&#125;</p>
+            </span>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
+});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡では､今週<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>のハイライトです｡</p>
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">ノートpcを修理に出したら10日くらい音沙汰なかった挙句修理費見積もりが本体価格より3万くらい高くて完全にバカにしてきてるなlenovo､はよ死んでくれ…｡</p>&mdash; びしょ～じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/864414018890416129">May 16, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">研究室からマッキブックproを拝借する運びとなった。</p>&mdash; びしょ～じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/865115649957175296">May 18, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>本を買ってもらったりノートpcを貸してもらったりして､研究室はどんどん利用していきたいですね｡</p>
+
+<hr>
+
+<h1 id="1">1. はじめに</h1>
+
+<p>『Purely Functional Data Structures』<sup id="fnref2"><a href="#fn2" rel="footnote">2</a></sup>(以降､&quot;PFDS&quot;と省略する)という本の邦訳版が出ました｡
+名著とのことで､また読める位置にも原著があったが結局読んでこなかったが､この度ジャパニーズで読めてしまう以上は読んでおきたいと思い､購入に至りました｡</p>
+
+<p>さて､PFDSに記述されている例はすべてStandard MLで書かれている｡
+邦訳したkinabaさんによる<a href="http://topcoder.g.hatena.ne.jp/cafelier/20170428/1493389565">SMLの解説</a>もある｡</p>
+
+<p>(中略)</p>
+
+<p>せっかくなのでTyped Racketで実装していってみたい｡
+本にも｢schemeによる実装も容易｣と書かれているように､Racketでも伝統的な<code>car</code>や<code>cdr</code>…といった関数がある｡
+しかし残念ながらMLのmodule systemやHaskellの型クラスに相当するものはない｡
+core RacketにもMLとは別のmodule systemがあるため､マクロ展開時にmodule importをcontractで制御できればいい感じになるんちゃうかと思うんですが､皆さんへの課題とします｡
+parametric contractをrequire/contractに噛ませるといいんですかね｡適当言ってます｡</p>
+
+<h1 id="2">2. 永続性 ー リスト､スタック､二分探索木</h1>
+
+<h2 id="2-1">2-1. リスト</h2>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="o">#</span><span class="nv">lang</span> <span class="nv">typed/racket</span>
+<span class="c1">; list.rkt</span>
+
+<span class="p">(</span><span class="k">require</span> <span class="nv">racket/match</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">provide</span> <span class="p">(</span><span class="nf">all-defined-out</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">define-type</span> <span class="p">{</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">}</span> <span class="p">(</span><span class="nf">U</span>
+                          <span class="nv">Empty</span>
+                          <span class="p">(</span><span class="nf">Cons</span> <span class="nv">A</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nf">struct</span> <span class="nv">Empty</span> <span class="p">()</span> <span class="nt">#:transparent</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">struct</span> <span class="p">{</span><span class="nf">A</span> <span class="nv">_</span><span class="p">}</span> <span class="nv">Cons</span> <span class="p">([</span><span class="nf">x</span> <span class="nv">:</span> <span class="nv">A</span><span class="p">]</span> <span class="p">[</span><span class="nf">xs</span> <span class="nv">:</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">)])</span> <span class="nt">#:transparent</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">raise-empty-stack</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">raise</span> <span class="ss">'Empty-MyList</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">:</span> <span class="nv">empty</span> <span class="nv">Empty</span><span class="p">)</span>
+<span class="p">(</span><span class="k">define</span> <span class="nv">empty</span> <span class="p">(</span><span class="nf">Empty</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">:</span> <span class="nv">isEmpty</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">Any</span><span class="p">)</span> <span class="nv">Boolean</span><span class="p">))</span>
+<span class="p">(</span><span class="k">define</span> <span class="nv">isEmpty</span>
+  <span class="p">(</span><span class="nf">match-lambda</span>
+    <span class="p">[(</span><span class="nf">Empty</span><span class="p">)</span> <span class="no">#t</span><span class="p">]</span>
+    <span class="p">[</span><span class="nf">_</span> <span class="no">#f</span><span class="p">]))</span>
+
+<span class="p">(</span><span class="nf">:</span> <span class="nv">cons</span> <span class="p">(</span><span class="nf">All</span> <span class="p">{</span><span class="nf">A</span><span class="p">}</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">A</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">))))</span>
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nb">cons</span> <span class="nv">a</span> <span class="nv">s</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">Cons</span> <span class="nv">a</span> <span class="nv">s</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">:</span> <span class="nv">head</span> <span class="p">(</span><span class="nf">All</span> <span class="p">{</span><span class="nf">A</span><span class="p">}</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">)</span> <span class="nv">A</span><span class="p">)))</span>
+<span class="p">(</span><span class="k">define</span> <span class="nv">head</span>
+  <span class="p">(</span><span class="nf">match-lambda</span>
+    <span class="p">[(</span><span class="nf">Empty</span><span class="p">)</span> <span class="p">(</span><span class="nf">raise-empty-stack</span><span class="p">)]</span>
+    <span class="p">[(</span><span class="nf">Cons</span> <span class="nv">a</span> <span class="nv">_</span><span class="p">)</span> <span class="nv">a</span><span class="p">]))</span>
+
+<span class="p">(</span><span class="nf">:</span> <span class="nv">tail</span> <span class="p">(</span><span class="nf">All</span> <span class="p">{</span><span class="nf">A</span><span class="p">}</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">))))</span>
+<span class="p">(</span><span class="k">define</span> <span class="nv">tail</span>
+  <span class="p">(</span><span class="nf">match-lambda</span>
+    <span class="p">[(</span><span class="nf">Empty</span><span class="p">)</span> <span class="p">(</span><span class="nf">raise-empty-stack</span><span class="p">)]</span>
+    <span class="p">[(</span><span class="nf">Cons</span> <span class="nv">_</span> <span class="nv">s-</span><span class="p">)</span> <span class="nv">s-</span><span class="p">]))</span>
+
+<span class="p">(</span><span class="nf">:</span> <span class="nv">++</span> <span class="p">(</span><span class="nf">All</span> <span class="p">{</span><span class="nf">A</span><span class="p">}</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">))))</span>
+<span class="p">(</span><span class="nf">define/match</span> <span class="p">(</span><span class="nf">++</span> <span class="nv">xs</span> <span class="nv">ys</span><span class="p">)</span>
+  <span class="p">[((</span><span class="nf">Empty</span><span class="p">)</span> <span class="nv">_</span><span class="p">)</span> <span class="nv">ys</span><span class="p">]</span>
+  <span class="p">[((</span><span class="nf">Cons</span> <span class="nv">x</span> <span class="nv">xsr</span><span class="p">)</span> <span class="nv">_</span><span class="p">)</span> <span class="p">(</span><span class="nb">cons</span> <span class="nv">x</span> <span class="p">(</span><span class="nf">++</span> <span class="nv">xsr</span> <span class="nv">ys</span><span class="p">))])</span>
+
+<span class="p">(</span><span class="nf">:</span> <span class="nv">update</span> <span class="p">(</span><span class="nf">All</span> <span class="p">{</span><span class="nf">A</span><span class="p">}</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">)</span> <span class="nv">Integer</span> <span class="nv">A</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">))))</span>
+<span class="p">(</span><span class="nf">define/match</span> <span class="p">(</span><span class="nf">update</span> <span class="nv">xs</span> <span class="nv">i</span> <span class="nv">y</span><span class="p">)</span>
+  <span class="p">[((</span><span class="nf">Empty</span><span class="p">)</span> <span class="nv">_</span> <span class="nv">_</span><span class="p">)</span> <span class="p">(</span><span class="nf">raise-empty-stack</span><span class="p">)]</span>
+  <span class="p">[((</span><span class="nf">Cons</span> <span class="nv">_</span> <span class="nv">xsr</span><span class="p">)</span> <span class="mi">0</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nf">Cons</span> <span class="nv">y</span> <span class="nv">xsr</span><span class="p">)]</span>
+  <span class="p">[((</span><span class="nf">Cons</span> <span class="nv">x</span> <span class="nv">xsr</span><span class="p">)</span> <span class="nv">i</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nf">Cons</span> <span class="nv">x</span> <span class="p">(</span><span class="nf">update</span> <span class="nv">xsr</span> <span class="p">(</span><span class="nb">sub1</span> <span class="nv">i</span><span class="p">)</span> <span class="nv">y</span><span class="p">))])</span>
+</code></pre></div>
+<p>なるほど｡いろいろなパターンマッチの方法がある以外あまり見どころはないですね｡</p>
+
+<h3 id="2-1">演習2.1</h3>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">suffixes</span> <span class="p">(</span><span class="nf">All</span> <span class="p">{</span><span class="nf">A</span><span class="p">}</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">MyList</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">)))))</span>
+<span class="p">(</span><span class="nf">define/match</span> <span class="p">(</span><span class="nf">suffixes</span> <span class="nv">xs</span><span class="p">)</span>
+  <span class="p">[((</span><span class="nf">Empty</span><span class="p">))</span> <span class="nv">empty</span><span class="p">]</span>
+  <span class="p">[((</span><span class="nf">Cons</span> <span class="nv">_</span> <span class="nv">xsr</span><span class="p">))</span> <span class="p">(</span><span class="nb">cons</span> <span class="nv">xs</span> <span class="p">(</span><span class="nf">suffixes</span> <span class="nv">xsr</span><span class="p">))])</span>
+</code></pre></div>
+<p>リストの先頭を消費して残りを再帰的に適用していくので､リストの長さ\(n\)に対して\(O(n)\)｡</p>
+
+<h2 id="2-2">2-2. 二分探索木</h2>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="o">#</span><span class="nv">lang</span> <span class="nv">typed/racket</span>
+<span class="c1">; binsearchtree.rkt</span>
+
+<span class="p">(</span><span class="k">require</span> <span class="nv">racket/match</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">provide</span> <span class="p">(</span><span class="nf">all-defined-out</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">struct</span> <span class="nv">Empty</span> <span class="p">()</span> <span class="nt">#:transparent</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">struct</span> <span class="p">{</span><span class="nf">T</span> <span class="nv">E</span> <span class="nv">T</span><span class="p">}</span> <span class="nv">Node</span> <span class="p">([</span><span class="nf">left</span> <span class="nv">:</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">E</span><span class="p">)]</span> <span class="p">[</span><span class="nf">val</span> <span class="nv">:</span> <span class="nv">E</span><span class="p">]</span> <span class="p">[</span><span class="nf">right</span> <span class="nv">:</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">E</span><span class="p">)])</span> <span class="nt">#:transparent</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">define-type</span> <span class="p">{</span><span class="nf">Tree</span> <span class="nv">Elem</span><span class="p">}</span> <span class="p">(</span><span class="nf">U</span>
+                           <span class="nv">Empty</span>
+                           <span class="p">(</span><span class="nf">Node</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Elem</span><span class="p">)</span> <span class="nv">Elem</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Elem</span><span class="p">))</span>
+                           <span class="p">))</span>
+
+<span class="p">(</span><span class="nf">:</span> <span class="nv">member</span>  <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="nv">Boolean</span><span class="p">))</span>
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nb">member</span> <span class="nv">a</span> <span class="nv">t</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">match</span> <span class="nv">t</span>
+    <span class="p">[(</span><span class="nf">Empty</span><span class="p">)</span> <span class="no">#f</span><span class="p">]</span>
+    <span class="p">[(</span><span class="nf">Node</span> <span class="nv">l</span> <span class="nv">v</span> <span class="nv">r</span><span class="p">)</span>
+     <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">v</span> <span class="nv">a</span><span class="p">)</span>
+       <span class="p">(</span><span class="nb">member</span> <span class="nv">a</span> <span class="nv">l</span><span class="p">)</span>
+       <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="nv">v</span> <span class="nv">a</span><span class="p">)</span>
+         <span class="p">(</span><span class="nb">member</span> <span class="nv">a</span> <span class="nv">r</span><span class="p">)</span>
+         <span class="no">#t</span><span class="p">))]))</span>
+
+<span class="p">(</span><span class="nf">:</span> <span class="nv">insert</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)))</span>
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">insert</span> <span class="nv">a</span> <span class="nv">t</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">match</span> <span class="nv">t</span>
+    <span class="p">[(</span><span class="nf">Empty</span><span class="p">)</span> <span class="p">(</span><span class="nf">Node</span> <span class="p">(</span><span class="nf">Empty</span><span class="p">)</span> <span class="nv">a</span> <span class="p">(</span><span class="nf">Empty</span><span class="p">))]</span>
+    <span class="p">[(</span><span class="nf">Node</span> <span class="nv">l</span> <span class="nv">v</span> <span class="nv">r</span><span class="p">)</span>
+     <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">v</span> <span class="nv">a</span><span class="p">)</span>
+       <span class="p">(</span><span class="nf">Node</span> <span class="p">(</span><span class="nf">insert</span> <span class="nv">a</span> <span class="nv">l</span><span class="p">)</span> <span class="nv">v</span> <span class="nv">r</span><span class="p">)</span>
+       <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">v</span> <span class="nv">a</span><span class="p">)</span>
+         <span class="p">(</span><span class="nf">Node</span> <span class="nv">l</span> <span class="nv">v</span> <span class="p">(</span><span class="nf">insert</span> <span class="nv">a</span> <span class="nv">r</span><span class="p">))</span>
+         <span class="nv">t</span><span class="p">))]))</span>
+</code></pre></div>
+<p><code>(Tree Real)</code>しか使えないのはやはり厳しいですね｡モジュールや型クラスを用いずに<code>&gt;</code>などを持つ型<code>A</code>といった感じのものを定めるには…｡</p>
+
+<h3 id="2-2-1-member">演習2.2 ノードの値の比較回数が(木の深さ+1)に収まる<code>member</code></h3>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">member2</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="nv">Boolean</span><span class="p">))</span>
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">member2</span> <span class="nv">a</span> <span class="nv">t</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">:</span> <span class="nv">member2-impl</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="nv">Real</span> <span class="nv">Boolean</span><span class="p">))</span>
+  <span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">member2-impl</span> <span class="nv">a</span> <span class="nv">t</span> <span class="nv">c</span><span class="p">)</span>
+   <span class="p">(</span><span class="nf">match</span> <span class="nv">t</span>
+    <span class="p">[(</span><span class="nf">Empty</span><span class="p">)</span> <span class="p">(</span><span class="nb">eq?</span> <span class="nv">a</span> <span class="nv">c</span><span class="p">)]</span>
+    <span class="p">[(</span><span class="nf">Node</span> <span class="nv">l</span> <span class="nv">v</span> <span class="nv">r</span><span class="p">)</span>
+     <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="nv">a</span> <span class="nv">v</span><span class="p">)</span>
+       <span class="p">(</span><span class="nf">member2-impl</span> <span class="nv">a</span> <span class="nv">l</span> <span class="nv">c</span><span class="p">)</span>
+       <span class="p">(</span><span class="nf">member2-impl</span> <span class="nv">a</span> <span class="nv">r</span> <span class="nv">v</span><span class="p">))]))</span>
+
+  <span class="p">(</span><span class="nf">member2-impl</span> <span class="nv">a</span> <span class="nv">t</span> <span class="mi">0</span><span class="p">))</span>
+</code></pre></div>
+<p>比較したノードの値をキャッシュとして持っていって､木の底についたらキャッシュした値との比較の結果を返します｡
+キャッシュの初期値に0を与えているけどいいのかな､わからん｡</p>
+
+<h3 id="2-3-a-insert">演習2.3 すでに木の中に要素<code>a</code>がある場合はノードのコピーをしない<code>insert</code></h3>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">insert2</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)))</span>
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">insert2</span> <span class="nv">a</span> <span class="nv">tx</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">:</span> <span class="nv">insert2-impl</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">))</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)))</span>
+  <span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">insert2-impl</span> <span class="nv">a</span> <span class="nv">t</span> <span class="nv">k</span><span class="p">)</span>
+    <span class="p">(</span><span class="nf">match</span> <span class="nv">t</span>
+      <span class="p">[(</span><span class="nf">Empty</span><span class="p">)</span> <span class="p">(</span><span class="nf">Node</span> <span class="p">(</span><span class="nf">Empty</span><span class="p">)</span> <span class="nv">a</span> <span class="p">(</span><span class="nf">Empty</span><span class="p">))]</span>
+      <span class="p">[(</span><span class="nf">Node</span> <span class="nv">l</span> <span class="nv">v</span> <span class="nv">r</span><span class="p">)</span>
+       <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">v</span> <span class="nv">a</span><span class="p">)</span>
+         <span class="p">(</span><span class="nf">Node</span> <span class="p">(</span><span class="nf">insert2-impl</span> <span class="nv">a</span> <span class="nv">l</span> <span class="nv">k</span><span class="p">)</span> <span class="nv">v</span> <span class="nv">r</span><span class="p">)</span>
+         <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="nv">v</span> <span class="nv">a</span><span class="p">)</span>
+           <span class="p">(</span><span class="nf">Node</span> <span class="nv">l</span> <span class="nv">v</span> <span class="p">(</span><span class="nf">insert2-impl</span> <span class="nv">a</span> <span class="nv">r</span> <span class="nv">k</span><span class="p">))</span>
+           <span class="p">(</span><span class="nf">k</span> <span class="nv">tx</span><span class="p">)))]))</span>
+
+    <span class="p">(</span><span class="nb">call/cc</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">([</span><span class="nf">k</span> <span class="nv">:</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">))</span> <span class="p">])</span> <span class="p">(</span><span class="nf">insert2-impl</span> <span class="nv">a</span> <span class="nv">tx</span> <span class="nv">k</span><span class="p">))))</span>
+</code></pre></div>
+<p>Blood of schemeということでcall/ccを使ってみました｡雑だ｡
+もともとは例外飛ばしていけとのことなので､例外キャッチして元の値を返すなどでOKでしょう｡</p>
+
+<h3 id="2-4-2-2-2-3-1-a-insert">演習2.4 演習2.2と2.3の融合 ノードの値の比較回数が(木の深さ+1)に収まる､すでに木の中に要素<code>a</code>がある場合はノードのコピーをしない<code>insert</code></h3>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">insert3</span> <span class="p">(</span><span class="nf">All</span> <span class="p">{</span><span class="nf">A</span><span class="p">}</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">))))</span>
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">insert3</span> <span class="nv">a</span> <span class="nv">tx</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">:</span> <span class="nv">insert3-impl</span> <span class="p">(</span><span class="nf">All</span> <span class="p">{</span><span class="nf">All</span><span class="p">}</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">))</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">))))</span>
+  <span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">insert3-impl</span> <span class="nv">a</span> <span class="nv">t</span> <span class="nv">c</span> <span class="nv">k</span><span class="p">)</span>
+    <span class="p">(</span><span class="nf">match</span> <span class="nv">t</span>
+      <span class="p">[(</span><span class="nf">Empty</span><span class="p">)</span>
+       <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">eq?</span> <span class="nv">a</span> <span class="nv">c</span><span class="p">)</span>
+         <span class="p">(</span><span class="nf">k</span> <span class="nv">tx</span><span class="p">)</span>
+         <span class="p">(</span><span class="nf">Node</span> <span class="p">(</span><span class="nf">Empty</span><span class="p">)</span> <span class="nv">a</span> <span class="p">(</span><span class="nf">Empty</span><span class="p">)))]</span>
+      <span class="p">[(</span><span class="nf">Node</span> <span class="nv">l</span> <span class="nv">v</span> <span class="nv">r</span><span class="p">)</span>
+       <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="nv">a</span> <span class="nv">v</span><span class="p">)</span>
+         <span class="p">(</span><span class="nf">Node</span> <span class="p">(</span><span class="nf">insert3-impl</span> <span class="nv">a</span> <span class="nv">l</span> <span class="nv">v</span> <span class="nv">k</span><span class="p">)</span> <span class="nv">v</span> <span class="nv">r</span><span class="p">)</span>
+         <span class="p">(</span><span class="nf">Node</span> <span class="nv">l</span> <span class="nv">v</span> <span class="p">(</span><span class="nf">insert3-impl</span> <span class="nv">a</span> <span class="nv">r</span> <span class="nv">v</span> <span class="nv">k</span><span class="p">)))]))</span>
+
+  <span class="p">(</span><span class="nb">call/cc</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">([</span><span class="nf">k</span> <span class="nv">:</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">))])</span> <span class="p">(</span><span class="nf">insert3-impl</span> <span class="nv">a</span> <span class="nv">tx</span> <span class="mi">0</span> <span class="nv">k</span><span class="p">))))</span>
+</code></pre></div>
+<p><code>member2</code>のように底までキャッシュを引き回して､底に来たときに比較してあるやんけ! となれば最初に受け取った引数の木を継続に渡して脱出します｡やったか…!?</p>
+
+<h3 id="2-5">演習2.5</h3>
+
+<h4 id="1-x-d">(1) すべてのノードに<code>x</code>が格納された､深さ<code>d</code>の完全二分木ジェネレーター</h4>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">complete</span> <span class="p">(</span><span class="nf">All</span> <span class="p">{</span><span class="nf">A</span><span class="p">}</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">A</span> <span class="nv">Integer</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">A</span><span class="p">))))</span>
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">complete</span> <span class="nv">x</span> <span class="nv">n</span><span class="p">)</span>
+<span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">=</span> <span class="nv">n</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">Empty</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nf">subt</span> <span class="p">(</span><span class="nf">complete</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">sub1</span> <span class="nv">n</span><span class="p">))))</span>
+    <span class="p">(</span><span class="nf">Node</span> <span class="nv">subt</span> <span class="nv">x</span> <span class="nv">subt</span><span class="p">))))</span>
+</code></pre></div>
+<p>深さ<code>d</code>に対して線形に動作するので､\(O(d)\)｡</p>
+
+<p>はい｡</p>
+
+<h4 id="2">(2) 任意のサイズの平衡木ジェネレーター</h4>
+
+<p>よくわからん</p>
+
+<h3 id="2-6">演習2.6</h3>
+
+<p>ファンクターに相当する機能なし</p>
+
+<h1 id="3">3. おわりに</h1>
+
+<p>Typed RacketはuntypedだったRacketの資産も活用してうまくやっていこうというGradual typingなのであんまり強くないね､というのを再確認しました｡
+Typed LuaやFlowtype､Pythonの型アノテーション､といった型の面々…</p>
+
+<hr>
+
+<h1 id="part-a08237e8bb632c1">今週の百合コーナー</h1>
+
+<p>『コレクターズ』が本当にやばかった｡『となりのロボット』を書き上げる西UKO先生ですからね､最高や｡</p>
+
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>19日からだらだら書いているので､本記事の中で時空の歪みが生じている｡よって宇宙人は存在する｡&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn2">
+<p><a href="https://www.amazon.co.jp/Purely-Fun-Structures-Chris-Okasaki/dp/0521663504/">原著</a>と<a href="https://www.amazon.co.jp/gp/product/4048930567/">邦訳版</a>&nbsp;<a href="#fnref2" rev="footnote">&#8617;</a></p>
+</li>
+
+</ol>
+</div>
+
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2017/04/05/5th.html" title="5年次､Typed Racket">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <span class="btn next disabled">Next &rarr;</span>
+      </div>
+    </footer>
+
+  </body>
+</html>

@@ -59,9 +59,14 @@ ul, ol, dl, figure {
 /**
  * Images
  */
-img {
+img:not(.emoji) {
   max-width: 100%;
-  vertical-align: middle; }
+  vertical-align: middle;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem; }
 
 /**
  * Figures
@@ -100,6 +105,10 @@ article .post-content[itemprop="articleBody"] {
   border-radius: 5px;
   padding: 5px 20px 30px 20px;
   margin-top: -10px; }
+  @media screen and (max-width: 600px) {
+    article .post-content[itemprop="articleBody"] {
+      padding: 5px 12px 30px 12px;
+      border-style: none; } }
   article .post-content[itemprop="articleBody"] h1:not(:first-child) {
     border-bottom: solid 3px #eee;
     margin-top: 2rem; }
@@ -191,6 +200,12 @@ pre {
   vertical-align: middle; }
   .icon > svg path {
     fill: #828282; }
+
+/**
+ * Footnote
+ */
+.footnotes p {
+  margin-bottom: 3pt; }
 
 /**
  * Page content
@@ -478,9 +493,7 @@ code {
   z-index: 10; }
   @media screen and (max-width: 600px) {
     .site-header {
-      height: 68px; }
-      .site-header .site-title {
-        margin-top: 8px; } }
+      height: 56px; } }
 
 .site-title {
   font-size: 26px;
@@ -490,6 +503,10 @@ code {
   margin-bottom: 0;
   float: left;
   white-space: nowrap; }
+  @media screen and (max-width: 600px) {
+    .site-title {
+      font-size: 23px;
+      margin-top: 4px; } }
   .site-title, .site-title:visited {
     color: #424242; }
 
@@ -505,6 +522,7 @@ code {
       margin-right: 20px; }
   @media screen and (max-width: 600px) {
     .site-nav {
+      font-size: 12px;
       position: absolute;
       right: 0;
       background: 0, 0, 0, 0;
@@ -534,8 +552,17 @@ code {
     .pagination.btn-group {
       padding-bottom: 0; } }
 
+div.footnotes {
+  font-size: 12.8px;
+  color: #424242; }
+  div.footnotes:before {
+    content: "Footnote"; }
+
 twitterwidget {
   margin: 0 auto; }
+
+.twitter-not-found {
+  color: rgba(0, 0, 0, 0.4); }
 
 .MathJax_Preview + .MathJax_Display {
   padding-bottom: 5px !important;

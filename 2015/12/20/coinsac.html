@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta content="text/html;charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Beamerを書く &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Satoru Kawahara">
-    <title>Beamerを書く &#47; lilyum ensemble</title>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="Beamerを書く">
+    <meta name="twitter:title" content="Beamerを書く"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2015/12/20/coinsac.html"> 
+    <meta name="twitter:description" content="こんにちは､びしょ〜じょです｡これはcoins Advent Calendar2015 20日目の記事ですが､あまり大学と関係ないです｡">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
     <meta name="description" content="こんにちは､びしょ〜じょです｡これはcoins Advent Calendar2015 20日目の記事ですが､あまり大学と関係ないです｡">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://nymphium.github.io/2015/12/20/coinsac.html">
-    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
-    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300|Droid+Sans+Mono|Crimson+Text:400,400i" rel="stylesheet">
+    <link rel="canonical" href="https://nymphium.github.io/2015/12/20/coinsac.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
   </head>
 
   <body>
@@ -35,13 +42,20 @@
               <time datetime="2015-12-20T00:00:00+09:00" itemprop="datePublished">Dec 20, 2015</time>
               <p>tag: &#123;<a href="/tags.html#LaTeX-ref">LaTeX</a>&#125;</p>
             </span>
-            <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
             <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
             <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-            <script type="text/javascript">
+            <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
 	extensions: ["tex2jax.js"],
-	"HTML-CSS": { scale: 80}
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
 });
             </script>
           </header>
@@ -68,7 +82,7 @@ LuaLaTeX使ったので<code>\zw</code>とか出てきますが気にせず脳�
 
 <p>上からみていきます｡</p>
 
-<h2 id="section-subsection開始時にtocページを挿入">section/subsection開始時にTOCページを挿入</h2>
+<h2 id="section-subsection-toc">section/subsection開始時にTOCページを挿入</h2>
 
 <p>なんとなく入れたくなったわけですな｡<a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#l97">97行目</a>からの<code>\AtBeginSection</code>､<code>\AtBeginSubsection</code>がソレ｡
 98行目でifがいっぱいあるが､これはTOCを入れたくなかったり次のTOCだけ消したりするため｡
@@ -94,7 +108,7 @@ LuaLaTeX使ったので<code>\zw</code>とか出てきますが気にせず脳�
 
 <p>といったぐあいにTOCページができたわけだ｡<code>\AtBeginSection</code>の説明をするだけで終わりですね｡</p>
 
-<h2 id="タイトルをtocページに挿入">タイトルをTOCページに挿入</h2>
+<h2 id="toc">タイトルをTOCページに挿入</h2>
 
 <p><a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#L86">86行目</a>からの<code>\setbeamertemplate{beamer}</code>です｡
 <code>\beamercolorbox</code>は便利なんじゃ(天才博士bot並の感想)｡で､colorboxにheaderのboxを突っ込む｡88行目ですね｡ミソは｡
@@ -108,9 +122,9 @@ LuaLaTeX使ったので<code>\zw</code>とか出てきますが気にせず脳�
 <p><code>\title</code>の定義場所を探して､無事突き止めたbeamerbasetitle.styから借用した｡ごっそさん｡上記2行目でわかるように<code>\thetitle</code>をここで頂く｡で､使う｡
 87〜89行がsectionで､90〜92行がsubsection｡</p>
 
-<h2 id="フッターに現フレーム数-総フレーム数を挿入">フッターに現フレーム数/総フレーム数を挿入</h2>
+<h2 id="part-effae92181f51d65">フッターに現フレーム数/総フレーム数を挿入</h2>
 
-<h3 id="注意">注意</h3>
+<h3 id="part-6542d68ab3f">注意</h3>
 
 <p>フレーム数 is not ページ数です｡フレーム数というのはframe環境の数で､ページ数はコンパイルしてpdfにしたときのpdfのページ数です｡</p>
 
@@ -158,7 +172,7 @@ TOCページを挿入するたびに<code>tocpage</code>がインクリメント
 
 <p>などと言ってると老害認定されるので気をつけよう｡気合で何でも書けるということは気合で色々書く必要があるということです｡が､ もっと拡張しよう､拡張するときはソースを参考にすると参考になる､いいぞ､頑張れ｡</p>
 
-<h2 id="beamer-lualatex-ultimate-fuckin-39-awesome-tip">Beamer + LuaLaTeX Ultimate fuckin&#39; awesome Tip</h2>
+<h2 id="beamer-lualatex-ultimate-fuckin-awesome-tip">Beamer + LuaLaTeX Ultimate fuckin&#39; awesome Tip</h2>
 
 <p><code>\documentclass</code>のオプションに<code>unicode</code>を渡すとpdfのタイトルや著者名が文字化けしないぞい</p>
 

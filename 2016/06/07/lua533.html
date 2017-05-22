@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta content="text/html;charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Lua 5.3.3 release - 変更に&quot;python rule&quot;とありますが - &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Satoru Kawahara">
-    <title>Lua 5.3.3 release - 変更に&quot;python rule&quot;とありますが - &#47; lilyum ensemble</title>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="Lua 5.3.3 release - 変更に"python rule"とありますが -">
+    <meta name="twitter:title" content="Lua 5.3.3 release - 変更に"python rule"とありますが -"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2016/06/07/lua533.html"> 
+    <meta name="twitter:description" content="こんにちは､びしょ〜じょです｡イベントに複数行ったらお金がなくなりました｡">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
     <meta name="description" content="こんにちは､びしょ〜じょです｡イベントに複数行ったらお金がなくなりました｡">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://nymphium.github.io/2016/06/07/lua533.html">
-    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
-    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300|Droid+Sans+Mono|Crimson+Text:400,400i" rel="stylesheet">
+    <link rel="canonical" href="https://nymphium.github.io/2016/06/07/lua533.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
   </head>
 
   <body>
@@ -35,13 +42,20 @@
               <time datetime="2016-06-07T00:00:00+09:00" itemprop="datePublished">Jun 7, 2016</time>
               <p>tag: &#123;<a href="/tags.html#Lua-ref">Lua</a>&#125;</p>
             </span>
-            <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
             <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
             <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-            <script type="text/javascript">
+            <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
 	extensions: ["tex2jax.js"],
-	"HTML-CSS": { scale: 80}
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
 });
             </script>
           </header>
@@ -50,7 +64,7 @@ MathJax.Hub.Config({
 
 <hr>
 
-<h1 id="1-はじめに">1. はじめに</h1>
+<h1 id="1">1. はじめに</h1>
 
 <p>Lua 5.3.3がリリースされました｡</p>
 
@@ -58,7 +72,7 @@ MathJax.Hub.Config({
 
 <p>5.3.2からのアップデートなのでbug fix <em>だけ</em> かと思いきや…｡</p>
 
-<h1 id="2-new-semantics-for-empty-matches-quot-python-rule-quot">2. new semantics for empty matches (&quot;python rule&quot;)</h1>
+<h1 id="2-new-semantics-for-empty-matches-python-rule">2. new semantics for empty matches (&quot;python rule&quot;)</h1>
 
 <p>Lua 5.3.3-rc1のリリースではこんな感じのことが書かれてました｡</p>
 
@@ -102,7 +116,7 @@ c
 </code></pre></div>
 <p>文字通り､Lua 5.3.3ではempty matchにpython ruleを適用しているようですね｡</p>
 
-<h1 id="3-python-rule-is-何">3. python rule is 何</h1>
+<h1 id="3-python-rule-is">3. python rule is 何</h1>
 
 <p>Pythonに明るくないので､python ruleがよくわからなかった｡検索してみても出てこなかったので､まぁ､&quot;empty matchはPythonでのように扱われる&quot;という話です｡</p>
 
@@ -164,7 +178,7 @@ X1X2X3X 4
 </code></pre></div>
 <p>どちらも <strong><em>よくわからないですね!!</em></strong></p>
 
-<h1 id="4-おわりに">4. おわりに</h1>
+<h1 id="4">4. おわりに</h1>
 
 <p>メーリングリストでもこの変更に関しては&quot;Lua 5.4でやれ&quot;という意見もあったんですがリリースしてしまいましたね｡
 みなさん気をつけてください｡ボクは今月お金がないので食費に気をつけます｡</p>

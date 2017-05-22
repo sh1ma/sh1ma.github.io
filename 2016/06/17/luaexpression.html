@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta content="text/html;charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Lua5.2から5.3への内部表現について💢 &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Satoru Kawahara">
-    <title>Lua5.2から5.3への内部表現について💢 &#47; lilyum ensemble</title>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="Lua5.2から5.3への内部表現について💢">
+    <meta name="twitter:title" content="Lua5.2から5.3への内部表現について💢"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2016/06/17/luaexpression.html"> 
+    <meta name="twitter:description" content="こんにちは､びしょ〜じょです｡極めて眠いホトトギス">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
     <meta name="description" content="こんにちは､びしょ〜じょです｡極めて眠いホトトギス">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://nymphium.github.io/2016/06/17/luaexpression.html">
-    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
-    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300|Droid+Sans+Mono|Crimson+Text:400,400i" rel="stylesheet">
+    <link rel="canonical" href="https://nymphium.github.io/2016/06/17/luaexpression.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
   </head>
 
   <body>
@@ -35,20 +42,27 @@
               <time datetime="2016-06-17T00:00:00+09:00" itemprop="datePublished">Jun 17, 2016</time>
               <p>tag: &#123;<a href="/tags.html#Lua-ref">Lua</a>&#125;</p>
             </span>
-            <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
             <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
             <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-            <script type="text/javascript">
+            <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
 	extensions: ["tex2jax.js"],
-	"HTML-CSS": { scale: 80}
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
 });
             </script>
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡極めて眠いホトトギス</p>
 
-<h1 id="1-はじめに">1. はじめに</h1>
+<h1 id="1">1. はじめに</h1>
 
 <p>Lua5.2のVMのバイトコードをデコードする物体を用いて､Lua5.3のVMのバイトコードをデコードしようとしたら結構つまづきました｡という話｡
 Luaはわりと､関数が減っただ増えただ程度の変更しか無く､互換性は高いかのように見えますが､内部ではガッツリ変わってるんですねぇここ2ヶ月で思い知らされました｡</p>
@@ -66,7 +80,7 @@ Luaはわりと､関数が減っただ増えただ程度の変更しか無く�
 
 <p>この種類がクセモノなんですねぇ…｡</p>
 
-<h1 id="3-型が増えた-integer-long-string">3. 型が増えた? integer, long string</h1>
+<h1 id="3-integer-long-string">3. 型が増えた? integer, long string</h1>
 
 <p>まずこの種類について見ていきます｡constants listに現れる種類は以下のようになります｡</p>
 
@@ -178,7 +192,7 @@ $ xxd -g 1 luac.out
 </code></pre></div>
 <p>ウーン､そうですか…｡0x0000004bからconstants listが始まり､<code>03 00 00 00</code>からconstantは3つということがわかるんですが…｡</p>
 
-<h3 id="3-2-1-long-string-←は">3-2-1. long string ←は?</h3>
+<h3 id="3-2-1-long-string">3-2-1. long string ←は?</h3>
 
 <p>1byte読みすすめると早速0x14という謎の種類が爆誕するんですねぇ実はコレLua5.3から追加されたlong stringですが内部表現のみに現れるので皆さん安心してください｡</p>
 
@@ -190,7 +204,7 @@ $ xxd -g 1 luac.out
 
 <p>ネタバレをいうと､255文字以下はLua 5.2までと同じです｡0xff文字以下とそれより上を別のオブジェクトとすることで､何か良いことがあるんですかねぇ謎｡</p>
 
-<h3 id="3-2-2-integer-←は">3-2-2. integer ←は?</h3>
+<h3 id="3-2-2-integer">3-2-2. integer ←は?</h3>
 
 <p>まぁええわ｡次は<code>b</code>ですね〜ハイハイ同じ感じで<code>03 00 00 00 00 00 00 08 40</code>ですね終わり｡この時点で0x00000161まで読みました｡</p>
 
@@ -198,7 +212,7 @@ $ xxd -g 1 luac.out
 
 <p><em>まさにintegerって感じですね!</em> Lua 5.3からbitwise operation(<code>&amp;</code>, <code>|</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code>, <code>bit32</code>モジュール)が追加されたので､これを速く動かしたいという狙いなのかもしれない｡ちなみにsigned integerなので0x7fffffffffffffff(16桁)がINT_MAXッシュ</p>
 
-<h3 id="3-2-3-lua-5-3での内部のオブジェクトの種類">3-2-3. Lua 5.3での内部のオブジェクトの種類</h3>
+<h3 id="3-2-3-lua-5-3">3-2-3. Lua 5.3での内部のオブジェクトの種類</h3>
 
 <p>つまりこう｡</p>
 
@@ -243,11 +257,11 @@ $ xxd -g 1 luac.out
 
 <p>nilとboolってさぁ…<code>LOADNIL</code>命令と<code>LOADBOOL</code>命令があるんだから定数としてなんていらないんだよなぁ…｡</p>
 
-<h1 id="4-ベンチマーク">4. ベンチマーク</h1>
+<h1 id="4">4. ベンチマーク</h1>
 
 <p>long stringはどれくらい活きるのか､integerは､ファイッ</p>
 
-<h2 id="4-1-環境">4-1. 環境</h2>
+<h2 id="4-1">4-1. 環境</h2>
 
 <table><thead>
 <tr>
@@ -545,11 +559,11 @@ testsuite.lua
 
 <p>という具合ですね｡</p>
 
-<h2 id="4-5-さらなる詳細">4-5. さらなる詳細</h2>
+<h2 id="4-5">4-5. さらなる詳細</h2>
 
 <p><code>grep -rE &#39;LUA_(TNUMINT|TLNGSTR)&#39; lua-5.3.3/src</code> してください(飽きた)｡</p>
 
-<h1 id="5-おわりに">5. おわりに</h1>
+<h1 id="5">5. おわりに</h1>
 
 <p>stringは何も変わらなくてつまらない感じでしたが､integer型はtableのindexingでそこそこの性能がありますね｡
 ボクはbytecodeの解析時にLua 5.2のノリで5.3をやったら突然の種類追加につまづいたので､みなさんもつまづいてください｡</p>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>5年次､Typed Racket &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="5年次､Typed Racket">
+    <meta name="twitter:title" content="5年次､Typed Racket"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2017/04/05/5th.html"> 
+    <meta name="twitter:description" content="こんにちは､びしょ〜じょです｡気づけば5年次4年生になりました｡ようやく卒研フェーズになったので､ね｡">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <meta name="description" content="こんにちは､びしょ〜じょです｡気づけば5年次4年生になりました｡ようやく卒研フェーズになったので､ね｡">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="https://nymphium.github.io/2017/04/05/5th.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">5年次､Typed Racket</h1>
+            <span class="post-meta">
+              <time datetime="2017-04-05T00:00:00+09:00" itemprop="datePublished">Apr 5, 2017</time>
+              <p>tag: &#123;<a href="/tags.html#雑感-ref">雑感</a>, <a href="/tags.html#Racket-ref">Racket</a>, <a href="/tags.html#Typed Racket-ref">Typed Racket</a>, <a href="/tags.html#Vim-ref">Vim</a>&#125;</p>
+            </span>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
+});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡
+気づけば5年次4年生になりました｡
+ようやく卒研フェーズになったので､ね｡</p>
+
+<p>あとバイトの時給や労働可能時間<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>が上がったりして金が手に入る分余計に労働を重ねてしまうようになったが金は手に入った｡
+また<a href="http://nymphium.github.io/2016/09/26/10%E6%9C%88%E3%81%AE%E6%B1%BA%E6%84%8F.html">毎週焼肉月間</a>などをやりたいぜ｡</p>
+
+<p>もう少し序文を書こうと思ったけど特に無いので終わり｡</p>
+
+<hr>
+
+<h1 id="typed-racket">Typed Racket</h1>
+
+<p>最近はRacketの､特にTyped Racketという物体を書き始めたので､ちょっとやっていきたいと思います｡
+動機としては､なんとなくマクロに興味を持って､マクロといえばLispやろなぁということですね｡
+身近にはschemeでポエムを書くwasao君やEmacsに生かされているリザウド君などがいるのでそういった毒電波の影響を無意識のうちに受けていたという可能性もあります｡</p>
+
+<p>で､なんやかんやでRacketを書こうとなったところで色々漁ってみたらTyped Racketという言語に出会ったわけですね｡</p>
+
+<p><center>
+<a href="https://github.com/racket/typed-racket">racket/typed-racket</a>
+</center></p>
+
+<p>これもマクロによるcore Racketの拡張なんですねぇ｡
+数日前にPerlのソースフィルターという機能を知って(Perl5を書いたことは1回もない)､それで型を突っ込んでいくみたいなことを話したあとだったので､それにだいぶ近いというかほとんど同じだなと思った｡ </p>
+
+<h2 id="occurrence-typing">Occurrence Typing</h2>
+
+<p>さて､Typed Racketは<em>Occurrence typing</em>という型付け規則を採用している｡
+簡単にいうと､ある変数<code>x</code>に関して型情報がわかりそうなconditionalがあると､その後のbodyにその型情報が伝播するようだ｡</p>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">flexible-length</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">U</span> <span class="nv">String</span> <span class="p">(</span><span class="nf">Listof</span> <span class="nv">Any</span><span class="p">))</span> <span class="nv">Integer</span><span class="p">))</span>
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">flexible-length</span> <span class="nv">str-or-lst</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">string?</span> <span class="nv">str-or-lst</span><span class="p">)</span>
+      <span class="p">(</span><span class="nb">string-length</span> <span class="nv">str-or-lst</span><span class="p">)</span>
+      <span class="p">(</span><span class="nb">length</span> <span class="nv">str-or-lst</span><span class="p">)))</span>
+</code></pre></div>
+<p>(<a href="https://docs.racket-lang.org/ts-guide/occurrence-typing.html">5.1 Basic Occurrence Typing</a>より引用)</p>
+
+<p>型注釈のシンタックスもLispのそれのように後置記法となっているため､ちょっと混乱する｡
+余談だが､arityが0の関数(<code>fun () -&gt; a</code>的な)の型は<code>(-&gt; R)</code>など､独特な空気がある｡</p>
+
+<p>さて､example codeに戻る｡
+<code>flexible-length</code>はStringと(Listof Any)のUnion型をとり､Integerを返す｡
+if構文の中で､String型のときとそうでないときに分かれている｡
+このif構文の中で<code>str-or-list</code>を型が異なる関数に適用させても全体として型が一致するのは､このOccurrence Typingによる型情報の伝播のおかげ､とのこと｡</p>
+
+<h2 id="pros">pros</h2>
+
+<p>型のないRacketないしはLispを知らないので､なかった頃との比較はできない｡
+ただわりとイケる感じがある(雑)｡</p>
+
+<h2 id="cons">cons</h2>
+
+<p>やはりデータ型の定義が難点ですね｡
+たとえばよくあるOptional型だと</p>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">define-type</span> <span class="p">(</span><span class="nf">Optional</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">U</span> <span class="p">(</span><span class="nf">Some</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">None</span><span class="p">)))</span>
+<span class="p">(</span><span class="nf">struct:</span> <span class="p">(</span><span class="nf">A</span><span class="p">)</span> <span class="nv">Some</span> <span class="p">([</span><span class="nf">v</span> <span class="nv">:</span> <span class="nv">A</span><span class="p">]))</span>
+<span class="p">(</span><span class="nf">struct:</span> <span class="nv">None</span> <span class="p">())</span>
+</code></pre></div>
+<p>のように書くことになる｡
+OCamlやHaskellと比べるとあまりにも…という感じですが､Typed Racketのデータ型の実態としてはまさに書いたとおりstructureのUnionですからねぇ…けどねぇ…｡
+やはりデータ型を定義するときは<code>define-datatype</code>みたいなマクロを作ってstructureの定義は隠蔽したいものです｡</p>
+
+<h3 id="2017-04-16">追記 2017/04/16</h3>
+
+<p>ずばりなものを実装している人がおりました｡
+<a href="https://lexi-lambda.github.io/blog/2015/12/21/adts-in-typed-racket-with-macros/">ADTs in Typed Racket with macros</a></p>
+
+<p>これにより良い感じになる｡</p>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">define-datatype</span> <span class="p">(</span><span class="nf">Optional</span> <span class="nv">A</span><span class="p">)</span>
+                 <span class="p">(</span><span class="nf">Some</span> <span class="nv">A</span><span class="p">)</span>
+                 <span class="nv">None</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">define-datatype</span> <span class="p">(</span><span class="nf">Either</span> <span class="nv">L</span> <span class="nv">R</span><span class="p">)</span>
+                 <span class="p">(</span><span class="nf">Left</span> <span class="nv">L</span><span class="p">)</span>
+                 <span class="p">(</span><span class="nf">Right</span> <span class="nv">R</span><span class="p">))</span>
+</code></pre></div>
+<p>ただ､各structureに<code>#:transparent</code>(Haskellなどにおける<code>deriving Show</code>に<em>働きとしては</em>近い)など､オプションを渡すことができないため､もう少し工夫が必要になるだろう｡</p>
+
+<h2 id="syntastic">Syntasticと罠</h2>
+
+<p>みなさんVimはお使いかと思いますが､Syntasticも使っているはずですね｡
+Syntasticがあると型の不一致もちゃんと怒ってくれている…のですが…｡
+SyntasticのRacket syntastic checkerはデフォルトでは<code>racket</code>コマンドをただ叩いているだけ…つまりファイルを実行してしまっているんですね｡最悪です｡</p>
+
+<p>これはさすがにマズイということで<code>raco expand</code>でマクロを展開するだけにさせました｡
+Typed Racketはマクロ展開時に型チェックをおこなうというタイプのものなのでこれでOK｡</p>
+
+<p><code>~/.vim/bundle/syntastic/syntax_checker/racket.vim</code>をちょいと拝借してちょいちょい変えて､特に以下を追加する｡</p>
+<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">" ここでコマンドにサブコマンドを渡す</span>
+<span class="k">let</span> makeprg <span class="p">=</span> self<span class="p">.</span>makeprgBuild<span class="p">({</span>
+<span class="se">    \</span> <span class="s1">'args_before'</span><span class="p">:</span> <span class="s1">'expand'</span> <span class="p">})</span>
+</code></pre></div>
+<p>これで適当にガッとやって終わりや｡
+そのうちSyntasticにprなどをサッと打ちたい｡</p>
+
+<h3 id="2017-04-16">追記 2017/04/16</h3>
+
+<p>やっていきをした <a href="https://github.com/vim-syntastic/syntastic/pull/2001">vim-syntastic/syntastic PR #2001</a></p>
+
+<hr>
+
+<p>&quot;<em>Typed</em>&quot; Racketとしてみるとなんともいえない感じを残しましたが､Racketはなかなかおもしろい言語だと思いました｡
+モジュールシステムや協力でhygenicなマクロ…｡Luaと比べては何もかもが高機能…｡
+ファイル先頭に書く<code>#lang hogehoge</code>というものでファイル内をhogehogeというモジュールにあるmacro expanderで展開していきcore Racketに落とすという手法はなかなか渋い｡
+そのため<a href="https://docs.racket-lang.org/datalog/index.html">Prologのような論理型言語</a>が書けてしまったりする｡</p>
+
+<p>この<a href="https://arxiv.org/abs/1511.07033">Occurrence TypingにRefinement Typeを合わせる</a>といった試みもあり､今後も見守っていきたい｡</p>
+
+<hr>
+
+<p>この語に及んでな〜〜に言語を取得しようとしてるんだ､大丈夫か…｡
+漫画や小説､技術書まで積んでしまっている､お前の人生も詰んでいる､つまりはそういうこと…｡</p>
+
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>フレックスタイム制なので適当に行って適当に帰る､また1ヶ月n時間まで働いてOKという上限がある｡&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a></p>
+</li>
+
+</ol>
+</div>
+
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2017/02/12/opeth.html" title="通年でLua最適化器を作った">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <a class="btn next" href="/2017/05/22/pfds2.html" title="PFDS in Typed Racket その1">Next &rarr;</a>
+      </div>
+    </footer>
+
+  </body>
+</html>

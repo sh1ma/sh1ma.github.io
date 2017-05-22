@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta content="text/html;charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>texluaとtex.print &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Satoru Kawahara">
-    <title>texluaとtex.print &#47; lilyum ensemble</title>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="texluaとtex.print">
+    <meta name="twitter:title" content="texluaとtex.print"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2015/05/19/lualatex_asluastring.html"> 
+    <meta name="twitter:description" content="こんにちは､びしょ〜じょです｡アイカツ劇場版のBD発売ももうすぐですね｡もちろん予約注文してあります｡ソウルマリオネットコーデがあとブーツだけなので皆さんよろしくお願いします｡当方トップスが被っております｡">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
     <meta name="description" content="こんにちは､びしょ〜じょです｡アイカツ劇場版のBD発売ももうすぐですね｡もちろん予約注文してあります｡ソウルマリオネットコーデがあとブーツだけなので皆さんよろしくお願いします｡当方トップスが被っております｡">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://nymphium.github.io/2015/05/19/lualatex_asluastring.html">
-    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
-    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300|Droid+Sans+Mono|Crimson+Text:400,400i" rel="stylesheet">
+    <link rel="canonical" href="https://nymphium.github.io/2015/05/19/lualatex_asluastring.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
   </head>
 
   <body>
@@ -35,13 +42,20 @@
               <time datetime="2015-05-19T00:00:00+09:00" itemprop="datePublished">May 19, 2015</time>
               <p>tag: &#123;<a href="/tags.html#LaTeX-ref">LaTeX</a>, <a href="/tags.html#Lua-ref">Lua</a>&#125;</p>
             </span>
-            <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
             <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
             <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-            <script type="text/javascript">
+            <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
 	extensions: ["tex2jax.js"],
-	"HTML-CSS": { scale: 80}
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
 });
             </script>
           </header>
@@ -50,7 +64,7 @@ MathJax.Hub.Config({
 
 <hr>
 
-<h2 id="クソッタレtexluaを使う">クソッタレtexluaを使う</h2>
+<h2 id="texlua">クソッタレtexluaを使う</h2>
 
 <p>texluaとは､LuaTeXにねじ込まれているLuaの処理系であり､クソッタレである｡</p>
 <div class="highlight"><pre><code class="language-tex" data-lang="tex"><span class="k">\documentclass</span><span class="p">{</span>ltjsarticle<span class="p">}</span>
@@ -95,7 +109,7 @@ tex.print([[Hello, <span class="k">\LaTeX</span>]])
 </code></pre></div>
 <p><code>! Undefined control seq</code> <strong><em>ファーーーック</em></strong> 慈悲はない｡</p>
 
-<h3 id="解決法">解決法</h3>
+<h3 id="part-37870d0ca98db96">解決法</h3>
 <div class="highlight"><pre><code class="language-" data-lang="">...
 tex.print(\asluastring{Hello, \LaTeX})
 ...
@@ -127,11 +141,11 @@ tex.print("<span class="p">{</span>" .. <span class="k">\asluastring</span><span
 </code></pre></div>
 <p>こんな感じにすることで漏れを防ぐ｡<code>\asluastring{\texttt{}</code>みたいな感じにするとコンパイルエラーになるので注意｡</p>
 
-<h2 id="他">他</h2>
+<h2 id="part-b8a957a">他</h2>
 
 <p>luatexja-presetにdeluxeオプションを渡すと編集中のtexファイルとは無関係そうな場所を指摘され､なんだか腹が立つ｡これはluatexja-fontspecのバグで､<a href="http://osdn.jp/projects/luatex-ja/wiki/FrontPage#h3-.E3.83.90.E3.82.B0.E6.83.85.E5.A0.B1">こちら</a>を参照｡これはtexluaとあまり関係はないですね､はい｡</p>
 
-<h2 id="他2">他2</h2>
+<h2 id="2">他2</h2>
 
 <p>LuaLaTeXはコンパイル時にTwitterのタイムラインを取得できる数少ないLaTeX処理系なので好きですよ｡</p>
 

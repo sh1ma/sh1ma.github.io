@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta content="text/html;charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>RAID0なF2FSにArchをインストールする &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Satoru Kawahara">
-    <title>RAID0なF2FSにArchをインストールする &#47; lilyum ensemble</title>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="RAID0なF2FSにArchをインストールする">
+    <meta name="twitter:title" content="RAID0なF2FSにArchをインストールする"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2016/06/26/RAID0%E3%81%AAF2FS%E3%81%ABArch%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B.html"> 
+    <meta name="twitter:description" content="こんにちは､びしょ〜じょです｡女性が､自分の本当の気持ちに気づかずに男性に嫉妬するシーン最高ですね､本当に最高｡">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
     <meta name="description" content="こんにちは､びしょ〜じょです｡女性が､自分の本当の気持ちに気づかずに男性に嫉妬するシーン最高ですね､本当に最高｡">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://nymphium.github.io/2016/06/26/RAID0%E3%81%AAF2FS%E3%81%ABArch%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B.html">
-    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
-    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300|Droid+Sans+Mono|Crimson+Text:400,400i" rel="stylesheet">
+    <link rel="canonical" href="https://nymphium.github.io/2016/06/26/RAID0%E3%81%AAF2FS%E3%81%ABArch%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
   </head>
 
   <body>
@@ -35,20 +42,27 @@
               <time datetime="2016-06-26T00:00:00+09:00" itemprop="datePublished">Jun 26, 2016</time>
               <p>tag: &#123;<a href="/tags.html#Linux-ref">Linux</a>, <a href="/tags.html#Arch-ref">Arch</a>&#125;</p>
             </span>
-            <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
             <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
             <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-            <script type="text/javascript">
+            <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
 	extensions: ["tex2jax.js"],
-	"HTML-CSS": { scale: 80}
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
 });
             </script>
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡女性が､自分の本当の気持ちに気づかずに男性に嫉妬するシーン最高ですね､本当に最高｡</p>
 
-<h1 id="1-はじめに">1. はじめに</h1>
+<h1 id="1">1. はじめに</h1>
 
 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">体調も悪ければPCの体調も悪い <a href="https://t.co/MRyWk50P81">pic.twitter.com/MRyWk50P81</a></p>&mdash; びしょ～じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/745232517612003330">June 21, 2016</a></blockquote>
 
@@ -68,9 +82,9 @@ MathJax.Hub.Config({
 
 <p>ArchWiki嫁</p>
 
-<h1 id="2-準備">2. 準備</h1>
+<h1 id="2">2. 準備</h1>
 
-<h2 id="2-1-ストレージ">2-1. ストレージ</h2>
+<h2 id="2-1">2-1. ストレージ</h2>
 
 <p>まずSSDを換装します｡ThinkPad X1 CarbonなのでM.2 SSDですね｡いや〜こういうの買うとだいたい規格を間違えるんですよねぇこれ長いのと短いのがあって､でもまぁ流石にパソコン触って何年目だよってね</p>
 
@@ -82,12 +96,12 @@ MathJax.Hub.Config({
 
 <p>Archの最新インストーラを引っ張ってUSBメモリに流し込む｡</p>
 
-<h1 id="3-インストール">3. インストール</h1>
+<h1 id="3">3. インストール</h1>
 
 <h2 id="3-1-partitioning">3-1. partitioning</h2>
 
 <p><code>/</code>と<code>/home</code>を分けようかなと思いました｡でも同一ストレージ上で分けてもなんだか効果薄い気もしますが､まぁ気分が大事っつーわけよ｡
-で､今回は<a href="http://www.phoronix.com/scan.php?page=article&amp;item=linux_raid_fs4">RAID0にしてF2FSだな</a>､という気持ちがふつふつと湧いてきた｡
+で､今回は<a href="http://www.phoronix.com/scan.php?page=article&item=linux_raid_fs4">RAID0にしてF2FSだな</a>､という気持ちがふつふつと湧いてきた｡
 BtrFSのようにRAID機能を提供してくれているわけではまったくないので､mdadmすっぞ｡
 買ったのが256GBのSSDなので､<code>/</code>に40G(× 2)､<code>/home</code>に60G(× 2)､残り<code>/boot</code>といった具合か｡</p>
 
@@ -151,7 +165,7 @@ $(chroot) mdadm --assemble --scan
 
 <p>俺はちゃんと起動した｡お前はどうだ?</p>
 
-<h1 id="4-おわりに">4. おわりに</h1>
+<h1 id="4">4. おわりに</h1>
 
 <p>fstabに<a href="https://www.kernel.org/doc/Documentation/filesystems/f2fs.txt">オプション</a>をいろいろ突っ込んで爆上げや｡</p>
 

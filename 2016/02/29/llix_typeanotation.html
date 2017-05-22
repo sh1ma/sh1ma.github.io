@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta content="text/html;charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>自作Lua処理系に型注釈をつけた(嘘) &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Satoru Kawahara">
-    <title>自作Lua処理系に型注釈をつけた(嘘) &#47; lilyum ensemble</title>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="自作Lua処理系に型注釈をつけた(嘘)">
+    <meta name="twitter:title" content="自作Lua処理系に型注釈をつけた(嘘)"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2016/02/29/llix_typeanotation.html"> 
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
     <meta name="description" content="">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://nymphium.github.io/2016/02/29/llix_typeanotation.html">
-    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
-    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300|Droid+Sans+Mono|Crimson+Text:400,400i" rel="stylesheet">
+    <link rel="canonical" href="https://nymphium.github.io/2016/02/29/llix_typeanotation.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
   </head>
 
   <body>
@@ -35,13 +42,20 @@
               <time datetime="2016-02-29T00:00:00+09:00" itemprop="datePublished">Feb 29, 2016</time>
               <p>tag: &#123;<a href="/tags.html#Lua-ref">Lua</a>, <a href="/tags.html#MoonScript-ref">MoonScript</a>&#125;</p>
             </span>
-            <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
             <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
             <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-            <script type="text/javascript">
+            <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
 	extensions: ["tex2jax.js"],
-	"HTML-CSS": { scale: 80}
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
 });
             </script>
           </header>
@@ -50,7 +64,7 @@ MathJax.Hub.Config({
 
 <hr>
 
-<h1 id="1-はじめに">1. はじめに</h1>
+<h1 id="1">1. はじめに</h1>
 
 <p>ネタがないのでまたこれの話です｡</p>
 
@@ -62,7 +76,7 @@ MathJax.Hub.Config({
 ところでRustのチュートリアルを読み進めていて､Rustにはコメントによる型注釈というものが将来できるらしい<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>｡
 じゃ､型注釈実装しよっか｡</p>
 
-<h1 id="2-実装">2. 実装</h1>
+<h1 id="2">2. 実装</h1>
 
 <p><noscript><pre>-- ......
   Comment:
@@ -92,7 +106,7 @@ MathJax.Hub.Config({
 
 <p><code>assert(A == B)</code>の構文木を手で書くのはアレだし今後書き換わる可能性も考えてパーサー内でパーサーを使うことにした｡これが一番ミソですね｡嘘です｡</p>
 
-<h1 id="3-後に出す先行研究">3. 後に出す先行研究</h1>
+<h1 id="3">3. 後に出す先行研究</h1>
 
 <div class="github-widget" data-repo="andremm/typedlua"></div>
 
@@ -105,7 +119,7 @@ MathJax.Hub.Config({
 
 <hr>
 
-<h1 id="4-おわりに">4. おわりに</h1>
+<h1 id="4">4. おわりに</h1>
 
 <p>今月中にはRust Tutorialを抜けたい､あと倉敷に行くぞ､六識美砂さんの働いていた場所で『受胎告知』を観るぞ｡
 あと<a href="https://twitter.com/ranha">@ranha </a>さんが大量に捨てていった本を大量に拾ったので､どんどん読んで行かないとね…｡</p>

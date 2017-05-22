@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta content="text/html;charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>うわ〜ん変わっちゃった〜〜! kindleのフォントが変わっちゃった〜! どうか､しましたか? kindleのフォントが変わってしまったのですが…｡ / lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Satoru Kawahara">
-    <title>うわ〜ん変わっちゃった〜〜! kindleのフォントが変わっちゃった〜! どうか､しましたか? kindleのフォントが変わってしまったのですが…｡ / lilyum ensemble</title>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="うわ〜ん変わっちゃった〜〜! kindleのフォントが変わっちゃった〜! どうか､しましたか? kindleのフォントが変わってしまったのですが…｡">
+    <meta name="twitter:title" content="うわ〜ん変わっちゃった〜〜! kindleのフォントが変わっちゃった〜! どうか､しましたか? kindleのフォントが変わってしまったのですが…｡"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2016/07/21/kindle_font.html"> 
+    <meta name="twitter:description" content="はじめにKindleの最安モデルがホコリをかぶっていたのですがなんとなくマウントしてみたところフォントの変更に成功した｡こんなんググればいっぱい出てくると思うので今更書くまでもない話ですが､体験として面白かったので書いておく｡">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
     <meta name="description" content="はじめにKindleの最安モデルがホコリをかぶっていたのですがなんとなくマウントしてみたところフォントの変更に成功した｡こんなんググればいっぱい出てくると思うので今更書くまでもない話ですが､体験として面白かったので書いておく｡">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://nymphium.github.io/2016/07/21/kindle_font.html">
-    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
+    <link rel="canonical" href="https://nymphium.github.io/2016/07/21/kindle_font.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
   </head>
 
@@ -36,18 +42,25 @@
               <time datetime="2016-07-21T00:00:00+09:00" itemprop="datePublished">Jul 21, 2016</time>
               <p>tag: {<a href="/tags.html#Kindle-ref">Kindle</a>, <a href="/tags.html#%E9%9B%91%E6%84%9F-ref">雑感</a>}</p>
             </span>
-            <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
             <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
             <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-            <script type="text/javascript">
+            <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
 	extensions: ["tex2jax.js"],
-	"HTML-CSS": { scale: 80}
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
 });
             </script>
           </header>
           <div class="post-content" itemprop="articleBody">
-<h1 id="はじめに">はじめに</h1>
+<h1 id="part-2a064f37de75b4c9">はじめに</h1>
 
 <p>Kindleの最安モデルがホコリをかぶっていたのですがなんとなくマウントしてみたところフォントの変更に成功した｡
 こんなんググればいっぱい出てくると思うので今更書くまでもない話ですが､体験として面白かったので書いておく｡</p>
@@ -57,7 +70,7 @@ MathJax.Hub.Config({
 <p>USB接続すると､/dev/sdc1というものが生える｡
 <code>lsblk -f</code>とすると､どうやらvfatのようだ｡マウントする｡<code>ls</code>を撃ち込むと､document､systemというディレクトリ､名前がハッシュのファイルなどがある｡</p>
 
-<h1 id="怪しいsystem">怪しいsystem</h1>
+<h1 id="system">怪しいsystem</h1>
 
 <p>あきらかにsystemディレクトリに何かありそうだ｡<em>fonts</em>というディレクトリがぶら下がっており､フォントを変えたい気持ちが突然わいてきた｡</p>
 
@@ -65,19 +78,19 @@ MathJax.Hub.Config({
 
 <p>中を見ると､<em>ja.font</em>というファイルがある｡これやな｡</p>
 
-<h1 id="cramfsやんけこれ">cramfsやんけこれ</h1>
+<h1 id="cramfs">cramfsやんけこれ</h1>
 
 <p><code>xxd -g 1 ja.font | head</code>してみると<strong>45 3d cd 28</strong>というのが見える｡もちろん知らないのでググる｡Comressed ROMFSということが分かった｡
 これもマウントしてみる｡
 01-ja.confというfontconfigファイルとimage_manifestというフォント情報などが書かれたjsonファイルっぽいもの､ありましたねぇttfファイルが置かれているfontsディレクトリ｡</p>
 
-<h1 id="read-onlyじゃんハゲ-コピーする">read-onlyじゃんハゲ! コピーする</h1>
+<h1 id="read-only">read-onlyじゃんハゲ! コピーする</h1>
 
 <p>とのこと</p>
 
-<h1 id="fontをつっこむ">fontをつっこむ</h1>
+<h1 id="font">fontをつっこむ</h1>
 
-<p>好きなフォントを突っ込もう!! ライセンスを無視するのは <img class="emoji" title=":no_good:" alt=":no_good:" src="https://assets.github.com/images/icons/emoji/unicode/1f645.png" height="20" width="20" align="absmiddle"></p>
+<p>好きなフォントを突っ込もう!! ライセンスを無視するのは <img class="emoji" title=":no_good:" alt=":no_good:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f645.png" height="20" width="20" align="absmiddle"></p>
 
 <p>JSONに書かれた情報を更新する｡<code>"FONTFILE.ttf.md5"</code>というパラメーターがあるので､<code>md5sum FONTFILE.ttf</code>で得た値を差し込む｡
 <code>"fonts.ja"</code>には明朝体をローマ字で書く(のか?)｡<code>"font.MINCHOROMAN.display"</code>パラメーターにはUTF-8でフォント名を埋め込みたい｡
@@ -88,15 +101,15 @@ MathJax.Hub.Config({
 
 <p>コピーおよび変更したディレクトリをComressed ROMFSにもどす｡</p>
 
-<h1 id="すっとする">すっとする</h1>
+<h1 id="part-627ea342d1983c22">すっとする</h1>
 
 <p>Comressed ROMFSに戻したイメージファイルをja.fontとしてスッと戻す</p>
 
-<h1 id="umount､確認">umount､確認</h1>
+<h1 id="umount">umount､確認</h1>
 
 <p>ええな</p>
 
-<h1 id="おわりに">おわりに</h1>
+<h1 id="part-2a00357080695c85">おわりに</h1>
 
 <p>買ってすぐ(2015年1月あたり)にフォントの変更を試み､ググってみたりはしたものの結局フォントの変更に至らなかったので､今回はよくやったと思いました｡
 <code>file</code>コマンドなどの使用をパッと思いつけばもう少し早くできましたね､反省してください｡</p>

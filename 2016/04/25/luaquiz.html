@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta content="text/html;charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Luaでは関数外でもreturnが書ける､これな〜んでだ? &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Satoru Kawahara">
-    <title>Luaでは関数外でもreturnが書ける､これな〜んでだ? &#47; lilyum ensemble</title>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="Luaでは関数外でもreturnが書ける､これな〜んでだ?">
+    <meta name="twitter:title" content="Luaでは関数外でもreturnが書ける､これな〜んでだ?"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2016/04/25/luaquiz.html"> 
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
     <meta name="description" content="">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://nymphium.github.io/2016/04/25/luaquiz.html">
-    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
-    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300|Droid+Sans+Mono|Crimson+Text:400,400i" rel="stylesheet">
+    <link rel="canonical" href="https://nymphium.github.io/2016/04/25/luaquiz.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
   </head>
 
   <body>
@@ -35,13 +42,20 @@
               <time datetime="2016-04-25T00:00:00+09:00" itemprop="datePublished">Apr 25, 2016</time>
               <p>tag: &#123;<a href="/tags.html#Lua-ref">Lua</a>&#125;</p>
             </span>
-            <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
             <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
             <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-            <script type="text/javascript">
+            <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
 	extensions: ["tex2jax.js"],
-	"HTML-CSS": { scale: 80}
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
 });
             </script>
           </header>
@@ -57,7 +71,7 @@ MathJax.Hub.Config({
 
 <hr>
 
-<h1 id="1-q-luaでは関数外でもreturnが書ける､これな〜んで">1. Q. Luaでは関数外でもreturnが書ける､これな〜んで?</h1>
+<h1 id="1-q-lua-return">1. Q. Luaでは関数外でもreturnが書ける､これな〜んで?</h1>
 
 <p>実はLuaでは関数外でも<code>retun</code>書けるし構文的には何の問題もないんですねぇ…｡
 Luaの予約語である<code>return</code>は､CとかJavaなどと同じで､関数の戻り値を書くわけです(多値という違いはありますが)｡</p>
@@ -70,14 +84,14 @@ Luaの予約語である<code>return</code>は､CとかJavaなどと同じで�
 <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span> <span class="k">do</span>
  <span class="o">......</span>
 </code></pre></div>
-<h1 id="2-a-requireの戻り値に渡すため">2. A. <code>require</code>の戻り値に渡すため</h1>
+<h1 id="2-a-require">2. A. <code>require</code>の戻り値に渡すため</h1>
 
 <p>実はなんてことない話で､<code>require(&#39;foo&#39;)</code>したときの戻り値に<code>return 5</code>が渡されるというだけです｡</p>
 
 <p>luaファイルは全て<code>require([[filename]])</code>することでモジュールとして呼び出すことができ､<code>filename.lua</code>の<em>戻り値</em>､つまり<code>return ...</code>が<code>require([[filename]])</code>の戻り値になります｡
 <code>filename.lua</code>に戻り値がなければ<code>require([[filename]])</code>は<code>true</code>(または呼び出し時に失敗すれば<code>false</code>)を返します｡</p>
 
-<h1 id="3-関数との関係">3. 関数との関係</h1>
+<h1 id="3">3. 関数との関係</h1>
 
 <p>さて､関数の<code>return</code>と何か関係があるのではないか､という考えをするのが人間です｡
 実はだいぶあります｡</p>
@@ -142,7 +156,7 @@ hello   3
 <p>ここで!! おもむろにバイナリエディタなどで<code>kantannna_kansuu.out</code>と<code>compiled_kantannna_kansuu.out</code>を見比べてみてください｡
 実はこれ<strong><em>全く同じ</em></strong>なんですね｡</p>
 
-<h1 id="4-関数の実態">4. 関数の実態</h1>
+<h1 id="4">4. 関数の実態</h1>
 
 <p><code>luac</code>コマンドには便利なオプションがああります｡<code>luac -l luac.out</code>でLua VMの挙動がわかります｡</p>
 
@@ -217,11 +231,11 @@ true    exit    0 # これは`os.execute()`の戻り値
 下が､<code>compound()</code>が返している関数の中身のようなので､これを見てみますと､まず<code>GETUPVAL</code>で引数の<code>f</code>と<code>g</code>を取得しているようだ｡
 <code>MOVE</code>命令で<code>x</code>を引っ張って<code>CALL</code>してるように見えるおわり｡</p>
 
-<h1 id="5-おわりに">5. おわりに</h1>
+<h1 id="5">5. おわりに</h1>
 
 <p>｢だから何だ｣という話ですが､クイズの答えとその解説というだけで､どうするかは考えてください｡</p>
 
-<h2 id="あわせて読みたい">あわせて読みたい</h2>
+<h2 id="part-3f3b31866c98add5">あわせて読みたい</h2>
 
 <p><a href="http://luaforge.net/docman/83/98/ANoFrillsIntroToLua51VMInstructions.pdf">A No-Frills Introduction to Lua 5.1 VM instructions</a></p>
 

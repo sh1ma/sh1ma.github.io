@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta content="text/html;charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>インターン､など &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Satoru Kawahara">
-    <title>インターン､など &#47; lilyum ensemble</title>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="インターン､など">
+    <meta name="twitter:title" content="インターン､など"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2015/10/03/intern_andother.html"> 
+    <meta name="twitter:description" content="こんにちは､びしょ〜じょです｡というわけで富士通のインターンに行ってきました｡イェーイ御社〜〜ッ">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
     <meta name="description" content="こんにちは､びしょ〜じょです｡というわけで富士通のインターンに行ってきました｡イェーイ御社〜〜ッ">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://nymphium.github.io/2015/10/03/intern_andother.html">
-    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="http://nymphium.github.io/feed.xml">
-    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300|Droid+Sans+Mono|Crimson+Text:400,400i" rel="stylesheet">
+    <link rel="canonical" href="https://nymphium.github.io/2015/10/03/intern_andother.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
   </head>
 
   <body>
@@ -35,13 +42,20 @@
               <time datetime="2015-10-03T00:00:00+09:00" itemprop="datePublished">Oct 3, 2015</time>
               <p>tag: &#123;<a href="/tags.html#雑感-ref">雑感</a>, <a href="/tags.html#Linux-ref">Linux</a>, <a href="/tags.html#sh-ref">sh</a>&#125;</p>
             </span>
-            <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
             <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
             <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-            <script type="text/javascript">
+            <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
 	extensions: ["tex2jax.js"],
-	"HTML-CSS": { scale: 80}
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
 });
             </script>
           </header>
@@ -61,7 +75,7 @@ MathJax.Hub.Config({
 
 <hr>
 
-<h2 id="btrfs-on-bcacheの性能調査">Btrfs on Bcacheの性能調査</h2>
+<h2 id="btrfs-on-bcache">Btrfs on Bcacheの性能調査</h2>
 
 <p>Linux3.10でメインラインにねじ込まれた､SSDを他のデバイスのキャッシュとして扱うという機能がBtrfsの上でもちゃんと動くのかということをまずひとつやった｡</p>
 
@@ -86,7 +100,7 @@ rw=randread
 [job2]
 rw=randwrite
 </code></pre></div>
-<h3 id="成果">成果</h3>
+<h3 id="part-6542a5167e3">成果</h3>
 
 <p>結果はこんな感じ｡RAIDはBtrfsの機能で組んだやつ｡なので比較のXFSはシングルデバイスのみ｡
 Btrfs RAIDもデバイス数は最小(RAID0は2つ､RAID5は3つ)｡BcacheのモードはWriteback｡単位はIOPS｡</p>
@@ -146,13 +160,13 @@ readはキャッシュに当たらないので変わらない｡Single/RAID0な�
 Btrfsの他のモードはほとんど変わらなかったので割愛だにゃ｡他のRAIDとか､デバイス数との関係とかは皆さん頑張ってくれ給えよといった具合に｡
 RAMをブロックデバイスにしてSSDのキャッシュデバイスにするとかできるのかな､できたら楽しそう｡</p>
 
-<h3 id="bcacheについて">Bcacheについて</h3>
+<h3 id="bcache">Bcacheについて</h3>
 
 <p>ファックです｡ベンチマーク自動化スクリプトの一番の障害だったのがBcacheです｡まぁ<code>make-bcache</code>は許すよ｡うん｡
 でも解除の方法が適当なファイルに1やUUIDを書き込んで<code>wipefs</code>でキレイにするというね､面倒｡
 うっかり変なファイルに書き込むとカーネルパニックしたりBcache作成時に何故かカーネルパニックしたり､お前なんでマージされたんだよ…｡</p>
 
-<h3 id="インターンについて">インターンについて</h3>
+<h3 id="part-ba0088b749fac20f">インターンについて</h3>
 
 <p>というわけでね､上記ともうひとつやったけどこれは成果0なので割愛｡</p>
 
@@ -189,7 +203,7 @@ SEなどのみならず営業のインターンとかもあって､その発表
 
 <hr>
 
-<h2 id="github-pagesとjekyll">GitHub PagesとJekyll</h2>
+<h2 id="github-pages-jekyll">GitHub PagesとJekyll</h2>
 
 <p>当サイトがね､うん｡</p>
 
@@ -200,7 +214,7 @@ SEなどのみならず営業のインターンとかもあって､その発表
 
 <p>早く世界中のブラウザがひとつになってほしい｡</p>
 
-<h3 id="追記">追記</h3>
+<h3 id="part-65432f7b3b1">追記</h3>
 
 <p>これは<a href="http://qiita.com/futoase/items/39cb4b7d704b1e53e7f6">こういう</a>ことです｡</p>
 

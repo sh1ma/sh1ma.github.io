@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Luaの無名再帰 &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="Luaの無名再帰">
+    <meta name="twitter:title" content="Luaの無名再帰"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2016/10/20/Lua%E3%81%AE%E7%84%A1%E5%90%8D%E5%86%8D%E5%B8%B0.html"> 
+    <meta name="twitter:description" content="こんにちは､びしょ〜じょです｡">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <meta name="description" content="こんにちは､びしょ〜じょです｡">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="https://nymphium.github.io/2016/10/20/Lua%E3%81%AE%E7%84%A1%E5%90%8D%E5%86%8D%E5%B8%B0.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Luaの無名再帰</h1>
+            <span class="post-meta">
+              <time datetime="2016-10-20T00:00:00+09:00" itemprop="datePublished">Oct 20, 2016</time>
+              <p>tag: &#123;<a href="/tags.html#Lua-ref">Lua</a>, <a href="/tags.html#MoonScript-ref">MoonScript</a>, <a href="/tags.html#雑感-ref">雑感</a>&#125;</p>
+            </span>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
+});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡</p>
+
+<p>さて､無名再帰といえば誰しも無駄にやりたくなってしまうものです｡
+JavaScriptなら<code>arguments.callee()</code>という関数があるし､関数をトップレベルで扱えるのなら不動点コンビネータを書いてみたり､<code>fix()</code>関数がすでにあったり｡</p>
+
+<p>Luaももちろん関数をトップレベルで扱えるので不動点コンビネータで無名再帰を実装することができます｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">print</span><span class="p">((</span><span class="k">function</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">x</span><span class="p">(</span><span class="n">x</span><span class="p">)(</span><span class="n">y</span><span class="p">)</span>
+            <span class="k">end</span><span class="p">)</span>
+        <span class="k">end</span><span class="p">)(</span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">x</span><span class="p">(</span><span class="n">x</span><span class="p">)(</span><span class="n">y</span><span class="p">)</span>
+            <span class="k">end</span><span class="p">)</span>
+        <span class="k">end</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">)(</span><span class="k">function</span> <span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">return</span> <span class="k">function</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">n</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">end</span>
+        <span class="k">end</span><span class="p">)(</span><span class="mi">5</span><span class="p">))</span>
+</code></pre></div>
+<p>MoonScriptで書いても良い｡</p>
+<div class="highlight"><pre><code class="language-moon" data-lang="moon"><span class="nb">print</span><span class="w"> </span><span class="p">((</span><span class="w">
+        </span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+            </span><span class="p">((</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">y</span><span class="p">)((</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w">
+    </span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="mi">5</span><span class="w">
+</span></code></pre></div>
+<p>ところで<code>debug.getinfo()</code> という関数がある｡知らなかった｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">&gt; debug.getinfo debug.getinfo
+{
+    currentline = -1,
+    func = &lt;function 1&gt;,
+    istailcall = false,
+    isvararg = true,
+    lastlinedefined = -1,
+    linedefined = -1,
+    namewhat = "",
+    nparams = 0,
+    nups = 0,
+    short_src = "[C]",
+    source = "=[C]",
+    what = "C"
+  }
+</code></pre></div>
+<p>また､第1引数を関数ではなく<strong>callerのレベル</strong>を渡すことで､そのレベルのcallerの情報を得ることができる｡
+レベルは､<code>debug.getinfo()</code>自身を0として､その外側のクロージャーからだんだん大きくなっていく｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">&gt; (-&gt; debug.getinfo 1)!
+{
+    currentline = 2,
+    func = &lt;function 1&gt;,
+    istailcall = true,
+    isvararg = false,
+    lastlinedefined = 3,
+    linedefined = 1,
+    namewhat = "",
+    nparams = 0,
+    nups = 1,
+    short_src = '[string "tmp"]',
+    source = "tmp",
+    what = "Lua"
+  }
+</code></pre></div>
+<p>返ってくるtableの<code>func</code>は指している関数そのものだ｡</p>
+
+<p>もうなにがやりたいかわかりますね｡</p>
+<div class="highlight"><pre><code class="language-moon" data-lang="moon"><span class="nb">print</span><span class="w"> </span><span class="p">((</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="nb">debug.getinfo</span><span class="w"> </span><span class="mi">1</span><span class="p">).</span><span class="n">func</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="mi">5</span><span class="w">
+</span></code></pre></div>
+<p><a href="https://www.lua.org/manual/5.3/manual.html#pdf-debug">公式</a>にもあるように､</p>
+
+<blockquote>
+<p>You should exert care when using this library.</p>
+
+<p>Several of its functions violate basic assumptions about Lua code ...</p>
+</blockquote>
+
+<p>なのでご利用は計画的に｡</p>
+
+<hr>
+
+<h1 id="part-6542ab648f8">宣伝</h1>
+
+<p><a href="http://connpass.com/event/42788/">tsukuba.lua</a>というLuaやLua以外に関する発表やってワチャワチャするやつやります｡
+Lua VM Bytecodeの最適化の話をする予定です｡確かに最適化に当たってdebugモジュール使われると絶対バグるのでやめて欲しいゾ👊</p>
+
+<p>日程は未定です､人間がいっぱい居たほうが楽しいのでいっぱい来てください｡</p>
+
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2016/09/26/10%E6%9C%88%E3%81%AE%E6%B1%BA%E6%84%8F.html" title="10月の決意">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <a class="btn next" href="/2016/11/18/%E8%AA%AD%E3%82%93%E3%81%A0.html" title="読書の秋､ファミレスのドリンクバーで粘る秋">Next &rarr;</a>
+      </div>
+    </footer>
+
+  </body>
+</html>
