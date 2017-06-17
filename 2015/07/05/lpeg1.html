@@ -60,133 +60,45 @@ MathJax.Hub.Config({
             </script>
           </header>
           <div class="post-content" itemprop="articleBody">
-<p>こんにちは､びしょ〜じょです｡無事『FLOWERS』夏篇を終わったことにより脳内が百合まみれっちゅ〜わけ｡</p>
+<p>こんにちは､びしょ〜じょです｡無事『FLOWERS』夏篇を終わったことにより脳内が百合まみれっちゅ〜わけ｡</p><p>春篇もさることながら､とんでもない百合でしたね｡八重垣さんと孝崎さん人間的に不器用すぎる｡
+しかしそれ故に互いを認め合った時の､アレよ､最高｡後半の八重垣さんに対し積極的になった孝崎さん可愛すぎるし弱ってたり素直だったりする八重垣さんも可愛いしもうやばいでしょ｡</p><p>キャストも前作からのあやねると洲崎綾で､最っ高やな…｡『chaleur』もいいし洲崎さんも歌うんだよな､いい…｡</p><p>本当に最高でした､秋篇も非常に楽しみです｡カラノショージョ3もあるしイノグレさまさまって感じ｡</p><p>追伸 なんか今回沙沙貴姉妹以前より増してすごく可愛くなかったですか｡ハグしてくれのところとか親友のところとか｡</p><hr><h1 id="lpeg">LPegとは</h1><p></p>
+<center>
+<img src="/pictures/2015-07-05-lpeg_logo.gif" alt="LPeg">
 
-<p>春篇もさることながら､とんでもない百合でしたね｡八重垣さんと孝崎さん人間的に不器用すぎる｡
-しかしそれ故に互いを認め合った時の､アレよ､最高｡後半の八重垣さんに対し積極的になった孝崎さん可愛すぎるし弱ってたり素直だったりする八重垣さんも可愛いしもうやばいでしょ｡</p>
-
-<p>キャストも前作からのあやねると洲崎綾で､最っ高やな…｡『chaleur』もいいし洲崎さんも歌うんだよな､いい…｡</p>
-
-<p>本当に最高でした､秋篇も非常に楽しみです｡カラノショージョ3もあるしイノグレさまさまって感じ｡</p>
-
-<p>追伸 なんか今回沙沙貴姉妹以前より増してすごく可愛くなかったですか｡ハグしてくれのところとか親友のところとか｡</p>
-
-<hr>
-
-<h1 id="lpeg">LPegとは</h1>
-
-<p><center><img src="/pictures/2015-07-05-lpeg_logo.gif" alt="LPeg"></p>
-
-<p><a href="http://www.inf.puc-rio.br/%7Eroberto/lpeg/">http://www.inf.puc-rio.br/~roberto/lpeg/</a></center></p>
-
-<p>全く関係ないこというけど有名なLuaモジュールの一部のロゴってこんな感じでちんまりしてるよね｡LuaTeXのロゴとかもアレだし｡はい｡</p>
-
-<p>PEGのLua版｡PEGは文脈自由文法の知り合いで曖昧性がない｡詳しくは調べてください｡</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># LuaRocksにあるので簡単インストール</span>
+<p><a href="http://www.inf.puc-rio.br/%7Eroberto/lpeg/">http://www.inf.puc-rio.br/~roberto/lpeg/</a></p>
+</center><p>全く関係ないこというけど有名なLuaモジュールの一部のロゴってこんな感じでちんまりしてるよね｡LuaTeXのロゴとかもアレだし｡はい｡</p><p>PEGのLua版｡PEGは文脈自由文法の知り合いで曖昧性がない｡詳しくは調べてください｡</p><div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># LuaRocksにあるので簡単インストール</span>
 luarocks --local install lpeg
-</code></pre></div>
-<p>Luaの(サブセットの)処理系をMoonScriptで書くことになったので､本稿は使い方の備忘録となる｡</p>
+</code></pre></div><p>Luaの(サブセットの)処理系をMoonScriptで書くことになったので､本稿は使い方の備忘録となる｡</p><p>まずpatternで文法を作る(らしい)(詳しく知らない)｡</p><h1 id="pattern">Pattern</h1><p>MoonScript + LPeg的には<code>import P, S, R, V, C from require "lpeg"</code>等とするのがいいが､説明のため<code>lpeg = require "lpeg"</code>ってな感じに｡</p><h2 id="lpeg-p-val">lpeg.P(val)</h2><p>なかなかトリッキーな関数｡</p><ul>
+<li>
+<p><code>type(val) == "string"</code></p>
 
-<p>まずpatternで文法を作る(らしい)(詳しく知らない)｡</p>
+<p>pattern <code>^val</code>を返す｡</p>
+</li>
+<li>
+<p><code>type(val) == "table"</code></p>
 
-<h1 id="pattern">Pattern</h1>
-
-<p>MoonScript + LPeg的には<code>import P, S, R, V, C from require &quot;lpeg&quot;</code>等とするのがいいが､説明のため<code>lpeg = require &quot;lpeg&quot;</code>ってな感じに｡</p>
-
-<h2 id="lpeg-p-val">lpeg.P(val)</h2>
-
-<p>なかなかトリッキーな関数｡</p>
-
-<ul>
-<li><p><code>type(val) == &quot;string&quot;</code></p>
-
-<p>pattern <code>^val</code>を返す｡</p></li>
-<li><p><code>type(val) == &quot;table&quot;</code></p>
-
-<p>PEGを表現できる｡渡されたPEGに基づくpatternを返す｡</p></li>
-</ul>
-
-<p>他にも渡された型によっていろいろできる｡<a href="http://www.inf.puc-rio.br/%7Eroberto/lpeg/#op-p">公式</a>をご覧ください(丸投げ)｡</p>
-
-<h2 id="lpeg-r-range">lpeg.R(range)</h2>
-
-<p>正規表現的にいうと〜<code>lpeg.R &quot;09&quot;</code>は[0-9]とか<code>lpeg.R &quot;az&quot;</code>は[a-z]みたいな感じのpatternを返す｡</p>
-
-<h2 id="lpeg-s-str">lpeg.S(str)</h2>
-
-<p>正規表現的にいうと<code>lpeg.S &quot;+-/*%&quot;</code>で[+-/*%]みたいな感じのpatternを返す｡正規表現を見ると前項の<code>lpeg.R</code>とで少々の混乱が生まれた｡</p>
-
-<h2 id="lpeg-v-v">lpeg.V(v)</h2>
-
-<p>文法を定義するとき､非終端記号を示すのに使われる｡</p>
-
-<h1 id="part-3786f0dc2688989">演算子</h1>
-
-<p>文法について触れる前にpattern同士の演算子をよォ…｡</p>
-
-<h2 id="pat-pat">pat * pat</h2>
-
-<p>連接を表す｡PEGだと\(S\cdot{}E\)または\(SE\)みたいな感じになる｡<code>S * E</code></p>
-
-<h2 id="pat-pat">pat + pat</h2>
-
-<p>和集合｡ PEGだと\(S/E\)となる｡ここでひとまずPEGの説明をすると､この\(/\)は文脈自由文法でいうところの\(|\)に似ているが､異なる点は\(S\)に失敗すると\(E\)に適合するか調べ､\(S\)<em>には戻らない</em>ところ｡これがPEGの曖昧さを破壊している｡</p>
-
-<h2 id="pat-n">pat^n</h2>
-
-<p>patをn回以上繰り返す｡nが負の数だと最小マッチになる｡<code>n == -1</code>のときはPEGの\(pat?\)(省略可能)になる｡</p>
-
-<h2 id="pat">(pat)</h2>
-
-<p>いつものグルーピング｡</p>
-
-<h1 id="grammer">Grammer</h1>
-
-<p><code>lpeg.P</code>にtableを渡すことでPEGを定義できる｡四則演算はこんな感じかしら｡</p>
-<div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">space = lpeg.S' \t\n'
+<p>PEGを表現できる｡渡されたPEGに基づくpatternを返す｡</p>
+</li>
+</ul><p>他にも渡された型によっていろいろできる｡<a href="http://www.inf.puc-rio.br/%7Eroberto/lpeg/#op-p">公式</a>をご覧ください(丸投げ)｡</p><h2 id="lpeg-r-range">lpeg.R(range)</h2><p>正規表現的にいうと〜<code>lpeg.R "09"</code>は[0-9]とか<code>lpeg.R "az"</code>は[a-z]みたいな感じのpatternを返す｡</p><h2 id="lpeg-s-str">lpeg.S(str)</h2><p>正規表現的にいうと<code>lpeg.S "+-/*%"</code>で[+-/*%]みたいな感じのpatternを返す｡正規表現を見ると前項の<code>lpeg.R</code>とで少々の混乱が生まれた｡</p><h2 id="lpeg-v-v">lpeg.V(v)</h2><p>文法を定義するとき､非終端記号を示すのに使われる｡</p><h1 id="part-3786f0dc2688989">演算子</h1><p>文法について触れる前にpattern同士の演算子をよォ…｡</p><h2 id="pat-pat">pat * pat</h2><p>連接を表す｡PEGだと\(S\cdot{}E\)または\(SE\)みたいな感じになる｡<code>S * E</code></p><h2 id="pat-pat">pat + pat</h2><p>和集合｡ PEGだと\(S/E\)となる｡ここでひとまずPEGの説明をすると､この\(/\)は文脈自由文法でいうところの\(|\)に似ているが､異なる点は\(S\)に失敗すると\(E\)に適合するか調べ､\(S\)<em>には戻らない</em>ところ｡これがPEGの曖昧さを破壊している｡</p><h2 id="pat-n">pat^n</h2><p>patをn回以上繰り返す｡nが負の数だと最小マッチになる｡<code>n == -1</code>のときはPEGの\(pat?\)(省略可能)になる｡</p><h2 id="pat">(pat)</h2><p>いつものグルーピング｡</p><h1 id="grammer">Grammer</h1><p><code>lpeg.P</code>にtableを渡すことでPEGを定義できる｡四則演算はこんな感じかしら｡</p><div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">space = lpeg.S' \t\n'
 grammer = lpeg.P{
     'Term'
     Term: lpeg.V'Fact' * (space^0 * lpeg.S'+-' * space^0 * lpeg.V'Fact')^0
     Fact: lpeg.V'Prm' * (space^0 * lpeg.S'*/%' * space^0 * lpeg.V'Prm')^0
     Prm: lpeg.S'(' * space^0 * lpeg.V'Term' * space^0 * lpeg.S')' + lpeg.R'09'
 }
-</code></pre></div>
-<p>PEG的にはこうなる｡</p>
-
-<p>\[
-Term\leftarrow{}Fact\cdot(Space^*\cdot(&#39;+&#39;/&#39;-&#39;)\cdot{}Space^*\cdot{}Fact)^*\\
-Fact\leftarrow{}Prm\cdot{}(Space^*\cdot{}(&#39;*&#39;/&#39;/&#39;/&#39;\%&#39;)\cdot{}Prm)^*\\
-Prm\leftarrow{}&#39;(&#39;\cdot{}Term^*\cdot{}Space^*{&#39;)&#39;}/[0-9]^+
-\]</p>
-
-<p>渡すtableの1番目には開始記号を明示していする｡</p>
-
-<h1 id="tips">Tips</h1>
-
-<p>MoonScriptでLPegを使う際､想いがMoonScript処理系に伝わらないことがある｡例えば\([0-9][a-z][A-Z]\)というものを書きたい時､</p>
-<div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">-- MoonScript
+</code></pre></div><p>PEG的にはこうなる｡</p><p>\[
+Term\leftarrow{}Fact\cdot(Space^*\cdot('+'/'-')\cdot{}Space^*\cdot{}Fact)^*\\
+Fact\leftarrow{}Prm\cdot{}(Space^*\cdot{}('*'/'/'/'\%')\cdot{}Prm)^*\\
+Prm\leftarrow{}'('\cdot{}Term^*\cdot{}Space^*{')'}/[0-9]^+
+\]</p><p>渡すtableの1番目には開始記号を明示していする｡</p><h1 id="tips">Tips</h1><p>MoonScriptでLPegを使う際､想いがMoonScript処理系に伝わらないことがある｡例えば\([0-9][a-z][A-Z]\)というものを書きたい時､</p><div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">-- MoonScript
 R '09' * R 'az' * R 'AZ'
-</code></pre></div>
-<p>とすると､Luaに落ちる時､曲解される｡</p>
-<div class="highlight"><pre><code class="language-Lua" data-lang="Lua">-- Lua
+</code></pre></div><p>とすると､Luaに落ちる時､曲解される｡</p><div class="highlight"><pre><code class="language-Lua" data-lang="Lua">-- Lua
 R('09' * R('az' * R('AZ')))
-</code></pre></div>
-<p>フニ〜</p>
-<div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">-- MoonScript
+</code></pre></div><p>フニ〜</p><div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">-- MoonScript
 R'09' * R'az' * R'AZ'
-</code></pre></div>
-<p>といった具合に<em>関数と引数の間にスペースを入れない</em>ことで</p>
-<div class="highlight"><pre><code class="language-Lua" data-lang="Lua">-- Lua
+</code></pre></div><p>といった具合に<em>関数と引数の間にスペースを入れない</em>ことで</p><div class="highlight"><pre><code class="language-Lua" data-lang="Lua">-- Lua
 R('09') * R('az') * R('AZ')
-</code></pre></div>
-<p>落ちたな(確信)｡</p>
-
-<hr>
-
-<p>Luaの純度を高めるため､<a href="https://github.com/pygy/LuLPeg">LuLPeg</a>を使おうと考えている｡見たところLPeg v0.12と同じ動きをちゃんとしてくれているようだ｡</p>
-
-<p>その1があるからってその2があるとか､そういう考えは捨てて欲しい｡でも『FLOWERS』秋篇は5000%あるので､ある｡</p>
-
+</code></pre></div><p>落ちたな(確信)｡</p><hr><p>Luaの純度を高めるため､<a href="https://github.com/pygy/LuLPeg">LuLPeg</a>を使おうと考えている｡見たところLPeg v0.12と同じ動きをちゃんとしてくれているようだ｡</p><p>その1があるからってその2があるとか､そういう考えは捨てて欲しい｡でも『FLOWERS』秋篇は5000%あるので､ある｡</p>
           </div>
         </article>
 

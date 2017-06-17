@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Qiitaっぽいlistingのcaption &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="Qiitaっぽいlistingのcaption">
+    <meta name="twitter:title" content="Qiitaっぽいlistingのcaption"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2017/06/18/qiita-listing-name.html"> 
+    <meta name="twitter:description" content="こんにちは､びしょ〜じょです｡（後略）">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <meta name="description" content="こんにちは､びしょ〜じょです｡（後略）">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="https://nymphium.github.io/2017/06/18/qiita-listing-name.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Qiitaっぽいlistingのcaption</h1>
+            <span class="post-meta">
+              <time datetime="2017-06-18T00:00:00+09:00" itemprop="datePublished">Jun 18, 2017</time>
+              <p>tag: &#123;<a href="/tags.html#雑感-ref">雑感</a>, <a href="/tags.html#jekyll-ref">jekyll</a>&#125;</p>
+            </span>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
+});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡（後略）</p><hr><p>Qiitaっぽくlistingにcaptionを差し込むものがJekyllにも欲しくなった｡
+とりあえず以下のようなシンタックスを考える｡</p><div class="highlight">
+<span class="listing-name">Markdownのcode block内にMarkdownのcode blockを書く方法がわからん</span><pre><code class="language-" data-lang="">``\`lang:caption
+......
+``\`
+</code></pre>
+</div><p>markdown to HTML converterをグニャッと行くのは面倒なので､これをひとまず次のように変換する｡</p><div class="highlight"><pre><code class="language-" data-lang="">&lt;span class="listing-name"&gt;caption&lt;/span&gt;
+
+``\`lang
+......
+``\`
+</code></pre></div><p>これなら簡単にできる｡</p><div class="highlight">
+<span class="listing-name">listing_name1.rb</span><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">listing_name</span> <span class="n">content</span>
+    <span class="n">in_listing</span> <span class="o">=</span> <span class="kp">false</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="s2">""</span>
+
+    <span class="n">content</span><span class="p">.</span><span class="nf">each_line</span><span class="p">{</span><span class="o">|</span><span class="n">txt</span><span class="o">|</span>
+        <span class="k">if</span> <span class="n">l</span> <span class="o">=</span> <span class="n">txt</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="sr">/^\s*```\s*([^:]*)\s*:?\s*(.*)$/</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">not</span> <span class="n">in_listing</span>
+                <span class="n">in_listing</span> <span class="o">=</span> <span class="kp">true</span>
+                <span class="n">acc</span> <span class="o">+=</span> <span class="s2">"&lt;span class=</span><span class="se">\"</span><span class="s2">listing-name</span><span class="se">\"</span><span class="s2">&gt;</span><span class="si">#{</span><span class="n">l</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/span&gt;</span><span class="se">\n\n</span><span class="s2">```</span><span class="si">#{</span><span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">.</span><span class="nf">chomp</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="k">else</span>
+                <span class="n">in_listing</span> <span class="o">=</span> <span class="kp">false</span>
+                <span class="n">acc</span> <span class="o">+=</span> <span class="s2">"```</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="k">end</span>
+        <span class="k">else</span>
+            <span class="n">acc</span> <span class="o">+=</span> <span class="n">txt</span>
+        <span class="k">end</span>
+    <span class="p">}</span>
+
+    <span class="n">acc</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">Jekyll</span>
+    <span class="k">module</span> <span class="nn">Converters</span>
+        <span class="k">class</span> <span class="nc">Markdown</span> <span class="o">&lt;</span> <span class="no">Converter</span>
+            <span class="n">priority</span> <span class="ss">:low</span>
+            <span class="k">alias</span> <span class="n">plain_convert</span> <span class="n">convert</span>
+
+            <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+                <span class="n">plain_convert</span><span class="p">(</span><span class="n">listing_name</span> <span class="n">content</span><span class="p">)</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div><p>これにより以下のような感じになる｡</p><div class="highlight">
+<span class="listing-name">これ</span><pre><code class="language-html" data-lang="html"><span class="nt">&lt;p&gt;&lt;span</span> <span class="na">class=</span><span class="s">"listing-name"</span><span class="nt">&gt;</span>caption<span class="nt">&lt;/span&gt;&lt;/p&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"highlight"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;pre&gt;</span>
+    ......
+    <span class="nt">&lt;/pre&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div><p>これで以下のような感じになってほしい｡</p><div class="highlight">
+<span class="listing-name">これんなってほしい</span><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"highlight"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"listing-name"</span><span class="nt">&gt;</span>caption<span class="nt">&lt;/span&gt;</span> <span class="c">&lt;!-- 中に入っとる --&gt;</span>
+    <span class="nt">&lt;pre&gt;</span>
+    ......
+    <span class="nt">&lt;/pre&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div><p>Jekyllではメソッドをいくつかのタイミングでフックすることができる｡</p><p><a href="https://jekyllrb.com/docs/plugins/#hooks">Plugins#Hooks | Jekyll</a></p><p>が~~~しかし､markdownから生成されたHTMLをさらに操作する方法がよくわからなかった｡
+ので筋肉やっていき</p><div class="highlight">
+<span class="listing-name">listing_name.rb</span><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span><span class="s1">'nokogiri'</span>
+
+<span class="k">def</span> <span class="nf">listing_name</span> <span class="n">content</span>
+    <span class="p">.</span><span class="nf">.</span><span class="p">.</span><span class="nf">.</span><span class="p">.</span><span class="nf">.</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">listing_name_into_div</span> <span class="n">content</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="no">Nokogiri</span><span class="o">::</span><span class="no">HTML</span> <span class="n">content</span>
+
+    <span class="n">pspans</span> <span class="o">=</span> <span class="n">html</span><span class="p">.</span><span class="nf">xpath</span><span class="p">(</span><span class="s1">'//div[@class="highlight"]/preceding-sibling::p[span[@class="listing-name"]]'</span><span class="p">)</span>
+    <span class="n">divs</span> <span class="o">=</span> <span class="n">html</span><span class="p">.</span><span class="nf">xpath</span><span class="p">(</span><span class="s1">'//p[span[@class="listing-name"]]/following-sibling::div[@class="highlight"]'</span><span class="p">)</span>
+    <span class="n">pspans</span><span class="p">.</span><span class="nf">each_with_index</span><span class="p">{</span><span class="o">|</span><span class="n">pspan</span><span class="p">,</span> <span class="n">idx</span><span class="o">|</span>
+        <span class="n">span</span> <span class="o">=</span> <span class="n">pspan</span><span class="p">.</span><span class="nf">remove</span><span class="p">.</span><span class="nf">xpath</span><span class="p">(</span><span class="s1">'span'</span><span class="p">).</span><span class="nf">remove</span>
+        <span class="n">divs</span><span class="p">[</span><span class="n">idx</span><span class="p">].</span><span class="nf">children</span><span class="p">.</span><span class="nf">first</span><span class="p">.</span><span class="nf">add_previous_sibling</span><span class="p">(</span><span class="n">span</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1"># キャプションが空のときは消す</span>
+    <span class="n">html</span><span class="p">.</span><span class="nf">xpath</span><span class="p">(</span><span class="s1">'//span[@class="listing-name" and string-length(text()) = 0]'</span><span class="p">).</span><span class="nf">remove</span>
+    <span class="n">html</span><span class="p">.</span><span class="nf">xpath</span><span class="p">(</span><span class="s1">'/html/body/*'</span><span class="p">).</span><span class="nf">to_s</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">Jekyll</span>
+    <span class="k">module</span> <span class="nn">Converters</span>
+        <span class="k">class</span> <span class="nc">Markdown</span> <span class="o">&lt;</span> <span class="no">Converter</span>
+            <span class="c1"># priority :lowest</span>
+            <span class="c1"># lowerstにするとなんかぶち壊れたのでヤバい､適宜ほかをhigherにしていって</span>
+            <span class="k">alias</span> <span class="n">plain_convert</span> <span class="n">convert</span>
+
+            <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+                <span class="c1"># すぐにヤバくなりそう</span>
+                <span class="n">listing_name_into_div</span><span class="p">(</span><span class="n">plain_convert</span><span class="p">(</span><span class="n">listing_name</span> <span class="n">content</span><span class="p">))</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div><p>バイトのおかげでXPathに少し詳しくなりました｡webはやめよう｡</p><hr><p>『劇場版 魔法科高校の劣等生 星を呼ぶ少女』舞台挨拶LV付きを観に行った｡
+何故か徹夜で行ってしまったので爆睡するかと思ったが､大音量に手の混んだ魔法エフェクト､そしていつもと変わらない!! お兄様クオリティーで大変面白かったので終始笑いながら観た｡
+どんな敵が出ても最終的に被害0でお兄様大勝利なのでアンパンマン並に安心して観られますね｡</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2017/06/16/t470s_with_win10.html" title="T470sの下ArchとWin10が同棲、しかし愛の巣が崩壊">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <span class="btn next disabled">Next &rarr;</span>
+      </div>
+    </footer>
+
+  </body>
+</html>

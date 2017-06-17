@@ -60,58 +60,33 @@ MathJax.Hub.Config({
             </script>
           </header>
           <div class="post-content" itemprop="articleBody">
-<p>その2です｡LPegの日本語解説が世界的に少ないので多少の需要があると信じて書いていきたい｡</p>
-
-<h1 id="pattern">Pattern</h1>
-
-<h2 id="lpeg-p-val">lpeg.P(val) つづき</h2>
-
-<ul>
-<li><p><code>type(val) == &quot;number&quot; and val &gt; 0</code></p>
+<p>その2です｡LPegの日本語解説が世界的に少ないので多少の需要があると信じて書いていきたい｡</p><h1 id="pattern">Pattern</h1><h2 id="lpeg-p-val">lpeg.P(val) つづき</h2><ul>
+<li>
+<p><code>type(val) == "number" and val &gt; 0</code></p>
 
 <p>任意の<em>val</em>文字にマッチ｡雑に正規表現だと<em>/^.{val}/</em>のような感じになる｡
 実は省略が可能</p>
-<div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">&gt; import P, C, S, R, match from require "lpeg"
+</li>
+</ul><div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">&gt; import P, C, S, R, match from require "lpeg"
 &gt; P(2)\match "aiueo"
 3 -- マッチ後の位置
 &gt; C(2)\match "aiueo"
 "ai"
 &gt; (P(1) * 2)\match "aiueo" -- == (P(1) * P(2))\match "aiueo"
 4
-</code></pre></div>
-<p>lpeg.Cはpatternを取りキャプチャを返します｡そのうち書きます｡lpeg.matchはマッチです(雑)｡</p></li>
-</ul>
-
-<h1 id="part-3786f0dc2688989">演算子</h1>
-
-<h2 id="pat1-pat2">pat1 - pat2</h2>
-
-<p>&quot;pat2を含まないpat2にマッチするパターン&quot;を還す｡\(!pat2 pat1\)</p>
-
-<p>上記のlpeg.P(number)と合わせてみる｡</p>
-<div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">&gt; C(2 - P("ae"))\match "ai"
+</code></pre></div><p>lpeg.Cはpatternを取りキャプチャを返します｡そのうち書きます｡lpeg.matchはマッチです(雑)｡</p><h1 id="part-3786f0dc2688989">演算子</h1><h2 id="pat1-pat2">pat1 - pat2</h2><p>"pat2を含まないpat2にマッチするパターン"を還す｡\(!pat2 pat1\)</p><p>上記のlpeg.P(number)と合わせてみる｡</p><div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">&gt; C(2 - P("ae"))\match "ai"
 "ai"
 &gt; C(2 - P("ae"))\match "ao"
 "ao"
 &gt; --&gt; nothing
-</code></pre></div>
-<p>ただどうしてもこのマイナスを四則演算として処理され､エラーなどになることがあるので省略できないこともある｡う〜ん動的型付け</p>
-
-<h2 id="pat-func">pat / func</h2>
-
-<p>patにマッチしたとき､マッチした文字列をfuncに渡し､マッチ時にfuncが即実行される｡</p>
-<div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">&gt; p = P("aiueo") / (...) -&gt; print "match: #{...}"
+</code></pre></div><p>ただどうしてもこのマイナスを四則演算として処理され､エラーなどになることがあるので省略できないこともある｡う〜ん動的型付け</p><h2 id="pat-func">pat / func</h2><p>patにマッチしたとき､マッチした文字列をfuncに渡し､マッチ時にfuncが即実行される｡</p><div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">&gt; p = P("aiueo") / (...) -&gt; print "match: #{...}"
 &gt; p2 = P"kakikukeko"
 &gt; p2 = P"kakikukeko" / (...) -&gt; print "match2: #{...}"
 &gt; C(p * p2)\match "aiueokakikukeko"
 match: aiueo
 match2: kakikukeko
 "aiueokakikukeko"
-</code></pre></div>
-<hr>
-
-<p>そろそろ寝ます｡</p>
-
+</code></pre></div><hr><p>そろそろ寝ます｡</p>
           </div>
         </article>
 

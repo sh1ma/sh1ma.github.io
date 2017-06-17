@@ -42,17 +42,17 @@ body {
   color: #2b2e2f;
   background-color: #cddee3;
   -webkit-text-size-adjust: 100%;
-  -webkit-font-feature-settings: "kern" 1;
-  -moz-font-feature-settings: "kern" 1;
-  -o-font-feature-settings: "kern" 1;
-  font-feature-settings: "kern" 1;
+  -webkit-font-feature-settings: "palt" 1;
+  -moz-font-feature-settings: "palt" 1;
+  -o-font-feature-settings: "palt" 1;
+  font-feature-settings: "palt" 1;
   font-kerning: normal; }
 
 /**
  * Set `margin-bottom` to maintain vertical rhythm
  */
 h1, h2, h3, h4, h5, h6,
-p, blockquote, pre,
+p, blockquote,
 ul, ol, dl, figure {
   margin-bottom: 15px; }
 
@@ -147,11 +147,19 @@ blockquote {
 /**
  * Code formatting
  */
+.highlight {
+  background: #eef; }
+
+.listing-name {
+  background: rgba(179, 220, 232, 0.79);
+  color: #38747f;
+  padding: 0.1rem 0.4rem 0.3rem 0.3rem;
+  display: inline-block; }
+
 pre, code {
   font-size: 15px;
-  border: 1px solid #e8e8e8;
   border-radius: 3px;
-  background-color: #eef; }
+  background: #eef; }
 
 code {
   padding: 1px 5px; }

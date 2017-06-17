@@ -62,129 +62,59 @@ MathJax.Hub.Config({
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡
 気づけば5年次4年生になりました｡
-ようやく卒研フェーズになったので､ね｡</p>
-
-<p>あとバイトの時給や労働可能時間<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>が上がったりして金が手に入る分余計に労働を重ねてしまうようになったが金は手に入った｡
-また<a href="http://nymphium.github.io/2016/09/26/10%E6%9C%88%E3%81%AE%E6%B1%BA%E6%84%8F.html">毎週焼肉月間</a>などをやりたいぜ｡</p>
-
-<p>もう少し序文を書こうと思ったけど特に無いので終わり｡</p>
-
-<hr>
-
-<h1 id="typed-racket">Typed Racket</h1>
-
-<p>最近はRacketの､特にTyped Racketという物体を書き始めたので､ちょっとやっていきたいと思います｡
+ようやく卒研フェーズになったので､ね｡</p><p>あとバイトの時給や労働可能時間<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>が上がったりして金が手に入る分余計に労働を重ねてしまうようになったが金は手に入った｡
+また<a href="http://nymphium.github.io/2016/09/26/10%E6%9C%88%E3%81%AE%E6%B1%BA%E6%84%8F.html">毎週焼肉月間</a>などをやりたいぜ｡</p><p>もう少し序文を書こうと思ったけど特に無いので終わり｡</p><hr><h1 id="typed-racket">Typed Racket</h1><p>最近はRacketの､特にTyped Racketという物体を書き始めたので､ちょっとやっていきたいと思います｡
 動機としては､なんとなくマクロに興味を持って､マクロといえばLispやろなぁということですね｡
-身近にはschemeでポエムを書くwasao君やEmacsに生かされているリザウド君などがいるのでそういった毒電波の影響を無意識のうちに受けていたという可能性もあります｡</p>
-
-<p>で､なんやかんやでRacketを書こうとなったところで色々漁ってみたらTyped Racketという言語に出会ったわけですね｡</p>
-
-<p><center>
+身近にはschemeでポエムを書くwasao君やEmacsに生かされているリザウド君などがいるのでそういった毒電波の影響を無意識のうちに受けていたという可能性もあります｡</p><p>で､なんやかんやでRacketを書こうとなったところで色々漁ってみたらTyped Racketという言語に出会ったわけですね｡</p><p></p>
+<center>
 <a href="https://github.com/racket/typed-racket">racket/typed-racket</a>
-</center></p>
-
-<p>これもマクロによるcore Racketの拡張なんですねぇ｡
-数日前にPerlのソースフィルターという機能を知って(Perl5を書いたことは1回もない)､それで型を突っ込んでいくみたいなことを話したあとだったので､それにだいぶ近いというかほとんど同じだなと思った｡ </p>
-
-<h2 id="occurrence-typing">Occurrence Typing</h2>
-
-<p>さて､Typed Racketは<em>Occurrence typing</em>という型付け規則を採用している｡
-簡単にいうと､ある変数<code>x</code>に関して型情報がわかりそうなconditionalがあると､その後のbodyにその型情報が伝播するようだ｡</p>
-<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">flexible-length</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">U</span> <span class="nv">String</span> <span class="p">(</span><span class="nf">Listof</span> <span class="nv">Any</span><span class="p">))</span> <span class="nv">Integer</span><span class="p">))</span>
+</center><p>これもマクロによるcore Racketの拡張なんですねぇ｡
+数日前にPerlのソースフィルターという機能を知って(Perl5を書いたことは1回もない)､それで型を突っ込んでいくみたいなことを話したあとだったので､それにだいぶ近いというかほとんど同じだなと思った｡ </p><h2 id="occurrence-typing">Occurrence Typing</h2><p>さて､Typed Racketは<em>Occurrence typing</em>という型付け規則を採用している｡
+簡単にいうと､ある変数<code>x</code>に関して型情報がわかりそうなconditionalがあると､その後のbodyにその型情報が伝播するようだ｡</p><div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">flexible-length</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">U</span> <span class="nv">String</span> <span class="p">(</span><span class="nf">Listof</span> <span class="nv">Any</span><span class="p">))</span> <span class="nv">Integer</span><span class="p">))</span>
 <span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">flexible-length</span> <span class="nv">str-or-lst</span><span class="p">)</span>
   <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">string?</span> <span class="nv">str-or-lst</span><span class="p">)</span>
       <span class="p">(</span><span class="nb">string-length</span> <span class="nv">str-or-lst</span><span class="p">)</span>
       <span class="p">(</span><span class="nb">length</span> <span class="nv">str-or-lst</span><span class="p">)))</span>
-</code></pre></div>
-<p>(<a href="https://docs.racket-lang.org/ts-guide/occurrence-typing.html">5.1 Basic Occurrence Typing</a>より引用)</p>
-
-<p>型注釈のシンタックスもLispのそれのように後置記法となっているため､ちょっと混乱する｡
-余談だが､arityが0の関数(<code>fun () -&gt; a</code>的な)の型は<code>(-&gt; R)</code>など､独特な空気がある｡</p>
-
-<p>さて､example codeに戻る｡
+</code></pre></div><p>(<a href="https://docs.racket-lang.org/ts-guide/occurrence-typing.html">5.1 Basic Occurrence Typing</a>より引用)</p><p>型注釈のシンタックスもLispのそれのように後置記法となっているため､ちょっと混乱する｡
+余談だが､arityが0の関数(<code>fun () -&gt; a</code>的な)の型は<code>(-&gt; R)</code>など､独特な空気がある｡</p><p>さて､example codeに戻る｡
 <code>flexible-length</code>はStringと(Listof Any)のUnion型をとり､Integerを返す｡
 if構文の中で､String型のときとそうでないときに分かれている｡
-このif構文の中で<code>str-or-list</code>を型が異なる関数に適用させても全体として型が一致するのは､このOccurrence Typingによる型情報の伝播のおかげ､とのこと｡</p>
-
-<h2 id="pros">pros</h2>
-
-<p>型のないRacketないしはLispを知らないので､なかった頃との比較はできない｡
-ただわりとイケる感じがある(雑)｡</p>
-
-<h2 id="cons">cons</h2>
-
-<p>やはりデータ型の定義が難点ですね｡
-たとえばよくあるOptional型だと</p>
-<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">define-type</span> <span class="p">(</span><span class="nf">Optional</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">U</span> <span class="p">(</span><span class="nf">Some</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">None</span><span class="p">)))</span>
+このif構文の中で<code>str-or-list</code>を型が異なる関数に適用させても全体として型が一致するのは､このOccurrence Typingによる型情報の伝播のおかげ､とのこと｡</p><h2 id="pros">pros</h2><p>型のないRacketないしはLispを知らないので､なかった頃との比較はできない｡
+ただわりとイケる感じがある(雑)｡</p><h2 id="cons">cons</h2><p>やはりデータ型の定義が難点ですね｡
+たとえばよくあるOptional型だと</p><div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">define-type</span> <span class="p">(</span><span class="nf">Optional</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">U</span> <span class="p">(</span><span class="nf">Some</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">None</span><span class="p">)))</span>
 <span class="p">(</span><span class="nf">struct:</span> <span class="p">(</span><span class="nf">A</span><span class="p">)</span> <span class="nv">Some</span> <span class="p">([</span><span class="nf">v</span> <span class="nv">:</span> <span class="nv">A</span><span class="p">]))</span>
 <span class="p">(</span><span class="nf">struct:</span> <span class="nv">None</span> <span class="p">())</span>
-</code></pre></div>
-<p>のように書くことになる｡
+</code></pre></div><p>のように書くことになる｡
 OCamlやHaskellと比べるとあまりにも…という感じですが､Typed Racketのデータ型の実態としてはまさに書いたとおりstructureのUnionですからねぇ…けどねぇ…｡
-やはりデータ型を定義するときは<code>define-datatype</code>みたいなマクロを作ってstructureの定義は隠蔽したいものです｡</p>
-
-<h3 id="2017-04-16">追記 2017/04/16</h3>
-
-<p>ずばりなものを実装している人がおりました｡
-<a href="https://lexi-lambda.github.io/blog/2015/12/21/adts-in-typed-racket-with-macros/">ADTs in Typed Racket with macros</a></p>
-
-<p>これにより良い感じになる｡</p>
-<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">define-datatype</span> <span class="p">(</span><span class="nf">Optional</span> <span class="nv">A</span><span class="p">)</span>
+やはりデータ型を定義するときは<code>define-datatype</code>みたいなマクロを作ってstructureの定義は隠蔽したいものです｡</p><h3 id="2017-04-16">追記 2017/04/16</h3><p>ずばりなものを実装している人がおりました｡
+<a href="https://lexi-lambda.github.io/blog/2015/12/21/adts-in-typed-racket-with-macros/">ADTs in Typed Racket with macros</a></p><p>これにより良い感じになる｡</p><div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">define-datatype</span> <span class="p">(</span><span class="nf">Optional</span> <span class="nv">A</span><span class="p">)</span>
                  <span class="p">(</span><span class="nf">Some</span> <span class="nv">A</span><span class="p">)</span>
                  <span class="nv">None</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nf">define-datatype</span> <span class="p">(</span><span class="nf">Either</span> <span class="nv">L</span> <span class="nv">R</span><span class="p">)</span>
                  <span class="p">(</span><span class="nf">Left</span> <span class="nv">L</span><span class="p">)</span>
                  <span class="p">(</span><span class="nf">Right</span> <span class="nv">R</span><span class="p">))</span>
-</code></pre></div>
-<p>ただ､各structureに<code>#:transparent</code>(Haskellなどにおける<code>deriving Show</code>に<em>働きとしては</em>近い)など､オプションを渡すことができないため､もう少し工夫が必要になるだろう｡</p>
-
-<h2 id="syntastic">Syntasticと罠</h2>
-
-<p>みなさんVimはお使いかと思いますが､Syntasticも使っているはずですね｡
+</code></pre></div><p>ただ､各structureに<code>#:transparent</code>(Haskellなどにおける<code>deriving Show</code>に<em>働きとしては</em>近い)など､オプションを渡すことができないため､もう少し工夫が必要になるだろう｡</p><h2 id="syntastic">Syntasticと罠</h2><p>みなさんVimはお使いかと思いますが､Syntasticも使っているはずですね｡
 Syntasticがあると型の不一致もちゃんと怒ってくれている…のですが…｡
-SyntasticのRacket syntastic checkerはデフォルトでは<code>racket</code>コマンドをただ叩いているだけ…つまりファイルを実行してしまっているんですね｡最悪です｡</p>
-
-<p>これはさすがにマズイということで<code>raco expand</code>でマクロを展開するだけにさせました｡
-Typed Racketはマクロ展開時に型チェックをおこなうというタイプのものなのでこれでOK｡</p>
-
-<p><code>~/.vim/bundle/syntastic/syntax_checker/racket.vim</code>をちょいと拝借してちょいちょい変えて､特に以下を追加する｡</p>
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">" ここでコマンドにサブコマンドを渡す</span>
+SyntasticのRacket syntastic checkerはデフォルトでは<code>racket</code>コマンドをただ叩いているだけ…つまりファイルを実行してしまっているんですね｡最悪です｡</p><p>これはさすがにマズイということで<code>raco expand</code>でマクロを展開するだけにさせました｡
+Typed Racketはマクロ展開時に型チェックをおこなうというタイプのものなのでこれでOK｡</p><p><code>~/.vim/bundle/syntastic/syntax_checker/racket.vim</code>をちょいと拝借してちょいちょい変えて､特に以下を追加する｡</p><div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">" ここでコマンドにサブコマンドを渡す</span>
 <span class="k">let</span> makeprg <span class="p">=</span> self<span class="p">.</span>makeprgBuild<span class="p">({</span>
 <span class="se">    \</span> <span class="s1">'args_before'</span><span class="p">:</span> <span class="s1">'expand'</span> <span class="p">})</span>
-</code></pre></div>
-<p>これで適当にガッとやって終わりや｡
-そのうちSyntasticにprなどをサッと打ちたい｡</p>
-
-<h3 id="2017-04-16">追記 2017/04/16</h3>
-
-<p>やっていきをした <a href="https://github.com/vim-syntastic/syntastic/pull/2001">vim-syntastic/syntastic PR #2001</a></p>
-
-<hr>
-
-<p>&quot;<em>Typed</em>&quot; Racketとしてみるとなんともいえない感じを残しましたが､Racketはなかなかおもしろい言語だと思いました｡
+</code></pre></div><p>これで適当にガッとやって終わりや｡
+そのうちSyntasticにprなどをサッと打ちたい｡</p><h3 id="2017-04-16">追記 2017/04/16</h3><p>やっていきをした <a href="https://github.com/vim-syntastic/syntastic/pull/2001">vim-syntastic/syntastic PR #2001</a></p><hr><p>"<em>Typed</em>" Racketとしてみるとなんともいえない感じを残しましたが､Racketはなかなかおもしろい言語だと思いました｡
 モジュールシステムや協力でhygenicなマクロ…｡Luaと比べては何もかもが高機能…｡
 ファイル先頭に書く<code>#lang hogehoge</code>というものでファイル内をhogehogeというモジュールにあるmacro expanderで展開していきcore Racketに落とすという手法はなかなか渋い｡
-そのため<a href="https://docs.racket-lang.org/datalog/index.html">Prologのような論理型言語</a>が書けてしまったりする｡</p>
-
-<p>この<a href="https://arxiv.org/abs/1511.07033">Occurrence TypingにRefinement Typeを合わせる</a>といった試みもあり､今後も見守っていきたい｡</p>
-
-<hr>
-
-<p>この語に及んでな〜〜に言語を取得しようとしてるんだ､大丈夫か…｡
-漫画や小説､技術書まで積んでしまっている､お前の人生も詰んでいる､つまりはそういうこと…｡</p>
-
-<div class="footnotes">
+そのため<a href="https://docs.racket-lang.org/datalog/index.html">Prologのような論理型言語</a>が書けてしまったりする｡</p><p>この<a href="https://arxiv.org/abs/1511.07033">Occurrence TypingにRefinement Typeを合わせる</a>といった試みもあり､今後も見守っていきたい｡</p><hr><p>この語に及んでな〜〜に言語を取得しようとしてるんだ､大丈夫か…｡
+漫画や小説､技術書まで積んでしまっている､お前の人生も詰んでいる､つまりはそういうこと…｡</p><div class="footnotes">
 <hr>
 <ol>
 
 <li id="fn1">
-<p>フレックスタイム制なので適当に行って適当に帰る､また1ヶ月n時間まで働いてOKという上限がある｡&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a></p>
+<p>フレックスタイム制なので適当に行って適当に帰る､また1ヶ月n時間まで働いてOKという上限がある｡ <a href="#fnref1" rev="footnote">↩</a></p>
 </li>
 
 </ol>
 </div>
-
           </div>
         </article>
 

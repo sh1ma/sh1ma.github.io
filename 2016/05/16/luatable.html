@@ -62,76 +62,25 @@ MathJax.Hub.Config({
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡
 <a href="http://www.aikatsu.com/goods/magazine/top_of_works/">アイカツ! Top of works</a>はぶっちゃけヤバイ｡幸せがグッと詰まってるのでぜひ買ってください｡
-でかいので買う前にスペース確保などしてください｡</p>
-
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">縦幅が2.2TAPLある。 <a href="https://t.co/Pk4b1QugEX">pic.twitter.com/Pk4b1QugEX</a></p>&mdash; びしょ～じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/732109386462584832">May 16, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<hr>
-
-<h1 id="1">1. はじめに</h1>
-
-<h2 id="part-31d5a699563388c5">はじめにの前に</h2>
-
-<p>先日はこんな発表をしました｡</p>
-
-<p><a href="/pdf/tsukubapm3-luavm.html">Tsukuba.pm #3 LuaのVM</a></p>
-
-<p>内容はLua 5.2のVMのバイトコードを読むというもので､VMの命令とか定数をデコードするというものを作りました｡
-もうすこしなんかやりたいところでしたね…｡</p>
-
-<p>他には面白い発表が聞けたので楽しかったです｡</p>
-
-<h2 id="intro">intro</h2>
-
-<p>さて､同イベントに参加した<a href="https://twitter.com/_yyu_">@_yyu_ </a>さんにLuaのtableの実装について聞かれたんですが､そこまで詳しくなかったので答えられないというインシデントがありました｡
-唯一のデータ構造といわれると確かにそこが気になるはずだ｡ちなみにScalaでは<a href="https://en.wikipedia.org/wiki/Hash_array_mapped_trie">HAMT</a>という高速な操作ができるデータ構造が用意されているようだ｡</p>
-
-<p>さんざんLuaについて語っておいてそれはマズい､というわけでちょっとだけ調べた｡
-実装の詳細については資料がなかったのでソースを読まざるを得ない､しかしCはもう読みたくない､ということで実装の詳細には迫れなかったが､動作の概略を今回は掴んでみたい｡</p>
-
-<h1 id="2-lua-table">2. Luaのtableについて</h1>
-
-<p>今回はtableのhashとメモリ確保について｡</p>
-
-<p>Lua 4.0まではtableは完全にhash tableだったようですが､5.0以降はhash partとarray partという2つの構造を併せ持つハイブリッドな物体になっています｡
-これにより<code>t[1]</code>､<code>t[2]</code>､…などは､arrayの<code>n</code>番目という内部表現から得られるため､indexを保持する必要がなくなるなどの改善が得られました｡さて｡</p>
-
-<h1 id="3-allocation-index-key">3. allocationとindex/key</h1>
-
-<h2 id="3-1-key-or-index">3-1. key or index?</h2>
-
-<p>では以下のようなコードはどないすんじゃヴォケという考えに至ります｡</p>
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="p">{}</span>
+でかいので買う前にスペース確保などしてください｡</p><blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">縦幅が2.2TAPLある。 <a href="https://t.co/Pk4b1QugEX">pic.twitter.com/Pk4b1QugEX</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/732109386462584832">May 16, 2016</a>
+</blockquote><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><hr><h1 id="1">1. はじめに</h1><h2 id="part-31d5a699563388c5">はじめにの前に</h2><p>先日はこんな発表をしました｡</p><p><a href="/pdf/tsukubapm3-luavm.html">Tsukuba.pm #3 LuaのVM</a></p><p>内容はLua 5.2のVMのバイトコードを読むというもので､VMの命令とか定数をデコードするというものを作りました｡
+もうすこしなんかやりたいところでしたね…｡</p><p>他には面白い発表が聞けたので楽しかったです｡</p><h2 id="intro">intro</h2><p>さて､同イベントに参加した<a href="https://twitter.com/_yyu_">@_yyu_ </a>さんにLuaのtableの実装について聞かれたんですが､そこまで詳しくなかったので答えられないというインシデントがありました｡
+唯一のデータ構造といわれると確かにそこが気になるはずだ｡ちなみにScalaでは<a href="https://en.wikipedia.org/wiki/Hash_array_mapped_trie">HAMT</a>という高速な操作ができるデータ構造が用意されているようだ｡</p><p>さんざんLuaについて語っておいてそれはマズい､というわけでちょっとだけ調べた｡
+実装の詳細については資料がなかったのでソースを読まざるを得ない､しかしCはもう読みたくない､ということで実装の詳細には迫れなかったが､動作の概略を今回は掴んでみたい｡</p><h1 id="2-lua-table">2. Luaのtableについて</h1><p>今回はtableのhashとメモリ確保について｡</p><p>Lua 4.0まではtableは完全にhash tableだったようですが､5.0以降はhash partとarray partという2つの構造を併せ持つハイブリッドな物体になっています｡
+これにより<code>t[1]</code>､<code>t[2]</code>､…などは､arrayの<code>n</code>番目という内部表現から得られるため､indexを保持する必要がなくなるなどの改善が得られました｡さて｡</p><h1 id="3-allocation-index-key">3. allocationとindex/key</h1><h2 id="3-1-key-or-index">3-1. key or index?</h2><p>では以下のようなコードはどないすんじゃヴォケという考えに至ります｡</p><div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">x</span><span class="p">[</span><span class="mi">10000</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"voke"</span>
-</code></pre></div>
-<p><code>x</code>の10000番目に値を入れるのか? 実はそうではない｡この場合<code>10000</code>という<em>key</em>に<code>&quot;voke&quot;</code>というvalueが入るため､<em><code>x</code>のarray partの長さは0</em>のままです｡</p>
-
-<p>数字は､プログラマーは､<strong>俺は､こいつはindexなのかkeyなのか</strong>､という問題に頭を抱えます｡</p>
-
-<h2 id="3-2-key-to-index">3-2. key to index</h2>
-
-<p>数字の気持ちはともかく､プログラマーにはとりあえずなんとかわかりそうな気がしないでもない方法があります｡</p>
-
-<p>まずはarray partのサイズの確保について話します｡</p>
-
-<p>メモリ確保のタイミングはいつなのか｡
-array partに関しては､以下のタイミングでメモリの確保が行われる｡</p>
-
-<ul>
+</code></pre></div><p><code>x</code>の10000番目に値を入れるのか? 実はそうではない｡この場合<code>10000</code>という<em>key</em>に<code>"voke"</code>というvalueが入るため､<em><code>x</code>のarray partの長さは0</em>のままです｡</p><p>数字は､プログラマーは､<strong>俺は､こいつはindexなのかkeyなのか</strong>､という問題に頭を抱えます｡</p><h2 id="3-2-key-to-index">3-2. key to index</h2><p>数字の気持ちはともかく､プログラマーにはとりあえずなんとかわかりそうな気がしないでもない方法があります｡</p><p>まずはarray partのサイズの確保について話します｡</p><p>メモリ確保のタイミングはいつなのか｡
+array partに関しては､以下のタイミングでメモリの確保が行われる｡</p><ul>
 <li>tableに一つ値が追加され､メモリ確保が必要となるとき､次のような<code>n</code>が確保される｡
 
 <ul>
 <li>array partの<code>1</code>〜<code>n</code>のうち半分に値が入ってる</li>
-<li><code>n/2+1</code>〜<code>n</code>のうち最低一つに値が入ってる</li>
-</ul></li>
+<li>
+<code>n/2+1</code>〜<code>n</code>のうち最低一つに値が入ってる</li>
 </ul>
-
-<p>メモリの確保というのは､つまりより長いtableを作って突っ込んでいくということ｡ここで<em>keyが<code>n ≧ k</code>となるnumber <code>k</code>の場合､indexとして変換される</em>｡</p>
-
-<p>せっかくなのでmoorを使ってみまつ｡</p>
-<div class="highlight"><pre><code class="language-" data-lang="">$ moor
+</li>
+</ul><p>メモリの確保というのは､つまりより長いtableを作って突っ込んでいくということ｡ここで<em>keyが<code>n ≧ k</code>となるnumber <code>k</code>の場合､indexとして変換される</em>｡</p><p>せっかくなのでmoorを使ってみまつ｡</p><div class="highlight"><pre><code class="language-" data-lang="">$ moor
 moor on MoonScript version 0.4.0 on Lua 5.3
 &gt; t = {1, 2, 3}
 &gt; t[8] = 8
@@ -149,17 +98,11 @@ moor on MoonScript version 0.4.0 on Lua 5.3
 { 2, 3, 4,
     [7] = 8
   }
-</code></pre></div>
-<p><code>t</code>では長さ3のarray partが定義時に作られます｡で､<code>t[8]</code>に値を入れますが､上記のメモリ確保の方法からいくと長さ8まで取ってくれないので<code>8</code>はindexではなくkeyとして保持されます｡
-そのため､1番目の要素を<code>table.remove()</code>で取り除いても<code>8</code>は<em>key</em>なので変わりません｡</p>
-
-<p>一方､<code>t2</code>ではまず長さ4のarray partを定義時に用意しています｡それで<code>t[8]</code>を突っ込むと､<code>n/2</code>個の要素が使われてて<code>n/2+1</code>〜<code>n</code>の間に値が1つ以上ある<code>n</code>がちょうど8なので､<code>8</code>は<em>index</em>になります｡
-その証拠にほら､<code>8</code>を格納してるindexが<code>7</code>になってるだろう?</p>
-
-<p>次はメモリ確保のタイミングについての計測です｡
+</code></pre></div><p><code>t</code>では長さ3のarray partが定義時に作られます｡で､<code>t[8]</code>に値を入れますが､上記のメモリ確保の方法からいくと長さ8まで取ってくれないので<code>8</code>はindexではなくkeyとして保持されます｡
+そのため､1番目の要素を<code>table.remove()</code>で取り除いても<code>8</code>は<em>key</em>なので変わりません｡</p><p>一方､<code>t2</code>ではまず長さ4のarray partを定義時に用意しています｡それで<code>t[8]</code>を突っ込むと､<code>n/2</code>個の要素が使われてて<code>n/2+1</code>〜<code>n</code>の間に値が1つ以上ある<code>n</code>がちょうど8なので､<code>8</code>は<em>index</em>になります｡
+その証拠にほら､<code>8</code>を格納してるindexが<code>7</code>になってるだろう?</p><p>次はメモリ確保のタイミングについての計測です｡
 そろそろ飽きてきたのでちゃんと理解できてないうちに書いてみたやつを動かしてみます｡
-何をしてるかというと､tableにガンガンものを突っ込んでるというだけで､tableの成長はサイズがでかいとちょっと時間がかかるというヤツですね｡</p>
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">sock</span> <span class="o">=</span> <span class="nb">require</span><span class="s1">'socket'</span>
+何をしてるかというと､tableにガンガンものを突っ込んでるというだけで､tableの成長はサイズがでかいとちょっと時間がかかるというヤツですね｡</p><div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">sock</span> <span class="o">=</span> <span class="nb">require</span><span class="s1">'socket'</span>
 
 <span class="kd">local</span> <span class="n">get_exectime</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
     <span class="kd">local</span> <span class="n">t1</span> <span class="o">=</span> <span class="n">sock</span><span class="p">.</span><span class="n">gettime</span><span class="p">()</span>
@@ -204,9 +147,7 @@ moor on MoonScript version 0.4.0 on Lua 5.3
 <span class="n">printrangetime</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">22</span><span class="o">+</span><span class="mi">2</span><span class="o">^</span><span class="mi">22</span><span class="o">+</span><span class="mi">2</span><span class="o">^</span><span class="mi">22</span><span class="o">-</span><span class="mi">5000</span><span class="p">,</span> <span class="mi">2</span><span class="o">^</span><span class="mi">22</span><span class="o">+</span><span class="mi">2</span><span class="o">^</span><span class="mi">22</span><span class="o">+</span><span class="mi">2</span><span class="o">^</span><span class="mi">22</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="n">printrangetime</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">22</span><span class="o">+</span><span class="mi">2</span><span class="o">^</span><span class="mi">22</span><span class="o">+</span><span class="mi">2</span><span class="o">^</span><span class="mi">22</span><span class="p">,</span> <span class="mi">2</span><span class="o">^</span><span class="mi">22</span><span class="o">+</span><span class="mi">2</span><span class="o">^</span><span class="mi">22</span><span class="o">+</span><span class="mi">2</span><span class="o">^</span><span class="mi">22</span><span class="o">+</span><span class="mi">4999</span><span class="p">)</span>
-</code></pre></div>
-<p>以下の実行結果が得られる｡</p>
-<div class="highlight"><pre><code class="language-" data-lang="">$ lua test.lua
+</code></pre></div><p>以下の実行結果が得られる｡</p><div class="highlight"><pre><code class="language-" data-lang="">$ lua test.lua
        from    to         (      div )         sec
 ------------------------------------------------------------
           0 〜 4999       (+    4999 )  0.00021195411682129
@@ -219,28 +160,12 @@ moor on MoonScript version 0.4.0 on Lua 5.3
    12572912 〜 12577911   (+    4999 )  0.00013303756713867
    12577912 〜 12582911   (+    4999 )  0.00014400482177734
    12582912 〜 12587911   (+    4999 )  0.00014877319335938
-</code></pre></div>
-<p>なるほど｡面白いのは最初(from 0 to 4999)のtableへの値の追加とケツの方ではあまり時間が変わらないんですねぇ｡
-前者は短い内でのtableの成長が大量に起きるので若干遅くなっている｡</p>
-
-<h1 id="4">4. おわりに</h1>
-
-<p><a href="https://twitter.com/_yyu_">@_yyu_ </a>さんが知りたいのは多分key-valueの保持とひも付けの方法だと思うんです､ボクもそれが知りたかった｡</p>
-
-<h1 id="part-2bb23717e7a4fb4a">参考文献</h1>
-
-<ul>
+</code></pre></div><p>なるほど｡面白いのは最初(from 0 to 4999)のtableへの値の追加とケツの方ではあまり時間が変わらないんですねぇ｡
+前者は短い内でのtableの成長が大量に起きるので若干遅くなっている｡</p><h1 id="4">4. おわりに</h1><p><a href="https://twitter.com/_yyu_">@_yyu_ </a>さんが知りたいのは多分key-valueの保持とひも付けの方法だと思うんです､ボクもそれが知りたかった｡</p><h1 id="part-2bb23717e7a4fb4a">参考文献</h1><ul>
 <li><a href="https://www.lua.org/doc/jucs05.pdf">The implementation of Lua 5.0</a></li>
-</ul>
-
-<hr>
-
-<p>院に行くかどうかは確定的ではないが充分視野に入れているので､来月のTOEFLかTOEICかなんかがタダで受けられるらしいので頑張りたい｡
-ということで<a href="http://www.lua.org/wshop15.html">Lua workshop 2015</a>の発表をYoutubeで聞いてるわけですがポルトガルなまりの英語が難しいですおわり｡</p>
-
-<p>ところでTOEなんとかが終わるのが1300で､同日1630には<a href="http://showbyrock-anime.com/news/20160501-1818/">SB69一挙放送イベント</a>に行くわけですが気持ち高まってんぞ､
+</ul><hr><p>院に行くかどうかは確定的ではないが充分視野に入れているので､来月のTOEFLかTOEICかなんかがタダで受けられるらしいので頑張りたい｡
+ということで<a href="http://www.lua.org/wshop15.html">Lua workshop 2015</a>の発表をYoutubeで聞いてるわけですがポルトガルなまりの英語が難しいですおわり｡</p><p>ところでTOEなんとかが終わるのが1300で､同日1630には<a href="http://showbyrock-anime.com/news/20160501-1818/">SB69一挙放送イベント</a>に行くわけですが気持ち高まってんぞ､
 その翌日はチケットがあたったら<a href="http://www.particle.jp.net/rs_event/index.html">りりくるのイベント</a>にも行くので6月も全力だぞオイ</p>
-
           </div>
         </article>
 

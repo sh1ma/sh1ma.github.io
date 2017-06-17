@@ -60,22 +60,11 @@ MathJax.Hub.Config({
             </script>
           </header>
           <div class="post-content" itemprop="articleBody">
-<p>こんにちは､びしょ〜じょです｡</p>
-
-<p>昨日はやっとアイカツ2016年第4弾をやりました｡
+<p>こんにちは､びしょ〜じょです｡</p><p>昨日はやっとアイカツ2016年第4弾をやりました｡
 ｢馬鹿野郎お前俺は1万円は使うぞお前｣という気持ちで行ったんですが､2hほど筐体前で気持ちよくなってたけど結局3､4000円程度しか使えませんでした｡
 実際文章をちゃんと読んで聞いてしてると1プレイが結構長いんですね､3ヶ月ぶりだったので忘れてました｡
-結局1000円札5枚を100円玉50枚にしたら､全部使うことなく閉店時間になり小銭入れがパンパンのまま帰る羽目になりました｡</p>
-
-<p>データカードダス アイカツスターズ! は5月19日から! ということでまたやりに行こうと思います｡CPのスクールドレスは絶対にそろえたいなぁ､あときいちゃんが書いてあるやつ!</p>
-
-<hr>
-
-<h1 id="1-q-lua-return">1. Q. Luaでは関数外でもreturnが書ける､これな〜んで?</h1>
-
-<p>実はLuaでは関数外でも<code>retun</code>書けるし構文的には何の問題もないんですねぇ…｡
-Luaの予約語である<code>return</code>は､CとかJavaなどと同じで､関数の戻り値を書くわけです(多値という違いはありますが)｡</p>
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">-- foo.lua</span>
+結局1000円札5枚を100円玉50枚にしたら､全部使うことなく閉店時間になり小銭入れがパンパンのまま帰る羽目になりました｡</p><p>データカードダス アイカツスターズ! は5月19日から! ということでまたやりに行こうと思います｡CPのスクールドレスは絶対にそろえたいなぁ､あときいちゃんが書いてあるやつ!</p><hr><h1 id="1-q-lua-return">1. Q. Luaでは関数外でもreturnが書ける､これな〜んで?</h1><p>実はLuaでは関数外でも<code>retun</code>書けるし構文的には何の問題もないんですねぇ…｡
+Luaの予約語である<code>return</code>は､CとかJavaなどと同じで､関数の戻り値を書くわけです(多値という違いはありますが)｡</p><div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">-- foo.lua</span>
 
 <span class="nb">print</span> <span class="s2">"Hello"</span>
 
@@ -83,51 +72,26 @@ Luaの予約語である<code>return</code>は､CとかJavaなどと同じで�
 
 <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span> <span class="k">do</span>
  <span class="o">......</span>
-</code></pre></div>
-<h1 id="2-a-require">2. A. <code>require</code>の戻り値に渡すため</h1>
-
-<p>実はなんてことない話で､<code>require(&#39;foo&#39;)</code>したときの戻り値に<code>return 5</code>が渡されるというだけです｡</p>
-
-<p>luaファイルは全て<code>require([[filename]])</code>することでモジュールとして呼び出すことができ､<code>filename.lua</code>の<em>戻り値</em>､つまり<code>return ...</code>が<code>require([[filename]])</code>の戻り値になります｡
-<code>filename.lua</code>に戻り値がなければ<code>require([[filename]])</code>は<code>true</code>(または呼び出し時に失敗すれば<code>false</code>)を返します｡</p>
-
-<h1 id="3">3. 関数との関係</h1>
-
-<p>さて､関数の<code>return</code>と何か関係があるのではないか､という考えをするのが人間です｡
-実はだいぶあります｡</p>
-
-<p>ところで､ここで関数のおさらいです｡以下の関数<code>f</code>と<code>g</code>は<em>全く</em>同じ意味を持ちます｡</p>
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">f</span>
+</code></pre></div><h1 id="2-a-require">2. A. <code>require</code>の戻り値に渡すため</h1><p>実はなんてことない話で､<code>require('foo')</code>したときの戻り値に<code>return 5</code>が渡されるというだけです｡</p><p>luaファイルは全て<code>require([[filename]])</code>することでモジュールとして呼び出すことができ､<code>filename.lua</code>の<em>戻り値</em>､つまり<code>return ...</code>が<code>require([[filename]])</code>の戻り値になります｡
+<code>filename.lua</code>に戻り値がなければ<code>require([[filename]])</code>は<code>true</code>(または呼び出し時に失敗すれば<code>false</code>)を返します｡</p><h1 id="3">3. 関数との関係</h1><p>さて､関数の<code>return</code>と何か関係があるのではないか､という考えをするのが人間です｡
+実はだいぶあります｡</p><p>ところで､ここで関数のおさらいです｡以下の関数<code>f</code>と<code>g</code>は<em>全く</em>同じ意味を持ちます｡</p><div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">f</span>
 <span class="n">f</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span> <span class="k">end</span>
 
 <span class="kd">local</span> <span class="k">function</span> <span class="nf">g</span><span class="p">()</span> <span class="k">end</span>
-</code></pre></div>
-<p>また､次の関数<code>f_</code>と<code>g_</code>は違います｡</p>
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">-- f_ contains f_</span>
+</code></pre></div><p>また､次の関数<code>f_</code>と<code>g_</code>は違います｡</p><div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">-- f_ contains f_</span>
 <span class="kd">local</span> <span class="n">f_</span>
 <span class="n">f_</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span> <span class="k">return</span> <span class="n">f_</span> <span class="ow">or</span> <span class="mi">1</span> <span class="k">end</span>
 
 <span class="c1">-- g_ DOES NOT contains g_</span>
 <span class="kd">local</span> <span class="n">g_</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span> <span class="n">g_</span> <span class="ow">or</span> <span class="mi">1</span> <span class="k">end</span>
-</code></pre></div>
-<h2 id="3-1-string-dump">3-1. <code>string.dump</code></h2>
-
-<p>まず関係を示すために､ユーザー定義関数をバイナリ表現にしてくれる<code>string.dump</code>について｡</p>
-
-<p>言ったまんまですが､定義した関数を渡すと､実際にLua VM上で動くバイトコードに変換してくれます｡
-使いどころがよくわからない気もしますが､今が使い時です｡</p>
-
-<p>簡単な関数について考えてみます｡</p>
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">kantannna_kansuu</span><span class="p">()</span>
+</code></pre></div><h2 id="3-1-string-dump">3-1. <code>string.dump</code>
+</h2><p>まず関係を示すために､ユーザー定義関数をバイナリ表現にしてくれる<code>string.dump</code>について｡</p><p>言ったまんまですが､定義した関数を渡すと､実際にLua VM上で動くバイトコードに変換してくれます｡
+使いどころがよくわからない気もしますが､今が使い時です｡</p><p>簡単な関数について考えてみます｡</p><div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">kantannna_kansuu</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="k">end</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="nb">string.dump</span><span class="p">(</span><span class="n">kantannna_kansuu</span><span class="p">))</span>
-</code></pre></div>
-<p>これを実行するとよくわからない文字列が出力されます｡</p>
-
-<p>うーん､では<em>この文字列をファイルに吐き出して</em>みましょう｡</p>
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">kantannna_kansuu</span><span class="p">()</span>
+</code></pre></div><p>これを実行するとよくわからない文字列が出力されます｡</p><p>うーん､では<em>この文字列をファイルに吐き出して</em>みましょう｡</p><div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">kantannna_kansuu</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="k">end</span>
 
@@ -135,33 +99,13 @@ Luaの予約語である<code>return</code>は､CとかJavaなどと同じで�
 
 <span class="n">f</span><span class="p">:</span><span class="n">write</span><span class="p">(</span><span class="nb">string.dump</span><span class="p">(</span><span class="n">kantannna_kansuu</span><span class="p">))</span>
 <span class="n">f</span><span class="p">:</span><span class="n">close</span><span class="p">()</span>
-</code></pre></div>
-<p>じゃあ<code>lua</code>で実行してみるか｡</p>
-<div class="highlight"><pre><code class="language-" data-lang="">$ lua kantannna_kansuu.out
+</code></pre></div><p>じゃあ<code>lua</code>で実行してみるか｡</p><div class="highlight"><pre><code class="language-" data-lang="">$ lua kantannna_kansuu.out
 hello   3
-</code></pre></div>
-<p>はわわ､なんだかよくわからなくなってきました……｡</p>
-
-<hr>
-
-<p>もう少し頑張ってください｡次のようなファイルを作ります｡</p>
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">-- kantannna_kansuu.lua</span>
+</code></pre></div><p>はわわ､なんだかよくわからなくなってきました……｡</p><hr><p>もう少し頑張ってください｡次のようなファイルを作ります｡</p><div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">-- kantannna_kansuu.lua</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-</code></pre></div>
-<p>そうです､<code>kantannna_kansuu()</code>の中身と同じです｡これをコンパイルします｡はい､Luaはコンパイラがあります｡</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>luac -o compiled_kantannna_kansuu.out kantannna_kansuu.lua
-</code></pre></div>
-<p><code>kantannna_kansuu.lua</code>をLua VMのバイトコードにコンパイルし､<code>compiled_kantannna_kansuu.out</code>というファイルに書き出しました｡</p>
-
-<p>ここで!! おもむろにバイナリエディタなどで<code>kantannna_kansuu.out</code>と<code>compiled_kantannna_kansuu.out</code>を見比べてみてください｡
-実はこれ<strong><em>全く同じ</em></strong>なんですね｡</p>
-
-<h1 id="4">4. 関数の実態</h1>
-
-<p><code>luac</code>コマンドには便利なオプションがああります｡<code>luac -l luac.out</code>でLua VMの挙動がわかります｡</p>
-
-<p>これで<code>kantannna_kansuu.out</code>を見てみます｡</p>
-<div class="highlight"><pre><code class="language-" data-lang="">$ luac -l kantannna_kansuu.out
+</code></pre></div><p>そうです､<code>kantannna_kansuu()</code>の中身と同じです｡これをコンパイルします｡はい､Luaはコンパイラがあります｡</p><div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>luac -o compiled_kantannna_kansuu.out kantannna_kansuu.lua
+</code></pre></div><p><code>kantannna_kansuu.lua</code>をLua VMのバイトコードにコンパイルし､<code>compiled_kantannna_kansuu.out</code>というファイルに書き出しました｡</p><p>ここで!! おもむろにバイナリエディタなどで<code>kantannna_kansuu.out</code>と<code>compiled_kantannna_kansuu.out</code>を見比べてみてください｡
+実はこれ<strong><em>全く同じ</em></strong>なんですね｡</p><h1 id="4">4. 関数の実態</h1><p><code>luac</code>コマンドには便利なオプションがああります｡<code>luac -l luac.out</code>でLua VMの挙動がわかります｡</p><p>これで<code>kantannna_kansuu.out</code>を見てみます｡</p><div class="highlight"><pre><code class="language-" data-lang="">$ luac -l kantannna_kansuu.out
 function &lt;stdin:1,3&gt; (5 instructions at 0x129ba30)
 0 params, 3 slots, 1 upvalue, 0 locals, 3 constants, 0 functions
         1       [2]     GETTABUP        0 0 -1  ; _ENV "print"
@@ -169,35 +113,22 @@ function &lt;stdin:1,3&gt; (5 instructions at 0x129ba30)
         3       [2]     LOADK           2 -3    ; 3
         4       [2]     CALL            0 3 1
         5       [3]     RETURN          0 1
-</code></pre></div>
-<p>簡単に説明すると､</p>
-
-<ol>
-<li><code>_ENV</code>から<code>print</code>をスタックに積む</li>
-<li><code>&quot;hello&quot;</code>をスタックに積む</li>
-<li><code>3</code>をスタックに積む</li>
+</code></pre></div><p>簡単に説明すると､</p><ol>
+<li>
+<code>_ENV</code>から<code>print</code>をスタックに積む</li>
+<li>
+<code>"hello"</code>をスタックに積む</li>
+<li>
+<code>3</code>をスタックに積む</li>
 <li>関数呼び出し</li>
-</ol>
-
-<p>といった感じでしょうか｡VMについてはまだわかってないので適当ですが､雰囲気としては問題ないはず｡</p>
-
-<p>あれ､お前､元は関数だったはずじゃ……これではただの実行ファイルじゃん｡</p>
-
-<p>そうなんです､Luaにおける関数とは､まさに<strong>引数をとる環境</strong>と言えるわけですね〜､逆にファイルなど一つのLuaチャンクはただの関数なんですね｡</p>
-
-<p>これは以下の2関数について､</p>
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">-- f_ contains f_</span>
+</ol><p>といった感じでしょうか｡VMについてはまだわかってないので適当ですが､雰囲気としては問題ないはず｡</p><p>あれ､お前､元は関数だったはずじゃ……これではただの実行ファイルじゃん｡</p><p>そうなんです､Luaにおける関数とは､まさに<strong>引数をとる環境</strong>と言えるわけですね〜､逆にファイルなど一つのLuaチャンクはただの関数なんですね｡</p><p>これは以下の2関数について､</p><div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">-- f_ contains f_</span>
 <span class="kd">local</span> <span class="n">f_</span>
 <span class="n">f_</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span> <span class="k">return</span> <span class="n">f_</span> <span class="ow">or</span> <span class="mi">1</span> <span class="k">end</span>
 
 <span class="c1">-- g_ DOES NOT contains g_</span>
 <span class="kd">local</span> <span class="n">g_</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span> <span class="n">g_</span> <span class="ow">or</span> <span class="mi">1</span> <span class="k">end</span>
-</code></pre></div>
-<p><code>f_</code>はまず<code>_ENV</code>に<code>f_</code>を登録して､次に値を与えています｡このため､定義時に<code>_ENV.f_</code>が存在はするため､戻り値に(<code>_ENV.</code>)<code>f_</code>を返せる｡
-一方<code>g_</code>は<code>g_</code>自身の定義時に<code>_ENV</code>に<code>g_</code>がないため､戻り値は<code>g_</code>(つまり<code>nil</code>)ではなく<code>1</code>になるんです｡</p>
-
-<p>｢引数を取る環境｣とか言っておいて引数のある関数について見てませんね｡</p>
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">compound</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+</code></pre></div><p><code>f_</code>はまず<code>_ENV</code>に<code>f_</code>を登録して､次に値を与えています｡このため､定義時に<code>_ENV.f_</code>が存在はするため､戻り値に(<code>_ENV.</code>)<code>f_</code>を返せる｡
+一方<code>g_</code>は<code>g_</code>自身の定義時に<code>_ENV</code>に<code>g_</code>がないため､戻り値は<code>g_</code>(つまり<code>nil</code>)ではなく<code>1</code>になるんです｡</p><p>｢引数を取る環境｣とか言っておいて引数のある関数について見てませんね｡</p><div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">compound</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
     <span class="k">return</span> <span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">return</span> <span class="n">g</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="k">end</span>
 <span class="k">end</span>
 
@@ -224,30 +155,10 @@ function &lt;stdin:2,2&gt; (7 instructions at 0x155eae0)
         6       [2]     RETURN          1 0
         7       [2]     RETURN          0 1
 true    exit    0 # これは`os.execute()`の戻り値
-</code></pre></div>
-<p>ウオア〜なんか2つ(?)出た､冷静に見てみよう｡</p>
-
-<p>上の方の命令に<code>CLOSURE</code>というのがあるので､クロージャを作ってる<code>compound()</code>がこれかな｡
+</code></pre></div><p>ウオア〜なんか2つ(?)出た､冷静に見てみよう｡</p><p>上の方の命令に<code>CLOSURE</code>というのがあるので､クロージャを作ってる<code>compound()</code>がこれかな｡
 下が､<code>compound()</code>が返している関数の中身のようなので､これを見てみますと､まず<code>GETUPVAL</code>で引数の<code>f</code>と<code>g</code>を取得しているようだ｡
-<code>MOVE</code>命令で<code>x</code>を引っ張って<code>CALL</code>してるように見えるおわり｡</p>
-
-<h1 id="5">5. おわりに</h1>
-
-<p>｢だから何だ｣という話ですが､クイズの答えとその解説というだけで､どうするかは考えてください｡</p>
-
-<h2 id="part-3f3b31866c98add5">あわせて読みたい</h2>
-
-<p><a href="http://luaforge.net/docman/83/98/ANoFrillsIntroToLua51VMInstructions.pdf">A No-Frills Introduction to Lua 5.1 VM instructions</a></p>
-
-<p>Lua VMの命令の解説です｡Lua 5.1に関するものですが､VM自体は5.3になってもあまり進化してない(気がする)ので､現在でも使える知識です｡</p>
-
-<p>この記事と関係があるかないかで言うと､今ボクが読んでます｡</p>
-
-<hr>
-
-<p><a href="http://connpass.com/event/30661/">Tsukuba.pm #3</a>で話すことになりました｡
+<code>MOVE</code>命令で<code>x</code>を引っ張って<code>CALL</code>してるように見えるおわり｡</p><h1 id="5">5. おわりに</h1><p>｢だから何だ｣という話ですが､クイズの答えとその解説というだけで､どうするかは考えてください｡</p><h2 id="part-3f3b31866c98add5">あわせて読みたい</h2><p><a href="http://luaforge.net/docman/83/98/ANoFrillsIntroToLua51VMInstructions.pdf">A No-Frills Introduction to Lua 5.1 VM instructions</a></p><p>Lua VMの命令の解説です｡Lua 5.1に関するものですが､VM自体は5.3になってもあまり進化してない(気がする)ので､現在でも使える知識です｡</p><p>この記事と関係があるかないかで言うと､今ボクが読んでます｡</p><hr><p><a href="http://connpass.com/event/30661/">Tsukuba.pm #3</a>で話すことになりました｡
 <a href="https://twitter.com/VienosNotes">@VienosNotes </a>さんはボクがPerl書けないことは知ってるはずですが声をかけてもらったので､堂々とLuaについて話します｡よろしくお願いします｡</p>
-
           </div>
         </article>
 

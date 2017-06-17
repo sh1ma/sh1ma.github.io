@@ -60,81 +60,40 @@ MathJax.Hub.Config({
             </script>
           </header>
           <div class="post-content" itemprop="articleBody">
-<p>こんにちは､びしょ〜じょです｡これは<a href="http://www.adventar.org/calendars/1211">coins Advent Calendar2015</a> 20日目の記事ですが､あまり大学と関係ないです｡</p>
-
-<p>さて､先日は一発ネタ大会で<a href="/pdf/lonely_advent_calendar.html">ネタ</a>を披露しました｡
+<p>こんにちは､びしょ〜じょです｡これは<a href="http://www.adventar.org/calendars/1211">coins Advent Calendar2015</a> 20日目の記事ですが､あまり大学と関係ないです｡</p><p>さて､先日は一発ネタ大会で<a href="/pdf/lonely_advent_calendar.html">ネタ</a>を披露しました｡
 ネタの解説という愚かな行為をすると､5分でスライド20枚捌くというものでしたがリハーサルなど一切せず臨んだため､なんと4分で終わってしまいました｡ありがとうございました｡
-で､だ｡早口おじさんという印象もどうかなと思ってきたのでスライドについて書きます｡LaTeXについて書くけどLaTeX Advent Calendarなどに投書しないということは､まぁその程度の内容です｡</p>
-
-<hr>
-
-<p><a href="/2015/12/17/niceyuri.html">前の記事</a>と同じようなことが書きたい｡前回はあまりにも適当だったので｡
+で､だ｡早口おじさんという印象もどうかなと思ってきたのでスライドについて書きます｡LaTeXについて書くけどLaTeX Advent Calendarなどに投書しないということは､まぁその程度の内容です｡</p><hr><p><a href="/2015/12/17/niceyuri.html">前の記事</a>と同じようなことが書きたい｡前回はあまりにも適当だったので｡
 みなさんはスライドショーとか作るときに何使ってますか(中略)ということでBeamerのアレです｡リポジトリの<a href="https://github.com/Nymphium/my_LaTeX_template/tree/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1">commit d05c4c7</a>を解説します｡
-LuaLaTeX使ったので<code>\zw</code>とか出てきますが気にせず脳内変換してください｡</p>
-
-<p>やったことは</p>
-
-<ul>
+LuaLaTeX使ったので<code>\zw</code>とか出てきますが気にせず脳内変換してください｡</p><p>やったことは</p><ul>
 <li>section/subsection開始時にTOCページを挿入</li>
 <li>タイトルをTOCページに挿入</li>
 <li>フッターに<em>現フレーム数/総フレーム数</em>を挿入</li>
-</ul>
-
-<p>上からみていきます｡</p>
-
-<h2 id="section-subsection-toc">section/subsection開始時にTOCページを挿入</h2>
-
-<p>なんとなく入れたくなったわけですな｡<a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#l97">97行目</a>からの<code>\AtBeginSection</code>､<code>\AtBeginSubsection</code>がソレ｡
+</ul><p>上からみていきます｡</p><h2 id="section-subsection-toc">section/subsection開始時にTOCページを挿入</h2><p>なんとなく入れたくなったわけですな｡<a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#l97">97行目</a>からの<code>\AtBeginSection</code>､<code>\AtBeginSubsection</code>がソレ｡
 98行目でifがいっぱいあるが､これはTOCを入れたくなかったり次のTOCだけ消したりするため｡
-99､100､107､108行目の<code>\switchなんちゃら</code>は､上のほうのboolを切り替えてます(<code>\ifnofooter</code>､<code>\ifnoheader</code>)｡</p>
-
-<p>肝は101〜105行目です｡</p>
-<div class="highlight"><pre><code class="language-LaTeX" data-lang="LaTeX"><span class="nt">\begin{frame}</span>&lt;beamer&gt;<span class="c">%</span>
+99､100､107､108行目の<code>\switchなんちゃら</code>は､上のほうのboolを切り替えてます(<code>\ifnofooter</code>､<code>\ifnoheader</code>)｡</p><p>肝は101〜105行目です｡</p><div class="highlight"><pre><code class="language-LaTeX" data-lang="LaTeX"><span class="nt">\begin{frame}</span>&lt;beamer&gt;<span class="c">%</span>
     <span class="nt">\begin{multicols}</span><span class="p">{</span>2<span class="p">}</span><span class="c">%</span>
         <span class="k">\tableofcontents</span><span class="na">[currentsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]</span><span class="c">%</span>
     <span class="nt">\end{multicols}</span><span class="c">%</span>
 <span class="nt">\end{frame}</span><span class="c">%</span>
-</code></pre></div>
-<p>今スライドはsectionが25個くらいあってアレだったのでmulticolパッケージを用いて2段組にしています<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>｡
-で､<code>\tableofcontents</code>にオプション引数を渡しています｡</p>
-
-<ul>
-<li><code>currentsection</code> を表示</li>
-<li><code>sectionstyle=show/hide</code>が他のsectionをどう表示するか</li>
-</ul>
-
-<p>と､みたまんまです｡subsectionも同じです｡
-で､106行目で<code>tocpage</code>というカウンタをインクリメントしています｡これは後ほど効いてきます｡</p>
-
-<p>といったぐあいにTOCページができたわけだ｡<code>\AtBeginSection</code>の説明をするだけで終わりですね｡</p>
-
-<h2 id="toc">タイトルをTOCページに挿入</h2>
-
-<p><a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#L86">86行目</a>からの<code>\setbeamertemplate{beamer}</code>です｡
+</code></pre></div><p>今スライドはsectionが25個くらいあってアレだったのでmulticolパッケージを用いて2段組にしています<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>｡
+で､<code>\tableofcontents</code>にオプション引数を渡しています｡</p><ul>
+<li>
+<code>currentsection</code> を表示</li>
+<li>
+<code>sectionstyle=show/hide</code>が他のsectionをどう表示するか</li>
+</ul><p>と､みたまんまです｡subsectionも同じです｡
+で､106行目で<code>tocpage</code>というカウンタをインクリメントしています｡これは後ほど効いてきます｡</p><p>といったぐあいにTOCページができたわけだ｡<code>\AtBeginSection</code>の説明をするだけで終わりですね｡</p><h2 id="toc">タイトルをTOCページに挿入</h2><p><a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#L86">86行目</a>からの<code>\setbeamertemplate{beamer}</code>です｡
 <code>\beamercolorbox</code>は便利なんじゃ(天才博士bot並の感想)｡で､colorboxにheaderのboxを突っ込む｡88行目ですね｡ミソは｡
-<code>\noheaderfalse</code>なら<code>\thetitle</code>を突っ込む｡だけ｡で､この<code>\thetitle</code>は実は自家製で､</p>
-<div class="highlight"><pre><code class="language-LaTeX" data-lang="LaTeX"><span class="k">\long\def\beamer</span>@title[#1]#2<span class="p">{</span> <span class="c">%</span>
+<code>\noheaderfalse</code>なら<code>\thetitle</code>を突っ込む｡だけ｡で､この<code>\thetitle</code>は実は自家製で､</p><div class="highlight"><pre><code class="language-LaTeX" data-lang="LaTeX"><span class="k">\long\def\beamer</span>@title[#1]#2<span class="p">{</span> <span class="c">%</span>
     <span class="k">\def\thetitle</span><span class="p">{</span>#2<span class="p">}</span><span class="c">%</span>
     <span class="k">\def\inserttitle</span><span class="p">{</span>#2<span class="p">}</span><span class="c">%</span>
     <span class="k">\def\beamer</span>@shorttitle<span class="p">{</span>#1<span class="p">}</span><span class="c">%</span>
 <span class="p">}</span><span class="c">%</span>
-</code></pre></div>
-<p><code>\title</code>の定義場所を探して､無事突き止めたbeamerbasetitle.styから借用した｡ごっそさん｡上記2行目でわかるように<code>\thetitle</code>をここで頂く｡で､使う｡
-87〜89行がsectionで､90〜92行がsubsection｡</p>
-
-<h2 id="part-effae92181f51d65">フッターに現フレーム数/総フレーム数を挿入</h2>
-
-<h3 id="part-6542d68ab3f">注意</h3>
-
-<p>フレーム数 is not ページ数です｡フレーム数というのはframe環境の数で､ページ数はコンパイルしてpdfにしたときのpdfのページ数です｡</p>
-
-<p>やることといえば根性です｡Beamerなものをコンパイルすると .navファイルというものが生成される｡ここをよくみてみるとなんか色々書いてある｡
-例えば<code>\beamer@documentpages</code>なんてものがある｡<code>locate beamer.cls</code>とかやると<code>/usr/share/texmf-dixt/tex/latex/beamer</code>というディレクトリが&quot;くさい&quot;ことに気づく｡
+</code></pre></div><p><code>\title</code>の定義場所を探して､無事突き止めたbeamerbasetitle.styから借用した｡ごっそさん｡上記2行目でわかるように<code>\thetitle</code>をここで頂く｡で､使う｡
+87〜89行がsectionで､90〜92行がsubsection｡</p><h2 id="part-effae92181f51d65">フッターに現フレーム数/総フレーム数を挿入</h2><h3 id="part-6542d68ab3f">注意</h3><p>フレーム数 is not ページ数です｡フレーム数というのはframe環境の数で､ページ数はコンパイルしてpdfにしたときのpdfのページ数です｡</p><p>やることといえば根性です｡Beamerなものをコンパイルすると .navファイルというものが生成される｡ここをよくみてみるとなんか色々書いてある｡
+例えば<code>\beamer@documentpages</code>なんてものがある｡<code>locate beamer.cls</code>とかやると<code>/usr/share/texmf-dixt/tex/latex/beamer</code>というディレクトリが"くさい"ことに気づく｡
 そのへんで､例えば.navファイルの下のほうにある<code>\beamer@documentages</code>とかを<code>ag</code>コマンドなんかで拾ってみると､<code>beamerbasemisc.sty</code>というものがでてきた｡
-<code>\AtEndDocument</code>の中で .navファイルに色々書き込んでいるようだ｡</p>
-
-<p>ん､たしちゃおw</p>
-<div class="highlight"><pre><code class="language-LaTeX" data-lang="LaTeX"><span class="k">\AtEndDocument</span><span class="p">{</span> <span class="c">%</span>
+<code>\AtEndDocument</code>の中で .navファイルに色々書き込んでいるようだ｡</p><p>ん､たしちゃおw</p><div class="highlight"><pre><code class="language-LaTeX" data-lang="LaTeX"><span class="k">\AtEndDocument</span><span class="p">{</span> <span class="c">%</span>
     <span class="k">\clearpage</span><span class="c">%</span>
     <span class="k">\beamer</span>@tempcount=<span class="k">\c</span>@page<span class="k">\advance\beamer</span>@tempcount by -1<span class="c">%</span>
     <span class="k">\if</span>@filesw<span class="c">%</span>
@@ -142,17 +101,11 @@ LuaLaTeX使ったので<code>\zw</code>とか出てきますが気にせず脳�
         <span class="p">{</span><span class="k">\noexpand\headcommand</span><span class="p">{</span><span class="k">\noexpand\def\noexpand\inserttotaltocpage</span><span class="p">{</span><span class="k">\thetocpage</span><span class="p">}}}}</span><span class="c">%</span>
     <span class="k">\fi</span><span class="c">%</span>
 <span class="p">}</span><span class="c">%</span>
-</code></pre></div>
-<p>.navファイルに<code>\inserttotaltocpage</code>というものを作る｡まず<code>\thetocpage</code>を32行目で定義し､ここで伏線回収､106､120行目の<code>\stepcounter{tocpage}</code>が効くわけやな｡
+</code></pre></div><p>.navファイルに<code>\inserttotaltocpage</code>というものを作る｡まず<code>\thetocpage</code>を32行目で定義し､ここで伏線回収､106､120行目の<code>\stepcounter{tocpage}</code>が効くわけやな｡
 TOCページを挿入するたびに<code>tocpage</code>がインクリメントされ､コンパイル1回めにTOCページの数がわかる｡
-これが .navファイルに書かれ､コンパイル2回めに .navファイルの中身が読まれ､<code>\inserttotaltocpage</code>というコマンドが機能するようになる｡</p>
-
-<p>で､47､48行目に怪しげなカウンタを定義する｡</p>
-<div class="highlight"><pre><code class="language-LaTeX" data-lang="LaTeX"><span class="k">\newcounter</span><span class="p">{</span>currentwotocframenumber<span class="p">}</span><span class="c">%</span>
+これが .navファイルに書かれ､コンパイル2回めに .navファイルの中身が読まれ､<code>\inserttotaltocpage</code>というコマンドが機能するようになる｡</p><p>で､47､48行目に怪しげなカウンタを定義する｡</p><div class="highlight"><pre><code class="language-LaTeX" data-lang="LaTeX"><span class="k">\newcounter</span><span class="p">{</span>currentwotocframenumber<span class="p">}</span><span class="c">%</span>
 <span class="k">\newcounter</span><span class="p">{</span>wotoctotalframenumber<span class="p">}</span><span class="c">%</span>
-</code></pre></div>
-<p>で､<a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#L71">71行目</a>からのね…｡</p>
-<div class="highlight"><pre><code class="language-LaTeX" data-lang="LaTeX"><span class="k">\setbeamertemplate</span><span class="p">{</span>footline<span class="p">}{</span> <span class="c">%</span>
+</code></pre></div><p>で､<a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#L71">71行目</a>からのね…｡</p><div class="highlight"><pre><code class="language-LaTeX" data-lang="LaTeX"><span class="k">\setbeamertemplate</span><span class="p">{</span>footline<span class="p">}{</span> <span class="c">%</span>
     <span class="k">\leavevmode</span><span class="c">%</span>
     <span class="k">\vspace</span><span class="p">{</span>1<span class="k">\zw</span><span class="p">}</span>
     <span class="nt">\begin{beamercolorbox}</span><span class="p">{</span>footline<span class="p">}</span><span class="c">%</span>
@@ -167,26 +120,16 @@ TOCページを挿入するたびに<code>tocpage</code>がインクリメント
         <span class="k">\hfill\hbox</span><span class="p">{</span><span class="k">\ifnofooter\else\thecurrentwotocframenumber</span>/<span class="k">\thewotoctotalframenumber\fi\hspace</span><span class="p">{</span>.8<span class="k">\zw</span><span class="p">}}</span><span class="c">%</span>
     <span class="nt">\end{beamercolorbox}</span><span class="c">%</span>
 <span class="p">}</span><span class="c">%</span>
-</code></pre></div>
-<p><font size="36pt"><strong><em>あ〜〜〜〜\(\LaTeX\)最高!! Power Pointはクソ!!!!!!!!!</em></strong></font></p>
-
-<p>などと言ってると老害認定されるので気をつけよう｡気合で何でも書けるということは気合で色々書く必要があるということです｡が､ もっと拡張しよう､拡張するときはソースを参考にすると参考になる､いいぞ､頑張れ｡</p>
-
-<h2 id="beamer-lualatex-ultimate-fuckin-awesome-tip">Beamer + LuaLaTeX Ultimate fuckin&#39; awesome Tip</h2>
-
-<p><code>\documentclass</code>のオプションに<code>unicode</code>を渡すとpdfのタイトルや著者名が文字化けしないぞい</p>
-
-<div class="footnotes">
+</code></pre></div><p><font size="36pt"><strong><em>あ〜〜〜〜\(\LaTeX\)最高!! Power Pointはクソ!!!!!!!!!</em></strong></font></p><p>などと言ってると老害認定されるので気をつけよう｡気合で何でも書けるということは気合で色々書く必要があるということです｡が､ もっと拡張しよう､拡張するときはソースを参考にすると参考になる､いいぞ､頑張れ｡</p><h2 id="beamer-lualatex-ultimate-fuckin-awesome-tip">Beamer + LuaLaTeX Ultimate fuckin' awesome Tip</h2><p><code>\documentclass</code>のオプションに<code>unicode</code>を渡すとpdfのタイトルや著者名が文字化けしないぞい</p><div class="footnotes">
 <hr>
 <ol>
 
 <li id="fn1">
-<p>のちのcommitではn段組にするのを指定できるようにした｡&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a></p>
+<p>のちのcommitではn段組にするのを指定できるようにした｡ <a href="#fnref1" rev="footnote">↩</a></p>
 </li>
 
 </ol>
 </div>
-
           </div>
         </article>
 
