@@ -60,18 +60,25 @@ MathJax.Hub.Config({
             </script>
           </header>
           <div class="post-content" itemprop="articleBody">
-<p>こんにちは､びしょ〜じょです｡（後略）</p><hr><p>Qiitaっぽくlistingにcaptionを差し込むものがJekyllにも欲しくなった｡
-とりあえず以下のようなシンタックスを考える｡</p><div class="highlight">
+<p>こんにちは､びしょ〜じょです｡（後略）</p>
+<hr>
+<p>Qiitaっぽくlistingにcaptionを差し込むものがJekyllにも欲しくなった｡
+とりあえず以下のようなシンタックスを考える｡</p>
+<div class="highlight">
 <span class="listing-name">Markdownのcode block内にMarkdownのcode blockを書く方法がわからん</span><pre><code class="language-" data-lang="">``\`lang:caption
 ......
 ``\`
 </code></pre>
-</div><p>markdown to HTML converterをグニャッと行くのは面倒なので､これをひとまず次のように変換する｡</p><div class="highlight"><pre><code class="language-" data-lang="">&lt;span class="listing-name"&gt;caption&lt;/span&gt;
+</div>
+<p>markdown to HTML converterをグニャッと行くのは面倒なので､これをひとまず次のように変換する｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">&lt;span class="listing-name"&gt;caption&lt;/span&gt;
 
 ``\`lang
 ......
 ``\`
-</code></pre></div><p>これなら簡単にできる｡</p><div class="highlight">
+</code></pre></div>
+<p>これなら簡単にできる｡</p>
+<div class="highlight">
 <span class="listing-name">listing_name1.rb</span><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">listing_name</span> <span class="n">content</span>
     <span class="n">in_listing</span> <span class="o">=</span> <span class="kp">false</span>
     <span class="n">acc</span> <span class="o">=</span> <span class="s2">""</span>
@@ -106,7 +113,9 @@ MathJax.Hub.Config({
     <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
-</div><p>これにより以下のような感じになる｡</p><div class="highlight">
+</div>
+<p>これにより以下のような感じになる｡</p>
+<div class="highlight">
 <span class="listing-name">これ</span><pre><code class="language-html" data-lang="html"><span class="nt">&lt;p&gt;&lt;span</span> <span class="na">class=</span><span class="s">"listing-name"</span><span class="nt">&gt;</span>caption<span class="nt">&lt;/span&gt;&lt;/p&gt;</span>
 <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"highlight"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;pre&gt;</span>
@@ -114,7 +123,9 @@ MathJax.Hub.Config({
     <span class="nt">&lt;/pre&gt;</span>
 <span class="nt">&lt;/div&gt;</span>
 </code></pre>
-</div><p>これで以下のような感じになってほしい｡</p><div class="highlight">
+</div>
+<p>これで以下のような感じになってほしい｡</p>
+<div class="highlight">
 <span class="listing-name">これんなってほしい</span><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"highlight"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"listing-name"</span><span class="nt">&gt;</span>caption<span class="nt">&lt;/span&gt;</span> <span class="c">&lt;!-- 中に入っとる --&gt;</span>
     <span class="nt">&lt;pre&gt;</span>
@@ -122,8 +133,12 @@ MathJax.Hub.Config({
     <span class="nt">&lt;/pre&gt;</span>
 <span class="nt">&lt;/div&gt;</span>
 </code></pre>
-</div><p>Jekyllではメソッドをいくつかのタイミングでフックすることができる｡</p><p><a href="https://jekyllrb.com/docs/plugins/#hooks">Plugins#Hooks | Jekyll</a></p><p>が~~~しかし､markdownから生成されたHTMLをさらに操作する方法がよくわからなかった｡
-ので筋肉やっていき</p><div class="highlight">
+</div>
+<p>Jekyllではメソッドをいくつかのタイミングでフックすることができる｡</p>
+<p><a href="https://jekyllrb.com/docs/plugins/#hooks">Plugins#Hooks | Jekyll</a></p>
+<p>が~~~しかし､markdownから生成されたHTMLをさらに操作する方法がよくわからなかった｡
+ので筋肉やっていき</p>
+<div class="highlight">
 <span class="listing-name">listing_name.rb</span><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span><span class="s1">'nokogiri'</span>
 
 <span class="k">def</span> <span class="nf">listing_name</span> <span class="n">content</span>
@@ -160,7 +175,10 @@ MathJax.Hub.Config({
     <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
-</div><p>バイトのおかげでXPathに少し詳しくなりました｡webはやめよう｡</p><hr><p>『劇場版 魔法科高校の劣等生 星を呼ぶ少女』舞台挨拶LV付きを観に行った｡
+</div>
+<p>バイトのおかげでXPathに少し詳しくなりました｡webはやめよう｡</p>
+<hr>
+<p>『劇場版 魔法科高校の劣等生 星を呼ぶ少女』舞台挨拶LV付きを観に行った｡
 何故か徹夜で行ってしまったので爆睡するかと思ったが､大音量に手の混んだ魔法エフェクト､そしていつもと変わらない!! お兄様クオリティーで大変面白かったので終始笑いながら観た｡
 どんな敵が出ても最終的に被害0でお兄様大勝利なのでアンパンマン並に安心して観られますね｡</p>
           </div>

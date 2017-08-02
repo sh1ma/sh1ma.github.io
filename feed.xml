@@ -5,24 +5,31 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 18 Jun 2017 06:52:08 +0900</pubDate>
-    <lastBuildDate>Sun, 18 Jun 2017 06:52:08 +0900</lastBuildDate>
-    <generator>Jekyll v3.4.3</generator>
+    <pubDate>Thu, 03 Aug 2017 04:04:54 +0900</pubDate>
+    <lastBuildDate>Thu, 03 Aug 2017 04:04:54 +0900</lastBuildDate>
+    <generator>Jekyll v3.5.1</generator>
     
       <item>
         <title>Qiitaっぽいlistingのcaption</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡（後略）&lt;/p&gt;&lt;hr&gt;&lt;p&gt;Qiitaっぽくlistingにcaptionを差し込むものがJekyllにも欲しくなった｡
-とりあえず以下のようなシンタックスを考える｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡（後略）&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Qiitaっぽくlistingにcaptionを差し込むものがJekyllにも欲しくなった｡
+とりあえず以下のようなシンタックスを考える｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;Markdownのcode block内にMarkdownのcode blockを書く方法がわからん&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;``\`lang:caption
 ......
 ``\`
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;markdown to HTML converterをグニャッと行くのは面倒なので､これをひとまず次のように変換する｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;&amp;lt;span class=&quot;listing-name&quot;&amp;gt;caption&amp;lt;/span&amp;gt;
+&lt;/div&gt;
+&lt;p&gt;markdown to HTML converterをグニャッと行くのは面倒なので､これをひとまず次のように変換する｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;&amp;lt;span class=&quot;listing-name&quot;&amp;gt;caption&amp;lt;/span&amp;gt;
 
 ``\`lang
 ......
 ``\`
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これなら簡単にできる｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これなら簡単にできる｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;listing_name1.rb&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;listing_name&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;in_listing&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
@@ -57,7 +64,9 @@
     &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;これにより以下のような感じになる｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;/div&gt;
+&lt;p&gt;これにより以下のような感じになる｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;これ&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;listing-name&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;caption&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;highlight&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
     &lt;span class=&quot;nt&quot;&gt;&amp;lt;pre&amp;gt;&lt;/span&gt;
@@ -65,7 +74,9 @@
     &lt;span class=&quot;nt&quot;&gt;&amp;lt;/pre&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;これで以下のような感じになってほしい｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;/div&gt;
+&lt;p&gt;これで以下のような感じになってほしい｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;これんなってほしい&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;highlight&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
     &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;listing-name&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;caption&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 中に入っとる --&amp;gt;&lt;/span&gt;
     &lt;span class=&quot;nt&quot;&gt;&amp;lt;pre&amp;gt;&lt;/span&gt;
@@ -73,8 +84,12 @@
     &lt;span class=&quot;nt&quot;&gt;&amp;lt;/pre&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;Jekyllではメソッドをいくつかのタイミングでフックすることができる｡&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://jekyllrb.com/docs/plugins/#hooks&quot;&gt;Plugins#Hooks | Jekyll&lt;/a&gt;&lt;/p&gt;&lt;p&gt;が~~~しかし､markdownから生成されたHTMLをさらに操作する方法がよくわからなかった｡
-ので筋肉やっていき&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;/div&gt;
+&lt;p&gt;Jekyllではメソッドをいくつかのタイミングでフックすることができる｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://jekyllrb.com/docs/plugins/#hooks&quot;&gt;Plugins#Hooks | Jekyll&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;が~~~しかし､markdownから生成されたHTMLをさらに操作する方法がよくわからなかった｡
+ので筋肉やっていき&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;listing_name.rb&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'nokogiri'&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;listing_name&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;
@@ -111,7 +126,10 @@
     &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;バイトのおかげでXPathに少し詳しくなりました｡webはやめよう｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;『劇場版 魔法科高校の劣等生 星を呼ぶ少女』舞台挨拶LV付きを観に行った｡
+&lt;/div&gt;
+&lt;p&gt;バイトのおかげでXPathに少し詳しくなりました｡webはやめよう｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;『劇場版 魔法科高校の劣等生 星を呼ぶ少女』舞台挨拶LV付きを観に行った｡
 何故か徹夜で行ってしまったので爆睡するかと思ったが､大音量に手の混んだ魔法エフェクト､そしていつもと変わらない!! お兄様クオリティーで大変面白かったので終始笑いながら観た｡
 どんな敵が出ても最終的に被害0でお兄様大勝利なのでアンパンマン並に安心して観られますね｡&lt;/p&gt;</description>
         <pubDate>Sun, 18 Jun 2017 00:00:00 +0900</pubDate>
@@ -129,37 +147,73 @@
         <title>T470sの下ArchとWin10が同棲、しかし愛の巣が崩壊</title>
         <description>&lt;p&gt;こんにちは、びしょ〜じょです。
 PFDSをTyped Racketで実装するやつをもう少し進めたいですが、なんとなく億劫という諸般の事情やその他でやってないです。
-卒研テーマを決めるリミットはあと2週間です。良いですね。&lt;/p&gt;&lt;hr&gt;&lt;h1 id=&quot;part-b8a9993&quot;&gt;序&lt;/h1&gt;&lt;p&gt;さて、前回冒頭でノートPCがあれやこれやした話を書きました。
-で、血縁者にノートPCを新たに買ってもらいました。これが生殖の力です。&lt;/p&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+卒研テーマを決めるリミットはあと2週間です。良いですね。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;part-b8a9993&quot;&gt;序&lt;/h1&gt;
+&lt;p&gt;さて、前回冒頭でノートPCがあれやこれやした話を書きました。
+で、血縁者にノートPCを新たに買ってもらいました。これが生殖の力です。&lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;血縁者による提供最高、つまり生殖は善です。 &lt;a href=&quot;https://t.co/tmm1z5Rnc5&quot;&gt;pic.twitter.com/tmm1z5Rnc5&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/870867212692627456&quot;&gt;June 3, 2017&lt;/a&gt;
-&lt;/blockquote&gt;&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;ナウい伝票 &lt;a href=&quot;https://t.co/SKd4eN6gNe&quot;&gt;pic.twitter.com/SKd4eN6gNe&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/870874192526196737&quot;&gt;June 3, 2017&lt;/a&gt;
-&lt;/blockquote&gt;&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;この寿司とナウい伝票はアキヨドの9階? でご覧に入れられます。
-味はくら寿司の1.2倍、値段は2倍強。くら寿司でいっぱい食べたほうがいいね。築地に行こうね。&lt;/p&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;この寿司とナウい伝票はアキヨドの9階? でご覧に入れられます。
+味はくら寿司の1.2倍、値段は2倍強。くら寿司でいっぱい食べたほうがいいね。築地に行こうね。&lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;文脈を無視して自分の言いたいことを言うようなことをしない社会性の高い人間なので、「Windowsをふっとばす」などの狂言を用いずに無事ノートpcを購入した。&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/870893249451311104&quot;&gt;June 3, 2017&lt;/a&gt;
-&lt;/blockquote&gt;&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;つまりノートピッシはアキヨドで買いました。&lt;/p&gt;&lt;p&gt;結局レノボを選んでしまいました。T470sです。WQHD以上で15万くらいなら、と探すと本当にマッキかThinkpadしかなくて異常な世の中です。
-マッキは論外なのでT470sにしました、ストレージはNVMeの256GB、メモリが12GBで嬉しいわーいわーい、これならChromeでウェブブラウジングしてもメモリ2/3は使えるわけです。アホくさ。&lt;/p&gt;&lt;p&gt;さて、カスタムオーダーなので注文してしばらくしてからアパートに届いた。
-ところで研究室の先生がオヒス製品やアドベ製品を大学ライセンスで研究室の民々に適宜配布しており、曰く「先に入れておくかヤバくなってから入れるかではだいぶ違う」とのことで、Winは生き残らせたいという気持ちがふつふつと湧いた。&lt;/p&gt;&lt;p&gt;はいArchLinuxを入れる手順を上から順番に! 走って!&lt;/p&gt;&lt;h1 id=&quot;part-b8a9ee0&quot;&gt;破&lt;/h1&gt;&lt;h2 id=&quot;part-8381d746ef86e191&quot;&gt;インストーラーの起動&lt;/h2&gt;&lt;p&gt;BIOSからF12連打で華麗にインストーラー起動といきたいところだったが、素のままではsecure bootがenabledなので起動できない。
-secure bootをdisabledにすると晴れてインストーラーが起動する。&lt;/p&gt;&lt;p&gt;ブートローダーを入れたあとの話をすると、secure bootを切ったままWinを起動するとBitLockerに怒られ、1億桁くらいの回復キーを打つ羽目になる。
-セキュリティー意識が希薄な人やBitLockerのちからを信じていない人はここでBitLockerをdisabledにすると話がかんたんに進む。&lt;/p&gt;&lt;h2 id=&quot;part-3a54c7ceca5d81fa&quot;&gt;パーティション関係&lt;/h2&gt;&lt;p&gt;さて、いよいよというところだがパーティションを切るところで出鼻をくじかれた。
-&lt;code&gt;/dev/nvme0n1p&lt;/code&gt;って何やねん殺すぞ…。&lt;/p&gt;&lt;p&gt;そもそもWinで使い切ってるので縮小させなければならない。適当に100GBくらいもらっていく。
+&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;つまりノートピッシはアキヨドで買いました。&lt;/p&gt;
+&lt;p&gt;結局レノボを選んでしまいました。T470sです。WQHD以上で15万くらいなら、と探すと本当にマッキかThinkpadしかなくて異常な世の中です。
+マッキは論外なのでT470sにしました、ストレージはNVMeの256GB、メモリが12GBで嬉しいわーいわーい、これならChromeでウェブブラウジングしてもメモリ2/3は使えるわけです。アホくさ。&lt;/p&gt;
+&lt;p&gt;さて、カスタムオーダーなので注文してしばらくしてからアパートに届いた。
+ところで研究室の先生がオヒス製品やアドベ製品を大学ライセンスで研究室の民々に適宜配布しており、曰く「先に入れておくかヤバくなってから入れるかではだいぶ違う」とのことで、Winは生き残らせたいという気持ちがふつふつと湧いた。&lt;/p&gt;
+&lt;p&gt;はいArchLinuxを入れる手順を上から順番に! 走って!&lt;/p&gt;
+&lt;h1 id=&quot;part-b8a9ee0&quot;&gt;破&lt;/h1&gt;
+&lt;h2 id=&quot;part-8381d746ef86e191&quot;&gt;インストーラーの起動&lt;/h2&gt;
+&lt;p&gt;BIOSからF12連打で華麗にインストーラー起動といきたいところだったが、素のままではsecure bootがenabledなので起動できない。
+secure bootをdisabledにすると晴れてインストーラーが起動する。&lt;/p&gt;
+&lt;p&gt;ブートローダーを入れたあとの話をすると、secure bootを切ったままWinを起動するとBitLockerに怒られ、1億桁くらいの回復キーを打つ羽目になる。
+セキュリティー意識が希薄な人やBitLockerのちからを信じていない人はここでBitLockerをdisabledにすると話がかんたんに進む。&lt;/p&gt;
+&lt;h2 id=&quot;part-3a54c7ceca5d81fa&quot;&gt;パーティション関係&lt;/h2&gt;
+&lt;p&gt;さて、いよいよというところだがパーティションを切るところで出鼻をくじかれた。
+&lt;code&gt;/dev/nvme0n1p&lt;/code&gt;って何やねん殺すぞ…。&lt;/p&gt;
+&lt;p&gt;そもそもWinで使い切ってるので縮小させなければならない。適当に100GBくらいもらっていく。
 気を取り直して&lt;code&gt;/dev/nvme0n1p&lt;/code&gt;みたいな名前のデバイスをスパっとやっていく。&lt;code&gt;/dev/nvme0n1p1&lt;/code&gt;あたりがEFIパーティションだった気がするので、&lt;code&gt;/mnt/boot&lt;/code&gt;にマウントや。
-あとはいつも通りだ。ブートローダーは例によってrEFIndを使用した。&lt;/p&gt;&lt;p&gt;これでWinとArchが共存した。共有ディレクトリーみたいなものは作ってない。
+あとはいつも通りだ。ブートローダーは例によってrEFIndを使用した。&lt;/p&gt;
+&lt;p&gt;これでWinとArchが共存した。共有ディレクトリーみたいなものは作ってない。
 あえて言うなら&lt;code&gt;/boot&lt;/code&gt;だが、そんなことせんでもWinパーティションを適当にマウントしてスッとファイルを置いておけばいいので問題ない。
-WinからArchに何か渡したいということはまずなさそう。&lt;/p&gt;&lt;h2 id=&quot;i3lock&quot;&gt;i3lock&lt;/h2&gt;&lt;p&gt;ノートPCの画面ロックにはi3lockを使っていた。が、v2.9(このときの最新)とかみ合わせが悪いのか、i3lockを実行してパスワードを打っていくととにかくモッサリして使い物にならない。
-仕方なくv2.8をインストールする。こういったことは初めてなので、メモする…までもない。Arch wikiに全部書いてある。でも書いてしまう。人は。&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://archive.archlinux.org/packages/&quot;&gt;パッケージアーカイブ&lt;/a&gt;から探していく。
-&lt;code&gt;i3lock-2.8-1-x86_64.pkg.tar.xz&lt;/code&gt;を適当な場所に起き、&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;$ sudo pacman -U i3lock-2.8-1-x86_64.pkg.tar.xz
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;はい、ただ&lt;code&gt;-U&lt;/code&gt;オプションだけです。Qiitaならこれだけで投稿してるね。&lt;/p&gt;&lt;p&gt;他にはT470s特有の、という感じのものはなかった。
-ただdropboxが公式リポジトリー入りを果たしており、systemd経由でデーモンを動かしてjournalctlでログを見ないとサインインできないという難易度調整などはあった。&lt;/p&gt;&lt;p&gt;ところでほぼ同時期にT470sを買ってる人を数人見かけたので面白かった。&lt;/p&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+WinからArchに何か渡したいということはまずなさそう。&lt;/p&gt;
+&lt;h2 id=&quot;i3lock&quot;&gt;i3lock&lt;/h2&gt;
+&lt;p&gt;ノートPCの画面ロックにはi3lockを使っていた。が、v2.9(このときの最新)とかみ合わせが悪いのか、i3lockを実行してパスワードを打っていくととにかくモッサリして使い物にならない。
+仕方なくv2.8をインストールする。こういったことは初めてなので、メモする…までもない。Arch wikiに全部書いてある。でも書いてしまう。人は。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://archive.archlinux.org/packages/&quot;&gt;パッケージアーカイブ&lt;/a&gt;から探していく。
+&lt;code&gt;i3lock-2.8-1-x86_64.pkg.tar.xz&lt;/code&gt;を適当な場所に起き、&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;$ sudo pacman -U i3lock-2.8-1-x86_64.pkg.tar.xz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;はい、ただ&lt;code&gt;-U&lt;/code&gt;オプションだけです。Qiitaならこれだけで投稿してるね。&lt;/p&gt;
+&lt;p&gt;他にはT470s特有の、という感じのものはなかった。
+ただdropboxが公式リポジトリー入りを果たしており、systemd経由でデーモンを動かしてjournalctlでログを見ないとサインインできないという難易度調整などはあった。&lt;/p&gt;
+&lt;p&gt;ところでほぼ同時期にT470sを買ってる人を数人見かけたので面白かった。&lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;書いた&lt;br&gt;Thinkpad T470sにArch Linuxいれた - こくたんのーと &lt;a href=&quot;https://t.co/S66McTKEh8&quot;&gt;https://t.co/S66McTKEh8&lt;/a&gt;&lt;/p&gt;— こくたん (@cocu_tan) &lt;a href=&quot;https://twitter.com/cocu_tan/status/874938147062206466&quot;&gt;June 14, 2017&lt;/a&gt;
-&lt;/blockquote&gt;&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;h1 id=&quot;part-b8a9670&quot;&gt;急&lt;/h1&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;h1 id=&quot;part-b8a9670&quot;&gt;急&lt;/h1&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;T470sが届いて１日で壊れた。手が滑って思いっきり床に叩きつけられてしまった。奇しくも同じ場所がぶち壊れた。&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/875282937079504897&quot;&gt;June 15, 2017&lt;/a&gt;
-&lt;/blockquote&gt;&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Lenovoのサポートを即受けたいのでシリアルナンバーをぶち込んだんだけどサポートページのレスポンスがカス未満で無限に腹が立ってくるな。ヨドバシでヒンジの強度を再三再四確認したのに即壊れたのでヨドバシ店員もムカついてきた。ということです。&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/875287354923143168&quot;&gt;June 15, 2017&lt;/a&gt;
-&lt;/blockquote&gt;&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;これが世の中。
+&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;これが世の中。
 とりあえずwebで修理依頼のページに行けたので、依頼に「最近のThinkPadはマジでカス IBMに返してこい（意訳）」という熱い読者メッセージを添えて送った。
-これで対応が早くなるかもしれない、あるいはならないかもしれない。&lt;/p&gt;&lt;hr&gt;&lt;p&gt;ところでPCをまたもや破壊したときと日を同じくし、C社の人々が低温調理した肉を持って大学に来てたのが面白かった。
-なんの肉か聞かずに食べたがどれも美味しかった。さすがC社だ。ごちそうさまでした。&lt;/p&gt;&lt;p&gt;2大学をまたぎ10年くらい学部生をやっていた先輩やボクより遅く入学し退学していった後輩が元気だったのでよかった。&lt;/p&gt;&lt;hr&gt;&lt;p&gt;最近百合を忘れている。input methodも一発で&quot;ゆり&quot;から&quot;百合&quot;が出てこなかった。百合ってなに…？
+これで対応が早くなるかもしれない、あるいはならないかもしれない。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;ところでPCをまたもや破壊したときと日を同じくし、C社の人々が低温調理した肉を持って大学に来てたのが面白かった。
+なんの肉か聞かずに食べたがどれも美味しかった。さすがC社だ。ごちそうさまでした。&lt;/p&gt;
+&lt;p&gt;2大学をまたぎ10年くらい学部生をやっていた先輩やボクより遅く入学し退学していった後輩が元気だったのでよかった。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;最近百合を忘れている。input methodも一発で&quot;ゆり&quot;から&quot;百合&quot;が出てこなかった。百合ってなに…？
 もしかしたら初心に戻れるかもしれない｡でも､百合の初心ってなに…?&lt;/p&gt;</description>
         <pubDate>Fri, 16 Jun 2017 00:00:00 +0900</pubDate>
         <link>https://nymphium.github.io/2017/06/16/t470s_with_win10.html</link>
@@ -172,17 +226,29 @@ WinからArchに何か渡したいということはまずなさそう。&lt;/p&
     
       <item>
         <title>PFDS in Typed Racket その1</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡では､今週&lt;sup id=&quot;fnref1&quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;のハイライトです｡&lt;/p&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡では､今週&lt;sup id=&quot;fnref1&quot; title=&quot;19日からだらだら書いているので､本記事の中で時空の歪みが生じている｡よって宇宙人は存在する｡ &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;のハイライトです｡&lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;ノートpcを修理に出したら10日くらい音沙汰なかった挙句修理費見積もりが本体価格より3万くらい高くて完全にバカにしてきてるなlenovo､はよ死んでくれ…｡&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/864414018890416129&quot;&gt;May 16, 2017&lt;/a&gt;
-&lt;/blockquote&gt;&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;研究室からマッキブックproを拝借する運びとなった。&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/865115649957175296&quot;&gt;May 18, 2017&lt;/a&gt;
-&lt;/blockquote&gt;&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;本を買ってもらったりノートpcを貸してもらったりして､研究室はどんどん利用していきたいですね｡&lt;/p&gt;&lt;hr&gt;&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;&lt;p&gt;『Purely Functional Data Structures』&lt;sup id=&quot;fnref2&quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;(以降､&quot;PFDS&quot;と省略する)という本の邦訳版が出ました｡
-名著とのことで､また読める位置にも原著があったが結局読んでこなかったが､この度ジャパニーズで読めてしまう以上は読んでおきたいと思い､購入に至りました｡&lt;/p&gt;&lt;p&gt;さて､PFDSに記述されている例はすべてStandard MLで書かれている｡
-邦訳したkinabaさんによる&lt;a href=&quot;http://topcoder.g.hatena.ne.jp/cafelier/20170428/1493389565&quot;&gt;SMLの解説&lt;/a&gt;もある｡&lt;/p&gt;&lt;p&gt;(中略)&lt;/p&gt;&lt;p&gt;せっかくなのでTyped Racketで実装していってみたい｡
+&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;本を買ってもらったりノートpcを貸してもらったりして､研究室はどんどん利用していきたいですね｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
+&lt;p&gt;『Purely Functional Data Structures』&lt;sup id=&quot;fnref2&quot; title=&quot;原著と邦訳版 &quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;(以降､&quot;PFDS&quot;と省略する)という本の邦訳版が出ました｡
+名著とのことで､また読める位置にも原著があったが結局読んでこなかったが､この度ジャパニーズで読めてしまう以上は読んでおきたいと思い､購入に至りました｡&lt;/p&gt;
+&lt;p&gt;さて､PFDSに記述されている例はすべてStandard MLで書かれている｡
+邦訳したkinabaさんによる&lt;a href=&quot;http://topcoder.g.hatena.ne.jp/cafelier/20170428/1493389565&quot;&gt;SMLの解説&lt;/a&gt;もある｡&lt;/p&gt;
+&lt;p&gt;(中略)&lt;/p&gt;
+&lt;p&gt;せっかくなのでTyped Racketで実装していってみたい｡
 本にも｢schemeによる実装も容易｣と書かれているように､Racketでも伝統的な&lt;code&gt;car&lt;/code&gt;や&lt;code&gt;cdr&lt;/code&gt;…といった関数がある｡
 しかし残念ながらMLのmodule systemやHaskellの型クラスに相当するものはない｡
 core RacketにもMLとは別のmodule systemがあるため､マクロ展開時にmodule importをcontractで制御できればいい感じになるんちゃうかと思うんですが､皆さんへの課題とします｡
-parametric contractをrequire/contractに噛ませるといいんですかね｡適当言ってます｡&lt;/p&gt;&lt;h1 id=&quot;2&quot;&gt;2. 永続性 ー リスト､スタック､二分探索木&lt;/h1&gt;&lt;h2 id=&quot;2-1&quot;&gt;2-1. リスト&lt;/h2&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lang&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;typed/racket&lt;/span&gt;
+parametric contractをrequire/contractに噛ませるといいんですかね｡適当言ってます｡&lt;/p&gt;
+&lt;h1 id=&quot;2&quot;&gt;2. 永続性 ー リスト､スタック､二分探索木&lt;/h1&gt;
+&lt;h2 id=&quot;2-1&quot;&gt;2-1. リスト&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lang&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;typed/racket&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;; list.rkt&lt;/span&gt;
 
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;racket/match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -234,11 +300,17 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
   &lt;span class=&quot;p&quot;&gt;[((&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;raise-empty-stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;[((&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Cons&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;xsr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Cons&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;xsr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;[((&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Cons&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;xsr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Cons&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;update&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;xsr&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sub1&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;なるほど｡いろいろなパターンマッチの方法がある以外あまり見どころはないですね｡&lt;/p&gt;&lt;h3 id=&quot;2-1&quot;&gt;演習2.1&lt;/h3&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;suffixes&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;All&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;MyList&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;MyList&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;MyList&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;なるほど｡いろいろなパターンマッチの方法がある以外あまり見どころはないですね｡&lt;/p&gt;
+&lt;h3 id=&quot;2-1&quot;&gt;演習2.1&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;suffixes&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;All&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;MyList&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;MyList&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;MyList&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))))&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;define/match&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;suffixes&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;[((&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;[((&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Cons&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;xsr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;suffixes&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;xsr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;リストの先頭を消費して残りを再帰的に適用していくので､リストの長さ\(n\)に対して\(O(n)\)｡&lt;/p&gt;&lt;h2 id=&quot;2-2&quot;&gt;2-2. 二分探索木&lt;/h2&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lang&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;typed/racket&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;リストの先頭を消費して残りを再帰的に適用していくので､リストの長さ\(n\)に対して\(O(n)\)｡&lt;/p&gt;
+&lt;h2 id=&quot;2-2&quot;&gt;2-2. 二分探索木&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lang&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;typed/racket&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;; binsearchtree.rkt&lt;/span&gt;
 
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;racket/match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -274,8 +346,11 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
          &lt;span class=&quot;nv&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))]))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;(Tree Real)&lt;/code&gt;しか使えないのはやはり厳しいですね｡モジュールや型クラスを用いずに&lt;code&gt;&amp;gt;&lt;/code&gt;などを持つ型&lt;code&gt;A&lt;/code&gt;といった感じのものを定めるには…｡&lt;/p&gt;&lt;h3 id=&quot;2-2-1-member&quot;&gt;演習2.2 ノードの値の比較回数が(木の深さ+1)に収まる&lt;code&gt;member&lt;/code&gt;
-&lt;/h3&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;member2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;(Tree Real)&lt;/code&gt;しか使えないのはやはり厳しいですね｡モジュールや型クラスを用いずに&lt;code&gt;&amp;gt;&lt;/code&gt;などを持つ型&lt;code&gt;A&lt;/code&gt;といった感じのものを定めるには…｡&lt;/p&gt;
+&lt;h3 id=&quot;2-2-1-member&quot;&gt;演習2.2 ノードの値の比較回数が(木の深さ+1)に収まる&lt;code&gt;member&lt;/code&gt;
+&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;member2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;member2&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;member2-impl&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;member2-impl&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -287,9 +362,12 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;member2-impl&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))]))&lt;/span&gt;
 
   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;member2-impl&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;比較したノードの値をキャッシュとして持っていって､木の底についたらキャッシュした値との比較の結果を返します｡
-キャッシュの初期値に0を与えているけどいいのかな､わからん｡&lt;/p&gt;&lt;h3 id=&quot;2-3-a-insert&quot;&gt;演習2.3 すでに木の中に要素&lt;code&gt;a&lt;/code&gt;がある場合はノードのコピーをしない&lt;code&gt;insert&lt;/code&gt;
-&lt;/h3&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;insert2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;比較したノードの値をキャッシュとして持っていって､木の底についたらキャッシュした値との比較の結果を返します｡
+キャッシュの初期値に0を与えているけどいいのかな､わからん｡&lt;/p&gt;
+&lt;h3 id=&quot;2-3-a-insert&quot;&gt;演習2.3 すでに木の中に要素&lt;code&gt;a&lt;/code&gt;がある場合はノードのコピーをしない&lt;code&gt;insert&lt;/code&gt;
+&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;insert2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;insert2&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;tx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;insert2-impl&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;insert2-impl&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -303,9 +381,12 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;tx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))]))&lt;/span&gt;
 
     &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;call/cc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;insert2-impl&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;tx&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Blood of schemeということでcall/ccを使ってみました｡雑だ｡
-もともとは例外飛ばしていけとのことなので､例外キャッチして元の値を返すなどでOKでしょう｡&lt;/p&gt;&lt;h3 id=&quot;2-4-2-2-2-3-1-a-insert&quot;&gt;演習2.4 演習2.2と2.3の融合 ノードの値の比較回数が(木の深さ+1)に収まる､すでに木の中に要素&lt;code&gt;a&lt;/code&gt;がある場合はノードのコピーをしない&lt;code&gt;insert&lt;/code&gt;
-&lt;/h3&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;insert3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;All&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Blood of schemeということでcall/ccを使ってみました｡雑だ｡
+もともとは例外飛ばしていけとのことなので､例外キャッチして元の値を返すなどでOKでしょう｡&lt;/p&gt;
+&lt;h3 id=&quot;2-4-2-2-2-3-1-a-insert&quot;&gt;演習2.4 演習2.2と2.3の融合 ノードの値の比較回数が(木の深さ+1)に収まる､すでに木の中に要素&lt;code&gt;a&lt;/code&gt;がある場合はノードのコピーをしない&lt;code&gt;insert&lt;/code&gt;
+&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;insert3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;All&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;insert3&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;tx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;insert3-impl&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;All&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;All&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;insert3-impl&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -320,14 +401,30 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;insert3-impl&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))]))&lt;/span&gt;
 
   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;call/cc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;insert3-impl&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;tx&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;member2&lt;/code&gt;のように底までキャッシュを引き回して､底に来たときに比較してあるやんけ! となれば最初に受け取った引数の木を継続に渡して脱出します｡やったか…!?&lt;/p&gt;&lt;h3 id=&quot;2-5&quot;&gt;演習2.5&lt;/h3&gt;&lt;h4 id=&quot;1-x-d&quot;&gt;(1) すべてのノードに&lt;code&gt;x&lt;/code&gt;が格納された､深さ&lt;code&gt;d&lt;/code&gt;の完全二分木ジェネレーター&lt;/h4&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;complete&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;All&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;member2&lt;/code&gt;のように底までキャッシュを引き回して､底に来たときに比較してあるやんけ! となれば最初に受け取った引数の木を継続に渡して脱出します｡やったか…!?&lt;/p&gt;
+&lt;h3 id=&quot;2-5&quot;&gt;演習2.5&lt;/h3&gt;
+&lt;h4 id=&quot;1-x-d&quot;&gt;(1) すべてのノードに&lt;code&gt;x&lt;/code&gt;が格納された､深さ&lt;code&gt;d&lt;/code&gt;の完全二分木ジェネレーター&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;complete&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;All&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Tree&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;complete&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;subt&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;complete&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sub1&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;subt&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;subt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;深さ&lt;code&gt;d&lt;/code&gt;に対して線形に動作するので､\(O(d)\)｡&lt;/p&gt;&lt;p&gt;はい｡&lt;/p&gt;&lt;h4 id=&quot;2&quot;&gt;(2) 任意のサイズの平衡木ジェネレーター&lt;/h4&gt;&lt;p&gt;よくわからん&lt;/p&gt;&lt;h3 id=&quot;2-6&quot;&gt;演習2.6&lt;/h3&gt;&lt;p&gt;ファンクターに相当する機能なし&lt;/p&gt;&lt;h1 id=&quot;3&quot;&gt;3. おわりに&lt;/h1&gt;&lt;p&gt;Typed RacketはuntypedだったRacketの資産も活用してうまくやっていこうというGradual typingなのであんまり強くないね､というのを再確認しました｡
-Typed LuaやFlowtype､Pythonの型アノテーション､といった型の面々…&lt;/p&gt;&lt;hr&gt;&lt;h1 id=&quot;part-a08237e8bb632c1&quot;&gt;今週の百合コーナー&lt;/h1&gt;&lt;p&gt;『コレクターズ』が本当にやばかった｡『となりのロボット』を書き上げる西UKO先生ですからね､最高や｡&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;深さ&lt;code&gt;d&lt;/code&gt;に対して線形に動作するので､\(O(d)\)｡&lt;/p&gt;
+&lt;p&gt;はい｡&lt;/p&gt;
+&lt;h4 id=&quot;2&quot;&gt;(2) 任意のサイズの平衡木ジェネレーター&lt;/h4&gt;
+&lt;p&gt;よくわからん&lt;/p&gt;
+&lt;h3 id=&quot;2-6&quot;&gt;演習2.6&lt;/h3&gt;
+&lt;p&gt;ファンクターに相当する機能なし&lt;/p&gt;
+&lt;h1 id=&quot;3&quot;&gt;3. おわりに&lt;/h1&gt;
+&lt;p&gt;Typed RacketはuntypedだったRacketの資産も活用してうまくやっていこうというGradual typingなのであんまり強くないね､というのを再確認しました｡
+Typed LuaやFlowtype､Pythonの型アノテーション､といった型の面々…&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;part-a08237e8bb632c1&quot;&gt;今週の百合コーナー&lt;/h1&gt;
+&lt;p&gt;『コレクターズ』が本当にやばかった｡『となりのロボット』を書き上げる西UKO先生ですからね､最高や｡&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
 
@@ -356,50 +453,88 @@ Typed LuaやFlowtype､Pythonの型アノテーション､といった型の面
         <title>5年次､Typed Racket</title>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
 気づけば5年次4年生になりました｡
-ようやく卒研フェーズになったので､ね｡&lt;/p&gt;&lt;p&gt;あとバイトの時給や労働可能時間&lt;sup id=&quot;fnref1&quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;が上がったりして金が手に入る分余計に労働を重ねてしまうようになったが金は手に入った｡
-また&lt;a href=&quot;http://nymphium.github.io/2016/09/26/10%E6%9C%88%E3%81%AE%E6%B1%BA%E6%84%8F.html&quot;&gt;毎週焼肉月間&lt;/a&gt;などをやりたいぜ｡&lt;/p&gt;&lt;p&gt;もう少し序文を書こうと思ったけど特に無いので終わり｡&lt;/p&gt;&lt;hr&gt;&lt;h1 id=&quot;typed-racket&quot;&gt;Typed Racket&lt;/h1&gt;&lt;p&gt;最近はRacketの､特にTyped Racketという物体を書き始めたので､ちょっとやっていきたいと思います｡
+ようやく卒研フェーズになったので､ね｡&lt;/p&gt;
+&lt;p&gt;あとバイトの時給や労働可能時間&lt;sup id=&quot;fnref1&quot; title=&quot;フレックスタイム制なので適当に行って適当に帰る､また1ヶ月n時間まで働いてOKという上限がある｡ &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;が上がったりして金が手に入る分余計に労働を重ねてしまうようになったが金は手に入った｡
+また&lt;a href=&quot;http://nymphium.github.io/2016/09/26/10%E6%9C%88%E3%81%AE%E6%B1%BA%E6%84%8F.html&quot;&gt;毎週焼肉月間&lt;/a&gt;などをやりたいぜ｡&lt;/p&gt;
+&lt;p&gt;もう少し序文を書こうと思ったけど特に無いので終わり｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;typed-racket&quot;&gt;Typed Racket&lt;/h1&gt;
+&lt;p&gt;最近はRacketの､特にTyped Racketという物体を書き始めたので､ちょっとやっていきたいと思います｡
 動機としては､なんとなくマクロに興味を持って､マクロといえばLispやろなぁということですね｡
-身近にはschemeでポエムを書くwasao君やEmacsに生かされているリザウド君などがいるのでそういった毒電波の影響を無意識のうちに受けていたという可能性もあります｡&lt;/p&gt;&lt;p&gt;で､なんやかんやでRacketを書こうとなったところで色々漁ってみたらTyped Racketという言語に出会ったわけですね｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;
-&lt;center&gt;
+身近にはschemeでポエムを書くwasao君やEmacsに生かされているリザウド君などがいるのでそういった毒電波の影響を無意識のうちに受けていたという可能性もあります｡&lt;/p&gt;
+&lt;p&gt;で､なんやかんやでRacketを書こうとなったところで色々漁ってみたらTyped Racketという言語に出会ったわけですね｡&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;a href=&quot;https://github.com/racket/typed-racket&quot;&gt;racket/typed-racket&lt;/a&gt;
-&lt;/center&gt;&lt;p&gt;これもマクロによるcore Racketの拡張なんですねぇ｡
-数日前にPerlのソースフィルターという機能を知って(Perl5を書いたことは1回もない)､それで型を突っ込んでいくみたいなことを話したあとだったので､それにだいぶ近いというかほとんど同じだなと思った｡ &lt;/p&gt;&lt;h2 id=&quot;occurrence-typing&quot;&gt;Occurrence Typing&lt;/h2&gt;&lt;p&gt;さて､Typed Racketは&lt;em&gt;Occurrence typing&lt;/em&gt;という型付け規則を採用している｡
-簡単にいうと､ある変数&lt;code&gt;x&lt;/code&gt;に関して型情報がわかりそうなconditionalがあると､その後のbodyにその型情報が伝播するようだ｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;flexible-length&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;U&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Listof&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/center&gt;
+&lt;p&gt;これもマクロによるcore Racketの拡張なんですねぇ｡
+数日前にPerlのソースフィルターという機能を知って(Perl5を書いたことは1回もない)､それで型を突っ込んでいくみたいなことを話したあとだったので､それにだいぶ近いというかほとんど同じだなと思った｡ &lt;/p&gt;
+&lt;h2 id=&quot;occurrence-typing&quot;&gt;Occurrence Typing&lt;/h2&gt;
+&lt;p&gt;さて､Typed Racketは&lt;em&gt;Occurrence typing&lt;/em&gt;という型付け規則を採用している｡
+簡単にいうと､ある変数&lt;code&gt;x&lt;/code&gt;に関して型情報がわかりそうなconditionalがあると､その後のbodyにその型情報が伝播するようだ｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;flexible-length&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;U&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Listof&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;flexible-length&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;str-or-lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;string?&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;str-or-lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
       &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;string-length&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;str-or-lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
       &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;str-or-lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;(&lt;a href=&quot;https://docs.racket-lang.org/ts-guide/occurrence-typing.html&quot;&gt;5.1 Basic Occurrence Typing&lt;/a&gt;より引用)&lt;/p&gt;&lt;p&gt;型注釈のシンタックスもLispのそれのように後置記法となっているため､ちょっと混乱する｡
-余談だが､arityが0の関数(&lt;code&gt;fun () -&amp;gt; a&lt;/code&gt;的な)の型は&lt;code&gt;(-&amp;gt; R)&lt;/code&gt;など､独特な空気がある｡&lt;/p&gt;&lt;p&gt;さて､example codeに戻る｡
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;(&lt;a href=&quot;https://docs.racket-lang.org/ts-guide/occurrence-typing.html&quot;&gt;5.1 Basic Occurrence Typing&lt;/a&gt;より引用)&lt;/p&gt;
+&lt;p&gt;型注釈のシンタックスもLispのそれのように後置記法となっているため､ちょっと混乱する｡
+余談だが､arityが0の関数(&lt;code&gt;fun () -&amp;gt; a&lt;/code&gt;的な)の型は&lt;code&gt;(-&amp;gt; R)&lt;/code&gt;など､独特な空気がある｡&lt;/p&gt;
+&lt;p&gt;さて､example codeに戻る｡
 &lt;code&gt;flexible-length&lt;/code&gt;はStringと(Listof Any)のUnion型をとり､Integerを返す｡
 if構文の中で､String型のときとそうでないときに分かれている｡
-このif構文の中で&lt;code&gt;str-or-list&lt;/code&gt;を型が異なる関数に適用させても全体として型が一致するのは､このOccurrence Typingによる型情報の伝播のおかげ､とのこと｡&lt;/p&gt;&lt;h2 id=&quot;pros&quot;&gt;pros&lt;/h2&gt;&lt;p&gt;型のないRacketないしはLispを知らないので､なかった頃との比較はできない｡
-ただわりとイケる感じがある(雑)｡&lt;/p&gt;&lt;h2 id=&quot;cons&quot;&gt;cons&lt;/h2&gt;&lt;p&gt;やはりデータ型の定義が難点ですね｡
-たとえばよくあるOptional型だと&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;define-type&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Optional&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;U&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+このif構文の中で&lt;code&gt;str-or-list&lt;/code&gt;を型が異なる関数に適用させても全体として型が一致するのは､このOccurrence Typingによる型情報の伝播のおかげ､とのこと｡&lt;/p&gt;
+&lt;h2 id=&quot;pros&quot;&gt;pros&lt;/h2&gt;
+&lt;p&gt;型のないRacketないしはLispを知らないので､なかった頃との比較はできない｡
+ただわりとイケる感じがある(雑)｡&lt;/p&gt;
+&lt;h2 id=&quot;cons&quot;&gt;cons&lt;/h2&gt;
+&lt;p&gt;やはりデータ型の定義が難点ですね｡
+たとえばよくあるOptional型だと&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;define-type&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Optional&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;U&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;struct:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;struct:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;None&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;のように書くことになる｡
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;のように書くことになる｡
 OCamlやHaskellと比べるとあまりにも…という感じですが､Typed Racketのデータ型の実態としてはまさに書いたとおりstructureのUnionですからねぇ…けどねぇ…｡
-やはりデータ型を定義するときは&lt;code&gt;define-datatype&lt;/code&gt;みたいなマクロを作ってstructureの定義は隠蔽したいものです｡&lt;/p&gt;&lt;h3 id=&quot;2017-04-16&quot;&gt;追記 2017/04/16&lt;/h3&gt;&lt;p&gt;ずばりなものを実装している人がおりました｡
-&lt;a href=&quot;https://lexi-lambda.github.io/blog/2015/12/21/adts-in-typed-racket-with-macros/&quot;&gt;ADTs in Typed Racket with macros&lt;/a&gt;&lt;/p&gt;&lt;p&gt;これにより良い感じになる｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;define-datatype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Optional&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+やはりデータ型を定義するときは&lt;code&gt;define-datatype&lt;/code&gt;みたいなマクロを作ってstructureの定義は隠蔽したいものです｡&lt;/p&gt;
+&lt;h3 id=&quot;2017-04-16&quot;&gt;追記 2017/04/16&lt;/h3&gt;
+&lt;p&gt;ずばりなものを実装している人がおりました｡
+&lt;a href=&quot;https://lexi-lambda.github.io/blog/2015/12/21/adts-in-typed-racket-with-macros/&quot;&gt;ADTs in Typed Racket with macros&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;これにより良い感じになる｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;define-datatype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Optional&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
                  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
                  &lt;span class=&quot;nv&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;define-datatype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Either&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;L&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
                  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Left&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
                  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Right&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ただ､各structureに&lt;code&gt;#:transparent&lt;/code&gt;(Haskellなどにおける&lt;code&gt;deriving Show&lt;/code&gt;に&lt;em&gt;働きとしては&lt;/em&gt;近い)など､オプションを渡すことができないため､もう少し工夫が必要になるだろう｡&lt;/p&gt;&lt;h2 id=&quot;syntastic&quot;&gt;Syntasticと罠&lt;/h2&gt;&lt;p&gt;みなさんVimはお使いかと思いますが､Syntasticも使っているはずですね｡
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ただ､各structureに&lt;code&gt;#:transparent&lt;/code&gt;(Haskellなどにおける&lt;code&gt;deriving Show&lt;/code&gt;に&lt;em&gt;働きとしては&lt;/em&gt;近い)など､オプションを渡すことができないため､もう少し工夫が必要になるだろう｡&lt;/p&gt;
+&lt;h2 id=&quot;syntastic&quot;&gt;Syntasticと罠&lt;/h2&gt;
+&lt;p&gt;みなさんVimはお使いかと思いますが､Syntasticも使っているはずですね｡
 Syntasticがあると型の不一致もちゃんと怒ってくれている…のですが…｡
-SyntasticのRacket syntastic checkerはデフォルトでは&lt;code&gt;racket&lt;/code&gt;コマンドをただ叩いているだけ…つまりファイルを実行してしまっているんですね｡最悪です｡&lt;/p&gt;&lt;p&gt;これはさすがにマズイということで&lt;code&gt;raco expand&lt;/code&gt;でマクロを展開するだけにさせました｡
-Typed Racketはマクロ展開時に型チェックをおこなうというタイプのものなのでこれでOK｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;~/.vim/bundle/syntastic/syntax_checker/racket.vim&lt;/code&gt;をちょいと拝借してちょいちょい変えて､特に以下を追加する｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-vim&quot; data-lang=&quot;vim&quot;&gt;&lt;span class=&quot;c&quot;&gt;&quot; ここでコマンドにサブコマンドを渡す&lt;/span&gt;
+SyntasticのRacket syntastic checkerはデフォルトでは&lt;code&gt;racket&lt;/code&gt;コマンドをただ叩いているだけ…つまりファイルを実行してしまっているんですね｡最悪です｡&lt;/p&gt;
+&lt;p&gt;これはさすがにマズイということで&lt;code&gt;raco expand&lt;/code&gt;でマクロを展開するだけにさせました｡
+Typed Racketはマクロ展開時に型チェックをおこなうというタイプのものなのでこれでOK｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;~/.vim/bundle/syntastic/syntax_checker/racket.vim&lt;/code&gt;をちょいと拝借してちょいちょい変えて､特に以下を追加する｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-vim&quot; data-lang=&quot;vim&quot;&gt;&lt;span class=&quot;c&quot;&gt;&quot; ここでコマンドにサブコマンドを渡す&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; makeprg &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; self&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;makeprgBuild&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
 &lt;span class=&quot;se&quot;&gt;    \&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'args_before'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'expand'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これで適当にガッとやって終わりや｡
-そのうちSyntasticにprなどをサッと打ちたい｡&lt;/p&gt;&lt;h3 id=&quot;2017-04-16&quot;&gt;追記 2017/04/16&lt;/h3&gt;&lt;p&gt;やっていきをした &lt;a href=&quot;https://github.com/vim-syntastic/syntastic/pull/2001&quot;&gt;vim-syntastic/syntastic PR #2001&lt;/a&gt;&lt;/p&gt;&lt;hr&gt;&lt;p&gt;&quot;&lt;em&gt;Typed&lt;/em&gt;&quot; Racketとしてみるとなんともいえない感じを残しましたが､Racketはなかなかおもしろい言語だと思いました｡
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これで適当にガッとやって終わりや｡
+そのうちSyntasticにprなどをサッと打ちたい｡&lt;/p&gt;
+&lt;h3 id=&quot;2017-04-16&quot;&gt;追記 2017/04/16&lt;/h3&gt;
+&lt;p&gt;やっていきをした &lt;a href=&quot;https://github.com/vim-syntastic/syntastic/pull/2001&quot;&gt;vim-syntastic/syntastic PR #2001&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;“&lt;em&gt;Typed&lt;/em&gt;” Racketとしてみるとなんともいえない感じを残しましたが､Racketはなかなかおもしろい言語だと思いました｡
 モジュールシステムや協力でhygenicなマクロ…｡Luaと比べては何もかもが高機能…｡
 ファイル先頭に書く&lt;code&gt;#lang hogehoge&lt;/code&gt;というものでファイル内をhogehogeというモジュールにあるmacro expanderで展開していきcore Racketに落とすという手法はなかなか渋い｡
-そのため&lt;a href=&quot;https://docs.racket-lang.org/datalog/index.html&quot;&gt;Prologのような論理型言語&lt;/a&gt;が書けてしまったりする｡&lt;/p&gt;&lt;p&gt;この&lt;a href=&quot;https://arxiv.org/abs/1511.07033&quot;&gt;Occurrence TypingにRefinement Typeを合わせる&lt;/a&gt;といった試みもあり､今後も見守っていきたい｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;この語に及んでな〜〜に言語を取得しようとしてるんだ､大丈夫か…｡
-漫画や小説､技術書まで積んでしまっている､お前の人生も詰んでいる､つまりはそういうこと…｡&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
+そのため&lt;a href=&quot;https://docs.racket-lang.org/datalog/index.html&quot;&gt;Prologのような論理型言語&lt;/a&gt;が書けてしまったりする｡&lt;/p&gt;
+&lt;p&gt;この&lt;a href=&quot;https://arxiv.org/abs/1511.07033&quot;&gt;Occurrence TypingにRefinement Typeを合わせる&lt;/a&gt;といった試みもあり､今後も見守っていきたい｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;この語に及んでな〜〜に言語を取得しようとしてるんだ､大丈夫か…｡
+漫画や小説､技術書まで積んでしまっている､お前の人生も詰んでいる､つまりはそういうこと…｡&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
 
@@ -427,7 +562,16 @@ Typed Racketはマクロ展開時に型チェックをおこなうというタ�
       <item>
         <title>通年でLua最適化器を作った</title>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
-えーではいきます｡&lt;/p&gt;&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;&lt;p&gt;T大の『&lt;a href=&quot;http://www.coins.tsukuba.ac.jp/syllabus/GB13312_GB13322.html&quot;&gt;情報特別演習&lt;/a&gt;』という講義でLua VM Bytecodeの最適化器を作りました｡&lt;/p&gt;&lt;div class=&quot;github-widget&quot; data-repo=&quot;Nymphium/opeth&quot;&gt;&lt;/div&gt;&lt;p&gt;発表スライドは&lt;a href=&quot;http://nymphium.github.io/pdf/tsukubalua.html&quot;&gt;こちら&lt;/a&gt;&lt;/p&gt;&lt;p&gt;話したいことはほとんどスライドに書いてしまった…｡&lt;/p&gt;&lt;p&gt;レポートは&lt;a href=&quot;https://nymphium.github.io/pdf/opeth_report.pdf&quot;&gt;これ&lt;/a&gt;&lt;/p&gt;&lt;h1 id=&quot;2&quot;&gt;2. おわりに&lt;/h1&gt;&lt;p&gt;ア&lt;/p&gt;&lt;p&gt;やる気出したらもう少し追記します｡&lt;/p&gt;</description>
+えーではいきます｡&lt;/p&gt;
+&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
+&lt;p&gt;T大の『&lt;a href=&quot;http://www.coins.tsukuba.ac.jp/syllabus/GB13312_GB13322.html&quot;&gt;情報特別演習&lt;/a&gt;』という講義でLua VM Bytecodeの最適化器を作りました｡&lt;/p&gt;
+&lt;div class=&quot;github-widget&quot; data-repo=&quot;Nymphium/opeth&quot;&gt;&lt;/div&gt;
+&lt;p&gt;発表スライドは&lt;a href=&quot;http://nymphium.github.io/pdf/tsukubalua.html&quot;&gt;こちら&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;話したいことはほとんどスライドに書いてしまった…｡&lt;/p&gt;
+&lt;p&gt;レポートは&lt;a href=&quot;https://nymphium.github.io/pdf/opeth_report.pdf&quot;&gt;これ&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;2&quot;&gt;2. おわりに&lt;/h1&gt;
+&lt;p&gt;ア&lt;/p&gt;
+&lt;p&gt;やる気出したらもう少し追記します｡&lt;/p&gt;</description>
         <pubDate>Sun, 12 Feb 2017 00:00:00 +0900</pubDate>
         <link>https://nymphium.github.io/2017/02/12/opeth.html</link>
         <guid isPermaLink="true">https://nymphium.github.io/2017/02/12/opeth.html</guid>
@@ -443,8 +587,12 @@ Typed Racketはマクロ展開時に型チェックをおこなうというタ�
     
       <item>
         <title>Control Flow Graph</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡いつの間にか2017年､そして2月｡季節はめぐり､また俺達は―&lt;/p&gt;&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;&lt;p&gt;さて以前DU Chainがなんとかって話をしたんですが､その中に出てくるControl Flow Graphというものについてかなり適当に流しました｡
-本当はここは重要なので､重要じゃよ〜&lt;/p&gt;&lt;h1 id=&quot;2&quot;&gt;2. 構成方法&lt;/h1&gt;&lt;ol&gt;
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡いつの間にか2017年､そして2月｡季節はめぐり､また俺達は―&lt;/p&gt;
+&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
+&lt;p&gt;さて以前DU Chainがなんとかって話をしたんですが､その中に出てくるControl Flow Graphというものについてかなり適当に流しました｡
+本当はここは重要なので､重要じゃよ〜&lt;/p&gt;
+&lt;h1 id=&quot;2&quot;&gt;2. 構成方法&lt;/h1&gt;
+&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;各命令を基本ブロックとする｡
 各命令にはその行番号と､次に実行される命令の行番号(指すべき先行ブロックの開始位置)をタグ付けする｡殆どの命令は行番号+1だが､以下の命令は異なり､または複数の行き先がある｡&lt;/p&gt;
@@ -513,14 +661,20 @@ Typed Racketはマクロ展開時に型チェックをおこなうというタ�
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
-&lt;/ol&gt;&lt;p&gt;流れるような説明ありがとうございます!&lt;/p&gt;&lt;h1 id=&quot;3-example&quot;&gt;3. example&lt;/h1&gt;&lt;p&gt;以下のようなコード&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+&lt;/ol&gt;
+&lt;p&gt;流れるような説明ありがとうございます!&lt;/p&gt;
+&lt;h1 id=&quot;3-example&quot;&gt;3. example&lt;/h1&gt;
+&lt;p&gt;以下のようなコード&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
     &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
     &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;world&quot;&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;また､これから成るVMの命令列&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;        1       [1]     LOADK           0 -1    ; 3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;また､これから成るVMの命令列&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;        1       [1]     LOADK           0 -1    ; 3
         2       [3]     LT              0 0 -2  ; - 5
         3       [3]     JMP             0 4     ; to 8
         4       [4]     GETTABUP        1 0 -3  ; _ENV &quot;print&quot;
@@ -531,7 +685,10 @@ Typed Racketはマクロ展開時に型チェックをおこなうというタ�
         9       [6]     LOADK           2 -5    ; &quot;world&quot;
         10      [6]     CALL            1 2 1
         11      [7]     RETURN          0 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;を考える｡&lt;/p&gt;&lt;p&gt;まず､各命令を基本ブロックとして見ていき､先行ブロック(の開始位置)をタグ付けする｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;を考える｡&lt;/p&gt;
+&lt;p&gt;まず､各命令を基本ブロックとして見ていき､先行ブロック(の開始位置)をタグ付けする｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;LOADK&quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;LT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;JMP&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
@@ -544,14 +701,19 @@ Typed Racketはマクロ展開時に型チェックをおこなうというタ�
   &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;CALL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;RETURN&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;そしてつなげていく｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;そしてつなげていく｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}},&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- block 1&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- block 2&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- block 3&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&quot;4&quot;&gt;4. おわりに&lt;/h1&gt;&lt;p&gt;最近は体調以外良好気味です｡&lt;/p&gt;&lt;p&gt;そういえばTwitter Cardとかいう物体をねじ込んでみました｡よかったです｡いや本当は良くなくてね〜いや〜良い､良くない&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1 id=&quot;4&quot;&gt;4. おわりに&lt;/h1&gt;
+&lt;p&gt;最近は体調以外良好気味です｡&lt;/p&gt;
+&lt;p&gt;そういえばTwitter Cardとかいう物体をねじ込んでみました｡よかったです｡いや本当は良くなくてね〜いや〜良い､良くない&lt;/p&gt;</description>
         <pubDate>Tue, 07 Feb 2017 00:00:00 +0900</pubDate>
         <link>https://nymphium.github.io/2017/02/07/cfg.html</link>
         <guid isPermaLink="true">https://nymphium.github.io/2017/02/07/cfg.html</guid>
@@ -565,7 +727,11 @@ Typed Racketはマクロ展開時に型チェックをおこなうというタ�
     
       <item>
         <title>ご報告</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;&lt;p&gt;早速ですが､皆さんにご報告があります｡&lt;/p&gt;&lt;p&gt;このたび､川上貞代さんと付き合うことになりました｡&lt;/p&gt;&lt;p&gt;以上です｡&lt;/p&gt;&lt;p&gt;20XX/09/20&lt;/p&gt;</description>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;
+&lt;p&gt;早速ですが､皆さんにご報告があります｡&lt;/p&gt;
+&lt;p&gt;このたび､川上貞代さんと付き合うことになりました｡&lt;/p&gt;
+&lt;p&gt;以上です｡&lt;/p&gt;
+&lt;p&gt;20XX/09/20&lt;/p&gt;</description>
         <pubDate>Tue, 13 Dec 2016 00:00:00 +0900</pubDate>
         <link>https://nymphium.github.io/2016/12/13/%E3%81%94%E5%A0%B1%E5%91%8A.html</link>
         <guid isPermaLink="true">https://nymphium.github.io/2016/12/13/%E3%81%94%E5%A0%B1%E5%91%8A.html</guid>
@@ -578,13 +744,20 @@ Typed Racketはマクロ展開時に型チェックをおこなうというタ�
       <item>
         <title>Define-Use chainとその構成法</title>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡これは&lt;a href=&quot;http://qiita.com/advent-calendar/2016/lang_dev&quot;&gt;言語実装 Advent Calendar 2016&lt;/a&gt;11日目の記事です｡
-百合が好きなんですが､百合以外にも活動はしているということで､百合以外の活動について今回触れたいと､えぇ､思います｡&lt;/p&gt;&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;&lt;p&gt;今年は通年の講義で&lt;a href=&quot;https://lua.org&quot;&gt;Lua&lt;/a&gt; VMのバイトコードの最適化器を作っています｡
+百合が好きなんですが､百合以外にも活動はしているということで､百合以外の活動について今回触れたいと､えぇ､思います｡&lt;/p&gt;
+&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
+&lt;p&gt;今年は通年の講義で&lt;a href=&quot;https://lua.org&quot;&gt;Lua&lt;/a&gt; VMのバイトコードの最適化器を作っています｡
 去年は&lt;a href=&quot;https://nymphium.github.io/2016/01/13/llix.html&quot;&gt;こんなもの&lt;/a&gt;を作ってました｡
-最適化器は最終報告会の後に公開しようと思っています｡&lt;/p&gt;&lt;p&gt;さて､とある文による定義(や代入)がそれ以降使われないとき､その文を削除したいなんていうケースがあります｡
+最適化器は最終報告会の後に公開しようと思っています｡&lt;/p&gt;
+&lt;p&gt;さて､とある文による定義(や代入)がそれ以降使われないとき､その文を削除したいなんていうケースがあります｡
 はい､&lt;a href=&quot;https://en.wikipedia.org/wiki/Dead_code_elimination&quot;&gt;dead code elimination&lt;/a&gt;などです｡
-この&quot;それ以降使われない&quot;かどうかの判別に&lt;em&gt;Define-Use Chain&lt;/em&gt;を使います｡&lt;/p&gt;&lt;h2 id=&quot;1-1-prerequirements&quot;&gt;1-1. prerequirements&lt;/h2&gt;&lt;p&gt;まずひとつに､example codesは実装言語に倣って&lt;a href=&quot;https://moonscript.org&quot;&gt;MoonScript&lt;/a&gt;を使います｡
-あまり分からなくてもいいですが､Luaのtableについて知っておいてもらえるとありがたいです､まぁだいたい連想配列でいいですはい｡&lt;/p&gt;&lt;p&gt;それともう一つ､今回は&lt;em&gt;Lua VM&lt;/em&gt;というレジスターベースのVMの命令をターゲットにして進めます｡
-Lua VM 5.3には47個の命令がありますが､今回簡単のため以下の5つで戦わせていただきます｡&lt;/p&gt;&lt;ul&gt;
+この&quot;それ以降使われない&quot;かどうかの判別に&lt;em&gt;Define-Use Chain&lt;/em&gt;を使います｡&lt;/p&gt;
+&lt;h2 id=&quot;1-1-prerequirements&quot;&gt;1-1. prerequirements&lt;/h2&gt;
+&lt;p&gt;まずひとつに､example codesは実装言語に倣って&lt;a href=&quot;https://moonscript.org&quot;&gt;MoonScript&lt;/a&gt;を使います｡
+あまり分からなくてもいいですが､Luaのtableについて知っておいてもらえるとありがたいです､まぁだいたい連想配列でいいですはい｡&lt;/p&gt;
+&lt;p&gt;それともう一つ､今回は&lt;em&gt;Lua VM&lt;/em&gt;というレジスターベースのVMの命令をターゲットにして進めます｡
+Lua VM 5.3には47個の命令がありますが､今回簡単のため以下の5つで戦わせていただきます｡&lt;/p&gt;
+&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;LOADK A B&lt;/code&gt;&lt;/p&gt;
 
@@ -614,8 +787,13 @@ Lua VM 5.3には47個の命令がありますが､今回簡単のため以下�
 
 &lt;p&gt;今回はトップレベルだけ考えるので､まぁプログラムの終了位置と考えてください｡本当は全然違うぞ｡&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;まぁこれだけでいいか｡
-簡単のためにだいぶ端折ってますんで､詳細はドキュメント…公式にそんなものはない&lt;sup id=&quot;fnref1&quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;)&lt;sup id=&quot;fnref2&quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;)…Luaのソースコードを見てください｡&lt;/p&gt;&lt;p&gt;最後に一つ､後述しますがほとんど手探りなので&lt;em&gt;間違ってる可能性が極めて高い&lt;/em&gt;です｡｢そうじゃなくてこうだ｣というのがあったら大変ありがたいですのでどしどしご指摘願います｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;こんな感じのLua VMの命令を見てみましょうか｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;LOADK 0 0 -- load `3`
+&lt;/ul&gt;
+&lt;p&gt;まぁこれだけでいいか｡
+簡単のためにだいぶ端折ってますんで､詳細はドキュメント…公式にそんなものはない&lt;sup id=&quot;fnref1&quot; title=&quot;Dibyendu Majumdar. Lua 5.3 Bytecode Reference &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;)&lt;sup id=&quot;fnref2&quot; title=&quot;Kein-Hong Man. A No-Frills Introduction to Lua 5.1 VM Instructions &quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;)…Luaのソースコードを見てください｡&lt;/p&gt;
+&lt;p&gt;最後に一つ､後述しますがほとんど手探りなので&lt;em&gt;間違ってる可能性が極めて高い&lt;/em&gt;です｡｢そうじゃなくてこうだ｣というのがあったら大変ありがたいですのでどしどしご指摘願います｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;こんな感じのLua VMの命令を見てみましょうか｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;LOADK 0 0 -- load `3`
 LOADK 1 1 -- load `5`
 LOADK 1 2 -- load `7` *&amp;lt;!&amp;gt;*
 EQ 0 0 1 -- R(0) == R(1) ?
@@ -626,7 +804,9 @@ LOADK 2 3 -- load `9`
 RETURN 0 1
 
 constant list: [3, 5, 7, 9]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上から見ていくと､&lt;/p&gt;&lt;ol&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;上から見ていくと､&lt;/p&gt;
+&lt;ol&gt;
 &lt;li&gt;
 &lt;code&gt;レジスター0&lt;/code&gt;に&lt;code&gt;3&lt;/code&gt;をロードして&lt;/li&gt;
 &lt;li&gt;
@@ -642,36 +822,58 @@ constant list: [3, 5, 7, 9]
 &lt;li&gt;
 &lt;code&gt;レジスター2&lt;/code&gt;に&lt;code&gt;9&lt;/code&gt;をロードする&lt;/li&gt;
 &lt;li&gt;おわり&lt;/li&gt;
-&lt;/ol&gt;&lt;p&gt;なるほど｡3行目&lt;em&gt;&amp;lt;!&amp;gt;&lt;/em&gt;は&lt;code&gt;レジスター1&lt;/code&gt;の値を上書きしています｡
+&lt;/ol&gt;
+&lt;p&gt;なるほど｡3行目&lt;em&gt;&amp;lt;!&amp;gt;&lt;/em&gt;は&lt;code&gt;レジスター1&lt;/code&gt;の値を上書きしています｡
 とすると2行目の彼は無駄なのでは…ということが人間はすぐに分かります｡すぐに分かる｡
 しかしプログラムは書かないといけない｡
 人間も､もっと複雑なものがでてくるとあっぷあっぷになる｡
-ということで書く｡&lt;/p&gt;&lt;h1 id=&quot;2-what-is-define-use-chain&quot;&gt;2. What is Define-Use Chain?&lt;/h1&gt;&lt;p&gt;Wikipediaを読んで知った気になるのが趣味なので､Wikipediaを引用します｡&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Use-define_chain&quot;&gt;Use-define chain - Wikipedia&lt;/a&gt;&lt;/p&gt;&lt;blockquote&gt;
+ということで書く｡&lt;/p&gt;
+&lt;h1 id=&quot;2-what-is-define-use-chain&quot;&gt;2. What is Define-Use Chain?&lt;/h1&gt;
+&lt;p&gt;Wikipediaを読んで知った気になるのが趣味なので､Wikipediaを引用します｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Use-define_chain&quot;&gt;Use-define chain - Wikipedia&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;p&gt;A Use-Definition Chain (UD Chain) is a data structure that consists of a use, U, of a variable, and all the definitions, D, of that variable that can reach that use without any other intervening definitions.
 A definition can have many forms, but is generally taken to mean the assignment of some value to a variable (which is different from the use of the term that refers to the language construct involving a data type and allocating storage).&lt;/p&gt;
-&lt;/blockquote&gt;&lt;p&gt;オイオイこれは&lt;em&gt;Use-Define Chain&lt;/em&gt;の記事じゃねーかってすみません｡&lt;/p&gt;&lt;p&gt;Use-Define Chainは､変数を使用する部分から､その変数の定義位置を逆引きするようなイメージですか｡
-例で見ると､&lt;code&gt;EQ&lt;/code&gt;からどこで定義されたレジスター&lt;code&gt;1&lt;/code&gt;の値を使いたいか､ということになりますね｡&lt;/p&gt;&lt;p&gt;&lt;em&gt;Define-Use Chain&lt;/em&gt;はその逆で､定義から使用先が紐付けられています｡
-例でいくと､2行目の宣言は誰も使ってないので参照する使用先が無い､3行目は&lt;code&gt;EQ&lt;/code&gt;で使われるので使用先が1つある､となり2行目が不要であることが分かるわけですね!&lt;/p&gt;&lt;h1 id=&quot;3-reachable-definition&quot;&gt;3. Reachable Definition&lt;/h1&gt;&lt;p&gt;ただ､資料に乏しく､なんかウマイ感じのアルゴリズムの説明もありません｡
-仕方なく雰囲気だけで我流の実装をしてみたところもちろんガバガバで爆死しました｡&lt;/p&gt;&lt;p&gt;先生に伺ったところ､｢&lt;em&gt;Reachable Definition&lt;/em&gt;からちょっと発展させればできる｣とのことでした｡
-Reachable Definition､それならちょっと前に読んだ本&lt;sup id=&quot;fnref3&quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;に出てきたなとなってなんとかなりそうだった｡&lt;/p&gt;&lt;p&gt;段階を追うのが下手なので､ここで強制的に段階を追わせていただきます｡
-まず､Reachable Definitionについて語るために､&lt;em&gt;Control Flow Graph&lt;/em&gt;について語る必要があります｡&lt;/p&gt;&lt;h2 id=&quot;3-1-control-flow-graph-cfg&quot;&gt;3-1. Control Flow Graph (CFG)&lt;/h2&gt;&lt;p&gt;簡単に言ってしまうと､プログラムの実行の流れをグラフにしたようなものです｡context-free grammarではないよ｡
-最適化などでしょっちゅう使われる物体ですね&lt;sup id=&quot;fnref4&quot;&gt;&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;｡
+&lt;/blockquote&gt;
+&lt;p&gt;オイオイこれは&lt;em&gt;Use-Define Chain&lt;/em&gt;の記事じゃねーかってすみません｡&lt;/p&gt;
+&lt;p&gt;Use-Define Chainは､変数を使用する部分から､その変数の定義位置を逆引きするようなイメージですか｡
+例で見ると､&lt;code&gt;EQ&lt;/code&gt;からどこで定義されたレジスター&lt;code&gt;1&lt;/code&gt;の値を使いたいか､ということになりますね｡&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Define-Use Chain&lt;/em&gt;はその逆で､定義から使用先が紐付けられています｡
+例でいくと､2行目の宣言は誰も使ってないので参照する使用先が無い､3行目は&lt;code&gt;EQ&lt;/code&gt;で使われるので使用先が1つある､となり2行目が不要であることが分かるわけですね!&lt;/p&gt;
+&lt;h1 id=&quot;3-reachable-definition&quot;&gt;3. Reachable Definition&lt;/h1&gt;
+&lt;p&gt;ただ､資料に乏しく､なんかウマイ感じのアルゴリズムの説明もありません｡
+仕方なく雰囲気だけで我流の実装をしてみたところもちろんガバガバで爆死しました｡&lt;/p&gt;
+&lt;p&gt;先生に伺ったところ､｢&lt;em&gt;Reachable Definition&lt;/em&gt;からちょっと発展させればできる｣とのことでした｡
+Reachable Definition､それならちょっと前に読んだ本&lt;sup id=&quot;fnref3&quot; title=&quot;中田 育男, 佐々木 正孝, 滝本 宗宏, 渡邉 担. コンパイラの基盤技術と実践―コンパイラ・インフラストラクチャCOINSを用いて &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;に出てきたなとなってなんとかなりそうだった｡&lt;/p&gt;
+&lt;p&gt;段階を追うのが下手なので､ここで強制的に段階を追わせていただきます｡
+まず､Reachable Definitionについて語るために､&lt;em&gt;Control Flow Graph&lt;/em&gt;について語る必要があります｡&lt;/p&gt;
+&lt;h2 id=&quot;3-1-control-flow-graph-cfg&quot;&gt;3-1. Control Flow Graph (CFG)&lt;/h2&gt;
+&lt;p&gt;簡単に言ってしまうと､プログラムの実行の流れをグラフにしたようなものです｡context-free grammarではないよ｡
+最適化などでしょっちゅう使われる物体ですね&lt;sup id=&quot;fnref4&quot; title=&quot;Zdenek Dvorák, Jan Hubicka, Pavel Nejedlý, Josef Zlomek. Control Flow Graph - Infrastructure for Profile Driven Optimizations in GCC Compiler &quot;&gt;&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;｡
 各ノードは&lt;em&gt;基本ブロック&lt;/em&gt;と呼ばれ､各ブロックには文が突っ込まれている｡
-&lt;sup id=&quot;fnref1&quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;)によると､&lt;/p&gt;&lt;blockquote&gt;
+&lt;sup id=&quot;fnref1&quot; title=&quot;Dibyendu Majumdar. Lua 5.3 Bytecode Reference &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;)によると､&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;p&gt;ブロック\(B_1\)からブロック\(B_2\)に有向辺が引かれるのは, 以下の場合である.&lt;/p&gt;
 
 &lt;p&gt;1) \(B_1\)の最後の文から\(B_2\)の最初の文へ無条件あるいは条件付き飛越しがある&lt;/p&gt;
 
 &lt;p&gt;2) \(B_1\)の最後が無条件飛越し文以外の文で終わっていて, プログラムの字面上で\(B_1\)の直後に\(B_2\)が来る&lt;/p&gt;
-&lt;/blockquote&gt;&lt;p&gt;とのこと｡&lt;/p&gt;&lt;p&gt;ブロックBから有向辺が伸びている先のブロックの集合を先行ブロック(successor)､
-Bに向かって有向辺を向けているブロックの集合を後続ブロック(predecessor)となる｡&lt;/p&gt;&lt;p&gt;Lua VMの命令で見ていくと､&lt;code&gt;EQ&lt;/code&gt;､&lt;code&gt;JP&lt;/code&gt;と&lt;code&gt;RETURN&lt;/code&gt;がブロックの出口となります｡
-特に&lt;code&gt;RETURN&lt;/code&gt;がブロック最後の命令のときは､先行ブロックがそのブロックに付きません｡&lt;/p&gt;&lt;p&gt;説明のため､基本ブロックは次のようなtableとなる:&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-moon&quot; data-lang=&quot;moon&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;とのこと｡&lt;/p&gt;
+&lt;p&gt;ブロックBから有向辺が伸びている先のブロックの集合を先行ブロック(successor)､
+Bに向かって有向辺を向けているブロックの集合を後続ブロック(predecessor)となる｡&lt;/p&gt;
+&lt;p&gt;Lua VMの命令で見ていくと､&lt;code&gt;EQ&lt;/code&gt;､&lt;code&gt;JP&lt;/code&gt;と&lt;code&gt;RETURN&lt;/code&gt;がブロックの出口となります｡
+特に&lt;code&gt;RETURN&lt;/code&gt;がブロック最後の命令のときは､先行ブロックがそのブロックに付きません｡&lt;/p&gt;
+&lt;p&gt;説明のため､基本ブロックは次のようなtableとなる:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-moon&quot; data-lang=&quot;moon&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;start:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;基本ブロックの開始行&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;-- これいる&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;end:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;終了行&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;-- これいる&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;succ:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;......&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;-- 先行ブロック､これ要らない&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;pred:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;......&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;-- 後続ブロック これいる&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;さてこれにより命令は以下のようなCFGになります(inspect&lt;sup id=&quot;fnref5&quot;&gt;&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;による整形)｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;n&quot;&gt;cfg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;さてこれにより命令は以下のようなCFGになります(inspect&lt;sup id=&quot;fnref5&quot; title=&quot;Enrique Garcíao. inspect.lua &quot;&gt;&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;による整形)｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;n&quot;&gt;cfg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;pred&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
@@ -697,9 +899,15 @@ Bに向かって有向辺を向けているブロックの集合を後続ブロ�
           &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
       &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ビジュアライザーも作ったんでよかったら見ていってください｡
-&lt;img src=&quot;/pictures/2016-12-11-duchain_cfg.png&quot; alt=&quot;Control Flow Graph&quot;&gt;&lt;/p&gt;&lt;p&gt;CFGそれ自体は本題でないので､説明はこの辺にとどめます｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;さて､Reachable Definitionに話を戻します｡&lt;/p&gt;&lt;p&gt;まず､各ブロックについて&lt;em&gt;定義&lt;/em&gt;と&lt;em&gt;使用&lt;/em&gt;を取っていきます｡
-各ブロックのメンバーに&lt;code&gt;gen&lt;/code&gt;, &lt;code&gt;use&lt;/code&gt;というリストを追加し､以下のようなtableを突っ込みます｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-moon&quot; data-lang=&quot;moon&quot;&gt;&lt;span class=&quot;c1&quot;&gt;-- for gen&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ビジュアライザーも作ったんでよかったら見ていってください｡
+&lt;img src=&quot;/pictures/2016-12-11-duchain_cfg.png&quot; alt=&quot;Control Flow Graph&quot;&gt;&lt;/p&gt;
+&lt;p&gt;CFGそれ自体は本題でないので､説明はこの辺にとどめます｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;さて､Reachable Definitionに話を戻します｡&lt;/p&gt;
+&lt;p&gt;まず､各ブロックについて&lt;em&gt;定義&lt;/em&gt;と&lt;em&gt;使用&lt;/em&gt;を取っていきます｡
+各ブロックのメンバーに&lt;code&gt;gen&lt;/code&gt;, &lt;code&gt;use&lt;/code&gt;というリストを追加し､以下のようなtableを突っ込みます｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-moon&quot; data-lang=&quot;moon&quot;&gt;&lt;span class=&quot;c1&quot;&gt;-- for gen&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;reg:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;レジスター&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;line:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;行番号&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
@@ -710,7 +918,9 @@ Bに向かって有向辺を向けているブロックの集合を後続ブロ�
     &lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;reg:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;レジスター&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;line:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;行番号&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;例をまた引っ張ってきます｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;-- block 1 to 2, 3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;例をまた引っ張ってきます｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;-- block 1 to 2, 3
 LOADK 0 0
 LOADK 1 1
 LOADK 1 2
@@ -726,7 +936,9 @@ LOADK 2 3
 RETURN 0 1
 
 constant list: [3, 5, 7, 9]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これより&lt;code&gt;gen&lt;/code&gt;と&lt;code&gt;use&lt;/code&gt;を取っていくと､次のようになります( &lt;sup id=&quot;fnref5&quot;&gt;&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;)による整形を一部改変)｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;n&quot;&gt;cfg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これより&lt;code&gt;gen&lt;/code&gt;と&lt;code&gt;use&lt;/code&gt;を取っていくと､次のようになります( &lt;sup id=&quot;fnref5&quot; title=&quot;Enrique Garcíao. inspect.lua &quot;&gt;&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;)による整形を一部改変)｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;n&quot;&gt;cfg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;c1&quot;&gt;-- gen/use of block 1&lt;/span&gt;
@@ -780,7 +992,9 @@ constant list: [3, 5, 7, 9]
           &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
       &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これを踏まえ､Reachable Definitionの実装はこんな感じになる:&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-moon&quot; data-lang=&quot;moon&quot;&gt;&lt;span class=&quot;n&quot;&gt;modified&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これを踏まえ､Reachable Definitionの実装はこんな感じになる:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-moon&quot; data-lang=&quot;moon&quot;&gt;&lt;span class=&quot;n&quot;&gt;modified&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;foldl&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modified&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cfg&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
       &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cfg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
@@ -789,7 +1003,9 @@ constant list: [3, 5, 7, 9]
         &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
         &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;union&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;latest&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kill&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
         &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;table.insert&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modified&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;フ〜ム…解説します｡&lt;/p&gt;&lt;ul&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;フ〜ム…解説します｡&lt;/p&gt;
+&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;block.gen&lt;/code&gt;&lt;/p&gt;
 
@@ -818,10 +1034,16 @@ constant list: [3, 5, 7, 9]
 
 &lt;p&gt;そこで､&lt;em&gt;最新の&lt;code&gt;x&lt;/code&gt;への代入&lt;/em&gt;(つまりブロック内で最後に実行される&lt;code&gt;x&lt;/code&gt;への代入)のみに注目し､他は無視することで対処する (関数&lt;code&gt;latest()&lt;/code&gt;)｡&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;
-&lt;/p&gt;&lt;p&gt;で､それを各ブロックの&lt;code&gt;block.out&lt;/code&gt;の変更がなくなるまで繰り返しておりますわけですな｡&lt;/p&gt;&lt;p&gt;これでCFGにReachable Definitionをくっつけた感じになりました｡&lt;/p&gt;&lt;h1 id=&quot;4-du-chain&quot;&gt;4. DU Chainの構成&lt;/h1&gt;&lt;p&gt;さてここまでくれば後は簡単｡かも｡
+&lt;/ul&gt;
+&lt;p&gt;
+&lt;/p&gt;
+&lt;p&gt;で､それを各ブロックの&lt;code&gt;block.out&lt;/code&gt;の変更がなくなるまで繰り返しておりますわけですな｡&lt;/p&gt;
+&lt;p&gt;これでCFGにReachable Definitionをくっつけた感じになりました｡&lt;/p&gt;
+&lt;h1 id=&quot;4-du-chain&quot;&gt;4. DU Chainの構成&lt;/h1&gt;
+&lt;p&gt;さてここまでくれば後は簡単｡かも｡
 今の所CFG'に定義の集合&lt;code&gt;block.def&lt;/code&gt;が無く､&lt;code&gt;block.def&lt;/code&gt;から使用をたどるといったギミックがありません｡
-逆にこの2つを実装するとゴールです｡がんばります｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-moon&quot; data-lang=&quot;moon&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cfg&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+逆にこの2つを実装するとゴールです｡がんばります｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-moon&quot; data-lang=&quot;moon&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cfg&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cfg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;def&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;union&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 
@@ -844,12 +1066,20 @@ constant list: [3, 5, 7, 9]
                     &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;defr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;used&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
                 &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
                     &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;defr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;used&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;unless&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;have&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;defr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;used&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;まず3行目で&lt;code&gt;block.def&lt;/code&gt;を作ります｡Define-Useの&lt;em&gt;Define&lt;/em&gt;です｡&lt;code&gt;block.egn&lt;/code&gt;と&lt;code&gt;block.in&lt;/code&gt;のunionというのは直感で分かると思います｡
-さて､あとはこの&lt;code&gt;def&lt;/code&gt;から&lt;code&gt;use&lt;/code&gt;がわかればOKとなりました｡早い｡&lt;/p&gt;&lt;p&gt;中のイテレーションで&lt;code&gt;block.use&lt;/code&gt;から定義をたどるギミックを作ります｡
-イテレーションした各&lt;code&gt;block&lt;/code&gt;の&lt;code&gt;use&lt;/code&gt;のメンバーに&lt;code&gt;defined&lt;/code&gt;を生やし､使用しているレジスターの定義を突っ込んでいきます｡&lt;/p&gt;&lt;p&gt;まず&lt;code&gt;block&lt;/code&gt;内での定義を探します｡
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;まず3行目で&lt;code&gt;block.def&lt;/code&gt;を作ります｡Define-Useの&lt;em&gt;Define&lt;/em&gt;です｡&lt;code&gt;block.egn&lt;/code&gt;と&lt;code&gt;block.in&lt;/code&gt;のunionというのは直感で分かると思います｡
+さて､あとはこの&lt;code&gt;def&lt;/code&gt;から&lt;code&gt;use&lt;/code&gt;がわかればOKとなりました｡早い｡&lt;/p&gt;
+&lt;p&gt;中のイテレーションで&lt;code&gt;block.use&lt;/code&gt;から定義をたどるギミックを作ります｡
+イテレーションした各&lt;code&gt;block&lt;/code&gt;の&lt;code&gt;use&lt;/code&gt;のメンバーに&lt;code&gt;defined&lt;/code&gt;を生やし､使用しているレジスターの定義を突っ込んでいきます｡&lt;/p&gt;
+&lt;p&gt;まず&lt;code&gt;block&lt;/code&gt;内での定義を探します｡
 ここで&lt;code&gt;block.def&lt;/code&gt;から探さないのはなぜかというと､そうですね､&lt;code&gt;block&lt;/code&gt;内(&lt;em&gt;直近&lt;/em&gt;)での定義がもちろん最優先なので｡
-&lt;code&gt;block&lt;/code&gt;内のさらに直近を最優先するので&lt;code&gt;latest()&lt;/code&gt;で&lt;code&gt;use&lt;/code&gt;に最も近い定義を拾います｡かぶりがないように(&lt;code&gt;unless have ......&lt;/code&gt;)&lt;code&gt;use.defined&lt;/code&gt;に突っ込みます｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;block&lt;/code&gt;内に定義が無い場合は&lt;code&gt;block.in&lt;/code&gt;から定義全部引っ張ります｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;use.defined&lt;/code&gt;を基に&lt;code&gt;def.used&lt;/code&gt;を作ります｡これは簡単ですね｡
-&lt;code&gt;use.defined&lt;/code&gt;の各構成ステップで&lt;code&gt;use&lt;/code&gt;自体を､&lt;code&gt;use&lt;/code&gt;が引っ張ってくる&lt;code&gt;defr&lt;/code&gt;の&lt;code&gt;defr.used&lt;/code&gt;に突っ込めばいいわけですから｡ポインター最高!!!!! :p&lt;/p&gt;&lt;p&gt;あれ? 定義から使用も､使用から定義も参照できるようになってるな…&lt;/p&gt;&lt;p&gt;これで欲しかったものが手に入りました( &lt;sup id=&quot;fnref5&quot;&gt;&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;)による整形)｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;code&gt;block&lt;/code&gt;内のさらに直近を最優先するので&lt;code&gt;latest()&lt;/code&gt;で&lt;code&gt;use&lt;/code&gt;に最も近い定義を拾います｡かぶりがないように(&lt;code&gt;unless have ......&lt;/code&gt;)&lt;code&gt;use.defined&lt;/code&gt;に突っ込みます｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;block&lt;/code&gt;内に定義が無い場合は&lt;code&gt;block.in&lt;/code&gt;から定義全部引っ張ります｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;use.defined&lt;/code&gt;を基に&lt;code&gt;def.used&lt;/code&gt;を作ります｡これは簡単ですね｡
+&lt;code&gt;use.defined&lt;/code&gt;の各構成ステップで&lt;code&gt;use&lt;/code&gt;自体を､&lt;code&gt;use&lt;/code&gt;が引っ張ってくる&lt;code&gt;defr&lt;/code&gt;の&lt;code&gt;defr.used&lt;/code&gt;に突っ込めばいいわけですから｡ポインター最高!!!!! :p&lt;/p&gt;
+&lt;p&gt;あれ? 定義から使用も､使用から定義も参照できるようになってるな…&lt;/p&gt;
+&lt;p&gt;これで欲しかったものが手に入りました( &lt;sup id=&quot;fnref5&quot; title=&quot;Enrique Garcíao. inspect.lua &quot;&gt;&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;)による整形)｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
@@ -917,10 +1147,17 @@ constant list: [3, 5, 7, 9]
       &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&quot;5&quot;&gt;5. おわりに&lt;/h1&gt;&lt;p&gt;それでは皆さんもガンガン最適化をしていってください｡
-ちなみに､現在鋭意製作中の最適化器を用いると､例は以下のように最適化されます｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;JMP 0 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1 id=&quot;5&quot;&gt;5. おわりに&lt;/h1&gt;
+&lt;p&gt;それでは皆さんもガンガン最適化をしていってください｡
+ちなみに､現在鋭意製作中の最適化器を用いると､例は以下のように最適化されます｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;JMP 0 0
 RETURN 0 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;そうだね…｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;『Vivid Strike!』8話までイッキ見しましたが面白いですね｡今季は他に何もアニメを観てない｡&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;そうだね…｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;『Vivid Strike!』8話までイッキ見しましたが面白いですね｡今季は他に何もアニメを観てない｡&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
 
@@ -959,39 +1196,71 @@ RETURN 0 1
     
       <item>
         <title>読書の秋､ファミレスのドリンクバーで粘る秋</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡最近は死んでます｡&lt;/p&gt;&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;&lt;p&gt;読書の秋! ということでもないんですが､にわかに活字を読むようになってきて､今月は暇だった(暇ではない)ので4冊読んだ｡
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡最近は死んでます｡&lt;/p&gt;
+&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
+&lt;p&gt;読書の秋! ということでもないんですが､にわかに活字を読むようになってきて､今月は暇だった(暇ではない)ので4冊読んだ｡
 個人的に1ヶ月で4冊の小説を読破するのはだいぶペースが早い方なので､早い方です｡
-毎回近所のファミレスのドリンクバーで何時間も粘って読んだので知識と度胸が上がりました｡&lt;/p&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;ガンガンネタバレを書いていきたいと思います&lt;/em&gt;&lt;/strong&gt;のでよろしくお願いします｡&lt;/p&gt;&lt;h1 id=&quot;2&quot;&gt;2. 女學生奇譚&lt;/h1&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+毎回近所のファミレスのドリンクバーで何時間も粘って読んだので知識と度胸が上がりました｡&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;ガンガンネタバレを書いていきたいと思います&lt;/em&gt;&lt;/strong&gt;のでよろしくお願いします｡&lt;/p&gt;
+&lt;h1 id=&quot;2&quot;&gt;2. 女學生奇譚&lt;/h1&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;『女學生奇譚』を読んだ。表紙とタイトルだけで買ったけどとても面白かった。三文記事のネタを追っているはずが思わぬ方向に進んでいくあたりに『カルト』的な驚きがある。終わり方も『カルト』っぽいし。あと鎌倉が出てきてやっぱり優勝してしまった。好きな要素が大量にあってとても満足した。&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/793670388781678593&quot;&gt;November 2, 2016&lt;/a&gt;
-&lt;/blockquote&gt;&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;先月終わりにアキパパラでふらふらと本屋を回っていたところ､表紙とタイトルだけで購入した｡&lt;/p&gt;&lt;p&gt;フリーライターの八坂くんが､オカルト雑誌の編集長からとんでもない話を振られる｡
-&quot;&lt;em&gt;この本を読んではいけない……&lt;/em&gt;&quot;から始まる警告文､疾走した兄｡
-相棒のカメラマン篠宮さん､その企画を持ち込んできた張本人のあやめさんとともに依頼を追っていく…という話｡&lt;/p&gt;&lt;p&gt;'本'を読んでいくうちに､また依頼人のあやめとの会話を続けていくうちに八坂と篠宮は違和感を覚えていく｡
-そして､'本'に描かれていた料理や着物が現実世界に突然現れることで違和感は確信に変わっていく｡&lt;/p&gt;&lt;p&gt;本の内容を読んでいくうちに明らかになっていく過去の事件､八坂くんの&quot;恐怖を感じない&quot;という体質､明らかになる陰謀､鎌倉の屋敷など好きな要素がいっぱいあって最高｡
-警告文も本を開いて初っ端に書かれており､オッとなる｡また'本'の内容を引用する部分もフォントが変わっていて雰囲気を出していた｡ただ漢字のフォントは変わってなかったので微妙に残念｡&lt;/p&gt;&lt;p&gt;話の二面性や､オチのあたりはまさに『カルト』なんですね､&lt;/p&gt;&lt;p&gt;&lt;/p&gt;
-&lt;center&gt;&lt;img src=&quot;http://image.itmedia.co.jp/nl/articles/1504/28/aoyagi_150428ka3.jpg&quot; alt=&quot;ネオ(仮称)&quot; title=&quot;ネオ(仮称)&quot;&gt;&lt;/center&gt;&lt;p&gt;本も読んで､『カルト』もぜひ観てね｡&lt;/p&gt;&lt;h1 id=&quot;3&quot;&gt;3. 少女病&lt;/h1&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;先月終わりにアキパパラでふらふらと本屋を回っていたところ､表紙とタイトルだけで購入した｡&lt;/p&gt;
+&lt;p&gt;フリーライターの八坂くんが､オカルト雑誌の編集長からとんでもない話を振られる｡
+“&lt;em&gt;この本を読んではいけない……&lt;/em&gt;&quot;から始まる警告文､疾走した兄｡
+相棒のカメラマン篠宮さん､その企画を持ち込んできた張本人のあやめさんとともに依頼を追っていく…という話｡&lt;/p&gt;
+&lt;p&gt;‘本'を読んでいくうちに､また依頼人のあやめとの会話を続けていくうちに八坂と篠宮は違和感を覚えていく｡
+そして､'本'に描かれていた料理や着物が現実世界に突然現れることで違和感は確信に変わっていく｡&lt;/p&gt;
+&lt;p&gt;本の内容を読んでいくうちに明らかになっていく過去の事件､八坂くんの&quot;恐怖を感じない&quot;という体質､明らかになる陰謀､鎌倉の屋敷など好きな要素がいっぱいあって最高｡
+警告文も本を開いて初っ端に書かれており､オッとなる｡また'本'の内容を引用する部分もフォントが変わっていて雰囲気を出していた｡ただ漢字のフォントは変わってなかったので微妙に残念｡&lt;/p&gt;
+&lt;p&gt;話の二面性や､オチのあたりはまさに『カルト』なんですね､&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;center&gt;&lt;img src=&quot;http://image.itmedia.co.jp/nl/articles/1504/28/aoyagi_150428ka3.jpg&quot; alt=&quot;ネオ(仮称)&quot; title=&quot;ネオ(仮称)&quot;&gt;&lt;/center&gt;
+&lt;p&gt;本も読んで､『カルト』もぜひ観てね｡&lt;/p&gt;
+&lt;h1 id=&quot;3&quot;&gt;3. 少女病&lt;/h1&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;『少女病』を読んだ。百合でもミステリーでもサスペンスでもアクションでもない、ジャンルとしては何なんだ、を読んだのはだいぶ久しぶりな気がする。'女'として4人の視点それぞれから近い世界を見ていくというもので、まぁ面白かった。かしましい姉妹すき…。&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/797707294037286912&quot;&gt;November 13, 2016&lt;/a&gt;
-&lt;/blockquote&gt;&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;守谷二郎の隣のブッコフに行ったときに表紙とタイトルで買った｡
-中古の帯なしを買ったので､タイトルだけからミステリーモノかと勝手に思ったけどそんなことなかった｡&lt;/p&gt;&lt;p&gt;パンクな母､町屋織子と織子に振り回される種違いの3人姉妹の日常を描いた話｡
+&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;守谷二郎の隣のブッコフに行ったときに表紙とタイトルで買った｡
+中古の帯なしを買ったので､タイトルだけからミステリーモノかと勝手に思ったけどそんなことなかった｡&lt;/p&gt;
+&lt;p&gt;パンクな母､町屋織子と織子に振り回される種違いの3人姉妹の日常を描いた話｡
 各章が娘各人にフォーカスしたものとなっており､それぞれの父親との思い出やそれを照らし合わせた今について語っている｡
 何につけても変人の少女小説作家である母が引っ掻き回してくるため､娘は辟易しながらも日常を楽しんでいく｡
-最後は織子の話となっており､過去や娘のこと､今や今後などについて綴られる｡&lt;/p&gt;&lt;p&gt;登場人物が軒並み変人だが､変人が好きなのでなかなかおもしろかった｡
+最後は織子の話となっており､過去や娘のこと､今や今後などについて綴られる｡&lt;/p&gt;
+&lt;p&gt;登場人物が軒並み変人だが､変人が好きなのでなかなかおもしろかった｡
 またかしまし姉妹が好きなんですねぇ､はい､なので良かった｡
-姉妹間でじゃれあったり喧嘩したり､心の変化を察してあげたり､いいですね｡&lt;/p&gt;&lt;h1 id=&quot;4-2&quot;&gt;4. ビブリア古書堂の事件手帖 2巻&lt;/h1&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+姉妹間でじゃれあったり喧嘩したり､心の変化を察してあげたり､いいですね｡&lt;/p&gt;
+&lt;h1 id=&quot;4-2&quot;&gt;4. ビブリア古書堂の事件手帖 2巻&lt;/h1&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;『ビブリア古書堂の事件手帖』2巻を読んだ。顔が瓜二つの母子は最高。&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/798759199454826496&quot;&gt;November 16, 2016&lt;/a&gt;
-&lt;/blockquote&gt;&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;1巻はタダで貰ったので読んだ｡読んだら面白かったので2巻を上記のブコフで同時に買った｡&lt;/p&gt;&lt;p&gt;2巻では､ナントカ君の妹とか､五浦君の元カノとかが出てきてス〜ッとなる｡
+&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;1巻はタダで貰ったので読んだ｡読んだら面白かったので2巻を上記のブコフで同時に買った｡&lt;/p&gt;
+&lt;p&gt;2巻では､ナントカ君の妹とか､五浦君の元カノとかが出てきてス〜ッとなる｡
 そしてなんといっても篠川さんの母親の話ですね｡
 篠川さんに瓜二つの女性!! しかし描かれたのは過去!! 実は顔がよく似た母親!!!! これはもう『殻ノ少女』なんですよねぇ…｡
 なんでも心を強く打たれた作品の定数倍にしてしまうのはおたくの悪い癖ですね｡
 とはいえお母さんは絵に埋め込まれたわけではなく失踪中のようです｡
-普段は冷静なヒトの激情が現れる瞬間はなんとも言い難い緊張があって良い｡&lt;/p&gt;&lt;p&gt;ところで鎌倉文学館では現在&lt;a href=&quot;http://www.kamakurabungaku.com/exhibition/pdf/201610A4.pdf&quot;&gt;『ビブリア古書堂の事件手帖』に関連したイベント&lt;/a&gt;やっとりますんで､ボクは12月頭あたりにいこうかな｡
-ハァ〜〜〜鎌倉に実家あるやつ何なんだ､なぁ､俺だって鎌倉に住みたいし骨だって埋めてぇよ……｡&lt;/p&gt;&lt;h1 id=&quot;5-friends&quot;&gt;5. Friends&lt;/h1&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+普段は冷静なヒトの激情が現れる瞬間はなんとも言い難い緊張があって良い｡&lt;/p&gt;
+&lt;p&gt;ところで鎌倉文学館では現在&lt;a href=&quot;http://www.kamakurabungaku.com/exhibition/pdf/201610A4.pdf&quot;&gt;『ビブリア古書堂の事件手帖』に関連したイベント&lt;/a&gt;やっとりますんで､ボクは12月頭あたりにいこうかな｡
+ハァ〜〜〜鎌倉に実家あるやつ何なんだ､なぁ､俺だって鎌倉に住みたいし骨だって埋めてぇよ……｡&lt;/p&gt;
+&lt;h1 id=&quot;5-friends&quot;&gt;5. Friends&lt;/h1&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;『Friends』を読んだ。買って1年近く積んでたのでスッキリした。良い。&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/799146319449231360&quot;&gt;November 17, 2016&lt;/a&gt;
-&lt;/blockquote&gt;&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;今野緒雪先生のさぁ､お前さぁ予約注文したのに､ということで今更読んだ｡
-ゆったりとした主人公の語り口で紡がれていく…は〜〜ここ最近で一番スッキリしたのでこれはぜひ読んでほしいな……!!&lt;/p&gt;&lt;h1 id=&quot;6&quot;&gt;6. おわりに&lt;/h1&gt;&lt;p&gt;ところで来週11/26はMoonScript唯一の日本人コントリビューターSatoru Kawahara a.k.a. Nymphiumさんの誕生日ですのでぜひコントリビュートしましょう｡
-プロテインが一番嬉しいです｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;&lt;a href=&quot;https://connpass.com/event/42788/&quot;&gt;tsukuba.lua&lt;/a&gt;まだいけますんでよろしくお願いします｡
-適当な教室借りるのでまぁ､80人手前くらいは入れるんで､いやそんなに来ないと思うけど､はい｡&lt;/p&gt;&lt;p&gt;最適化器のほうは&lt;a href=&quot;https://github.com/pygy/LuLPeg&quot;&gt;lulpeg&lt;/a&gt;をコンパイルしたVM実行形式が通るようになりました｡
+&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;今野緒雪先生のさぁ､お前さぁ予約注文したのに､ということで今更読んだ｡
+ゆったりとした主人公の語り口で紡がれていく…は〜〜ここ最近で一番スッキリしたのでこれはぜひ読んでほしいな……!!&lt;/p&gt;
+&lt;h1 id=&quot;6&quot;&gt;6. おわりに&lt;/h1&gt;
+&lt;p&gt;ところで来週11/26はMoonScript唯一の日本人コントリビューターSatoru Kawahara a.k.a. Nymphiumさんの誕生日ですのでぜひコントリビュートしましょう｡
+プロテインが一番嬉しいです｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;a href=&quot;https://connpass.com/event/42788/&quot;&gt;tsukuba.lua&lt;/a&gt;まだいけますんでよろしくお願いします｡
+適当な教室借りるのでまぁ､80人手前くらいは入れるんで､いやそんなに来ないと思うけど､はい｡&lt;/p&gt;
+&lt;p&gt;最適化器のほうは&lt;a href=&quot;https://github.com/pygy/LuLPeg&quot;&gt;lulpeg&lt;/a&gt;をコンパイルしたVM実行形式が通るようになりました｡
 &lt;code&gt;RETURN&lt;/code&gt;とか&lt;code&gt;TAILCALL&lt;/code&gt;などの､&lt;code&gt;R(A)&lt;/code&gt;から使われているレジスター残り全部を使う､みたいなやつがうまくできてなくて厳しかった｡lopcodes.hに命令に関する数少ない資料が書かれており､助かりました💢
-これを機にLua VMバイトコード形式や命令のドキュメントが作られると嬉しいです :sob:&lt;/p&gt;&lt;hr&gt;&lt;h1 id=&quot;part-65432f7a561&quot;&gt;追伸&lt;/h1&gt;&lt;p&gt;そういえば｢10月は毎週焼肉食ったるわ｣みたいなことを言ってました｡
+これを機にLua VMバイトコード形式や命令のドキュメントが作られると嬉しいです :sob:&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;part-65432f7a561&quot;&gt;追伸&lt;/h1&gt;
+&lt;p&gt;そういえば｢10月は毎週焼肉食ったるわ｣みたいなことを言ってました｡
 BBQやしゃぶしゃぶを含めると完遂しました｡
 確かに毎週焼肉を食べると気分がいいんですが､やっぱりヒトは米を炊くだけでは生活したくなくなるんですね｡
 で､結局焼肉にお金を最多分の生活費を節約できず､厳しい財政です｡
@@ -1007,8 +1276,11 @@ BBQやしゃぶしゃぶを含めると完遂しました｡
     
       <item>
         <title>Luaの無名再帰</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;&lt;p&gt;さて､無名再帰といえば誰しも無駄にやりたくなってしまうものです｡
-JavaScriptなら&lt;code&gt;arguments.callee()&lt;/code&gt;という関数があるし､関数をトップレベルで扱えるのなら不動点コンビネータを書いてみたり､&lt;code&gt;fix()&lt;/code&gt;関数がすでにあったり｡&lt;/p&gt;&lt;p&gt;Luaももちろん関数をトップレベルで扱えるので不動点コンビネータで無名再帰を実装することができます｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;
+&lt;p&gt;さて､無名再帰といえば誰しも無駄にやりたくなってしまうものです｡
+JavaScriptなら&lt;code&gt;arguments.callee()&lt;/code&gt;という関数があるし､関数をトップレベルで扱えるのなら不動点コンビネータを書いてみたり､&lt;code&gt;fix()&lt;/code&gt;関数がすでにあったり｡&lt;/p&gt;
+&lt;p&gt;Luaももちろん関数をトップレベルで扱えるので不動点コンビネータで無名再帰を実装することができます｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
             &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
                 &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -1023,11 +1295,15 @@ JavaScriptなら&lt;code&gt;arguments.callee()&lt;/code&gt;という関数があ
                 &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
             &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;MoonScriptで書いても良い｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-moon&quot; data-lang=&quot;moon&quot;&gt;&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;MoonScriptで書いても良い｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-moon&quot; data-lang=&quot;moon&quot;&gt;&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
         &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
             &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ところで&lt;code&gt;debug.getinfo()&lt;/code&gt; という関数がある｡知らなかった｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;&amp;gt; debug.getinfo debug.getinfo
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ところで&lt;code&gt;debug.getinfo()&lt;/code&gt; という関数がある｡知らなかった｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;&amp;gt; debug.getinfo debug.getinfo
 {
     currentline = -1,
     func = &amp;lt;function 1&amp;gt;,
@@ -1042,8 +1318,10 @@ JavaScriptなら&lt;code&gt;arguments.callee()&lt;/code&gt;という関数があ
     source = &quot;=[C]&quot;,
     what = &quot;C&quot;
   }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;また､第1引数を関数ではなく&lt;strong&gt;callerのレベル&lt;/strong&gt;を渡すことで､そのレベルのcallerの情報を得ることができる｡
-レベルは､&lt;code&gt;debug.getinfo()&lt;/code&gt;自身を0として､その外側のクロージャーからだんだん大きくなっていく｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;&amp;gt; (-&amp;gt; debug.getinfo 1)!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;また､第1引数を関数ではなく&lt;strong&gt;callerのレベル&lt;/strong&gt;を渡すことで､そのレベルのcallerの情報を得ることができる｡
+レベルは､&lt;code&gt;debug.getinfo()&lt;/code&gt;自身を0として､その外側のクロージャーからだんだん大きくなっていく｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;&amp;gt; (-&amp;gt; debug.getinfo 1)!
 {
     currentline = 2,
     func = &amp;lt;function 1&amp;gt;,
@@ -1058,13 +1336,23 @@ JavaScriptなら&lt;code&gt;arguments.callee()&lt;/code&gt;という関数があ
     source = &quot;tmp&quot;,
     what = &quot;Lua&quot;
   }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;返ってくるtableの&lt;code&gt;func&lt;/code&gt;は指している関数そのものだ｡&lt;/p&gt;&lt;p&gt;もうなにがやりたいかわかりますね｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-moon&quot; data-lang=&quot;moon&quot;&gt;&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;debug.getinfo&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&quot;https://www.lua.org/manual/5.3/manual.html#pdf-debug&quot;&gt;公式&lt;/a&gt;にもあるように､&lt;/p&gt;&lt;blockquote&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;返ってくるtableの&lt;code&gt;func&lt;/code&gt;は指している関数そのものだ｡&lt;/p&gt;
+&lt;p&gt;もうなにがやりたいかわかりますね｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-moon&quot; data-lang=&quot;moon&quot;&gt;&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;debug.getinfo&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.lua.org/manual/5.3/manual.html#pdf-debug&quot;&gt;公式&lt;/a&gt;にもあるように､&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;p&gt;You should exert care when using this library.&lt;/p&gt;
 
-&lt;p&gt;Several of its functions violate basic assumptions about Lua code ...&lt;/p&gt;
-&lt;/blockquote&gt;&lt;p&gt;なのでご利用は計画的に｡&lt;/p&gt;&lt;hr&gt;&lt;h1 id=&quot;part-6542ab648f8&quot;&gt;宣伝&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://connpass.com/event/42788/&quot;&gt;tsukuba.lua&lt;/a&gt;というLuaやLua以外に関する発表やってワチャワチャするやつやります｡
-Lua VM Bytecodeの最適化の話をする予定です｡確かに最適化に当たってdebugモジュール使われると絶対バグるのでやめて欲しいゾ👊&lt;/p&gt;&lt;p&gt;日程は未定です､人間がいっぱい居たほうが楽しいのでいっぱい来てください｡&lt;/p&gt;</description>
+&lt;p&gt;Several of its functions violate basic assumptions about Lua code …&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;なのでご利用は計画的に｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;part-6542ab648f8&quot;&gt;宣伝&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;http://connpass.com/event/42788/&quot;&gt;tsukuba.lua&lt;/a&gt;というLuaやLua以外に関する発表やってワチャワチャするやつやります｡
+Lua VM Bytecodeの最適化の話をする予定です｡確かに最適化に当たってdebugモジュール使われると絶対バグるのでやめて欲しいゾ👊&lt;/p&gt;
+&lt;p&gt;日程は未定です､人間がいっぱい居たほうが楽しいのでいっぱい来てください｡&lt;/p&gt;</description>
         <pubDate>Thu, 20 Oct 2016 00:00:00 +0900</pubDate>
         <link>https://nymphium.github.io/2016/10/20/Lua%E3%81%AE%E7%84%A1%E5%90%8D%E5%86%8D%E5%B8%B0.html</link>
         <guid isPermaLink="true">https://nymphium.github.io/2016/10/20/Lua%E3%81%AE%E7%84%A1%E5%90%8D%E5%86%8D%E5%B8%B0.html</guid>

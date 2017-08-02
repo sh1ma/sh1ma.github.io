@@ -60,21 +60,49 @@ MathJax.Hub.Config({
             </script>
           </header>
           <div class="post-content" itemprop="articleBody">
-<p>どうもX1 Carbonのグラフィックドライバ調子が悪いように見える｡あるいは適切なドライバがインストールされていない｡</p><p>しんどくなってきた.jpなので､こういうところをよしなにしてくれるUbuntuでも使おう｡でもUnity(Wndow Manager)は好きじゃないのでXubuntuでも入れようか｡</p><p>―5年後―</p><blockquote class="twitter-tweet">
+<p>どうもX1 Carbonのグラフィックドライバ調子が悪いように見える｡あるいは適切なドライバがインストールされていない｡</p>
+<p>しんどくなってきた.jpなので､こういうところをよしなにしてくれるUbuntuでも使おう｡でもUnity(Wndow Manager)は好きじゃないのでXubuntuでも入れようか｡</p>
+<p>―5年後―</p>
+<blockquote class="twitter-tweet">
 <p lang="ja" dir="ltr">Ubuntuに~/.xinitrcないんだけどなんだこいつふざけてんのか</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/624712527516073984">July 24, 2015</a>
-</blockquote><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet">
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet">
 <p lang="ja" dir="ltr">initとsystemdがごちゃごちゃになってるの戦慄恐怖ファイルコワすぎなんですが｡</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/624733566245564416">July 25, 2015</a>
-</blockquote><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet">
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet">
 <p lang="ja" dir="ltr">Arch以外ほとんど触ってないもやしっこにつき死亡</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/624712750858547200">July 24, 2015</a>
-</blockquote><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><p>ドライバとかなんとかの前に大惨事だった｡ただこれはUbuntu特有の慣れが必要なのでこうなったとも言える｡
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><p>ドライバとかなんとかの前に大惨事だった｡ただこれはUbuntu特有の慣れが必要なのでこうなったとも言える｡
 しかしインターネッツにある解説サイトがことごとくGUIの説明だけで､XubuntuとかLubuntuとか派生品が死亡するのはどうなんですかね｡
-設定ファイルの場所と書き方とかそういうところを知りたかったわけよ｡</p><p>仕方がないのでArchに戻った｡せっかくだし､T芝を見習って個人的にチャレンジングなことをした｡</p><h2 id="refind">rEFInd</h2><p>GRUBよりもモダンな感じがするので入れた｡</p><div class="highlight"><pre><code class="language-" data-lang=""># pacman -S refind-efi
+設定ファイルの場所と書き方とかそういうところを知りたかったわけよ｡</p>
+<p>仕方がないのでArchに戻った｡せっかくだし､T芝を見習って個人的にチャレンジングなことをした｡</p>
+<h2 id="refind">rEFInd</h2>
+<p>GRUBよりもモダンな感じがするので入れた｡</p>
+<div class="highlight"><pre><code class="language-" data-lang=""># pacman -S refind-efi
 # refind-install
-</code></pre></div><p>なんて簡単な導入なんだ｡</p><h2 id="no-display-manager">No Display Manager</h2><p>Display ManagerにはいつもSLiMを使っていた｡一番軽い(と思う)し､いつもオートログインなので機能はぶっちゃけ全く要らない｡</p><p><strong><em>が､しかし</em></strong></p><blockquote class="twitter-tweet">
+</code></pre></div>
+<p>なんて簡単な導入なんだ｡</p>
+<h2 id="no-display-manager">No Display Manager</h2>
+<p>Display ManagerにはいつもSLiMを使っていた｡一番軽い(と思う)し､いつもオートログインなので機能はぶっちゃけ全く要らない｡</p>
+<p><strong><em>が､しかし</em></strong></p>
+<blockquote class="twitter-tweet">
 <p lang="ja" dir="ltr">なんで開発止まっててsystemdに完全に対応してないSLiMを使いたがる人が多いんだろう</p>— もっへもへ (@mohemohe) <a href="https://twitter.com/mohemohe/status/624737072989863937">July 25, 2015</a>
-</blockquote><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><p>確認したところ､たしかにSLiMはアレだった｡でも他のDMもなんか微妙だしなぁオイ…｡と探していたところ､ちょうどいい物体が見つかった｡</p><p><a href="https://aur.archlinux.org/packages/xlogin-git/">xlogin</a></p><p>これでミニマリズムをね､</p><div class="highlight"><pre><code class="language-" data-lang=""># yaourt -S xlogin-git
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><p>確認したところ､たしかにSLiMはアレだった｡でも他のDMもなんか微妙だしなぁオイ…｡と探していたところ､ちょうどいい物体が見つかった｡</p>
+<p><a href="https://aur.archlinux.org/packages/xlogin-git/">xlogin</a></p>
+<p>これでミニマリズムをね､</p>
+<div class="highlight"><pre><code class="language-" data-lang=""># yaourt -S xlogin-git
 # systemctl enable xlogin@username
-</code></pre></div><p>~/.xinitrcを読んでくれるだけなので､これといった設定は要らず｡</p><h2 id="dnsmasq">dnsmasq</h2><p><a href="https://wiki.archlinuxjp.org/index.php/Dnsmasq#NetworkManager">dnsmasq</a></p><p>DNSクエリをキャッスしてほげほげ…速くなる…</p><p>たしかに速くなった｡</p><h2 id="other-daemons">other daemons</h2><p><a href="https://wiki.archlinux.org/index.php/VeryNice?redirect=no">verynice</a>とか<a href="https://wiki.archlinux.org/index.php/Preload">preload</a>とかそういえば入れてなかった｡</p><hr><p>Archを何度インストールしてもだいたい同じような感じになるので､Chefとかなんとか使わなきゃと毎回思う(が使わない)｡</p>
+</code></pre></div>
+<p>~/.xinitrcを読んでくれるだけなので､これといった設定は要らず｡</p>
+<h2 id="dnsmasq">dnsmasq</h2>
+<p><a href="https://wiki.archlinuxjp.org/index.php/Dnsmasq#NetworkManager">dnsmasq</a></p>
+<p>DNSクエリをキャッスしてほげほげ…速くなる…</p>
+<p>たしかに速くなった｡</p>
+<h2 id="other-daemons">other daemons</h2>
+<p><a href="https://wiki.archlinux.org/index.php/VeryNice?redirect=no">verynice</a>とか<a href="https://wiki.archlinux.org/index.php/Preload">preload</a>とかそういえば入れてなかった｡</p>
+<hr>
+<p>Archを何度インストールしてもだいたい同じような感じになるので､Chefとかなんとか使わなきゃと毎回思う(が使わない)｡</p>
           </div>
         </article>
 
