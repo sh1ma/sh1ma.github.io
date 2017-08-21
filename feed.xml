@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 22 Aug 2017 01:23:08 +0900</pubDate>
-    <lastBuildDate>Tue, 22 Aug 2017 01:23:08 +0900</lastBuildDate>
+    <pubDate>Tue, 22 Aug 2017 01:53:22 +0900</pubDate>
+    <lastBuildDate>Tue, 22 Aug 2017 01:53:22 +0900</lastBuildDate>
     <generator>Jekyll v3.5.1</generator>
     
       <item>
@@ -248,6 +248,7 @@ core RacketにもMLとは別のmodule systemがあるため､マクロ展開時
 parametric contractをrequire/contractに噛ませるといいんですかね｡適当言ってます｡&lt;/p&gt;
 &lt;h1 id=&quot;2&quot;&gt;2. 永続性 ー リスト､スタック､二分探索木&lt;/h1&gt;
 &lt;h2 id=&quot;2-1&quot;&gt;2-1. リスト&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;/src/pfds/2/list.rkt&quot;&gt;src/pfds/2/list.rkt&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;list.rkt&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lang&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;typed/racket&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;; list.rkt&lt;/span&gt;
@@ -312,6 +313,7 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;リストの先頭を消費して残りを再帰的に適用していくので､リストの長さ\(n\)に対して\(O(n)\)｡&lt;/p&gt;
 &lt;h2 id=&quot;2-2&quot;&gt;2-2. 二分探索木&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;/src/pfds/2/binsearchtree.rkt&quot;&gt;src/pfds/2/binsearchtree.rkt&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;binsearchtree.rkt&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lang&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;typed/racket&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;; binsearchtree.rkt&lt;/span&gt;
