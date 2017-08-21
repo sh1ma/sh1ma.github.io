@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 03 Aug 2017 04:04:54 +0900</pubDate>
-    <lastBuildDate>Thu, 03 Aug 2017 04:04:54 +0900</lastBuildDate>
+    <pubDate>Tue, 22 Aug 2017 01:23:08 +0900</pubDate>
+    <lastBuildDate>Tue, 22 Aug 2017 01:23:08 +0900</lastBuildDate>
     <generator>Jekyll v3.5.1</generator>
     
       <item>
@@ -248,7 +248,8 @@ core RacketにもMLとは別のmodule systemがあるため､マクロ展開時
 parametric contractをrequire/contractに噛ませるといいんですかね｡適当言ってます｡&lt;/p&gt;
 &lt;h1 id=&quot;2&quot;&gt;2. 永続性 ー リスト､スタック､二分探索木&lt;/h1&gt;
 &lt;h2 id=&quot;2-1&quot;&gt;2-1. リスト&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lang&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;typed/racket&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;list.rkt&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lang&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;typed/racket&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;; list.rkt&lt;/span&gt;
 
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;racket/match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -300,7 +301,8 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
   &lt;span class=&quot;p&quot;&gt;[((&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;raise-empty-stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;[((&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Cons&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;xsr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Cons&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;xsr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;[((&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Cons&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;xsr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Cons&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;update&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;xsr&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sub1&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;なるほど｡いろいろなパターンマッチの方法がある以外あまり見どころはないですね｡&lt;/p&gt;
 &lt;h3 id=&quot;2-1&quot;&gt;演習2.1&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;suffixes&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;All&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;MyList&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;MyList&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;MyList&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))))&lt;/span&gt;
@@ -310,7 +312,8 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;リストの先頭を消費して残りを再帰的に適用していくので､リストの長さ\(n\)に対して\(O(n)\)｡&lt;/p&gt;
 &lt;h2 id=&quot;2-2&quot;&gt;2-2. 二分探索木&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lang&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;typed/racket&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;binsearchtree.rkt&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lang&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;typed/racket&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;; binsearchtree.rkt&lt;/span&gt;
 
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;racket/match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -346,7 +349,8 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
          &lt;span class=&quot;nv&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))]))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;&lt;code&gt;(Tree Real)&lt;/code&gt;しか使えないのはやはり厳しいですね｡モジュールや型クラスを用いずに&lt;code&gt;&amp;gt;&lt;/code&gt;などを持つ型&lt;code&gt;A&lt;/code&gt;といった感じのものを定めるには…｡&lt;/p&gt;
 &lt;h3 id=&quot;2-2-1-member&quot;&gt;演習2.2 ノードの値の比較回数が(木の深さ+1)に収まる&lt;code&gt;member&lt;/code&gt;
 &lt;/h3&gt;
@@ -565,7 +569,7 @@ Typed Racketはマクロ展開時に型チェックをおこなうというタ�
 えーではいきます｡&lt;/p&gt;
 &lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
 &lt;p&gt;T大の『&lt;a href=&quot;http://www.coins.tsukuba.ac.jp/syllabus/GB13312_GB13322.html&quot;&gt;情報特別演習&lt;/a&gt;』という講義でLua VM Bytecodeの最適化器を作りました｡&lt;/p&gt;
-&lt;div class=&quot;github-widget&quot; data-repo=&quot;Nymphium/opeth&quot;&gt;&lt;/div&gt;
+&lt;p&gt;Nymphium/opeth&lt;/p&gt;
 &lt;p&gt;発表スライドは&lt;a href=&quot;http://nymphium.github.io/pdf/tsukubalua.html&quot;&gt;こちら&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;話したいことはほとんどスライドに書いてしまった…｡&lt;/p&gt;
 &lt;p&gt;レポートは&lt;a href=&quot;https://nymphium.github.io/pdf/opeth_report.pdf&quot;&gt;これ&lt;/a&gt;&lt;/p&gt;

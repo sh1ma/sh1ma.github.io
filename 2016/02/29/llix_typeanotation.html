@@ -64,7 +64,7 @@ MathJax.Hub.Config({
 <hr>
 <h1 id="1">1. はじめに</h1>
 <p>ネタがないのでまたこれの話です｡</p>
-<div class="github-widget" data-repo="Nymphium/llix"></div>
+<p>Nymphium/llix</p>
 <p>動機は特に無く､時間を大きく潰す必要がありながらも徹夜で頭がうまく働かないというシナリオの上で何をするのが良いかというと既存の拙作いじるのが無難かなと｡</p>
 <p>だらだらツイタッーをみていたら構文木の最適化の話がちょっとでて､パーサーをいじろうという気持ちがフッとわいてきた｡
 ところでRustのチュートリアルを読み進めていて､Rustにはコメントによる型注釈というものが将来できるらしい<sup id="fnref1" title="https://doc.rust-lang.org/nightly/book/variable-bindings.html#type-annotations "><a href="#fn1" rel="footnote">1</a></sup>｡
@@ -94,7 +94,7 @@ MathJax.Hub.Config({
 <p><code>@ foo :: T</code>でもよかったと思うけど､｢luadocとかぶってはマズい｣という全く必要のない心配をしたので<code>T@</code>という目印にしました｡</p>
 <p><code>assert(A == B)</code>の構文木を手で書くのはアレだし今後書き換わる可能性も考えてパーサー内でパーサーを使うことにした｡これが一番ミソですね｡嘘です｡</p>
 <h1 id="3">3. 後に出す先行研究</h1>
-<div class="github-widget" data-repo="andremm/typedlua"></div>
+<p>andremm/typedlua</p>
 <p><em>(Lua+Rustとか風の型注釈)→コンパイル→Lua</em></p>
 <p>という物体です｡こちらは今回の型注釈と違いコメント外にダイレクトに書くのでLuaとしてのポータビリティ(?)にやや欠ける､
 しかしTypedLuaコンパイラ<code>tld</code>にオプションを渡せば､プレーンなLuaもコンパイル時にWarningやError出してくれるのでGod100%｡完敗ですおわり｡

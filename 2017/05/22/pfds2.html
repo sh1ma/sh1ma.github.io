@@ -82,7 +82,8 @@ core RacketにもMLとは別のmodule systemがあるため､マクロ展開時
 parametric contractをrequire/contractに噛ませるといいんですかね｡適当言ってます｡</p>
 <h1 id="2">2. 永続性 ー リスト､スタック､二分探索木</h1>
 <h2 id="2-1">2-1. リスト</h2>
-<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="o">#</span><span class="nv">lang</span> <span class="nv">typed/racket</span>
+<div class="highlight">
+<span class="listing-name">list.rkt</span><pre><code class="language-racket" data-lang="racket"><span class="o">#</span><span class="nv">lang</span> <span class="nv">typed/racket</span>
 <span class="c1">; list.rkt</span>
 
 <span class="p">(</span><span class="k">require</span> <span class="nv">racket/match</span><span class="p">)</span>
@@ -134,7 +135,8 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
   <span class="p">[((</span><span class="nf">Empty</span><span class="p">)</span> <span class="nv">_</span> <span class="nv">_</span><span class="p">)</span> <span class="p">(</span><span class="nf">raise-empty-stack</span><span class="p">)]</span>
   <span class="p">[((</span><span class="nf">Cons</span> <span class="nv">_</span> <span class="nv">xsr</span><span class="p">)</span> <span class="mi">0</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nf">Cons</span> <span class="nv">y</span> <span class="nv">xsr</span><span class="p">)]</span>
   <span class="p">[((</span><span class="nf">Cons</span> <span class="nv">x</span> <span class="nv">xsr</span><span class="p">)</span> <span class="nv">i</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nf">Cons</span> <span class="nv">x</span> <span class="p">(</span><span class="nf">update</span> <span class="nv">xsr</span> <span class="p">(</span><span class="nb">sub1</span> <span class="nv">i</span><span class="p">)</span> <span class="nv">y</span><span class="p">))])</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>なるほど｡いろいろなパターンマッチの方法がある以外あまり見どころはないですね｡</p>
 <h3 id="2-1">演習2.1</h3>
 <div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">suffixes</span> <span class="p">(</span><span class="nf">All</span> <span class="p">{</span><span class="nf">A</span><span class="p">}</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">MyList</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">)))))</span>
@@ -144,7 +146,8 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
 </code></pre></div>
 <p>リストの先頭を消費して残りを再帰的に適用していくので､リストの長さ\(n\)に対して\(O(n)\)｡</p>
 <h2 id="2-2">2-2. 二分探索木</h2>
-<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="o">#</span><span class="nv">lang</span> <span class="nv">typed/racket</span>
+<div class="highlight">
+<span class="listing-name">binsearchtree.rkt</span><pre><code class="language-racket" data-lang="racket"><span class="o">#</span><span class="nv">lang</span> <span class="nv">typed/racket</span>
 <span class="c1">; binsearchtree.rkt</span>
 
 <span class="p">(</span><span class="k">require</span> <span class="nv">racket/match</span><span class="p">)</span>
@@ -180,7 +183,8 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
        <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">v</span> <span class="nv">a</span><span class="p">)</span>
          <span class="p">(</span><span class="nf">Node</span> <span class="nv">l</span> <span class="nv">v</span> <span class="p">(</span><span class="nf">insert</span> <span class="nv">a</span> <span class="nv">r</span><span class="p">))</span>
          <span class="nv">t</span><span class="p">))]))</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p><code>(Tree Real)</code>しか使えないのはやはり厳しいですね｡モジュールや型クラスを用いずに<code>&gt;</code>などを持つ型<code>A</code>といった感じのものを定めるには…｡</p>
 <h3 id="2-2-1-member">演習2.2 ノードの値の比較回数が(木の深さ+1)に収まる<code>member</code>
 </h3>
