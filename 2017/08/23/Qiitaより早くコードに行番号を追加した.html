@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Qiitaより早くコードに行番号を追加した &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="Qiitaより早くコードに行番号を追加した">
+    <meta name="twitter:title" content="Qiitaより早くコードに行番号を追加した"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2017/08/23/Qiita%E3%82%88%E3%82%8A%E6%97%A9%E3%81%8F%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E8%A1%8C%E7%95%AA%E5%8F%B7%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%9F.html"> 
+    <meta name="twitter:description" content="こんにちは､びしょ〜じょです｡明日は院試です｡内容はタイトルの通り1｡要望も出ている ↩">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <meta name="description" content="こんにちは､びしょ〜じょです｡明日は院試です｡内容はタイトルの通り1｡要望も出ている ↩">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="https://nymphium.github.io/2017/08/23/Qiita%E3%82%88%E3%82%8A%E6%97%A9%E3%81%8F%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E8%A1%8C%E7%95%AA%E5%8F%B7%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%9F.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Qiitaより早くコードに行番号を追加した</h1>
+            <span class="post-meta">
+              <time datetime="2017-08-23T00:00:00+09:00" itemprop="datePublished">Aug 23, 2017</time>
+              <p>tag: &#123;<a href="/tags.html#雑感-ref">雑感</a>, <a href="/tags.html#jekyll-ref">jekyll</a>&#125;</p>
+            </span>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
+});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡
+明日は院試です｡内容はタイトルの通り<sup id="fnref1" title="要望も出ている "><a href="#fn1" rel="footnote">1</a></sup>｡</p>
+<hr>
+<p>Markdownでコードブロックといえば<code>```</code>で囲んで色々やると､エンジンが</p>
+<div class="highlight">
+<span class="listing-name">example</span><pre><code class="language-html" data-lang="html"><span class="nt">&lt;code&gt;</span>
+    <span class="nt">&lt;span&gt;</span>...<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span&gt;</span>...<span class="nt">&lt;/span&gt;</span>
+    ......
+<span class="nt">&lt;/code&gt;</span>
+</code></pre>
+</div>
+<p>みたいなものを履いてくれると予想する｡そしてこれはCSSのカウンターと:beforeなどで簡単に行番号が付けられると予想する｡</p>
+<p>残念ながらRedcarpetではそうならないようだ｡</p>
+<div class="highlight">
+<span class="listing-name">HTMLified example</span><pre><code class="language-html" data-lang="html"><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nt"</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span>code<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nt"</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span>span<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>...<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nt"</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span>/span<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nt"</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span>span<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>...<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nt"</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span>/span<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>
+    ......
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nt"</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span>/code<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>
+</code></pre>
+</div>
+<p>ではどうするか｡パワーで解決｡
+Rubyプラグインを書いた｡ <a href="https://github.com/Nymphium/nymphium.github.io/blob/2e0d1161fae61d12895751eb1930d7b939afe618/_plugins/ordered/md_filters/09-lineno.rb">_plugins/ordered_md_filters/09-lineno.rb</a></p>
+<p>markdownファイルを1行ずつ見ていって､<code>&lt;!--linenumber--&gt;</code>というコメントがあったらその直後のコードブロックに行番号をつける､というもの｡
+対象コードブロックを配列に突っ込んでいき､行数を<code>&lt;pre&gt;</code>に突っ込んでいき､<code>&lt;div&gt;</code>で囲んで<code>float: left</code>で完成や､という非常に原始的な作りになっている｡</p>
+<div class="codeline with_caption"><pre>1
+2
+3
+4
+5</pre></div>
+<div class="highlight">
+<span class="listing-name">linenumbered example</span><pre><code class="language-html" data-lang="html"><span class="nt">&lt;code&gt;</span>
+    <span class="nt">&lt;span&gt;</span>...<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span&gt;</span>...<span class="nt">&lt;/span&gt;</span>
+    ......
+<span class="nt">&lt;/code&gt;</span>
+</code></pre>
+</div>
+<div class="highlight">
+<span class="listing-name">HTMLified linenumbered example</span><pre><code class="language-html" data-lang="html"><span class="c">&lt;!-- どうやらRedcarpetはcode block内でもdivタグを認識してくれてしまうのでヤバイ--&gt;</span>
+<span class="err">&lt;</span>(div) class="codeline with_caption"&gt;<span class="nt">&lt;pre&gt;</span>1
+2
+3
+4
+5<span class="nt">&lt;/pre&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"highlight"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"listing-name"</span><span class="nt">&gt;</span>linenumbered example<span class="nt">&lt;/span&gt;&lt;pre&gt;&lt;code</span> <span class="na">class=</span><span class="s">"language-html"</span> <span class="na">data-lang=</span><span class="s">"html"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"nt"</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span>code<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nt"</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span>span<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>...<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nt"</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span>/span<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nt"</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span>span<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>...<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nt"</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span>/span<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>
+    ......
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nt"</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span>/code<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+<span class="err">&lt;</span>(/div)&gt;
+</code></pre>
+</div>
+<p>最初の行数を変更したいというお客様のニーズにもお答え致しました｡
+<code>&lt;!--linenumber:N--&gt;</code>で<em>N+1</em>行目から行番号が振られていく｡</p>
+<div class="codeline"><pre>14
+15
+16
+17
+18
+19
+20
+21</pre></div>
+<div class="highlight"><pre><code class="language-" data-lang="">a
+b
+c
+d
+e
+f
+g
+h
+</code></pre></div>
+<p>タイトルの通り<strong><em>Qiitaより早く</em></strong>コードブロックに行番号をつける機能を実装しました!!!! 快挙ですね｡
+CSSいじるほうが時間かかりました｡
+デザインに自信なしなのでイラッとした人などはprください｡
+明日は院試です｡おわり｡</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p><a href="http://qiita.com/7of9/items/e65f2f36c817ab965284">要望</a>も出ている <a href="#fnref1" rev="footnote">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2017/06/18/qiita-listing-name.html" title="Qiitaっぽいlistingのcaption">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <span class="btn next disabled">Next &rarr;</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
