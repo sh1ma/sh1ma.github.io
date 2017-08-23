@@ -292,13 +292,14 @@ div.codeline {
   div.codeline > pre {
     text-align: right;
     line-height: normal;
-    background: rgba(179, 220, 232, 0.79); }
+    background: rgba(179, 220, 232, 0.79);
+    border-radius: unset; }
 
 .with_caption {
-  padding-top: 2rem; }
+  padding-top: 2.4rem; }
   .with_caption > pre {
-    padding-top: 2rem;
-    margin-top: -2rem; }
+    padding-top: 2.4rem;
+    margin-top: -2.4rem; }
 
 .highlight {
   line-height: normal;
