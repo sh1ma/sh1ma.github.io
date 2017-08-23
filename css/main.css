@@ -151,8 +151,8 @@ blockquote {
   background: #eef; }
 
 .listing-name {
-  background: rgba(179, 220, 232, 0.79);
   color: #38747f;
+  background: rgba(179, 220, 232, 0.79);
   padding: 0.1rem 0.4rem 0.3rem 0.3rem;
   display: inline-block; }
 
@@ -278,7 +278,30 @@ code {
   margin: 0px 5px 0px 5px;
   font-family: 'Droid Sans Mono', 'Bitstream Vera Sans Mono','Courier', monospace; }
 
+.codeline + .highlight {
+  margin-left: 0; }
+
+div.codeline {
+  float: left;
+  margin-left: -webkit-calc((100% - 90%) / 2 - 2.4rem);
+  margin-left: calc((100% - 90%) / 2 - 2.4rem);
+  margin-top: .3rem;
+  background: #eef;
+  color: #38747f;
+  width: 2.4rem; }
+  div.codeline > pre {
+    text-align: right;
+    line-height: normal;
+    background: rgba(179, 220, 232, 0.79); }
+
+.with_caption {
+  padding-top: 2rem; }
+  .with_caption > pre {
+    padding-top: 2rem;
+    margin-top: -2rem; }
+
 .highlight {
+  line-height: normal;
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;
