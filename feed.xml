@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 10 Oct 2017 23:32:54 +0900</pubDate>
-    <lastBuildDate>Tue, 10 Oct 2017 23:32:54 +0900</lastBuildDate>
+    <pubDate>Tue, 10 Oct 2017 23:57:24 +0900</pubDate>
+    <lastBuildDate>Tue, 10 Oct 2017 23:57:24 +0900</lastBuildDate>
     <generator>Jekyll v3.6.0</generator>
     
       <item>
@@ -480,6 +480,58 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
 &lt;h1 id=&quot;2&quot;&gt;2. 永続性 ー リスト､スタック､二分探索木&lt;/h1&gt;
 &lt;h2 id=&quot;2-1&quot;&gt;2-1. リスト&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;/src/pfds/2/list.rkt&quot;&gt;src/pfds/2/list.rkt&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;codeline with_caption&quot;&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52&lt;/pre&gt;&lt;/div&gt;
 &lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;list.rkt&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lang&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;typed/racket&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;; list.rkt&lt;/span&gt;
@@ -545,6 +597,42 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
 &lt;p&gt;リストの先頭を消費して残りを再帰的に適用していくので､リストの長さ\(n\)に対して\(O(n)\)｡&lt;/p&gt;
 &lt;h2 id=&quot;2-2&quot;&gt;2-2. 二分探索木&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;/src/pfds/2/binsearchtree.rkt&quot;&gt;src/pfds/2/binsearchtree.rkt&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;codeline with_caption&quot;&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36&lt;/pre&gt;&lt;/div&gt;
 &lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;binsearchtree.rkt&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lang&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;typed/racket&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;; binsearchtree.rkt&lt;/span&gt;

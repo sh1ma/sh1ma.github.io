@@ -317,7 +317,7 @@ div.codeline {
 .with_caption {
   margin-top: 5px !important; }
   .with_caption > pre {
-    padding-top: calc(2rem + 8px/*pre padding-top*/);
+    padding-top: calc(1.3rem + 8px/*pre padding-top*/);
     padding-bottom: 8px; }
   @media screen and (max-width: 600px) {
     .with_caption {
