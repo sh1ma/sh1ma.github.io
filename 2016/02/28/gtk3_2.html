@@ -67,10 +67,13 @@ MathJax.Hub.Config({
 <p>最近はGoogle Chromeがメモリ食いすぎてRAM 8GBのノートpcを半日放置すると実に4GBがChromeに食われててまずい､Firefox使おう｡
 というシナリオですが､キーバインドがうまく動かん｡ChromeはGtk2なので､上記URLでの設定通り色々できる｡
 使い馴染みのキーバインドが動かないことに起因するイライラというのは誰もが感じたことあるでしょう｡最悪ですねこれは｡</p>
+<div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr">Chromeが重くなりすぎ､さらにはしばらく放置してるとメモリ4GBくらい持ってくので最悪になった｡で､Firefoxを使うも､メニューの一部の背景が透明100%で見づらくてムカつく｡あとGtkキーバインドよりもFirefoxのショートカットを優先するのでちょっと困る｡</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/699047655700168704">February 15, 2016</a>
+<p lang="ja" dir="ltr">Chromeが重くなりすぎ､さらにはしばらく放置してるとメモリ4GBくらい持ってくので最悪になった｡で､Firefoxを使うも､メニューの一部の背景が透明100%で見づらくてムカつく｡あとGtkキーバインドよりもFirefoxのショートカットを優先するのでちょっと困る｡</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/699047655700168704?ref_src=twsrc%5Etfw">February 15, 2016</a>
 </blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><p>白頭山の稲妻のようにひらめきが脳を駆け巡り､｢これはまさかGtk3がアレなのでは…?｣ ――</p>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<p>白頭山の稲妻のようにひらめきが脳を駆け巡り､｢これはまさかGtk3がアレなのでは…?｣ ――</p>
 <p><code>~/.theme/Vi/gtk-keys.css</code>をみにいってほしいので､<code>inotifywait -m ~/.theme/</code>で待ってみます｡
 Firefoxを起動してもOPENも何もないので即終了｡</p>
 <p><code>/usr/share/themes/</code>にGtkのテーマが置かれているので､ここに<code>sudo ln -s ~/.theme/Vi/ /usr/share/thems/</code>します｡

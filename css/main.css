@@ -47,6 +47,9 @@ body {
   -o-font-feature-settings: "palt" 1;
   font-feature-settings: "palt" 1;
   font-kerning: normal; }
+  @media screen and (max-width: 600px) {
+    body {
+      font-size: 12.8px; } }
 
 /**
  * Set `margin-bottom` to maintain vertical rhythm
@@ -76,6 +79,9 @@ figure > img {
 
 figcaption {
   font-size: 14px; }
+  @media screen and (max-width: 600px) {
+    figcaption {
+      font-size: 11.2px; } }
 
 /**
  * Lists
@@ -107,7 +113,7 @@ article .post-content[itemprop="articleBody"] {
   margin-top: -10px; }
   @media screen and (max-width: 600px) {
     article .post-content[itemprop="articleBody"] {
-      padding: 5px 12px 30px 12px;
+      padding: 5px 0 30px 0;
       border-style: none; } }
   article .post-content[itemprop="articleBody"] h1:not(:first-child) {
     border-bottom: solid 3px #eee;
@@ -143,6 +149,9 @@ blockquote {
   font-style: italic; }
   blockquote > :last-child {
     margin-bottom: 0; }
+  @media screen and (max-width: 600px) {
+    blockquote {
+      font-size: 16px; } }
 
 /**
  * Code formatting
@@ -150,16 +159,13 @@ blockquote {
 .highlight {
   background: #eef; }
 
-.listing-name {
-  color: #38747f;
-  background: rgba(179, 220, 232, 0.79);
-  padding: 0.1rem 0.4rem 0.3rem 0.3rem;
-  display: inline-block; }
-
 pre, code {
-  font-size: 15px;
+  font-size: 16px;
   border-radius: 3px;
   background: #eef; }
+  @media screen and (max-width: 600px) {
+    pre, code {
+      font-size: 12.8px; } }
 
 code {
   padding: 1px 5px; }
@@ -187,8 +193,8 @@ pre {
     .wrapper {
       max-width: -webkit-calc(1200px - (30px));
       max-width: calc(1200px - (30px));
-      padding-right: 15px;
-      padding-left: 15px; } }
+      padding-right: 7.5px;
+      padding-left: 7.5px; } }
 
 /**
  * Clearfix
@@ -219,8 +225,7 @@ pre {
  * Page content
  */
 .page-content {
-  padding: 30px 0;
-  padding-top: 56pt; }
+  padding: 30px 0; }
   @media screen and (max-width: 600px) {
     .page-content {
       padding-top: 65pt; } }
@@ -283,23 +288,40 @@ code {
 
 div.codeline {
   float: left;
-  margin-left: -webkit-calc((100% - 90%) / 2 - 2.4rem);
-  margin-left: calc((100% - 90%) / 2 - 2.4rem);
+  margin-left: -webkit-calc((100% - 90%) / 2 - 2rem);
+  margin-left: calc((100% - 90%) / 2 - 2rem);
   margin-top: .3rem;
   background: #eef;
   color: #38747f;
-  width: 2.4rem; }
+  width: 2rem; }
   div.codeline > pre {
     text-align: right;
     line-height: normal;
-    background: rgba(179, 220, 232, 0.79);
-    border-radius: unset; }
+    background: #badce6;
+    border-radius: unset;
+    padding-left: 5px; }
+    @media screen and (max-width: 600px) {
+      div.codeline > pre {
+        padding-right: 5px; } }
+  @media screen and (max-width: 600px) {
+    div.codeline {
+      margin-left: -webkit-calc((100% - 90%) / 2 - 2rem + 10px);
+      margin-left: calc((100% - 90%) / 2 - 2rem + 10px); } }
+
+.listing-name {
+  color: #38747f;
+  background: #badce6;
+  padding: 0.3rem 0.3rem 0rem 0.3rem;
+  line-height: 1.3; }
 
 .with_caption {
-  padding-top: 2.4rem; }
+  margin-top: 5px !important; }
   .with_caption > pre {
-    padding-top: 2.4rem;
-    margin-top: -2.4rem; }
+    padding-top: calc(2rem + 8px/*pre padding-top*/);
+    padding-bottom: 8px; }
+  @media screen and (max-width: 600px) {
+    .with_caption {
+      margin-top: 2px !important; } }
 
 .highlight {
   line-height: normal;
@@ -377,6 +399,9 @@ div.codeline {
   /* Name.Variable.Global */
   /* Name.Variable.Instance */
   /* Literal.Number.Integer.Long */ }
+  @media screen and (max-width: 600px) {
+    .highlight {
+      max-width: none; } }
   .highlight .c {
     color: #586E75; }
   .highlight .err {
@@ -519,7 +544,6 @@ div.codeline {
 .site-header {
   border-bottom: 1px solid #e8e8e8;
   min-height: 56px;
-  position: fixed;
   background: rgba(190, 220, 223, 0.8);
   width: 100%;
   z-index: 10; }
@@ -537,7 +561,7 @@ div.codeline {
   white-space: nowrap; }
   @media screen and (max-width: 600px) {
     .site-title {
-      font-size: 23px;
+      font-size: 20px;
       margin-top: 4px; } }
   .site-title, .site-title:visited {
     color: #424242; }
@@ -595,6 +619,27 @@ twitterwidget {
 
 .twitter-not-found {
   color: rgba(0, 0, 0, 0.4); }
+
+blockquote.twitter-tweet {
+  font-size: 16px;
+  color: #2b2e2f;
+  background: white;
+  width: 60%;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  border: none;
+  margin-top: 5px;
+  text-align: left; }
+  @media screen and (max-width: 800px) {
+    blockquote.twitter-tweet {
+      width: 80%; } }
+  @media screen and (max-width: 600px) {
+    blockquote.twitter-tweet {
+      width: 100%; } }
+  @media screen and (max-width: 600px) {
+    blockquote.twitter-tweet {
+      font-size: 12.8px; } }
 
 .MathJax_Preview + .MathJax_Display {
   padding-bottom: 5px !important;

@@ -287,8 +287,8 @@ testsuite.lua
 <span class="k">end</span><span class="p">))</span>
 </code></pre></div>
 <p>こういうときbashが便利なんですよ〜〜</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span>0;i&lt;10;i++<span class="o">))</span> <span class="o">{</span>
-  lua alloc.lua;
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span>0<span class="p">;</span>i&lt;10<span class="p">;</span>i++<span class="o">))</span> <span class="o">{</span>
+  lua alloc.lua<span class="p">;</span>
   sleep 3
 <span class="o">}</span> | awk <span class="s1">'{i+= $1}END{print i / 10.00}'</span>
 </code></pre></div>
