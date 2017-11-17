@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OCamlでevalして結果をstringで得る &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="OCamlでevalして結果をstringで得る">
+    <meta name="twitter:title" content="OCamlでevalして結果をstringで得る"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2017/11/18/OCaml%E3%81%A7eval%E3%81%97%E3%81%A6%E7%B5%90%E6%9E%9C%E3%82%92string%E3%81%A7%E5%BE%97%E3%82%8B.html"> 
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="https://nymphium.github.io/2017/11/18/OCaml%E3%81%A7eval%E3%81%97%E3%81%A6%E7%B5%90%E6%9E%9C%E3%82%92string%E3%81%A7%E5%BE%97%E3%82%8B.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">OCamlでevalして結果をstringで得る</h1>
+            <span class="post-meta">
+              <time datetime="2017-11-18T00:00:00+09:00" itemprop="datePublished">Nov 18, 2017</time>
+              <p>tag: &#123;<a href="/tags.html#OCaml-ref">OCaml</a>&#125;</p>
+            </span>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
+});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､何者でもなくなりました｡</p>
+<p>さて､今はOCamlとLaTeXしか書いてないという状況に陥りました｡人生にありがちな時期ですね｡</p>
+<h1 id="1-ocaml-eval">1. OCamlでも<code>eval</code>がしたい!</h1>
+<p>ではこちらをどうぞ｡</p>
+<p><a href="https://stackoverflow.com/questions/33291754/eval-a-string-in-ocaml">“Eval” a string in OCaml - stackoverflow</a></p>
+<p>以下引用(upop上で動くよ)｡</p>
+<div class="highlight">
+<span class="listing-name">listing<a href="#fig-origeval">1</a>: eval</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="o">#</span><span class="n">require</span> <span class="s2">"compiler-libs"</span> <span class="c">(* Assuming you're using utop, if compiling then this is the package you need *)</span>
+<span class="k">let</span> <span class="n">eval</span> <span class="n">code</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">as_buf</span> <span class="o">=</span> <span class="nn">Lexing</span><span class="p">.</span><span class="n">from_string</span> <span class="n">code</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">parsed</span> <span class="o">=</span> <span class="o">!</span><span class="nn">Toploop</span><span class="p">.</span><span class="n">parse_toplevel_phrase</span> <span class="n">as_buf</span> <span class="k">in</span>
+  <span class="n">ignore</span> <span class="p">(</span><span class="nn">Toploop</span><span class="p">.</span><span class="n">execute_phrase</span> <span class="bp">true</span> <span class="nn">Format</span><span class="p">.</span><span class="n">std_formatter</span> <span class="n">parsed</span><span class="p">)</span>
+</code></pre>
+</div>
+<p><code>compiler-libs</code>というOCamlに同梱されているライブラリーを使いますと､このようにevaれるわけですね｡</p>
+<h1 id="2-eval">2. <code>eval</code>の結果を文字列で取りたい!</h1>
+<p>evaってるのは<code>Toploop.execute_phrase</code>で､戻り値はランタイムエラーしたかそうでないかの<code>bool</code>になります｡
+上記では<code>ignore</code>で捨てて<code>unit</code>にしてますね｡</p>
+<p>例えば､<code>eval "int_of_char 'a';;"</code>なんてしたときに戻り値が<code>"97"</code>という<code>string</code>だと嬉しい人がいるかもしれない｡</p>
+<p>俺なら実装やってくだけだな</p>
+<h1 id="3">3. 出力先</h1>
+<p><code>format</code>型の話をしよう｡</p>
+<p><a href="http://d.hatena.ne.jp/camlspotter/20091102/1257099984">OCaml 標準ライブラリ探訪 #3.0: Printf: 便利だけどいろいろ謎のある奴 - Oh, you  `re no (fun _ → more)</a></p>
+<p><a href="http://qnighy.hatenablog.com/entry/2017/01/26/215948">OCamlのformat (型安全なprintf/scanf) の仕組み - 簡潔なQ</a></p>
+<p>話おわり</p>
+<h1 id="4">4. 解</h1>
+<p>listing<a href="#fig-origeval">1</a>の<code>Toploop.execute_phrase</code>に渡している引数を観察すると､
+<code>true</code>と<code>Format.std_formatter</code>を渡していることが分かる｡</p>
+<p><code>true</code>は後述｡第2引数は件の<code>format</code>じゃねえかい｡
+このformatの出力先を<code>string ref</code>みたいなところに出してその中身を返せば行けそうだ｡
+でもどうやって? まずは<code>Format.std_formatter</code>がどうなってるかを見てみよう｡</p>
+<p><a href="https://github.com/ocaml/ocaml/blob/trunk/stdlib/format.ml#L1038">stdlib/format.ml#L1038</a>で定義されている｡
+<code>formatter_out_ouf_channel</code>が何者か辿ってみると､</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">formatter_of_out_channel</span> <span class="n">oc</span> <span class="o">=</span>
+  <span class="n">make_formatter</span> <span class="p">(</span><span class="n">output_substring</span> <span class="n">oc</span><span class="p">)</span> <span class="p">(</span><span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span> <span class="n">flush</span> <span class="n">oc</span><span class="p">)</span>
+</code></pre></div>
+<p>了解!</p>
+<p>この<code>make_formatter</code>って使えそうだなと思って定義を見てみるが全くわからない｡
+幸運にも､<code>formatter_of_out_channel</code>の真下にわかりやすい例がある｡</p>
+<div class="highlight">
+<span class="listing-name">stdlib/format.ml#1023</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">formatter_of_buffer</span> <span class="n">b</span> <span class="o">=</span>
+  <span class="n">make_formatter</span> <span class="p">(</span><span class="nn">Buffer</span><span class="p">.</span><span class="n">add_substring</span> <span class="n">b</span><span class="p">)</span> <span class="n">ignore</span>
+</code></pre>
+</div>
+<p><code>Buffer.add_substring</code>と<code>ignore</code>という､わかりやすい関数で構成されている｡
+これなら型がたちどころに分かるな｡</p>
+<p><a href="http://ocaml.jp/refman/libref/Buffer.html#VALadd_substring">Module Buffer - OCaml.jp</a>
+を見るとsubstringしてバッファーにくっつける感じですね｡
+そしてバッファー<code>b</code>を部分適用しているので､なるほど<code>make_formatter</code>に渡しているのは<code>string -&gt; int -&gt; int -&gt; unit</code>と<code>unit -&gt; unit</code>か｡</p>
+<p>もう見えてきましたね｡substringを<code>string ref</code>などに書いて参照すればOK｡
+あとはやるだけ｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">records</span> <span class="o">=</span> <span class="n">ref</span> <span class="s2">""</span>
+<span class="k">let</span> <span class="n">ref_b</span> <span class="n">rs</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">s</span> <span class="n">i</span> <span class="n">j</span> <span class="o">-&gt;</span>
+  <span class="k">let</span> <span class="n">subs</span> <span class="o">=</span> <span class="nn">String</span><span class="p">.</span><span class="n">sub</span> <span class="n">s</span> <span class="n">i</span> <span class="n">j</span> <span class="k">in</span>
+  <span class="n">rs</span> <span class="o">:=</span> <span class="o">!</span><span class="n">rs</span> <span class="o">^</span> <span class="n">subs</span>
+<span class="k">let</span> <span class="n">fmt</span> <span class="o">=</span> <span class="p">(</span><span class="n">ref_b</span> <span class="n">records</span> <span class="o">|&gt;</span> <span class="nn">Format</span><span class="p">.</span><span class="n">make_formatter</span><span class="p">)</span> <span class="n">ignore</span>
+
+<span class="k">let</span> <span class="n">eval</span> <span class="n">code</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">as_buf</span> <span class="o">=</span> <span class="nn">Lexing</span><span class="p">.</span><span class="n">from_string</span> <span class="n">code</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">parsed</span> <span class="o">=</span> <span class="o">!</span><span class="nn">Toploop</span><span class="p">.</span><span class="n">parse_toplevel_phrase</span> <span class="n">as_buf</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">Toploop</span><span class="p">.</span><span class="n">execute_phrase</span> <span class="bp">true</span> <span class="n">fmt</span> <span class="n">parsed</span> <span class="o">|&gt;</span> <span class="n">ignore</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">ret</span> <span class="o">=</span> <span class="o">!</span><span class="n">records</span> <span class="k">in</span> 
+  <span class="n">records</span> <span class="o">:=</span> <span class="s2">""</span><span class="p">;</span> <span class="n">ret</span>
+</code></pre></div>
+<p>はい実行</p>
+<div class="highlight">
+<span class="listing-name">utop</span><pre><code class="language-" data-lang="">utop # eval "int_of_char 'a';;";;
+- : string = "- : int = 97\n"
+</code></pre>
+</div>
+<p>ありがたい! 型名まで付いている!!! いらない!!!!!</p>
+<p>おわりだよ〜</p>
+<hr>
+<p>『ブレードランナー 2049』観に行きましたが全部最高でした｡</p>
+<p>『ブレードランナー』の続編としての立ち位置､ストーリー､BGM､ハリソン・フォード…全て…｡</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2017/10/24/%E3%83%AD%E3%83%BC%E3%82%B9%E3%83%88.html" title="ロースト">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <span class="btn next disabled">Next &rarr;</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
