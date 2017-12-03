@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 04 Dec 2017 00:11:01 +0900</pubDate>
-    <lastBuildDate>Mon, 04 Dec 2017 00:11:01 +0900</lastBuildDate>
+    <pubDate>Mon, 04 Dec 2017 00:14:22 +0900</pubDate>
+    <lastBuildDate>Mon, 04 Dec 2017 00:14:22 +0900</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
@@ -290,8 +290,8 @@ Warning: 8 shift/reduce conflicts were arbitrarily resolved.
 &lt;p&gt;menhirはパーザーをジェネレートするだけでなく､デバッグ機能などもいい感じです｡
 詳細はヘルプなどを見ていただくとして､数点ピッカップします｡&lt;/p&gt;
 &lt;h4 id=&quot;interactive-mode&quot;&gt;interactive mode&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$ menhir --interpret --interpret-show-cst --interpret-error parser2.mly
-Warning: 2 states have shift/reduce conflicts.
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; menhir &lt;span class=&quot;nt&quot;&gt;--interpret&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--interpret-show-cst&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--interpret-error&lt;/span&gt; parser2.mly
+&lt;span class=&quot;go&quot;&gt;Warning: 2 states have shift/reduce conflicts.
 Warning: 8 shift/reduce conflicts were arbitrarily resolved.
 LPAREN BACKSLASH VAR DOT LBRAC VAR COMMA VAR RBRAC RPAREN LPAREN BACKSLASH VAR DOT VAR RPAREN
 ACCEPT
@@ -337,7 +337,7 @@ ACCEPT
 INVALIDTOKEN
 File &quot;(stdin)&quot;, line 3, characters 0-12:
 Error: &quot;INVALIDTOKEN&quot; is not a known terminal symbol.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;すげぇ! 対話的にトークン列を渡すと解析木を出してくれる､偉い｡&lt;/p&gt;
 &lt;h4 id=&quot;graph&quot;&gt;graph&lt;/h4&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; menhir &lt;span class=&quot;nt&quot;&gt;--graph&lt;/span&gt; parser2.mly

@@ -339,8 +339,8 @@ Warning: 8 shift/reduce conflicts were arbitrarily resolved.
 <p>menhirはパーザーをジェネレートするだけでなく､デバッグ機能などもいい感じです｡
 詳細はヘルプなどを見ていただくとして､数点ピッカップします｡</p>
 <h4 id="interactive-mode">interactive mode</h4>
-<div class="highlight"><pre><code class="language-" data-lang="">$ menhir --interpret --interpret-show-cst --interpret-error parser2.mly
-Warning: 2 states have shift/reduce conflicts.
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span> menhir <span class="nt">--interpret</span> <span class="nt">--interpret-show-cst</span> <span class="nt">--interpret-error</span> parser2.mly
+<span class="go">Warning: 2 states have shift/reduce conflicts.
 Warning: 8 shift/reduce conflicts were arbitrarily resolved.
 LPAREN BACKSLASH VAR DOT LBRAC VAR COMMA VAR RBRAC RPAREN LPAREN BACKSLASH VAR DOT VAR RPAREN
 ACCEPT
@@ -386,7 +386,7 @@ ACCEPT
 INVALIDTOKEN
 File "(stdin)", line 3, characters 0-12:
 Error: "INVALIDTOKEN" is not a known terminal symbol.
-</code></pre></div>
+</span></code></pre></div>
 <p>すげぇ! 対話的にトークン列を渡すと解析木を出してくれる､偉い｡</p>
 <h4 id="graph">graph</h4>
 <div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span> menhir <span class="nt">--graph</span> parser2.mly
