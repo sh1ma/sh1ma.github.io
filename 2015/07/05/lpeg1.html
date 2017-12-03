@@ -124,11 +124,15 @@ grammer = lpeg.P{
 }
 </code></pre></div>
 <p>PEG的にはこうなる｡</p>
-<p>\[
-Term\leftarrow{}Fact\cdot(Space^*\cdot(‘+’/‘-’)\cdot{}Space^*\cdot{}Fact)^*\
-Fact\leftarrow{}Prm\cdot{}(Space^*\cdot{}(‘*’/‘/’/‘\%’)\cdot{}Prm)^*\
+<div>
+$$
+\begin{array}{l}
+Term\leftarrow{}Fact\cdot(Space^*\cdot(‘+’/‘-’)\cdot{}Space^*\cdot{}Fact)^*\\
+Fact\leftarrow{}Prm\cdot{}(Space^*\cdot{}(‘*’/‘/’/‘\%’)\cdot{}Prm)^*\\
 Prm\leftarrow{}‘(’\cdot{}Term^*\cdot{}Space^*{‘)’}/[0-9]^+
-\]</p>
+\end{array}
+$$
+</div>
 <p>渡すtableの1番目には開始記号を明示していする｡</p>
 <h1 id="tips">Tips</h1>
 <p>MoonScriptでLPegを使う際､想いがMoonScript処理系に伝わらないことがある｡例えば\([0-9][a-z][A-Z]\)というものを書きたい時､</p>

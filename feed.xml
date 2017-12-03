@@ -5,9 +5,370 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 18 Nov 2017 02:41:20 +0900</pubDate>
-    <lastBuildDate>Sat, 18 Nov 2017 02:41:20 +0900</lastBuildDate>
+    <pubDate>Mon, 04 Dec 2017 00:11:01 +0900</pubDate>
+    <lastBuildDate>Mon, 04 Dec 2017 00:11:01 +0900</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>Menhirが便利</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡これは&lt;a href=&quot;https://adventar.org/calendars/2573&quot;&gt;WORD Advent Calendar 2017&lt;/a&gt;の記事です｡&lt;/p&gt;
+&lt;p&gt;12月3日といえば冴草きいちゃんの誕生日!!!! みんなで祝いましょう｡
+と思ったら『NEW GAME!』の遠山りんさんの誕生日でもあるのか!! この日はめでたいなぁ､国民の祝日にしましょう｡&lt;/p&gt;
+&lt;h1 id=&quot;word&quot;&gt;WORDとは何か&lt;/h1&gt;
+&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;span style=&quot;font-size: XX-LARGE&quot;&gt;!!!以下に詳細が!!!&lt;/span&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.word-ac.net/about/&quot;&gt;https://www.word-ac.net/about/&lt;/a&gt;
+&lt;/p&gt;
+&lt;/center&gt;
+&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
+&lt;p&gt;みなさんOCamlは書いてますか｡今年はほとんどOCamlとLaTeXしか書いてません｡
+OCamlといえばメタランゲージとのことですので､メタランゲージでランゲージを作りたくなります｡
+syntax.mlみたいなファイルにデータタイプを定義して､そのあとどうしますか｡
+全部手打ちでしょうか､それとも…&lt;/p&gt;
+&lt;h1 id=&quot;2&quot;&gt;2. パーザージェネレーター&lt;/h1&gt;
+&lt;p&gt;人類は偉い!
+人類は偉いのでパーザー自体を書かずともいい雰囲気のものを書くとパーザーを作ってくれる&lt;em&gt;パーザージェネレーター&lt;/em&gt;というものがあります｡
+(中略)&lt;/p&gt;
+&lt;h1 id=&quot;3-menhir&quot;&gt;3. Menhir&lt;/h1&gt;
+&lt;p&gt;OCamlといえばocamlyaccを先に思いつきがちですが､Menhir&lt;sup id=&quot;fnref1&quot; title=&quot;http://gallium.inria.fr/~fpottier/menhir/ &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;という便利なLR(1)パーザージェネレーターがあります｡
+ocamlyaccよりも高機能で､menhirコマンドにも多くの便利オプションがあります｡&lt;/p&gt;
+&lt;h2 id=&quot;3-1&quot;&gt;3-1. セッション&lt;/h2&gt;
+&lt;p&gt;まずMenhirをインストールしてください｡OPAMやOSのパッケージマネージャーを使ってください｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; opam install menhir
+&lt;span class=&quot;gp&quot;&gt;#&lt;/span&gt; とか
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; yaourt &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt; ocaml-menhir &lt;span class=&quot;c&quot;&gt;# Archには公式リポジトリーに入ってない! 残念&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;以下のようなuntyped lambda calculus + listを考える｡&lt;/p&gt;
+&lt;div&gt;
+$$
+\begin{array}{rcl}
+S    &amp;amp; \leftarrow &amp;amp; Term\\
+Term &amp;amp; \leftarrow &amp;amp; Lamb\ /\ Var\ /\ List\ /\ App\\
+Lamb &amp;amp; \leftarrow &amp;amp; “\backslash”\ Var\ “.”\ Term\\
+Var  &amp;amp; \leftarrow &amp;amp; \left[a\text{-}zA\text{-}Z\right]\left[a\text{-}zA\text{-}Z0\text{-}9\right]*\\
+List &amp;amp; \leftarrow &amp;amp; “\left[” \left(\left(Term\ “,”\right)*\ Term\right)? “\right]”\\
+App  &amp;amp; \leftarrow &amp;amp; Term\ Term
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;こんな感じだろうか｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/src/menhir_example/syntax.ml&quot;&gt;src/menhir_example/syntax.ml&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;codeline with_caption&quot;&gt;&lt;pre&gt;1
+2
+3
+4
+5&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;syntax.ml&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Var&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Lamb&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;今回はシンタックスだけ考えればいいから､もうええわ｡&lt;/p&gt;
+&lt;p&gt;パーザーにレキサーあり､という格言の通り､対応するレキサーを書きます｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/src/menhir_example/lexer.mll&quot;&gt;src/menhir_example/lexer.mll&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;codeline with_caption&quot;&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;lexer.mll&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Parser&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Lexing&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;exception&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;space&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\t'&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\r'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;digit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alpha&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;A'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Z'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alnum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;digit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alpha&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;rule&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parse&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\\'&lt;/span&gt;          &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BACKSLASH&lt;/span&gt;                            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'.'&lt;/span&gt;           &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DOT&lt;/span&gt;                                  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;           &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;COMMA&lt;/span&gt;                                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;           &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LBRAC&lt;/span&gt;                                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;           &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RBRAC&lt;/span&gt;                                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;           &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LPAREN&lt;/span&gt;                               &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;           &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RPAREN&lt;/span&gt;                               &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xlower&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alnum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;VAR&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lexeme&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lexbuf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;space&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lexbuf&lt;/span&gt;                         &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eof&lt;/span&gt;           &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;EOF&lt;/span&gt;                                  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;             &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sprintf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;At offset %d: unexpected character.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Lexing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lexeme_start&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lexbuf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+                                                           &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Menhirもocamllexを呼んでる(と思う)んでここは共通やね｡&lt;/p&gt;
+&lt;h2 id=&quot;3-2-review-ocamlyacc&quot;&gt;3-2. review ocamlyacc&lt;/h2&gt;
+&lt;p&gt;リメンバーocamlyacc､ということじゃ｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/src/menhir_example/parser.mly&quot;&gt;src/menhir_example/parser.mly&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;codeline with_caption&quot;&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;parser1.mly&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Syntax&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LBRAC&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RBRAC&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LPAREN&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RPAREN&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BACKSLASH&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DOT&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;COMMA&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;VAR&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;EOF&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parse&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parse&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;%%&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;EOF&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lamb&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;VAR&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Var&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LPAREN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RPAREN&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;lamb&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BACKSLASH&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;VAR&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DOT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Lamb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;lstcont&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;COMMA&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lstcont&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LBRAC&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lstcont&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RBRAC&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;[&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;]によるとocamlyaccと90%の互換性があるということで､ocamlyaccが受理できるmlyファイルはmenhirも受理します｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;lexer.mll  parser.mly  syntax.ml
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; ocamlyacc parser.mly
+&lt;span class=&quot;go&quot;&gt;8 shift/reduce conflicts.
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; menhir parse.mly
+&lt;span class=&quot;go&quot;&gt;Warning: 2 states have shift/reduce conflicts.
+Warning: 8 shift/reduce conflicts were arbitrarily resolved.
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ええですな｡&lt;/p&gt;
+&lt;h2 id=&quot;3-3-dive-to-deep&quot;&gt;3-3. dive to deep&lt;/h2&gt;
+&lt;h3 id=&quot;3-3-1-naming-token&quot;&gt;3-3-1. naming token&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;{}&lt;/code&gt;の中でトークンを参照するときに&lt;code&gt;$1&lt;/code&gt;とかやるの面倒くさい!
+複雑になってくると何番目のトークンかをいちいち数えるのは面倒ですね｡
+ここでトークンに名前を付けられるという素晴らしいアレがあります｡
+&lt;code&gt;lamb&lt;/code&gt;ルールをやっていっましょう｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;lamb&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BACKSLASH&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;VAR&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DOT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Lamb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;オオ! これはわかりやすい｡&lt;/p&gt;
+&lt;h3 id=&quot;3-3-2-parameterized-rule&quot;&gt;3-3-2. parameterized rule&lt;/h3&gt;
+&lt;p&gt;非常に便利な関数がいくつか用意されている｡
+&lt;code&gt;lstcont&lt;/code&gt;､&lt;code&gt;lst&lt;/code&gt;ルールをもっと賢くエイヤッとやってみましょう｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LBRAC&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;separated_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;COMMA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RBRAC&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;オオッ､なんかインテリジェンスが高まっているな｡
+&lt;code&gt;separated_list(SEP, RULE)&lt;/code&gt;で&lt;code&gt;(RULE SEP)* RULE&lt;/code&gt;みたいなものを発射してくれます｡
+偉い｡&lt;/p&gt;
+&lt;p&gt;他にも偉い関数の数々&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;option(X)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;ルール&lt;code&gt;X&lt;/code&gt;にマッチすれば&lt;code&gt;Some(Xが返す値)&lt;/code&gt;を返し､なければ&lt;code&gt;None&lt;/code&gt;を返す&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;list(X)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;X*&lt;/code&gt;みたいなやつ&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;nonempty_list(X)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;X+&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;nonempty_separated_list(SEP, X)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;はい&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;3-3-3-user-defined-parameterized-rule&quot;&gt;3-3-3. user defined parameterized rule&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;separated_list&lt;/code&gt;みたいなものをユーザーも定義できる｡最高｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;%public xlist(X):
+   | LBRAC lst = separated_list(COMMA, X) RBRAC { lst }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;何かを詰め込んだリストがホラこんな簡単に! 作れるわけだ｡&lt;/p&gt;
+&lt;h3 id=&quot;3-3-4&quot;&gt;3-3-4. 他&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;%start&lt;/code&gt;と&lt;code&gt;%type&lt;/code&gt;を一緒にかける&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parse&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;で､こんな感じに&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/src/menhir_example/parser2.mly&quot;&gt;src/menhir_example/parser2.mly&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;codeline with_caption&quot;&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;parser2.mly&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Syntax&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LBRAC&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RBRAC&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LPAREN&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RPAREN&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BACKSLASH&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DOT&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;COMMA&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;VAR&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;EOF&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parse&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parse&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;%%&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;EOF&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lamb&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;VAR&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Var&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LPAREN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RPAREN&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;lamb&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BACKSLASH&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;VAR&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DOT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Lamb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LBRAC&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;separated_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;COMMA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RBRAC&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;この言語ではあまり味が出ないですね…!!!&lt;/p&gt;
+&lt;h3 id=&quot;3-3-5&quot;&gt;3-3-5. 便利なオプション達&lt;/h3&gt;
+&lt;p&gt;menhirはパーザーをジェネレートするだけでなく､デバッグ機能などもいい感じです｡
+詳細はヘルプなどを見ていただくとして､数点ピッカップします｡&lt;/p&gt;
+&lt;h4 id=&quot;interactive-mode&quot;&gt;interactive mode&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$ menhir --interpret --interpret-show-cst --interpret-error parser2.mly
+Warning: 2 states have shift/reduce conflicts.
+Warning: 8 shift/reduce conflicts were arbitrarily resolved.
+LPAREN BACKSLASH VAR DOT LBRAC VAR COMMA VAR RBRAC RPAREN LPAREN BACKSLASH VAR DOT VAR RPAREN
+ACCEPT
+[parse:
+  [term:
+    [app:
+      [term:
+        LPAREN
+        [term:
+          [lamb:
+            BACKSLASH
+            VAR
+            DOT
+            [term:
+              [lst:
+                LBRAC
+                [loption(separated_nonempty_list(COMMA,term)):
+                  [separated_nonempty_list(COMMA,term):
+                    [term: VAR]
+                    COMMA
+                    [separated_nonempty_list(COMMA,term): [term: VAR]]
+                  ]
+                ]
+                RBRAC
+              ]
+            ]
+          ]
+        ]
+        RPAREN
+      ]
+      [term:
+        LPAREN
+        [term: [lamb: BACKSLASH VAR DOT [term: VAR]]]
+        RPAREN
+      ]
+    ]
+  ]
+  EOF
+]
+VAR VAR
+ACCEPT
+[parse: [term: [app: [term: VAR] [term: VAR]]] EOF]
+INVALIDTOKEN
+File &quot;(stdin)&quot;, line 3, characters 0-12:
+Error: &quot;INVALIDTOKEN&quot; is not a known terminal symbol.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;すげぇ! 対話的にトークン列を渡すと解析木を出してくれる､偉い｡&lt;/p&gt;
+&lt;h4 id=&quot;graph&quot;&gt;graph&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; menhir &lt;span class=&quot;nt&quot;&gt;--graph&lt;/span&gt; parser2.mly
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; dot &lt;span class=&quot;nt&quot;&gt;-Tpng&lt;/span&gt; parser2.dot &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; parser2.png
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/pictures/2017-12-03-Menhir%E3%81%8C%E4%BE%BF%E5%88%A9/menhir.png&quot; alt=&quot;menhir.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;ウオ〜縦長だがどういう感じなのかわかりますね! これは偉大&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;他にもいろんなオプションがあります｡&lt;code&gt;menhir --help&lt;/code&gt;しろ｡&lt;/p&gt;
+&lt;h1 id=&quot;4&quot;&gt;4. おわりに&lt;/h1&gt;
+&lt;p&gt;もう12月4日になっちゃったッピ〜〜!!!! というわけで解散してください｡&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;http://gallium.inria.fr/%7Efpottier/menhir/&quot;&gt;http://gallium.inria.fr/~fpottier/menhir/&lt;/a&gt; &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Sun, 03 Dec 2017 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2017/12/03/Menhir%E3%81%8C%E4%BE%BF%E5%88%A9.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2017/12/03/Menhir%E3%81%8C%E4%BE%BF%E5%88%A9.html</guid>
+        
+        <category>OCaml</category>
+        
+        <category>WORD</category>
+        
+        
+      </item>
     
       <item>
         <title>OCamlでevalして結果をstringで得る</title>
@@ -18,7 +379,7 @@
 &lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/33291754/eval-a-string-in-ocaml&quot;&gt;“Eval” a string in OCaml - stackoverflow&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;以下引用(upop上で動くよ)｡&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;listing&lt;a href=&quot;#fig-origeval&quot;&gt;1&lt;/a&gt;: eval&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;compiler-libs&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* Assuming you're using utop, if compiling then this is the package you need *)&lt;/span&gt;
+&lt;span class=&quot;listing-name&quot;&gt;eval&lt;label id=&quot;fig-origeval&quot;&gt;&lt;/label&gt;&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;compiler-libs&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* Assuming you're using utop, if compiling then this is the package you need *)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as_buf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Lexing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parsed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Toploop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parse_toplevel_phrase&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as_buf&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
@@ -37,21 +398,23 @@
 &lt;p&gt;&lt;a href=&quot;http://qnighy.hatenablog.com/entry/2017/01/26/215948&quot;&gt;OCamlのformat (型安全なprintf/scanf) の仕組み - 簡潔なQ&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;話おわり&lt;/p&gt;
 &lt;h1 id=&quot;4&quot;&gt;4. 解&lt;/h1&gt;
-&lt;p&gt;listing&lt;a href=&quot;#fig-origeval&quot;&gt;1&lt;/a&gt;の&lt;code&gt;Toploop.execute_phrase&lt;/code&gt;に渡している引数を観察すると､
+&lt;p&gt;&lt;a href=&quot;#fig-origeval&quot;&gt;eval&lt;/a&gt;の&lt;code&gt;Toploop.execute_phrase&lt;/code&gt;に渡している引数を観察すると､
 &lt;code&gt;true&lt;/code&gt;と&lt;code&gt;Format.std_formatter&lt;/code&gt;を渡していることが分かる｡&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;true&lt;/code&gt;は後述｡第2引数は件の&lt;code&gt;format&lt;/code&gt;じゃねえかい｡
 このformatの出力先を&lt;code&gt;string ref&lt;/code&gt;みたいなところに出してその中身を返せば行けそうだ｡
 でもどうやって? まずは&lt;code&gt;Format.std_formatter&lt;/code&gt;がどうなってるかを見てみよう｡&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/blob/trunk/stdlib/format.ml#L1038&quot;&gt;stdlib/format.ml#L1038&lt;/a&gt;で定義されている｡
-&lt;code&gt;formatter_out_ouf_channel&lt;/code&gt;が何者か辿ってみると､&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatter_of_out_channel&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;oc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;code&gt;formatter_of_out_channel&lt;/code&gt;が何者か辿ってみると､&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;formatter_of_out_channel(stdlib/format.ml#L1018)&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatter_of_out_channel&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;oc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;make_formatter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;output_substring&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;oc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flush&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;oc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;了解!&lt;/p&gt;
 &lt;p&gt;この&lt;code&gt;make_formatter&lt;/code&gt;って使えそうだなと思って定義を見てみるが全くわからない｡
 幸運にも､&lt;code&gt;formatter_of_out_channel&lt;/code&gt;の真下にわかりやすい例がある｡&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;stdlib/format.ml#1023&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatter_of_buffer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;span class=&quot;listing-name&quot;&gt;formatter_of_buffer(stdlib/format.ml#L1023)&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatter_of_buffer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;make_formatter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add_substring&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -62,11 +425,12 @@
 そしてバッファー&lt;code&gt;b&lt;/code&gt;を部分適用しているので､なるほど&lt;code&gt;make_formatter&lt;/code&gt;に渡しているのは&lt;code&gt;string -&amp;gt; int -&amp;gt; int -&amp;gt; unit&lt;/code&gt;と&lt;code&gt;unit -&amp;gt; unit&lt;/code&gt;か｡&lt;/p&gt;
 &lt;p&gt;もう見えてきましたね｡substringを&lt;code&gt;string ref&lt;/code&gt;などに書いて参照すればOK｡
 あとはやるだけ｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;records&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;eval returning string&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;records&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;(* 書き出す string ref *)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref_b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sub&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;rs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subs&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ref_b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;records&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_formatter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_formatter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ref_b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;records&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* 新しいフォーマッター *)&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as_buf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Lexing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
@@ -74,7 +438,8 @@
   &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Toploop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;execute_phrase&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parsed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;records&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; 
   &lt;span class=&quot;n&quot;&gt;records&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;はい実行&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;utop&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;utop # eval &quot;int_of_char 'a';;&quot;;;
@@ -83,6 +448,9 @@
 &lt;/div&gt;
 &lt;p&gt;ありがたい! 型名まで付いている!!! いらない!!!!!&lt;/p&gt;
 &lt;p&gt;おわりだよ〜&lt;/p&gt;
+&lt;p&gt;その前に&lt;code&gt;Toploop.execute_phrase&lt;/code&gt;に渡している&lt;code&gt;bool&lt;/code&gt;は､実行結果をフォーマッターに渡すか否かですはい解散&lt;/p&gt;
+&lt;h1 id=&quot;20171118&quot;&gt;追記20171118&lt;/h1&gt;
+&lt;p&gt;こんなことしなくても&lt;code&gt;Format.str_formatter&lt;/code&gt;と&lt;code&gt;Format.flush_str_formatter&lt;/code&gt;という便利なものがあってじゃな…｡&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;『ブレードランナー 2049』観に行きましたが全部最高でした｡&lt;/p&gt;
 &lt;p&gt;『ブレードランナー』の続編としての立ち位置､ストーリー､BGM､ハリソン・フォード…全て…｡&lt;/p&gt;</description>
@@ -1220,146 +1588,6 @@ Typed Racketはマクロ展開時に型チェックをおこなうというタ�
         <category>Lua Bytecode</category>
         
         <category>Optimizer</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Control Flow Graph</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡いつの間にか2017年､そして2月｡季節はめぐり､また俺達は―&lt;/p&gt;
-&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
-&lt;p&gt;さて以前DU Chainがなんとかって話をしたんですが､その中に出てくるControl Flow Graphというものについてかなり適当に流しました｡
-本当はここは重要なので､重要じゃよ〜&lt;/p&gt;
-&lt;h1 id=&quot;2&quot;&gt;2. 構成方法&lt;/h1&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;各命令を基本ブロックとする｡
-各命令にはその行番号と､次に実行される命令の行番号(指すべき先行ブロックの開始位置)をタグ付けする｡殆どの命令は行番号+1だが､以下の命令は異なり､または複数の行き先がある｡&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style=&quot;text-align: left&quot;&gt;instructions&lt;/th&gt;
-&lt;th style=&quot;text-align: left&quot;&gt;destination(s)&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td style=&quot;text-align: left&quot;&gt;
-&lt;code&gt;JMP&lt;/code&gt;, &lt;code&gt;FORPREP&lt;/code&gt;
-&lt;/td&gt;
-&lt;td style=&quot;text-align: left&quot;&gt;+&lt;code&gt;RB&lt;/code&gt;+1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;LOADBOOL&lt;/code&gt;&lt;/td&gt;
-&lt;td style=&quot;text-align: left&quot;&gt;+2 if &lt;code&gt;RC&lt;/code&gt; == 1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;text-align: left&quot;&gt;
-&lt;code&gt;TEST&lt;/code&gt;, &lt;code&gt;TESTSET&lt;/code&gt;, &lt;code&gt;LT&lt;/code&gt;, &lt;code&gt;LE&lt;/code&gt;, &lt;code&gt;EQ&lt;/code&gt;
-&lt;/td&gt;
-&lt;td style=&quot;text-align: left&quot;&gt;+1, +2&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;text-align: left&quot;&gt;
-&lt;code&gt;FORLOOP&lt;/code&gt;, &lt;code&gt;TFORLOOP&lt;/code&gt;
-&lt;/td&gt;
-&lt;td style=&quot;text-align: left&quot;&gt;+1,+&lt;code&gt;RB&lt;/code&gt;+1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;text-align: left&quot;&gt;
-&lt;code&gt;RETURN&lt;/code&gt;, &lt;code&gt;TAILCALL&lt;/code&gt;
-&lt;/td&gt;
-&lt;td style=&quot;text-align: left&quot;&gt;none&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;code&gt;RETURN&lt;/code&gt;, &lt;code&gt;TAILCALL&lt;/code&gt;は必ずブロックの最後になり､そのブロックに先行ブロックは付かない｡&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;基本ブロックをつなげていく｡&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;基本ブロック\(B_1\)の行き先が基本ブロック\(B_2\)の開始位置を指している場合､\(B_1\)の後続ブロックにブ\(B_2\)を追加する｡\(B_2\)の先行ブロックに\(B_1\)を追加する｡&lt;/li&gt;
-&lt;li&gt;\(B_1\)が\(B_2\)の開始位置以外を指している場合､
-
-&lt;ol&gt;
-&lt;li&gt;\(B_2\)を
-
-&lt;ul&gt;
-&lt;li&gt;\(B_2a\): 開始位置〜指している位置-1&lt;/li&gt;
-&lt;li&gt;\(B_2b\): 指している位置〜\(B_2\)の最後
-に分割し､&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;\(B_2\)の先行ブロックを\(B_2a\)に移し､\(B_2\)の後続ブロックを\(B_2b\)に移す｡&lt;/li&gt;
-&lt;li&gt;\(B_2a\)の後続ブロックに\(B_2b\)を追加する｡\(B_2b\)の先行ブロックに\(B_2a\)を追加する｡&lt;/li&gt;
-&lt;li&gt;\(B_1\)の後続ブロックに\(B_2b\)を追加する｡\(B_2b\)の後続ブロックに\(B_1\)を追加する｡&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;流れるような説明ありがとうございます!&lt;/p&gt;
-&lt;h1 id=&quot;3-example&quot;&gt;3. example&lt;/h1&gt;
-&lt;p&gt;以下のようなコード&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;world&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;また､これから成るVMの命令列&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;        1       [1]     LOADK           0 -1    ; 3
-        2       [3]     LT              0 0 -2  ; - 5
-        3       [3]     JMP             0 4     ; to 8
-        4       [4]     GETTABUP        1 0 -3  ; _ENV &quot;print&quot;
-        5       [4]     LOADK           2 -4    ; &quot;hello&quot;
-        6       [4]     CALL            1 2 1
-        7       [4]     JMP             0 3     ; to 11
-        8       [6]     GETTABUP        1 0 -3  ; _ENV &quot;print&quot;
-        9       [6]     LOADK           2 -5    ; &quot;world&quot;
-        10      [6]     CALL            1 2 1
-        11      [7]     RETURN          0 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;を考える｡&lt;/p&gt;
-&lt;p&gt;まず､各命令を基本ブロックとして見ていき､先行ブロック(の開始位置)をタグ付けする｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;LOADK&quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;LT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;JMP&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;GETTABUP&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;LOADK&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;CALL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;JMP&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;GETTABUP&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;LOADK&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;CALL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;RETURN&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;そしてつなげていく｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}},&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- block 1&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- block 2&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- block 3&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;succ&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h1 id=&quot;4&quot;&gt;4. おわりに&lt;/h1&gt;
-&lt;p&gt;最近は体調以外良好気味です｡&lt;/p&gt;
-&lt;p&gt;そういえばTwitter Cardとかいう物体をねじ込んでみました｡よかったです｡いや本当は良くなくてね〜いや〜良い､良くない&lt;/p&gt;</description>
-        <pubDate>Tue, 07 Feb 2017 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2017/02/07/cfg.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2017/02/07/cfg.html</guid>
-        
-        <category>Lua VM</category>
-        
-        <category>code optimization</category>
         
         
       </item>

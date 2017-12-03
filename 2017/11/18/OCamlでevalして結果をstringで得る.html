@@ -67,7 +67,7 @@ MathJax.Hub.Config({
 <p><a href="https://stackoverflow.com/questions/33291754/eval-a-string-in-ocaml">“Eval” a string in OCaml - stackoverflow</a></p>
 <p>以下引用(upop上で動くよ)｡</p>
 <div class="highlight">
-<span class="listing-name">listing<a href="#fig-origeval">1</a>: eval</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="o">#</span><span class="n">require</span> <span class="s2">"compiler-libs"</span> <span class="c">(* Assuming you're using utop, if compiling then this is the package you need *)</span>
+<span class="listing-name">eval<label id="fig-origeval"></label></span><pre><code class="language-ocaml" data-lang="ocaml"><span class="o">#</span><span class="n">require</span> <span class="s2">"compiler-libs"</span> <span class="c">(* Assuming you're using utop, if compiling then this is the package you need *)</span>
 <span class="k">let</span> <span class="n">eval</span> <span class="n">code</span> <span class="o">=</span>
   <span class="k">let</span> <span class="n">as_buf</span> <span class="o">=</span> <span class="nn">Lexing</span><span class="p">.</span><span class="n">from_string</span> <span class="n">code</span> <span class="k">in</span>
   <span class="k">let</span> <span class="n">parsed</span> <span class="o">=</span> <span class="o">!</span><span class="nn">Toploop</span><span class="p">.</span><span class="n">parse_toplevel_phrase</span> <span class="n">as_buf</span> <span class="k">in</span>
@@ -86,21 +86,23 @@ MathJax.Hub.Config({
 <p><a href="http://qnighy.hatenablog.com/entry/2017/01/26/215948">OCamlのformat (型安全なprintf/scanf) の仕組み - 簡潔なQ</a></p>
 <p>話おわり</p>
 <h1 id="4">4. 解</h1>
-<p>listing<a href="#fig-origeval">1</a>の<code>Toploop.execute_phrase</code>に渡している引数を観察すると､
+<p><a href="#fig-origeval">eval</a>の<code>Toploop.execute_phrase</code>に渡している引数を観察すると､
 <code>true</code>と<code>Format.std_formatter</code>を渡していることが分かる｡</p>
 <p><code>true</code>は後述｡第2引数は件の<code>format</code>じゃねえかい｡
 このformatの出力先を<code>string ref</code>みたいなところに出してその中身を返せば行けそうだ｡
 でもどうやって? まずは<code>Format.std_formatter</code>がどうなってるかを見てみよう｡</p>
 <p><a href="https://github.com/ocaml/ocaml/blob/trunk/stdlib/format.ml#L1038">stdlib/format.ml#L1038</a>で定義されている｡
-<code>formatter_out_ouf_channel</code>が何者か辿ってみると､</p>
-<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">formatter_of_out_channel</span> <span class="n">oc</span> <span class="o">=</span>
+<code>formatter_of_out_channel</code>が何者か辿ってみると､</p>
+<div class="highlight">
+<span class="listing-name">formatter_of_out_channel(stdlib/format.ml#L1018)</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">formatter_of_out_channel</span> <span class="n">oc</span> <span class="o">=</span>
   <span class="n">make_formatter</span> <span class="p">(</span><span class="n">output_substring</span> <span class="n">oc</span><span class="p">)</span> <span class="p">(</span><span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span> <span class="n">flush</span> <span class="n">oc</span><span class="p">)</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>了解!</p>
 <p>この<code>make_formatter</code>って使えそうだなと思って定義を見てみるが全くわからない｡
 幸運にも､<code>formatter_of_out_channel</code>の真下にわかりやすい例がある｡</p>
 <div class="highlight">
-<span class="listing-name">stdlib/format.ml#1023</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">formatter_of_buffer</span> <span class="n">b</span> <span class="o">=</span>
+<span class="listing-name">formatter_of_buffer(stdlib/format.ml#L1023)</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">formatter_of_buffer</span> <span class="n">b</span> <span class="o">=</span>
   <span class="n">make_formatter</span> <span class="p">(</span><span class="nn">Buffer</span><span class="p">.</span><span class="n">add_substring</span> <span class="n">b</span><span class="p">)</span> <span class="n">ignore</span>
 </code></pre>
 </div>
@@ -111,11 +113,12 @@ MathJax.Hub.Config({
 そしてバッファー<code>b</code>を部分適用しているので､なるほど<code>make_formatter</code>に渡しているのは<code>string -&gt; int -&gt; int -&gt; unit</code>と<code>unit -&gt; unit</code>か｡</p>
 <p>もう見えてきましたね｡substringを<code>string ref</code>などに書いて参照すればOK｡
 あとはやるだけ｡</p>
-<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">records</span> <span class="o">=</span> <span class="n">ref</span> <span class="s2">""</span>
+<div class="highlight">
+<span class="listing-name">eval returning string</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">records</span> <span class="o">=</span> <span class="n">ref</span> <span class="s2">""</span>  <span class="c">(* 書き出す string ref *)</span>
 <span class="k">let</span> <span class="n">ref_b</span> <span class="n">rs</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">s</span> <span class="n">i</span> <span class="n">j</span> <span class="o">-&gt;</span>
   <span class="k">let</span> <span class="n">subs</span> <span class="o">=</span> <span class="nn">String</span><span class="p">.</span><span class="n">sub</span> <span class="n">s</span> <span class="n">i</span> <span class="n">j</span> <span class="k">in</span>
   <span class="n">rs</span> <span class="o">:=</span> <span class="o">!</span><span class="n">rs</span> <span class="o">^</span> <span class="n">subs</span>
-<span class="k">let</span> <span class="n">fmt</span> <span class="o">=</span> <span class="p">(</span><span class="n">ref_b</span> <span class="n">records</span> <span class="o">|&gt;</span> <span class="nn">Format</span><span class="p">.</span><span class="n">make_formatter</span><span class="p">)</span> <span class="n">ignore</span>
+<span class="k">let</span> <span class="n">fmt</span> <span class="o">=</span> <span class="nn">Format</span><span class="p">.</span><span class="n">make_formatter</span> <span class="p">(</span><span class="n">ref_b</span> <span class="n">records</span><span class="p">)</span> <span class="n">ignore</span> <span class="c">(* 新しいフォーマッター *)</span>
 
 <span class="k">let</span> <span class="n">eval</span> <span class="n">code</span> <span class="o">=</span>
   <span class="k">let</span> <span class="n">as_buf</span> <span class="o">=</span> <span class="nn">Lexing</span><span class="p">.</span><span class="n">from_string</span> <span class="n">code</span> <span class="k">in</span>
@@ -123,7 +126,8 @@ MathJax.Hub.Config({
   <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">Toploop</span><span class="p">.</span><span class="n">execute_phrase</span> <span class="bp">true</span> <span class="n">fmt</span> <span class="n">parsed</span> <span class="o">|&gt;</span> <span class="n">ignore</span> <span class="k">in</span>
   <span class="k">let</span> <span class="n">ret</span> <span class="o">=</span> <span class="o">!</span><span class="n">records</span> <span class="k">in</span> 
   <span class="n">records</span> <span class="o">:=</span> <span class="s2">""</span><span class="p">;</span> <span class="n">ret</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>はい実行</p>
 <div class="highlight">
 <span class="listing-name">utop</span><pre><code class="language-" data-lang="">utop # eval "int_of_char 'a';;";;
@@ -132,6 +136,9 @@ MathJax.Hub.Config({
 </div>
 <p>ありがたい! 型名まで付いている!!! いらない!!!!!</p>
 <p>おわりだよ〜</p>
+<p>その前に<code>Toploop.execute_phrase</code>に渡している<code>bool</code>は､実行結果をフォーマッターに渡すか否かですはい解散</p>
+<h1 id="20171118">追記20171118</h1>
+<p>こんなことしなくても<code>Format.str_formatter</code>と<code>Format.flush_str_formatter</code>という便利なものがあってじゃな…｡</p>
 <hr>
 <p>『ブレードランナー 2049』観に行きましたが全部最高でした｡</p>
 <p>『ブレードランナー』の続編としての立ち位置､ストーリー､BGM､ハリソン・フォード…全て…｡</p>
@@ -144,7 +151,7 @@ MathJax.Hub.Config({
       <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
         <a class="btn prev" href="/2017/10/24/%E3%83%AD%E3%83%BC%E3%82%B9%E3%83%88.html" title="ロースト">&larr; Prev</a>
         &#47;<a class="btn" href="/">Top</a>&#47;
-        <span class="btn next disabled">Next &rarr;</span>
+        <a class="btn next" href="/2017/12/03/Menhir%E3%81%8C%E4%BE%BF%E5%88%A9.html" title="Menhirが便利">Next &rarr;</a>
       </div>
     </footer>
 
