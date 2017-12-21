@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 21 Dec 2017 15:49:39 +0900</pubDate>
-    <lastBuildDate>Thu, 21 Dec 2017 15:49:39 +0900</lastBuildDate>
+    <pubDate>Thu, 21 Dec 2017 16:01:14 +0900</pubDate>
+    <lastBuildDate>Thu, 21 Dec 2017 16:01:14 +0900</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
@@ -56,6 +56,7 @@ BibTeXやrefererence関係などをエイヤッとやってくれる偉い人で
 &lt;code&gt;function platex() { =platex $1 &amp;amp;&amp;amp; =platex $1}&lt;/code&gt; みたいなものを.bashrcなどに書かなくてよくなります｡偉いね｡
 ~/.latexmkrcまたはcwdのlatexmkrcに設定ファイルを置くと記述に沿った動きをしてくれる｡&lt;/p&gt;
 &lt;p&gt;[&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;]のlatexmkrcを見てみましょう｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/WORD-COINS/article-template/blob/master/articles/hinagata/latexmkrc&quot;&gt;articles/hinagata/latexmkrc&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&quot;codeline with_caption&quot;&gt;&lt;pre&gt;1
 2
 3
@@ -87,6 +88,44 @@ BibTeXやrefererence関係などをエイヤッとやってくれる偉い人で
 &lt;p&gt;latexmkを知らない人はいるかもしれないが､makeを知らない人は居ないでしょう｡
 またcwdにMakefileがあるとmakeを実行してしまうという人間の心理を突くこともできます｡&lt;/p&gt;
 &lt;p&gt;例によって[&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;]のMakefileを見てみましょう｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/WORD-COINS/article-template/blob/master/articles/hinagata/Makefile&quot;&gt;articles/hinagata/Makefile&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;codeline with_caption&quot;&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37&lt;/pre&gt;&lt;/div&gt;
 &lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;Makefile&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-make&quot; data-lang=&quot;make&quot;&gt;&lt;span class=&quot;nv&quot;&gt;MAKE&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; make
 &lt;span class=&quot;nv&quot;&gt;LATEXMK&lt;/span&gt;      &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; latexmk
