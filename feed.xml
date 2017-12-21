@@ -5,9 +5,206 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 04 Dec 2017 00:14:22 +0900</pubDate>
-    <lastBuildDate>Mon, 04 Dec 2017 00:14:22 +0900</lastBuildDate>
+    <pubDate>Thu, 21 Dec 2017 15:49:39 +0900</pubDate>
+    <lastBuildDate>Thu, 21 Dec 2017 15:49:39 +0900</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>LaTeXライティング</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡これは&lt;a href=&quot;https://adventar.org/calendars/2573&quot;&gt;WORD Advent Calendar 2017&lt;/a&gt;の記事です｡&lt;/p&gt;
+&lt;p&gt;12月21日といえば……特になにも思いつきませんでした｡
+あえて挙げるなら片岡鶴太郎､安斎肇､フランク・ザッパの誕生日だそうです(Wikipedia調べ)｡みんなで祝いましょう｡&lt;/p&gt;
+&lt;h1 id=&quot;word&quot;&gt;WORDとは何か&lt;/h1&gt;
+&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;span style=&quot;font-size: XX-LARGE&quot;&gt;!!!以下に詳細が!!!&lt;/span&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.word-ac.net/about/&quot;&gt;https://www.word-ac.net/about/&lt;/a&gt;
+&lt;/p&gt;
+&lt;/center&gt;
+&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
+&lt;p&gt;WORDは一太郎と\(\LaTeX\)で制作されており､後者が今のメインストリームとなっています｡
+WORD記事のテンプレート&lt;sup id=&quot;fnref1&quot; title=&quot;https://github.com/WORD-COINS/article-template &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;を引っ張って編集してWORDのGitサーバーにpushするとJenkinsが動きヒラギノが埋め込まれたpdfファイルが出来上がる……というシステム｡素晴らしい｡&lt;/p&gt;
+&lt;p&gt;私もWORD記事以外でもよくLaTeXを使います｡
+たとえば講義ノートを取る､Beamerでスライドを作る､ゼミ資料を作る､等々｡&lt;/p&gt;
+&lt;p&gt;ではどうやってLaTeXを書いているのか?
+今回は私のLaTeX編集環境を少し紹介します｡&lt;/p&gt;
+&lt;h1 id=&quot;2-neo-vim&quot;&gt;2. (Neo)Vim&lt;/h1&gt;
+&lt;p&gt;エディターにはNeovimを使っています｡
+asynchronouslyにmakeをやってくれるNeomake&lt;sup id=&quot;fnref2&quot; title=&quot;https://github.com/neomake/neomake &quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;とかありますんで､でもVim 8でもasync jobsが使えるようになったとのことでどっちでもいいです｡&lt;/p&gt;
+&lt;p&gt;次のVimtexが重要｡&lt;/p&gt;
+&lt;h2 id=&quot;2-1-vimtex3&quot;&gt;2-1. Vimtex&lt;sup id=&quot;fnref3&quot; title=&quot;https://github.com/lervag/vimtex &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;
+&lt;/h2&gt;
+&lt;p&gt;Vimで快適にLaTeXを編集するためのプラグイン｡
+まずSyntax highlightingがきれい｡
+偉いので､LuaLaTeXでLuaを埋め込んでいるときもちゃんとLuaをハイライトしてくれる｡&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/pictures/2017-12-21-LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/vimtex-highlight.png&quot; alt=&quot;syntax highlight with vimtex&quot; title=&quot;syntax highlight with vimtex&quot;&gt;&lt;/p&gt;
+&lt;p&gt;そして大量にキーバインドを追加してくるので&lt;sup id=&quot;fnref4&quot; title=&quot;https://github.com/lervag/vimtex/wiki/usage#default-mappings &quot;&gt;&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;､これを覚えると高速な編集ができる｡
+他のキーバインドと競合しないように気をつけよう｡&lt;/p&gt;
+&lt;p&gt;他にも環境の&lt;code&gt;begin&lt;/code&gt;と&lt;code&gt;end&lt;/code&gt;の対応が取れてpercentage-wiseなカーソル移動ができる｡
+コマンドの補完もしてくれるため､Neocomplete&lt;sup id=&quot;fnref5&quot; title=&quot;https://github.com/Shougo/neocomplete.vim completion for Vim &quot;&gt;&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;/Deoplete&lt;sup id=&quot;fnref6&quot; title=&quot;https://github.com/Shougo/deoplete.nvim completion for Neovim &quot;&gt;&lt;a href=&quot;#fn6&quot; rel=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;と連携して補完を効かせると非常に高速なエディットが可能となる｡&lt;/p&gt;
+&lt;h2 id=&quot;2-2-vim-surround7&quot;&gt;2-2. vim-surround&lt;sup id=&quot;fnref7&quot; title=&quot;https://github.com/tpope/vim-surround &quot;&gt;&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;
+&lt;/h2&gt;
+&lt;p&gt;visual modeで&lt;code&gt;S-&amp;lt;leader&amp;gt;&lt;/code&gt;と入力すると環境を作ってくれる｡
+地味に便利｡&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/pictures/2017-12-21-LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/surround-env.gif&quot; alt=&quot;surround environment&quot; title=&quot;surround environment with vim-surround&quot;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;WORD記事テンプレートにはすでにMakefileとlatexmkrcが付属されているが､これについても少し解説したい｡&lt;/p&gt;
+&lt;h1 id=&quot;3-latexmk8-9&quot;&gt;3. Latexmk&lt;sup id=&quot;fnref8&quot; title=&quot;http://personal.psu.edu/jcc8//software/latexmk &quot;&gt;&lt;a href=&quot;#fn8&quot; rel=&quot;footnote&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;&lt;sup&gt;,&lt;/sup&gt;&lt;sup id=&quot;fnref9&quot; title=&quot;https://texwiki.texjp.org/?Latexmk &quot;&gt;&lt;a href=&quot;#fn9&quot; rel=&quot;footnote&quot;&gt;9&lt;/a&gt;&lt;/sup&gt;
+&lt;/h1&gt;
+&lt;p&gt;とにかく偉大｡
+BibTeXやrefererence関係などをエイヤッとやってくれる偉い人です｡
+&lt;code&gt;function platex() { =platex $1 &amp;amp;&amp;amp; =platex $1}&lt;/code&gt; みたいなものを.bashrcなどに書かなくてよくなります｡偉いね｡
+~/.latexmkrcまたはcwdのlatexmkrcに設定ファイルを置くと記述に沿った動きをしてくれる｡&lt;/p&gt;
+&lt;p&gt;[&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;]のlatexmkrcを見てみましょう｡&lt;/p&gt;
+&lt;div class=&quot;codeline with_caption&quot;&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6
+7
+8
+9&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;latexmkrc&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env perl&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$pdflatex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'lualatex %O -synctex=1 -interaction=nonstopmode -shell-escape %B'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$latex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'platex %O -synctex=1 -interaction=nonstopmode -kanji=utf8 -shell-escape %B'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$bibtex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'pbibtex %O -kanji=utf8 %B'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$dvipdf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'dvipdfmx %O -p jisb5 -d 5 -o %D %S'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$makeindex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'mendex %O -U -r -c -g -s %B -p any %B'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$pdf_mode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$pdf_update_method&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;例えば&lt;code&gt;$pdflatex&lt;/code&gt;で&lt;code&gt;latexmk -pdf&lt;/code&gt;としたときに動くコマンドを定義します｡
+&lt;code&gt;%O&lt;/code&gt;には入力ファイル名､&lt;code&gt;%B&lt;/code&gt;には拡張子なしの入力ファイル名､等々フォーマット文字列になっており｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$pdf_mode&lt;/code&gt;でpdf出力方式を選びます｡&lt;code&gt;3&lt;/code&gt;が入っているのでdviファイルから&lt;code&gt;$dvipdf&lt;/code&gt;コマンドでpdfに変換する方式を取ります｡&lt;/p&gt;
+&lt;p&gt;また&lt;code&gt;-pvc&lt;/code&gt;オプションという､ソースファイル及び&lt;em&gt;そのファイルが参照しているファイル&lt;/em&gt;が編集されるたびにコンパイルをおこなってくれるという便利なノンストップモードがあります｡&lt;/p&gt;
+&lt;p&gt;とにかく偉い｡他にもオプションがいろいろあります｡
+&lt;code&gt;latex&lt;/code&gt;コマンド直叩きの時代は終わったんや……!&lt;/p&gt;
+&lt;h1 id=&quot;4-make&quot;&gt;4. Make&lt;/h1&gt;
+&lt;p&gt;latexmkを知らない人はいるかもしれないが､makeを知らない人は居ないでしょう｡
+またcwdにMakefileがあるとmakeを実行してしまうという人間の心理を突くこともできます｡&lt;/p&gt;
+&lt;p&gt;例によって[&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;]のMakefileを見てみましょう｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;Makefile&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-make&quot; data-lang=&quot;make&quot;&gt;&lt;span class=&quot;nv&quot;&gt;MAKE&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; make
+&lt;span class=&quot;nv&quot;&gt;LATEXMK&lt;/span&gt;      &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; latexmk
+&lt;span class=&quot;nv&quot;&gt;LATEXMKFLAG&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-halt-on-error&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;CP&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cp
+&lt;span class=&quot;nv&quot;&gt;RM&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; rm
+
+&lt;span class=&quot;nv&quot;&gt;SRC&lt;/span&gt;          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; main
+
+&lt;span class=&quot;nv&quot;&gt;TARGET&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;addsuffix .pdf, &lt;span class=&quot;nv&quot;&gt;$(SRC)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;TEXFILES&lt;/span&gt;     &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ../../texfiles
+
+&lt;span class=&quot;nv&quot;&gt;CLASS&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; word
+&lt;span class=&quot;nv&quot;&gt;TEXDEPS&lt;/span&gt;      &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;foreach deps, &lt;span class=&quot;nv&quot;&gt;$(CLASS)&lt;/span&gt;.cls, &lt;span class=&quot;nv&quot;&gt;$(TEXFILES)&lt;/span&gt;/&lt;span class=&quot;nv&quot;&gt;$(deps)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;TEXDTX&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;addsuffix .dtx, &lt;span class=&quot;nv&quot;&gt;$(TEXFILES)&lt;/span&gt;/&lt;span class=&quot;nv&quot;&gt;$(CLASS)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;TEXINS&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;addsuffix .ins, &lt;span class=&quot;nv&quot;&gt;$(TEXFILES)&lt;/span&gt;/&lt;span class=&quot;nv&quot;&gt;$(CLASS)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nl&quot;&gt;.PHONY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;all continue clean&lt;/span&gt;
+
+&lt;span class=&quot;nl&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$(SRC).pdf&lt;/span&gt;
+
+&lt;span class=&quot;nl&quot;&gt;%.pdf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;%.tex $(TEXDEPS)&lt;/span&gt;
+	&lt;span class=&quot;nv&quot;&gt;$(MAKE)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$(TEXDEPS)&lt;/span&gt;
+	&lt;span class=&quot;nv&quot;&gt;$(LATEXMK)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$(LATEXMKFLAG)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$&amp;lt;&lt;/span&gt;
+
+&lt;span class=&quot;nl&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+	LATEXMKFLAG +&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-pvc&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$(MAKE)&lt;/span&gt;
+
+&lt;span class=&quot;nl&quot;&gt;$(TEXDEPS)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$(TEXDTX) $(TEXINS)&lt;/span&gt;
+	&lt;span class=&quot;nv&quot;&gt;LATEXMKFLAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$(LATEXMKFLAG)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$(MAKE)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$(CLASS)&lt;/span&gt;.cls &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$(TEXFILES)&lt;/span&gt;
+	&lt;span class=&quot;nv&quot;&gt;$(CP)&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;foreach deps, &lt;span class=&quot;nv&quot;&gt;$(TEXDEPS)&lt;/span&gt;, &lt;span class=&quot;nv&quot;&gt;$(deps)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; ./
+
+&lt;span class=&quot;nl&quot;&gt;clean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;nv&quot;&gt;$(MAKE)&lt;/span&gt; clean &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$(TEXFILES)&lt;/span&gt;
+	&lt;span class=&quot;nv&quot;&gt;$(RM)&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$(TEXDEPS)&lt;/span&gt;
+	&lt;span class=&quot;nv&quot;&gt;$(LATEXMK)&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;主にlatexmkをラップする形になります｡
+&lt;code&gt;make&lt;/code&gt;でpdfができて､&lt;code&gt;make continue&lt;/code&gt;で先述のノンストップモードになり&lt;code&gt;make clean&lt;/code&gt;で生成されたファイルを消してくれる｡&lt;/p&gt;
+&lt;h1 id=&quot;5-detexify10&quot;&gt;5. Detexify&lt;sup id=&quot;fnref10&quot; title=&quot;http://detexify.kirelabs.org/classify.html &quot;&gt;&lt;a href=&quot;#fn10&quot; rel=&quot;footnote&quot;&gt;10&lt;/a&gt;&lt;/sup&gt;
+&lt;/h1&gt;
+&lt;p&gt;こんな感じの記号を出したい､というときキャンパスにお絵かきすると､コマンド名と必要なパッケージを出してくれる非常に極めて偉大なツール｡
+バックエンドはHaskellのようです&lt;sup id=&quot;fnref11&quot; title=&quot;https://github.com/kirel/detexify-hs-backend &quot;&gt;&lt;a href=&quot;#fn11&quot; rel=&quot;footnote&quot;&gt;11&lt;/a&gt;&lt;/sup&gt;｡&lt;/p&gt;
+&lt;h1 id=&quot;6-word-slack-latex-channel&quot;&gt;6. WORD Slack #latex channel&lt;/h1&gt;
+&lt;p&gt;WORD部員達がLaTeXに関する議論をしたり[&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;]やWORDクラスファイル&lt;sup id=&quot;fnref12&quot; title=&quot;https://github.com/WORD-COINS/texfiles &quot;&gt;&lt;a href=&quot;#fn12&quot; rel=&quot;footnote&quot;&gt;12&lt;/a&gt;&lt;/sup&gt;のGitHubでのアクティビティーが流れてくるWORD slackのチャンネル｡&lt;/p&gt;
+&lt;h1 id=&quot;7&quot;&gt;7. おわりに&lt;/h1&gt;
+&lt;p&gt;WORD Advent Calendar21日目がまったく埋まる気配がないので筆を執った次第ですが､結局情報量が少ない文書になりました｡
+xmodmapで超高速記号タイピングなども書きたかったんですが余力が無いのでまた別の機会に｡&lt;/p&gt;
+&lt;p&gt;ちなみに\(\LaTeX\)は&quot;ラテック&quot;と発音するよ派です｡
+人と会話するとき相手が&quot;ラテフ&quot;と発音したら波風立てたくないのでそれに従うけどうっかり&quot;ラテック&quot;と言っちゃうよ派でもあります｡
+“ラテックス&quot;っつったらお前それハーピーレディサイバーボンテージが着てるやつの素材じゃん&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/WORD-COINS/article-template&quot;&gt;https://github.com/WORD-COINS/article-template&lt;/a&gt; &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn2&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/neomake/neomake&quot;&gt;https://github.com/neomake/neomake&lt;/a&gt; &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn3&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/lervag/vimtex&quot;&gt;https://github.com/lervag/vimtex&lt;/a&gt; &lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn4&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/lervag/vimtex/wiki/usage#default-mappings&quot;&gt;https://github.com/lervag/vimtex/wiki/usage#default-mappings&lt;/a&gt; &lt;a href=&quot;#fnref4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn5&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/Shougo/neocomplete.vim&quot;&gt;https://github.com/Shougo/neocomplete.vim&lt;/a&gt; completion for Vim &lt;a href=&quot;#fnref5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn6&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/Shougo/deoplete.nvim&quot;&gt;https://github.com/Shougo/deoplete.nvim&lt;/a&gt; completion for Neovim &lt;a href=&quot;#fnref6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn7&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/tpope/vim-surround&quot;&gt;https://github.com/tpope/vim-surround&lt;/a&gt; &lt;a href=&quot;#fnref7&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn8&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;http://personal.psu.edu/jcc8//software/latexmk&quot;&gt;http://personal.psu.edu/jcc8//software/latexmk&lt;/a&gt; &lt;a href=&quot;#fnref8&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn9&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://texwiki.texjp.org/?Latexmk&quot;&gt;https://texwiki.texjp.org/?Latexmk&lt;/a&gt; &lt;a href=&quot;#fnref9&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn10&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;http://detexify.kirelabs.org/classify.html&quot;&gt;http://detexify.kirelabs.org/classify.html&lt;/a&gt; &lt;a href=&quot;#fnref10&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn11&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/kirel/detexify-hs-backend&quot;&gt;https://github.com/kirel/detexify-hs-backend&lt;/a&gt; &lt;a href=&quot;#fnref11&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn12&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/WORD-COINS/texfiles&quot;&gt;https://github.com/WORD-COINS/texfiles&lt;/a&gt; &lt;a href=&quot;#fnref12&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Thu, 21 Dec 2017 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2017/12/21/LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2017/12/21/LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.html</guid>
+        
+        <category>LaTeX</category>
+        
+        <category>WORD</category>
+        
+        
+      </item>
     
       <item>
         <title>Menhirが便利</title>
@@ -1562,32 +1759,6 @@ Typed Racketはマクロ展開時に型チェックをおこなうというタ�
         <category>Typed Racket</category>
         
         <category>Vim</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>通年でLua最適化器を作った</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
-えーではいきます｡&lt;/p&gt;
-&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
-&lt;p&gt;T大の『&lt;a href=&quot;http://www.coins.tsukuba.ac.jp/syllabus/GB13312_GB13322.html&quot;&gt;情報特別演習&lt;/a&gt;』という講義でLua VM Bytecodeの最適化器を作りました｡&lt;/p&gt;
-&lt;div class=&quot;github-widget&quot; data-repo=&quot;Nymphium/opeth&quot;&gt;&lt;/div&gt;
-&lt;p&gt;発表スライドは&lt;a href=&quot;http://nymphium.github.io/pdf/tsukubalua.html&quot;&gt;こちら&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;話したいことはほとんどスライドに書いてしまった…｡&lt;/p&gt;
-&lt;p&gt;レポートは&lt;a href=&quot;https://nymphium.github.io/pdf/opeth_report.pdf&quot;&gt;これ&lt;/a&gt;&lt;/p&gt;
-&lt;h1 id=&quot;2&quot;&gt;2. おわりに&lt;/h1&gt;
-&lt;p&gt;ア&lt;/p&gt;
-&lt;p&gt;やる気出したらもう少し追記します｡&lt;/p&gt;</description>
-        <pubDate>Sun, 12 Feb 2017 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2017/02/12/opeth.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2017/02/12/opeth.html</guid>
-        
-        <category>Lua</category>
-        
-        <category>Lua Bytecode</category>
-        
-        <category>Optimizer</category>
         
         
       </item>

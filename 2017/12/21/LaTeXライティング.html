@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LaTeXライティング &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="LaTeXライティング">
+    <meta name="twitter:title" content="LaTeXライティング"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2017/12/21/LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.html"> 
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="https://nymphium.github.io/2017/12/21/LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">LaTeXライティング</h1>
+            <span class="post-meta">
+              <time datetime="2017-12-21T00:00:00+09:00" itemprop="datePublished">Dec 21, 2017</time>
+              <p>tag: &#123;<a href="/tags.html#LaTeX-ref">LaTeX</a>, <a href="/tags.html#WORD-ref">WORD</a>&#125;</p>
+            </span>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
+});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡これは<a href="https://adventar.org/calendars/2573">WORD Advent Calendar 2017</a>の記事です｡</p>
+<p>12月21日といえば……特になにも思いつきませんでした｡
+あえて挙げるなら片岡鶴太郎､安斎肇､フランク・ザッパの誕生日だそうです(Wikipedia調べ)｡みんなで祝いましょう｡</p>
+<h1 id="word">WORDとは何か</h1>
+<p></p><center>
+<span style="font-size: XX-LARGE">!!!以下に詳細が!!!</span>
+
+<p><a href="https://www.word-ac.net/about/">https://www.word-ac.net/about/</a>
+</p>
+</center>
+<h1 id="1">1. はじめに</h1>
+<p>WORDは一太郎と\(\LaTeX\)で制作されており､後者が今のメインストリームとなっています｡
+WORD記事のテンプレート<sup id="fnref1" title="https://github.com/WORD-COINS/article-template "><a href="#fn1" rel="footnote">1</a></sup>を引っ張って編集してWORDのGitサーバーにpushするとJenkinsが動きヒラギノが埋め込まれたpdfファイルが出来上がる……というシステム｡素晴らしい｡</p>
+<p>私もWORD記事以外でもよくLaTeXを使います｡
+たとえば講義ノートを取る､Beamerでスライドを作る､ゼミ資料を作る､等々｡</p>
+<p>ではどうやってLaTeXを書いているのか?
+今回は私のLaTeX編集環境を少し紹介します｡</p>
+<h1 id="2-neo-vim">2. (Neo)Vim</h1>
+<p>エディターにはNeovimを使っています｡
+asynchronouslyにmakeをやってくれるNeomake<sup id="fnref2" title="https://github.com/neomake/neomake "><a href="#fn2" rel="footnote">2</a></sup>とかありますんで､でもVim 8でもasync jobsが使えるようになったとのことでどっちでもいいです｡</p>
+<p>次のVimtexが重要｡</p>
+<h2 id="2-1-vimtex3">2-1. Vimtex<sup id="fnref3" title="https://github.com/lervag/vimtex "><a href="#fn3" rel="footnote">3</a></sup>
+</h2>
+<p>Vimで快適にLaTeXを編集するためのプラグイン｡
+まずSyntax highlightingがきれい｡
+偉いので､LuaLaTeXでLuaを埋め込んでいるときもちゃんとLuaをハイライトしてくれる｡</p>
+<p><img src="/pictures/2017-12-21-LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/vimtex-highlight.png" alt="syntax highlight with vimtex" title="syntax highlight with vimtex"></p>
+<p>そして大量にキーバインドを追加してくるので<sup id="fnref4" title="https://github.com/lervag/vimtex/wiki/usage#default-mappings "><a href="#fn4" rel="footnote">4</a></sup>､これを覚えると高速な編集ができる｡
+他のキーバインドと競合しないように気をつけよう｡</p>
+<p>他にも環境の<code>begin</code>と<code>end</code>の対応が取れてpercentage-wiseなカーソル移動ができる｡
+コマンドの補完もしてくれるため､Neocomplete<sup id="fnref5" title="https://github.com/Shougo/neocomplete.vim completion for Vim "><a href="#fn5" rel="footnote">5</a></sup>/Deoplete<sup id="fnref6" title="https://github.com/Shougo/deoplete.nvim completion for Neovim "><a href="#fn6" rel="footnote">6</a></sup>と連携して補完を効かせると非常に高速なエディットが可能となる｡</p>
+<h2 id="2-2-vim-surround7">2-2. vim-surround<sup id="fnref7" title="https://github.com/tpope/vim-surround "><a href="#fn7" rel="footnote">7</a></sup>
+</h2>
+<p>visual modeで<code>S-&lt;leader&gt;</code>と入力すると環境を作ってくれる｡
+地味に便利｡</p>
+<p><img src="/pictures/2017-12-21-LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/surround-env.gif" alt="surround environment" title="surround environment with vim-surround"></p>
+<hr>
+<p>WORD記事テンプレートにはすでにMakefileとlatexmkrcが付属されているが､これについても少し解説したい｡</p>
+<h1 id="3-latexmk8-9">3. Latexmk<sup id="fnref8" title="http://personal.psu.edu/jcc8//software/latexmk "><a href="#fn8" rel="footnote">8</a></sup><sup>,</sup><sup id="fnref9" title="https://texwiki.texjp.org/?Latexmk "><a href="#fn9" rel="footnote">9</a></sup>
+</h1>
+<p>とにかく偉大｡
+BibTeXやrefererence関係などをエイヤッとやってくれる偉い人です｡
+<code>function platex() { =platex $1 &amp;&amp; =platex $1}</code> みたいなものを.bashrcなどに書かなくてよくなります｡偉いね｡
+~/.latexmkrcまたはcwdのlatexmkrcに設定ファイルを置くと記述に沿った動きをしてくれる｡</p>
+<p>[<a href="#fn1">1</a>]のlatexmkrcを見てみましょう｡</p>
+<div class="codeline with_caption"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div>
+<div class="highlight">
+<span class="listing-name">latexmkrc</span><pre><code class="language-perl" data-lang="perl"><span class="c1">#!/usr/bin/env perl</span>
+
+<span class="nv">$pdflatex</span> <span class="o">=</span> <span class="s">'lualatex %O -synctex=1 -interaction=nonstopmode -shell-escape %B'</span><span class="p">;</span>
+<span class="nv">$latex</span><span class="o">=</span> <span class="s">'platex %O -synctex=1 -interaction=nonstopmode -kanji=utf8 -shell-escape %B'</span><span class="p">;</span>
+<span class="nv">$bibtex</span> <span class="o">=</span> <span class="s">'pbibtex %O -kanji=utf8 %B'</span><span class="p">;</span>
+<span class="nv">$dvipdf</span><span class="o">=</span> <span class="s">'dvipdfmx %O -p jisb5 -d 5 -o %D %S'</span><span class="p">;</span>
+<span class="nv">$makeindex</span><span class="o">=</span> <span class="s">'mendex %O -U -r -c -g -s %B -p any %B'</span><span class="p">;</span>
+<span class="nv">$pdf_mode</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nv">$pdf_update_method</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</code></pre>
+</div>
+<p>例えば<code>$pdflatex</code>で<code>latexmk -pdf</code>としたときに動くコマンドを定義します｡
+<code>%O</code>には入力ファイル名､<code>%B</code>には拡張子なしの入力ファイル名､等々フォーマット文字列になっており｡</p>
+<p><code>$pdf_mode</code>でpdf出力方式を選びます｡<code>3</code>が入っているのでdviファイルから<code>$dvipdf</code>コマンドでpdfに変換する方式を取ります｡</p>
+<p>また<code>-pvc</code>オプションという､ソースファイル及び<em>そのファイルが参照しているファイル</em>が編集されるたびにコンパイルをおこなってくれるという便利なノンストップモードがあります｡</p>
+<p>とにかく偉い｡他にもオプションがいろいろあります｡
+<code>latex</code>コマンド直叩きの時代は終わったんや……!</p>
+<h1 id="4-make">4. Make</h1>
+<p>latexmkを知らない人はいるかもしれないが､makeを知らない人は居ないでしょう｡
+またcwdにMakefileがあるとmakeを実行してしまうという人間の心理を突くこともできます｡</p>
+<p>例によって[<a href="#fn1">1</a>]のMakefileを見てみましょう｡</p>
+<div class="highlight">
+<span class="listing-name">Makefile</span><pre><code class="language-make" data-lang="make"><span class="nv">MAKE</span>         <span class="o">=</span> make
+<span class="nv">LATEXMK</span>      <span class="o">=</span> latexmk
+<span class="nv">LATEXMKFLAG</span> <span class="o">+=</span> <span class="nt">-halt-on-error</span>
+<span class="nv">CP</span>           <span class="o">=</span> cp
+<span class="nv">RM</span>           <span class="o">=</span> rm
+
+<span class="nv">SRC</span>          <span class="o">=</span> main
+
+<span class="nv">TARGET</span>       <span class="o">=</span> <span class="err">$</span><span class="o">(</span>addsuffix .pdf, <span class="nv">$(SRC)</span><span class="o">)</span>
+
+<span class="nv">TEXFILES</span>     <span class="o">=</span> ../../texfiles
+
+<span class="nv">CLASS</span>        <span class="o">=</span> word
+<span class="nv">TEXDEPS</span>      <span class="o">=</span> <span class="err">$</span><span class="o">(</span>foreach deps, <span class="nv">$(CLASS)</span>.cls, <span class="nv">$(TEXFILES)</span>/<span class="nv">$(deps)</span><span class="o">)</span>
+
+<span class="nv">TEXDTX</span>       <span class="o">=</span> <span class="err">$</span><span class="o">(</span>addsuffix .dtx, <span class="nv">$(TEXFILES)</span>/<span class="nv">$(CLASS)</span><span class="o">)</span>
+<span class="nv">TEXINS</span>       <span class="o">=</span> <span class="err">$</span><span class="o">(</span>addsuffix .ins, <span class="nv">$(TEXFILES)</span>/<span class="nv">$(CLASS)</span><span class="o">)</span>
+
+<span class="nl">.PHONY</span><span class="o">:</span> <span class="nf">all continue clean</span>
+
+<span class="nl">all</span><span class="o">:</span> <span class="nf">$(SRC).pdf</span>
+
+<span class="nl">%.pdf</span><span class="o">:</span> <span class="nf">%.tex $(TEXDEPS)</span>
+	<span class="nv">$(MAKE)</span> <span class="nv">$(TEXDEPS)</span>
+	<span class="nv">$(LATEXMK)</span> <span class="nv">$(LATEXMKFLAG)</span> <span class="nv">$&lt;</span>
+
+<span class="nl">continue</span><span class="o">:</span>
+	LATEXMKFLAG +<span class="o">=</span><span class="nt">-pvc</span> <span class="nv">$(MAKE)</span>
+
+<span class="nl">$(TEXDEPS)</span><span class="o">:</span> <span class="nf">$(TEXDTX) $(TEXINS)</span>
+	<span class="nv">LATEXMKFLAG</span><span class="o">=</span><span class="s2">"</span><span class="nv">$(LATEXMKFLAG)</span><span class="s2">"</span> <span class="nv">$(MAKE)</span> <span class="nv">$(CLASS)</span>.cls <span class="nt">-C</span> <span class="nv">$(TEXFILES)</span>
+	<span class="nv">$(CP)</span> <span class="nt">-r</span> <span class="err">$</span><span class="o">(</span>foreach deps, <span class="nv">$(TEXDEPS)</span>, <span class="nv">$(deps)</span><span class="o">)</span> ./
+
+<span class="nl">clean</span><span class="o">:</span>
+	<span class="nv">$(MAKE)</span> clean <span class="nt">-C</span> <span class="nv">$(TEXFILES)</span>
+	<span class="nv">$(RM)</span> <span class="nt">-f</span> <span class="nv">$(TEXDEPS)</span>
+	<span class="nv">$(LATEXMK)</span> <span class="nt">-C</span>
+</code></pre>
+</div>
+<p>主にlatexmkをラップする形になります｡
+<code>make</code>でpdfができて､<code>make continue</code>で先述のノンストップモードになり<code>make clean</code>で生成されたファイルを消してくれる｡</p>
+<h1 id="5-detexify10">5. Detexify<sup id="fnref10" title="http://detexify.kirelabs.org/classify.html "><a href="#fn10" rel="footnote">10</a></sup>
+</h1>
+<p>こんな感じの記号を出したい､というときキャンパスにお絵かきすると､コマンド名と必要なパッケージを出してくれる非常に極めて偉大なツール｡
+バックエンドはHaskellのようです<sup id="fnref11" title="https://github.com/kirel/detexify-hs-backend "><a href="#fn11" rel="footnote">11</a></sup>｡</p>
+<h1 id="6-word-slack-latex-channel">6. WORD Slack #latex channel</h1>
+<p>WORD部員達がLaTeXに関する議論をしたり[<a href="#fn1">1</a>]やWORDクラスファイル<sup id="fnref12" title="https://github.com/WORD-COINS/texfiles "><a href="#fn12" rel="footnote">12</a></sup>のGitHubでのアクティビティーが流れてくるWORD slackのチャンネル｡</p>
+<h1 id="7">7. おわりに</h1>
+<p>WORD Advent Calendar21日目がまったく埋まる気配がないので筆を執った次第ですが､結局情報量が少ない文書になりました｡
+xmodmapで超高速記号タイピングなども書きたかったんですが余力が無いのでまた別の機会に｡</p>
+<p>ちなみに\(\LaTeX\)は"ラテック"と発音するよ派です｡
+人と会話するとき相手が"ラテフ"と発音したら波風立てたくないのでそれに従うけどうっかり"ラテック"と言っちゃうよ派でもあります｡
+“ラテックス"っつったらお前それハーピーレディサイバーボンテージが着てるやつの素材じゃん</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p><a href="https://github.com/WORD-COINS/article-template">https://github.com/WORD-COINS/article-template</a> <a href="#fnref1" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn2">
+<p><a href="https://github.com/neomake/neomake">https://github.com/neomake/neomake</a> <a href="#fnref2" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn3">
+<p><a href="https://github.com/lervag/vimtex">https://github.com/lervag/vimtex</a> <a href="#fnref3" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn4">
+<p><a href="https://github.com/lervag/vimtex/wiki/usage#default-mappings">https://github.com/lervag/vimtex/wiki/usage#default-mappings</a> <a href="#fnref4" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn5">
+<p><a href="https://github.com/Shougo/neocomplete.vim">https://github.com/Shougo/neocomplete.vim</a> completion for Vim <a href="#fnref5" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn6">
+<p><a href="https://github.com/Shougo/deoplete.nvim">https://github.com/Shougo/deoplete.nvim</a> completion for Neovim <a href="#fnref6" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn7">
+<p><a href="https://github.com/tpope/vim-surround">https://github.com/tpope/vim-surround</a> <a href="#fnref7" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn8">
+<p><a href="http://personal.psu.edu/jcc8//software/latexmk">http://personal.psu.edu/jcc8//software/latexmk</a> <a href="#fnref8" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn9">
+<p><a href="https://texwiki.texjp.org/?Latexmk">https://texwiki.texjp.org/?Latexmk</a> <a href="#fnref9" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn10">
+<p><a href="http://detexify.kirelabs.org/classify.html">http://detexify.kirelabs.org/classify.html</a> <a href="#fnref10" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn11">
+<p><a href="https://github.com/kirel/detexify-hs-backend">https://github.com/kirel/detexify-hs-backend</a> <a href="#fnref11" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn12">
+<p><a href="https://github.com/WORD-COINS/texfiles">https://github.com/WORD-COINS/texfiles</a> <a href="#fnref12" rev="footnote">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2017/12/03/Menhir%E3%81%8C%E4%BE%BF%E5%88%A9.html" title="Menhirが便利">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <span class="btn next disabled">Next &rarr;</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
