@@ -5,9 +5,208 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 21 Dec 2017 16:01:14 +0900</pubDate>
-    <lastBuildDate>Thu, 21 Dec 2017 16:01:14 +0900</lastBuildDate>
+    <pubDate>Sun, 24 Dec 2017 19:26:33 +0900</pubDate>
+    <lastBuildDate>Sun, 24 Dec 2017 19:26:33 +0900</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>筋肉偏差値70</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡これは&lt;a href=&quot;https://adventar.org/calendars/2573&quot;&gt;WORD Advent Calendar 2017&lt;/a&gt;の記事です｡&lt;/p&gt;
+&lt;p&gt;12月23日といえば昭和天皇の誕生日!!!! みんなで祝いましょう｡
+この日はめでたいなぁ､国民の祝日にしましょう｡&lt;/p&gt;
+&lt;h1 id=&quot;word&quot;&gt;WORDとは何か&lt;/h1&gt;
+&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;span style=&quot;font-size: XX-LARGE&quot;&gt;!!!以下に詳細が!!!&lt;/span&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.word-ac.net/about/&quot;&gt;https://www.word-ac.net/about/&lt;/a&gt;
+&lt;/p&gt;
+&lt;/center&gt;
+&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
+&lt;p&gt;ア〜&lt;/p&gt;
+&lt;h1 id=&quot;2&quot;&gt;2. アレ&lt;/h1&gt;
+&lt;p&gt;時は2016年の頭､我らがWORD部員である(当時)M2のN氏｡
+就職先は地球防衛軍日本支部であるところの陸軍自衛隊であることを発表した｡
+毎日角ふじ&lt;sup id=&quot;fnref1&quot; title=&quot;二郎系の麺ショップ｡味が云々というより依存性が高い｡量も多い｡ &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;へ行き毎日早起き筋トレをおこなうと告げ､可能な限り実行していた｡
+そんなEDF隊員見習いの姿勢に俺達は感化された……!&lt;/p&gt;
+&lt;h1 id=&quot;3&quot;&gt;3. ソレ&lt;/h1&gt;
+&lt;p&gt;時は2016年の頭､テレビアニメ『ヴァルキリードライヴ マーメイド』&lt;sup id=&quot;fnref2&quot; title=&quot;http://valkyriedrive.jp/anime/ &quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;が放映されていた｡
+激しいバトル､島やウイルスの謎､そしてちょっとエッチなサービスシーン､百合……｡
+そんな中､武器を持たずに己が身一つで戦う&quot;ゼロ･アーム&quot;の異名を持つ魅力的なキャラクター､ &lt;strong&gt;&lt;em&gt;時雨霞&lt;/em&gt;&lt;/strong&gt; さん｡
+パートナーの見城ひびきさんを想いながら強く戦い続ける姿勢に俺(達)は感化された……!
+感化されすぎて2016年4月に髪型を時雨霞さんにした……!!!&lt;/p&gt;
+&lt;h1 id=&quot;4&quot;&gt;4. 筋肉ブートストラップ&lt;/h1&gt;
+&lt;p&gt;一切の運動を放棄して棒に脂と皮が張り付いたような四肢の俺達ベルトコンベアーの理系BOYがダンベルを持ち上げようものなら肩が脱臼してしまう｡
+まずは自重を使ったトレーニングから開始してダンベルプルーフな身体をビルドしなければならない｡&lt;/p&gt;
+&lt;h1 id=&quot;5&quot;&gt;5. おわりに(未完)&lt;/h1&gt;
+&lt;p&gt;EDF5を夜通しやってたら24日になっちゃった&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;ここから別の記事&lt;/p&gt;
+&lt;h1 id=&quot;multiple-exception-handlers-cps&quot;&gt;multiple exception handlersをCPS変換&lt;/h1&gt;
+&lt;h1 id=&quot;6-2&quot;&gt;6. はじめに(2)&lt;/h1&gt;
+&lt;p&gt;皆さんは例外処理のあるlambda calculusをCPS変換するとき､全てのコントロールエフェクトもCPSで済ませたいがために例外処理もCPS変換したくなるでしょう｡&lt;/p&gt;
+&lt;h1 id=&quot;7-startup&quot;&gt;7. startup&lt;/h1&gt;
+&lt;p&gt;以下のような言語を考える｡&lt;/p&gt;
+&lt;div&gt;
+$$
+\begin{array}{rrl}
+e  &amp;amp; ::= &amp;amp; x\mid \lambda x.e \mid e\,e\\
+&amp;amp; \mid &amp;amp; e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e}\\
+&amp;amp;\mid &amp;amp;\mathbf{raise}\,\mathit{Exn}(e)
+\end{array}
+$$
+&lt;/div&gt;
+&lt;h1 id=&quot;8-double-barreled-cps&quot;&gt;8. Double-Barreled CPS&lt;/h1&gt;
+&lt;p&gt;既存の手法としてDouble-Barreled CPSというものが知られています&lt;sup id=&quot;fnref3&quot; title=&quot;Hayo Thielecke. Comparing Control Constructs by Double-Barrelled CPS &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;｡
+継続ともう一つ例外処理に対応する関数､つまりdouble-barreledなCPSを作ります｡&lt;/p&gt;
+&lt;div&gt;
+$$
+\begin{array}{c}
+    \fbox{$\lceil e\rceil = e_{cps}$}\\
+    \begin{array}{rcl}
+        \lceil \lambda x. e \rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. \lambda x. \lambda k’. \lambda h’. \lceil e \rceil\, k’\, h’\\
+        \lceil x \rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. k\, x\\
+        \lceil e_1\, e_2\rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. \lceil e_1\rceil\,\left(\lambda f. \lceil e_2\rceil \left(\lambda a. f\,a\,k\,h\right)\,h\right)\,h\\
+        \lceil e_1\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow e_2\rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. \lceil e_1\rceil\, k\, \left(\lambda x. \lceil e_2\rceil\, k\,h\right) \\
+        \lceil \mathbf{raise}\,\mathit{Exn}\left(e\right)\rceil &amp;amp; = &amp;amp; \lambda k.\lambda h.\lceil e\rceil \,h\,h\\
+    \end{array}
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;\(e_{cps}\)は\(e\)のサブセットっぽいのでなんだかいい感じですね｡
+例外ハンドラのアーム(\(Exn(x)\rightarrow e\))を継続として(\(\lambda x.\lceil e\rceil\)) 第2の継続パラメータに渡すわけですな｡
+お察しの通り､この手法では1つの例外処理に対して1つの継続を追加している｡
+では複数の例外処理に対して我々はどうする? まさかn+1-barreled CPS? いやいやそれはちょっと……｡&lt;/p&gt;
+&lt;h1 id=&quot;9-multiple-exception-handling-cps&quot;&gt;9. multiple-exception handling CPS&lt;/h1&gt;
+&lt;h2 id=&quot;9-1&quot;&gt;9-1. 近似&lt;/h2&gt;
+&lt;p&gt;ハンドラを貯めて逐次ぶっ放すような感じにしていくか｡
+\(h\)を(例外名とハンドラ関数のペア)のリストとして､初期値を空リストとして与える｡&lt;/p&gt;
+&lt;div&gt;
+&lt;label id=&quot;fig:approx&quot;&gt;&lt;/label&gt;
+$$
+\begin{array}{rcl}
+    \lceil \lambda x.e\rceil_h &amp;amp; = &amp;amp; \lambda k. \lambda x.\lambda k’. \lceil e\rceil_h\, k’\\
+    \lceil x\rceil_h &amp;amp; = &amp;amp; \lambda k. k\,x\\
+    \lceil e_1\,e_2\rceil_h &amp;amp; = &amp;amp; \lambda k.\lceil e_1\rceil_h \left(\lambda f.\lceil e_2\rceil \left(\lambda a. f\,a\,k\right)\right)\\
+    \left\lceil e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e’} \right\rceil_h &amp;amp; = &amp;amp; \lambda k.\lceil e\rceil_{h’}\,k\ %
+        \mathit{where}\ h’ = \overrightarrow{\left(Exn,\lambda k’.\lambda x.\lceil e’\rceil\,k’\right)}\, @\, h\\
+    %
+    \left\lceil \mathbf{raise}\,\mathit{Exn}\left(e\right) \right\rceil_h &amp;amp; = &amp;amp;\left(%
+        \begin{array}{ll}
+            \lambda k.\lceil e\rceil_h f_\mathit{Exn}  &amp;amp; \mathrm{if}\,h=h’\,@\,\left(\left(\mathit{Exn}, f_\mathit{Exn}\right) :: \mathit{tl}\right)\\
+            \mathrm{undefined} &amp;amp; \mathit{otherwise}
+        \end{array}\right.
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;オッ? いい感じな気もするが……｡&lt;/p&gt;
+&lt;h3 id=&quot;9-1-1&quot;&gt;9-1-1. 問題点&lt;/h3&gt;
+&lt;p&gt;\(\lambda\)抽象を変換したあと､その関数を使うというときに困りそうです｡
+次のようなケースを考えてみる｡&lt;/p&gt;
+&lt;div&gt;
+&lt;label id=&quot;fig:example&quot;&gt;&lt;/label&gt;
+$$
+\begin{array}{rcl}
+\begin{array}{l}
+\mathbf{let}\,f\,x=\mathbf{raise}\,\mathit{Exn}\left(x\right)\,\mathbf{in}\\
+f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x
+\end{array} &amp;amp;=&amp;amp;%
+\left(\lambda f. f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x\right)\,%
+\left(\lambda x.\mathbf{raise}\,\mathit{Exn}\left(x\right)\right)
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;関数fの中でraiseしとります｡
+&lt;a href=&quot;#fig:approx&quot;&gt;10.1&lt;/a&gt;で変換するとどうなるか……?&lt;/p&gt;
+&lt;p&gt;どうなるかというと､引数である\(\lambda\)の中のraiseをちゃんとハンドルできないので爆発します｡
+これはなぜか｡
+&lt;a href=&quot;#fig:approx&quot;&gt;10.1&lt;/a&gt;では\(\lambda\)抽象を作る際のハンドラはそのコンテキストで生まれたハンドラを使ってしまっているので､
+外側のコンテキストである関数内のhandleが作るハンドラ群を使えないのである｡&lt;/p&gt;
+&lt;h1 id=&quot;10&quot;&gt;10. 解法&lt;/h1&gt;
+&lt;p&gt;ハンドラをダイナミックにばらまくので､記述言語だけで回していくには厳しい｡&lt;/p&gt;
+&lt;h2 id=&quot;10-1-syntax&quot;&gt;10-1. syntax&lt;/h2&gt;
+&lt;p&gt;のでCPS termを拡張したい｡&lt;/p&gt;
+&lt;div&gt;
+&lt;label id=&quot;fig:syn&quot;&gt;&lt;/label&gt;
+$$
+\begin{array}{rrl}
+e_{cps} &amp;amp; ::= &amp;amp; x \mid \lambda x. e_{cps} \mid e_{cps}\, e_{cps}\\
+        &amp;amp; \mid&amp;amp; \left[\right] \\
+        &amp;amp; \mid&amp;amp; e_{cps} :: e_{cps} \mid e_{cps} @ e_{cps} \\
+        &amp;amp; \mid&amp;amp; \left(\mathit{Exn}, e_{cps} \right)\\
+        &amp;amp; \mid&amp;amp; \mathbf{lookup}(\mathit{Exn}, e_{cps})\\
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;はい&lt;/p&gt;
+&lt;h2 id=&quot;10-2&quot;&gt;10-2. 変換規則&lt;/h2&gt;
+&lt;div&gt;
+$$
+\begin{array}{c}
+    \fbox{$\lceil e\rceil=e_{cps}$}\\
+    \begin{array}{rcl}
+        \lceil \lambda x.e\rceil &amp;amp; = &amp;amp;%
+            \lambda k. \lambda h. \lambda x.\lambda k’. \lambda h’.  \lceil e\rceil\, k’\, h’\\
+        \lceil x\rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. k\,x\\
+        \lceil e_1\,e_2\rceil &amp;amp; = &amp;amp;%
+            \lambda k. \lambda h. \lceil e_1\rceil \left(\lambda f.\lceil e_2\rceil \left(\lambda a. f\,a\,k\,h\right)\, h\right)\, h\\
+        \left\lceil e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e’} \right\rceil &amp;amp; = &amp;amp;%
+            \lambda k.\lambda h. \lceil e\rceil\,k\, \left(\overrightarrow{\left(\mathit{Exn},\lambda k’.\lambda h’. \lceil e’ \rceil\, k’\,h’\right)} \,@\, h\right) \ \\
+        \left\lceil \mathbf{raise}\,\mathit{Exn}\left(e\right) \right\rceil &amp;amp; = &amp;amp; \lambda k.\lambda h. \left(\lambda f_\mathit{Exn}. \lceil e \rceil\, f_\mathit{Exn}\,f_\mathit{Exn} \right) \mathbf{lookup}\left(\mathit{Exn},h\right)
+    \end{array}
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;先程の&lt;a href=&quot;#fig:example&quot;&gt;例&lt;/a&gt;を変換してみましょう｡&lt;/p&gt;
+&lt;div&gt;
+$$
+\begin{array}{rcl}
+    \lceil e\rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. \left\lceil \lambda f. f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x \right\rceil%
+        \left(\lambda f. \left\lceil \lambda x.\mathbf{raise}\,\mathit{Exn}\left(x\right) \right\rceil \left( \lambda a. f\,a\,k\,h\right)\,h\right)\,h\\
+      &amp;amp;=&amp;amp; \lambda k.\lambda h. \left(\lambda k0.\lambda h0. \lambda f. \lambda k0’. \lambda h0’.  \left(\left(\lambda k2.\lambda h2. \left(\lambda k3.\lambda h3. k3\,f\right) \left(\lambda f’.  \left(\lambda k4.\lambda h4. k4\,m\right) \left(\lambda m’. f’\,m’\,k2\,h2 \right)\,h2 \right)\,h2\right)\, k1\, \left(\left(\mathit{Exn}, \lambda k5.\lambda h5.\lambda x. \lambda k6. \lambda h6. k6\,x\right) \,::\, h1\right)\right) \, k0’\,h0’\right) \left(\lambda f. (\lambda k7. \lambda h7. \lambda x. \lambda k7’. \lambda h7’. \left(\lambda k8. \lambda h8. \left(\lambda f_\mathit{Exn}.  \left(\lambda k9. \lambda h9. k9 x\right) f_\mathit{Exn} f_\mathit{Exn}\right) \mathbf{lookup}\left(\mathit{Exn}, h8\right)\right) k7’\,h7’)\, \left(\lambda a. f\,a\,k\,h\right)\, h \right)\,h
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;こんなもんですか? あとは作者の気持ちに沿ってrunしていくと&lt;/p&gt;
+&lt;div&gt;
+$$
+\mathit{run}\, \lceil e\rceil = \lceil e\rceil \left(\lambda k. k\right) [] = \cdots \cdots
+$$
+&lt;/div&gt;
+&lt;p&gt;あ〜〜やりたくない､これは読者の皆さんへの課題としますが､多分いい感じにハンドラが動くんでしょう｡&lt;/p&gt;
+&lt;h1 id=&quot;11-2&quot;&gt;11. おわりに(2)&lt;/h1&gt;
+&lt;p&gt;という話を明日研究室のゼミで話すかもしれない｡&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;二郎系の麺ショップ｡味が云々というより依存性が高い｡量も多い｡ &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn2&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;http://valkyriedrive.jp/anime/&quot;&gt;http://valkyriedrive.jp/anime/&lt;/a&gt; &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn3&quot;&gt;
+&lt;p&gt;Hayo Thielecke. Comparing Control Constructs by Double-Barrelled CPS &lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Sat, 23 Dec 2017 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2017/12/23/%E7%AD%8B%E8%82%89%E5%81%8F%E5%B7%AE%E5%80%A470.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2017/12/23/%E7%AD%8B%E8%82%89%E5%81%8F%E5%B7%AE%E5%80%A470.html</guid>
+        
+        <category>雑感</category>
+        
+        <category>筋肉</category>
+        
+        <category>WORD</category>
+        
+        <category>CPS</category>
+        
+        
+      </item>
     
       <item>
         <title>LaTeXライティング</title>
@@ -1688,116 +1887,6 @@ Typed LuaやFlowtype､Pythonの型アノテーション､といった型の面
         <category>Typed Racket</category>
         
         <category>pfds</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>5年次､Typed Racket</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
-気づけば5年次4年生になりました｡
-ようやく卒研フェーズになったので､ね｡&lt;/p&gt;
-&lt;p&gt;あとバイトの時給や労働可能時間&lt;sup id=&quot;fnref1&quot; title=&quot;フレックスタイム制なので適当に行って適当に帰る､また1ヶ月n時間まで働いてOKという上限がある｡ &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;が上がったりして金が手に入る分余計に労働を重ねてしまうようになったが金は手に入った｡
-また&lt;a href=&quot;http://nymphium.github.io/2016/09/26/10%E6%9C%88%E3%81%AE%E6%B1%BA%E6%84%8F.html&quot;&gt;毎週焼肉月間&lt;/a&gt;などをやりたいぜ｡&lt;/p&gt;
-&lt;p&gt;もう少し序文を書こうと思ったけど特に無いので終わり｡&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&quot;typed-racket&quot;&gt;Typed Racket&lt;/h1&gt;
-&lt;p&gt;最近はRacketの､特にTyped Racketという物体を書き始めたので､ちょっとやっていきたいと思います｡
-動機としては､なんとなくマクロに興味を持って､マクロといえばLispやろなぁということですね｡
-身近にはschemeでポエムを書くwasao君やEmacsに生かされているリザウド君などがいるのでそういった毒電波の影響を無意識のうちに受けていたという可能性もあります｡&lt;/p&gt;
-&lt;p&gt;で､なんやかんやでRacketを書こうとなったところで色々漁ってみたらTyped Racketという言語に出会ったわけですね｡&lt;/p&gt;
-&lt;p&gt;&lt;/p&gt;&lt;center&gt;
-&lt;a href=&quot;https://github.com/racket/typed-racket&quot;&gt;racket/typed-racket&lt;/a&gt;
-&lt;/center&gt;
-&lt;p&gt;これもマクロによるcore Racketの拡張なんですねぇ｡
-数日前にPerlのソースフィルターという機能を知って(Perl5を書いたことは1回もない)､それで型を突っ込んでいくみたいなことを話したあとだったので､それにだいぶ近いというかほとんど同じだなと思った｡ &lt;/p&gt;
-&lt;h2 id=&quot;occurrence-typing&quot;&gt;Occurrence Typing&lt;/h2&gt;
-&lt;p&gt;さて､Typed Racketは&lt;em&gt;Occurrence typing&lt;/em&gt;という型付け規則を採用している｡
-簡単にいうと､ある変数&lt;code&gt;x&lt;/code&gt;に関して型情報がわかりそうなconditionalがあると､その後のbodyにその型情報が伝播するようだ｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;flexible-length&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;U&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Listof&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;flexible-length&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;str-or-lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;string?&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;str-or-lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;string-length&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;str-or-lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;str-or-lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;(&lt;a href=&quot;https://docs.racket-lang.org/ts-guide/occurrence-typing.html&quot;&gt;5.1 Basic Occurrence Typing&lt;/a&gt;より引用)&lt;/p&gt;
-&lt;p&gt;型注釈のシンタックスもLispのそれのように後置記法となっているため､ちょっと混乱する｡
-余談だが､arityが0の関数(&lt;code&gt;fun () -&amp;gt; a&lt;/code&gt;的な)の型は&lt;code&gt;(-&amp;gt; R)&lt;/code&gt;など､独特な空気がある｡&lt;/p&gt;
-&lt;p&gt;さて､example codeに戻る｡
-&lt;code&gt;flexible-length&lt;/code&gt;はStringと(Listof Any)のUnion型をとり､Integerを返す｡
-if構文の中で､String型のときとそうでないときに分かれている｡
-このif構文の中で&lt;code&gt;str-or-list&lt;/code&gt;を型が異なる関数に適用させても全体として型が一致するのは､このOccurrence Typingによる型情報の伝播のおかげ､とのこと｡&lt;/p&gt;
-&lt;h2 id=&quot;pros&quot;&gt;pros&lt;/h2&gt;
-&lt;p&gt;型のないRacketないしはLispを知らないので､なかった頃との比較はできない｡
-ただわりとイケる感じがある(雑)｡&lt;/p&gt;
-&lt;h2 id=&quot;cons&quot;&gt;cons&lt;/h2&gt;
-&lt;p&gt;やはりデータ型の定義が難点ですね｡
-たとえばよくあるOptional型だと&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;define-type&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Optional&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;U&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;struct:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;struct:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;None&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;のように書くことになる｡
-OCamlやHaskellと比べるとあまりにも…という感じですが､Typed Racketのデータ型の実態としてはまさに書いたとおりstructureのUnionですからねぇ…けどねぇ…｡
-やはりデータ型を定義するときは&lt;code&gt;define-datatype&lt;/code&gt;みたいなマクロを作ってstructureの定義は隠蔽したいものです｡&lt;/p&gt;
-&lt;h3 id=&quot;2017-04-16&quot;&gt;追記 2017/04/16&lt;/h3&gt;
-&lt;p&gt;ずばりなものを実装している人がおりました｡
-&lt;a href=&quot;https://lexi-lambda.github.io/blog/2015/12/21/adts-in-typed-racket-with-macros/&quot;&gt;ADTs in Typed Racket with macros&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;これにより良い感じになる｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;define-datatype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Optional&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                 &lt;span class=&quot;nv&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;define-datatype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Either&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;L&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Left&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Right&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;ただ､各structureに&lt;code&gt;#:transparent&lt;/code&gt;(Haskellなどにおける&lt;code&gt;deriving Show&lt;/code&gt;に&lt;em&gt;働きとしては&lt;/em&gt;近い)など､オプションを渡すことができないため､もう少し工夫が必要になるだろう｡&lt;/p&gt;
-&lt;h2 id=&quot;syntastic&quot;&gt;Syntasticと罠&lt;/h2&gt;
-&lt;p&gt;みなさんVimはお使いかと思いますが､Syntasticも使っているはずですね｡
-Syntasticがあると型の不一致もちゃんと怒ってくれている…のですが…｡
-SyntasticのRacket syntastic checkerはデフォルトでは&lt;code&gt;racket&lt;/code&gt;コマンドをただ叩いているだけ…つまりファイルを実行してしまっているんですね｡最悪です｡&lt;/p&gt;
-&lt;p&gt;これはさすがにマズイということで&lt;code&gt;raco expand&lt;/code&gt;でマクロを展開するだけにさせました｡
-Typed Racketはマクロ展開時に型チェックをおこなうというタイプのものなのでこれでOK｡&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;~/.vim/bundle/syntastic/syntax_checker/racket.vim&lt;/code&gt;をちょいと拝借してちょいちょい変えて､特に以下を追加する｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-vim&quot; data-lang=&quot;vim&quot;&gt;&lt;span class=&quot;c&quot;&gt;&quot; ここでコマンドにサブコマンドを渡す&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; makeprg &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; self&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;makeprgBuild&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-&lt;span class=&quot;se&quot;&gt;    \&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'args_before'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'expand'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;これで適当にガッとやって終わりや｡
-そのうちSyntasticにprなどをサッと打ちたい｡&lt;/p&gt;
-&lt;h3 id=&quot;2017-04-16&quot;&gt;追記 2017/04/16&lt;/h3&gt;
-&lt;p&gt;やっていきをした &lt;a href=&quot;https://github.com/vim-syntastic/syntastic/pull/2001&quot;&gt;vim-syntastic/syntastic PR #2001&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;“&lt;em&gt;Typed&lt;/em&gt;” Racketとしてみるとなんともいえない感じを残しましたが､Racketはなかなかおもしろい言語だと思いました｡
-モジュールシステムや協力でhygenicなマクロ…｡Luaと比べては何もかもが高機能…｡
-ファイル先頭に書く&lt;code&gt;#lang hogehoge&lt;/code&gt;というものでファイル内をhogehogeというモジュールにあるmacro expanderで展開していきcore Racketに落とすという手法はなかなか渋い｡
-そのため&lt;a href=&quot;https://docs.racket-lang.org/datalog/index.html&quot;&gt;Prologのような論理型言語&lt;/a&gt;が書けてしまったりする｡&lt;/p&gt;
-&lt;p&gt;この&lt;a href=&quot;https://arxiv.org/abs/1511.07033&quot;&gt;Occurrence TypingにRefinement Typeを合わせる&lt;/a&gt;といった試みもあり､今後も見守っていきたい｡&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;この語に及んでな〜〜に言語を取得しようとしてるんだ､大丈夫か…｡
-漫画や小説､技術書まで積んでしまっている､お前の人生も詰んでいる､つまりはそういうこと…｡&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-
-&lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;フレックスタイム制なので適当に行って適当に帰る､また1ヶ月n時間まで働いてOKという上限がある｡ &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-        <pubDate>Wed, 05 Apr 2017 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2017/04/05/5th.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2017/04/05/5th.html</guid>
-        
-        <category>雑感</category>
-        
-        <category>Racket</category>
-        
-        <category>Typed Racket</category>
-        
-        <category>Vim</category>
         
         
       </item>
