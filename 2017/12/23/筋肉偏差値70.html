@@ -61,7 +61,7 @@ MathJax.Hub.Config({
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡これは<a href="https://adventar.org/calendars/2573">WORD Advent Calendar 2017</a>の記事です｡</p>
-<p>12月23日といえば昭和天皇の誕生日!!!! みんなで祝いましょう｡
+<p>12月23日といえば今上天皇の誕生日!!!! みんなで祝いましょう｡
 この日はめでたいなぁ､国民の祝日にしましょう｡</p>
 <h1 id="word">WORDとは何か</h1>
 <p></p><center>
@@ -104,6 +104,8 @@ e  &amp; ::= &amp; x\mid \lambda x.e \mid e\,e\\
 \end{array}
 $$
 </div>
+<p>\(e\,\mathbf{handle} \overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)は実質\(\mathbf{try}\,e\,\mathbf{with}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)ですね｡
+操作的意味論は君の中に既にあるはずだ｡</p>
 <h1 id="8-double-barreled-cps">8. Double-Barreled CPS</h1>
 <p>既存の手法としてDouble-Barreled CPSというものが知られています<sup id="fnref3" title="Hayo Thielecke. Comparing Control Constructs by Double-Barrelled CPS "><a href="#fn3" rel="footnote">3</a></sup>｡
 継続ともう一つ例外処理に対応する関数､つまりdouble-barreledなCPSを作ります｡</p>
@@ -165,10 +167,10 @@ f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x
 $$
 </div>
 <p>関数fの中でraiseしとります｡
-<a href="#fig:approx">10.1</a>で変換するとどうなるか……?</p>
+<a href="#fig:approx">9.1</a>で変換するとどうなるか……?</p>
 <p>どうなるかというと､引数である\(\lambda\)の中のraiseをちゃんとハンドルできないので爆発します｡
 これはなぜか｡
-<a href="#fig:approx">10.1</a>では\(\lambda\)抽象を作る際のハンドラはそのコンテキストで生まれたハンドラを使ってしまっているので､
+<a href="#fig:approx">9.1</a>では\(\lambda\)抽象を作る際のハンドラはそのコンテキストで生まれたハンドラを使ってしまっているので､
 外側のコンテキストである関数内のhandleが作るハンドラ群を使えないのである｡</p>
 <h1 id="10">10. 解法</h1>
 <p>ハンドラをダイナミックにばらまくので､記述言語だけで回していくには厳しい｡</p>
@@ -211,7 +213,7 @@ $$
 \begin{array}{rcl}
     \lceil e\rceil &amp; = &amp; \lambda k. \lambda h. \left\lceil \lambda f. f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x \right\rceil%
         \left(\lambda f. \left\lceil \lambda x.\mathbf{raise}\,\mathit{Exn}\left(x\right) \right\rceil \left( \lambda a. f\,a\,k\,h\right)\,h\right)\,h\\
-      &amp;=&amp; \lambda k.\lambda h. \left(\lambda k0.\lambda h0. \lambda f. \lambda k0’. \lambda h0’.  \left(\left(\lambda k2.\lambda h2. \left(\lambda k3.\lambda h3. k3\,f\right) \left(\lambda f’.  \left(\lambda k4.\lambda h4. k4\,m\right) \left(\lambda m’. f’\,m’\,k2\,h2 \right)\,h2 \right)\,h2\right)\, k1\, \left(\left(\mathit{Exn}, \lambda k5.\lambda h5.\lambda x. \lambda k6. \lambda h6. k6\,x\right) \,::\, h1\right)\right) \, k0’\,h0’\right) \left(\lambda f. (\lambda k7. \lambda h7. \lambda x. \lambda k7’. \lambda h7’. \left(\lambda k8. \lambda h8. \left(\lambda f_\mathit{Exn}.  \left(\lambda k9. \lambda h9. k9 x\right) f_\mathit{Exn} f_\mathit{Exn}\right) \mathbf{lookup}\left(\mathit{Exn}, h8\right)\right) k7’\,h7’)\, \left(\lambda a. f\,a\,k\,h\right)\, h \right)\,h
+      &amp;=&amp; \lambda k.\lambda h. \left(\lambda k_0.\lambda h_0. \lambda f. \lambda k_0’. \lambda h_0’.  \left(\left(\lambda k_2.\lambda h_2. \left(\lambda k_3.\lambda h_3. k_3\,f\right) \left(\lambda f’.  \left(\lambda k_4.\lambda h_4. k_4\,m\right) \left(\lambda m’. f’\,m’\,k_2\,h_2 \right)\,h_2 \right)\,h_2\right)\, k_1\, \left(\left(\mathit{Exn}, \lambda k_5.\lambda h_5.\lambda x. \lambda k_6. \lambda h_6. k_6\,x\right) \,::\, h_1\right)\right) \, k_0’\,h_0’\right) \left(\lambda f. (\lambda k_7. \lambda h_7. \lambda x. \lambda k_7’. \lambda h_7’. \left(\lambda k_8. \lambda h_8. \left(\lambda f_\mathit{Exn}.  \left(\lambda k_9. \lambda h_9. k_9 x\right) f_\mathit{Exn} f_\mathit{Exn}\right) \mathbf{lookup}\left(\mathit{Exn}, h_8\right)\right) k_7’\,h_7’)\, \left(\lambda a. f\,a\,k\,h\right)\, h \right)\,h
 \end{array}
 $$
 </div>
