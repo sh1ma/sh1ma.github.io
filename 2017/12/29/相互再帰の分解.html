@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>相互再帰の分解 &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="相互再帰の分解">
+    <meta name="twitter:title" content="相互再帰の分解"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2017/12/29/%E7%9B%B8%E4%BA%92%E5%86%8D%E5%B8%B0%E3%81%AE%E5%88%86%E8%A7%A3.html"> 
+    <meta name="twitter:description" content="相互再帰とは">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <meta name="description" content="相互再帰とは">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="https://nymphium.github.io/2017/12/29/%E7%9B%B8%E4%BA%92%E5%86%8D%E5%B8%B0%E3%81%AE%E5%88%86%E8%A7%A3.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">相互再帰の分解</h1>
+            <span class="post-meta">
+              <time datetime="2017-12-29T00:00:00+09:00" itemprop="datePublished">Dec 29, 2017</time>
+              <p>tag: &#123;<a href="/tags.html#OCaml-ref">OCaml</a>, <a href="/tags.html#関数-ref">関数</a>&#125;</p>
+            </span>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
+});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="part-3ef36be7cf2c473">相互再帰とは</h1>
+<p><a href="https://ja.wikipedia.org/wiki/%E7%9B%B8%E4%BA%92%E5%86%8D%E5%B8%B0">https://ja.wikipedia.org/wiki/%E7%9B%B8%E4%BA%92%E5%86%8D%E5%B8%B0</a></p>
+<p>了解!!!</p>
+<h1 id="example">example</h1>
+<p>上記のウィキピージャの例を用いる｡
+OCamlで表現するならこんな感じだろうか｡</p>
+<div class="highlight">
+<span class="listing-name">example</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">a</span> <span class="n">x</span> <span class="o">=</span>
+  <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="k">then</span> <span class="mi">1</span>
+  <span class="k">else</span>
+    <span class="n">b</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+<span class="ow">and</span> <span class="n">b</span> <span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span>
+</code></pre>
+</div>
+<p><code>a</code>と<code>b</code>が相互再帰となっている｡</p>
+<p><code>a</code>と<code>b</code>は<code>and</code>キーワードで同時に定義しないといけないんだろうか?</p>
+<h1 id="part-65427f6cd2a">分解</h1>
+<p><code>a</code>を定義するなら､<code>b</code>を外から受け取って使い､<code>b</code>もまた逆を考えてみる｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">gen_a</span> <span class="n">b</span> <span class="n">x</span> <span class="o">=</span>
+  <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="k">then</span> <span class="mi">1</span>
+  <span class="k">else</span>
+    <span class="n">b</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">let</span> <span class="n">gen_b</span> <span class="n">a</span> <span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span>
+</code></pre></div>
+<p>レッツ結合!</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">a'</span> <span class="n">x</span> <span class="o">=</span> <span class="n">gen_a</span> <span class="o">...?</span>
+</code></pre></div>
+<p>ちょっとまって､<code>b</code>が無いやん! <code>b</code>が欲しくて分解したのに……｡</p>
+<h2 id="part-9622ee2d3edec720">結合の解法</h2>
+<p><code>b</code>を作るには<code>a</code>が必要､しかし<code>a</code>を作るには<code>b</code>が必要､なら俺達はどうすればいい?</p>
+<p>ああそうか､<code>a</code>の定義に<code>b</code>が必要なら<code>b</code>を作ればいい､<code>b</code>は<code>a</code>が必要だが､再帰関数の中に<code>a</code>は存在できるから</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">a'</span> <span class="n">x</span> <span class="o">=</span> <span class="n">gen_a</span> <span class="p">(</span><span class="n">gen_b</span> <span class="n">a</span><span class="p">)</span> <span class="n">x</span>
+<span class="k">let</span> <span class="n">b'</span> <span class="n">x</span> <span class="o">=</span> <span class="n">gen_b</span> <span class="n">a'</span> <span class="n">x</span>
+</code></pre></div>
+<p>OK!!!!!!!!!!!!!</p>
+<h1 id="part-65422eac633">ほか</h1>
+<p>この分解は<em>必ず</em>可能なんですか?
+ご連絡ください｡</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2017/12/23/%E7%AD%8B%E8%82%89%E5%81%8F%E5%B7%AE%E5%80%A470.html" title="筋肉偏差値70">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <span class="btn next disabled">Next &rarr;</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
