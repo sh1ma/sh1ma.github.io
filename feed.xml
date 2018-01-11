@@ -5,9 +5,47 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 29 Dec 2017 14:48:27 +0900</pubDate>
-    <lastBuildDate>Fri, 29 Dec 2017 14:48:27 +0900</lastBuildDate>
-    <generator>Jekyll v3.6.2</generator>
+    <pubDate>Thu, 11 Jan 2018 15:52:37 +0900</pubDate>
+    <lastBuildDate>Thu, 11 Jan 2018 15:52:37 +0900</lastBuildDate>
+    <generator>Jekyll v3.7.0</generator>
+    
+      <item>
+        <title>大学院における日本学生支援機構の奨学金</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
+絶賛胃炎中で食事が老人並みになりました｡
+新年あけまして暴飲が悪かったのか､ちょっと生っぽくて洗剤の味がした肉が悪かったのか､はたまた卒論によるストレスかー
+とはいえ平時よりも少ない量の食事で動けるので燃費が良くなった､と思っていたが鏡を見ると頬が痩けた男が写っていてビビりました｡&lt;/p&gt;
+&lt;h1 id=&quot;part-2a064f37de75b4c9&quot;&gt;はじめに&lt;/h1&gt;
+&lt;p&gt;びしょ〜じょ君は1､2年次でテンプレ的なダメ学生を謳歌し､無事留年しました｡
+留年確定の年の終わりに日本学生支援機構から借りていた奨学金も廃止されました｡
+3年次以降は気を改めて講義に臨んだが､どうしても取れない単位があったり興味がないのでギリギリまで手を抜いたりなどしてGPA&lt;sup id=&quot;fnref1&quot; title=&quot;Grade Point Averageのアクロニム｡簡単にいうと成績を数値化したもの｡ &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;が芳しくなかった｡
+さて､大学院で新たにびしょ〜じょ君は日本学生支援機構から奨学金を借りることができるのだろうか?&lt;/p&gt;
+&lt;h1 id=&quot;part-2a00357080695c85&quot;&gt;おわりに&lt;/h1&gt;
+&lt;p&gt;できた(完)&lt;/p&gt;
+&lt;p&gt;しかも間口の広い第2種ではなく､無利子の第1種である｡
+どうやら学部の成績は加味されないようだ｡
+重要な点は､先生に素晴らしい推薦書を書いてもらえるかどうかのようだ｡&lt;/p&gt;
+&lt;p&gt;学部で奨学金廃止されたみなさんも､大学院では再度借りることができるので､借金地獄を味わってください｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;(サンプル数: 1)&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;Grade Point Averageのアクロニム｡簡単にいうと成績を数値化したもの｡ &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Thu, 11 Jan 2018 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2018/01/11/%E5%A4%A7%E5%AD%A6%E9%99%A2%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%97%A5%E6%9C%AC%E5%AD%A6%E7%94%9F%E6%94%AF%E6%8F%B4%E6%A9%9F%E6%A7%8B%E3%81%AE%E5%A5%A8%E5%AD%A6%E9%87%91.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2018/01/11/%E5%A4%A7%E5%AD%A6%E9%99%A2%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%97%A5%E6%9C%AC%E5%AD%A6%E7%94%9F%E6%94%AF%E6%8F%B4%E6%A9%9F%E6%A7%8B%E3%81%AE%E5%A5%A8%E5%AD%A6%E9%87%91.html</guid>
+        
+        <category>雑感</category>
+        
+        
+      </item>
     
       <item>
         <title>相互再帰の分解</title>
@@ -402,8 +440,8 @@ BibTeXやrefererence関係などをエイヤッとやってくれる偉い人で
 &lt;span class=&quot;listing-name&quot;&gt;Makefile&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-make&quot; data-lang=&quot;make&quot;&gt;&lt;span class=&quot;nv&quot;&gt;MAKE&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; make
 &lt;span class=&quot;nv&quot;&gt;LATEXMK&lt;/span&gt;      &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; latexmk
 &lt;span class=&quot;nv&quot;&gt;LATEXMKFLAG&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-halt-on-error&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;CP&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cp
-&lt;span class=&quot;nv&quot;&gt;RM&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; rm
+&lt;span class=&quot;nv&quot;&gt;CP&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;RM&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt;
 
 &lt;span class=&quot;nv&quot;&gt;SRC&lt;/span&gt;          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; main
 
@@ -543,7 +581,7 @@ syntax.mlみたいなファイルにデータタイプを定義して､その�
 ocamlyaccよりも高機能で､menhirコマンドにも多くの便利オプションがあります｡&lt;/p&gt;
 &lt;h2 id=&quot;3-1&quot;&gt;3-1. セッション&lt;/h2&gt;
 &lt;p&gt;まずMenhirをインストールしてください｡OPAMやOSのパッケージマネージャーを使ってください｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; opam install menhir
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; opam &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;menhir
 &lt;span class=&quot;gp&quot;&gt;#&lt;/span&gt; とか
 &lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; yaourt &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt; ocaml-menhir &lt;span class=&quot;c&quot;&gt;# Archには公式リポジトリーに入ってない! 残念&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -1536,105 +1574,6 @@ CSSいじるほうが時間かかりました｡
         <category>雑感</category>
         
         <category>jekyll</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>T470sの下ArchとWin10が同棲、しかし愛の巣が崩壊</title>
-        <description>&lt;p&gt;こんにちは、びしょ〜じょです。
-PFDSをTyped Racketで実装するやつをもう少し進めたいですが、なんとなく億劫という諸般の事情やその他でやってないです。
-卒研テーマを決めるリミットはあと2週間です。良いですね。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&quot;part-b8a9993&quot;&gt;序&lt;/h1&gt;
-&lt;p&gt;さて、前回冒頭でノートPCがあれやこれやした話を書きました。
-で、血縁者にノートPCを新たに買ってもらいました。これが生殖の力です。&lt;/p&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;血縁者による提供最高、つまり生殖は善です。 &lt;a href=&quot;https://t.co/tmm1z5Rnc5&quot;&gt;pic.twitter.com/tmm1z5Rnc5&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/870867212692627456?ref_src=twsrc%5Etfw&quot;&gt;June 3, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;ナウい伝票 &lt;a href=&quot;https://t.co/SKd4eN6gNe&quot;&gt;pic.twitter.com/SKd4eN6gNe&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/870874192526196737?ref_src=twsrc%5Etfw&quot;&gt;June 3, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;p&gt;この寿司とナウい伝票はアキヨドの9階? でご覧に入れられます。
-味はくら寿司の1.2倍、値段は2倍強。くら寿司でいっぱい食べたほうがいいね。築地に行こうね。&lt;/p&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;文脈を無視して自分の言いたいことを言うようなことをしない社会性の高い人間なので、「Windowsをふっとばす」などの狂言を用いずに無事ノートpcを購入した。&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/870893249451311104?ref_src=twsrc%5Etfw&quot;&gt;June 3, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;p&gt;つまりノートピッシはアキヨドで買いました。&lt;/p&gt;
-&lt;p&gt;結局レノボを選んでしまいました。T470sです。WQHD以上で15万くらいなら、と探すと本当にマッキかThinkpadしかなくて異常な世の中です。
-マッキは論外なのでT470sにしました、ストレージはNVMeの256GB、メモリが12GBで嬉しいわーいわーい、これならChromeでウェブブラウジングしてもメモリ2/3は使えるわけです。アホくさ。&lt;/p&gt;
-&lt;p&gt;さて、カスタムオーダーなので注文してしばらくしてからアパートに届いた。
-ところで研究室の先生がオヒス製品やアドベ製品を大学ライセンスで研究室の民々に適宜配布しており、曰く「先に入れておくかヤバくなってから入れるかではだいぶ違う」とのことで、Winは生き残らせたいという気持ちがふつふつと湧いた。&lt;/p&gt;
-&lt;p&gt;はいArchLinuxを入れる手順を上から順番に! 走って!&lt;/p&gt;
-&lt;h1 id=&quot;part-b8a9ee0&quot;&gt;破&lt;/h1&gt;
-&lt;h2 id=&quot;part-8381d746ef86e191&quot;&gt;インストーラーの起動&lt;/h2&gt;
-&lt;p&gt;BIOSからF12連打で華麗にインストーラー起動といきたいところだったが、素のままではsecure bootがenabledなので起動できない。
-secure bootをdisabledにすると晴れてインストーラーが起動する。&lt;/p&gt;
-&lt;p&gt;ブートローダーを入れたあとの話をすると、secure bootを切ったままWinを起動するとBitLockerに怒られ、1億桁くらいの回復キーを打つ羽目になる。
-セキュリティー意識が希薄な人やBitLockerのちからを信じていない人はここでBitLockerをdisabledにすると話がかんたんに進む。&lt;/p&gt;
-&lt;h2 id=&quot;part-3a54c7ceca5d81fa&quot;&gt;パーティション関係&lt;/h2&gt;
-&lt;p&gt;さて、いよいよというところだがパーティションを切るところで出鼻をくじかれた。
-&lt;code&gt;/dev/nvme0n1p&lt;/code&gt;って何やねん殺すぞ…。&lt;/p&gt;
-&lt;p&gt;そもそもWinで使い切ってるので縮小させなければならない。適当に100GBくらいもらっていく。
-気を取り直して&lt;code&gt;/dev/nvme0n1p&lt;/code&gt;みたいな名前のデバイスをスパっとやっていく。&lt;code&gt;/dev/nvme0n1p1&lt;/code&gt;あたりがEFIパーティションだった気がするので、&lt;code&gt;/mnt/boot&lt;/code&gt;にマウントや。
-あとはいつも通りだ。ブートローダーは例によってrEFIndを使用した。&lt;/p&gt;
-&lt;p&gt;これでWinとArchが共存した。共有ディレクトリーみたいなものは作ってない。
-あえて言うなら&lt;code&gt;/boot&lt;/code&gt;だが、そんなことせんでもWinパーティションを適当にマウントしてスッとファイルを置いておけばいいので問題ない。
-WinからArchに何か渡したいということはまずなさそう。&lt;/p&gt;
-&lt;h2 id=&quot;i3lock&quot;&gt;i3lock&lt;/h2&gt;
-&lt;p&gt;ノートPCの画面ロックにはi3lockを使っていた。が、v2.9(このときの最新)とかみ合わせが悪いのか、i3lockを実行してパスワードを打っていくととにかくモッサリして使い物にならない。
-仕方なくv2.8をインストールする。こういったことは初めてなので、メモする…までもない。Arch wikiに全部書いてある。でも書いてしまう。人は。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://archive.archlinux.org/packages/&quot;&gt;パッケージアーカイブ&lt;/a&gt;から探していく。
-&lt;code&gt;i3lock-2.8-1-x86_64.pkg.tar.xz&lt;/code&gt;を適当な場所に起き、&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pacman &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; i3lock-2.8-1-x86_64.pkg.tar.xz
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;はい、ただ&lt;code&gt;-U&lt;/code&gt;オプションだけです。Qiitaならこれだけで投稿してるね。&lt;/p&gt;
-&lt;p&gt;他にはT470s特有の、という感じのものはなかった。
-ただdropboxが公式リポジトリー入りを果たしており、systemd経由でデーモンを動かしてjournalctlでログを見ないとサインインできないという難易度調整などはあった。&lt;/p&gt;
-&lt;p&gt;ところでほぼ同時期にT470sを買ってる人を数人見かけたので面白かった。&lt;/p&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;書いた&lt;br&gt;Thinkpad T470sにArch Linuxいれた - こくたんのーと &lt;a href=&quot;https://t.co/S66McTKEh8&quot;&gt;https://t.co/S66McTKEh8&lt;/a&gt;&lt;/p&gt;— こくたん (@cocu_tan) &lt;a href=&quot;https://twitter.com/cocu_tan/status/874938147062206466?ref_src=twsrc%5Etfw&quot;&gt;June 14, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;h1 id=&quot;part-b8a9670&quot;&gt;急&lt;/h1&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;T470sが届いて１日で壊れた。手が滑って思いっきり床に叩きつけられてしまった。奇しくも同じ場所がぶち壊れた。&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/875282937079504897?ref_src=twsrc%5Etfw&quot;&gt;June 15, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Lenovoのサポートを即受けたいのでシリアルナンバーをぶち込んだんだけどサポートページのレスポンスがカス未満で無限に腹が立ってくるな。ヨドバシでヒンジの強度を再三再四確認したのに即壊れたのでヨドバシ店員もムカついてきた。ということです。&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/875287354923143168?ref_src=twsrc%5Etfw&quot;&gt;June 15, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;p&gt;これが世の中。
-とりあえずwebで修理依頼のページに行けたので、依頼に「最近のThinkPadはマジでカス IBMに返してこい（意訳）」という熱い読者メッセージを添えて送った。
-これで対応が早くなるかもしれない、あるいはならないかもしれない。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;ところでPCをまたもや破壊したときと日を同じくし、C社の人々が低温調理した肉を持って大学に来てたのが面白かった。
-なんの肉か聞かずに食べたがどれも美味しかった。さすがC社だ。ごちそうさまでした。&lt;/p&gt;
-&lt;p&gt;2大学をまたぎ10年くらい学部生をやっていた先輩やボクより遅く入学し退学していった後輩が元気だったのでよかった。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;最近百合を忘れている。input methodも一発で&quot;ゆり&quot;から&quot;百合&quot;が出てこなかった。百合ってなに…？
-もしかしたら初心に戻れるかもしれない｡でも､百合の初心ってなに…?&lt;/p&gt;</description>
-        <pubDate>Fri, 16 Jun 2017 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2017/06/16/t470s_with_win10.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2017/06/16/t470s_with_win10.html</guid>
-        
-        <category>雑感</category>
         
         
       </item>
