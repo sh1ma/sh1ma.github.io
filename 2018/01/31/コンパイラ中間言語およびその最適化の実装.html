@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>コンパイラ中間言語およびその最適化の設計と実装 &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="コンパイラ中間言語およびその最適化の設計と実装">
+    <meta name="twitter:title" content="コンパイラ中間言語およびその最適化の設計と実装"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2018/01/31/%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E4%B8%AD%E9%96%93%E8%A8%80%E8%AA%9E%E3%81%8A%E3%82%88%E3%81%B3%E3%81%9D%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AE%E5%AE%9F%E8%A3%85.html"> 
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="https://nymphium.github.io/2018/01/31/%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E4%B8%AD%E9%96%93%E8%A8%80%E8%AA%9E%E3%81%8A%E3%82%88%E3%81%B3%E3%81%9D%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AE%E5%AE%9F%E8%A3%85.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">コンパイラ中間言語およびその最適化の設計と実装</h1>
+            <span class="post-meta">
+              <time datetime="2018-01-31T00:00:00+09:00" itemprop="datePublished">Jan 31, 2018</time>
+              <p>tag: &#123;<a href="/tags.html#OCaml-ref">OCaml</a>, <a href="/tags.html#卒研-ref">卒研</a>, <a href="/tags.html#最適化-ref">最適化</a>, <a href="/tags.html#コンパイラ-ref">コンパイラ</a>&#125;</p>
+            </span>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
+});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡
+年明けに買った対洗濯物用乾燥機のおかげで窓を開けたりカーテンレールにハンガーを吊るす日々が終わりました｡
+ところで2月分の電気代はすでに1月分を越えようとしています｡</p>
+<hr>
+<h1 id="1">1. はじめに</h1>
+<p>今年は4年次なので卒業研究! ということでjoin pointを追加したコンパイラ中間言語の設計と､その上での最適化を定義してやっていきました｡
+実装はこちら</p>
+<div class="github-widget" data-repo="nymphium/joel"></div>
+<p>卒研発表をスライドを作るためにも､何をしたかを噛み砕いて文に起こしてみたいと思います｡</p>
+<h1 id="2">2. 関連研究</h1>
+<p>PLDI 2017で『Compiling without Continuations』<sup id="fnref1" title="Luke Maurer, et al. Compiling without Continuations. https://dl.acm.org/citation.cfm?id=3062380 "><a href="#fn1" rel="footnote">1</a></sup>という発表がありました｡
+継続の緑の本をもじったタイトルですが､CPSと直接戦っている感じではないです｡
+join pointと呼ばれるものを明示的に扱うことでコードサイズの爆発を抑えたり高速に動作するターゲット言語に変換しようという試みです｡</p>
+<h2 id="2-1-join-point">2-1. join pointとは</h2>
+<p>プログラム<a href="#joinpoint-example">2.1</a>における分岐した制御フローが合流する場所をjoin pointと呼ぶ｡
+あるいは制御フローグラフ<a href="#cfg">2.2</a>の赤点で囲んだ部分｡</p>
+<div class="highlight">
+<span class="listing-name">プログラム<a href="#joinpoint-example">2.1</a> join point example</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">j4</span> <span class="n">x</span> <span class="o">=</span> <span class="n">e4</span> <span class="k">in</span> <span class="k">let</span> <span class="n">j5</span> <span class="n">y</span> <span class="o">=</span> <span class="n">e5</span> <span class="k">in</span>
+  <span class="k">if</span> <span class="n">e1</span> <span class="k">then</span> <span class="p">(</span><span class="k">if</span> <span class="n">e2</span> <span class="k">then</span> <span class="n">j4</span> <span class="n">m</span> <span class="k">else</span> <span class="n">j5</span> <span class="n">n</span>
+  <span class="k">else</span> <span class="p">(</span><span class="k">if</span> <span class="n">e3</span> <span class="k">then</span> <span class="n">j4</span> <span class="n">o</span> <span class="k">else</span> <span class="n">j5</span> <span class="n">p</span><span class="p">)</span>
+</code></pre>
+</div>
+<p></p><center>
+<img src="/pictures/2018-01-31-%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E4%B8%AD%E9%96%93%E8%A8%80%E8%AA%9E%E3%81%8A%E3%82%88%E3%81%B3%E3%81%9D%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AE%E5%AE%9F%E8%A3%85/cfg.png" alt="cfg.png">
+<label id="cfg"></label>
+図<a href="#cfg">2.2</a> 制御フローグラフ
+</center>
+<p>CPSでは継続になるし､ANFではコード複製で表現することになる｡
+ここで最適化するとコードサイズがボワーっとなってしまう｡
+そこでMaurerらは\(\text{System F}_J\)という､合流点を明示的に扱う中間言語を提案した｡
+合流点を用いることでコードサイズの爆発が抑えられ､さらに再帰的な合流点を用いることでstream fusionができることを示した｡</p>
+<p>しかしSystem Fjは純粋な必要呼びの､Haskellのような言語を対象としたコンパイラ中間言語として設計されたので､ジャバなどの広く使われているプログラム言語とはギャップがある｡</p>
+<h1 id="3">3. 本研究</h1>
+<p>System Fjとその困った点を踏まえて､非純粋な値呼びの､明示的な合流点を持つコンパイラ中間言語\(Joel\)を提案する｡
+非純粋性として､多くのプログラム言語で使われており､合流点と競合しそうなコントロールエフェクトを持っている例外を追加した｡</p>
+<p>例外を考慮した最適化を定義した｡
+評価コンテキストをばらまく､commuting conversionの一種である最適化がtry-with式の位置を変えてトライキャッチプリキュアのメタモルフォーゼに失敗してプログラムの意味が変わってしまうのを防ぐために､
+try-with式の含まれない評価コンテキストを新たに定義し､最適化規則に用いた｡</p>
+<h1 id="4">4. 性能評価</h1>
+<p>Joel上の最適化を評価するため､CPS上で最適化されて生成されたターゲット言語との比較をおこなった｡
+ソース言語にはOCamlのサブセットであるCore MLを新たに定義し､!!!!ターゲット言語はOCamlとした｡!!!!
+これがあまりよくなかった｡</p>
+<p>CPSも､Double-Barreled CPSをもとに複数の例外をハンドルできるような体系を新たに定義した｡</p>
+<p>stream fusionがうまくいったけど全然速くならなかったという結果でした(<a href="https://github.com/Nymphium/joel/blob/bachelor_thesis_poc/test/benchmark/benchmark.ml#L60">このへんの例</a>)｡
+予備実験をすべきでしたが､つまるところ以下の例がOCamlではほとんど同じ速度で実行されます｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">map</span> <span class="n">f</span> <span class="n">xs</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">work</span> <span class="o">=</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="n">x</span> <span class="o">::</span> <span class="n">xs</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="n">x</span> <span class="o">::</span> <span class="n">work</span> <span class="n">xs</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="k">in</span> <span class="n">work</span> <span class="n">xs</span>
+
+<span class="k">let</span> <span class="n">fold</span> <span class="n">f</span> <span class="n">z</span> <span class="n">xs</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">work</span> <span class="n">z</span> <span class="o">=</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="n">x</span> <span class="o">::</span> <span class="n">xs</span> <span class="o">-&gt;</span> <span class="n">work</span> <span class="p">(</span><span class="n">f</span> <span class="n">z</span> <span class="n">x</span><span class="p">)</span> <span class="n">xs</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">z</span>
+  <span class="k">in</span> <span class="n">work</span> <span class="n">z</span> <span class="n">xs</span>
+
+<span class="k">let</span> <span class="n">test1</span> <span class="n">arg</span> <span class="o">=</span>
+  <span class="n">fold</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="mi">0</span> <span class="p">(</span><span class="n">map</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="n">arg</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="n">test2</span> <span class="n">arg</span> <span class="o">=</span> <span class="n">fold</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="n">y</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="mi">0</span> <span class="n">arg</span>
+</code></pre></div>
+<p>なんでOCamlこれ同じ速度で動くんだ､分からんということでここからなんとかしなければならない…｡
+ちなみに<code>map</code>を20回くらいやったものと<code>(fun x y -&gt; x + (y * y * y * y * ... * y))</code>を<code>fold</code>に渡すものだと実行速度に差が出ました｡
+同じようなコードをLuaで書いたら即差が出ましたので､ターゲット言語によってはしっかり実行速度に関してアドが言えるんじゃないでしょうか｡</p>
+<p>生成されるコードサイズに関しては､Joelによる最適化を経て得られたものが一番小さかったので､そこはadvantageがあったと言えます｡</p>
+<h1 id="5">5. おわりに</h1>
+<p>終わらないんだよなぁ…</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>Luke Maurer, et al. Compiling without Continuations. <a href="https://dl.acm.org/citation.cfm?id=3062380">https://dl.acm.org/citation.cfm?id=3062380</a> <a href="#fnref1" rev="footnote">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2018/01/11/%E5%A4%A7%E5%AD%A6%E9%99%A2%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%97%A5%E6%9C%AC%E5%AD%A6%E7%94%9F%E6%94%AF%E6%8F%B4%E6%A9%9F%E6%A7%8B%E3%81%AE%E5%A5%A8%E5%AD%A6%E9%87%91.html" title="大学院における日本学生支援機構の奨学金">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <span class="btn next disabled">Next &rarr;</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
