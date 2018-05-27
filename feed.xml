@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 27 May 2018 13:25:12 +0900</pubDate>
-    <lastBuildDate>Sun, 27 May 2018 13:25:12 +0900</lastBuildDate>
+    <pubDate>Sun, 27 May 2018 13:27:33 +0900</pubDate>
+    <lastBuildDate>Sun, 27 May 2018 13:27:33 +0900</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
     
       <item>
@@ -24,7 +24,8 @@ Vimでやろうとしたのは当然手元に(Neo)Vimがあるからだ｡&lt;/p
 &lt;p&gt;シンタックスハイライトが寂しいので入れる｡&lt;/p&gt;
 &lt;h2 id=&quot;2-2-ensime-vim&quot;&gt;2-2. &lt;a href=&quot;https://github.com/ensime/ensime-vim&quot;&gt;ensime-vim&lt;/a&gt;
 &lt;/h2&gt;
-&lt;p&gt;VimでJava/Scalaというと､EclimというEclipseの情報をVimから引っ張ってグニャグニャするやつがありますが､俺達VimmerとしてはエディタのためにIDEを使うのはなんとなくはばかられる｡&lt;/p&gt;
+&lt;p&gt;Scalaも補完がされてほしい｡
+VimでJava/Scalaというと､EclimというEclipseの情報をVimから引っ張ってグニャグニャするやつがありますが､俺達VimmerとしてはエディタのためにIDEを使うのはなんとなくはばかられる｡&lt;/p&gt;
 &lt;p&gt;(中略)&lt;/p&gt;
 &lt;p&gt;特にArchLinux(でyaourt)を使っており､Pythonなんて書かねーよハゲということでpipも基本的に触らない人用にインストールガイドを書こう｡
 だいたいは&lt;a href=&quot;http://ensime.github.io/editors/vim/install/&quot;&gt;公式のインストールガイド&lt;/a&gt;に則ればいい｡&lt;/p&gt;
