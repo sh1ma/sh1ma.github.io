@@ -91,6 +91,15 @@ pipでなくpacman/yourtに任せたいので､公式リポジトリから<em>p
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">"org.ensime"</span> <span class="o">%</span> <span class="s">"sbt-ensime"</span> <span class="o">%</span> <span class="s">"2.6.0"</span><span class="o">)</span>
 </code></pre></div>
 <p>sbtで<code>ensimeConfig</code>を実行すると､プロジェクトルートに<code>.ensime</code>が生成される｡</p>
+<h2 id="2-3-neoformat">2-3. <a href="https://github.com/sbdchd/neoformat">neoformat</a>
+</h2>
+<p>フォーマッター｡ScalaもscalafmtがあればOK｡
+ただ何もしないとフォーマット時にファイル先頭にゴミが入るので以下をvimrcに追加</p>
+<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="k">let</span> <span class="nv">g:neoformat_scala_scalafmt</span> <span class="p">=</span> <span class="p">{</span>
+<span class="se">  \</span> <span class="s1">'exe'</span><span class="p">:</span> <span class="s1">'scalafmt'</span><span class="p">,</span>
+<span class="se">  \</span> <span class="s1">'replace'</span><span class="p">:</span> <span class="m">1</span><span class="p">,</span>
+<span class="se">  \</span> <span class="p">}</span>
+</code></pre></div>
 <h1 id="3">3. おわりに</h1>
 <p>人生おわった</p>
           </div>

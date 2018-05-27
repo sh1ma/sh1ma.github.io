@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 27 May 2018 13:27:33 +0900</pubDate>
-    <lastBuildDate>Sun, 27 May 2018 13:27:33 +0900</lastBuildDate>
+    <pubDate>Sun, 27 May 2018 13:35:20 +0900</pubDate>
+    <lastBuildDate>Sun, 27 May 2018 13:35:20 +0900</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
     
       <item>
@@ -42,6 +42,15 @@ pipでなくpacman/yourtに任せたいので､公式リポジトリから&lt;e
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scala&quot; data-lang=&quot;scala&quot;&gt;&lt;span class=&quot;n&quot;&gt;addSbtPlugin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;org.ensime&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;sbt-ensime&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;2.6.0&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;sbtで&lt;code&gt;ensimeConfig&lt;/code&gt;を実行すると､プロジェクトルートに&lt;code&gt;.ensime&lt;/code&gt;が生成される｡&lt;/p&gt;
+&lt;h2 id=&quot;2-3-neoformat&quot;&gt;2-3. &lt;a href=&quot;https://github.com/sbdchd/neoformat&quot;&gt;neoformat&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;フォーマッター｡ScalaもscalafmtがあればOK｡
+ただ何もしないとフォーマット時にファイル先頭にゴミが入るので以下をvimrcに追加&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-vim&quot; data-lang=&quot;vim&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g:neoformat_scala_scalafmt&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;se&quot;&gt;  \&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'exe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'scalafmt'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;se&quot;&gt;  \&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'replace'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;se&quot;&gt;  \&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h1 id=&quot;3&quot;&gt;3. おわりに&lt;/h1&gt;
 &lt;p&gt;人生おわった&lt;/p&gt;</description>
         <pubDate>Sun, 27 May 2018 00:00:00 +0900</pubDate>
