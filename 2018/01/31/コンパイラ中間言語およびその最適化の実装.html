@@ -103,6 +103,10 @@ try-with式の含まれない評価コンテキストを新たに定義し､最
 ソース言語にはOCamlのサブセットであるCore MLを新たに定義し､!!!!ターゲット言語はOCamlとした｡!!!!
 これがあまりよくなかった｡</p>
 <p>CPSも､Double-Barreled CPSをもとに複数の例外をハンドルできるような体系を新たに定義した｡</p>
+<h2 id="4-1-20180321">4-1. 追記20180321</h2>
+<p>ここからしばらく嘘が書いてある!! ので途中は飛ばしてください｡
+おわり</p>
+<hr>
 <p>stream fusionがうまくいったけど全然速くならなかったという結果でした(<a href="https://github.com/Nymphium/joel/blob/bachelor_thesis_poc/test/benchmark/benchmark.ml#L60">このへんの例</a>)｡
 予備実験をすべきでしたが､つまるところ以下の例がOCamlではほとんど同じ速度で実行されます｡</p>
 <div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">map</span> <span class="n">f</span> <span class="n">xs</span> <span class="o">=</span>
@@ -125,6 +129,70 @@ try-with式の含まれない評価コンテキストを新たに定義し､最
 <p>なんでOCamlこれ同じ速度で動くんだ､分からんということでここからなんとかしなければならない…｡
 ちなみに<code>map</code>を20回くらいやったものと<code>(fun x y -&gt; x + (y * y * y * y * ... * y))</code>を<code>fold</code>に渡すものだと実行速度に差が出ました｡
 同じようなコードをLuaで書いたら即差が出ましたので､ターゲット言語によってはしっかり実行速度に関してアドが言えるんじゃないでしょうか｡</p>
+<h2 id="20180321">追記20180321</h2>
+<p>私の手抜きが原因でした｡
+<a href="http://localhost:4000/2017/11/18/OCaml%E3%81%A7eval%E3%81%97%E3%81%A6%E7%B5%90%E6%9E%9C%E3%82%92string%E3%81%A7%E5%BE%97%E3%82%8B.html">この記事</a>で書いたようなものを使ってベンチマークを取っていた(!!!!)わけですが､
+どうやら<code>execute_phrase</code>は<em>何回も実行していくうちに遅くなる</em>(???)ということが後に発覚したため､ベンチマーク周りを0から再実装しました…｡
+よくわからないと思いますがボクもよくわからないので､とりあえず皆さんお手元で試してみてください｡</p>
+<p>仕切り直しです｡
+Haskellならともかく､OCamlはstream fusionなんてやらないぜ｡
+<a href="https://github.com/janestreet/core_bench">core_bench</a>で試してみましょう｡</p>
+<p><a href="/src/20180131ps/test.ml">src/20180131ps/test.ml</a></p>
+<div class="highlight">
+<span class="listing-name">test.ml</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">open</span> <span class="nn">Core_bench</span><span class="p">.</span><span class="nc">Std</span>
+
+<span class="k">let</span> <span class="n">map</span> <span class="n">f</span> <span class="n">xs</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">work</span> <span class="o">=</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="n">x</span> <span class="o">::</span> <span class="n">xs'</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="n">x</span> <span class="o">::</span> <span class="n">work</span> <span class="n">xs'</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="k">in</span> <span class="n">work</span> <span class="n">xs</span>
+<span class="p">;;</span>
+
+<span class="k">let</span> <span class="n">foldl</span> <span class="n">f</span> <span class="n">z</span> <span class="n">xs</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">work</span> <span class="n">z</span> <span class="o">=</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="n">x</span> <span class="o">::</span> <span class="n">xs'</span> <span class="o">-&gt;</span> <span class="n">work</span> <span class="p">(</span><span class="n">f</span> <span class="n">z</span> <span class="n">x</span><span class="p">)</span> <span class="n">xs'</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">z</span>
+  <span class="k">in</span> <span class="n">work</span> <span class="n">z</span> <span class="n">xs</span>
+<span class="p">;;</span>
+
+<span class="k">let</span> <span class="n">fused</span> <span class="n">mapf</span> <span class="n">foldf</span> <span class="n">z</span> <span class="n">xs</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">work</span> <span class="n">z</span> <span class="o">=</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="n">x</span> <span class="o">::</span> <span class="n">xs'</span> <span class="o">-&gt;</span> <span class="n">work</span> <span class="p">(</span><span class="n">foldf</span> <span class="n">z</span> <span class="o">@@</span> <span class="n">mapf</span> <span class="n">x</span><span class="p">)</span> <span class="n">xs'</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">z</span>
+  <span class="k">in</span> <span class="n">work</span> <span class="n">z</span> <span class="n">xs</span>
+<span class="p">;;</span>
+
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span>
+  <span class="nn">Random</span><span class="p">.</span><span class="n">self_init</span> <span class="bp">()</span><span class="p">;</span>
+  <span class="k">let</span> <span class="k">open</span> <span class="nn">Core_bench</span><span class="p">.</span><span class="nc">Test</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">arg</span> <span class="o">=</span> <span class="nn">Array</span><span class="p">.(</span><span class="n">init</span> <span class="mi">10000</span> <span class="p">(</span><span class="k">fun</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="nn">Random</span><span class="p">.</span><span class="n">int</span> <span class="mi">10000</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="n">to_list</span><span class="p">)</span> <span class="k">in</span>
+  <span class="nn">Core</span><span class="p">.</span><span class="nn">Command</span><span class="p">.</span><span class="n">run</span> <span class="o">@@</span> <span class="nn">Bench</span><span class="p">.</span><span class="n">make_command</span> <span class="p">[</span>
+    <span class="n">create</span> <span class="o">~</span><span class="n">name</span><span class="o">:</span> <span class="s2">"map"</span>     <span class="p">(</span><span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span> <span class="n">ignore</span> <span class="o">@@</span> <span class="n">map</span> <span class="n">double</span> <span class="n">arg</span><span class="p">);</span>
+    <span class="n">create</span> <span class="o">~</span><span class="n">name</span><span class="o">:</span> <span class="s2">"foldl"</span>   <span class="p">(</span><span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span> <span class="n">ignore</span> <span class="o">@@</span> <span class="n">foldl</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="mi">0</span> <span class="n">arg</span><span class="p">);</span>
+    <span class="n">create</span> <span class="o">~</span><span class="n">name</span><span class="o">:</span> <span class="s2">"mapfold"</span> <span class="p">(</span><span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span> <span class="n">ignore</span> <span class="o">@@</span> <span class="n">foldl</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="mi">0</span> <span class="o">@@</span> <span class="n">map</span> <span class="n">double</span> <span class="n">arg</span><span class="p">);</span>
+    <span class="n">create</span> <span class="o">~</span><span class="n">name</span><span class="o">:</span> <span class="s2">"fused"</span>   <span class="p">(</span><span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span> <span class="n">ignore</span> <span class="o">@@</span> <span class="n">fused</span> <span class="n">double</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="mi">0</span> <span class="n">arg</span><span class="p">)</span>
+  <span class="p">]</span>
+</code></pre>
+</div>
+<p>うん</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span> ocamlfind ocamlopt <span class="nt">-package</span> core_bench <span class="nt">-linkpkg</span> <span class="nt">-thread</span> test.ml
+<span class="gp">$</span> ./a.out <span class="nt">-ascii</span>
+<span class="go">Estimated testing time 40s (4 benchmarks x 10s). Change using -quota SECS.
+
+  Name      Time/Run      mWd/Run   mjWd/Run   Prom/Run   Percentage
+ --------- ---------- ------------ ---------- ---------- ------------
+  map       139.93us   30_004.72w     2.03kw     2.03kw       87.99%
+  foldl      37.26us        5.00w                             23.43%
+  mapfold   159.04us   30_009.71w     1.79kw     1.79kw      100.00%
+  fused      49.41us        6.00w                             31.07%
+</span></code></pre></div>
+<p>注目すべきは下2つですね｡
+<code>mapfold</code>は読んで字の如く<code>map</code>して<code>fold</code>してます｡
+<code>fused</code>は<code>map</code>に渡す関数と<code>fold</code>に渡す関数を一気に適用してるので中間リストを生成しないしtail recursionだし良いね｡
+実行速度の差が無いって言ったやつ誰やねん…｡</p>
+<p>1つのベンチマークのうちに実行速度にだいぶ差があるベンチマーク関数があると<code>Time/Run</code>の表示がだいぶ怪しい数字を出すことも分かったので､結局卒論提出版ではcore_benchのソースを参考にしてお手製ベンチマークで切り抜けました｡おわり｡</p>
+<hr>
 <p>生成されるコードサイズに関しては､Joelによる最適化を経て得られたものが一番小さかったので､そこはadvantageがあったと言えます｡</p>
 <h1 id="5">5. おわりに</h1>
 <p>終わらないんだよなぁ…</p>
@@ -147,7 +215,7 @@ try-with式の含まれない評価コンテキストを新たに定義し､最
       <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
         <a class="btn prev" href="/2018/01/11/%E5%A4%A7%E5%AD%A6%E9%99%A2%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%97%A5%E6%9C%AC%E5%AD%A6%E7%94%9F%E6%94%AF%E6%8F%B4%E6%A9%9F%E6%A7%8B%E3%81%AE%E5%A5%A8%E5%AD%A6%E9%87%91.html" title="大学院における日本学生支援機構の奨学金">&larr; Prev</a>
         &#47;<a class="btn" href="/">Top</a>&#47;
-        <span class="btn next disabled">Next &rarr;</span>
+        <a class="btn next" href="/2018/05/27/Ensime-vim%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B.html" title="Ensime-vimを入れる">Next &rarr;</a>
       </div>
     </footer>
 

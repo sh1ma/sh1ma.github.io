@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ensime-vimを入れる &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="Ensime-vimを入れる">
+    <meta name="twitter:title" content="Ensime-vimを入れる"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2018/05/27/Ensime-vim%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B.html"> 
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="https://nymphium.github.io/2018/05/27/Ensime-vim%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Ensime-vimを入れる</h1>
+            <span class="post-meta">
+              <time datetime="2018-05-27T00:00:00+09:00" itemprop="datePublished">May 27, 2018</time>
+              <p>tag: &#123;<a href="/tags.html#Scala-ref">Scala</a>, <a href="/tags.html#Vim-ref">Vim</a>, <a href="/tags.html#ArchLinux-ref">ArchLinux</a>&#125;</p>
+            </span>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
+});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡
+最近は死んでるのでコードも全然書いてませんでした｡</p>
+<hr>
+<h1 id="1">1. はじめに</h1>
+<p>VimでScalaを書いている､というと赤黒いアイコンを思い出すかもしれないが､そんな感じになっている｡
+動機としては､最近一切コードを書いてなかったのでなにか作ろうと思い､またScalaも以前から少し書いてみようと思っていたのでこの機会にと｡
+Vimでやろうとしたのは当然手元に(Neo)Vimがあるからだ｡</p>
+<h1 id="2">2. プラギン</h1>
+<h2 id="2-1-vim-scala">2-1. <a href="https://github.com/derekwyatt/vim-scala">vim-scala</a>
+</h2>
+<p>シンタックスハイライトが寂しいので入れる｡</p>
+<h2 id="2-2-ensime-vim">2-2. <a href="https://github.com/ensime/ensime-vim">ensime-vim</a>
+</h2>
+<p>VimでJava/Scalaというと､EclimというEclipseの情報をVimから引っ張ってグニャグニャするやつがありますが､俺達VimmerとしてはエディタのためにIDEを使うのはなんとなくはばかられる｡</p>
+<p>(中略)</p>
+<p>特にArchLinux(でyaourt)を使っており､Pythonなんて書かねーよハゲということでpipも基本的に触らない人用にインストールガイドを書こう｡
+だいたいは<a href="http://ensime.github.io/editors/vim/install/">公式のインストールガイド</a>に則ればいい｡</p>
+<h3 id="2-2-1-python-modules">2-2-1. Python modules</h3>
+<p>注意する点はpipに関する記述だが､Pythonは3で問題ない｡
+pipでなくpacman/yourtに任せたいので､公式リポジトリから<em>python-websocket-client</em>､AURから<em>python-sexpdata</em>を引っ張る｡
+後者は微妙にメンテされておらず､PKGSBUILDをいじる必要がある｡</p>
+<div class="highlight"><pre><code class="language-diff" data-lang="diff"># http -&gt; httpsにするだけだが
+<span class="gd">-source=("http://pypi.python.org/packages/source/s/sexpdata/sexpdata-${pkgver}.tar.gz")
+</span><span class="gi">+source=("https://pypi.python.org/packages/source/s/sexpdata/sexpdata-${pkgver}.tar.gz")
+</span></code></pre></div>
+<h3 id="2-2-2-sbt-plugin">2-2-2. sbt plugin</h3>
+<p>あとはsbtのグローバルプラグインに以下を追加する｡</p>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">"org.ensime"</span> <span class="o">%</span> <span class="s">"sbt-ensime"</span> <span class="o">%</span> <span class="s">"2.6.0"</span><span class="o">)</span>
+</code></pre></div>
+<p>sbtで<code>ensimeConfig</code>を実行すると､プロジェクトルートに<code>.ensime</code>が生成される｡</p>
+<h1 id="3">3. おわりに</h1>
+<p>人生おわった</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2018/01/31/%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E4%B8%AD%E9%96%93%E8%A8%80%E8%AA%9E%E3%81%8A%E3%82%88%E3%81%B3%E3%81%9D%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AE%E5%AE%9F%E8%A3%85.html" title="コンパイラ中間言語およびその最適化の設計と実装">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <span class="btn next disabled">Next &rarr;</span>
+      </div>
+    </footer>
+
+  </body>
+</html>

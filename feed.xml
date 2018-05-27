@@ -5,9 +5,56 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 31 Jan 2018 23:35:04 +0900</pubDate>
-    <lastBuildDate>Wed, 31 Jan 2018 23:35:04 +0900</lastBuildDate>
-    <generator>Jekyll v3.7.2</generator>
+    <pubDate>Sun, 27 May 2018 13:25:12 +0900</pubDate>
+    <lastBuildDate>Sun, 27 May 2018 13:25:12 +0900</lastBuildDate>
+    <generator>Jekyll v3.7.3</generator>
+    
+      <item>
+        <title>Ensime-vimを入れる</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
+最近は死んでるのでコードも全然書いてませんでした｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
+&lt;p&gt;VimでScalaを書いている､というと赤黒いアイコンを思い出すかもしれないが､そんな感じになっている｡
+動機としては､最近一切コードを書いてなかったのでなにか作ろうと思い､またScalaも以前から少し書いてみようと思っていたのでこの機会にと｡
+Vimでやろうとしたのは当然手元に(Neo)Vimがあるからだ｡&lt;/p&gt;
+&lt;h1 id=&quot;2&quot;&gt;2. プラギン&lt;/h1&gt;
+&lt;h2 id=&quot;2-1-vim-scala&quot;&gt;2-1. &lt;a href=&quot;https://github.com/derekwyatt/vim-scala&quot;&gt;vim-scala&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;シンタックスハイライトが寂しいので入れる｡&lt;/p&gt;
+&lt;h2 id=&quot;2-2-ensime-vim&quot;&gt;2-2. &lt;a href=&quot;https://github.com/ensime/ensime-vim&quot;&gt;ensime-vim&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;VimでJava/Scalaというと､EclimというEclipseの情報をVimから引っ張ってグニャグニャするやつがありますが､俺達VimmerとしてはエディタのためにIDEを使うのはなんとなくはばかられる｡&lt;/p&gt;
+&lt;p&gt;(中略)&lt;/p&gt;
+&lt;p&gt;特にArchLinux(でyaourt)を使っており､Pythonなんて書かねーよハゲということでpipも基本的に触らない人用にインストールガイドを書こう｡
+だいたいは&lt;a href=&quot;http://ensime.github.io/editors/vim/install/&quot;&gt;公式のインストールガイド&lt;/a&gt;に則ればいい｡&lt;/p&gt;
+&lt;h3 id=&quot;2-2-1-python-modules&quot;&gt;2-2-1. Python modules&lt;/h3&gt;
+&lt;p&gt;注意する点はpipに関する記述だが､Pythonは3で問題ない｡
+pipでなくpacman/yourtに任せたいので､公式リポジトリから&lt;em&gt;python-websocket-client&lt;/em&gt;､AURから&lt;em&gt;python-sexpdata&lt;/em&gt;を引っ張る｡
+後者は微妙にメンテされておらず､PKGSBUILDをいじる必要がある｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-diff&quot; data-lang=&quot;diff&quot;&gt;# http -&amp;gt; httpsにするだけだが
+&lt;span class=&quot;gd&quot;&gt;-source=(&quot;http://pypi.python.org/packages/source/s/sexpdata/sexpdata-${pkgver}.tar.gz&quot;)
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+source=(&quot;https://pypi.python.org/packages/source/s/sexpdata/sexpdata-${pkgver}.tar.gz&quot;)
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;2-2-2-sbt-plugin&quot;&gt;2-2-2. sbt plugin&lt;/h3&gt;
+&lt;p&gt;あとはsbtのグローバルプラグインに以下を追加する｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scala&quot; data-lang=&quot;scala&quot;&gt;&lt;span class=&quot;n&quot;&gt;addSbtPlugin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;org.ensime&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;sbt-ensime&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;2.6.0&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;sbtで&lt;code&gt;ensimeConfig&lt;/code&gt;を実行すると､プロジェクトルートに&lt;code&gt;.ensime&lt;/code&gt;が生成される｡&lt;/p&gt;
+&lt;h1 id=&quot;3&quot;&gt;3. おわりに&lt;/h1&gt;
+&lt;p&gt;人生おわった&lt;/p&gt;</description>
+        <pubDate>Sun, 27 May 2018 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2018/05/27/Ensime-vim%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2018/05/27/Ensime-vim%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B.html</guid>
+        
+        <category>Scala</category>
+        
+        <category>Vim</category>
+        
+        <category>ArchLinux</category>
+        
+        
+      </item>
     
       <item>
         <title>コンパイラ中間言語およびその最適化の設計と実装</title>
@@ -54,6 +101,10 @@ try-with式の含まれない評価コンテキストを新たに定義し､最
 ソース言語にはOCamlのサブセットであるCore MLを新たに定義し､!!!!ターゲット言語はOCamlとした｡!!!!
 これがあまりよくなかった｡&lt;/p&gt;
 &lt;p&gt;CPSも､Double-Barreled CPSをもとに複数の例外をハンドルできるような体系を新たに定義した｡&lt;/p&gt;
+&lt;h2 id=&quot;4-1-20180321&quot;&gt;4-1. 追記20180321&lt;/h2&gt;
+&lt;p&gt;ここからしばらく嘘が書いてある!! ので途中は飛ばしてください｡
+おわり&lt;/p&gt;
+&lt;hr&gt;
 &lt;p&gt;stream fusionがうまくいったけど全然速くならなかったという結果でした(&lt;a href=&quot;https://github.com/Nymphium/joel/blob/bachelor_thesis_poc/test/benchmark/benchmark.ml#L60&quot;&gt;このへんの例&lt;/a&gt;)｡
 予備実験をすべきでしたが､つまるところ以下の例がOCamlではほとんど同じ速度で実行されます｡&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
@@ -76,6 +127,70 @@ try-with式の含まれない評価コンテキストを新たに定義し､最
 &lt;p&gt;なんでOCamlこれ同じ速度で動くんだ､分からんということでここからなんとかしなければならない…｡
 ちなみに&lt;code&gt;map&lt;/code&gt;を20回くらいやったものと&lt;code&gt;(fun x y -&amp;gt; x + (y * y * y * y * ... * y))&lt;/code&gt;を&lt;code&gt;fold&lt;/code&gt;に渡すものだと実行速度に差が出ました｡
 同じようなコードをLuaで書いたら即差が出ましたので､ターゲット言語によってはしっかり実行速度に関してアドが言えるんじゃないでしょうか｡&lt;/p&gt;
+&lt;h2 id=&quot;20180321&quot;&gt;追記20180321&lt;/h2&gt;
+&lt;p&gt;私の手抜きが原因でした｡
+&lt;a href=&quot;http://localhost:4000/2017/11/18/OCaml%E3%81%A7eval%E3%81%97%E3%81%A6%E7%B5%90%E6%9E%9C%E3%82%92string%E3%81%A7%E5%BE%97%E3%82%8B.html&quot;&gt;この記事&lt;/a&gt;で書いたようなものを使ってベンチマークを取っていた(!!!!)わけですが､
+どうやら&lt;code&gt;execute_phrase&lt;/code&gt;は&lt;em&gt;何回も実行していくうちに遅くなる&lt;/em&gt;(???)ということが後に発覚したため､ベンチマーク周りを0から再実装しました…｡
+よくわからないと思いますがボクもよくわからないので､とりあえず皆さんお手元で試してみてください｡&lt;/p&gt;
+&lt;p&gt;仕切り直しです｡
+Haskellならともかく､OCamlはstream fusionなんてやらないぜ｡
+&lt;a href=&quot;https://github.com/janestreet/core_bench&quot;&gt;core_bench&lt;/a&gt;で試してみましょう｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/src/20180131ps/test.ml&quot;&gt;src/20180131ps/test.ml&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;test.ml&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Core_bench&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Std&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foldl&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fused&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mapf&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foldf&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;foldf&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mapf&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;nn&quot;&gt;Random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self_init&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Core_bench&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Test&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;init&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;nn&quot;&gt;Core&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Bench&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_command&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;map&quot;&lt;/span&gt;     &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;foldl&quot;&lt;/span&gt;   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foldl&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;mapfold&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foldl&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;fused&quot;&lt;/span&gt;   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fused&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;うん&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; ocamlfind ocamlopt &lt;span class=&quot;nt&quot;&gt;-package&lt;/span&gt; core_bench &lt;span class=&quot;nt&quot;&gt;-linkpkg&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-thread&lt;/span&gt; test.ml
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; ./a.out &lt;span class=&quot;nt&quot;&gt;-ascii&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;Estimated testing time 40s (4 benchmarks x 10s). Change using -quota SECS.
+
+  Name      Time/Run      mWd/Run   mjWd/Run   Prom/Run   Percentage
+ --------- ---------- ------------ ---------- ---------- ------------
+  map       139.93us   30_004.72w     2.03kw     2.03kw       87.99%
+  foldl      37.26us        5.00w                             23.43%
+  mapfold   159.04us   30_009.71w     1.79kw     1.79kw      100.00%
+  fused      49.41us        6.00w                             31.07%
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;注目すべきは下2つですね｡
+&lt;code&gt;mapfold&lt;/code&gt;は読んで字の如く&lt;code&gt;map&lt;/code&gt;して&lt;code&gt;fold&lt;/code&gt;してます｡
+&lt;code&gt;fused&lt;/code&gt;は&lt;code&gt;map&lt;/code&gt;に渡す関数と&lt;code&gt;fold&lt;/code&gt;に渡す関数を一気に適用してるので中間リストを生成しないしtail recursionだし良いね｡
+実行速度の差が無いって言ったやつ誰やねん…｡&lt;/p&gt;
+&lt;p&gt;1つのベンチマークのうちに実行速度にだいぶ差があるベンチマーク関数があると&lt;code&gt;Time/Run&lt;/code&gt;の表示がだいぶ怪しい数字を出すことも分かったので､結局卒論提出版ではcore_benchのソースを参考にしてお手製ベンチマークで切り抜けました｡おわり｡&lt;/p&gt;
+&lt;hr&gt;
 &lt;p&gt;生成されるコードサイズに関しては､Joelによる最適化を経て得られたものが一番小さかったので､そこはadvantageがあったと言えます｡&lt;/p&gt;
 &lt;h1 id=&quot;5&quot;&gt;5. おわりに&lt;/h1&gt;
 &lt;p&gt;終わらないんだよなぁ…&lt;/p&gt;
@@ -1433,108 +1548,6 @@ Error: &quot;INVALIDTOKEN&quot; is not a known terminal symbol.
         <guid isPermaLink="true">https://nymphium.github.io/2017/09/14/%E9%99%A2%E8%A9%A6.html</guid>
         
         <category>雑感</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Qiitaより早くコードに行番号を追加した</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
-明日は院試です｡内容はタイトルの通り&lt;sup id=&quot;fnref1&quot; title=&quot;要望も出ている &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;｡&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;Markdownでコードブロックといえば&lt;code&gt;```&lt;/code&gt;で囲んで色々やると､エンジンが&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;example&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;code&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&amp;gt;&lt;/span&gt;...&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&amp;gt;&lt;/span&gt;...&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
-    ......
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/code&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;みたいなものを履いてくれると予想する｡そしてこれはCSSのカウンターと:beforeなどで簡単に行番号が付けられると予想する｡&lt;/p&gt;
-&lt;p&gt;残念ながらRedcarpetではそうならないようだ｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;HTMLified example&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nt&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;ni&quot;&gt;&amp;amp;lt;&lt;/span&gt;code&lt;span class=&quot;ni&quot;&gt;&amp;amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nt&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;ni&quot;&gt;&amp;amp;lt;&lt;/span&gt;span&lt;span class=&quot;ni&quot;&gt;&amp;amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;...&lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nt&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;ni&quot;&gt;&amp;amp;lt;&lt;/span&gt;/span&lt;span class=&quot;ni&quot;&gt;&amp;amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nt&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;ni&quot;&gt;&amp;amp;lt;&lt;/span&gt;span&lt;span class=&quot;ni&quot;&gt;&amp;amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;...&lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nt&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;ni&quot;&gt;&amp;amp;lt;&lt;/span&gt;/span&lt;span class=&quot;ni&quot;&gt;&amp;amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
-    ......
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nt&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;ni&quot;&gt;&amp;amp;lt;&lt;/span&gt;/code&lt;span class=&quot;ni&quot;&gt;&amp;amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;ではどうするか｡パワーで解決｡
-Rubyプラグインを書いた｡ &lt;a href=&quot;https://github.com/Nymphium/nymphium.github.io/blob/2e0d1161fae61d12895751eb1930d7b939afe618/_plugins/ordered/md_filters/09-lineno.rb&quot;&gt;_plugins/ordered_md_filters/09-lineno.rb&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;markdownファイルを1行ずつ見ていって､&lt;code&gt;&amp;lt;!--linenumber--&amp;gt;&lt;/code&gt;というコメントがあったらその直後のコードブロックに行番号をつける､というもの｡
-対象コードブロックを配列に突っ込んでいき､行数を&lt;code&gt;&amp;lt;pre&amp;gt;&lt;/code&gt;に突っ込んでいき､&lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt;で囲んで&lt;code&gt;float: left&lt;/code&gt;で完成や､という非常に原始的な作りになっている｡&lt;/p&gt;
-&lt;div class=&quot;codeline with_caption&quot;&gt;&lt;pre&gt;1
-2
-3
-4
-5&lt;/pre&gt;&lt;/div&gt;
-&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;linenumbered example&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;code&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&amp;gt;&lt;/span&gt;...&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&amp;gt;&lt;/span&gt;...&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
-    ......
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/code&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;HTMLified linenumbered example&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;c&quot;&gt;&amp;lt;!-- どうやらRedcarpetはcode block内でもdivタグを認識してくれてしまうのでヤバイ--&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;codeline with_caption&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;pre&amp;gt;&lt;/span&gt;1
-2
-3
-4
-5&lt;span class=&quot;nt&quot;&gt;&amp;lt;/pre&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;highlight&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;listing-name&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;linenumbered example&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&amp;lt;pre&amp;gt;&amp;lt;code&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;language-html&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;data-lang=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;html&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nt&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;ni&quot;&gt;&amp;amp;lt;&lt;/span&gt;code&lt;span class=&quot;ni&quot;&gt;&amp;amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nt&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;ni&quot;&gt;&amp;amp;lt;&lt;/span&gt;span&lt;span class=&quot;ni&quot;&gt;&amp;amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;...&lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nt&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;ni&quot;&gt;&amp;amp;lt;&lt;/span&gt;/span&lt;span class=&quot;ni&quot;&gt;&amp;amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nt&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;ni&quot;&gt;&amp;amp;lt;&lt;/span&gt;span&lt;span class=&quot;ni&quot;&gt;&amp;amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;...&lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nt&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;ni&quot;&gt;&amp;amp;lt;&lt;/span&gt;/span&lt;span class=&quot;ni&quot;&gt;&amp;amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
-    ......
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nt&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;ni&quot;&gt;&amp;amp;lt;&lt;/span&gt;/code&lt;span class=&quot;ni&quot;&gt;&amp;amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(/&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;最初の行数を変更したいというお客様のニーズにもお答え致しました｡
-&lt;code&gt;&amp;lt;!--linenumber:N--&amp;gt;&lt;/code&gt;で&lt;em&gt;N+1&lt;/em&gt;行目から行番号が振られていく｡&lt;/p&gt;
-&lt;div class=&quot;codeline&quot;&gt;&lt;pre&gt;14
-15
-16
-17
-18
-19
-20
-21&lt;/pre&gt;&lt;/div&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;a
-b
-c
-d
-e
-f
-g
-h
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;タイトルの通り&lt;strong&gt;&lt;em&gt;Qiitaより早く&lt;/em&gt;&lt;/strong&gt;コードブロックに行番号をつける機能を実装しました!!!! 快挙ですね｡
-CSSいじるほうが時間かかりました｡
-デザインに自信なしなのでイラッとした人などはprください｡
-明日は院試です｡おわり｡&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-
-&lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;http://qiita.com/7of9/items/e65f2f36c817ab965284&quot;&gt;要望&lt;/a&gt;も出ている &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-        <pubDate>Wed, 23 Aug 2017 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2017/08/23/Qiita%E3%82%88%E3%82%8A%E6%97%A9%E3%81%8F%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E8%A1%8C%E7%95%AA%E5%8F%B7%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%9F.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2017/08/23/Qiita%E3%82%88%E3%82%8A%E6%97%A9%E3%81%8F%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E8%A1%8C%E7%95%AA%E5%8F%B7%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%9F.html</guid>
-        
-        <category>雑感</category>
-        
-        <category>jekyll</category>
         
         
       </item>
