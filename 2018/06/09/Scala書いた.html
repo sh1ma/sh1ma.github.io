@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scala書いた &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="Scala書いた">
+    <meta name="twitter:title" content="Scala書いた"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2018/06/09/Scala%E6%9B%B8%E3%81%84%E3%81%9F.html"> 
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="https://nymphium.github.io/2018/06/09/Scala%E6%9B%B8%E3%81%84%E3%81%9F.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Scala書いた</h1>
+            <span class="post-meta">
+              <time datetime="2018-06-09T00:00:00+09:00" itemprop="datePublished">Jun 9, 2018</time>
+              <p>tag: &#123;<a href="/tags.html#Scala-ref">Scala</a>&#125;</p>
+            </span>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <script type="text/javascript" async
+              src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            </script>
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
+});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡
+最近はヴァーチャルユーチューバーに脳を破壊されてしまってほぼ毎日観てます｡
+剣持<em>力</em>也くんが好きです｡</p>
+<h1 id="1">1. はじめに</h1>
+<p>Scalaに入門するついでに､文献…というかPDFを管理するシステムを作った｡</p>
+<div class="github-widget" data-repo="Nymphium/pnyao"></div>
+<p>配色などはともかく､個人的には使いやすくなっとるんじゃないでしょうか｡
+もちろんボクが作ったので､どこを押すと何が起きるかは100%分かっているため､他の人にとって使いやすいかどうかはよくわかりませんが…｡</p>
+<h1 id="2-scala">2. Scala</h1>
+<p><code>case class</code>でADTのようなものを定義できる｡
+トレイト<code>T</code>を継承すれば型<code>T</code>のデータコンストラクタでまとめられるということでいいのかな｡</p>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">trait</span> <span class="nc">T</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{}</span>
+
+<span class="k">case</span> <span class="k">class</span> <span class="nc">K1</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span> <span class="k">extends</span> <span class="n">T</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">K2</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span> <span class="k">extends</span> <span class="n">T</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
+
+<span class="k">val</span> <span class="n">s</span> <span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">T</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">K1</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">K2</span><span class="o">(</span><span class="mi">2</span><span class="o">))</span>
+</code></pre></div>
+<p>パターンマッチの実態はクラスオブジェクトの<code>unapply</code>メソッドで､カスタマイザビリティがなかなか高い｡
+<code>case class</code>は<code>apply</code>/<code>unapply</code>メソッドが自動でクラスのメンバになる｡</p>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">K1</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="k">val</span> <span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span> <span class="k">extends</span> <span class="n">T</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{}</span>
+<span class="cm">/*
+Javaでいうところの
+
+class K1&lt;A&gt; {
+  K1&lt;A&gt;(a: A) {
+    this.a = a;
+  }
+}
+
+でいいのか?
+*/</span>
+
+<span class="k">object</span> <span class="nc">K1</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">apply</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">K1</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="n">K1</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">a</span><span class="o">)</span>
+  <span class="k">def</span> <span class="n">unapply</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">k1</span><span class="k">:</span> <span class="kt">K1</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span><span class="n">println</span><span class="o">(</span><span class="s">"match"</span><span class="o">);</span> <span class="nc">Option</span><span class="o">(</span><span class="n">k1</span><span class="o">.</span><span class="n">a</span><span class="o">)}</span>
+<span class="o">}</span>
+
+<span class="n">K1</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span> <span class="k">case</span> <span class="n">K1</span><span class="o">(</span><span class="n">x</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">x</span> <span class="o">}</span> <span class="c1">// prints "match" and returns 0
+</span></code></pre></div>
+<p>引数をクラスのメンバにしてくれたりもしているようだ｡</p>
+<p>また<code>implicit</code>に定義されたメソッドにより安全な暗黙の型変換を定義できるのも面白い｡</p>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">Conv</span> <span class="o">{</span>
+  <span class="k">implicit</span> <span class="k">def</span> <span class="n">fromStringToInt</span><span class="o">(</span><span class="n">s</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">toCharArray</span><span class="o">.</span><span class="n">toSeq</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">toInt</span><span class="o">).</span><span class="n">fold</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="k">_</span> <span class="o">+</span> <span class="k">_</span> <span class="o">}</span>
+
+  <span class="k">def</span> <span class="n">f</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">10</span><span class="o">)</span>
+
+  <span class="k">def</span> <span class="n">run</span><span class="o">()</span> <span class="k">=</span> <span class="n">f</span><span class="o">(</span><span class="s">"aiueo"</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// convert "aieuo" to Seq(97, 105, 101, 117, 111) ~&gt; (folded)
+</span><span class="nc">Conv</span><span class="o">.</span><span class="n">run</span> <span class="c1">// 5310
+</span></code></pre></div>
+<p>型変換が必要そうなところで型の合う直近の<code>implicit</code>メソッドを参照して変換する､のかな(わかってない)｡
+またスコープはメソッドの定義されたクラスを超えない｡
+ただし継承を使うと継承先のクラス内でも型変換が起こる｡</p>
+<p>Javaみもあって少々つらいときがある(<code>String</code>集合に<code>null</code>が含まれたり､Javaいライブラリを使うと<code>null</code>が混入する)が､
+概ねモダンでOOPとしつつFunctional Programmingもしっかりできる言語でなかなか良い｡
+ビルドツールのsbtもカスタマイザビリティが高く､開発もわりとスムーズにいく｡</p>
+<h1 id="3-play-web-framework">3. Play web framework</h1>
+<p>Java/Scalaで使えるWebフレームワーク｡
+結構面白いんじゃないでしょうか､Webフレームワークを触ったことがなかったので評価できませんが｡</p>
+<h2 id="3-1">3-1. ハマりポイント</h2>
+<p>現在はv2.6が最新だが､2.4､2.5､2.6で非互換な部分がいくつかあるが､インタネッツの記事にバージョンの表記がなかったりして､メソッドがないやんとか型合わないやんとかがあった｡</p>
+<h1 id="4-pnyao">4. Pnyao</h1>
+<p>本題｡
+PDFのメタデータにはiTextを使っている｡
+最初は何も考えずPDFメタデータの読み書きだけを実装したのでプロジェクトが分かれている｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">(root)
+  + ...
+  + (subprj)
+</code></pre></div>
+<p>のようなプロジェクトの構成になっとるとき､rootのbuild.sbtでサブプロジェクトをガバっとやる｡</p>
+<div class="highlight">
+<span class="listing-name">build.sbt</span><pre><code class="language-scala" data-lang="scala"><span class="k">lazy</span> <span class="k">val</span> <span class="n">subprj</span> <span class="k">=</span> <span class="n">project</span> <span class="n">in</span> <span class="n">file</span><span class="o">(</span><span class="s">"subprj"</span><span class="o">)</span>
+<span class="k">lazy</span> <span class="k">val</span> <span class="n">root</span> <span class="k">=</span> <span class="o">(</span><span class="n">project</span> <span class="n">in</span> <span class="n">file</span><span class="o">(</span><span class="s">"."</span><span class="o">))</span>
+    <span class="o">.</span><span class="n">aggregate</span><span class="o">(</span><span class="n">subprj</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">dependsOn</span><span class="o">(</span><span class="n">subprj</span><span class="o">)</span>
+</code></pre>
+</div>
+<p><code>.dependsOn</code>でビルドの依存関係をやっておる｡</p>
+<p>他はなんか読んでください｡</p>
+<p>あとはサーバのイベントにアクションをフックするところが面倒だった｡
+クラスにDIして<code>ApplicationLifecycle</code>をランタイムに突っ込んでいく｡</p>
+<div class="codeline with_caption"><pre>28
+29</pre></div>
+<div class="highlight">
+<span class="listing-name">pnyao/app/services/Pnyao.scala</span><pre><code class="language-scala" data-lang="scala"><span class="nd">@Singleton</span>
+<span class="k">class</span> <span class="nc">Pnyao</span> <span class="nd">@Inject</span><span class="o">()(</span><span class="n">lifeCycle</span><span class="k">:</span> <span class="kt">ApplicationLifecycle</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">PnyaoService</span> <span class="o">{</span>
+</code></pre>
+</div>
+<p>このオブジェクトにPlayサーバのイベント時に発火するアクションをフックできる｡</p>
+<div class="codeline with_caption"><pre>59
+60</pre></div>
+<div class="highlight">
+<span class="listing-name">pnyao/app/services/Pnyao.scala</span><pre><code class="language-scala" data-lang="scala"> <span class="n">lifeCycle</span><span class="o">.</span><span class="n">addStopHook</span> <span class="o">{</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">.</span><span class="n">successful</span><span class="o">(</span><span class="n">work</span><span class="o">)</span> <span class="o">}</span>
+ <span class="n">sys</span><span class="o">.</span><span class="n">addShutdownHook</span> <span class="o">{()</span> <span class="k">=&gt;</span> <span class="n">work</span><span class="o">}</span>
+</code></pre>
+</div>
+<p>JVMの終了にもフックしている｡
+Playサーバのイベントにフックしてたのは､sbtシェル上で起動/終了をしてたから必要であって､後述のとおりSystemdで起動/終了をまかせるようにしたのでもはや不要かも｡</p>
+<p>この場合JVMの終了かPlayの終了かどちらかだけでアクションを発火してほしいので､<code>lazy val</code>として定義すればいい｡</p>
+<p>他はもうないな｡
+JSONを扱う部分があり､circeとPlayのJSONライブラリという2つの変換器が混在している｡
+これは先述の通りPDFメタデータ扱う部分だけ最初に実装したことに起因している｡</p>
+<h1 id="5">5. アッピケーション化</h1>
+<p>sbt-assemblyでプロジェクトをjarに固めて実行するようにした｡
+さらにサーバをsystemd serviceとして起動/停止できるようにした｡</p>
+<h1 id="6">6. 所感</h1>
+<p>楽しかった､が､Webブラウザでのクリックイベントなどはジャバスクを書かざるをえなかったのがつらい｡
+ScalaJSをPlayがサポートしてくれればいいのかもしれない､ScalaJS書いたことないんですけど｡
+Scalaはちゃんとかいたのがここ3､4週間くらいなので､もうすこしやっていきたい｡</p>
+<h1 id="7">7. おわりに</h1>
+<p>人生おわった…｡</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2018/05/27/Ensime-vim%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B.html" title="Ensime-vimを入れる">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <span class="btn next disabled">Next &rarr;</span>
+      </div>
+    </footer>
+
+  </body>
+</html>

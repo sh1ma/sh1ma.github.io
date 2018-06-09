@@ -42,9 +42,11 @@
               <time datetime="2016-02-29T00:00:00+09:00" itemprop="datePublished">Feb 29, 2016</time>
               <p>tag: &#123;<a href="/tags.html#Lua-ref">Lua</a>, <a href="/tags.html#MoonScript-ref">MoonScript</a>&#125;</p>
             </span>
-            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-            <script type="text/javascript" src="https://rawgit.com/JoelSutherland/GitHub-jQuery-Repo-Widget/master/jquery.githubRepoWidget.min.js"></script>
-            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <script type="text/javascript" async
+              src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            </script>
             <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
 	extensions: ["tex2jax.js"],
@@ -70,8 +72,26 @@ MathJax.Hub.Config({
 ところでRustのチュートリアルを読み進めていて､Rustにはコメントによる型注釈というものが将来できるらしい<sup id="fnref1" title="https://doc.rust-lang.org/nightly/book/variable-bindings.html#type-annotations "><a href="#fn1" rel="footnote">1</a></sup>｡
 じゃ､型注釈実装しよっか｡</p>
 <h1 id="2">2. 実装</h1>
-<p>true<script src="https://gist.github.com/Nymphium/f47cecb4744ed6d023f0.js"> </script></p>
-<p>型注釈とはいったものの､つまるところ<code>--T@ foo :: T</code>が<code>assert(type(foo) == "T")</code>の糖衣構文という見方でいいです､というか実際そうです｡
+<p></p><noscript><pre>-- ......
+  Comment:
+    (P'--' * V'Longstring' +
+    P'--' * V'Space' * (V'TACore' + ast(P(1) - (P'\n' + P'T@'))) * (P'\n' + -P(1)))
+
+<p>TACore:
+    with types = {"number", "string", "table", "function", "coroutine", "userdata", "nil"}
+      return spaces(P'T@', CV'Name', P'::', C foldmap types, ((x) =&gt; P(x) + @), #(-P'.')) / (n, t) -&gt;
+        (parse"assert((type(#{n}) == &amp;quot;#{t}&amp;quot;), [[`#{n}' is not &amp;quot;#{t}&amp;quot;]])")[1]</p>
+
+<p>-- ......</p>
+
+<p>parse = (msg) -&gt;
+  tree = {llix\match msg}</p>
+
+<p>if h = tree[1]
+    #tree &gt; 1 and tree or h
+  else nil, "Failed to parse"</p>
+
+<p>parse</p></pre></noscript><script src="https://gist.github.com/Nymphium/f47cecb4744ed6d023f0.js"> </script><p>型注釈とはいったものの､つまるところ<code>--T@ foo :: T</code>が<code>assert(type(foo) == "T")</code>の糖衣構文という見方でいいです､というか実際そうです｡
 ですので<em><code>foo</code>の定義以降なら</em>どこに書いてもいいことになります｡しかし定義と注釈のあいだに何かあると､型検査(ただの<code>assert</code>)がされずに進んでいきます｡だめじゃん(完)｡</p>
 <p><code>@ foo :: T</code>でもよかったと思うけど､｢luadocとかぶってはマズい｣という全く必要のない心配をしたので<code>T@</code>という目印にしました｡</p>
 <p><code>assert(A == B)</code>の構文木を手で書くのはアレだし今後書き換わる可能性も考えてパーサー内でパーサーを使うことにした｡これが一番ミソですね｡嘘です｡</p>
