@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 19 Jul 2018 01:47:12 +0900</pubDate>
-    <lastBuildDate>Thu, 19 Jul 2018 01:47:12 +0900</lastBuildDate>
+    <pubDate>Thu, 19 Jul 2018 02:00:51 +0900</pubDate>
+    <lastBuildDate>Thu, 19 Jul 2018 02:00:51 +0900</lastBuildDate>
     <generator>Jekyll v3.8.3</generator>
     
       <item>
@@ -170,7 +170,7 @@ Guileだと&lt;code&gt;(use-modules (ice-9 control))&lt;/code&gt;やね｡&lt;/p
 &lt;p&gt;わかった｡
 とりあえずこのへんで &lt;strong&gt;&lt;em&gt;完全に理解した&lt;/em&gt;&lt;/strong&gt; ということにいたしましょうか…｡&lt;/p&gt;
 &lt;h1 id=&quot;3-prompt-tag&quot;&gt;3. prompt tag&lt;/h1&gt;
-&lt;p&gt;継続をキャプチャするオペレータ(&lt;code&gt;shift&lt;/code&gt;, &lt;code&gt;shift0&lt;/code&gt;, 後述の&lt;code&gt;control&lt;/code&gt;など)はそれぞれ対応する､取るべき継続を区切ってくれるdelimiterがある｡
+&lt;p&gt;継続をキャプチャするオペレータ(&lt;code&gt;shift&lt;/code&gt;, &lt;code&gt;shift0&lt;/code&gt;,&lt;code&gt;control&lt;/code&gt;など)はそれぞれ対応する､取るべき継続を区切ってくれるdelimiterがある｡
 例えばracket/controlでは&lt;code&gt;shift&lt;/code&gt;に対応するのは&lt;code&gt;reset&lt;/code&gt;で､&lt;code&gt;shift0&lt;/code&gt;には&lt;code&gt;reset0&lt;/code&gt;が対応する｡
 更には同じ&lt;code&gt;shift&lt;/code&gt;でも､&lt;code&gt;shift&lt;/code&gt;式&lt;sup id=&quot;fnref4&quot; title=&quot;racket/controlのshiftはマクロ! はいごもっとも! &quot;&gt;&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;のコンテキストで最も近い&lt;code&gt;reset&lt;/code&gt;が動的に対応付けられる｡&lt;/p&gt;
 &lt;p&gt;この､&lt;code&gt;shift&lt;/code&gt;や&lt;code&gt;control&lt;/code&gt;などのcontrol operatorとdelimiterの対応をもっと柔軟にしたい! という要望に応えるのがprompt tagである｡&lt;/p&gt;

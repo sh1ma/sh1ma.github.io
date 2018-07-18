@@ -221,7 +221,7 @@ Guileだと<code>(use-modules (ice-9 control))</code>やね｡</p>
 <p>わかった｡
 とりあえずこのへんで <strong><em>完全に理解した</em></strong> ということにいたしましょうか…｡</p>
 <h1 id="3-prompt-tag">3. prompt tag</h1>
-<p>継続をキャプチャするオペレータ(<code>shift</code>, <code>shift0</code>, 後述の<code>control</code>など)はそれぞれ対応する､取るべき継続を区切ってくれるdelimiterがある｡
+<p>継続をキャプチャするオペレータ(<code>shift</code>, <code>shift0</code>,<code>control</code>など)はそれぞれ対応する､取るべき継続を区切ってくれるdelimiterがある｡
 例えばracket/controlでは<code>shift</code>に対応するのは<code>reset</code>で､<code>shift0</code>には<code>reset0</code>が対応する｡
 更には同じ<code>shift</code>でも､<code>shift</code>式<sup id="fnref4" title="racket/controlのshiftはマクロ! はいごもっとも! "><a href="#fn4" rel="footnote">4</a></sup>のコンテキストで最も近い<code>reset</code>が動的に対応付けられる｡</p>
 <p>この､<code>shift</code>や<code>control</code>などのcontrol operatorとdelimiterの対応をもっと柔軟にしたい! という要望に応えるのがprompt tagである｡</p>
