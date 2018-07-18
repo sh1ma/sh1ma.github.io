@@ -5,9 +5,246 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 14 Jun 2018 00:39:11 +0900</pubDate>
-    <lastBuildDate>Thu, 14 Jun 2018 00:39:11 +0900</lastBuildDate>
+    <pubDate>Thu, 19 Jul 2018 01:47:12 +0900</pubDate>
+    <lastBuildDate>Thu, 19 Jul 2018 01:47:12 +0900</lastBuildDate>
     <generator>Jekyll v3.8.3</generator>
+    
+      <item>
+        <title>delimited continuationの夏</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
+control/promptとprompt tagへの理解が必要になったため､やっていきましょう｡&lt;/p&gt;
+&lt;h1 id=&quot;1-continuation-is-power&quot;&gt;1. continuation??? 継続??? is power ???&lt;/h1&gt;
+&lt;p&gt;継続とは &lt;em&gt;“残りの計算”&lt;/em&gt; などと言われます｡
+\(e_1+e_2\)という式があって､左辺から計算がおこなわれていくとする｡
+\(e_1 \Downarrow v_1\)となると､残りの計算は\(\lambda x. x + e_2 \)となります｡
+\(\lambda x. x + e_2 \)はよく\([\ ]+e_2\)と表現され､この\([\ ]\)はholeと呼ばれたりする｡
+この継続を\(E\)などとおいて､\(E\)をぶっこ抜いてきてなにか値を渡したりするときは\(E[x]\)と表記し､holeに\(x\)が入っていく｡
+OK､私も皆さんも &lt;strong&gt;&lt;em&gt;完全に理解した&lt;/em&gt;&lt;/strong&gt; と思うので話を進めよう｡&lt;/p&gt;
+&lt;h1 id=&quot;2-delimited-continuation&quot;&gt;2. Delimited continuation&lt;/h1&gt;
+&lt;p&gt;和訳すると限定継続です｡これで9割は分かったと思うが､call/ccよりも取ってくる継続の範囲が限定されているというイッメジです｡
+StackOverflowのこれ&lt;sup id=&quot;fnref1&quot; title=&quot;What exactly is a “continuation prompt?” &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;が図解付きでわかりやすい｡&lt;/p&gt;
+&lt;h2 id=&quot;2-1-shift-reset&quot;&gt;2-1. shift/reset&lt;/h2&gt;
+&lt;p&gt;久しぶりにRacket引っ張ってきます｡Schemeでもなんでもdelimited continuationが使えれば良いですが｡
+Racketだとshift/resetを使うには&lt;code&gt;(require racket/control)&lt;/code&gt;する必要がある｡
+Guileだと&lt;code&gt;(use-modules (ice-9 control))&lt;/code&gt;やね｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;call/cc&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;call/cc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))))&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;; displays &quot;-16&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;shift/reset&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;c1&quot;&gt;; (require racket/control)&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))))&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;; displays &quot;-13&quot;&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;; displays &quot;-13&quot; (work in the same way as above)&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))))&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;; displays &quot;-19&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;雑な説明でしたが､&lt;code&gt;call/cc&lt;/code&gt;は中のコンテキスト&lt;code&gt;(+ 3 [])&lt;/code&gt;も継続の呼び出し時に捨ててますね｡
+あとRacketの&lt;code&gt;shift&lt;/code&gt;は&lt;code&gt;reset&lt;/code&gt;が見つからなかったらエラーにならずに最外のコンテキストを持ってくるんですねぇ｡&lt;/p&gt;
+&lt;p&gt;shift/resetの詳細は文献&lt;sup id=&quot;fnref2&quot; title=&quot;浅井健一. “shift/reset プログラミング入門.” ACM SIGPLAN Continuation Workshop 2011. 2011. http://pllab.is.ocha.ac.jp/~asai/cw2011tutorial/main-j.pdf &quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;をご覧ください｡
+…ちょっと待って! &lt;code&gt;shift0&lt;/code&gt;が無いやん! ということで文献&lt;sup id=&quot;fnref3&quot; title=&quot;Shan, Chung-chieh. “Shift to control.” Proceedings of the 5th workshop on Scheme and Functional Programming. 2004. ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103 &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;を見る｡&lt;/p&gt;
+&lt;p&gt;まず&lt;code&gt;shift&lt;/code&gt;の定義を見ます｡&lt;/p&gt;
+&lt;p&gt;\[
+\begin{array}{r}
+    M\left[\left(\mathtt{reset}\ C\left[\left(\mathtt{shift\ f}\ E\right)\right]\right)\right] \triangleright M\left[\left(\mathtt{reset}\ E’\right)\right]\\
+    \mathrm{where}\ E’=E \{\mathtt{f}\mapsto \left(\mathtt{lambda}\ \left(\mathtt{x}\right)\ \left(\mathtt{reset}\ C[\mathtt{x}]\right)\right)\}
+\end{array}
+\]&lt;/p&gt;
+&lt;p&gt;おk｡&lt;/p&gt;
+&lt;p&gt;では&lt;code&gt;shift0&lt;/code&gt;はどうかな?&lt;/p&gt;
+&lt;p&gt;\[
+\begin{array}{r}
+    M\left[\left(\mathtt{reset}\ C\left[\left(\mathtt{shift0\ f}\ E\right)\right]\right)\right] \triangleright M\left[E’\right]\\
+    \mathrm{where}\ E’=E \{\mathtt{f}\mapsto \left(\mathtt{lambda}\ \left(\mathtt{x}\right)\ \left(\mathtt{reset}\ C[\mathtt{x}]\right)\right)\}
+\end{array}
+\]&lt;/p&gt;
+&lt;p&gt;えっ何が違うん? と一瞬困るわけですが､&lt;code&gt;shift0&lt;/code&gt;では一発評価が進むと&lt;code&gt;M&lt;/code&gt;の中から&lt;code&gt;reset&lt;/code&gt;が消えてますね｡
+なので&lt;code&gt;E'&lt;/code&gt;の中の最外の&lt;code&gt;shift0&lt;/code&gt;は&lt;code&gt;M&lt;/code&gt;まで行ってしまうわけです｡
+&lt;code&gt;shift&lt;/code&gt;と&lt;code&gt;shift0&lt;/code&gt;の違いを実際に文献の例から見てみます｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;with-shift&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))))&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;; returns '(a)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;ここの&lt;code&gt;reset&lt;/code&gt;外のコンテキスト&lt;code&gt;M&lt;/code&gt;は&lt;code&gt;(reset (cons 'a []))&lt;/code&gt;となる｡
+つまり変換規則で対象となっている&lt;code&gt;reset&lt;/code&gt;は内側のほう｡
+&lt;code&gt;shift&lt;/code&gt;外のコンテキスト&lt;code&gt;C&lt;/code&gt;は&lt;code&gt;[]&lt;/code&gt;､つまり空ですので最外の&lt;code&gt;shift&lt;/code&gt;が対象となっている｡
+&lt;code&gt;E&lt;/code&gt;は&lt;code&gt;(shift g '())&lt;/code&gt;となる｡&lt;/p&gt;
+&lt;p&gt;ではワンステップすすめると&lt;code&gt;M[(reset E{f := (lambda (x) (reset C[x]))})]&lt;/code&gt;なので&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()))))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;あとは同様にやっていく｡内側の&lt;code&gt;reset&lt;/code&gt;をやっていくので&lt;code&gt;(reset (cons 'a (reset '())))&lt;/code&gt;で､あとはアーナンダビッグステップに行くぞということで&lt;code&gt;'(a)&lt;/code&gt;が得られる｡&lt;/p&gt;
+&lt;p&gt;続いて&lt;code&gt;shift0&lt;/code&gt;について見よう｡
+文献&lt;sup id=&quot;fnref3&quot; title=&quot;Shan, Chung-chieh. “Shift to control.” Proceedings of the 5th workshop on Scheme and Functional Programming. 2004. ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103 &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;ではdelimiterは&lt;code&gt;reset&lt;/code&gt;のみだったが､racket/controlの&lt;code&gt;shift0&lt;/code&gt;に対応するdelimiterは&lt;code&gt;reset0&lt;/code&gt;となる｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;with-shift0&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift0&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift0&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))))&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;; returns '()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;オッなんか違うな｡当然違うわけだ｡
+だいたい形は同じなのですが､
+ワンステップすすめると&lt;code&gt;M[(E{f := (lambda (x) (reset0 C[x]))})]&lt;/code&gt;となる｡
+&lt;code&gt;E&lt;/code&gt;の外に&lt;code&gt;reset(0)&lt;/code&gt;がつかないわけだ｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift0&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;で&lt;code&gt;reset0&lt;/code&gt;と&lt;code&gt;shift0&lt;/code&gt;の間のコンテキストは拾われずに&lt;code&gt;shift0&lt;/code&gt;内のexpressionが生き残るので､&lt;code&gt;'()&lt;/code&gt;を返す｡&lt;/p&gt;
+&lt;p&gt;あ〜〜 &lt;strong&gt;&lt;em&gt;完全に理解した&lt;/em&gt;&lt;/strong&gt; ｡
+この &lt;em&gt;“resetは1度しか使えない”&lt;/em&gt; という回数制限はlinear logicの影が潜んでいそうだ｡
+実際この回数制限nessを型で表そうとするとそんな雰囲気になるはずだ｡&lt;/p&gt;
+&lt;h2 id=&quot;2-2-control-prompt&quot;&gt;2-2. control/prompt&lt;/h2&gt;
+&lt;p&gt;だいたいshift/resetというと語弊があるが､だいたいそんな感じという認識がある(間違ってると思うのでご教授願います｡)｡
+&lt;code&gt;prompt&lt;/code&gt;は&lt;code&gt;control&lt;/code&gt;と対応するdelimiterに過ぎず､動きとしては&lt;code&gt;reset&lt;/code&gt;同様に継続を区切るだけだ｡
+“control prompt&quot;で検索するときは､”-command&quot;を付けないとコマンドプロンプトに関する話が大量に出てきて血管ブチ切れそうになる｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;control&lt;/code&gt;は文献&lt;sup id=&quot;fnref3&quot; title=&quot;Shan, Chung-chieh. “Shift to control.” Proceedings of the 5th workshop on Scheme and Functional Programming. 2004. ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103 &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;より､
+\[
+\begin{array}{r}
+    M\left[\left(\mathtt{reset}\ C\left[\left(\mathtt{control\ f}\ E\right)\right]\right)\right] \triangleright M\left[\left(\mathtt{reset}\ E’\right)\right]\\
+    \mathrm{where}\ E’=E \{\mathtt{f}\mapsto \left(\mathtt{lambda}\ \left(\mathtt{x}\right)\ \left(C[\mathtt{x}]\right)\right)\}
+\end{array}
+\]&lt;/p&gt;
+&lt;p&gt;この論文ではdelimiterが&lt;code&gt;reset&lt;/code&gt;だがとりあえずOKとしたい｡
+&lt;code&gt;f&lt;/code&gt;にバインドされる継続の中に&lt;code&gt;reset&lt;/code&gt;がないという点で&lt;code&gt;shift&lt;/code&gt;と異なっている｡
+論文の例を見てみよう｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;with-shift&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;; returns '(a)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Racketは3種類のカッコが使えるからS式もちょっぴり分かりやすくなるぞ!
+これを規則にそって解いてくと次のように進む｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;c1&quot;&gt;; 1&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;; 2&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))))&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;; 3&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;; 4&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;; 5&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ふむふむ｡はい｡&lt;/p&gt;
+&lt;p&gt;では&lt;code&gt;shift&lt;/code&gt;を&lt;code&gt;control&lt;/code&gt;にしたらどうなるか―&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;control&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;control&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;; returns '()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;結果が異なるわけだな｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;c1&quot;&gt;; 1&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;λ&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;control&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;; 2&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;control&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;; 3&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;control&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;; 4  gが使われないので `[cons 'a ...]` が破棄される&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;; 5&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;わかった｡
+とりあえずこのへんで &lt;strong&gt;&lt;em&gt;完全に理解した&lt;/em&gt;&lt;/strong&gt; ということにいたしましょうか…｡&lt;/p&gt;
+&lt;h1 id=&quot;3-prompt-tag&quot;&gt;3. prompt tag&lt;/h1&gt;
+&lt;p&gt;継続をキャプチャするオペレータ(&lt;code&gt;shift&lt;/code&gt;, &lt;code&gt;shift0&lt;/code&gt;, 後述の&lt;code&gt;control&lt;/code&gt;など)はそれぞれ対応する､取るべき継続を区切ってくれるdelimiterがある｡
+例えばracket/controlでは&lt;code&gt;shift&lt;/code&gt;に対応するのは&lt;code&gt;reset&lt;/code&gt;で､&lt;code&gt;shift0&lt;/code&gt;には&lt;code&gt;reset0&lt;/code&gt;が対応する｡
+更には同じ&lt;code&gt;shift&lt;/code&gt;でも､&lt;code&gt;shift&lt;/code&gt;式&lt;sup id=&quot;fnref4&quot; title=&quot;racket/controlのshiftはマクロ! はいごもっとも! &quot;&gt;&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;のコンテキストで最も近い&lt;code&gt;reset&lt;/code&gt;が動的に対応付けられる｡&lt;/p&gt;
+&lt;p&gt;この､&lt;code&gt;shift&lt;/code&gt;や&lt;code&gt;control&lt;/code&gt;などのcontrol operatorとdelimiterの対応をもっと柔軟にしたい! という要望に応えるのがprompt tagである｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;prompt tag&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;p&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;make-continuation-prompt-tag&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;p~&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;make-continuation-prompt-tag&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'p~&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset-at&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;p&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset-at&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;p~&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift-at&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;begin&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;display&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;this is p&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift-at&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;p~&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;begin&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;display&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;this is p~&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))))&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;; display &quot;this is pthis is p~23&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;確かに､最寄りの&lt;code&gt;reset&lt;/code&gt;ではなく､プロンプトに対応する&lt;code&gt;reset-at&lt;/code&gt;の継続を取っている｡&lt;/p&gt;
+&lt;p&gt;ちなみにOCamlのdelimited continuationライブラリ&lt;a href=&quot;http://okmij.org/ftp/continuations/implementations.html#caml-shift&quot;&gt;delimcc&lt;/a&gt;では､prompt tagのみが使われている｡
+なんだか日本語が足りないが､Racketの&lt;code&gt;shift&lt;/code&gt;や&lt;code&gt;reset&lt;/code&gt;はなく､&lt;code&gt;shift-at&lt;/code&gt;や&lt;code&gt;reset-at&lt;/code&gt;のみ､という感じ｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Delimcc&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_prompt&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;push_prompt&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shift0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;`A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(* returns [] *)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これは何故か｡多分answer-type polymorphismをOCamlではサポートしてないからじゃないかな｡
+詳細はdelimccに関する文献&lt;sup id=&quot;fnref5&quot; title=&quot;Oleg Kiselyov. “Delimited Control in OCaml, Abstractly and Concretely: System Description.” FLOPS 2010. 2010. https://link.springer.com/chapter/10.1007/978-3-642-12251-4_22 &quot;&gt;&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;を読めって話ですよ｡読んでへん｡&lt;/p&gt;
+&lt;p&gt;とりあえずここは &lt;strong&gt;&lt;em&gt;完全に理解した&lt;/em&gt;&lt;/strong&gt; ということで､よろしいでしょうか｡&lt;/p&gt;
+&lt;h1 id=&quot;4&quot;&gt;4. おわりに&lt;/h1&gt;
+&lt;p&gt;なんとなくつかめてきた気がします｡
+夏服の剣持力也くんがうさんくさいメガネ掛けててよかった｡&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/29838344/what-exactly-is-a-continuation-prompt&quot;&gt;What exactly is a “continuation prompt?”&lt;/a&gt; &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn2&quot;&gt;
+&lt;p&gt;浅井健一. “shift/reset プログラミング入門.” ACM SIGPLAN Continuation Workshop 2011. 2011. &lt;a href=&quot;http://pllab.is.ocha.ac.jp/%7Easai/cw2011tutorial/main-j.pdf&quot;&gt;http://pllab.is.ocha.ac.jp/~asai/cw2011tutorial/main-j.pdf&lt;/a&gt; &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn3&quot;&gt;
+&lt;p&gt;Shan, Chung-chieh. “Shift to control.” Proceedings of the 5th workshop on Scheme and Functional Programming. 2004. &lt;a href=&quot;ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103&quot;&gt;ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103&lt;/a&gt; &lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn4&quot;&gt;
+&lt;p&gt;racket/controlの&lt;code&gt;shift&lt;/code&gt;はマクロ! はいごもっとも! &lt;a href=&quot;#fnref4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn5&quot;&gt;
+&lt;p&gt;Oleg Kiselyov. “Delimited Control in OCaml, Abstractly and Concretely: System Description.” FLOPS 2010. 2010. &lt;a href=&quot;https://link.springer.com/chapter/10.1007/978-3-642-12251-4_22&quot;&gt;https://link.springer.com/chapter/10.1007/978-3-642-12251-4_22&lt;/a&gt; &lt;a href=&quot;#fnref5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Thu, 19 Jul 2018 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html</guid>
+        
+        <category>Delimited Continuation</category>
+        
+        <category>Racket</category>
+        
+        <category>OCaml</category>
+        
+        
+      </item>
     
       <item>
         <title>Scala書いた</title>
@@ -1351,234 +1588,6 @@ Error: &quot;INVALIDTOKEN&quot; is not a known terminal symbol.
         <guid isPermaLink="true">https://nymphium.github.io/2017/11/18/OCaml%E3%81%A7eval%E3%81%97%E3%81%A6%E7%B5%90%E6%9E%9C%E3%82%92string%E3%81%A7%E5%BE%97%E3%82%8B.html</guid>
         
         <category>OCaml</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>ロースト</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;
-&lt;h1 id=&quot;1&quot;&gt;1. モチベーション&lt;/h1&gt;
-&lt;p&gt;近年､肉を焼くおっさん&lt;sup id=&quot;fnref1&quot; title=&quot;Nusret – Twitter &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;に触発された｡&lt;/p&gt;
-&lt;p&gt;また､&lt;a href=&quot;https://www.amazon.co.jp/%E6%96%B0%E7%B1%B3%E5%A7%89%E5%A6%B9%E3%81%AE%E3%81%B5%E3%81%9F%E3%82%8A%E3%81%94%E3%81%AF%E3%82%934-%E9%9B%BB%E6%92%83%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9NEXT-%E6%9F%8A-%E3%82%86%E3%81%9F%E3%81%8B/dp/404893242X&quot;&gt;『新米姉妹のふたりごはん』 4巻&lt;/a&gt;が出たので
-1巻&lt;sup id=&quot;fnref2&quot; title=&quot;柊ゆたか Dec 18, 2015 新米姉妹のふたりごはん 1巻 &quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;を読み返したところ､ 美味しそうにローストビーフを作っているじゃあありませんか｡&lt;/p&gt;
-&lt;h1 id=&quot;2&quot;&gt;2. 取り組み&lt;/h1&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;ひつじさんかわいそう… &lt;a href=&quot;https://t.co/VKyuoesJHR&quot;&gt;pic.twitter.com/VKyuoesJHR&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/864432422800179200?ref_src=twsrc%5Etfw&quot;&gt;May 16, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;焼いていきです。 &lt;a href=&quot;https://t.co/rngAsgZP97&quot;&gt;pic.twitter.com/rngAsgZP97&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/866983522799583232?ref_src=twsrc%5Etfw&quot;&gt;May 23, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;p&gt;このあたりで肉を焼く悦びを知り始める｡&lt;/p&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;みなさんは、真夏の夜ですか？ &lt;a href=&quot;https://t.co/7RbtL5mp4n&quot;&gt;pic.twitter.com/7RbtL5mp4n&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/871286109187133440?ref_src=twsrc%5Etfw&quot;&gt;June 4, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;p&gt;これ淫夢&lt;/p&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;皿よりデカイ肉を焼くと面白い事が判明した。 &lt;a href=&quot;https://t.co/Z6GkC5tuDK&quot;&gt;pic.twitter.com/Z6GkC5tuDK&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/877100867429609473?ref_src=twsrc%5Etfw&quot;&gt;June 20, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;塩振ってるおっさんのgifに触発されたわけですが、最高の出来になった。 &lt;a href=&quot;https://t.co/U4v6dGQ1iy&quot;&gt;pic.twitter.com/U4v6dGQ1iy&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/883292390831792128?ref_src=twsrc%5Etfw&quot;&gt;July 7, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;頭部が一番香ばしかった｡胴体は甲殻類っぽい｡寄生虫や細菌対策でよォ～く揚げたのでパリパリになってうまかった｡タルタルソースが合いますねぇ! &lt;a href=&quot;https://t.co/jEtx4ssT5Z&quot;&gt;pic.twitter.com/jEtx4ssT5Z&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/898587568802906113?ref_src=twsrc%5Etfw&quot;&gt;August 18, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;p&gt;これ蝉&lt;/p&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;最凶武器と､最凶武器によって4分割された鶏 &lt;a href=&quot;https://t.co/NLb2i5LWzf&quot;&gt;pic.twitter.com/NLb2i5LWzf&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/904651369545572352?ref_src=twsrc%5Etfw&quot;&gt;September 4, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;p&gt;[&lt;a href=&quot;#fn2&quot;&gt;2&lt;/a&gt;]にてローストビーフの執刀シーンでクソデカフォークが用いられており､触発された俺達は｡&lt;/p&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;豚な上に明らかに生っぽい以外は大変美味しい､ただ400gって多いですね｡ &lt;a href=&quot;https://t.co/881l7IyXMx&quot;&gt;pic.twitter.com/881l7IyXMx&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/909048521386475520?ref_src=twsrc%5Etfw&quot;&gt;September 16, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;p&gt;生肉は危険であり､量も多いとつらいことを知る｡&lt;/p&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;黄金体験 &lt;a href=&quot;https://t.co/4gdtTA4ixr&quot;&gt;pic.twitter.com/4gdtTA4ixr&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/922384058360872960?ref_src=twsrc%5Etfw&quot;&gt;October 23, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;鉄皿最高｡肉が冷めないしナイフでガシガシやっても不安感が無い､ビジュアルが良い､等々｡アパートのオーブンが小さいので鉄皿半身しか入らないのが問題だ｡&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/922386349704978432?ref_src=twsrc%5Etfw&quot;&gt;October 23, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;p&gt;鉄の皿は最高｡ただこれは底が深めなのでもはや鉄鍋ですね｡鉄鍋最高｡&lt;/p&gt;
-&lt;h1 id=&quot;3-implementation&quot;&gt;3. implementation&lt;/h1&gt;
-&lt;h2 id=&quot;3-1&quot;&gt;3-1. 準備&lt;/h2&gt;
-&lt;p&gt;材料を用意する｡
-場合によっては近所にスーパーがある場所などへ引っ越す必要がある｡&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;材料&lt;/th&gt;
-&lt;th&gt;量&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;牛P(脂の少ない部位)&lt;/td&gt;
-&lt;td&gt;250g〜&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;オリーブオイル&lt;/td&gt;
-&lt;td&gt;本当に少し&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;塩&lt;/td&gt;
-&lt;td&gt;5振り(味付けあり) / 10振り(塩のみ)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;胡椒&lt;/td&gt;
-&lt;td&gt;オプショナル(7振りくらいがいいか)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;フライパン(テフロン製でない)&lt;/td&gt;
-&lt;td&gt;Pが焼ける大きさ1つ&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;鍋&lt;/td&gt;
-&lt;td&gt;Pが余裕で入る大きさ1つ&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ジップロック&lt;/td&gt;
-&lt;td&gt;Pが入る大きさ1つ&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ストロー&lt;/td&gt;
-&lt;td&gt;オプショナル(1つ)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;氷&lt;/td&gt;
-&lt;td&gt;オプショナル(適量)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;今回は米国産牛モモブロック(ローストビーフ用) 353g 667円を用いた｡
-形がととのっていると焼きやすく､火の通りが均一になるなどボーナスがある｡
-また､新鮮なほうが美味しくなる､等々､選択にもコツがある｡&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/pictures/2017-10-24-%E3%83%AD%E3%83%BC%E3%82%B9%E3%83%88/DSC_1717.jpg&quot; alt=&quot;肉&quot; title=&quot;肉&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;3-2&quot;&gt;3-2. 調理&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;塩､コショウを塗りたくったあとにオリーブオイルを塗りたくる｡&lt;/p&gt;
-
-&lt;p&gt;塩で肉を引き締める｡また焼いた後よりも焼く前にかけておいたほうが馴染む｡&lt;/p&gt;
-
-&lt;p&gt;フライパンで焼く時に張り付かないためにオリーブオイルを塗る｡
-あっさり仕上げたいのでオリーブオイルをチョイスした｡&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/pictures/2017-10-24-%E3%83%AD%E3%83%BC%E3%82%B9%E3%83%88/DSC_1718.jpg&quot; alt=&quot;塗った肉&quot; title=&quot;塗った肉&quot;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;強火で熱したフライパンにぶっこみ､全面に焼き目が付く程度に焼く｡&lt;/p&gt;
-
-&lt;p&gt;ダラダラ焼いてると中まで火が通ってしまい､柔らか〜な食感が得られない｡
-では何故俺達は肉を焼く…?&lt;/p&gt;
-
-&lt;p&gt;肉を焼くのが楽しいからだけかもしれない｡
-だがそれ以上に理由が必要か?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/pictures/2017-10-24-%E3%83%AD%E3%83%BC%E3%82%B9%E3%83%88/DSC_1719.jpg&quot; alt=&quot;はみ出&quot; title=&quot;はみ出&quot;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;ジップロックに焼いた牛を入れ､できるだけ空気を抜いて密封する｡ここでストローがあると便利｡&lt;/p&gt;
-
-&lt;p&gt;すでにうまそう
-&lt;img src=&quot;/pictures/2017-10-24-%E3%83%AD%E3%83%BC%E3%82%B9%E3%83%88/DSC_1723.jpg&quot; alt=&quot;真空&quot; title=&quot;真空肉&quot;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;鍋に水をつっこむ｡牛の入っているジップロックの牛部分が完全に埋まる程度に水が必要｡&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;鍋に入った水を､鍋底に気泡が出来る程度に加熱して弱火にする｡&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;鍋に入った水に牛の入ったジップロックを突っ込む｡牛部分が全部埋まるように｡&lt;label id=&quot;proc6&quot;&gt;&lt;/label&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/pictures/2017-10-24-%E3%83%AD%E3%83%BC%E3%82%B9%E3%83%88/DSC_1726.jpg&quot; alt=&quot;あっため&quot; title=&quot;あっため中&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;火の加減はこんな具合に&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/pictures/2017-10-24-%E3%83%AD%E3%83%BC%E3%82%B9%E3%83%88/DSC_1727.jpg&quot; alt=&quot;火の加減&quot; title=&quot;火の加減&quot;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#proc6&quot;&gt;手順6.&lt;/a&gt; から5分たったら火を止める｡&lt;label id=&quot;proc7&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#proc7&quot;&gt;手順7.&lt;/a&gt; から3分たったら点火し弱火に&lt;label id=&quot;proc8&quot;&gt;&lt;/label&gt;｡&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#proc8&quot;&gt;手順8.&lt;/a&gt; から5分たったら火を止める｡&lt;label id=&quot;proc9&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#proc9&quot;&gt;手順9.&lt;/a&gt; から3分たったら点火し弱火に｡&lt;label id=&quot;proc10&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#proc10&quot;&gt;手順10.&lt;/a&gt; から5分たったら火を止める｡&lt;label id=&quot;proc11&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#proc11&quot;&gt;手順11.&lt;/a&gt; から3分たったら点火し弱火に｡&lt;label id=&quot;proc12&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#proc12&quot;&gt;手順12.&lt;/a&gt; から5分たったら火を止める｡&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;鍋から取り出した牛をしばらく冷やす｡ここで氷があると便利｡&lt;/p&gt;
-
-&lt;p&gt;余熱による過熟を防ぐことが狙い｡&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/pictures/2017-10-24-%E3%83%AD%E3%83%BC%E3%82%B9%E3%83%88/DSC_1730.jpg&quot; alt=&quot;冷ます&quot; title=&quot;冷ます&quot;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;おわり&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;あとは干して軒先に飾ったり玄関や居間に置いて観賞することや､食べることができる｡&lt;/p&gt;
-&lt;p&gt;私は食べることを選択しました｡お前はどうだ?&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/pictures/2017-10-24-%E3%83%AD%E3%83%BC%E3%82%B9%E3%83%88/DSC_1735.jpg&quot; alt=&quot;うまそう&quot; title=&quot;うまそう&quot;&gt;&lt;/p&gt;
-&lt;p&gt;うまいローストビーフをわさび醤油で食べるとうまいことが知られている｡&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/pictures/2017-10-24-%E3%83%AD%E3%83%BC%E3%82%B9%E3%83%88/DSC_1736.jpg&quot; alt=&quot;うまい&quot; title=&quot;うまい&quot;&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;現在『FLOWERS』冬篇を始めるために春篇からやり直している｡
-このメガネ何言う天然､沙々貴姉妹お前レッドカード過ぎてるぞ､等々､周回の余裕がある｡&lt;/p&gt;
-&lt;p&gt;えりかさんと千鳥さんのイチャラブ夏篇では美味しそうな料理が大量に出るので､ゲームをプレイしながらボクも登場する料理を作っていこうと考えており候｡&lt;/p&gt;
-&lt;p&gt;おわりだよ&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&quot;part-65432df8bd7&quot;&gt;近況&lt;/h1&gt;
-&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;泊りがけで江ノ島花火大会楽しかったです😭 &lt;a href=&quot;https://t.co/4QgOBcXoxX&quot;&gt;pic.twitter.com/4QgOBcXoxX&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/921965080316542978?ref_src=twsrc%5Etfw&quot;&gt;October 22, 2017&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;p&gt;卒研がスムーズに進んでいるので､先生がFLOPS2018に出す予定の論文の実装をやってます｡何も考えずに実装するだけで共著になるのでオトクな気分ですね｡&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-
-&lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/nusr_ett&quot;&gt;Nusret – Twitter&lt;/a&gt; &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn2&quot;&gt;
-&lt;p&gt;柊ゆたか Dec 18, 2015 &lt;a href=&quot;https://www.amazon.co.jp/%E6%96%B0%E7%B1%B3%E5%A7%89%E5%A6%B9%E3%81%AE%E3%81%B5%E3%81%9F%E3%82%8A%E3%81%94%E3%81%AF%E3%82%93-1-%E9%9B%BB%E6%92%83%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9NEXT-%E6%9F%8A%E3%82%86%E3%81%9F%E3%81%8B/dp/4048656538/&quot;&gt;新米姉妹のふたりごはん 1巻&lt;/a&gt; &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-        <pubDate>Tue, 24 Oct 2017 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2017/10/24/%E3%83%AD%E3%83%BC%E3%82%B9%E3%83%88.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2017/10/24/%E3%83%AD%E3%83%BC%E3%82%B9%E3%83%88.html</guid>
-        
-        <category>雑感</category>
-        
-        <category>肉</category>
         
         
       </item>

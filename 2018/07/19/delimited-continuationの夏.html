@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>delimited continuationの夏 &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="delimited continuationの夏">
+    <meta name="twitter:title" content="delimited continuationの夏"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html"> 
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">delimited continuationの夏</h1>
+            <span class="post-meta">
+              <time datetime="2018-07-19T00:00:00+09:00" itemprop="datePublished">Jul 19, 2018</time>
+              <p>tag: &#123;<a href="/tags.html#Delimited Continuation-ref">Delimited Continuation</a>, <a href="/tags.html#Racket-ref">Racket</a>, <a href="/tags.html#OCaml-ref">OCaml</a>&#125;</p>
+            </span>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <script type="text/javascript" async
+              src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            </script>
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
+});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡
+control/promptとprompt tagへの理解が必要になったため､やっていきましょう｡</p>
+<h1 id="1-continuation-is-power">1. continuation??? 継続??? is power ???</h1>
+<p>継続とは <em>“残りの計算”</em> などと言われます｡
+\(e_1+e_2\)という式があって､左辺から計算がおこなわれていくとする｡
+\(e_1 \Downarrow v_1\)となると､残りの計算は\(\lambda x. x + e_2 \)となります｡
+\(\lambda x. x + e_2 \)はよく\([\ ]+e_2\)と表現され､この\([\ ]\)はholeと呼ばれたりする｡
+この継続を\(E\)などとおいて､\(E\)をぶっこ抜いてきてなにか値を渡したりするときは\(E[x]\)と表記し､holeに\(x\)が入っていく｡
+OK､私も皆さんも <strong><em>完全に理解した</em></strong> と思うので話を進めよう｡</p>
+<h1 id="2-delimited-continuation">2. Delimited continuation</h1>
+<p>和訳すると限定継続です｡これで9割は分かったと思うが､call/ccよりも取ってくる継続の範囲が限定されているというイッメジです｡
+StackOverflowのこれ<sup id="fnref1" title="What exactly is a “continuation prompt?” "><a href="#fn1" rel="footnote">1</a></sup>が図解付きでわかりやすい｡</p>
+<h2 id="2-1-shift-reset">2-1. shift/reset</h2>
+<p>久しぶりにRacket引っ張ってきます｡Schemeでもなんでもdelimited continuationが使えれば良いですが｡
+Racketだとshift/resetを使うには<code>(require racket/control)</code>する必要がある｡
+Guileだと<code>(use-modules (ice-9 control))</code>やね｡</p>
+<div class="highlight">
+<span class="listing-name">call/cc</span><pre><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nb">-</span> <span class="mi">4</span> <span class="p">(</span><span class="nb">call/cc</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nf">k</span><span class="p">)</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">3</span> <span class="p">(</span><span class="nf">k</span> <span class="mi">20</span><span class="p">)))))</span>
+<span class="c1">; displays "-16"</span>
+</code></pre>
+</div>
+<div class="highlight">
+<span class="listing-name">shift/reset</span><pre><code class="language-scheme" data-lang="scheme"><span class="c1">; (require racket/control)</span>
+
+<span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="nb">-</span> <span class="mi">4</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">k</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">3</span> <span class="p">(</span><span class="nf">k</span> <span class="mi">20</span><span class="p">)))))</span>
+<span class="c1">; displays "-13"</span>
+
+<span class="p">(</span><span class="nb">-</span> <span class="mi">4</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">k</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">3</span> <span class="p">(</span><span class="nf">k</span> <span class="mi">20</span><span class="p">))))</span>
+<span class="c1">; displays "-13" (work in the same way as above)</span>
+
+<span class="p">(</span><span class="nb">-</span> <span class="mi">4</span> <span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">k</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">3</span> <span class="p">(</span><span class="nf">k</span> <span class="mi">20</span><span class="p">)))))</span>
+<span class="c1">; displays "-19"</span>
+</code></pre>
+</div>
+<p>雑な説明でしたが､<code>call/cc</code>は中のコンテキスト<code>(+ 3 [])</code>も継続の呼び出し時に捨ててますね｡
+あとRacketの<code>shift</code>は<code>reset</code>が見つからなかったらエラーにならずに最外のコンテキストを持ってくるんですねぇ｡</p>
+<p>shift/resetの詳細は文献<sup id="fnref2" title="浅井健一. “shift/reset プログラミング入門.” ACM SIGPLAN Continuation Workshop 2011. 2011. http://pllab.is.ocha.ac.jp/~asai/cw2011tutorial/main-j.pdf "><a href="#fn2" rel="footnote">2</a></sup>をご覧ください｡
+…ちょっと待って! <code>shift0</code>が無いやん! ということで文献<sup id="fnref3" title="Shan, Chung-chieh. “Shift to control.” Proceedings of the 5th workshop on Scheme and Functional Programming. 2004. ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103 "><a href="#fn3" rel="footnote">3</a></sup>を見る｡</p>
+<p>まず<code>shift</code>の定義を見ます｡</p>
+<p>\[
+\begin{array}{r}
+    M\left[\left(\mathtt{reset}\ C\left[\left(\mathtt{shift\ f}\ E\right)\right]\right)\right] \triangleright M\left[\left(\mathtt{reset}\ E’\right)\right]\\
+    \mathrm{where}\ E’=E \{\mathtt{f}\mapsto \left(\mathtt{lambda}\ \left(\mathtt{x}\right)\ \left(\mathtt{reset}\ C[\mathtt{x}]\right)\right)\}
+\end{array}
+\]</p>
+<p>おk｡</p>
+<p>では<code>shift0</code>はどうかな?</p>
+<p>\[
+\begin{array}{r}
+    M\left[\left(\mathtt{reset}\ C\left[\left(\mathtt{shift0\ f}\ E\right)\right]\right)\right] \triangleright M\left[E’\right]\\
+    \mathrm{where}\ E’=E \{\mathtt{f}\mapsto \left(\mathtt{lambda}\ \left(\mathtt{x}\right)\ \left(\mathtt{reset}\ C[\mathtt{x}]\right)\right)\}
+\end{array}
+\]</p>
+<p>えっ何が違うん? と一瞬困るわけですが､<code>shift0</code>では一発評価が進むと<code>M</code>の中から<code>reset</code>が消えてますね｡
+なので<code>E'</code>の中の最外の<code>shift0</code>は<code>M</code>まで行ってしまうわけです｡
+<code>shift</code>と<code>shift0</code>の違いを実際に文献の例から見てみます｡</p>
+<div class="highlight">
+<span class="listing-name">with-shift</span><pre><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span>
+  <span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">f</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">g</span> <span class="o">'</span><span class="p">())))))</span>
+<span class="c1">; returns '(a)</span>
+</code></pre>
+</div>
+<p>ここの<code>reset</code>外のコンテキスト<code>M</code>は<code>(reset (cons 'a []))</code>となる｡
+つまり変換規則で対象となっている<code>reset</code>は内側のほう｡
+<code>shift</code>外のコンテキスト<code>C</code>は<code>[]</code>､つまり空ですので最外の<code>shift</code>が対象となっている｡
+<code>E</code>は<code>(shift g '())</code>となる｡</p>
+<p>ではワンステップすすめると<code>M[(reset E{f := (lambda (x) (reset C[x]))})]</code>なので</p>
+<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span>
+  <span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">g</span> <span class="o">'</span><span class="p">()))))</span>
+</code></pre></div>
+<p>あとは同様にやっていく｡内側の<code>reset</code>をやっていくので<code>(reset (cons 'a (reset '())))</code>で､あとはアーナンダビッグステップに行くぞということで<code>'(a)</code>が得られる｡</p>
+<p>続いて<code>shift0</code>について見よう｡
+文献<sup id="fnref3" title="Shan, Chung-chieh. “Shift to control.” Proceedings of the 5th workshop on Scheme and Functional Programming. 2004. ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103 "><a href="#fn3" rel="footnote">3</a></sup>ではdelimiterは<code>reset</code>のみだったが､racket/controlの<code>shift0</code>に対応するdelimiterは<code>reset0</code>となる｡</p>
+<div class="highlight">
+<span class="listing-name">with-shift0</span><pre><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nf">reset0</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span>
+  <span class="p">(</span><span class="nf">reset0</span> <span class="p">(</span><span class="nf">shift0</span> <span class="nv">f</span> <span class="p">(</span><span class="nf">shift0</span> <span class="nv">g</span> <span class="o">'</span><span class="p">())))))</span>
+<span class="c1">; returns '()</span>
+</code></pre>
+</div>
+<p>オッなんか違うな｡当然違うわけだ｡
+だいたい形は同じなのですが､
+ワンステップすすめると<code>M[(E{f := (lambda (x) (reset0 C[x]))})]</code>となる｡
+<code>E</code>の外に<code>reset(0)</code>がつかないわけだ｡</p>
+<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nf">reset0</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span>
+  <span class="p">(</span><span class="nf">shift0</span> <span class="nv">g</span> <span class="o">'</span><span class="p">())))</span>
+</code></pre></div>
+<p>で<code>reset0</code>と<code>shift0</code>の間のコンテキストは拾われずに<code>shift0</code>内のexpressionが生き残るので､<code>'()</code>を返す｡</p>
+<p>あ〜〜 <strong><em>完全に理解した</em></strong> ｡
+この <em>“resetは1度しか使えない”</em> という回数制限はlinear logicの影が潜んでいそうだ｡
+実際この回数制限nessを型で表そうとするとそんな雰囲気になるはずだ｡</p>
+<h2 id="2-2-control-prompt">2-2. control/prompt</h2>
+<p>だいたいshift/resetというと語弊があるが､だいたいそんな感じという認識がある(間違ってると思うのでご教授願います｡)｡
+<code>prompt</code>は<code>control</code>と対応するdelimiterに過ぎず､動きとしては<code>reset</code>同様に継続を区切るだけだ｡
+“control prompt"で検索するときは､”-command"を付けないとコマンドプロンプトに関する話が大量に出てきて血管ブチ切れそうになる｡</p>
+<p><code>control</code>は文献<sup id="fnref3" title="Shan, Chung-chieh. “Shift to control.” Proceedings of the 5th workshop on Scheme and Functional Programming. 2004. ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103 "><a href="#fn3" rel="footnote">3</a></sup>より､
+\[
+\begin{array}{r}
+    M\left[\left(\mathtt{reset}\ C\left[\left(\mathtt{control\ f}\ E\right)\right]\right)\right] \triangleright M\left[\left(\mathtt{reset}\ E’\right)\right]\\
+    \mathrm{where}\ E’=E \{\mathtt{f}\mapsto \left(\mathtt{lambda}\ \left(\mathtt{x}\right)\ \left(C[\mathtt{x}]\right)\right)\}
+\end{array}
+\]</p>
+<p>この論文ではdelimiterが<code>reset</code>だがとりあえずOKとしたい｡
+<code>f</code>にバインドされる継続の中に<code>reset</code>がないという点で<code>shift</code>と異なっている｡
+論文の例を見てみよう｡</p>
+<div class="highlight">
+<span class="listing-name">with-shift</span><pre><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="k">let</span> <span class="err">{[</span><span class="nv">y</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">f</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span> <span class="p">(</span><span class="nf">f</span> <span class="o">'</span><span class="p">())))</span><span class="err">]}</span>
+  <span class="p">(</span><span class="nf">shift</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">)))</span>
+<span class="c1">; returns '(a)</span>
+</code></pre>
+</div>
+<p>Racketは3種類のカッコが使えるからS式もちょっぴり分かりやすくなるぞ!
+これを規則にそって解いてくと次のように進む｡</p>
+<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span class="c1">; 1</span>
+<span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span>
+  <span class="err">[</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="k">let</span> <span class="err">{[</span><span class="nv">y</span> <span class="nv">x</span><span class="err">]}</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">))))</span>
+  <span class="o">'</span><span class="p">()</span><span class="err">]</span><span class="p">))</span>
+
+<span class="c1">; 2</span>
+<span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span>
+  <span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="k">let</span> <span class="err">{[</span><span class="nv">y</span> <span class="o">'</span><span class="p">()</span><span class="err">]}</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">)))))</span>
+
+<span class="c1">; 3</span>
+<span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span> <span class="p">(</span><span class="nf">reset</span> <span class="nv">shift</span> <span class="nv">g</span> <span class="o">'</span><span class="p">())))</span>
+
+<span class="c1">; 4</span>
+<span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span> <span class="p">(</span><span class="nf">reset</span> <span class="o">'</span><span class="p">())))</span>
+
+<span class="c1">; 5</span>
+<span class="o">'</span><span class="p">(</span><span class="nf">a</span><span class="p">)</span>
+</code></pre></div>
+<p>ふむふむ｡はい｡</p>
+<p>では<code>shift</code>を<code>control</code>にしたらどうなるか―</p>
+<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="k">let</span> <span class="err">{[</span><span class="nv">y</span> <span class="p">(</span><span class="nf">control</span> <span class="nv">f</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span> <span class="p">(</span><span class="nf">f</span> <span class="o">'</span><span class="p">())))</span><span class="err">]}</span>
+  <span class="p">(</span><span class="nf">control</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">)))</span>
+<span class="c1">; returns '()</span>
+</code></pre></div>
+<p>結果が異なるわけだな｡</p>
+<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span class="c1">; 1</span>
+<span class="p">(</span><span class="nf">reset</span> <span class="err">[</span><span class="nv">cons</span> <span class="ss">'a</span>
+  <span class="p">((</span><span class="err">λ</span> <span class="p">(</span><span class="nf">x</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">let</span> <span class="err">{[</span><span class="nv">y</span> <span class="nv">x</span><span class="err">]}</span> <span class="p">(</span><span class="nf">control</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">)))</span>
+    <span class="o">'</span><span class="p">())</span><span class="err">]</span><span class="p">)</span>
+
+<span class="c1">; 2</span>
+<span class="p">(</span><span class="nf">reset</span> <span class="err">[</span><span class="nv">cons</span> <span class="ss">'a</span>
+  <span class="p">(</span><span class="k">let</span> <span class="err">{[</span><span class="nv">y</span> <span class="o">'</span><span class="p">()</span><span class="err">]}</span> <span class="p">(</span><span class="nf">control</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">))</span><span class="err">]</span><span class="p">)</span>
+
+<span class="c1">; 3</span>
+<span class="p">(</span><span class="nf">reset</span> <span class="err">[</span><span class="nv">cons</span> <span class="ss">'a</span> <span class="p">(</span><span class="nf">control</span> <span class="nv">g</span> <span class="o">'</span><span class="p">())</span><span class="err">]</span><span class="p">)</span>
+
+<span class="c1">; 4  gが使われないので `[cons 'a ...]` が破棄される</span>
+<span class="p">(</span><span class="nf">reset</span> <span class="o">'</span><span class="p">())</span>
+
+<span class="c1">; 5</span>
+<span class="o">'</span><span class="p">()</span>
+</code></pre></div>
+<p>わかった｡
+とりあえずこのへんで <strong><em>完全に理解した</em></strong> ということにいたしましょうか…｡</p>
+<h1 id="3-prompt-tag">3. prompt tag</h1>
+<p>継続をキャプチャするオペレータ(<code>shift</code>, <code>shift0</code>, 後述の<code>control</code>など)はそれぞれ対応する､取るべき継続を区切ってくれるdelimiterがある｡
+例えばracket/controlでは<code>shift</code>に対応するのは<code>reset</code>で､<code>shift0</code>には<code>reset0</code>が対応する｡
+更には同じ<code>shift</code>でも､<code>shift</code>式<sup id="fnref4" title="racket/controlのshiftはマクロ! はいごもっとも! "><a href="#fn4" rel="footnote">4</a></sup>のコンテキストで最も近い<code>reset</code>が動的に対応付けられる｡</p>
+<p>この､<code>shift</code>や<code>control</code>などのcontrol operatorとdelimiterの対応をもっと柔軟にしたい! という要望に応えるのがprompt tagである｡</p>
+<div class="highlight">
+<span class="listing-name">prompt tag</span><pre><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="k">let</span> <span class="err">{</span>
+  <span class="err">[</span><span class="nv">p</span>  <span class="p">(</span><span class="nf">make-continuation-prompt-tag</span> <span class="ss">'p</span><span class="p">)</span><span class="err">]</span>
+  <span class="err">[</span><span class="nv">p~</span> <span class="p">(</span><span class="nf">make-continuation-prompt-tag</span> <span class="ss">'p~</span><span class="p">)</span><span class="err">]}</span>
+  <span class="p">(</span><span class="nf">reset-at</span> <span class="nv">p</span>
+      <span class="p">(</span><span class="nb">+</span> <span class="mi">3</span> <span class="p">(</span><span class="nf">reset-at</span> <span class="nv">p~</span>
+        <span class="p">(</span><span class="k">begin</span>
+          <span class="p">(</span><span class="nf">shift-at</span> <span class="nv">p</span> <span class="nv">f</span> <span class="err">{</span><span class="nv">begin</span>
+            <span class="p">(</span><span class="nb">display</span> <span class="s">"this is p"</span><span class="p">)</span>
+            <span class="p">(</span><span class="nf">f</span> <span class="mi">4</span><span class="p">)</span><span class="err">}</span><span class="p">)</span>
+          <span class="p">(</span><span class="nf">shift-at</span> <span class="nv">p~</span> <span class="nv">g</span> <span class="err">{</span><span class="nv">begin</span>
+            <span class="p">(</span><span class="nb">display</span> <span class="s">"this is p~"</span><span class="p">)</span>
+            <span class="p">(</span><span class="nf">g</span> <span class="mi">20</span><span class="p">)</span><span class="err">}</span><span class="p">))))))</span>
+<span class="c1">; display "this is pthis is p~23"</span>
+</code></pre>
+</div>
+<p>確かに､最寄りの<code>reset</code>ではなく､プロンプトに対応する<code>reset-at</code>の継続を取っている｡</p>
+<p>ちなみにOCamlのdelimited continuationライブラリ<a href="http://okmij.org/ftp/continuations/implementations.html#caml-shift">delimcc</a>では､prompt tagのみが使われている｡
+なんだか日本語が足りないが､Racketの<code>shift</code>や<code>reset</code>はなく､<code>shift-at</code>や<code>reset-at</code>のみ､という感じ｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">open</span> <span class="nc">Delimcc</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">p</span> <span class="o">=</span> <span class="n">new_prompt</span> <span class="bp">()</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">reset</span> <span class="o">=</span> <span class="n">push_prompt</span> <span class="n">p</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">shift</span> <span class="n">f</span> <span class="o">=</span> <span class="n">shift0</span> <span class="n">p</span> <span class="n">f</span> <span class="k">in</span>
+  <span class="n">reset</span> <span class="o">@@</span> <span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span> <span class="nn">List</span><span class="p">.</span><span class="n">cons</span> <span class="nt">`A</span> <span class="o">@@</span>
+    <span class="n">reset</span> <span class="o">@@</span> <span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span> <span class="n">shift</span> <span class="o">@@</span> <span class="k">fun</span> <span class="n">f</span> <span class="o">-&gt;</span> <span class="n">shift</span> <span class="o">@@</span> <span class="k">fun</span> <span class="n">g</span> <span class="o">-&gt;</span> <span class="bp">[]</span><span class="p">;;</span>
+<span class="c">(* returns [] *)</span>
+</code></pre></div>
+<p>これは何故か｡多分answer-type polymorphismをOCamlではサポートしてないからじゃないかな｡
+詳細はdelimccに関する文献<sup id="fnref5" title="Oleg Kiselyov. “Delimited Control in OCaml, Abstractly and Concretely: System Description.” FLOPS 2010. 2010. https://link.springer.com/chapter/10.1007/978-3-642-12251-4_22 "><a href="#fn5" rel="footnote">5</a></sup>を読めって話ですよ｡読んでへん｡</p>
+<p>とりあえずここは <strong><em>完全に理解した</em></strong> ということで､よろしいでしょうか｡</p>
+<h1 id="4">4. おわりに</h1>
+<p>なんとなくつかめてきた気がします｡
+夏服の剣持力也くんがうさんくさいメガネ掛けててよかった｡</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p><a href="https://stackoverflow.com/questions/29838344/what-exactly-is-a-continuation-prompt">What exactly is a “continuation prompt?”</a> <a href="#fnref1" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn2">
+<p>浅井健一. “shift/reset プログラミング入門.” ACM SIGPLAN Continuation Workshop 2011. 2011. <a href="http://pllab.is.ocha.ac.jp/%7Easai/cw2011tutorial/main-j.pdf">http://pllab.is.ocha.ac.jp/~asai/cw2011tutorial/main-j.pdf</a> <a href="#fnref2" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn3">
+<p>Shan, Chung-chieh. “Shift to control.” Proceedings of the 5th workshop on Scheme and Functional Programming. 2004. <a href="ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103">ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103</a> <a href="#fnref3" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn4">
+<p>racket/controlの<code>shift</code>はマクロ! はいごもっとも! <a href="#fnref4" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn5">
+<p>Oleg Kiselyov. “Delimited Control in OCaml, Abstractly and Concretely: System Description.” FLOPS 2010. 2010. <a href="https://link.springer.com/chapter/10.1007/978-3-642-12251-4_22">https://link.springer.com/chapter/10.1007/978-3-642-12251-4_22</a> <a href="#fnref5" rev="footnote">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2018/06/09/Scala%E6%9B%B8%E3%81%84%E3%81%9F.html" title="Scala書いた">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <span class="btn next disabled">Next &rarr;</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
