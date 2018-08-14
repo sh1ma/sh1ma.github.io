@@ -167,7 +167,7 @@ Guileだと<code>(use-modules (ice-9 control))</code>やね｡</p>
 <code>f</code>にバインドされる継続の中に<code>reset</code>がないという点で<code>shift</code>と異なっている｡
 論文の例を見てみよう｡</p>
 <div class="highlight">
-<span class="listing-name">with-shift</span><pre><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="k">let</span> <span class="err">{[</span><span class="nv">y</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">f</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span> <span class="p">(</span><span class="nf">f</span> <span class="o">'</span><span class="p">())))</span><span class="err">]}</span>
+<span class="listing-name">with-shift</span><pre><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="k">let</span> <span class="err">{</span><span class="p">[</span><span class="nf">y</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">f</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span> <span class="p">(</span><span class="nf">f</span> <span class="o">'</span><span class="p">())))]</span><span class="err">}</span>
   <span class="p">(</span><span class="nf">shift</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">)))</span>
 <span class="c1">; returns '(a)</span>
 </code></pre>
@@ -176,12 +176,12 @@ Guileだと<code>(use-modules (ice-9 control))</code>やね｡</p>
 これを規則にそって解いてくと次のように進む｡</p>
 <div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span class="c1">; 1</span>
 <span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span>
-  <span class="err">[</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="k">let</span> <span class="err">{[</span><span class="nv">y</span> <span class="nv">x</span><span class="err">]}</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">))))</span>
-  <span class="o">'</span><span class="p">()</span><span class="err">]</span><span class="p">))</span>
+  <span class="p">[(</span><span class="k">lambda</span> <span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="k">let</span> <span class="err">{</span><span class="p">[</span><span class="nf">y</span> <span class="nv">x</span><span class="p">]</span><span class="err">}</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">))))</span>
+  <span class="o">'</span><span class="p">()]))</span>
 
 <span class="c1">; 2</span>
 <span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span>
-  <span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="k">let</span> <span class="err">{[</span><span class="nv">y</span> <span class="o">'</span><span class="p">()</span><span class="err">]}</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">)))))</span>
+  <span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="k">let</span> <span class="err">{</span><span class="p">[</span><span class="nf">y</span> <span class="o">'</span><span class="p">()]</span><span class="err">}</span> <span class="p">(</span><span class="nf">shift</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">)))))</span>
 
 <span class="c1">; 3</span>
 <span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span> <span class="p">(</span><span class="nf">reset</span> <span class="nv">shift</span> <span class="nv">g</span> <span class="o">'</span><span class="p">())))</span>
@@ -194,23 +194,23 @@ Guileだと<code>(use-modules (ice-9 control))</code>やね｡</p>
 </code></pre></div>
 <p>ふむふむ｡はい｡</p>
 <p>では<code>shift</code>を<code>control</code>にしたらどうなるか―</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="k">let</span> <span class="err">{[</span><span class="nv">y</span> <span class="p">(</span><span class="nf">control</span> <span class="nv">f</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span> <span class="p">(</span><span class="nf">f</span> <span class="o">'</span><span class="p">())))</span><span class="err">]}</span>
+<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nf">reset</span> <span class="p">(</span><span class="k">let</span> <span class="err">{</span><span class="p">[</span><span class="nf">y</span> <span class="p">(</span><span class="nf">control</span> <span class="nv">f</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span> <span class="p">(</span><span class="nf">f</span> <span class="o">'</span><span class="p">())))]</span><span class="err">}</span>
   <span class="p">(</span><span class="nf">control</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">)))</span>
 <span class="c1">; returns '()</span>
 </code></pre></div>
 <p>結果が異なるわけだな｡</p>
 <div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span class="c1">; 1</span>
-<span class="p">(</span><span class="nf">reset</span> <span class="err">[</span><span class="nv">cons</span> <span class="ss">'a</span>
+<span class="p">(</span><span class="nf">reset</span> <span class="p">[</span><span class="nb">cons</span> <span class="ss">'a</span>
   <span class="p">((</span><span class="err">λ</span> <span class="p">(</span><span class="nf">x</span><span class="p">)</span>
-    <span class="p">(</span><span class="k">let</span> <span class="err">{[</span><span class="nv">y</span> <span class="nv">x</span><span class="err">]}</span> <span class="p">(</span><span class="nf">control</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">)))</span>
-    <span class="o">'</span><span class="p">())</span><span class="err">]</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">let</span> <span class="err">{</span><span class="p">[</span><span class="nf">y</span> <span class="nv">x</span><span class="p">]</span><span class="err">}</span> <span class="p">(</span><span class="nf">control</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">)))</span>
+    <span class="o">'</span><span class="p">())])</span>
 
 <span class="c1">; 2</span>
-<span class="p">(</span><span class="nf">reset</span> <span class="err">[</span><span class="nv">cons</span> <span class="ss">'a</span>
-  <span class="p">(</span><span class="k">let</span> <span class="err">{[</span><span class="nv">y</span> <span class="o">'</span><span class="p">()</span><span class="err">]}</span> <span class="p">(</span><span class="nf">control</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">))</span><span class="err">]</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">reset</span> <span class="p">[</span><span class="nb">cons</span> <span class="ss">'a</span>
+  <span class="p">(</span><span class="k">let</span> <span class="err">{</span><span class="p">[</span><span class="nf">y</span> <span class="o">'</span><span class="p">()]</span><span class="err">}</span> <span class="p">(</span><span class="nf">control</span> <span class="nv">g</span> <span class="nv">y</span><span class="p">))])</span>
 
 <span class="c1">; 3</span>
-<span class="p">(</span><span class="nf">reset</span> <span class="err">[</span><span class="nv">cons</span> <span class="ss">'a</span> <span class="p">(</span><span class="nf">control</span> <span class="nv">g</span> <span class="o">'</span><span class="p">())</span><span class="err">]</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">reset</span> <span class="p">[</span><span class="nb">cons</span> <span class="ss">'a</span> <span class="p">(</span><span class="nf">control</span> <span class="nv">g</span> <span class="o">'</span><span class="p">())])</span>
 
 <span class="c1">; 4  gが使われないので `[cons 'a ...]` が破棄される</span>
 <span class="p">(</span><span class="nf">reset</span> <span class="o">'</span><span class="p">())</span>
@@ -227,8 +227,8 @@ Guileだと<code>(use-modules (ice-9 control))</code>やね｡</p>
 <p>この､<code>shift</code>や<code>control</code>などのcontrol operatorとdelimiterの対応をもっと柔軟にしたい! という要望に応えるのがprompt tagである｡</p>
 <div class="highlight">
 <span class="listing-name">prompt tag</span><pre><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="k">let</span> <span class="err">{</span>
-  <span class="err">[</span><span class="nv">p</span>  <span class="p">(</span><span class="nf">make-continuation-prompt-tag</span> <span class="ss">'p</span><span class="p">)</span><span class="err">]</span>
-  <span class="err">[</span><span class="nv">p~</span> <span class="p">(</span><span class="nf">make-continuation-prompt-tag</span> <span class="ss">'p~</span><span class="p">)</span><span class="err">]}</span>
+  <span class="p">[</span><span class="nf">p</span>  <span class="p">(</span><span class="nf">make-continuation-prompt-tag</span> <span class="ss">'p</span><span class="p">)]</span>
+  <span class="p">[</span><span class="nf">p~</span> <span class="p">(</span><span class="nf">make-continuation-prompt-tag</span> <span class="ss">'p~</span><span class="p">)]</span><span class="err">}</span>
   <span class="p">(</span><span class="nf">reset-at</span> <span class="nv">p</span>
       <span class="p">(</span><span class="nb">+</span> <span class="mi">3</span> <span class="p">(</span><span class="nf">reset-at</span> <span class="nv">p~</span>
         <span class="p">(</span><span class="k">begin</span>
