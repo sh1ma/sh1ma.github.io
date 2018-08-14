@@ -44,22 +44,11 @@
             </span>
             <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
             <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
-            <script type="text/javascript" async
-              src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-            </script>
-            <script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-	extensions: ["tex2jax.js"],
-	"HTML-CSS": {
-		scale: 80,
-		availableFonts: ["TeX"],
-	},
-	tex2jax: {
-		inlinemath: [['$', '$']],
-		displaymath: [["\\[", "\\]"]]
-	}
-});
-            </script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"
+                    onload="renderMathInElement(document.body);"></script>
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡これは<a href="https://adventar.org/calendars/2573">WORD Advent Calendar 2017</a>の記事です｡</p>
@@ -100,13 +89,13 @@ MathJax.Hub.Config({
 <div>
 $$
 \begin{array}{rrl}
-e  &amp; ::= &amp; x\mid \lambda x.e \mid e\,e\\
-&amp; \mid &amp; e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e}\\
-&amp;\mid &amp;\mathbf{raise}\,\mathit{Exn}(e)
+    e  &amp; ::=  &amp; x\mid \lambda x.e \mid e\,e\\
+       &amp; \mid &amp; e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e}\\
+       &amp; \mid &amp; \mathbf{raise}\,\mathit{Exn}\left(e\right)
 \end{array}
 $$
 </div>
-<p>\(e\,\mathbf{handle} \overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)は実質\(\mathbf{try}\,e\,\mathbf{with}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)ですね｡
+<p>\(e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)は実質\(\mathbf{try}\,e\,\mathbf{with}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)ですね｡
 操作的意味論は君の中に既にあるはずだ｡</p>
 <h1 id="8-double-barreled-cps">8. Double-Barreled CPS</h1>
 <p>既存の手法としてDouble-Barreled CPSというものが知られています<sup id="fnref3" title="Hayo Thielecke. Comparing Control Constructs by Double-Barrelled CPS "><a href="#fn3" rel="footnote">3</a></sup>｡
@@ -114,7 +103,7 @@ $$
 <div>
 $$
 \begin{array}{c}
-    \fbox{$\lceil e\rceil = e_{cps}$}\\
+    \fbox{\lceil e\rceil = e_{cps}}\\
     \begin{array}{rcl}
         \lceil \lambda x. e \rceil &amp; = &amp; \lambda k. \lambda h. \lambda x. \lambda k’. \lambda h’. \lceil e \rceil\, k’\, h’\\
         \lceil x \rceil &amp; = &amp; \lambda k. \lambda h. k\, x\\
@@ -195,7 +184,7 @@ $$
 <div>
 $$
 \begin{array}{c}
-    \fbox{$\lceil e\rceil=e_{cps}$}\\
+    \fbox{\lceil e\rceil=e_{cps}}\\
     \begin{array}{rcl}
         \lceil \lambda x.e\rceil &amp; = &amp;%
             \lambda k. \lambda h. \lambda x.\lambda k’. \lambda h’.  \lceil e\rceil\, k’\, h’\\
@@ -203,7 +192,7 @@ $$
         \lceil e_1\,e_2\rceil &amp; = &amp;%
             \lambda k. \lambda h. \lceil e_1\rceil \left(\lambda f.\lceil e_2\rceil \left(\lambda a. f\,a\,k\,h\right)\, h\right)\, h\\
         \left\lceil e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e’} \right\rceil &amp; = &amp;%
-            \lambda k.\lambda h. \lceil e\rceil\,k\, \left(\overrightarrow{\left(\mathit{Exn},\lambda k’.\lambda h’. \lceil e’ \rceil\, k’\,h’\right)} \,@\, h\right) \ \\
+            \lambda k.\lambda h. \lceil e\rceil\,k\, \left(\overrightarrow{\left(\mathit{Exn},\lambda k’.\lambda h’. \lceil e’ \rceil\, k’\,h’\right)} \,@\, h\right)\\
         \left\lceil \mathbf{raise}\,\mathit{Exn}\left(e\right) \right\rceil &amp; = &amp; \lambda k.\lambda h. \left(\lambda f_\mathit{Exn}. \lceil e \rceil\, f_\mathit{Exn}\,f_\mathit{Exn} \right) \mathbf{lookup}\left(\mathit{Exn},h\right)
     \end{array}
 \end{array}

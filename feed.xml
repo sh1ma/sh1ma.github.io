@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 14 Aug 2018 17:14:27 +0900</pubDate>
-    <lastBuildDate>Tue, 14 Aug 2018 17:14:27 +0900</lastBuildDate>
+    <pubDate>Tue, 14 Aug 2018 22:27:20 +0900</pubDate>
+    <lastBuildDate>Tue, 14 Aug 2018 22:27:20 +0900</lastBuildDate>
     <generator>Jekyll v3.8.3</generator>
     
       <item>
@@ -895,13 +895,13 @@ OCamlで表現するならこんな感じだろうか｡&lt;/p&gt;
 &lt;div&gt;
 $$
 \begin{array}{rrl}
-e  &amp;amp; ::= &amp;amp; x\mid \lambda x.e \mid e\,e\\
-&amp;amp; \mid &amp;amp; e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e}\\
-&amp;amp;\mid &amp;amp;\mathbf{raise}\,\mathit{Exn}(e)
+    e  &amp;amp; ::=  &amp;amp; x\mid \lambda x.e \mid e\,e\\
+       &amp;amp; \mid &amp;amp; e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e}\\
+       &amp;amp; \mid &amp;amp; \mathbf{raise}\,\mathit{Exn}\left(e\right)
 \end{array}
 $$
 &lt;/div&gt;
-&lt;p&gt;\(e\,\mathbf{handle} \overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)は実質\(\mathbf{try}\,e\,\mathbf{with}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)ですね｡
+&lt;p&gt;\(e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)は実質\(\mathbf{try}\,e\,\mathbf{with}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)ですね｡
 操作的意味論は君の中に既にあるはずだ｡&lt;/p&gt;
 &lt;h1 id=&quot;8-double-barreled-cps&quot;&gt;8. Double-Barreled CPS&lt;/h1&gt;
 &lt;p&gt;既存の手法としてDouble-Barreled CPSというものが知られています&lt;sup id=&quot;fnref3&quot; title=&quot;Hayo Thielecke. Comparing Control Constructs by Double-Barrelled CPS &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;｡
@@ -909,7 +909,7 @@ $$
 &lt;div&gt;
 $$
 \begin{array}{c}
-    \fbox{$\lceil e\rceil = e_{cps}$}\\
+    \fbox{\lceil e\rceil = e_{cps}}\\
     \begin{array}{rcl}
         \lceil \lambda x. e \rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. \lambda x. \lambda k’. \lambda h’. \lceil e \rceil\, k’\, h’\\
         \lceil x \rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. k\, x\\
@@ -990,7 +990,7 @@ $$
 &lt;div&gt;
 $$
 \begin{array}{c}
-    \fbox{$\lceil e\rceil=e_{cps}$}\\
+    \fbox{\lceil e\rceil=e_{cps}}\\
     \begin{array}{rcl}
         \lceil \lambda x.e\rceil &amp;amp; = &amp;amp;%
             \lambda k. \lambda h. \lambda x.\lambda k’. \lambda h’.  \lceil e\rceil\, k’\, h’\\
@@ -998,7 +998,7 @@ $$
         \lceil e_1\,e_2\rceil &amp;amp; = &amp;amp;%
             \lambda k. \lambda h. \lceil e_1\rceil \left(\lambda f.\lceil e_2\rceil \left(\lambda a. f\,a\,k\,h\right)\, h\right)\, h\\
         \left\lceil e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e’} \right\rceil &amp;amp; = &amp;amp;%
-            \lambda k.\lambda h. \lceil e\rceil\,k\, \left(\overrightarrow{\left(\mathit{Exn},\lambda k’.\lambda h’. \lceil e’ \rceil\, k’\,h’\right)} \,@\, h\right) \ \\
+            \lambda k.\lambda h. \lceil e\rceil\,k\, \left(\overrightarrow{\left(\mathit{Exn},\lambda k’.\lambda h’. \lceil e’ \rceil\, k’\,h’\right)} \,@\, h\right)\\
         \left\lceil \mathbf{raise}\,\mathit{Exn}\left(e\right) \right\rceil &amp;amp; = &amp;amp; \lambda k.\lambda h. \left(\lambda f_\mathit{Exn}. \lceil e \rceil\, f_\mathit{Exn}\,f_\mathit{Exn} \right) \mathbf{lookup}\left(\mathit{Exn},h\right)
     \end{array}
 \end{array}
