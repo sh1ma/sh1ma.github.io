@@ -5,9 +5,183 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 19 Jul 2018 02:00:51 +0900</pubDate>
-    <lastBuildDate>Thu, 19 Jul 2018 02:00:51 +0900</lastBuildDate>
+    <pubDate>Tue, 14 Aug 2018 17:09:22 +0900</pubDate>
+    <lastBuildDate>Tue, 14 Aug 2018 17:09:22 +0900</lastBuildDate>
     <generator>Jekyll v3.8.3</generator>
+    
+      <item>
+        <title>Algebraic Effectsであそぼう</title>
+        <description>&lt;p&gt;&lt;/p&gt;
+&lt;div class=&quot;ord-fns&quot; style=&quot;display: none&quot;&gt;
+&lt;sup id=&quot;fnref1&quot; title='Matija Prentar. &quot;An Introduction to Algebraic Effects and Handlers.” Electronic Notes in Theoretical Computer Science 319. 2015. '&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;
+&lt;sup id=&quot;fnref2&quot; title=&quot;Andrej Bauer. “What is algebraic about algebraic effects and handlers?.” eprint arXiv:1807.05923. 2018. &quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;
+&lt;sup id=&quot;fnref3&quot; title=&quot;快速のExtensible effects  – モナドとわたしとコモナド https://fumieval.hatenablog.com/entry/2017/08/02/230422 &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;
+&lt;sup id=&quot;fnref4&quot; title=&quot;Oleg Kiselyov, Amr Sabry, Cameron Swords. “Extensible Effeects: An Alternative to Monad Transformers.” ACM SIGPLAN Notices. Vol. 48. No. 12. ACM, 2013. &quot;&gt;&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;
+&lt;sup id=&quot;fnref5&quot; title=&quot;Anderj Bauer, Matija Prentar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming, 84(1), pp.108-123. &quot;&gt;&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;
+&lt;sup id=&quot;fnref6&quot; title=&quot;Dolan, Stephen, Spiros Eliopoulos, Daniel Hillerström, Anil Madhavapeddy, K. C. Sivaramakrishnan, Leo White. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming, pp. 98-117. Springer, Cham, 2017. &quot;&gt;&lt;a href=&quot;#fn6&quot; rel=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;
+&lt;sup id=&quot;fnref7&quot; title=&quot;Kiselyov, Oleg, K. C. Sivaramakrishnan. “Eff directly in OCaml.” ML Workshop. 2016. &quot;&gt;&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;
+&lt;/div&gt;
+&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;
+&lt;p&gt;ここしばらく20行/日くらいしかコード書いてません｡
+いやもっと少ないかも…｡
+いや研究してますんで! いや〜研究もそんなにしてないな…じゃあ何を…&lt;/p&gt;
+&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
+&lt;p&gt;Algebraic effectsとは､2001年くらいに提唱されてから､爆流行らずともにわかに盛り上がりを見せつつある言語機能である｡
+極めて雑に説明すると､&lt;em&gt;継続を取ってこれる例外&lt;/em&gt;である｡
+Plotkin氏(またお前か)が代数学的アプローチによる基盤を作り､そこにハンドラが付いてプログラム言語の機能として考えられるようになった｡
+ボクの話のうち1〜10割間違っていることは確かなので､誤った情報を一切入れたくない人は[&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;]を読んでください｡&lt;/p&gt;
+&lt;h2 id=&quot;1-1-algebraic-effects&quot;&gt;1-1. algebraic effects実装の有名どころ&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.eff-lang.org/&quot;&gt;Eff&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;algebraic effectsを言語機能として初めて設計された言語｡
+MLスタイルのシンタックスでHinder-Milner型推論がある｡&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;impls&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/matijapretnar/eff&quot;&gt;matijapretnar/eff&lt;/a&gt;&lt;label id=&quot;effinterp&quot;&gt;&lt;/label&gt;&lt;/p&gt;
+
+&lt;p&gt;OCaml製Effのインタープリタ&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/atnos-org/eff&quot;&gt;athnos-org/eff&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;ScalaのDSLとして実装されている&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://okmij.org/ftp/continuations/Eff/&quot;&gt;『Eff Directly in OCaml』&lt;/a&gt;[&lt;a href=&quot;#fn7&quot;&gt;7&lt;/a&gt;]&lt;/p&gt;
+
+&lt;p&gt;Oleg氏(またお前か)によるEffを､delimited continuationライブラリを使ってOCamlのDSLとして実装したもの｡
+Effはdelimited continuationをエミュレートできるが､実はEff &lt;em&gt;を&lt;/em&gt; delimited continuationでエミュレートできることがわかる｡&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.microsoft.com/en-us/research/project/koka/&quot;&gt;Koka&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;MS Researchがやっていってる言語｡
+手続き型っぽいシンタックスと､Row-typesというeffectsが型に滲み出る､さながらモナドみがある型システムを持っている｡&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/ocamllabs/ocaml-multicore&quot;&gt;multicoreOCaml&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;OCamlに直接algebraic effects &amp;amp; handlerを追加した方言｡
+continuationがoneshotとなっており､明示的にクローンしないと2回使えない｡
+この&quot;2回使えない&quot;はlinear typeを導入して弾いてほしいが､実際はランタイムエラーである｡&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;2&quot;&gt;2. さっそく試す&lt;/h1&gt;
+&lt;p&gt;algebraic effects界隈ではスタンダードなEff言語を例に見てみる｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(* effect definition *)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;handle&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;(* invoke *)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;print_int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* value handler *)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* continuation *)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;print_int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これを実行すると､&lt;code&gt;47&lt;/code&gt;という表示が得られる｡
+どういうことなんや｡
+素直な心を使うと､&lt;code&gt;(+)&lt;/code&gt;は&lt;code&gt;int -&amp;gt; int -&amp;gt; int&lt;/code&gt;､&lt;code&gt;3 + perform (Eff 4)&lt;/code&gt;は&lt;code&gt;int&lt;/code&gt;､&lt;code&gt;perform (Eff 4)&lt;/code&gt;も&lt;code&gt;int&lt;/code&gt;ということが考えられる｡
+なるほど&lt;code&gt;Eff&lt;/code&gt;のシグネチャ&lt;code&gt;int -&amp;gt; int&lt;/code&gt;は､矢印の左辺がeffectの引数､右辺はcontextのholeの型か｡
+&lt;code&gt;perform&lt;/code&gt;は何??? ……じゃあ&lt;code&gt;Eff&lt;/code&gt;は&lt;code&gt;int -&amp;gt; (int eff)&lt;/code&gt;ということにして&lt;code&gt;perform&lt;/code&gt;は&lt;code&gt;'a eff -&amp;gt; 'a&lt;/code&gt;でどうだ､これでいいだろう!!!
+という感じで推理していくと&lt;code&gt;4&lt;/code&gt;という表示は&lt;code&gt;effect (Eff x) k -&amp;gt; print_int x; k x&lt;/code&gt;という箇所で発射されたんじゃないかという感じがある｡
+&lt;code&gt;7&lt;/code&gt;は&lt;code&gt;x -&amp;gt; print_int x&lt;/code&gt;ですね｡
+&lt;a href=&quot;/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html&quot;&gt;前回の記事&lt;/a&gt;を読んでもらえると分かるが､&lt;code&gt;handle e with (handlers)&lt;/code&gt;がdelimiterで
+&lt;code&gt;k&lt;/code&gt;が切り取られた継続になる｡
+だいたいそう｡&lt;/p&gt;
+&lt;p&gt;わかった｡
+念のため他の例も見ておこう｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Choose&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chooseh&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;handle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;print_int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;print_int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chooseh&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;3102051020&lt;/code&gt;という表示になる｡
+継続を複製してる感ありますね｡&lt;/p&gt;
+&lt;p&gt;同じ&lt;code&gt;Choose&lt;/code&gt; effectでも型さえ合ってれば異なる処理が書ける､つまり定義と実装を分けることができるのが特徴となっている｡
+ここでHaskellerは｢Freeモナドやんけ!｣となるらしいですがボクはHaskellをやっていってないのでわかりませんでした｡
+型だけ定義して､interpretationはユーザに任せるということなので確かに同じようだ｡
+そもそもalgebraic effectの&lt;em&gt;algebraic&lt;/em&gt;は&quot;free &lt;em&gt;algebra&lt;/em&gt;“から来てるそう&lt;sup id=&quot;fnref2&quot; title=&quot;Andrej Bauer. “What is algebraic about algebraic effects and handlers?.” eprint arXiv:1807.05923. 2018. &quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;なので､袂を分かつ存在である｡
+実際&lt;a href=&quot;#effinterp&quot;&gt;Effインタプリタ&lt;/a&gt;はFreeモナドを使って実装しているようだ｡&lt;/p&gt;
+&lt;p&gt;そしていろんなeffectsをいっぺんにハンドルするぜ!&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;手軽だ｡
+HaskellではFreeモナドを発展させたextensible effects[&lt;a href=&quot;#fn3&quot;&gt;3&lt;/a&gt;][&lt;a href=&quot;#fn4&quot;&gt;4&lt;/a&gt;]といったものが流行っているそうで､
+確かにモナドトランスフォーマーガン積みして爆重になるという困難から抜け出せるらしい｡&lt;/p&gt;
+&lt;h1 id=&quot;3&quot;&gt;3. 応用&lt;/h1&gt;
+&lt;p&gt;delimited continuationが扱えるうえにCPS的な書き方ではなくdirect-styleで記述できるため､
+syntacticにきれいに､バグらず簡単に書ける､というありがたみがある｡
+ボクの語彙が少ないので詳細は文献[&lt;a href=&quot;#fn5&quot;&gt;5&lt;/a&gt;][&lt;a href=&quot;#fn6&quot;&gt;6&lt;/a&gt;]を読んでください｡&lt;/p&gt;
+&lt;h1 id=&quot;4&quot;&gt;4. おわりに&lt;/h1&gt;
+&lt;p&gt;また情報量が0になってしまった……!!!&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;Matija Prentar. &quot;An Introduction to Algebraic Effects and Handlers.” Electronic Notes in Theoretical Computer Science 319. 2015. &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn2&quot;&gt;
+&lt;p&gt;Andrej Bauer. “What is algebraic about algebraic effects and handlers?.” eprint arXiv:1807.05923. 2018. &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn3&quot;&gt;
+&lt;p&gt;快速のExtensible effects  – モナドとわたしとコモナド &lt;a href=&quot;https://fumieval.hatenablog.com/entry/2017/08/02/230422&quot;&gt;https://fumieval.hatenablog.com/entry/2017/08/02/230422&lt;/a&gt; &lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn4&quot;&gt;
+&lt;p&gt;Oleg Kiselyov, Amr Sabry, Cameron Swords. “Extensible Effeects: An Alternative to Monad Transformers.” ACM SIGPLAN Notices. Vol. 48. No. 12. ACM, 2013. &lt;a href=&quot;#fnref4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn5&quot;&gt;
+&lt;p&gt;Anderj Bauer, Matija Prentar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming, 84(1), pp.108-123. &lt;a href=&quot;#fnref5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn6&quot;&gt;
+&lt;p&gt;Dolan, Stephen, Spiros Eliopoulos, Daniel Hillerström, Anil Madhavapeddy, K. C. Sivaramakrishnan, Leo White. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming, pp. 98-117. Springer, Cham, 2017. &lt;a href=&quot;#fnref6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn7&quot;&gt;
+&lt;p&gt;Kiselyov, Oleg, K. C. Sivaramakrishnan. “Eff directly in OCaml.” ML Workshop. 2016. &lt;a href=&quot;#fnref7&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Mon, 13 Aug 2018 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html</guid>
+        
+        <category>OCaml</category>
+        
+        <category>Algebraic Effects</category>
+        
+        
+      </item>
     
       <item>
         <title>delimited continuationの夏</title>
@@ -1495,99 +1669,6 @@ Error: &quot;INVALIDTOKEN&quot; is not a known terminal symbol.
         <category>OCaml</category>
         
         <category>WORD</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>OCamlでevalして結果をstringで得る</title>
-        <description>&lt;p&gt;こんにちは､何者でもなくなりました｡&lt;/p&gt;
-&lt;p&gt;さて､今はOCamlとLaTeXしか書いてないという状況に陥りました｡人生にありがちな時期ですね｡&lt;/p&gt;
-&lt;h1 id=&quot;1-ocaml-eval&quot;&gt;1. OCamlでも&lt;code&gt;eval&lt;/code&gt;がしたい!&lt;/h1&gt;
-&lt;p&gt;ではこちらをどうぞ｡&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/33291754/eval-a-string-in-ocaml&quot;&gt;“Eval” a string in OCaml - stackoverflow&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;以下引用(upop上で動くよ)｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;eval&lt;label id=&quot;fig-origeval&quot;&gt;&lt;/label&gt;&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;compiler-libs&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* Assuming you're using utop, if compiling then this is the package you need *)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as_buf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Lexing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parsed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Toploop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parse_toplevel_phrase&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as_buf&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Toploop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;execute_phrase&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std_formatter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parsed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;compiler-libs&lt;/code&gt;というOCamlに同梱されているライブラリーを使いますと､このようにevaれるわけですね｡&lt;/p&gt;
-&lt;h1 id=&quot;2-eval&quot;&gt;2. &lt;code&gt;eval&lt;/code&gt;の結果を文字列で取りたい!&lt;/h1&gt;
-&lt;p&gt;evaってるのは&lt;code&gt;Toploop.execute_phrase&lt;/code&gt;で､戻り値はランタイムエラーしたかそうでないかの&lt;code&gt;bool&lt;/code&gt;になります｡
-上記では&lt;code&gt;ignore&lt;/code&gt;で捨てて&lt;code&gt;unit&lt;/code&gt;にしてますね｡&lt;/p&gt;
-&lt;p&gt;例えば､&lt;code&gt;eval &quot;int_of_char 'a';;&quot;&lt;/code&gt;なんてしたときに戻り値が&lt;code&gt;&quot;97&quot;&lt;/code&gt;という&lt;code&gt;string&lt;/code&gt;だと嬉しい人がいるかもしれない｡&lt;/p&gt;
-&lt;p&gt;俺なら実装やってくだけだな&lt;/p&gt;
-&lt;h1 id=&quot;3&quot;&gt;3. 出力先&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;format&lt;/code&gt;型の話をしよう｡&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://d.hatena.ne.jp/camlspotter/20091102/1257099984&quot;&gt;OCaml 標準ライブラリ探訪 #3.0: Printf: 便利だけどいろいろ謎のある奴 - Oh, you  `re no (fun _ → more)&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://qnighy.hatenablog.com/entry/2017/01/26/215948&quot;&gt;OCamlのformat (型安全なprintf/scanf) の仕組み - 簡潔なQ&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;話おわり&lt;/p&gt;
-&lt;h1 id=&quot;4&quot;&gt;4. 解&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;#fig-origeval&quot;&gt;eval&lt;/a&gt;の&lt;code&gt;Toploop.execute_phrase&lt;/code&gt;に渡している引数を観察すると､
-&lt;code&gt;true&lt;/code&gt;と&lt;code&gt;Format.std_formatter&lt;/code&gt;を渡していることが分かる｡&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;true&lt;/code&gt;は後述｡第2引数は件の&lt;code&gt;format&lt;/code&gt;じゃねえかい｡
-このformatの出力先を&lt;code&gt;string ref&lt;/code&gt;みたいなところに出してその中身を返せば行けそうだ｡
-でもどうやって? まずは&lt;code&gt;Format.std_formatter&lt;/code&gt;がどうなってるかを見てみよう｡&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/blob/trunk/stdlib/format.ml#L1038&quot;&gt;stdlib/format.ml#L1038&lt;/a&gt;で定義されている｡
-&lt;code&gt;formatter_of_out_channel&lt;/code&gt;が何者か辿ってみると､&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;formatter_of_out_channel(stdlib/format.ml#L1018)&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatter_of_out_channel&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;oc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;make_formatter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;output_substring&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;oc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flush&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;oc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;了解!&lt;/p&gt;
-&lt;p&gt;この&lt;code&gt;make_formatter&lt;/code&gt;って使えそうだなと思って定義を見てみるが全くわからない｡
-幸運にも､&lt;code&gt;formatter_of_out_channel&lt;/code&gt;の真下にわかりやすい例がある｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;formatter_of_buffer(stdlib/format.ml#L1023)&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatter_of_buffer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;make_formatter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add_substring&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;Buffer.add_substring&lt;/code&gt;と&lt;code&gt;ignore&lt;/code&gt;という､わかりやすい関数で構成されている｡
-これなら型がたちどころに分かるな｡&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://ocaml.jp/refman/libref/Buffer.html#VALadd_substring&quot;&gt;Module Buffer - OCaml.jp&lt;/a&gt;
-を見るとsubstringしてバッファーにくっつける感じですね｡
-そしてバッファー&lt;code&gt;b&lt;/code&gt;を部分適用しているので､なるほど&lt;code&gt;make_formatter&lt;/code&gt;に渡しているのは&lt;code&gt;string -&amp;gt; int -&amp;gt; int -&amp;gt; unit&lt;/code&gt;と&lt;code&gt;unit -&amp;gt; unit&lt;/code&gt;か｡&lt;/p&gt;
-&lt;p&gt;もう見えてきましたね｡substringを&lt;code&gt;string ref&lt;/code&gt;などに書いて参照すればOK｡
-あとはやるだけ｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;eval returning string&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;records&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;(* 書き出す string ref *)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref_b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sub&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;rs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subs&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_formatter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ref_b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;records&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* 新しいフォーマッター *)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as_buf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Lexing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parsed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Toploop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parse_toplevel_phrase&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as_buf&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Toploop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;execute_phrase&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parsed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;records&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; 
-  &lt;span class=&quot;n&quot;&gt;records&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;はい実行&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;utop&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;utop # eval &quot;int_of_char 'a';;&quot;;;
-- : string = &quot;- : int = 97\n&quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;ありがたい! 型名まで付いている!!! いらない!!!!!&lt;/p&gt;
-&lt;p&gt;おわりだよ〜&lt;/p&gt;
-&lt;p&gt;その前に&lt;code&gt;Toploop.execute_phrase&lt;/code&gt;に渡している&lt;code&gt;bool&lt;/code&gt;は､実行結果をフォーマッターに渡すか否かですはい解散&lt;/p&gt;
-&lt;h1 id=&quot;20171118&quot;&gt;追記20171118&lt;/h1&gt;
-&lt;p&gt;こんなことしなくても&lt;code&gt;Format.str_formatter&lt;/code&gt;と&lt;code&gt;Format.flush_str_formatter&lt;/code&gt;という便利なものがあってじゃな…｡&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;『ブレードランナー 2049』観に行きましたが全部最高でした｡&lt;/p&gt;
-&lt;p&gt;『ブレードランナー』の続編としての立ち位置､ストーリー､BGM､ハリソン・フォード…全て…｡&lt;/p&gt;</description>
-        <pubDate>Sat, 18 Nov 2017 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2017/11/18/OCaml%E3%81%A7eval%E3%81%97%E3%81%A6%E7%B5%90%E6%9E%9C%E3%82%92string%E3%81%A7%E5%BE%97%E3%82%8B.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2017/11/18/OCaml%E3%81%A7eval%E3%81%97%E3%81%A6%E7%B5%90%E6%9E%9C%E3%82%92string%E3%81%A7%E5%BE%97%E3%82%8B.html</guid>
-        
-        <category>OCaml</category>
         
         
       </item>

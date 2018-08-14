@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Algebraic Effectsであそぼう &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="Algebraic Effectsであそぼう">
+    <meta name="twitter:title" content="Algebraic Effectsであそぼう"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html"> 
+    <meta name="twitter:description" content="1234567Matija Prentar. “An Introduction to Algebraic Effects and Handlers.” Electronic Notes in Theoretical Computer Science 319. 2015. ↩Andrej Bauer. “What ...">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <meta name="description" content="1234567Matija Prentar. “An Introduction to Algebraic Effects and Handlers.” Electronic Notes in Theoretical Computer Science 319. 2015. ↩Andrej Bauer. “What ...">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Algebraic Effectsであそぼう</h1>
+            <span class="post-meta">
+              <time datetime="2018-08-13T00:00:00+09:00" itemprop="datePublished">Aug 13, 2018</time>
+              <p>tag: &#123;<a href="/tags.html#OCaml-ref">OCaml</a>, <a href="/tags.html#Algebraic Effects-ref">Algebraic Effects</a>&#125;</p>
+            </span>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <script type="text/javascript" async
+              src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            </script>
+            <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+	"HTML-CSS": {
+		scale: 80,
+		availableFonts: ["TeX"],
+	},
+	tex2jax: {
+		inlinemath: [['$', '$']],
+		displaymath: [["\\[", "\\]"]]
+	}
+});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p></p>
+<div class="ord-fns" style="display: none">
+<sup id="fnref1" title='Matija Prentar. "An Introduction to Algebraic Effects and Handlers.” Electronic Notes in Theoretical Computer Science 319. 2015. '><a href="#fn1" rel="footnote">1</a></sup>
+<sup id="fnref2" title="Andrej Bauer. “What is algebraic about algebraic effects and handlers?.” eprint arXiv:1807.05923. 2018. "><a href="#fn2" rel="footnote">2</a></sup>
+<sup id="fnref3" title="快速のExtensible effects  – モナドとわたしとコモナド https://fumieval.hatenablog.com/entry/2017/08/02/230422 "><a href="#fn3" rel="footnote">3</a></sup>
+<sup id="fnref4" title="Oleg Kiselyov, Amr Sabry, Cameron Swords. “Extensible Effeects: An Alternative to Monad Transformers.” ACM SIGPLAN Notices. Vol. 48. No. 12. ACM, 2013. "><a href="#fn4" rel="footnote">4</a></sup>
+<sup id="fnref5" title="Anderj Bauer, Matija Prentar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming, 84(1), pp.108-123. "><a href="#fn5" rel="footnote">5</a></sup>
+<sup id="fnref6" title="Dolan, Stephen, Spiros Eliopoulos, Daniel Hillerström, Anil Madhavapeddy, K. C. Sivaramakrishnan, Leo White. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming, pp. 98-117. Springer, Cham, 2017. "><a href="#fn6" rel="footnote">6</a></sup>
+<sup id="fnref7" title="Kiselyov, Oleg, K. C. Sivaramakrishnan. “Eff directly in OCaml.” ML Workshop. 2016. "><a href="#fn7" rel="footnote">7</a></sup>
+</div>
+<p>こんにちは､びしょ〜じょです｡</p>
+<p>ここしばらく20行/日くらいしかコード書いてません｡
+いやもっと少ないかも…｡
+いや研究してますんで! いや〜研究もそんなにしてないな…じゃあ何を…</p>
+<h1 id="1">1. はじめに</h1>
+<p>Algebraic effectsとは､2001年くらいに提唱されてから､爆流行らずともにわかに盛り上がりを見せつつある言語機能である｡
+極めて雑に説明すると､<em>継続を取ってこれる例外</em>である｡
+Plotkin氏(またお前か)が代数学的アプローチによる基盤を作り､そこにハンドラが付いてプログラム言語の機能として考えられるようになった｡
+ボクの話のうち1〜10割間違っていることは確かなので､誤った情報を一切入れたくない人は[<a href="#fn1">1</a>]を読んでください｡</p>
+<h2 id="1-1-algebraic-effects">1-1. algebraic effects実装の有名どころ</h2>
+<ul>
+<li>
+<p><a href="http://www.eff-lang.org/">Eff</a></p>
+
+<p>algebraic effectsを言語機能として初めて設計された言語｡
+MLスタイルのシンタックスでHinder-Milner型推論がある｡</p>
+
+<ul>
+<li>
+<p>impls</p>
+
+<ul>
+<li>
+<p><a href="https://github.com/matijapretnar/eff">matijapretnar/eff</a><label id="effinterp"></label></p>
+
+<p>OCaml製Effのインタープリタ</p>
+</li>
+<li>
+<p><a href="https://github.com/atnos-org/eff">athnos-org/eff</a></p>
+
+<p>ScalaのDSLとして実装されている</p>
+</li>
+<li>
+<p><a href="http://okmij.org/ftp/continuations/Eff/">『Eff Directly in OCaml』</a>[<a href="#fn7">7</a>]</p>
+
+<p>Oleg氏(またお前か)によるEffを､delimited continuationライブラリを使ってOCamlのDSLとして実装したもの｡
+Effはdelimited continuationをエミュレートできるが､実はEff <em>を</em> delimited continuationでエミュレートできることがわかる｡</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="https://www.microsoft.com/en-us/research/project/koka/">Koka</a></p>
+
+<p>MS Researchがやっていってる言語｡
+手続き型っぽいシンタックスと､Row-typesというeffectsが型に滲み出る､さながらモナドみがある型システムを持っている｡</p>
+</li>
+<li>
+<p><a href="https://github.com/ocamllabs/ocaml-multicore">multicoreOCaml</a></p>
+
+<p>OCamlに直接algebraic effects &amp; handlerを追加した方言｡
+continuationがoneshotとなっており､明示的にクローンしないと2回使えない｡
+この"2回使えない"はlinear typeを導入して弾いてほしいが､実際はランタイムエラーである｡</p>
+</li>
+</ul>
+<h1 id="2">2. さっそく試す</h1>
+<p>algebraic effects界隈ではスタンダードなEff言語を例に見てみる｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* effect definition *)</span>
+<span class="n">effect</span> <span class="nc">Eff</span> <span class="o">:</span> <span class="kt">int</span> <span class="o">-&gt;</span> <span class="kt">int</span>
+
+<span class="k">let</span> <span class="n">_</span> <span class="o">=</span>
+  <span class="n">handle</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">perform</span><span class="c">(* invoke *)</span> <span class="p">(</span><span class="nc">Eff</span> <span class="mi">4</span><span class="p">)</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">print_int</span> <span class="n">x</span> <span class="c">(* value handler *)</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="p">(</span><span class="nc">Eff</span> <span class="n">x</span><span class="p">)</span> <span class="n">k</span> <span class="c">(* continuation *)</span> <span class="o">-&gt;</span> <span class="n">print_int</span> <span class="n">x</span><span class="p">;</span> <span class="n">k</span> <span class="n">x</span>
+</code></pre></div>
+<p>これを実行すると､<code>47</code>という表示が得られる｡
+どういうことなんや｡
+素直な心を使うと､<code>(+)</code>は<code>int -&gt; int -&gt; int</code>､<code>3 + perform (Eff 4)</code>は<code>int</code>､<code>perform (Eff 4)</code>も<code>int</code>ということが考えられる｡
+なるほど<code>Eff</code>のシグネチャ<code>int -&gt; int</code>は､矢印の左辺がeffectの引数､右辺はcontextのholeの型か｡
+<code>perform</code>は何??? ……じゃあ<code>Eff</code>は<code>int -&gt; (int eff)</code>ということにして<code>perform</code>は<code>'a eff -&gt; 'a</code>でどうだ､これでいいだろう!!!
+という感じで推理していくと<code>4</code>という表示は<code>effect (Eff x) k -&gt; print_int x; k x</code>という箇所で発射されたんじゃないかという感じがある｡
+<code>7</code>は<code>x -&gt; print_int x</code>ですね｡
+<a href="/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html">前回の記事</a>を読んでもらえると分かるが､<code>handle e with (handlers)</code>がdelimiterで
+<code>k</code>が切り取られた継続になる｡
+だいたいそう｡</p>
+<p>わかった｡
+念のため他の例も見ておこう｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">effect</span> <span class="nc">Choose</span> <span class="o">:</span> <span class="p">(</span><span class="k">'</span><span class="n">a</span> <span class="o">*</span> <span class="k">'</span><span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">'</span><span class="n">a</span>
+
+<span class="k">let</span> <span class="n">choose</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="n">perform</span> <span class="p">(</span><span class="nc">Choose</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="p">))</span>
+
+<span class="k">let</span> <span class="n">chooseh</span> <span class="n">f</span> <span class="o">=</span>
+  <span class="n">handle</span> <span class="n">f</span> <span class="bp">()</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="p">(</span><span class="nc">Choose</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="p">))</span> <span class="n">k</span> <span class="o">-&gt;</span> <span class="n">k</span> <span class="n">x</span><span class="p">;</span> <span class="n">k</span> <span class="n">y</span>
+
+<span class="k">let</span> <span class="n">f</span> <span class="bp">()</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">choose</span> <span class="p">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="p">)</span> <span class="k">in</span>
+  <span class="n">print_int</span> <span class="n">x</span><span class="p">;</span>
+  <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">choose</span> <span class="p">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">20</span><span class="p">)</span> <span class="k">in</span>
+  <span class="n">print_int</span> <span class="n">y</span>
+
+<span class="k">let</span> <span class="n">_</span> <span class="o">=</span> <span class="n">chooseh</span> <span class="n">f</span>
+</code></pre></div>
+<p><code>3102051020</code>という表示になる｡
+継続を複製してる感ありますね｡</p>
+<p>同じ<code>Choose</code> effectでも型さえ合ってれば異なる処理が書ける､つまり定義と実装を分けることができるのが特徴となっている｡
+ここでHaskellerは｢Freeモナドやんけ!｣となるらしいですがボクはHaskellをやっていってないのでわかりませんでした｡
+型だけ定義して､interpretationはユーザに任せるということなので確かに同じようだ｡
+そもそもalgebraic effectの<em>algebraic</em>は"free <em>algebra</em>“から来てるそう<sup id="fnref2" title="Andrej Bauer. “What is algebraic about algebraic effects and handlers?.” eprint arXiv:1807.05923. 2018. "><a href="#fn2" rel="footnote">2</a></sup>なので､袂を分かつ存在である｡
+実際<a href="#effinterp">Effインタプリタ</a>はFreeモナドを使って実装しているようだ｡</p>
+<p>そしていろんなeffectsをいっぺんにハンドルするぜ!</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">h</span> <span class="o">=</span> <span class="n">handler</span>
+  <span class="o">|</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="p">(</span><span class="nc">Eff</span> <span class="n">i</span><span class="p">)</span> <span class="n">k</span> <span class="o">-&gt;</span> <span class="n">k</span> <span class="n">i</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="p">(</span><span class="nc">Choose</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="p">))</span> <span class="n">k</span> <span class="o">-&gt;</span> <span class="n">k</span> <span class="n">x</span>
+</code></pre></div>
+<p>手軽だ｡
+HaskellではFreeモナドを発展させたextensible effects[<a href="#fn3">3</a>][<a href="#fn4">4</a>]といったものが流行っているそうで､
+確かにモナドトランスフォーマーガン積みして爆重になるという困難から抜け出せるらしい｡</p>
+<h1 id="3">3. 応用</h1>
+<p>delimited continuationが扱えるうえにCPS的な書き方ではなくdirect-styleで記述できるため､
+syntacticにきれいに､バグらず簡単に書ける､というありがたみがある｡
+ボクの語彙が少ないので詳細は文献[<a href="#fn5">5</a>][<a href="#fn6">6</a>]を読んでください｡</p>
+<h1 id="4">4. おわりに</h1>
+<p>また情報量が0になってしまった……!!!</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>Matija Prentar. "An Introduction to Algebraic Effects and Handlers.” Electronic Notes in Theoretical Computer Science 319. 2015. <a href="#fnref1" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn2">
+<p>Andrej Bauer. “What is algebraic about algebraic effects and handlers?.” eprint arXiv:1807.05923. 2018. <a href="#fnref2" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn3">
+<p>快速のExtensible effects  – モナドとわたしとコモナド <a href="https://fumieval.hatenablog.com/entry/2017/08/02/230422">https://fumieval.hatenablog.com/entry/2017/08/02/230422</a> <a href="#fnref3" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn4">
+<p>Oleg Kiselyov, Amr Sabry, Cameron Swords. “Extensible Effeects: An Alternative to Monad Transformers.” ACM SIGPLAN Notices. Vol. 48. No. 12. ACM, 2013. <a href="#fnref4" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn5">
+<p>Anderj Bauer, Matija Prentar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming, 84(1), pp.108-123. <a href="#fnref5" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn6">
+<p>Dolan, Stephen, Spiros Eliopoulos, Daniel Hillerström, Anil Madhavapeddy, K. C. Sivaramakrishnan, Leo White. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming, pp. 98-117. Springer, Cham, 2017. <a href="#fnref6" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn7">
+<p>Kiselyov, Oleg, K. C. Sivaramakrishnan. “Eff directly in OCaml.” ML Workshop. 2016. <a href="#fnref7" rev="footnote">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html" title="delimited continuationの夏">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <span class="btn next disabled">Next &rarr;</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
