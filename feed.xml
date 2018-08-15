@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 15 Aug 2018 16:19:42 +0900</pubDate>
-    <lastBuildDate>Wed, 15 Aug 2018 16:19:42 +0900</lastBuildDate>
+    <pubDate>Wed, 15 Aug 2018 16:30:12 +0900</pubDate>
+    <lastBuildDate>Wed, 15 Aug 2018 16:30:12 +0900</lastBuildDate>
     <generator>Jekyll v3.8.3</generator>
     
       <item>
@@ -91,7 +91,7 @@ continuationがoneshotとなっており､明示的にクローンしないと2
 どういうことなんや｡
 素直な心を使うと､&lt;code&gt;(+)&lt;/code&gt;は&lt;code&gt;int -&amp;gt; int -&amp;gt; int&lt;/code&gt;､&lt;code&gt;3 + perform (Eff 4)&lt;/code&gt;は&lt;code&gt;int&lt;/code&gt;､&lt;code&gt;perform (Eff 4)&lt;/code&gt;も&lt;code&gt;int&lt;/code&gt;ということが考えられる｡
 なるほど&lt;code&gt;Eff&lt;/code&gt;のシグネチャ&lt;code&gt;int -&amp;gt; int&lt;/code&gt;は､矢印の左辺がeffectの引数､右辺はcontextのholeの型か｡
-&lt;code&gt;perform&lt;/code&gt;は何??? ……じゃあ&lt;code&gt;Eff&lt;/code&gt;は&lt;code&gt;(int -&amp;gt; int) eff&lt;/code&gt;ということにして&lt;code&gt;perform&lt;/code&gt;は&lt;code&gt;('a -&amp;gt; 'b) eff -&amp;gt; 'b&lt;/code&gt;でどうだ､これでいいだろう!!!
+&lt;code&gt;perform&lt;/code&gt;は何??? ……じゃあ&lt;code&gt;Eff&lt;/code&gt;は&lt;code&gt;int -&amp;gt; int eff&lt;/code&gt;ということにして&lt;code&gt;perform&lt;/code&gt;は&lt;code&gt;'a eff -&amp;gt; 'a&lt;/code&gt;でどうだ､これでいいだろう!!!
 という感じで推理していくと&lt;code&gt;4&lt;/code&gt;という表示は&lt;code&gt;effect (Eff x) k -&amp;gt; print_int x; k x&lt;/code&gt;という箇所で発射されたんじゃないかという感じがある｡
 &lt;code&gt;7&lt;/code&gt;は&lt;code&gt;x -&amp;gt; print_int x&lt;/code&gt;ですね｡
 &lt;a href=&quot;/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html&quot;&gt;前回の記事&lt;/a&gt;を読んでもらえると分かるが､&lt;code&gt;handle e with (handlers)&lt;/code&gt;がdelimiterで

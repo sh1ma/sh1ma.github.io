@@ -131,7 +131,7 @@ continuationがoneshotとなっており､明示的にクローンしないと2
 どういうことなんや｡
 素直な心を使うと､<code>(+)</code>は<code>int -&gt; int -&gt; int</code>､<code>3 + perform (Eff 4)</code>は<code>int</code>､<code>perform (Eff 4)</code>も<code>int</code>ということが考えられる｡
 なるほど<code>Eff</code>のシグネチャ<code>int -&gt; int</code>は､矢印の左辺がeffectの引数､右辺はcontextのholeの型か｡
-<code>perform</code>は何??? ……じゃあ<code>Eff</code>は<code>(int -&gt; int) eff</code>ということにして<code>perform</code>は<code>('a -&gt; 'b) eff -&gt; 'b</code>でどうだ､これでいいだろう!!!
+<code>perform</code>は何??? ……じゃあ<code>Eff</code>は<code>int -&gt; int eff</code>ということにして<code>perform</code>は<code>'a eff -&gt; 'a</code>でどうだ､これでいいだろう!!!
 という感じで推理していくと<code>4</code>という表示は<code>effect (Eff x) k -&gt; print_int x; k x</code>という箇所で発射されたんじゃないかという感じがある｡
 <code>7</code>は<code>x -&gt; print_int x</code>ですね｡
 <a href="/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html">前回の記事</a>を読んでもらえると分かるが､<code>handle e with (handlers)</code>がdelimiterで
