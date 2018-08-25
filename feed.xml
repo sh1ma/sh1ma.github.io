@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Linux, Lua/MoonScript, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 19 Aug 2018 01:02:01 +0900</pubDate>
-    <lastBuildDate>Sun, 19 Aug 2018 01:02:01 +0900</lastBuildDate>
+    <pubDate>Sun, 26 Aug 2018 01:26:35 +0900</pubDate>
+    <lastBuildDate>Sun, 26 Aug 2018 01:26:35 +0900</lastBuildDate>
     <generator>Jekyll v3.8.3</generator>
     
       <item>
@@ -135,7 +135,7 @@ Scalaを使っているサーバーサイドはだいたい実装ができてい
 &lt;sup id=&quot;fnref4&quot; title=&quot;Oleg Kiselyov, Amr Sabry, Cameron Swords. “Extensible Effeects: An Alternative to Monad Transformers.” ACM SIGPLAN Notices. Vol. 48. No. 12. ACM, 2013. &quot;&gt;&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;
 &lt;sup id=&quot;fnref5&quot; title=&quot;Anderj Bauer, Matija Prentar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming, 84(1), pp.108-123. &quot;&gt;&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;
 &lt;sup id=&quot;fnref6&quot; title=&quot;Dolan, Stephen, Spiros Eliopoulos, Daniel Hillerström, Anil Madhavapeddy, K. C. Sivaramakrishnan, Leo White. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming, pp. 98-117. Springer, Cham, 2017. &quot;&gt;&lt;a href=&quot;#fn6&quot; rel=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;
-&lt;sup id=&quot;fnref7&quot; title=&quot;Kiselyov, Oleg, K. C. Sivaramakrishnan. “Eff directly in OCaml.” ML Workshop. 2016. &quot;&gt;&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;
+&lt;sup id=&quot;fnref7&quot; title=&quot;Oleg Kiselyov, K. C. Sivaramakrishnan. “Eff directly in OCaml.” ML Workshop. 2016. &quot;&gt;&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;
 &lt;/div&gt;
 &lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;
 &lt;p&gt;ここしばらく20行/日くらいしかコード書いてません｡
@@ -283,7 +283,7 @@ syntacticにきれいに､バグらず簡単に書ける､というありが�
 &lt;/li&gt;
 
 &lt;li id=&quot;fn7&quot;&gt;
-&lt;p&gt;Kiselyov, Oleg, K. C. Sivaramakrishnan. “Eff directly in OCaml.” ML Workshop. 2016. &lt;a href=&quot;#fnref7&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Oleg Kiselyov, K. C. Sivaramakrishnan. “Eff directly in OCaml.” ML Workshop. 2016. &lt;a href=&quot;#fnref7&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;/ol&gt;
