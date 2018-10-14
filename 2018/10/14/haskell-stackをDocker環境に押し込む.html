@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>haskell stackをDocker環境に押し込む &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Satoru Kawahara">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="haskell stackをDocker環境に押し込む">
+    <meta name="twitter:title" content="haskell stackをDocker環境に押し込む"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2018/10/14/haskell-stack%E3%82%92Docker%E7%92%B0%E5%A2%83%E3%81%AB%E6%8A%BC%E3%81%97%E8%BE%BC%E3%82%80.html"> 
+    <meta name="twitter:description" content="背景pacman -S stackとすると haskell-* パッケージを大量に引っ張ってくる｡そしてpacman -Syu するたびにそれら大量のパッケージのアップデートに費やされ､のみならず新たなhaskell-*が依存パッケージとして追加される｡">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <meta name="description" content="背景pacman -S stackとすると haskell-* パッケージを大量に引っ張ってくる｡そしてpacman -Syu するたびにそれら大量のパッケージのアップデートに費やされ､のみならず新たなhaskell-*が依存パッケージとして追加される｡">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="https://nymphium.github.io/2018/10/14/haskell-stack%E3%82%92Docker%E7%92%B0%E5%A2%83%E3%81%AB%E6%8A%BC%E3%81%97%E8%BE%BC%E3%82%80.html">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">haskell stackをDocker環境に押し込む</h1>
+            <span class="post-meta">
+              <time datetime="2018-10-14T00:00:00+09:00" itemprop="datePublished">Oct 14, 2018</time>
+              <p>tag: &#123;<a href="/tags.html#Docker-ref">Docker</a>&#125;</p>
+            </span>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"
+                    onload="renderMathInElement(document.body);"></script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="part-6542e9f0c8a">背景</h1>
+<p><code>pacman -S stack</code>とすると <code>haskell-*</code> パッケージを大量に引っ張ってくる｡
+そして<code>pacman -Syu</code> するたびにそれら大量のパッケージのアップデートに費やされ､のみならず新たな<code>haskell-*</code>が依存パッケージとして追加される｡</p>
+<p>鬱陶しいんじゃい!!!!! ということでstackはDockerコンテナにしまっちゃいましょうね｡</p>
+<h1 id="part-2a0aed2dd7b14a8f">ドッカー</h1>
+<p>適宜Dockerを使えるようにする｡
+ここでは書かないので各自何らかの文献をあたってください｡</p>
+<h1 id="part-378690170fcbd1e">ビルド</h1>
+<p>次のようなDockerfileを作る｡</p>
+<div class="highlight"><pre><code class="language-Dockerfile" data-lang="Dockerfile">FROM fpco/stack-build:latest
+
+RUN useradd -m yourname
+
+WORKDIR /home/yourname
+
+ENV LANG en_US.UTF-8
+
+USER yourname
+
+CMD ["bash"]
+</code></pre></div>
+<p>fpco/stack-buildを元に作成するだけ｡</p>
+<p>あとはビルドして使う｡</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span> <span class="nb">ls</span>
+<span class="go">Dockerfile ...
+</span><span class="gp">$</span> docker build <span class="nt">--tag</span> mystack <span class="nb">.</span>  <span class="c"># ビルド</span>
+<span class="gp">$</span> docker run <span class="nt">-itd</span> <span class="nt">--name</span> mystack mystack <span class="c">#コンテナ立ち上げ</span>
+<span class="gp">$</span> <span class="k">function </span>stack<span class="o">()</span> <span class="o">{</span>
+<span class="gp">  docker exec -it mystack stack "$</span><span class="o">{</span>@<span class="o">}</span><span class="s2">"
+</span><span class="go">}
+</span><span class="gp">$</span> stack repl
+<span class="c">......
+</span><span class="gp">Prelude &gt;</span>
+</code></pre></div>
+<h1 id="other">other</h1>
+<p>Docker内のstack経由でインストールしたコマンドももちろんつかえる｡</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span> stack <span class="nb">install </span>ghc-mod
+<span class="c">......
+</span><span class="gp">$</span> <span class="k">function </span>ghc-mod<span class="o">()</span> <span class="o">{</span>
+<span class="gp">  docker exec mystack stack --no-stack-exe ghc-mod -- "$</span><span class="o">{</span>@<span class="o">}</span><span class="s2">"
+</span><span class="go">}
+</span></code></pre></div>
+<p>対話環境が必要な場合は<code>docker-exec</code>の引数に<code>-it</code>を渡せばよい｡</p>
+<h1 id="part-37868eae38b7d56">おわり</h1>
+<p>観てのとおりstack-specificな話ではなくて､よりジェネリックに､手元を汚染しそうなツールを何でもかんでもDockerに詰め込めそうだ｡
+2018年になってやっとDockerが分かってきてヤバいね｡</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2018/10/05/ML-Day%E3%82%84%E3%81%A3%E3%81%9F,-%E6%96%B0%E3%81%9F%E3%81%AA%E3%83%90%E3%82%A4%E3%83%88%E5%A7%8B%E3%81%BE%E3%81%A3%E3%81%9F,-%E6%8A%80%E8%A1%93%E6%9B%B8%E5%85%B8%E3%81%8C%E3%81%82%E3%82%8B.html" title="ML Dayやった, 新たなバイト始まった, 技術書典がある">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <span class="btn next disabled">Next &rarr;</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
