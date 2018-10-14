@@ -5,66 +5,9 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 14 Oct 2018 16:16:55 +0900</pubDate>
-    <lastBuildDate>Sun, 14 Oct 2018 16:16:55 +0900</lastBuildDate>
+    <pubDate>Sun, 14 Oct 2018 22:02:29 +0900</pubDate>
+    <lastBuildDate>Sun, 14 Oct 2018 22:02:29 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
-    
-      <item>
-        <title>haskell stackをDocker環境に押し込む</title>
-        <description>&lt;h1 id=&quot;part-6542e9f0c8a&quot;&gt;背景&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;pacman -S stack&lt;/code&gt;とすると &lt;code&gt;haskell-*&lt;/code&gt; パッケージを大量に引っ張ってくる｡
-そして&lt;code&gt;pacman -Syu&lt;/code&gt; するたびにそれら大量のパッケージのアップデートに費やされ､のみならず新たな&lt;code&gt;haskell-*&lt;/code&gt;が依存パッケージとして追加される｡&lt;/p&gt;
-&lt;p&gt;鬱陶しいんじゃい!!!!! ということでstackはDockerコンテナにしまっちゃいましょうね｡&lt;/p&gt;
-&lt;h1 id=&quot;part-2a0aed2dd7b14a8f&quot;&gt;ドッカー&lt;/h1&gt;
-&lt;p&gt;適宜Dockerを使えるようにする｡
-ここでは書かないので各自何らかの文献をあたってください｡&lt;/p&gt;
-&lt;h1 id=&quot;part-378690170fcbd1e&quot;&gt;ビルド&lt;/h1&gt;
-&lt;p&gt;次のようなDockerfileを作る｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-Dockerfile&quot; data-lang=&quot;Dockerfile&quot;&gt;FROM fpco/stack-build:latest
-
-RUN useradd -m yourname
-
-WORKDIR /home/yourname
-
-ENV LANG en_US.UTF-8
-
-USER yourname
-
-CMD [&quot;bash&quot;]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;fpco/stack-buildを元に作成するだけ｡&lt;/p&gt;
-&lt;p&gt;あとはビルドして使う｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt;
-&lt;span class=&quot;go&quot;&gt;Dockerfile ...
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; docker build &lt;span class=&quot;nt&quot;&gt;--tag&lt;/span&gt; mystack &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# ビルド&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; docker run &lt;span class=&quot;nt&quot;&gt;-itd&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; mystack mystack &lt;span class=&quot;c&quot;&gt;#コンテナ立ち上げ&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;stack&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;  docker exec -it mystack stack &quot;$&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;@&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;
-&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;}
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; stack repl
-&lt;span class=&quot;c&quot;&gt;......
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;Prelude &amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h1 id=&quot;other&quot;&gt;other&lt;/h1&gt;
-&lt;p&gt;Docker内のstack経由でインストールしたコマンドももちろんつかえる｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; stack &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;ghc-mod
-&lt;span class=&quot;c&quot;&gt;......
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;ghc-mod&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;  docker exec mystack stack --no-stack-exe ghc-mod -- &quot;$&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;@&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;
-&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;}
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;対話環境が必要な場合は&lt;code&gt;docker-exec&lt;/code&gt;の引数に&lt;code&gt;-it&lt;/code&gt;を渡せばよい｡&lt;/p&gt;
-&lt;h1 id=&quot;part-37868eae38b7d56&quot;&gt;おわり&lt;/h1&gt;
-&lt;p&gt;観てのとおりstack-specificな話ではなくて､よりジェネリックに､手元を汚染しそうなツールを何でもかんでもDockerに詰め込めそうだ｡
-2018年になってやっとDockerが分かってきてヤバいね｡&lt;/p&gt;</description>
-        <pubDate>Sun, 14 Oct 2018 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2018/10/14/haskell-stack%E3%82%92Docker%E7%92%B0%E5%A2%83%E3%81%AB%E6%8A%BC%E3%81%97%E8%BE%BC%E3%82%80.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2018/10/14/haskell-stack%E3%82%92Docker%E7%92%B0%E5%A2%83%E3%81%AB%E6%8A%BC%E3%81%97%E8%BE%BC%E3%82%80.html</guid>
-        
-        <category>Docker</category>
-        
-        
-      </item>
     
       <item>
         <title>ML Dayやった, 新たなバイト始まった, 技術書典がある</title>
@@ -1124,6 +1067,227 @@ OCamlで表現するならこんな感じだろうか｡&lt;/p&gt;
         <category>OCaml</category>
         
         <category>関数</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>筋肉偏差値70</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡これは&lt;a href=&quot;https://adventar.org/calendars/2573&quot;&gt;WORD Advent Calendar 2017&lt;/a&gt;の記事です｡&lt;/p&gt;
+&lt;p&gt;12月23日といえば今上天皇の誕生日!!!! みんなで祝いましょう｡
+この日はめでたいなぁ､国民の祝日にしましょう｡&lt;/p&gt;
+&lt;h1 id=&quot;word&quot;&gt;WORDとは何か&lt;/h1&gt;
+&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;span style=&quot;font-size: XX-LARGE&quot;&gt;!!!以下に詳細が!!!&lt;/span&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.word-ac.net/about/&quot;&gt;https://www.word-ac.net/about/&lt;/a&gt;
+&lt;/p&gt;
+&lt;/center&gt;
+&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
+&lt;p&gt;ア〜&lt;/p&gt;
+&lt;h1 id=&quot;2&quot;&gt;2. アレ&lt;/h1&gt;
+&lt;p&gt;時は2016年の頭､我らがWORD部員である(当時)M2のN氏｡
+就職先は地球防衛軍日本支部であるところの陸軍自衛隊であることを発表した｡
+毎日角ふじ&lt;sup id=&quot;fnref1&quot; title=&quot;二郎系の麺ショップ｡味が云々というより依存性が高い｡量も多い｡ &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;へ行き毎日早起き筋トレをおこなうと告げ､可能な限り実行していた｡
+そんなEDF隊員見習いの姿勢に俺達は感化された……!&lt;/p&gt;
+&lt;h1 id=&quot;3&quot;&gt;3. ソレ&lt;/h1&gt;
+&lt;p&gt;時は2016年の頭､テレビアニメ『ヴァルキリードライヴ マーメイド』&lt;sup id=&quot;fnref2&quot; title=&quot;http://valkyriedrive.jp/anime/ &quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;が放映されていた｡
+激しいバトル､島やウイルスの謎､そしてちょっとエッチなサービスシーン､百合……｡
+そんな中､武器を持たずに己が身一つで戦う&quot;ゼロ･アーム&quot;の異名を持つ魅力的なキャラクター､ &lt;strong&gt;&lt;em&gt;時雨霞&lt;/em&gt;&lt;/strong&gt; さん｡
+パートナーの見城ひびきさんを想いながら強く戦い続ける姿勢に俺(達)は感化された……!
+感化されすぎて2016年4月に髪型を時雨霞さんにした……!!!&lt;/p&gt;
+&lt;h1 id=&quot;4&quot;&gt;4. 筋肉ブートストラップ&lt;/h1&gt;
+&lt;p&gt;一切の運動を放棄して棒に脂と皮が張り付いたような四肢の俺達ベルトコンベアーの理系BOYがダンベルを持ち上げようものなら肩が脱臼してしまう｡
+まずは自重を使ったトレーニングから開始してダンベルプルーフな身体をビルドしなければならない｡&lt;/p&gt;
+&lt;h1 id=&quot;5&quot;&gt;5. おわりに(未完)&lt;/h1&gt;
+&lt;p&gt;EDF5を夜通しやってたら24日になっちゃった&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;ここから別の記事&lt;/p&gt;
+&lt;h1 id=&quot;multiple-exception-handlers-cps&quot;&gt;multiple exception handlersをCPS変換&lt;/h1&gt;
+&lt;h1 id=&quot;6-2&quot;&gt;6. はじめに(2)&lt;/h1&gt;
+&lt;p&gt;皆さんは例外処理のあるlambda calculusをCPS変換するとき､全てのコントロールエフェクトもCPSで済ませたいがために例外処理もCPS変換したくなるでしょう｡&lt;/p&gt;
+&lt;h1 id=&quot;7-startup&quot;&gt;7. startup&lt;/h1&gt;
+&lt;p&gt;以下のような言語を考える｡&lt;/p&gt;
+&lt;div&gt;
+$$
+\begin{array}{rrl}
+    e  &amp;amp; ::=  &amp;amp; x\mid \lambda x.e \mid e\,e\\
+       &amp;amp; \mid &amp;amp; e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e}\\
+       &amp;amp; \mid &amp;amp; \mathbf{raise}\,\mathit{Exn}\left(e\right)
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;\(e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)は実質\(\mathbf{try}\,e\,\mathbf{with}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)ですね｡
+操作的意味論は君の中に既にあるはずだ｡&lt;/p&gt;
+&lt;h1 id=&quot;8-double-barreled-cps&quot;&gt;8. Double-Barreled CPS&lt;/h1&gt;
+&lt;p&gt;既存の手法としてDouble-Barreled CPSというものが知られています&lt;sup id=&quot;fnref3&quot; title=&quot;Hayo Thielecke. Comparing Control Constructs by Double-Barrelled CPS &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;｡
+継続ともう一つ例外処理に対応する関数､つまりdouble-barreledなCPSを作ります｡&lt;/p&gt;
+&lt;div&gt;
+$$
+\begin{array}{c}
+    \fbox{\lceil e\rceil = e_{cps}}\\
+    \begin{array}{rcl}
+        \lceil \lambda x. e \rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. \lambda x. \lambda k’. \lambda h’. \lceil e \rceil\, k’\, h’\\
+        \lceil x \rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. k\, x\\
+        \lceil e_1\, e_2\rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. \lceil e_1\rceil\,\left(\lambda f. \lceil e_2\rceil \left(\lambda a. f\,a\,k\,h\right)\,h\right)\,h\\
+        \lceil e_1\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow e_2\rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. \lceil e_1\rceil\, k\, \left(\lambda x. \lceil e_2\rceil\, k\,h\right) \\
+        \lceil \mathbf{raise}\,\mathit{Exn}\left(e\right)\rceil &amp;amp; = &amp;amp; \lambda k.\lambda h.\lceil e\rceil \,h\,h\\
+    \end{array}
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;\(e_{cps}\)は\(e\)のサブセットっぽいのでなんだかいい感じですね｡
+例外ハンドラのアーム(\(Exn(x)\rightarrow e\))を継続として(\(\lambda x.\lceil e\rceil\)) 第2の継続パラメータに渡すわけですな｡
+お察しの通り､この手法では1つの例外処理に対して1つの継続を追加している｡
+では複数の例外処理に対して我々はどうする? まさかn+1-barreled CPS? いやいやそれはちょっと……｡&lt;/p&gt;
+&lt;h1 id=&quot;9-multiple-exception-handling-cps&quot;&gt;9. multiple-exception handling CPS&lt;/h1&gt;
+&lt;h2 id=&quot;9-1&quot;&gt;9-1. 近似&lt;/h2&gt;
+&lt;p&gt;ハンドラを貯めて逐次ぶっ放すような感じにしていくか｡
+\(h\)を(例外名とハンドラ関数のペア)のリストとして､初期値を空リストとして与える｡&lt;/p&gt;
+&lt;div&gt;
+&lt;label id=&quot;fig:approx&quot;&gt;&lt;/label&gt;
+$$
+\begin{array}{rcl}
+    \lceil \lambda x.e\rceil_h &amp;amp; = &amp;amp; \lambda k. \lambda x.\lambda k’. \lceil e\rceil_h\, k’\\
+    \lceil x\rceil_h &amp;amp; = &amp;amp; \lambda k. k\,x\\
+    \lceil e_1\,e_2\rceil_h &amp;amp; = &amp;amp; \lambda k.\lceil e_1\rceil_h \left(\lambda f.\lceil e_2\rceil \left(\lambda a. f\,a\,k\right)\right)\\
+    \left\lceil e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e’} \right\rceil_h &amp;amp; = &amp;amp; \lambda k.\lceil e\rceil_{h’}\,k\ %
+        \mathit{where}\ h’ = \overrightarrow{\left(Exn,\lambda k’.\lambda x.\lceil e’\rceil\,k’\right)}\, @\, h\\
+    %
+    \left\lceil \mathbf{raise}\,\mathit{Exn}\left(e\right) \right\rceil_h &amp;amp; = &amp;amp;\left(%
+        \begin{array}{ll}
+            \lambda k.\lceil e\rceil_h f_\mathit{Exn}  &amp;amp; \mathrm{if}\,h=h’\,@\,\left(\left(\mathit{Exn}, f_\mathit{Exn}\right) :: \mathit{tl}\right)\\
+            \mathrm{undefined} &amp;amp; \mathit{otherwise}
+        \end{array}\right.
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;オッ? いい感じな気もするが……｡&lt;/p&gt;
+&lt;h3 id=&quot;9-1-1&quot;&gt;9-1-1. 問題点&lt;/h3&gt;
+&lt;p&gt;\(\lambda\)抽象を変換したあと､その関数を使うというときに困りそうです｡
+次のようなケースを考えてみる｡&lt;/p&gt;
+&lt;div&gt;
+&lt;label id=&quot;fig:example&quot;&gt;&lt;/label&gt;
+$$
+\begin{array}{rcl}
+\begin{array}{l}
+\mathbf{let}\,f\,x=\mathbf{raise}\,\mathit{Exn}\left(x\right)\,\mathbf{in}\\
+f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x
+\end{array} &amp;amp;=&amp;amp;%
+\left(\lambda f. f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x\right)\,%
+\left(\lambda x.\mathbf{raise}\,\mathit{Exn}\left(x\right)\right)
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;関数fの中でraiseしとります｡
+&lt;a href=&quot;#fig:approx&quot;&gt;9.1&lt;/a&gt;で変換するとどうなるか……?&lt;/p&gt;
+&lt;p&gt;どうなるかというと､引数である\(\lambda\)の中のraiseをちゃんとハンドルできないので爆発します｡
+これはなぜか｡
+&lt;a href=&quot;#fig:approx&quot;&gt;9.1&lt;/a&gt;では\(\lambda\)抽象を作る際のハンドラはそのコンテキストで生まれたハンドラを使ってしまっているので､
+外側のコンテキストである関数内のhandleが作るハンドラ群を使えないのである｡&lt;/p&gt;
+&lt;h1 id=&quot;10&quot;&gt;10. 解法&lt;/h1&gt;
+&lt;p&gt;ハンドラをダイナミックにばらまくので､記述言語だけで回していくには厳しい｡&lt;/p&gt;
+&lt;h2 id=&quot;10-1-syntax&quot;&gt;10-1. syntax&lt;/h2&gt;
+&lt;p&gt;のでCPS termを拡張したい｡&lt;/p&gt;
+&lt;div&gt;
+&lt;label id=&quot;fig:syn&quot;&gt;&lt;/label&gt;
+$$
+\begin{array}{rrl}
+e_{cps} &amp;amp; ::= &amp;amp; x \mid \lambda x. e_{cps} \mid e_{cps}\, e_{cps}\\
+        &amp;amp; \mid&amp;amp; \left[\right] \\
+        &amp;amp; \mid&amp;amp; e_{cps} :: e_{cps} \mid e_{cps} @ e_{cps} \\
+        &amp;amp; \mid&amp;amp; \left(\mathit{Exn}, e_{cps} \right)\\
+        &amp;amp; \mid&amp;amp; \mathbf{lookup}(\mathit{Exn}, e_{cps})\\
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;はい&lt;/p&gt;
+&lt;h2 id=&quot;10-2&quot;&gt;10-2. 変換規則&lt;/h2&gt;
+&lt;div&gt;
+$$
+\begin{array}{c}
+    \fbox{\lceil e\rceil=e_{cps}}\\
+    \begin{array}{rcl}
+        \lceil \lambda x.e\rceil &amp;amp; = &amp;amp;%
+            \lambda k. \lambda h. \lambda x.\lambda k’. \lambda h’.  \lceil e\rceil\, k’\, h’\\
+        \lceil x\rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. k\,x\\
+        \lceil e_1\,e_2\rceil &amp;amp; = &amp;amp;%
+            \lambda k. \lambda h. \lceil e_1\rceil \left(\lambda f.\lceil e_2\rceil \left(\lambda a. f\,a\,k\,h\right)\, h\right)\, h\\
+        \left\lceil e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e’} \right\rceil &amp;amp; = &amp;amp;%
+            \lambda k.\lambda h. \lceil e\rceil\,k\, \left(\overrightarrow{\left(\mathit{Exn},\lambda k’.\lambda h’. \lceil e’ \rceil\, k’\,h’\right)} \,@\, h\right)\\
+        \left\lceil \mathbf{raise}\,\mathit{Exn}\left(e\right) \right\rceil &amp;amp; = &amp;amp; \lambda k.\lambda h. \left(\lambda f_\mathit{Exn}. \lceil e \rceil\, f_\mathit{Exn}\,f_\mathit{Exn} \right) \mathbf{lookup}\left(\mathit{Exn},h\right)
+    \end{array}
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;先程の&lt;a href=&quot;#fig:example&quot;&gt;例&lt;/a&gt;を変換してみましょう｡&lt;/p&gt;
+&lt;div&gt;
+$$
+\begin{array}{rcl}
+    \lceil e\rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. \left\lceil \lambda f. f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x \right\rceil%
+        \left(\lambda f. \left\lceil \lambda x.\mathbf{raise}\,\mathit{Exn}\left(x\right) \right\rceil \left( \lambda a. f\,a\,k\,h\right)\,h\right)\,h\\
+      &amp;amp;=&amp;amp; \lambda k.\lambda h. \left(\lambda k_0.\lambda h_0. \lambda f. \lambda k_0’. \lambda h_0’.  \left(\left(\lambda k_2.\lambda h_2. \left(\lambda k_3.\lambda h_3. k_3\,f\right) \left(\lambda f’.  \left(\lambda k_4.\lambda h_4. k_4\,m\right) \left(\lambda m’. f’\,m’\,k_2\,h_2 \right)\,h_2 \right)\,h_2\right)\, k_1\, \left(\left(\mathit{Exn}, \lambda k_5.\lambda h_5.\lambda x. \lambda k_6. \lambda h_6. k_6\,x\right) \,::\, h_1\right)\right) \, k_0’\,h_0’\right) \left(\lambda f. (\lambda k_7. \lambda h_7. \lambda x. \lambda k_7’. \lambda h_7’. \left(\lambda k_8. \lambda h_8. \left(\lambda f_\mathit{Exn}.  \left(\lambda k_9. \lambda h_9. k_9 x\right) f_\mathit{Exn} f_\mathit{Exn}\right) \mathbf{lookup}\left(\mathit{Exn}, h_8\right)\right) k_7’\,h_7’)\, \left(\lambda a. f\,a\,k\,h\right)\, h \right)\,h
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;こんなもんですか? あとは作者の気持ちに沿ってrunしていくと&lt;/p&gt;
+&lt;div&gt;
+$$
+\mathit{run}\, \lceil e\rceil = \lceil e\rceil \left(\lambda k. k\right) [] = \cdots \cdots
+$$
+&lt;/div&gt;
+&lt;p&gt;あ〜〜やりたくない､これは読者の皆さんへの課題としますが､多分いい感じにハンドラが動くんでしょう｡&lt;/p&gt;
+&lt;h2 id=&quot;10-3-20171225&quot;&gt;10-3. 追記20171225&lt;/h2&gt;
+&lt;p&gt;素晴らしいことに変換規則が間違ってますね｡&lt;/p&gt;
+&lt;p&gt;次のような感じだと正解だろうか｡&lt;/p&gt;
+&lt;div&gt;
+$$
+\begin{array}{rcl}
+    \lceil \lambda x.e\rceil &amp;amp; =&amp;amp;%
+        \lambda k. \lambda h. k \left(\lambda x.\lambda k’. \lambda h’.  \lceil e\rceil\, k’\, h’\right)\\
+    \lceil x\rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. k\,x\\
+    \lceil e_1\,e_2\rceil &amp;amp; = &amp;amp;%
+        \lambda k. \lambda h. \lceil e_1\rceil \left(\lambda f.\lceil e_2\rceil \left(\lambda a. f\,a\,k\,h\right)\, h\right)\, h\\
+    \lceil e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e’} \rceil &amp;amp; = &amp;amp;%
+        \lambda k.\lambda h. \lceil e\rceil\,k\, \left(\overrightarrow{\left(\mathit{Exn},\lambda x. \lceil e’ \rceil\, k\,h\right)} \,@\, h\right) \ \\
+    \lceil \mathbf{raise}\,\mathit{Exn}\left(e\right) \rceil &amp;amp; =&amp;amp; \lambda k.\lambda h. \lceil e\rceil \left(\lambda v. \left(\mathbf{lookup}\left(\mathit{Exn}, h\right)\right)\, v\right)\, h
+\end{array}
+$$
+&lt;/div&gt;
+&lt;p&gt;正しさを検証するのは皆さんへの宿題とします｡
+かんたんな実装を載せますんで後は頼んだ｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://gist.github.com/Nymphium/b5864f0f774fcf45bb18d5a27e395be0&quot;&gt;https://gist.github.com/Nymphium/b5864f0f774fcf45bb18d5a27e395be0&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;11-2&quot;&gt;11. おわりに(2)&lt;/h1&gt;
+&lt;p&gt;という話を明日研究室のゼミで話すかもしれない｡&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;二郎系の麺ショップ｡味が云々というより依存性が高い｡量も多い｡ &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn2&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;http://valkyriedrive.jp/anime/&quot;&gt;http://valkyriedrive.jp/anime/&lt;/a&gt; &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn3&quot;&gt;
+&lt;p&gt;Hayo Thielecke. Comparing Control Constructs by Double-Barrelled CPS &lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Sat, 23 Dec 2017 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2017/12/23/%E7%AD%8B%E8%82%89%E5%81%8F%E5%B7%AE%E5%80%A470.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2017/12/23/%E7%AD%8B%E8%82%89%E5%81%8F%E5%B7%AE%E5%80%A470.html</guid>
+        
+        <category>雑感</category>
+        
+        <category>筋肉</category>
+        
+        <category>WORD</category>
+        
+        <category>CPS</category>
         
         
       </item>
