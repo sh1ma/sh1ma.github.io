@@ -5,9 +5,173 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 14 Oct 2018 22:02:29 +0900</pubDate>
-    <lastBuildDate>Sun, 14 Oct 2018 22:02:29 +0900</lastBuildDate>
+    <pubDate>Wed, 17 Oct 2018 23:42:17 +0900</pubDate>
+    <lastBuildDate>Wed, 17 Oct 2018 23:42:17 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
+    
+      <item>
+        <title>subfilesを使ってみんなで記事を書く､しおりも出す</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;
+&lt;p&gt;この度､『Dragon University 技術書典5』を手にとっていただいて誠にありがとうございました｡&lt;/p&gt;
+&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;70部弱売れたのでええ感じでした。ありがとうございました。 &lt;a href=&quot;https://t.co/dYxhhgDnnx&quot;&gt;pic.twitter.com/dYxhhgDnnx&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1049208145816350721?ref_src=twsrc%5Etfw&quot;&gt;October 8, 2018&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;
+&lt;p&gt;“70部&lt;strong&gt;&lt;em&gt;弱&lt;/em&gt;&lt;/strong&gt;&quot;とありますが実際は&quot;70部&lt;strong&gt;&lt;em&gt;強&lt;/em&gt;&lt;/strong&gt;&quot;です｡
+重ねてありがとございました｡&lt;/p&gt;
+&lt;p&gt;さて､ここからが大事だ｡
+大事な話をする｡&lt;/p&gt;
+&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Dragon Universityは近々ダウンロード販売をやるようなのでお待ち下さい､物理媒体を購入した方はnページ目m行目s文字目～t文字などのパスフレーズを入力すると無料でゲットできるようにする(はず)&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1049334128800219137?ref_src=twsrc%5Etfw&quot;&gt;October 8, 2018&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;
+&lt;p&gt;してました｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;さて､LaTeX文書からPDFを作成してpublishした人の多くはhyperrefパッケージを使っているかと思います｡
+hyperrefにはしおりを作る機能があります(図&lt;a href=&quot;#bookmarks&quot;&gt;0.1&lt;/a&gt;)｡&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;label id=&quot;bookmarks&quot;&gt;&lt;/label&gt;
+&lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/bookmarks.png&quot; alt=&quot;しおり&quot; title=&quot;しおり&quot;&gt;
+図&lt;a href=&quot;#bookmarks&quot;&gt;0.1&lt;/a&gt; evinceで正しく表示されるしおり
+&lt;/center&gt;
+&lt;p&gt;今回我々はsubfilesで各々がファイルを書いてプロジェクトのルートのmain.texで各人のmainファイルを読むようにしました｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/Nymphium/nymphium.github.io/tree/source/src/latex-subfiles&quot;&gt;src/latex-subfiles&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;.
+├── authors
+│   ├── ore
+│   │   └── main.tex
+│   └── other
+│       └── main.tex
+└── main.tex
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;/src/latex-subfiles/main.tex&quot;&gt;src/latex-subfiles/main.tex&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;main.tex&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;......
+&lt;span class=&quot;nt&quot;&gt;\begin{document}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\subfile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;authors/ore/main.tex&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\subfile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;authors/other/main.tex&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;\end{document}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;/src/latex-subfiles/authors/ore/main.tex&quot;&gt;src/latex-subfiles/authors/ore/main.tex&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;&lt;span class=&quot;k&quot;&gt;\documentclass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;subfiles&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;\author&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;ほげほげ&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;あああ&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;\begin{document}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\maketitle&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\section&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;はじめに&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\subsection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;ほげ&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\section&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;おわりに&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;\end{document}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;/src/latex-subfiles/authors/other/main.tex&quot;&gt;src/latex-subfiles/authors/other/main.tex&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;&lt;span class=&quot;k&quot;&gt;\documentclass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;subfiles&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\author&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;other&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;別の話&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;\begin{document}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\maketitle&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\section&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;はじめに&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\subsection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;ほげ&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\section&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;おわりに&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;\end{document}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;subfilesで&lt;code&gt;\maketitle&lt;/code&gt;を使うと各記事のタイトルを良い感じにいれられないので改造する｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;......
+&lt;span class=&quot;k&quot;&gt;\makeatletter&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\renewcommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\maketitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\clearpage&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\newpage\null&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\vskip&lt;/span&gt; 2em
+  &lt;span class=&quot;nt&quot;&gt;\begin{center}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;\let\footnote\thanks&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\LARGE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;\textbf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\@&lt;/span&gt;title&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;\par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% タイトル&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;\vskip&lt;/span&gt; 1.5em
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\large&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;\lineskip&lt;/span&gt; .5em
+        &lt;span class=&quot;nt&quot;&gt;\begin{flushright}&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;\@&lt;/span&gt;author &lt;span class=&quot;c&quot;&gt;% 著者名&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;\end{flushright}&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;\par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;\end{center}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\par\vskip&lt;/span&gt; 1.5em
+  &lt;span class=&quot;k&quot;&gt;\ifvoid\@&lt;/span&gt;abstractbox&lt;span class=&quot;k&quot;&gt;\else\centerline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\box\@&lt;/span&gt;abstractbox&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\vskip&lt;/span&gt;1.5em&lt;span class=&quot;k&quot;&gt;\fi&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\setcounter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;section&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;0&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% ミソ&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\setcounter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;subsection&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;0&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\setcounter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;subsubsection&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;0&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\setcounter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;footnote&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;0&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\makeatother&lt;/span&gt;
+......
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;この辺は好みによる｡
+今回はltjsarticleの&lt;code&gt;\maketitle&lt;/code&gt;コマンドを改造している｡
+section等のカウンタを0で初期化しているのがミソで､これをしないと各記事のカウンタが連番になってしまう｡
+しかしそうするとしおりが壊れる(図&lt;a href=&quot;#brokenbm&quot;&gt;0.2&lt;/a&gt;)｡&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;label id=&quot;brokenbm&quot;&gt;&lt;/label&gt;
+記事&lt;code&gt;あああ&lt;/code&gt;のサブセクション位置に次の記事が来てしまっている｡
+&lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/broken.png&quot; alt=&quot;壊れたしおり&quot; title=&quot;壊れたしおり&quot;&gt;
+図&lt;a href=&quot;#brokenbm&quot;&gt;0.2&lt;/a&gt; 壊れたしおり
+&lt;/center&gt;
+&lt;p&gt;hyperrefパッケージのオプションに&lt;code&gt;hypertexnames=false&lt;/code&gt;を渡すことで解決する｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;......
+&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;[&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+  pdfencoding=auto&lt;span class=&quot;c&quot;&gt;% 文字化け防止&lt;/span&gt;
+, hypertexnames=false&lt;span class=&quot;c&quot;&gt;% ←&lt;/span&gt;
+, luatex]&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;hyperref&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+......
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;label id=&quot;ok1&quot;&gt;&lt;/label&gt;
+&lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/ok1.png&quot; alt=&quot;ok1&quot; title=&quot;ok1&quot;&gt;
+図&lt;a href=&quot;#ok1&quot;&gt;0.3&lt;/a&gt; ok1
+&lt;/center&gt;
+&lt;p&gt;図&lt;a href=&quot;#bookmarks&quot;&gt;0.1&lt;/a&gt;のように記事名もしおりに入れたい｡
+記事名の子に各セクションが来てほしいので｡&lt;code&gt;\maketitle&lt;/code&gt;に手を加える｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;......
+&lt;span class=&quot;k&quot;&gt;\renewcommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\maketitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\clearpage&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\addcontentsline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;toc&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;part&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% これ&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\newpage\null&lt;/span&gt;
+......
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;この&lt;code&gt;\large&lt;/code&gt;指定は目次のためである｡
+親子関係はsectionの上に来てほしいのでchapterかpartにする｡
+目次はchapterよりもpartのほうが見栄えが良かったのでpartにした｡&lt;/p&gt;
+&lt;p&gt;そしてまた壊れる｡壊れるなぁ…｡
+&lt;/p&gt;&lt;center&gt;
+&lt;label id=&quot;broken2&quot;&gt;&lt;/label&gt;
+&lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/broken2.png&quot; alt=&quot;broken2&quot; title=&quot;broken2&quot;&gt;
+図&lt;a href=&quot;#broken2&quot;&gt;0.4&lt;/a&gt; こわれる
+&lt;/center&gt;
+&lt;p&gt;ここでおもむろに&lt;code&gt;\phantomsection&lt;/code&gt;を挿入する｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection&quot;&gt;hyperref - When do I need to invoke \phantomsection? - TeX - LaTeX Stack Exchange&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;......
+&lt;span class=&quot;k&quot;&gt;\renewcommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\maketitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\clearpage&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\phantomsection&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% addcontenstlineの前に追加&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\addcontentsline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;toc&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;part&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\newpage\null&lt;/span&gt;
+......
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これでやっと図&lt;a href=&quot;#bookmarks&quot;&gt;0.1&lt;/a&gt;のようになった｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;ということでpdf版制作にもワザがありました｡
+表紙の&quot;interpr &lt;em&gt;i&lt;/em&gt; ter&quot;も修正されていると思いますので､近々出るpdf版もよろしくおねがいします｡&lt;/p&gt;</description>
+        <pubDate>Wed, 17 Oct 2018 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F-%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F-%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99.html</guid>
+        
+        <category>LaTeX</category>
+        
+        
+      </item>
     
       <item>
         <title>ML Dayやった, 新たなバイト始まった, 技術書典がある</title>
@@ -1067,227 +1231,6 @@ OCamlで表現するならこんな感じだろうか｡&lt;/p&gt;
         <category>OCaml</category>
         
         <category>関数</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>筋肉偏差値70</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡これは&lt;a href=&quot;https://adventar.org/calendars/2573&quot;&gt;WORD Advent Calendar 2017&lt;/a&gt;の記事です｡&lt;/p&gt;
-&lt;p&gt;12月23日といえば今上天皇の誕生日!!!! みんなで祝いましょう｡
-この日はめでたいなぁ､国民の祝日にしましょう｡&lt;/p&gt;
-&lt;h1 id=&quot;word&quot;&gt;WORDとは何か&lt;/h1&gt;
-&lt;p&gt;&lt;/p&gt;&lt;center&gt;
-&lt;span style=&quot;font-size: XX-LARGE&quot;&gt;!!!以下に詳細が!!!&lt;/span&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.word-ac.net/about/&quot;&gt;https://www.word-ac.net/about/&lt;/a&gt;
-&lt;/p&gt;
-&lt;/center&gt;
-&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
-&lt;p&gt;ア〜&lt;/p&gt;
-&lt;h1 id=&quot;2&quot;&gt;2. アレ&lt;/h1&gt;
-&lt;p&gt;時は2016年の頭､我らがWORD部員である(当時)M2のN氏｡
-就職先は地球防衛軍日本支部であるところの陸軍自衛隊であることを発表した｡
-毎日角ふじ&lt;sup id=&quot;fnref1&quot; title=&quot;二郎系の麺ショップ｡味が云々というより依存性が高い｡量も多い｡ &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;へ行き毎日早起き筋トレをおこなうと告げ､可能な限り実行していた｡
-そんなEDF隊員見習いの姿勢に俺達は感化された……!&lt;/p&gt;
-&lt;h1 id=&quot;3&quot;&gt;3. ソレ&lt;/h1&gt;
-&lt;p&gt;時は2016年の頭､テレビアニメ『ヴァルキリードライヴ マーメイド』&lt;sup id=&quot;fnref2&quot; title=&quot;http://valkyriedrive.jp/anime/ &quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;が放映されていた｡
-激しいバトル､島やウイルスの謎､そしてちょっとエッチなサービスシーン､百合……｡
-そんな中､武器を持たずに己が身一つで戦う&quot;ゼロ･アーム&quot;の異名を持つ魅力的なキャラクター､ &lt;strong&gt;&lt;em&gt;時雨霞&lt;/em&gt;&lt;/strong&gt; さん｡
-パートナーの見城ひびきさんを想いながら強く戦い続ける姿勢に俺(達)は感化された……!
-感化されすぎて2016年4月に髪型を時雨霞さんにした……!!!&lt;/p&gt;
-&lt;h1 id=&quot;4&quot;&gt;4. 筋肉ブートストラップ&lt;/h1&gt;
-&lt;p&gt;一切の運動を放棄して棒に脂と皮が張り付いたような四肢の俺達ベルトコンベアーの理系BOYがダンベルを持ち上げようものなら肩が脱臼してしまう｡
-まずは自重を使ったトレーニングから開始してダンベルプルーフな身体をビルドしなければならない｡&lt;/p&gt;
-&lt;h1 id=&quot;5&quot;&gt;5. おわりに(未完)&lt;/h1&gt;
-&lt;p&gt;EDF5を夜通しやってたら24日になっちゃった&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;ここから別の記事&lt;/p&gt;
-&lt;h1 id=&quot;multiple-exception-handlers-cps&quot;&gt;multiple exception handlersをCPS変換&lt;/h1&gt;
-&lt;h1 id=&quot;6-2&quot;&gt;6. はじめに(2)&lt;/h1&gt;
-&lt;p&gt;皆さんは例外処理のあるlambda calculusをCPS変換するとき､全てのコントロールエフェクトもCPSで済ませたいがために例外処理もCPS変換したくなるでしょう｡&lt;/p&gt;
-&lt;h1 id=&quot;7-startup&quot;&gt;7. startup&lt;/h1&gt;
-&lt;p&gt;以下のような言語を考える｡&lt;/p&gt;
-&lt;div&gt;
-$$
-\begin{array}{rrl}
-    e  &amp;amp; ::=  &amp;amp; x\mid \lambda x.e \mid e\,e\\
-       &amp;amp; \mid &amp;amp; e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e}\\
-       &amp;amp; \mid &amp;amp; \mathbf{raise}\,\mathit{Exn}\left(e\right)
-\end{array}
-$$
-&lt;/div&gt;
-&lt;p&gt;\(e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)は実質\(\mathbf{try}\,e\,\mathbf{with}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)ですね｡
-操作的意味論は君の中に既にあるはずだ｡&lt;/p&gt;
-&lt;h1 id=&quot;8-double-barreled-cps&quot;&gt;8. Double-Barreled CPS&lt;/h1&gt;
-&lt;p&gt;既存の手法としてDouble-Barreled CPSというものが知られています&lt;sup id=&quot;fnref3&quot; title=&quot;Hayo Thielecke. Comparing Control Constructs by Double-Barrelled CPS &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;｡
-継続ともう一つ例外処理に対応する関数､つまりdouble-barreledなCPSを作ります｡&lt;/p&gt;
-&lt;div&gt;
-$$
-\begin{array}{c}
-    \fbox{\lceil e\rceil = e_{cps}}\\
-    \begin{array}{rcl}
-        \lceil \lambda x. e \rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. \lambda x. \lambda k’. \lambda h’. \lceil e \rceil\, k’\, h’\\
-        \lceil x \rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. k\, x\\
-        \lceil e_1\, e_2\rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. \lceil e_1\rceil\,\left(\lambda f. \lceil e_2\rceil \left(\lambda a. f\,a\,k\,h\right)\,h\right)\,h\\
-        \lceil e_1\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow e_2\rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. \lceil e_1\rceil\, k\, \left(\lambda x. \lceil e_2\rceil\, k\,h\right) \\
-        \lceil \mathbf{raise}\,\mathit{Exn}\left(e\right)\rceil &amp;amp; = &amp;amp; \lambda k.\lambda h.\lceil e\rceil \,h\,h\\
-    \end{array}
-\end{array}
-$$
-&lt;/div&gt;
-&lt;p&gt;\(e_{cps}\)は\(e\)のサブセットっぽいのでなんだかいい感じですね｡
-例外ハンドラのアーム(\(Exn(x)\rightarrow e\))を継続として(\(\lambda x.\lceil e\rceil\)) 第2の継続パラメータに渡すわけですな｡
-お察しの通り､この手法では1つの例外処理に対して1つの継続を追加している｡
-では複数の例外処理に対して我々はどうする? まさかn+1-barreled CPS? いやいやそれはちょっと……｡&lt;/p&gt;
-&lt;h1 id=&quot;9-multiple-exception-handling-cps&quot;&gt;9. multiple-exception handling CPS&lt;/h1&gt;
-&lt;h2 id=&quot;9-1&quot;&gt;9-1. 近似&lt;/h2&gt;
-&lt;p&gt;ハンドラを貯めて逐次ぶっ放すような感じにしていくか｡
-\(h\)を(例外名とハンドラ関数のペア)のリストとして､初期値を空リストとして与える｡&lt;/p&gt;
-&lt;div&gt;
-&lt;label id=&quot;fig:approx&quot;&gt;&lt;/label&gt;
-$$
-\begin{array}{rcl}
-    \lceil \lambda x.e\rceil_h &amp;amp; = &amp;amp; \lambda k. \lambda x.\lambda k’. \lceil e\rceil_h\, k’\\
-    \lceil x\rceil_h &amp;amp; = &amp;amp; \lambda k. k\,x\\
-    \lceil e_1\,e_2\rceil_h &amp;amp; = &amp;amp; \lambda k.\lceil e_1\rceil_h \left(\lambda f.\lceil e_2\rceil \left(\lambda a. f\,a\,k\right)\right)\\
-    \left\lceil e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e’} \right\rceil_h &amp;amp; = &amp;amp; \lambda k.\lceil e\rceil_{h’}\,k\ %
-        \mathit{where}\ h’ = \overrightarrow{\left(Exn,\lambda k’.\lambda x.\lceil e’\rceil\,k’\right)}\, @\, h\\
-    %
-    \left\lceil \mathbf{raise}\,\mathit{Exn}\left(e\right) \right\rceil_h &amp;amp; = &amp;amp;\left(%
-        \begin{array}{ll}
-            \lambda k.\lceil e\rceil_h f_\mathit{Exn}  &amp;amp; \mathrm{if}\,h=h’\,@\,\left(\left(\mathit{Exn}, f_\mathit{Exn}\right) :: \mathit{tl}\right)\\
-            \mathrm{undefined} &amp;amp; \mathit{otherwise}
-        \end{array}\right.
-\end{array}
-$$
-&lt;/div&gt;
-&lt;p&gt;オッ? いい感じな気もするが……｡&lt;/p&gt;
-&lt;h3 id=&quot;9-1-1&quot;&gt;9-1-1. 問題点&lt;/h3&gt;
-&lt;p&gt;\(\lambda\)抽象を変換したあと､その関数を使うというときに困りそうです｡
-次のようなケースを考えてみる｡&lt;/p&gt;
-&lt;div&gt;
-&lt;label id=&quot;fig:example&quot;&gt;&lt;/label&gt;
-$$
-\begin{array}{rcl}
-\begin{array}{l}
-\mathbf{let}\,f\,x=\mathbf{raise}\,\mathit{Exn}\left(x\right)\,\mathbf{in}\\
-f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x
-\end{array} &amp;amp;=&amp;amp;%
-\left(\lambda f. f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x\right)\,%
-\left(\lambda x.\mathbf{raise}\,\mathit{Exn}\left(x\right)\right)
-\end{array}
-$$
-&lt;/div&gt;
-&lt;p&gt;関数fの中でraiseしとります｡
-&lt;a href=&quot;#fig:approx&quot;&gt;9.1&lt;/a&gt;で変換するとどうなるか……?&lt;/p&gt;
-&lt;p&gt;どうなるかというと､引数である\(\lambda\)の中のraiseをちゃんとハンドルできないので爆発します｡
-これはなぜか｡
-&lt;a href=&quot;#fig:approx&quot;&gt;9.1&lt;/a&gt;では\(\lambda\)抽象を作る際のハンドラはそのコンテキストで生まれたハンドラを使ってしまっているので､
-外側のコンテキストである関数内のhandleが作るハンドラ群を使えないのである｡&lt;/p&gt;
-&lt;h1 id=&quot;10&quot;&gt;10. 解法&lt;/h1&gt;
-&lt;p&gt;ハンドラをダイナミックにばらまくので､記述言語だけで回していくには厳しい｡&lt;/p&gt;
-&lt;h2 id=&quot;10-1-syntax&quot;&gt;10-1. syntax&lt;/h2&gt;
-&lt;p&gt;のでCPS termを拡張したい｡&lt;/p&gt;
-&lt;div&gt;
-&lt;label id=&quot;fig:syn&quot;&gt;&lt;/label&gt;
-$$
-\begin{array}{rrl}
-e_{cps} &amp;amp; ::= &amp;amp; x \mid \lambda x. e_{cps} \mid e_{cps}\, e_{cps}\\
-        &amp;amp; \mid&amp;amp; \left[\right] \\
-        &amp;amp; \mid&amp;amp; e_{cps} :: e_{cps} \mid e_{cps} @ e_{cps} \\
-        &amp;amp; \mid&amp;amp; \left(\mathit{Exn}, e_{cps} \right)\\
-        &amp;amp; \mid&amp;amp; \mathbf{lookup}(\mathit{Exn}, e_{cps})\\
-\end{array}
-$$
-&lt;/div&gt;
-&lt;p&gt;はい&lt;/p&gt;
-&lt;h2 id=&quot;10-2&quot;&gt;10-2. 変換規則&lt;/h2&gt;
-&lt;div&gt;
-$$
-\begin{array}{c}
-    \fbox{\lceil e\rceil=e_{cps}}\\
-    \begin{array}{rcl}
-        \lceil \lambda x.e\rceil &amp;amp; = &amp;amp;%
-            \lambda k. \lambda h. \lambda x.\lambda k’. \lambda h’.  \lceil e\rceil\, k’\, h’\\
-        \lceil x\rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. k\,x\\
-        \lceil e_1\,e_2\rceil &amp;amp; = &amp;amp;%
-            \lambda k. \lambda h. \lceil e_1\rceil \left(\lambda f.\lceil e_2\rceil \left(\lambda a. f\,a\,k\,h\right)\, h\right)\, h\\
-        \left\lceil e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e’} \right\rceil &amp;amp; = &amp;amp;%
-            \lambda k.\lambda h. \lceil e\rceil\,k\, \left(\overrightarrow{\left(\mathit{Exn},\lambda k’.\lambda h’. \lceil e’ \rceil\, k’\,h’\right)} \,@\, h\right)\\
-        \left\lceil \mathbf{raise}\,\mathit{Exn}\left(e\right) \right\rceil &amp;amp; = &amp;amp; \lambda k.\lambda h. \left(\lambda f_\mathit{Exn}. \lceil e \rceil\, f_\mathit{Exn}\,f_\mathit{Exn} \right) \mathbf{lookup}\left(\mathit{Exn},h\right)
-    \end{array}
-\end{array}
-$$
-&lt;/div&gt;
-&lt;p&gt;先程の&lt;a href=&quot;#fig:example&quot;&gt;例&lt;/a&gt;を変換してみましょう｡&lt;/p&gt;
-&lt;div&gt;
-$$
-\begin{array}{rcl}
-    \lceil e\rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. \left\lceil \lambda f. f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x \right\rceil%
-        \left(\lambda f. \left\lceil \lambda x.\mathbf{raise}\,\mathit{Exn}\left(x\right) \right\rceil \left( \lambda a. f\,a\,k\,h\right)\,h\right)\,h\\
-      &amp;amp;=&amp;amp; \lambda k.\lambda h. \left(\lambda k_0.\lambda h_0. \lambda f. \lambda k_0’. \lambda h_0’.  \left(\left(\lambda k_2.\lambda h_2. \left(\lambda k_3.\lambda h_3. k_3\,f\right) \left(\lambda f’.  \left(\lambda k_4.\lambda h_4. k_4\,m\right) \left(\lambda m’. f’\,m’\,k_2\,h_2 \right)\,h_2 \right)\,h_2\right)\, k_1\, \left(\left(\mathit{Exn}, \lambda k_5.\lambda h_5.\lambda x. \lambda k_6. \lambda h_6. k_6\,x\right) \,::\, h_1\right)\right) \, k_0’\,h_0’\right) \left(\lambda f. (\lambda k_7. \lambda h_7. \lambda x. \lambda k_7’. \lambda h_7’. \left(\lambda k_8. \lambda h_8. \left(\lambda f_\mathit{Exn}.  \left(\lambda k_9. \lambda h_9. k_9 x\right) f_\mathit{Exn} f_\mathit{Exn}\right) \mathbf{lookup}\left(\mathit{Exn}, h_8\right)\right) k_7’\,h_7’)\, \left(\lambda a. f\,a\,k\,h\right)\, h \right)\,h
-\end{array}
-$$
-&lt;/div&gt;
-&lt;p&gt;こんなもんですか? あとは作者の気持ちに沿ってrunしていくと&lt;/p&gt;
-&lt;div&gt;
-$$
-\mathit{run}\, \lceil e\rceil = \lceil e\rceil \left(\lambda k. k\right) [] = \cdots \cdots
-$$
-&lt;/div&gt;
-&lt;p&gt;あ〜〜やりたくない､これは読者の皆さんへの課題としますが､多分いい感じにハンドラが動くんでしょう｡&lt;/p&gt;
-&lt;h2 id=&quot;10-3-20171225&quot;&gt;10-3. 追記20171225&lt;/h2&gt;
-&lt;p&gt;素晴らしいことに変換規則が間違ってますね｡&lt;/p&gt;
-&lt;p&gt;次のような感じだと正解だろうか｡&lt;/p&gt;
-&lt;div&gt;
-$$
-\begin{array}{rcl}
-    \lceil \lambda x.e\rceil &amp;amp; =&amp;amp;%
-        \lambda k. \lambda h. k \left(\lambda x.\lambda k’. \lambda h’.  \lceil e\rceil\, k’\, h’\right)\\
-    \lceil x\rceil &amp;amp; = &amp;amp; \lambda k. \lambda h. k\,x\\
-    \lceil e_1\,e_2\rceil &amp;amp; = &amp;amp;%
-        \lambda k. \lambda h. \lceil e_1\rceil \left(\lambda f.\lceil e_2\rceil \left(\lambda a. f\,a\,k\,h\right)\, h\right)\, h\\
-    \lceil e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e’} \rceil &amp;amp; = &amp;amp;%
-        \lambda k.\lambda h. \lceil e\rceil\,k\, \left(\overrightarrow{\left(\mathit{Exn},\lambda x. \lceil e’ \rceil\, k\,h\right)} \,@\, h\right) \ \\
-    \lceil \mathbf{raise}\,\mathit{Exn}\left(e\right) \rceil &amp;amp; =&amp;amp; \lambda k.\lambda h. \lceil e\rceil \left(\lambda v. \left(\mathbf{lookup}\left(\mathit{Exn}, h\right)\right)\, v\right)\, h
-\end{array}
-$$
-&lt;/div&gt;
-&lt;p&gt;正しさを検証するのは皆さんへの宿題とします｡
-かんたんな実装を載せますんで後は頼んだ｡&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://gist.github.com/Nymphium/b5864f0f774fcf45bb18d5a27e395be0&quot;&gt;https://gist.github.com/Nymphium/b5864f0f774fcf45bb18d5a27e395be0&lt;/a&gt;&lt;/p&gt;
-&lt;h1 id=&quot;11-2&quot;&gt;11. おわりに(2)&lt;/h1&gt;
-&lt;p&gt;という話を明日研究室のゼミで話すかもしれない｡&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-
-&lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;二郎系の麺ショップ｡味が云々というより依存性が高い｡量も多い｡ &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn2&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;http://valkyriedrive.jp/anime/&quot;&gt;http://valkyriedrive.jp/anime/&lt;/a&gt; &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn3&quot;&gt;
-&lt;p&gt;Hayo Thielecke. Comparing Control Constructs by Double-Barrelled CPS &lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-        <pubDate>Sat, 23 Dec 2017 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2017/12/23/%E7%AD%8B%E8%82%89%E5%81%8F%E5%B7%AE%E5%80%A470.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2017/12/23/%E7%AD%8B%E8%82%89%E5%81%8F%E5%B7%AE%E5%80%A470.html</guid>
-        
-        <category>雑感</category>
-        
-        <category>筋肉</category>
-        
-        <category>WORD</category>
-        
-        <category>CPS</category>
         
         
       </item>
