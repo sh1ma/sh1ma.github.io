@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 17 Oct 2018 23:47:21 +0900</pubDate>
-    <lastBuildDate>Wed, 17 Oct 2018 23:47:21 +0900</lastBuildDate>
+    <pubDate>Thu, 18 Oct 2018 02:18:29 +0900</pubDate>
+    <lastBuildDate>Thu, 18 Oct 2018 02:18:29 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
     
       <item>
@@ -30,6 +30,10 @@
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;
 &lt;p&gt;してました｡&lt;/p&gt;
+&lt;h2 id=&quot;20181018&quot;&gt;追記20181018&lt;/h2&gt;
+&lt;p&gt;もうはじまってる!!!&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://dragonuniversity.booth.pm/items/1055860&quot;&gt;https://dragonuniversity.booth.pm/items/1055860&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;追記おわり&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;さて､LaTeX文書からPDFを作成してpublishした人の多くはhyperrefパッケージを使っているかと思います｡
 hyperrefにはしおりを作る機能があります(図&lt;a href=&quot;#bookmarks&quot;&gt;0.1&lt;/a&gt;)｡&lt;/p&gt;
