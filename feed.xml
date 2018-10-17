@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 17 Oct 2018 23:42:17 +0900</pubDate>
-    <lastBuildDate>Wed, 17 Oct 2018 23:42:17 +0900</lastBuildDate>
+    <pubDate>Wed, 17 Oct 2018 23:46:32 +0900</pubDate>
+    <lastBuildDate>Wed, 17 Oct 2018 23:46:32 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
     
       <item>
@@ -82,9 +82,10 @@ hyperrefにはしおりを作る機能があります(図&lt;a href=&quot;#bookm
 &lt;span class=&quot;nt&quot;&gt;\end{document}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;subfilesで&lt;code&gt;\maketitle&lt;/code&gt;を使うと各記事のタイトルを良い感じにいれられないので改造する｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;......
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;
+......
 &lt;span class=&quot;k&quot;&gt;\makeatletter&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\renewcommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\maketitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\renewcommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\maketitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;\clearpage&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;\newpage\null&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;\vskip&lt;/span&gt; 2em
@@ -108,6 +109,7 @@ hyperrefにはしおりを作る機能があります(図&lt;a href=&quot;#bookm
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;\makeatother&lt;/span&gt;
 ......
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;この辺は好みによる｡
 今回はltjsarticleの&lt;code&gt;\maketitle&lt;/code&gt;コマンドを改造している｡
@@ -134,12 +136,14 @@ section等のカウンタを0で初期化しているのがミソで､これを
 &lt;/center&gt;
 &lt;p&gt;図&lt;a href=&quot;#bookmarks&quot;&gt;0.1&lt;/a&gt;のように記事名もしおりに入れたい｡
 記事名の子に各セクションが来てほしいので｡&lt;code&gt;\maketitle&lt;/code&gt;に手を加える｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;......
-&lt;span class=&quot;k&quot;&gt;\renewcommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\maketitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;
+......
+&lt;span class=&quot;k&quot;&gt;\renewcommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\maketitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;\clearpage&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;\addcontentsline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;toc&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;part&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% これ&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\addcontentsline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;toc&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;part&lt;span class=&quot;p&quot;&gt;}{{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\large&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;\@&lt;/span&gt;title&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% これ&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;\newpage\null&lt;/span&gt;
 ......
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;この&lt;code&gt;\large&lt;/code&gt;指定は目次のためである｡
 親子関係はsectionの上に来てほしいのでchapterかpartにする｡
@@ -152,13 +156,15 @@ section等のカウンタを0で初期化しているのがミソで､これを
 &lt;/center&gt;
 &lt;p&gt;ここでおもむろに&lt;code&gt;\phantomsection&lt;/code&gt;を挿入する｡&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection&quot;&gt;hyperref - When do I need to invoke \phantomsection? - TeX - LaTeX Stack Exchange&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;......
-&lt;span class=&quot;k&quot;&gt;\renewcommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\maketitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;
+......
+&lt;span class=&quot;k&quot;&gt;\renewcommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\maketitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;\clearpage&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;\phantomsection&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;% addcontenstlineの前に追加&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;\addcontentsline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;toc&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;part&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;\addcontentsline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;toc&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;part&lt;span class=&quot;p&quot;&gt;}{{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\large&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;\@&lt;/span&gt;title&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;\newpage\null&lt;/span&gt;
 ......
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;これでやっと図&lt;a href=&quot;#bookmarks&quot;&gt;0.1&lt;/a&gt;のようになった｡&lt;/p&gt;
 &lt;hr&gt;

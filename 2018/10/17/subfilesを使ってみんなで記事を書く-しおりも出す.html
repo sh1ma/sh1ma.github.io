@@ -122,9 +122,10 @@ hyperrefにはしおりを作る機能があります(図<a href="#bookmarks">0.
 <span class="nt">\end{document}</span>
 </code></pre></div>
 <p>subfilesで<code>\maketitle</code>を使うと各記事のタイトルを良い感じにいれられないので改造する｡</p>
-<div class="highlight"><pre><code class="language-tex" data-lang="tex">......
+<div class="highlight"><pre><code class="language-tex" data-lang="tex">
+......
 <span class="k">\makeatletter</span>
-<span class="k">\renewcommand</span><span class="p">{</span><span class="k">\maketitle</span><span class="p">}{</span> <span class="c">%</span>
+<span class="k">\renewcommand</span><span class="p">{</span><span class="k">\maketitle</span><span class="p">}{</span><span class="c">%</span>
   <span class="k">\clearpage</span>
   <span class="k">\newpage\null</span>
   <span class="k">\vskip</span> 2em
@@ -148,6 +149,7 @@ hyperrefにはしおりを作る機能があります(図<a href="#bookmarks">0.
 <span class="p">}</span>
 <span class="k">\makeatother</span>
 ......
+
 </code></pre></div>
 <p>この辺は好みによる｡
 今回はltjsarticleの<code>\maketitle</code>コマンドを改造している｡
@@ -174,12 +176,14 @@ section等のカウンタを0で初期化しているのがミソで､これを
 </center>
 <p>図<a href="#bookmarks">0.1</a>のように記事名もしおりに入れたい｡
 記事名の子に各セクションが来てほしいので｡<code>\maketitle</code>に手を加える｡</p>
-<div class="highlight"><pre><code class="language-tex" data-lang="tex">......
-<span class="k">\renewcommand</span><span class="p">{</span><span class="k">\maketitle</span><span class="p">}{</span> <span class="c">%</span>
+<div class="highlight"><pre><code class="language-tex" data-lang="tex">
+......
+<span class="k">\renewcommand</span><span class="p">{</span><span class="k">\maketitle</span><span class="p">}{</span><span class="c">%</span>
   <span class="k">\clearpage</span>
-  <span class="k">\addcontentsline</span><span class="p">{</span>toc<span class="p">}{</span>part<span class="p">}</span><span class="c">% これ</span>
+  <span class="k">\addcontentsline</span><span class="p">{</span>toc<span class="p">}{</span>part<span class="p">}{{</span><span class="k">\large</span> <span class="k">\@</span>title<span class="p">}}</span><span class="c">% これ</span>
   <span class="k">\newpage\null</span>
 ......
+
 </code></pre></div>
 <p>この<code>\large</code>指定は目次のためである｡
 親子関係はsectionの上に来てほしいのでchapterかpartにする｡
@@ -192,13 +196,15 @@ section等のカウンタを0で初期化しているのがミソで､これを
 </center>
 <p>ここでおもむろに<code>\phantomsection</code>を挿入する｡</p>
 <p><a href="https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection">hyperref - When do I need to invoke \phantomsection? - TeX - LaTeX Stack Exchange</a></p>
-<div class="highlight"><pre><code class="language-tex" data-lang="tex">......
-<span class="k">\renewcommand</span><span class="p">{</span><span class="k">\maketitle</span><span class="p">}{</span> <span class="c">%</span>
+<div class="highlight"><pre><code class="language-tex" data-lang="tex">
+......
+<span class="k">\renewcommand</span><span class="p">{</span><span class="k">\maketitle</span><span class="p">}{</span><span class="c">%</span>
   <span class="k">\clearpage</span>
   <span class="k">\phantomsection</span><span class="c">% addcontenstlineの前に追加</span>
-  <span class="k">\addcontentsline</span><span class="p">{</span>toc<span class="p">}{</span>part<span class="p">}</span>
+  <span class="k">\addcontentsline</span><span class="p">{</span>toc<span class="p">}{</span>part<span class="p">}{{</span><span class="k">\large</span> <span class="k">\@</span>title<span class="p">}}</span>
   <span class="k">\newpage\null</span>
 ......
+
 </code></pre></div>
 <p>これでやっと図<a href="#bookmarks">0.1</a>のようになった｡</p>
 <hr>
