@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 30 Oct 2018 01:20:15 +0900</pubDate>
-    <lastBuildDate>Tue, 30 Oct 2018 01:20:15 +0900</lastBuildDate>
+    <pubDate>Tue, 30 Oct 2018 22:58:51 +0900</pubDate>
+    <lastBuildDate>Tue, 30 Oct 2018 22:58:51 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
     
       <item>
@@ -534,6 +534,11 @@ syntacticにきれいに､バグらず簡単に書ける､というありが�
 ボクの語彙が少ないので詳細は文献[&lt;a href=&quot;#fn5&quot;&gt;5&lt;/a&gt;][&lt;a href=&quot;#fn6&quot;&gt;6&lt;/a&gt;]を読んでください｡&lt;/p&gt;
 &lt;h1 id=&quot;4&quot;&gt;4. おわりに&lt;/h1&gt;
 &lt;p&gt;また情報量が0になってしまった……!!!&lt;/p&gt;
+&lt;h1 id=&quot;20181030&quot;&gt;追記20181030&lt;/h1&gt;
+&lt;p&gt;ReactにHooksという機能が追加されたがこれはまさにAlgebraic Effectsということで､ReactはさておきAlgebraic Effectsに関してもう少し実例を交えて詳しいものをQiitaに発射した｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot;&gt;Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました! - Qiita&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;追記おわり&lt;/p&gt;
+&lt;hr&gt;
 &lt;div class=&quot;footnotes&quot;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
