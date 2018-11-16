@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lua VMに見る多値の扱い &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="Lua VMに見る多値の扱い">
+    <meta name="twitter:title" content="Lua VMに見る多値の扱い"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html"> 
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+    <!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Lua VMに見る多値の扱い | lilyum ensemble</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="Lua VMに見る多値の扱い" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="lily, Aikatsu, Programming language, and more" />
+<meta property="og:description" content="lily, Aikatsu, Programming language, and more" />
+<link rel="canonical" href="https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html" />
+<meta property="og:url" content="https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-11-16T00:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"lily, Aikatsu, Programming language, and more","@type":"BlogPosting","url":"https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html","headline":"Lua VMに見る多値の扱い","dateModified":"2018-11-16T00:00:00+09:00","datePublished":"2018-11-16T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="keywords" content="Go,Lua VM,多値,multiple value">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Lua VMに見る多値の扱い</h1>
+            <span class="post-meta">
+              <time datetime="2018-11-16T00:00:00+09:00" itemprop="datePublished">Nov 16, 2018</time>
+              <p>tag: &#123;<a href="/tags.html#Go-ref">Go</a>, <a href="/tags.html#Lua VM-ref">Lua VM</a>, <a href="/tags.html#多値-ref">多値</a>, <a href="/tags.html#multiple value-ref">multiple value</a>&#125;</p>
+            </span>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"
+                    onload="renderMathInElement(document.body);"></script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡</p>
+<h1 id="1">1. はじめに</h1>
+<p>さて､最近は多値に関する議論がホットだったようです｡
+ホットスポットはこちらの様子｡</p>
+<p><a href="http://bleis-tift.hatenablog.com/entry/multiple-values">多値について本気で考えてみた - ぐるぐる～</a></p>
+<p>なるほど｡
+<a href="http://bleis-tift.hatenablog.com/entry/go-the-bad-parts">こちら</a><label id="kochira"></label>も見ておこう｡
+どうやらGoは多値が使えたり使えなかったりするらしい｡
+個人的には使えるか使えない(tupleにするとか)かのどちらかのほうが良い言語デザインだと思うけど､ユーザが問題ないなら…｡</p>
+<p>本稿ではLua VMが使える代表的な言語Luaを例に､Goとの多値の違いに付いて見ていき､Lua VMおよびLuaの多値の扱いが良い感じなことを確認したい｡
+拙者Goは知らない侍につき､Goに関してはご容赦｡</p>
+<h1 id="2-lua">2. Luaで様子見</h1>
+<p>Lua VMのバイトコードを吐き出してくれるコンパイラの代表といえばluacだと思います｡
+むしろほかを知りませんが｡
+luacはLuaをLua VMバイトコードにコンパイルしてくれるすごいやつだよ｡</p>
+<div class="highlight">
+<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="c">// 多値を返す関数minmax</span><span class="x">
+</span><span class="k">func</span><span class="x"> </span><span class="n">minmax</span><span class="p">(</span><span class="n">x</span><span class="x"> </span><span class="kt">int</span><span class="p">,</span><span class="x"> </span><span class="n">y</span><span class="x"> </span><span class="kt">int</span><span class="p">)</span><span class="x"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="x"> </span><span class="kt">int</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">x</span><span class="x"> </span><span class="o">&lt;</span><span class="x"> </span><span class="n">y</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">x</span><span class="p">,</span><span class="x"> </span><span class="n">y</span><span class="x">     </span><span class="c">// 条件演算子がないのも割り切りだとわかっていてもつらい。</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="n">y</span><span class="p">,</span><span class="x"> </span><span class="n">x</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">// 多値の受け取り</span><span class="x">
+</span><span class="n">min</span><span class="p">,</span><span class="x"> </span><span class="n">max</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">minmax</span><span class="p">(</span><span class="m">20</span><span class="p">,</span><span class="x"> </span><span class="m">10</span><span class="p">)</span><span class="x">
+</span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"min:"</span><span class="p">,</span><span class="x"> </span><span class="n">min</span><span class="p">,</span><span class="x"> </span><span class="s">", max:"</span><span class="p">,</span><span class="x"> </span><span class="n">max</span><span class="p">)</span><span class="x"> </span><span class="c">// =&gt; min: 10, max: 20</span><span class="x">
+</span></code></pre>
+</div>
+<p>よくあるやつですね｡
+Luaで書くとこうなる｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">minmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="k">then</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+  <span class="k">else</span>
+    <span class="k">return</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>ありがちですね｡</p>
+<p>もう一つ｡</p>
+<div class="highlight">
+<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="n">tuple</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">minmax</span><span class="p">(</span><span class="m">20</span><span class="p">,</span><span class="x"> </span><span class="m">10</span><span class="p">)</span><span class="x"> </span><span class="c">// コンパイルエラー</span><span class="x">
+</span></code></pre>
+</div>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">tuple</span> <span class="o">=</span> <span class="n">minmax</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tuple</span><span class="p">)</span> <span class="c1">-- 10</span>
+</code></pre></div>
+<p>最初の方だけ返ってきました｡
+もう一個はどこへ行った???</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">min</span><span class="p">,</span> <span class="n">max</span> <span class="o">=</span> <span class="n">minmax</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">min</span><span class="p">,</span> <span class="n">max</span><span class="p">)</span> <span class="c1">-- 10 20</span>
+</code></pre></div>
+<p>虚空に消えたようで､拾ってやれば出てきます｡
+call by valueなので虚空に消えても値なので特に問題ありません｡</p>
+<div class="highlight">
+<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="k">func</span><span class="x"> </span><span class="n">minmax2</span><span class="p">(</span><span class="n">x</span><span class="x"> </span><span class="kt">int</span><span class="p">,</span><span class="x"> </span><span class="n">y</span><span class="x"> </span><span class="kt">int</span><span class="p">)</span><span class="x"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="x"> </span><span class="kt">int</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="n">minmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="x"> </span><span class="n">y</span><span class="p">)</span><span class="x"> </span><span class="c">// そのまま返す</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre>
+</div>
+<p>これは</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">minmax2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">minmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">minmax2</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span> <span class="c1">-- 10 20</span>
+</code></pre></div>
+<p>問題ないね｡</p>
+<h2 id="2-1-lua">2-1. “多値っぽい構文なのに多値ではない機能"はLuaには無いぜ</h2>
+<p><a href="#kochira">1.1</a>では "多値っぽい構文なのに多値ではない機能"としてfor rangeが例に出されています｡</p>
+<div class="highlight">
+<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="n">ys</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="x"> </span><span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span><span class="x">
+</span><span class="k">for</span><span class="x"> </span><span class="n">i</span><span class="p">,</span><span class="x"> </span><span class="n">x</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="k">range</span><span class="x"> </span><span class="n">xs</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">x</span><span class="x"> </span><span class="o">*</span><span class="x"> </span><span class="m">2</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre>
+</div>
+<blockquote>
+<p><code>i, x</code> の部分は多値のように見えますが、これは多値ではなく構文です。</p>
+</blockquote>
+<p>なるほど｡Luaにも<code>for-in</code>で同じようなことがかける｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">ys</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1">-- Lua唯一のデータ構造tableにサイズ指定なんてないぜ</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="k">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+<span class="k">end</span>
+</code></pre></div>
+<p><code>i</code>, <code>x</code>はLuaでは<strong>多値</strong>となる｡
+へーそうなんだ｡</p>
+<p><code>ipairs</code>関数は<em>ジェネレータ</em>を作る関数であり､ジェネレータが多値を返す関数なんです｡
+へーそうなんだ｡
+ジェネレータがn個の値を返せば､for文でもn個の値を取れる｡
+ジェネレータとはいえ､実態はただの関数である｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">generator</span><span class="p">(</span><span class="n">top</span><span class="p">)</span>
+  <span class="kd">local</span> <span class="n">acc</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">return</span> <span class="k">function</span><span class="p">()</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="n">acc</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">acc</span> <span class="o">&lt;</span> <span class="n">top</span> <span class="k">then</span>
+      <span class="k">return</span> <span class="n">acc</span><span class="p">,</span> <span class="n">acc</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">acc</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">acc</span> <span class="o">-</span> <span class="mi">3</span>
+    <span class="k">else</span> <span class="k">return</span> <span class="kc">nil</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="k">in</span> <span class="n">generator</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">do</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="cm">--[[
+1       0       -1      -2
+2       1       0       -1
+3       2       1       0
+4       3       2       1
+5       4       3       2
+6       5       4       3
+7       6       5       4
+8       7       6       5
+9       8       7       6
+]]</span>
+</code></pre></div>
+<blockquote>
+<p>Go言語では、mapへのアクセスにはスライスや文字列などと同様、 [] を使います。 その結果として、値のほかにキーが存在したかどうかを表す bool 値が受け取れます。</p>
+</blockquote>
+<div class="highlight">
+<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="n">m</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="x"> </span><span class="p">{</span><span class="x"> </span><span class="s">"a"</span><span class="o">:</span><span class="x"> </span><span class="m">10</span><span class="p">,</span><span class="x"> </span><span class="s">"b"</span><span class="o">:</span><span class="x"> </span><span class="m">20</span><span class="x"> </span><span class="p">}</span><span class="x">
+</span><span class="n">n</span><span class="p">,</span><span class="x"> </span><span class="n">ok</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">m</span><span class="p">[</span><span class="s">"c"</span><span class="p">]</span><span class="x"> </span><span class="c">// 2nd valueとしてbool値が受け取れる</span><span class="x">
+</span><span class="k">if</span><span class="x"> </span><span class="o">!</span><span class="n">ok</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">n</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="m">0</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"n:"</span><span class="p">,</span><span class="x"> </span><span class="n">n</span><span class="p">)</span><span class="x">    </span><span class="c">// =&gt; n: 0</span><span class="x">
+</span></code></pre>
+</div>
+<p>Lua唯一のデータ構造tableはmap機能を持っているが､アクセスしたキーに対応する値が無い場合は<code>nil</code>を返すため､比較はできない｡</p>
+<p>茶番になるが､metatableを使ってGoっぽいことをしてみよう｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">t</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">do</span>
+  <span class="kd">local</span> <span class="n">store</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="nb">setmetatable</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="p">{</span>
+    <span class="n">__newindex</span> <span class="o">=</span> <span class="n">store</span><span class="p">,</span>
+    <span class="n">__index</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+      <span class="kd">local</span> <span class="n">v</span> <span class="o">=</span> <span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+      <span class="k">if</span> <span class="n">v</span> <span class="k">then</span>
+        <span class="k">return</span> <span class="n">v</span> <span class="o">*</span> <span class="mi">10</span> <span class="cm">--[[ __indexメタメソッドを経由したことを確認するため ]]</span> <span class="p">,</span> <span class="kc">true</span>
+      <span class="k">else</span>
+        <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="kc">false</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="p">})</span>
+<span class="k">end</span>
+</code></pre></div>
+<p><code>__newindex</code>で<code>t</code>への値の格納を<code>store</code>に回すことで､､<code>t</code>へのアクセスは必ず<code>__index</code>メタメソッドを経由するようになる｡
+これでいいんじゃないですか…?</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">t</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="kd">local</span> <span class="n">v</span><span class="p">,</span> <span class="n">ok</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">x</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">ok</span><span class="p">)</span> <span class="c1">-- 30 nil</span>
+</code></pre></div>
+<p>アイエエナンデニンジャ､Luaはどうやらtableへのアクセスに対して多値を返せないようになっているようだ｡
+<code>"多値っぽい構文なのに多値ではない機能"はLuaには無いぜ</code> なんて啖呵切ったけどどうしますか､言い訳しますか?
+すみませんでした｡
+そもそもtableへのアクセスで多値を要求することがなかったのでこんなことになるとは上記コードを書くまで知りませんでした｡</p>
+<p>茶番おわり</p>
+<h2 id="2-2-error">2-2. error</h2>
+<p>最も述べるべきはエラー処理だろう｡
+Luaのエラー処理はGoと似たような方法となる｡
+まずはGo</p>
+<div class="highlight">
+<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="n">x</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">f</span><span class="p">()</span><span class="x">
+</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span><span class="n">y</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="x">
+</span><span class="c">// ...</span><span class="x">
+</span></code></pre>
+</div>
+<p>照井君､ワイもLuaでみたことあるで!!</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">content</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">f</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">err</span> <span class="k">then</span>
+  <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">err</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>もっとLuaっぽく書く場合は､<code>pcall</code>関数を使う｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">content</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="nb">pcall</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">content</span> <span class="k">then</span>
+  <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">err</span>
+<span class="k">end</span>
+</code></pre></div>
+<p><code>pcall</code>は､第1引数の関数に第2引数以降の値を適用して実行する｡
+このとき第1引数の関数がエラーを吐いたとき､<code>pcall</code>が<code>nil, error_message</code>の2値を返す｡構文ではなく単に多値ですね｡
+何もなければ<code>f</code>の戻り値をそのまま返す｡
+もちろん<code>f</code>の戻り値は多値の可能性もある｡
+そのため､最初の戻り値が<code>nil</code>だった場合(<code>not content</code>で検査している)にエラーを返すようになる｡</p>
+<p>Luaは再代入可能なので他は割愛</p>
+<h2 id="2-3-lua">2-3. Luaでもうすこし多値</h2>
+<p>多値はLuaでは頻出パターンである｡
+たとえばパターンマッチ(Luaでパターンというと正規表現風のアレでマッチはマッチや､これは重要なので注釈じゃなくここに記述する)</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">m</span><span class="p">,</span> <span class="n">rest</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"Hello, world"</span><span class="p">):</span><span class="n">match</span><span class="p">(</span><span class="s2">"%S+(.*)$"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">((</span><span class="s">[[match: "%s"; rest: "%s"]]</span><span class="p">):</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">rest</span><span class="p">))</span> <span class="c1">-- match: "Hello,"; rest: "world"</span>
+</code></pre></div>
+<p>もちろん多値</p>
+<p>他にも…あまり思いつかなかった｡</p>
+<p>例えばオプショナルな値を返したい時とか､なんとか､ともかくLuaで多値は非常に自然に使われるんや｡</p>
+<h2 id="2-4">2-4. 多値が値になる瞬間</h2>
+<p>Luaでは可変長引数が使える｡
+こういった瞬間､多値が単一の値になるような瞬間がある｡</p>
+<p>とりあえず多値を返す関数を用意しておく｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">f</span><span class="p">()</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>可変長引数をとる関数は､関数の仮引数に<code>...</code>と書く｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">g</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+  <span class="c1">-- ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p><code>...</code>は多値なのでこう書けるはずだ｡</p>
+<div class="highlight">
+<span class="listing-name">in g</span><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">g</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+  <span class="kd">local</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="o">...</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">g</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="c1">-- 1 2</span>
+</code></pre>
+</div>
+<p>いいな｡よし｡</p>
+<p>さて､他に<code>...</code>をどうするのかというとこれをtableに突っ込む｡またtableか｡</p>
+<div class="highlight">
+<span class="listing-name">in g</span><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">t</span> <span class="o">=</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+</code></pre>
+</div>
+<p>は??? 多値がお前…</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">g</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+  <span class="kd">local</span> <span class="n">t</span> <span class="o">=</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="c1">-- Luaは1オリジン!!!!!</span>
+<span class="k">end</span>
+
+<span class="n">g</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="c1">-- 1 2</span>
+</code></pre></div>
+<p>冷静になると<code>local x, y = ...</code>もたいがいやぞ｡</p>
+<h1 id="3-lua-vm">3. Lua VMと多値</h1>
+<p>さて､Luaは多値がGoよりも頻出しており､多値っぽいなと思ったものはだいたい多値であることが分かった｡
+Luaのランタイムとして多く採用されているLua VMについて､多値をどうさばいてるのか見てみよう｡</p>
+<h2 id="3-1-lua-vm">3-1. Lua VMとは</h2>
+<p>PUC-Lua 5.0からレジスタマシンアーキテクチャを採用している<sup id="fnref1" title='Ierusalimschy, Roberto, Luiz Henrique de Figueiredo, and Waldemar Celes. "The evolution of Lua.” Proceedings of the third ACM SIGPLAN conference on History of programming languages. ACM, 2007. '><a href="#fn1" rel="footnote">1</a></sup>｡
+Lua VM 5.3では47個の命令を持ち､5.4では四則演算に関して5.2から導入された<code>integer</code>型を高速に処理するための命令が追加されそうだ<sup id="fnref2" title="https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219 "><a href="#fn2" rel="footnote">2</a></sup>｡</p>
+<p>まずはバイトコードに触れてみよう｡
+お手元にluacをご用意ください｡
+パッケージマネージャでLuaをインストールすれば使えるはずだ｡
+<code>luac-5.3</code>とか<code>luac5.3</code>とか､単に<code>luac</code>など｡</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span> <span class="nb">cat </span>hoge.lua
+<span class="go">print("Hello")
+</span><span class="gp">$</span> luac <span class="nt">-o</span> /dev/null <span class="nt">-l</span> <span class="nt">-l</span> hoge.lua
+<span class="go">
+</span><span class="gp">main &lt;hoge.lua:0,0&gt;</span> <span class="o">(</span>4 instructions at 0x55f888496c70<span class="o">)</span>
+<span class="go">0+ params, 2 slots, 1 upvalue, 0 locals, 2 constants, 0 functions
+</span><span class="gp">        1       [1]     GETTABUP        0 0 -1  ;</span> _ENV <span class="s2">"print"</span>
+<span class="gp">        2       [1]     LOADK           1 -2    ;</span> <span class="s2">"Hello"</span>
+<span class="go">        3       [1]     CALL            0 2 1
+        4       [1]     RETURN          0 1
+constants (2) for 0x55f888496c70:
+        1       "print"
+        2       "Hello"
+locals (0) for 0x55f888496c70:
+upvalues (1) for 0x55f888496c70:
+        0       _ENV    1       0
+</span></code></pre></div>
+<p><code>-l -l</code>はverboseみたいなもので､デバッグ情報を全部だしてくれる｡
+<code>-o /dev/null</code>は生成された<code>luac.out</code>を/dev/nullに捨てているだけである｡
+今回luac.outに興味はないのでご退場いただいた｡</p>
+<p>あらためて出力を見てみる｡
+この出力にはクロージャの情報が並んで表示される｡
+<a href="http://localhost:8000/2016/04/25/luaquiz.html">Luaのトップレベルも関数</a>である｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">main &lt;hoge.lua:0,0&gt; (4 instructions at 0x55f888496c70)
+0+ params, 2 slots, 1 upvalue, 0 locals, 2 constants, 0 functions
+</code></pre></div>
+<p>関数の情報がかかれている｡
+<code>1 upvalue</code>は上位値の数､<code>2 constants</code>は定数の数､<code>0 functions</code>はクロージャの数｡
+<code>0+ params</code>は引数の数であり､この<code>+</code>は上記の可変長引数をとることを意味している｡
+トップレベルは可変長引数を取るようだな｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">        1       [1]     GETTABUP        0 0 -1  ; _ENV "print"
+        2       [1]     LOADK           1 -2    ; "Hello"
+        3       [1]     CALL            0 2 1
+        4       [1]     RETURN          0 1
+</code></pre></div>
+<p>ここが命令列</p>
+<div class="highlight"><pre><code class="language-" data-lang="">        2       [1]     LOADK           1 -2    ; "Hello"
+</code></pre></div>
+<p><code>2</code>が命令のインデックス､<code>[1]</code>が対応するソースコードの行､<code>LOADK</code>がニーモニック､<code>1 -2</code>がオペランド｡
+<code>; "Hello"</code>はコメントである｡
+Lua VMは三番地コードを採用している｡
+レジスタは0〜255まで用意されている｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">constants (2) for 0x55f888496c70:
+        1       "print"
+        2       "Hello"
+</code></pre></div>
+<p>定数のリスト｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">locals (0) for 0x55f888496c70:
+</code></pre></div>
+<p>ローカル変数のリスト｡
+これはデバッグ情報としてのみ､スタックトレースなどに利用される｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">upvalues (1) for 0x55f888496c70:
+        0       _ENV    1       0
+</code></pre></div>
+<p>上位値のリスト｡
+トップレベルだと雰囲気でないが､クロージャを書く時はスコープ内に外側で定義した変数を使いますよね､ソレです｡
+<code>_ENV</code>はグローバル変数が格納されているtable｡
+グローバル変数はtableなんですねぇ｡</p>
+<p>あとはこれが関数ごとに表示される｡</p>
+<h1 id="4-call-return">4. <code>CALL</code> &amp; <code>RETURN</code>
+</h1>
+<p>命令列に戻ってみる｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">        1       [1]     GETTABUP        0 0 -1  ; _ENV "print"
+        2       [1]     LOADK           1 -2    ; "Hello"
+        3       [1]     CALL            0 2 1
+        4       [1]     RETURN          0 1
+</code></pre></div>
+<p><code>GETTABUP</code>命令で<code>_ENV</code>に格納されている<code>print</code>をレジスタ0に引っ張っている｡
+第1レジスタで格納するレジスタを指定し､第2オペランドで上位値を指定する｡
+第3オペランドがtableへのアクセスに使う値を決めるものであり､負のときは定数リストの<code>第3オペランド * -1 - 1</code>番目のキーを使う｡</p>
+<p><code>LOADK</code>で定数リストから<code>"Hello"</code>を取り出し､レジスタ1に格納する｡</p>
+<p><code>CALL</code>で関数呼出しをおこなう｡
+<label id="lopcodes.h"></label> <a href="https://github.com/lua/lua/blob/v5-3-4/lopcodes.h">命令の定義</a>に書かれたコメントを見てみる｡</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">OP_CALL</span><span class="p">,</span><span class="cm">/*  A B C  R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) */</span>
+</code></pre></div>
+<p>分かる､分からない…｡
+レジスタAの関数にレジスタ(A + 1), …, レジスタ(A + B - 1)を渡して呼び出し､
+結果をレジスタA, …, レジスタ(A + C - 2)に格納する､という感じだな｡
+A, B, Cは第1オペランド､第2オペランド､第3オペランドに対応する｡
+確かに､戻り値の処理などが多値にうまく対応している｡</p>
+<p>これより<code>CALL 0 2 1</code>はレジスタ0にある<code>print</code>にレジスタ0の<code>"Hello"</code>を適用している｡
+戻り値はレジスタ(A+C-2)だから…あれ､レジスタ-1とはなんですか｡
+A+C-2 &lt; 0なら戻り値を気にしない､という予想で読んでいこう｡</p>
+<p><code>RETURN</code>も難しい｡</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">OP_RETURN</span><span class="p">,</span><span class="cm">/*    A B return R(A), ... ,R(A+B-2)  (see note)  */</span>
+</code></pre></div>
+<p>これも同様にA+B - 2 &lt; 0はvoid<sup id="fnref3" title='void-unit戦争が世界の何処かでおこなわれていますが､これはまさにvoidですね｡Luaでこういった関数の戻り値を受け取るとnilが返ってきますが､これは"無い値"を参照しているので､nilは正しい(オタク早口)｡ '><a href="#fn3" rel="footnote">3</a></sup>のような関数ということでしょう｡</p>
+<p>他の命令も､特に条件分岐あたりは面白いので1つ1つ見ていきたいが､ここでは多値が絡む部分だけ見ていこう｡
+気になった方はluaのソースコードをご覧ください｡</p>
+<p>ほかにも例を見てみよう｡</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span> <span class="nb">cat </span>huga.lua
+<span class="go">local x = 3
+local y = 5
+local z = x + y
+print(z)
+</span><span class="gp">$</span> luac <span class="nt">-o</span> /dev/null <span class="nt">-l</span> <span class="nt">-l</span> huga.lua
+<span class="c">......
+</span><span class="gp">        1       [1]     LOADK           0 -1    ;</span> 3
+<span class="gp">        2       [2]     LOADK           1 -2    ;</span> 5
+<span class="go">        3       [3]     ADD             2 0 1
+</span><span class="gp">        4       [4]     GETTABUP        3 0 -3  ;</span> _ENV <span class="s2">"print"</span>
+<span class="go">        5       [4]     MOVE            4 2
+        6       [4]     CALL            3 2 1
+        7       [4]     RETURN          0 1
+</span><span class="c">......
+</span></code></pre></div>
+<p>1､2行目をみると､ローカル変数もレジスタに突っ込まれることが分かる｡</p>
+<p>つぎいってみよ〜</p>
+<div class="highlight">
+<span class="listing-name">unpack.lua</span><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="kd">local</span> <span class="n">ret</span> <span class="o">=</span> <span class="p">{}</span>
+
+  <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="k">do</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">return</span> <span class="nb">table.unpack</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="c1">-- 1  2  3  4  5  6  7  8  9  10</span>
+</code></pre>
+</div>
+<p>tableを受け取り､配列部分を全て多値としてぶちまける<code>table.unpack</code>という関数を使う｡
+ちょっと待てよ､<code>f</code>は何個値を返すんだ､まさか処理系が<code>f</code>の呼び出しする部分ごとに解析してサイズを決めるんですか?
+そんなわけない｡
+<code>CALL</code>の引数はどうなる､俺達の未来はー</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>luac <span class="nt">-o</span> /dev/null <span class="nt">-l</span> <span class="nt">-l</span> unpack.lua
+
+main &lt;unpack.lua:0,0&gt; <span class="o">(</span>7 instructions at 0x55d6a2333c70<span class="o">)</span>
+0+ params, 4 slots, 1 upvalue, 1 <span class="nb">local</span>, 2 constants, 1 <span class="k">function
+        </span>1       <span class="o">[</span>9]     CLOSURE         0 0     <span class="p">;</span> 0x55d6a2333e50
+        2       <span class="o">[</span>11]    GETTABUP        1 0 <span class="nt">-1</span>  <span class="p">;</span> _ENV <span class="s2">"print"</span>
+        3       <span class="o">[</span>11]    MOVE            2 0
+        4       <span class="o">[</span>11]    LOADK           3 <span class="nt">-2</span>    <span class="p">;</span> 10
+        5       <span class="o">[</span>11]    CALL            2 2 0
+        6       <span class="o">[</span>11]    CALL            1 0 1
+        7       <span class="o">[</span>11]    RETURN          0 1
+constants <span class="o">(</span>2<span class="o">)</span> <span class="k">for </span>0x55d6a2333c70:
+        1       <span class="s2">"print"</span>
+        2       10
+locals <span class="o">(</span>1<span class="o">)</span> <span class="k">for </span>0x55d6a2333c70:
+        0       f       2       8
+upvalues <span class="o">(</span>1<span class="o">)</span> <span class="k">for </span>0x55d6a2333c70:
+        0       _ENV    1       0
+
+<span class="k">function</span> &lt;unpack.lua:1,9&gt; <span class="o">(</span>17 instructions at 0x55d6a2333e50<span class="o">)</span>
+1 param, 9 slots, 1 upvalue, 6 locals, 4 constants, 0 functions
+        1       <span class="o">[</span>2]     NEWTABLE        1 0 0
+        2       <span class="o">[</span>4]     LOADK           2 <span class="nt">-1</span>    <span class="p">;</span> 1
+        3       <span class="o">[</span>4]     MOVE            3 0
+        4       <span class="o">[</span>4]     LOADK           4 <span class="nt">-1</span>    <span class="p">;</span> 1
+        5       <span class="o">[</span>4]     FORPREP         2 5     <span class="p">;</span> to 11
+        6       <span class="o">[</span>5]     GETTABUP        6 0 <span class="nt">-2</span>  <span class="p">;</span> _ENV <span class="s2">"table"</span>
+        7       <span class="o">[</span>5]     GETTABLE        6 6 <span class="nt">-3</span>  <span class="p">;</span> <span class="s2">"insert"</span>
+        8       <span class="o">[</span>5]     MOVE            7 1
+        9       <span class="o">[</span>5]     MOVE            8 5
+        10      <span class="o">[</span>5]     CALL            6 3 1
+        11      <span class="o">[</span>4]     FORLOOP         2 <span class="nt">-6</span>    <span class="p">;</span> to 6
+        12      <span class="o">[</span>8]     GETTABUP        2 0 <span class="nt">-2</span>  <span class="p">;</span> _ENV <span class="s2">"table"</span>
+        13      <span class="o">[</span>8]     GETTABLE        2 2 <span class="nt">-4</span>  <span class="p">;</span> <span class="s2">"unpack"</span>
+        14      <span class="o">[</span>8]     MOVE            3 1
+        15      <span class="o">[</span>8]     TAILCALL        2 2 0
+        16      <span class="o">[</span>8]     RETURN          2 0
+        17      <span class="o">[</span>9]     RETURN          0 1
+constants <span class="o">(</span>4<span class="o">)</span> <span class="k">for </span>0x55d6a2333e50:
+        1       1
+        2       <span class="s2">"table"</span>
+        3       <span class="s2">"insert"</span>
+        4       <span class="s2">"unpack"</span>
+locals <span class="o">(</span>6<span class="o">)</span> <span class="k">for </span>0x55d6a2333e50:
+        0       x       1       18
+        1       ret     2       18
+        2       <span class="o">(</span><span class="k">for </span>index<span class="o">)</span>     5       12
+        3       <span class="o">(</span><span class="k">for </span>limit<span class="o">)</span>     5       12
+        4       <span class="o">(</span><span class="k">for </span>step<span class="o">)</span>      5       12
+        5       i       6       11
+upvalues <span class="o">(</span>1<span class="o">)</span> <span class="k">for </span>0x55d6a2333e50:
+        0       _ENV    0       0
+</code></pre></div>
+<p>先頭の関数情報がトップレベル､2つ目のほうが<code>f</code>の情報である｡
+<code>f</code>のほうをまず見てみよう｡
+一気にreturn部分を見る｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">        15      [8]     TAILCALL        2 2 0
+        16      [8]     RETURN          2 0
+        17      [9]     RETURN          0 1
+</code></pre></div>
+<p><code>TAILCALL</code>ってなんですか?
+関数の末尾で関数呼出ししてその戻り値をそのまま返す場合は<code>TAILCALL</code>になる｡
+いわゆる末尾呼び出し最適化みたいなものですね｡
+偉い｡
+なので16, 17番目の<code>RETURN</code>は実際には使われない命令となっている｡
+最適化で消えてほしいですね｡</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">OP_TAILCALL</span><span class="p">,</span><span class="cm">/*  A B C   return R(A)(R(A+1), ... ,R(A+B-1))      */</span>
+</code></pre></div>
+<p>第3オペランドCは便宜上あるだけで使われないようです｡
+内部的な話をすると､バイトコードの1命令は32bitである｡
+<code>TAILCALL</code>の引数はレジスタの指定だけに使うので､各オペランドのサイズは8bitあれば十分である｡
+ABC型の命令は各オペランドは8, 9, 9bit(ニーモニックは全部等しく6bit)となっており､サイズがちょうど良さげなので､Cを無視してA,Bだけ使っている､ということだろうか｡</p>
+<p><code>TAILCALL 2 2 0</code>は､レジスタ2にある<code>table.unpkacp</code>に､レジスタ3の<code>ret</code>を適用してその戻り値(多値含む)を返す､ということですね｡
+まず<code>f</code>と意気込んで見てみたものの､サラッとしてるのであまり多値みがないですね｡</p>
+<p><code>print(f(10))</code>はどうなったかを見よう｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">        1       [9]     CLOSURE         0 0     ; 0x55d6a2333e50
+        2       [11]    GETTABUP        1 0 -1  ; _ENV "print"
+        3       [11]    MOVE            2 0
+        4       [11]    LOADK           3 -2    ; 10
+        5       [11]    CALL            2 2 0
+        6       [11]    CALL            1 0 1
+        7       [11]    RETURN          0 1
+</code></pre></div>
+<p><code>CLOSURE</code>はクロージャを作っている｡
+今回は特になにもクロージングしてないですね｡
+5つ目の<code>CALL 2 2 0</code>が<code>f</code>の呼び出しになっている｡</p>
+<p><code>CALL</code> 振り返り</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">OP_CALL</span><span class="p">,</span><span class="cm">/*  A B C  R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) */</span>
+</code></pre></div>
+<p>A+C-2は0ですが､一体なにがどうなって?
+<a href="#fn2">lopcode.h</a>の下の方になんかかいてあるな｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">  Notes:
+  (*) In OP_CALL, if (B == 0) then B = top. If (C == 0), then 'top' is
+  set to last_result+1, so next open instruction (OP_CALL, OP_RETURN,
+  OP_SETLIST) may use 'top'.
+</code></pre></div>
+<p>ホゲッ!?
+この<code>top</code>というのは､中身が<code>nil</code>でないレジスタの最大インデックス､という感じだろうか｡
+luacはレジスタを0から順番に使っているので､スキマがあったりなんだかよくわからない感じになったりという事故は(多分)おきないので問題ない｡</p>
+<p><code>CALL 2 2 0</code>は､レジスタ2に入ってる関数にレジスタ3の値を適用して､そして…?
+情報が足りてないのだが､この場合戻り値をレジスタ2から全部順番に格納する｡
+そして<code>top</code>が更新される｡</p>
+<p>次の<code>CALL 1 0 1</code>も面白い｡<code>B == 0</code>なので<code>B = top</code>となる｡
+レジスタ1にある<code>print</code>に､レジスタ2から<code>top</code>までを適用する｡
+なるほど｡</p>
+<p>Lua VMの命令は面白いことがわかった｡
+レジスタベースでも多値をガンガン扱えるぜ､Lua VMは多値をうまく扱ってるぜ､ということでした｡</p>
+<h1 id="5">5. 継続と多値</h1>
+<p>余談｡
+Luaにファーストクラスの継続はないが､だいたい継続であるところのコルーチンはある｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">co</span> <span class="o">=</span> <span class="nb">coroutine.create</span><span class="p">(</span><span class="k">function</span><span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">"init"</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="nb">coroutine.yield</span><span class="p">())</span>
+  <span class="nb">print</span><span class="p">(</span><span class="nb">coroutine.yield</span><span class="p">())</span>
+<span class="k">end</span><span class="p">)</span>
+
+<span class="nb">coroutine.resume</span><span class="p">(</span><span class="n">co</span><span class="p">)</span> <span class="c1">-- init</span>
+<span class="nb">coroutine.resume</span><span class="p">(</span><span class="n">co</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">-- 1  2  3</span>
+<span class="nb">coroutine.resume</span><span class="p">(</span><span class="n">co</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1">-- 4  5  6  7  8  9  10</span>
+</code></pre></div>
+<p>はい｡</p>
+<h1 id="6">6. おわりに</h1>
+<p>ひさしぶりにLuaに思いを馳せたので思い出したり資料をのぞいたりで執筆に結構時間がかかってしまった｡</p>
+<p>ところで!
+VM型インタプリタ面白いなと思った方は､ぜひこちらをご覧ください｡</p>
+<p><a href="https://dragonuniversity.booth.pm/items/1055860">Dragon University 技術書典5 - Dragon University - BOOTH（同人誌通販・ダウンロード）</a></p>
+<p>宣伝おわり</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>Ierusalimschy, Roberto, Luiz Henrique de Figueiredo, and Waldemar Celes. "The evolution of Lua.” Proceedings of the third ACM SIGPLAN conference on History of programming languages. ACM, 2007. <a href="#fnref1" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn2">
+<p><a href="https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219">https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219</a> <a href="#fnref2" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn3">
+<p>void-unit戦争が世界の何処かでおこなわれていますが､これはまさにvoidですね｡Luaでこういった関数の戻り値を受け取るとnilが返ってきますが､これは"無い値"を参照しているので､nilは正しい(オタク早口)｡ <a href="#fnref3" rev="footnote">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F-%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99.html" title="subfilesを使ってみんなで記事を書く､しおりも出す">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <span class="btn next disabled">Next &rarr;</span>
+      </div>
+    </footer>
+
+  </body>
+</html>

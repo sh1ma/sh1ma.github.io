@@ -5,9 +5,549 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 15 Nov 2018 00:56:55 +0900</pubDate>
-    <lastBuildDate>Thu, 15 Nov 2018 00:56:55 +0900</lastBuildDate>
+    <pubDate>Sat, 17 Nov 2018 02:28:33 +0900</pubDate>
+    <lastBuildDate>Sat, 17 Nov 2018 02:28:33 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
+    
+      <item>
+        <title>Lua VMに見る多値の扱い</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;
+&lt;h1 id=&quot;1&quot;&gt;1. はじめに&lt;/h1&gt;
+&lt;p&gt;さて､最近は多値に関する議論がホットだったようです｡
+ホットスポットはこちらの様子｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://bleis-tift.hatenablog.com/entry/multiple-values&quot;&gt;多値について本気で考えてみた - ぐるぐる～&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;なるほど｡
+&lt;a href=&quot;http://bleis-tift.hatenablog.com/entry/go-the-bad-parts&quot;&gt;こちら&lt;/a&gt;&lt;label id=&quot;kochira&quot;&gt;&lt;/label&gt;も見ておこう｡
+どうやらGoは多値が使えたり使えなかったりするらしい｡
+個人的には使えるか使えない(tupleにするとか)かのどちらかのほうが良い言語デザインだと思うけど､ユーザが問題ないなら…｡&lt;/p&gt;
+&lt;p&gt;本稿ではLua VMが使える代表的な言語Luaを例に､Goとの多値の違いに付いて見ていき､Lua VMおよびLuaの多値の扱いが良い感じなことを確認したい｡
+拙者Goは知らない侍につき､Goに関してはご容赦｡&lt;/p&gt;
+&lt;h1 id=&quot;2-lua&quot;&gt;2. Luaで様子見&lt;/h1&gt;
+&lt;p&gt;Lua VMのバイトコードを吐き出してくれるコンパイラの代表といえばluacだと思います｡
+むしろほかを知りませんが｡
+luacはLuaをLua VMバイトコードにコンパイルしてくれるすごいやつだよ｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;引用&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;c&quot;&gt;// 多値を返す関数minmax&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// 条件演算子がないのも割り切りだとわかっていてもつらい。&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// 多値の受け取り&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;min:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;, max:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// =&amp;gt; min: 10, max: 20&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;よくあるやつですね｡
+Luaで書くとこうなる｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ありがちですね｡&lt;/p&gt;
+&lt;p&gt;もう一つ｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;引用&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;n&quot;&gt;tuple&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// コンパイルエラー&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tuple&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tuple&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 10&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;最初の方だけ返ってきました｡
+もう一個はどこへ行った???&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 10 20&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;虚空に消えたようで､拾ってやれば出てきます｡
+call by valueなので虚空に消えても値なので特に問題ありません｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;引用&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minmax2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// そのまま返す&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;これは&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minmax2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minmax2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 10 20&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;問題ないね｡&lt;/p&gt;
+&lt;h2 id=&quot;2-1-lua&quot;&gt;2-1. “多値っぽい構文なのに多値ではない機能&quot;はLuaには無いぜ&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;#kochira&quot;&gt;1.1&lt;/a&gt;では &quot;多値っぽい構文なのに多値ではない機能&quot;としてfor rangeが例に出されています｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;引用&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;make&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;i, x&lt;/code&gt; の部分は多値のように見えますが、これは多値ではなく構文です。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;なるほど｡Luaにも&lt;code&gt;for-in&lt;/code&gt;で同じようなことがかける｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- Lua唯一のデータ構造tableにサイズ指定なんてないぜ&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ipairs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;i&lt;/code&gt;, &lt;code&gt;x&lt;/code&gt;はLuaでは&lt;strong&gt;多値&lt;/strong&gt;となる｡
+へーそうなんだ｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ipairs&lt;/code&gt;関数は&lt;em&gt;ジェネレータ&lt;/em&gt;を作る関数であり､ジェネレータが多値を返す関数なんです｡
+へーそうなんだ｡
+ジェネレータがn個の値を返せば､for文でもn個の値を取れる｡
+ジェネレータとはいえ､実態はただの関数である｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;--[[
+1       0       -1      -2
+2       1       0       -1
+3       2       1       0
+4       3       2       1
+5       4       3       2
+6       5       4       3
+7       6       5       4
+8       7       6       5
+9       8       7       6
+]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Go言語では、mapへのアクセスにはスライスや文字列などと同様、 [] を使います。 その結果として、値のほかにキーが存在したかどうかを表す bool 値が受け取れます。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;引用&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;b&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;c&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// 2nd valueとしてbool値が受け取れる&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;n:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// =&amp;gt; n: 0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Lua唯一のデータ構造tableはmap機能を持っているが､アクセスしたキーに対応する値が無い場合は&lt;code&gt;nil&lt;/code&gt;を返すため､比較はできない｡&lt;/p&gt;
+&lt;p&gt;茶番になるが､metatableを使ってGoっぽいことをしてみよう｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;setmetatable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__newindex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;--[[ __indexメタメソッドを経由したことを確認するため ]]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;__newindex&lt;/code&gt;で&lt;code&gt;t&lt;/code&gt;への値の格納を&lt;code&gt;store&lt;/code&gt;に回すことで､､&lt;code&gt;t&lt;/code&gt;へのアクセスは必ず&lt;code&gt;__index&lt;/code&gt;メタメソッドを経由するようになる｡
+これでいいんじゃないですか…?&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ok&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 30 nil&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;アイエエナンデニンジャ､Luaはどうやらtableへのアクセスに対して多値を返せないようになっているようだ｡
+&lt;code&gt;&quot;多値っぽい構文なのに多値ではない機能&quot;はLuaには無いぜ&lt;/code&gt; なんて啖呵切ったけどどうしますか､言い訳しますか?
+すみませんでした｡
+そもそもtableへのアクセスで多値を要求することがなかったのでこんなことになるとは上記コードを書くまで知りませんでした｡&lt;/p&gt;
+&lt;p&gt;茶番おわり&lt;/p&gt;
+&lt;h2 id=&quot;2-2-error&quot;&gt;2-2. error&lt;/h2&gt;
+&lt;p&gt;最も述べるべきはエラー処理だろう｡
+Luaのエラー処理はGoと似たような方法となる｡
+まずはGo&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;引用&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// ...&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;照井君､ワイもLuaでみたことあるで!!&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;もっとLuaっぽく書く場合は､&lt;code&gt;pcall&lt;/code&gt;関数を使う｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pcall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;pcall&lt;/code&gt;は､第1引数の関数に第2引数以降の値を適用して実行する｡
+このとき第1引数の関数がエラーを吐いたとき､&lt;code&gt;pcall&lt;/code&gt;が&lt;code&gt;nil, error_message&lt;/code&gt;の2値を返す｡構文ではなく単に多値ですね｡
+何もなければ&lt;code&gt;f&lt;/code&gt;の戻り値をそのまま返す｡
+もちろん&lt;code&gt;f&lt;/code&gt;の戻り値は多値の可能性もある｡
+そのため､最初の戻り値が&lt;code&gt;nil&lt;/code&gt;だった場合(&lt;code&gt;not content&lt;/code&gt;で検査している)にエラーを返すようになる｡&lt;/p&gt;
+&lt;p&gt;Luaは再代入可能なので他は割愛&lt;/p&gt;
+&lt;h2 id=&quot;2-3-lua&quot;&gt;2-3. Luaでもうすこし多値&lt;/h2&gt;
+&lt;p&gt;多値はLuaでは頻出パターンである｡
+たとえばパターンマッチ(Luaでパターンというと正規表現風のアレでマッチはマッチや､これは重要なので注釈じゃなくここに記述する)&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Hello, world&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;%S+(.*)$&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[[match: &quot;%s&quot;; rest: &quot;%s&quot;]]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- match: &quot;Hello,&quot;; rest: &quot;world&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;もちろん多値&lt;/p&gt;
+&lt;p&gt;他にも…あまり思いつかなかった｡&lt;/p&gt;
+&lt;p&gt;例えばオプショナルな値を返したい時とか､なんとか､ともかくLuaで多値は非常に自然に使われるんや｡&lt;/p&gt;
+&lt;h2 id=&quot;2-4&quot;&gt;2-4. 多値が値になる瞬間&lt;/h2&gt;
+&lt;p&gt;Luaでは可変長引数が使える｡
+こういった瞬間､多値が単一の値になるような瞬間がある｡&lt;/p&gt;
+&lt;p&gt;とりあえず多値を返す関数を用意しておく｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;可変長引数をとる関数は､関数の仮引数に&lt;code&gt;...&lt;/code&gt;と書く｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;-- ...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;...&lt;/code&gt;は多値なのでこう書けるはずだ｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;in g&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 1 2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;いいな｡よし｡&lt;/p&gt;
+&lt;p&gt;さて､他に&lt;code&gt;...&lt;/code&gt;をどうするのかというとこれをtableに突っ込む｡またtableか｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;in g&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;は??? 多値がお前…&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- Luaは1オリジン!!!!!&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 1 2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;冷静になると&lt;code&gt;local x, y = ...&lt;/code&gt;もたいがいやぞ｡&lt;/p&gt;
+&lt;h1 id=&quot;3-lua-vm&quot;&gt;3. Lua VMと多値&lt;/h1&gt;
+&lt;p&gt;さて､Luaは多値がGoよりも頻出しており､多値っぽいなと思ったものはだいたい多値であることが分かった｡
+Luaのランタイムとして多く採用されているLua VMについて､多値をどうさばいてるのか見てみよう｡&lt;/p&gt;
+&lt;h2 id=&quot;3-1-lua-vm&quot;&gt;3-1. Lua VMとは&lt;/h2&gt;
+&lt;p&gt;PUC-Lua 5.0からレジスタマシンアーキテクチャを採用している&lt;sup id=&quot;fnref1&quot; title='Ierusalimschy, Roberto, Luiz Henrique de Figueiredo, and Waldemar Celes. &quot;The evolution of Lua.” Proceedings of the third ACM SIGPLAN conference on History of programming languages. ACM, 2007. '&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;｡
+Lua VM 5.3では47個の命令を持ち､5.4では四則演算に関して5.2から導入された&lt;code&gt;integer&lt;/code&gt;型を高速に処理するための命令が追加されそうだ&lt;sup id=&quot;fnref2&quot; title=&quot;https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219 &quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;｡&lt;/p&gt;
+&lt;p&gt;まずはバイトコードに触れてみよう｡
+お手元にluacをご用意ください｡
+パッケージマネージャでLuaをインストールすれば使えるはずだ｡
+&lt;code&gt;luac-5.3&lt;/code&gt;とか&lt;code&gt;luac5.3&lt;/code&gt;とか､単に&lt;code&gt;luac&lt;/code&gt;など｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;hoge.lua
+&lt;span class=&quot;go&quot;&gt;print(&quot;Hello&quot;)
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; luac &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; /dev/null &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; hoge.lua
+&lt;span class=&quot;go&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;main &amp;lt;hoge.lua:0,0&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;4 instructions at 0x55f888496c70&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;0+ params, 2 slots, 1 upvalue, 0 locals, 2 constants, 0 functions
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;        1       [1]     GETTABUP        0 0 -1  ;&lt;/span&gt; _ENV &lt;span class=&quot;s2&quot;&gt;&quot;print&quot;&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;        2       [1]     LOADK           1 -2    ;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello&quot;&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;        3       [1]     CALL            0 2 1
+        4       [1]     RETURN          0 1
+constants (2) for 0x55f888496c70:
+        1       &quot;print&quot;
+        2       &quot;Hello&quot;
+locals (0) for 0x55f888496c70:
+upvalues (1) for 0x55f888496c70:
+        0       _ENV    1       0
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;-l -l&lt;/code&gt;はverboseみたいなもので､デバッグ情報を全部だしてくれる｡
+&lt;code&gt;-o /dev/null&lt;/code&gt;は生成された&lt;code&gt;luac.out&lt;/code&gt;を/dev/nullに捨てているだけである｡
+今回luac.outに興味はないのでご退場いただいた｡&lt;/p&gt;
+&lt;p&gt;あらためて出力を見てみる｡
+この出力にはクロージャの情報が並んで表示される｡
+&lt;a href=&quot;http://localhost:8000/2016/04/25/luaquiz.html&quot;&gt;Luaのトップレベルも関数&lt;/a&gt;である｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;main &amp;lt;hoge.lua:0,0&amp;gt; (4 instructions at 0x55f888496c70)
+0+ params, 2 slots, 1 upvalue, 0 locals, 2 constants, 0 functions
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;関数の情報がかかれている｡
+&lt;code&gt;1 upvalue&lt;/code&gt;は上位値の数､&lt;code&gt;2 constants&lt;/code&gt;は定数の数､&lt;code&gt;0 functions&lt;/code&gt;はクロージャの数｡
+&lt;code&gt;0+ params&lt;/code&gt;は引数の数であり､この&lt;code&gt;+&lt;/code&gt;は上記の可変長引数をとることを意味している｡
+トップレベルは可変長引数を取るようだな｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;        1       [1]     GETTABUP        0 0 -1  ; _ENV &quot;print&quot;
+        2       [1]     LOADK           1 -2    ; &quot;Hello&quot;
+        3       [1]     CALL            0 2 1
+        4       [1]     RETURN          0 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ここが命令列&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;        2       [1]     LOADK           1 -2    ; &quot;Hello&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;2&lt;/code&gt;が命令のインデックス､&lt;code&gt;[1]&lt;/code&gt;が対応するソースコードの行､&lt;code&gt;LOADK&lt;/code&gt;がニーモニック､&lt;code&gt;1 -2&lt;/code&gt;がオペランド｡
+&lt;code&gt;; &quot;Hello&quot;&lt;/code&gt;はコメントである｡
+Lua VMは三番地コードを採用している｡
+レジスタは0〜255まで用意されている｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;constants (2) for 0x55f888496c70:
+        1       &quot;print&quot;
+        2       &quot;Hello&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;定数のリスト｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;locals (0) for 0x55f888496c70:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ローカル変数のリスト｡
+これはデバッグ情報としてのみ､スタックトレースなどに利用される｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;upvalues (1) for 0x55f888496c70:
+        0       _ENV    1       0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;上位値のリスト｡
+トップレベルだと雰囲気でないが､クロージャを書く時はスコープ内に外側で定義した変数を使いますよね､ソレです｡
+&lt;code&gt;_ENV&lt;/code&gt;はグローバル変数が格納されているtable｡
+グローバル変数はtableなんですねぇ｡&lt;/p&gt;
+&lt;p&gt;あとはこれが関数ごとに表示される｡&lt;/p&gt;
+&lt;h1 id=&quot;4-call-return&quot;&gt;4. &lt;code&gt;CALL&lt;/code&gt; &amp;amp; &lt;code&gt;RETURN&lt;/code&gt;
+&lt;/h1&gt;
+&lt;p&gt;命令列に戻ってみる｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;        1       [1]     GETTABUP        0 0 -1  ; _ENV &quot;print&quot;
+        2       [1]     LOADK           1 -2    ; &quot;Hello&quot;
+        3       [1]     CALL            0 2 1
+        4       [1]     RETURN          0 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;GETTABUP&lt;/code&gt;命令で&lt;code&gt;_ENV&lt;/code&gt;に格納されている&lt;code&gt;print&lt;/code&gt;をレジスタ0に引っ張っている｡
+第1レジスタで格納するレジスタを指定し､第2オペランドで上位値を指定する｡
+第3オペランドがtableへのアクセスに使う値を決めるものであり､負のときは定数リストの&lt;code&gt;第3オペランド * -1 - 1&lt;/code&gt;番目のキーを使う｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;LOADK&lt;/code&gt;で定数リストから&lt;code&gt;&quot;Hello&quot;&lt;/code&gt;を取り出し､レジスタ1に格納する｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;CALL&lt;/code&gt;で関数呼出しをおこなう｡
+&lt;label id=&quot;lopcodes.h&quot;&gt;&lt;/label&gt; &lt;a href=&quot;https://github.com/lua/lua/blob/v5-3-4/lopcodes.h&quot;&gt;命令の定義&lt;/a&gt;に書かれたコメントを見てみる｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;OP_CALL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/*  A B C  R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;分かる､分からない…｡
+レジスタAの関数にレジスタ(A + 1), …, レジスタ(A + B - 1)を渡して呼び出し､
+結果をレジスタA, …, レジスタ(A + C - 2)に格納する､という感じだな｡
+A, B, Cは第1オペランド､第2オペランド､第3オペランドに対応する｡
+確かに､戻り値の処理などが多値にうまく対応している｡&lt;/p&gt;
+&lt;p&gt;これより&lt;code&gt;CALL 0 2 1&lt;/code&gt;はレジスタ0にある&lt;code&gt;print&lt;/code&gt;にレジスタ0の&lt;code&gt;&quot;Hello&quot;&lt;/code&gt;を適用している｡
+戻り値はレジスタ(A+C-2)だから…あれ､レジスタ-1とはなんですか｡
+A+C-2 &amp;lt; 0なら戻り値を気にしない､という予想で読んでいこう｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;RETURN&lt;/code&gt;も難しい｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;OP_RETURN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/*    A B return R(A), ... ,R(A+B-2)  (see note)  */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これも同様にA+B - 2 &amp;lt; 0はvoid&lt;sup id=&quot;fnref3&quot; title='void-unit戦争が世界の何処かでおこなわれていますが､これはまさにvoidですね｡Luaでこういった関数の戻り値を受け取るとnilが返ってきますが､これは&quot;無い値&quot;を参照しているので､nilは正しい(オタク早口)｡ '&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;のような関数ということでしょう｡&lt;/p&gt;
+&lt;p&gt;他の命令も､特に条件分岐あたりは面白いので1つ1つ見ていきたいが､ここでは多値が絡む部分だけ見ていこう｡
+気になった方はluaのソースコードをご覧ください｡&lt;/p&gt;
+&lt;p&gt;ほかにも例を見てみよう｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;huga.lua
+&lt;span class=&quot;go&quot;&gt;local x = 3
+local y = 5
+local z = x + y
+print(z)
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; luac &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; /dev/null &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; huga.lua
+&lt;span class=&quot;c&quot;&gt;......
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;        1       [1]     LOADK           0 -1    ;&lt;/span&gt; 3
+&lt;span class=&quot;gp&quot;&gt;        2       [2]     LOADK           1 -2    ;&lt;/span&gt; 5
+&lt;span class=&quot;go&quot;&gt;        3       [3]     ADD             2 0 1
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;        4       [4]     GETTABUP        3 0 -3  ;&lt;/span&gt; _ENV &lt;span class=&quot;s2&quot;&gt;&quot;print&quot;&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;        5       [4]     MOVE            4 2
+        6       [4]     CALL            3 2 1
+        7       [4]     RETURN          0 1
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;......
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;1､2行目をみると､ローカル変数もレジスタに突っ込まれることが分かる｡&lt;/p&gt;
+&lt;p&gt;つぎいってみよ〜&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;unpack.lua&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;table.insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;table.unpack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 1  2  3  4  5  6  7  8  9  10&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;tableを受け取り､配列部分を全て多値としてぶちまける&lt;code&gt;table.unpack&lt;/code&gt;という関数を使う｡
+ちょっと待てよ､&lt;code&gt;f&lt;/code&gt;は何個値を返すんだ､まさか処理系が&lt;code&gt;f&lt;/code&gt;の呼び出しする部分ごとに解析してサイズを決めるんですか?
+そんなわけない｡
+&lt;code&gt;CALL&lt;/code&gt;の引数はどうなる､俺達の未来はー&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;luac &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; /dev/null &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; unpack.lua
+
+main &amp;lt;unpack.lua:0,0&amp;gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;7 instructions at 0x55d6a2333c70&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+0+ params, 4 slots, 1 upvalue, 1 &lt;span class=&quot;nb&quot;&gt;local&lt;/span&gt;, 2 constants, 1 &lt;span class=&quot;k&quot;&gt;function
+        &lt;/span&gt;1       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;9]     CLOSURE         0 0     &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 0x55d6a2333e50
+        2       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11]    GETTABUP        1 0 &lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; _ENV &lt;span class=&quot;s2&quot;&gt;&quot;print&quot;&lt;/span&gt;
+        3       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11]    MOVE            2 0
+        4       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11]    LOADK           3 &lt;span class=&quot;nt&quot;&gt;-2&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 10
+        5       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11]    CALL            2 2 0
+        6       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11]    CALL            1 0 1
+        7       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11]    RETURN          0 1
+constants &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;0x55d6a2333c70:
+        1       &lt;span class=&quot;s2&quot;&gt;&quot;print&quot;&lt;/span&gt;
+        2       10
+locals &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;0x55d6a2333c70:
+        0       f       2       8
+upvalues &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;0x55d6a2333c70:
+        0       _ENV    1       0
+
+&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &amp;lt;unpack.lua:1,9&amp;gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;17 instructions at 0x55d6a2333e50&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+1 param, 9 slots, 1 upvalue, 6 locals, 4 constants, 0 functions
+        1       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;2]     NEWTABLE        1 0 0
+        2       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;4]     LOADK           2 &lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 1
+        3       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;4]     MOVE            3 0
+        4       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;4]     LOADK           4 &lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 1
+        5       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;4]     FORPREP         2 5     &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; to 11
+        6       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5]     GETTABUP        6 0 &lt;span class=&quot;nt&quot;&gt;-2&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; _ENV &lt;span class=&quot;s2&quot;&gt;&quot;table&quot;&lt;/span&gt;
+        7       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5]     GETTABLE        6 6 &lt;span class=&quot;nt&quot;&gt;-3&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;insert&quot;&lt;/span&gt;
+        8       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5]     MOVE            7 1
+        9       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5]     MOVE            8 5
+        10      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5]     CALL            6 3 1
+        11      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;4]     FORLOOP         2 &lt;span class=&quot;nt&quot;&gt;-6&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; to 6
+        12      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;8]     GETTABUP        2 0 &lt;span class=&quot;nt&quot;&gt;-2&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; _ENV &lt;span class=&quot;s2&quot;&gt;&quot;table&quot;&lt;/span&gt;
+        13      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;8]     GETTABLE        2 2 &lt;span class=&quot;nt&quot;&gt;-4&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;unpack&quot;&lt;/span&gt;
+        14      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;8]     MOVE            3 1
+        15      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;8]     TAILCALL        2 2 0
+        16      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;8]     RETURN          2 0
+        17      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;9]     RETURN          0 1
+constants &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;4&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;0x55d6a2333e50:
+        1       1
+        2       &lt;span class=&quot;s2&quot;&gt;&quot;table&quot;&lt;/span&gt;
+        3       &lt;span class=&quot;s2&quot;&gt;&quot;insert&quot;&lt;/span&gt;
+        4       &lt;span class=&quot;s2&quot;&gt;&quot;unpack&quot;&lt;/span&gt;
+locals &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;6&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;0x55d6a2333e50:
+        0       x       1       18
+        1       ret     2       18
+        2       &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;index&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;     5       12
+        3       &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;limit&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;     5       12
+        4       &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;step&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;      5       12
+        5       i       6       11
+upvalues &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;0x55d6a2333e50:
+        0       _ENV    0       0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;先頭の関数情報がトップレベル､2つ目のほうが&lt;code&gt;f&lt;/code&gt;の情報である｡
+&lt;code&gt;f&lt;/code&gt;のほうをまず見てみよう｡
+一気にreturn部分を見る｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;        15      [8]     TAILCALL        2 2 0
+        16      [8]     RETURN          2 0
+        17      [9]     RETURN          0 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;TAILCALL&lt;/code&gt;ってなんですか?
+関数の末尾で関数呼出ししてその戻り値をそのまま返す場合は&lt;code&gt;TAILCALL&lt;/code&gt;になる｡
+いわゆる末尾呼び出し最適化みたいなものですね｡
+偉い｡
+なので16, 17番目の&lt;code&gt;RETURN&lt;/code&gt;は実際には使われない命令となっている｡
+最適化で消えてほしいですね｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;OP_TAILCALL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/*  A B C   return R(A)(R(A+1), ... ,R(A+B-1))      */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;第3オペランドCは便宜上あるだけで使われないようです｡
+内部的な話をすると､バイトコードの1命令は32bitである｡
+&lt;code&gt;TAILCALL&lt;/code&gt;の引数はレジスタの指定だけに使うので､各オペランドのサイズは8bitあれば十分である｡
+ABC型の命令は各オペランドは8, 9, 9bit(ニーモニックは全部等しく6bit)となっており､サイズがちょうど良さげなので､Cを無視してA,Bだけ使っている､ということだろうか｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;TAILCALL 2 2 0&lt;/code&gt;は､レジスタ2にある&lt;code&gt;table.unpkacp&lt;/code&gt;に､レジスタ3の&lt;code&gt;ret&lt;/code&gt;を適用してその戻り値(多値含む)を返す､ということですね｡
+まず&lt;code&gt;f&lt;/code&gt;と意気込んで見てみたものの､サラッとしてるのであまり多値みがないですね｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;print(f(10))&lt;/code&gt;はどうなったかを見よう｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;        1       [9]     CLOSURE         0 0     ; 0x55d6a2333e50
+        2       [11]    GETTABUP        1 0 -1  ; _ENV &quot;print&quot;
+        3       [11]    MOVE            2 0
+        4       [11]    LOADK           3 -2    ; 10
+        5       [11]    CALL            2 2 0
+        6       [11]    CALL            1 0 1
+        7       [11]    RETURN          0 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;CLOSURE&lt;/code&gt;はクロージャを作っている｡
+今回は特になにもクロージングしてないですね｡
+5つ目の&lt;code&gt;CALL 2 2 0&lt;/code&gt;が&lt;code&gt;f&lt;/code&gt;の呼び出しになっている｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;CALL&lt;/code&gt; 振り返り&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;OP_CALL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/*  A B C  R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;A+C-2は0ですが､一体なにがどうなって?
+&lt;a href=&quot;#fn2&quot;&gt;lopcode.h&lt;/a&gt;の下の方になんかかいてあるな｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;  Notes:
+  (*) In OP_CALL, if (B == 0) then B = top. If (C == 0), then 'top' is
+  set to last_result+1, so next open instruction (OP_CALL, OP_RETURN,
+  OP_SETLIST) may use 'top'.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ホゲッ!?
+この&lt;code&gt;top&lt;/code&gt;というのは､中身が&lt;code&gt;nil&lt;/code&gt;でないレジスタの最大インデックス､という感じだろうか｡
+luacはレジスタを0から順番に使っているので､スキマがあったりなんだかよくわからない感じになったりという事故は(多分)おきないので問題ない｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;CALL 2 2 0&lt;/code&gt;は､レジスタ2に入ってる関数にレジスタ3の値を適用して､そして…?
+情報が足りてないのだが､この場合戻り値をレジスタ2から全部順番に格納する｡
+そして&lt;code&gt;top&lt;/code&gt;が更新される｡&lt;/p&gt;
+&lt;p&gt;次の&lt;code&gt;CALL 1 0 1&lt;/code&gt;も面白い｡&lt;code&gt;B == 0&lt;/code&gt;なので&lt;code&gt;B = top&lt;/code&gt;となる｡
+レジスタ1にある&lt;code&gt;print&lt;/code&gt;に､レジスタ2から&lt;code&gt;top&lt;/code&gt;までを適用する｡
+なるほど｡&lt;/p&gt;
+&lt;p&gt;Lua VMの命令は面白いことがわかった｡
+レジスタベースでも多値をガンガン扱えるぜ､Lua VMは多値をうまく扱ってるぜ､ということでした｡&lt;/p&gt;
+&lt;h1 id=&quot;5&quot;&gt;5. 継続と多値&lt;/h1&gt;
+&lt;p&gt;余談｡
+Luaにファーストクラスの継続はないが､だいたい継続であるところのコルーチンはある｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;co&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;init&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;coroutine.yield&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;coroutine.yield&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- init&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 1  2  3&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 4  5  6  7  8  9  10&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;はい｡&lt;/p&gt;
+&lt;h1 id=&quot;6&quot;&gt;6. おわりに&lt;/h1&gt;
+&lt;p&gt;ひさしぶりにLuaに思いを馳せたので思い出したり資料をのぞいたりで執筆に結構時間がかかってしまった｡&lt;/p&gt;
+&lt;p&gt;ところで!
+VM型インタプリタ面白いなと思った方は､ぜひこちらをご覧ください｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://dragonuniversity.booth.pm/items/1055860&quot;&gt;Dragon University 技術書典5 - Dragon University - BOOTH（同人誌通販・ダウンロード）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;宣伝おわり&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;Ierusalimschy, Roberto, Luiz Henrique de Figueiredo, and Waldemar Celes. &quot;The evolution of Lua.” Proceedings of the third ACM SIGPLAN conference on History of programming languages. ACM, 2007. &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn2&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219&quot;&gt;https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219&lt;/a&gt; &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn3&quot;&gt;
+&lt;p&gt;void-unit戦争が世界の何処かでおこなわれていますが､これはまさにvoidですね｡Luaでこういった関数の戻り値を受け取るとnilが返ってきますが､これは&quot;無い値&quot;を参照しているので､nilは正しい(オタク早口)｡ &lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Fri, 16 Nov 2018 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html</guid>
+        
+        <category>Go</category>
+        
+        <category>Lua VM</category>
+        
+        <category>多値</category>
+        
+        <category>multiple value</category>
+        
+        
+      </item>
     
       <item>
         <title>subfilesを使ってみんなで記事を書く､しおりも出す</title>
@@ -1201,57 +1741,6 @@ Haskellならともかく､OCamlはstream fusionなんてやらないぜ｡
         <guid isPermaLink="true">https://nymphium.github.io/2018/01/11/%E5%A4%A7%E5%AD%A6%E9%99%A2%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%97%A5%E6%9C%AC%E5%AD%A6%E7%94%9F%E6%94%AF%E6%8F%B4%E6%A9%9F%E6%A7%8B%E3%81%AE%E5%A5%A8%E5%AD%A6%E9%87%91.html</guid>
         
         <category>雑感</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>相互再帰の分解</title>
-        <description>&lt;h1 id=&quot;part-3ef36be7cf2c473&quot;&gt;相互再帰とは&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://ja.wikipedia.org/wiki/%E7%9B%B8%E4%BA%92%E5%86%8D%E5%B8%B0&quot;&gt;https://ja.wikipedia.org/wiki/%E7%9B%B8%E4%BA%92%E5%86%8D%E5%B8%B0&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;了解!!!&lt;/p&gt;
-&lt;h1 id=&quot;example&quot;&gt;example&lt;/h1&gt;
-&lt;p&gt;上記のウィキピージャの例を用いる｡
-OCamlで表現するならこんな感じだろうか｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;example&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;a&lt;/code&gt;と&lt;code&gt;b&lt;/code&gt;が相互再帰となっている｡&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;a&lt;/code&gt;と&lt;code&gt;b&lt;/code&gt;は&lt;code&gt;and&lt;/code&gt;キーワードで同時に定義しないといけないんだろうか?&lt;/p&gt;
-&lt;h1 id=&quot;part-65427f6cd2a&quot;&gt;分解&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;a&lt;/code&gt;を定義するなら､&lt;code&gt;b&lt;/code&gt;を外から受け取って使い､&lt;code&gt;b&lt;/code&gt;もまた逆を考えてみる｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gen_a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gen_b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;レッツ結合!&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a'&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gen_a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...?&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;ちょっとまって､&lt;code&gt;b&lt;/code&gt;が無いやん! &lt;code&gt;b&lt;/code&gt;が欲しくて分解したのに……｡&lt;/p&gt;
-&lt;h2 id=&quot;part-9622ee2d3edec720&quot;&gt;結合の解法&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;b&lt;/code&gt;を作るには&lt;code&gt;a&lt;/code&gt;が必要､しかし&lt;code&gt;a&lt;/code&gt;を作るには&lt;code&gt;b&lt;/code&gt;が必要､なら俺達はどうすればいい?&lt;/p&gt;
-&lt;p&gt;ああそうか､&lt;code&gt;a&lt;/code&gt;の定義に&lt;code&gt;b&lt;/code&gt;が必要なら&lt;code&gt;b&lt;/code&gt;を作ればいい､&lt;code&gt;b&lt;/code&gt;は&lt;code&gt;a&lt;/code&gt;が必要だが､再帰関数の中に&lt;code&gt;a&lt;/code&gt;は存在できるから&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a'&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gen_a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gen_b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b'&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gen_b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a'&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;OK!!!!!!!!!!!!!&lt;/p&gt;
-&lt;h1 id=&quot;part-65422eac633&quot;&gt;ほか&lt;/h1&gt;
-&lt;p&gt;この分解は&lt;em&gt;必ず&lt;/em&gt;可能なんですか?
-ご連絡ください｡&lt;/p&gt;</description>
-        <pubDate>Fri, 29 Dec 2017 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2017/12/29/%E7%9B%B8%E4%BA%92%E5%86%8D%E5%B8%B0%E3%81%AE%E5%88%86%E8%A7%A3.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2017/12/29/%E7%9B%B8%E4%BA%92%E5%86%8D%E5%B8%B0%E3%81%AE%E5%88%86%E8%A7%A3.html</guid>
-        
-        <category>OCaml</category>
-        
-        <category>関数</category>
         
         
       </item>
