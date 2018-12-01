@@ -5,9 +5,281 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 29 Nov 2018 01:38:45 +0900</pubDate>
-    <lastBuildDate>Thu, 29 Nov 2018 01:38:45 +0900</lastBuildDate>
+    <pubDate>Sun, 02 Dec 2018 01:45:58 +0900</pubDate>
+    <lastBuildDate>Sun, 02 Dec 2018 01:45:58 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
+    
+      <item>
+        <title>Lily58による.xmodmapのハードウェア実装</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
+これは&lt;a href=&quot;https://adventar.org/calendars/3536&quot;&gt;WORDIAN Advent Calendar 2018&lt;/a&gt;の2日目の記事です｡&lt;/p&gt;
+&lt;p&gt;12月2日といえば､翌3日は冴草きいちゃんの誕生日ですね!!!!!!!!!!!
+めでたいですね｡
+何度でも言うぞ｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;さて今回はWORD部員協賛のもと､&lt;a href=&quot;https://booth.pm/ja/items/1079687&quot;&gt;Lily58&lt;/a&gt;というキーボードを作りました｡&lt;/p&gt;
+&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;寝ぼけてLily58ポチってしまった｡&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1063171636998754304?ref_src=twsrc%5Etfw&quot;&gt;November 15, 2018&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;
+&lt;h1 id=&quot;part-8430afd85a09cc21&quot;&gt;材料あつめ&lt;/h1&gt;
+&lt;p&gt;上記のセットに加え､キースイッチとキーキャップを58個(とUSBケーブルとTRSケーブルを)揃える必要があります｡&lt;/p&gt;
+&lt;p&gt;WORD編集部室には3x3で全色異なるキースイッチのサンプルがあるので､お手元が寂しくなるとつい手を動かしてしまうW部員達には重宝されている｡
+カチカチしまくった結果､緑軸が良いな〜と思ったので緑軸にしようとしたものの､ちょうどどこを探しても8000個から仕入れ可能みたいなものしかなかった｡
+仕方がないので､&lt;a href=&quot;https://yushakobo.jp/shop/pg1350/&quot;&gt;遊舎工房でKilhのロープロ白軸&lt;/a&gt;を買った｡
+カチカチとクリック感があり､青軸のようにうるさいのでパソコンカタカタオタク演ってる感がでて良いかな〜というのが選定理由だ｡&lt;/p&gt;
+&lt;h1 id=&quot;part-654296cad72&quot;&gt;作る&lt;/h1&gt;
+&lt;p&gt;3月の引越しにつき祖父からもらったり実家からパチってきた激古はんだごてを全部捨ててしまったため､部員の&lt;a href=&quot;https://twitter.com/rizaudo&quot;&gt;@rizaudo&lt;/a&gt;氏にはんだごてを借り､ついでに編集部室で作業をおこなう｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/kata0510/Lily58/blob/master/doc/buildguide_jp.md&quot;&gt;ビルドガイド&lt;/a&gt;にしたがって作っていく｡&lt;/p&gt;
+&lt;h2 id=&quot;pro-micro-1&quot;&gt;pro micro事件1&lt;/h2&gt;
+&lt;p&gt;が…&lt;/p&gt;
+&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;前回までのラブライブ！ 逆に取り付けたので半田吸い取り機を使おうとするも半壊しているのでトーストでハンダを溶かそうとするもまたもや失敗。 &lt;a href=&quot;https://t.co/cww2frd9vB&quot;&gt;pic.twitter.com/cww2frd9vB&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1064870457642442752?ref_src=twsrc%5Etfw&quot;&gt;November 20, 2018&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;
+&lt;p&gt;ヘ タ ク ソ&lt;sup id=&quot;fnref1&quot; title=&quot;ビルドガイドがボクの失敗を見たためかどうか､失敗したポイントについて丁寧な解説が加えられている｡みなさんは私の屍を超えて失敗レスに作ることができます｡ &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;トーストによるハンダクラックは無事失敗｡
+部室にあったポンコツハンダ吸い取り器や､部員のハジョン氏にハンダ吸い取り線を借りるも難航｡
+rizaudo氏や部室を常時警備している&lt;a href=&quot;https://twitter.com/akkkix&quot;&gt;@akkkix&lt;/a&gt;氏の協力のもとハンダを吸いまくるも取れる気配がない｡
+&lt;a href=&quot;https://twitter.com/NTSC_J&quot;&gt;@NTSC_J&lt;/a&gt;氏にも部室にあるものよりも使えるハンダ吸い取り器を持ってきてもらい､交代しながらハンダを吸っていく｡&lt;/p&gt;
+&lt;p&gt;日が変わり､そして―&lt;/p&gt;
+&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;100年プロジェクトが完成した。 &lt;a href=&quot;https://t.co/dFbRgmX33e&quot;&gt;pic.twitter.com/dFbRgmX33e&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1064957919215538177?ref_src=twsrc%5Etfw&quot;&gt;November 20, 2018&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;
+&lt;p&gt;およそ5時間経過し､pro microを取り出すことに成功した｡
+作業員がこの時間で各々バイトをして発生した金で諸々買い直したほうが黒字だし早かったね､という話をした｡
+たしかにこの時点で人件費が材料費を上回ってしまっている｡&lt;/p&gt;
+&lt;p&gt;くぅ〜疲れましたw これにてlily58完成です!
+とはいかず…｡&lt;/p&gt;
+&lt;h2 id=&quot;pro-micro-2&quot;&gt;pro micro事件2&lt;/h2&gt;
+&lt;p&gt;基板に全部くっつけたのでファームウェア書き込んでおわりや!!
+というところで片方に全然書き込めない｡
+オーブンで焼いたほうは特定のキー列だけ入力を受け付けたり受け付けなかったりする｡&lt;/p&gt;
+&lt;p&gt;後者の問題はpro microを剥がしたときにランドが1つお亡くなりになったことに起因すると推理し､rizaudo氏がハンダを盛りまくることで導通してくれた｡
+謝謝茄子｡&lt;/p&gt;
+&lt;p&gt;問題は前者である｡
+pro microを使う他の自作キーボードを作ってるブログなどを見てみると､なんかpro microを非対称(?)に付ける必要があるっぽいな…???&lt;/p&gt;
+&lt;p&gt;(&lt;strong&gt;&lt;em&gt;作ってる時には説明なかった&lt;/em&gt;&lt;/strong&gt;)&lt;a href=&quot;https://github.com/kata0510/Lily58/blob/master/doc/buildguide_jp.md#pro-micro%E3%82%92%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91%E3%81%99%E3%82%8B&quot;&gt;pro microを取り付ける部分&lt;/a&gt;はたしかになんか書いてありますねぇ!!&lt;/p&gt;
+&lt;p&gt;恐怖のハンダ吸いが再び始まり―&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;label id=&quot;yaba&quot;&gt;&lt;/label&gt;
+&lt;img src=&quot;/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/pinsocket.png&quot; alt=&quot;やばい&quot; title=&quot;yabai&quot;&gt;
+図&lt;a href=&quot;#yaba&quot;&gt;1&lt;/a&gt; ピンヘッダをなんとかしようとするrizaudoとakkkix
+
+&lt;p&gt;&lt;/p&gt;
+&lt;/center&gt;
+&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;pro micro救出に成功 &lt;a href=&quot;https://t.co/h3GMcZt1NU&quot;&gt;pic.twitter.com/h3GMcZt1NU&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065120644726054912?ref_src=twsrc%5Etfw&quot;&gt;November 21, 2018&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;
+&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;pro microを救いきれなかったので破棄そして新しいのを注文して明日再開…｡&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065133627883708417?ref_src=twsrc%5Etfw&quot;&gt;November 21, 2018&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;
+&lt;p&gt;オワッ…&lt;/p&gt;
+&lt;p&gt;仕方がないのでハードウェア的に問題ない半分を完成させた｡&lt;/p&gt;
+&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;半分完成!!!（16時間経過） &lt;a href=&quot;https://t.co/MUhWVl3TEv&quot;&gt;pic.twitter.com/MUhWVl3TEv&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065115902633365504?ref_src=twsrc%5Etfw&quot;&gt;November 21, 2018&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;
+&lt;p&gt;早速&lt;a href=&quot;https://www.amazon.co.jp/gp/product/B01M6WULAO/&quot;&gt;代打&lt;/a&gt;を注文し､激戦の翌々日に届き､ネタが割れてしまえば爆速で完成｡&lt;/p&gt;
+&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;lily58、pro microを一つ失って完成…!!!! &lt;a href=&quot;https://t.co/ybr8uP24Lo&quot;&gt;pic.twitter.com/ybr8uP24Lo&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065851007630888960?ref_src=twsrc%5Etfw&quot;&gt;November 23, 2018&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;tips&quot;&gt;tips&lt;/h2&gt;
+&lt;p&gt;ロープロファイルだとアクリル板を止めるネジの頭にキーキャップが当たるので､キーキャップをちょっと削る必要がある(図&lt;a href=&quot;#kezuri&quot;&gt;2&lt;/a&gt;)｡&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;label id=&quot;kezuri&quot;&gt;&lt;/label&gt;
+&lt;img src=&quot;/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/kezuri.png&quot; alt=&quot;削る&quot; title=&quot;削る様子&quot;&gt;
+図&lt;a href=&quot;#kezuri&quot;&gt;2&lt;/a&gt; 削ったキーキャップ
+
+&lt;p&gt;&lt;/p&gt;
+&lt;/center&gt;
+&lt;p&gt;そういえば昔WORDの記事でThinkPadのキートップを無刻印にすべくヤスリで削りまくった記憶がある｡
+今回はカッターでゴリゴリ削ってしまっているが､コチラのほうがはるかに作業時間が短い｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;ハードウェアの実装は18時間くらいかかってしまった｡
+ご協力大変感謝いたします｡&lt;/p&gt;
+&lt;h1 id=&quot;qmk-firmware&quot;&gt;qmk firmware&lt;/h1&gt;
+&lt;h2 id=&quot;xmodmap&quot;&gt;xmodmapとはなんだったのか&lt;/h2&gt;
+&lt;p&gt;まずはこちらをご覧ください｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/Nymphium/settings/blob/master/settingfiles/dots/.xmodmap&quot;&gt;settings/settingfiles/dots/.xmodmap&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;例えばキーボードの&lt;code&gt;3&lt;/code&gt;を押すと&lt;code&gt;3&lt;/code&gt;が入力され､&lt;code&gt;Shift&lt;/code&gt;も一緒に押すと&lt;code&gt;#&lt;/code&gt;が入力されたりする｡
+&lt;code&gt;Shift&lt;/code&gt;のように､一緒におすとキーの入力が変わるのを修飾キーと呼びます｡
+他にも&lt;code&gt;Ctrl&lt;/code&gt;も修飾キー｡
+そしてアクセント記号付き文字を入力するための&lt;code&gt;AltGr&lt;/code&gt;というキーも存在しますが､概ね皆さんが使ってるキーボードには備わってません｡
+xmodmapによってキーマップを変更し､&lt;code&gt;AltGr&lt;/code&gt;が使えるようになります｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;AltGr&lt;/code&gt;が使えるとどうなる?
+修飾ない状態､&lt;code&gt;Shift&lt;/code&gt;修飾状態､&lt;code&gt;AltGr&lt;/code&gt;修飾状態､&lt;code&gt;AltGr + Shift&lt;/code&gt;修飾状態と1つのキー入力で最大4状態もたせる､つまり&lt;strong&gt;1つのキーと2つの修飾キーによって4通りの入力をおこなうことができる&lt;/strong&gt;｡&lt;/p&gt;
+&lt;p&gt;上記のキーマップでは&lt;code&gt;無変換&lt;/code&gt;を&lt;code&gt;AltGr&lt;/code&gt;にしてhjklで←↓↑→を入力できるようにしてます｡
+これは&lt;em&gt;V&lt;/em&gt;の者にとっては非常に素晴らしいですね｡&lt;/p&gt;
+&lt;h3 id=&quot;part-3786c873856e287&quot;&gt;困る点&lt;/h3&gt;
+&lt;p&gt;X11アプリケーションなのでX Window Systemが動いてないといけない｡
+なのでWindowsとかXのない状況では諦めざるを得ない｡&lt;/p&gt;
+&lt;p&gt;もう一つ重大な問題としては､キーコードに対するマッピングでしかないということである｡
+詳細は&lt;a href=&quot;https://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%89&quot;&gt;ウィキピージャ&lt;/a&gt;見てください｡
+なにかアプリケーションでキー入力を受け付けるとき､文字コードではなくキーコードを受け付けている場合非常に困る｡&lt;/p&gt;
+&lt;h2 id=&quot;part-f86bf31bd42eedcf&quot;&gt;そこでファームウェア&lt;/h2&gt;
+&lt;p&gt;qmk_firmwareは名前の通りファームウェアでして､こいつを使うことでキースイッチの入力に対応する&lt;em&gt;キーコード&lt;/em&gt;をプログラムすることができる｡&lt;/p&gt;
+&lt;div class=&quot;github-widget&quot; data-repo=&quot;qmk/qmk_firmware&quot;&gt;&lt;/div&gt;
+&lt;p&gt;keyboards/以下に様々なキーボードのいろいろが突っ込まれてて正気の沙汰ではないですね｡
+サブモジュールって知ってますか?&lt;/p&gt;
+&lt;p&gt;qmkにはレイヤという概念があり､上記の&lt;code&gt;AltGr&lt;/code&gt;のような事を､レイヤを切り替えることによって実現している｡
+このレイヤはユーザによっていっぱい作れるので､様々なレイヤを定義､しよう｡&lt;/p&gt;
+&lt;p&gt;そしてボクのキーマップはこんな感じになった｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/Nymphium/qmk_firmware/blob/nymphium/keyboards/lily58/keymaps/nymphium/keymap.c&quot;&gt;https://github.com/Nymphium/qmk_firmware/blob/nymphium/keyboards/lily58/keymaps/nymphium/keymap.c&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;キーマップのレイヤごとにAAを書くというのが習慣らしい｡
+たしかに分かりやすい(実際の設定と一致してれば)｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cm&quot;&gt;/* DEFAULT
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |  P   |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |Enter |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |Muhen |      |
+ * |------+------+------+------+------+------|  Y    |    |   B   |------+------+------+------+------+------|
+ * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |      |      |      |MOUSE |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   |Super | LAlt |LOWER | / Space /       \ BSPC \  | Ctrl |MOUSE |Wdeflt|
+ *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   `----------------------------'           '------''--------------------'
+ */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;レイヤごとにキーコードを割り当てられる｡
+これはデフォルトレイヤーで次が上記のxmodmapのキーマップにおける&lt;code&gt;AltGr&lt;/code&gt;を押した状態になる｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lower_layer&quot;&gt;3&lt;/a&gt;. LOWERレイヤ&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cm&quot;&gt;/* LOWER
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * |      | F1  |  F2  |  F3  |  F4  |  F5   |                    |      |  [   |   ]  | F12  |      |      |
+ * |------+-----+------+------+------+-------|                    |------+------+------+------+------+------|
+ * |      |  @  |  +   | ESC  |  ;   |  ^    |                    |      |  .   |  ,   | HOME | END  |      |
+ * |------+-----+------+------+------+-------|                    |------+------+------+------+------+------|
+ * |      |  -  |   %  |  \   |  /   |  '    |-------.    ,-------| Left | Down |  Up  |Right |Henkan|      |
+ * |------+-----+------+------+------+-------|       |    |       |------+------+------+------+------+------|
+ * |      | F6  |  F7  |  F8  |  F9  | F10   |-------|    |-------| F11  | PgDn | PgUp |      |      |      |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   |      |      |      | /       /       \Delete\  |      |      |      |
+ *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   `----------------------------'           '------''--------------------'
+ */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;qmkはマウスのエミュレーションができる｡
+これはAAを用意してないんで実際の実装になっており､&lt;code&gt;LAYOUT&lt;/code&gt;マクロに渡されているのはそれぞれキーコードに対応する｡
+&lt;code&gt;_______&lt;/code&gt;は1つ前のレイヤのキーコードを参照する｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_MOUSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LAYOUT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; \
+  &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;                   &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; \
+  &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;                   &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; \
+  &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;                   &lt;span class=&quot;n&quot;&gt;KC_MS_L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_MS_D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_MS_U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_MS_R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; \
+  &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; \
+                             &lt;span class=&quot;n&quot;&gt;KC_BTN1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_BTN3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_BTN2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WHEEL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt; \
+&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;part-89596d2caae9d0e1&quot;&gt;キー入力処理&lt;/h2&gt;
+&lt;p&gt;キー入力を&lt;code&gt;process_record_user&lt;/code&gt;という関数で処理することができる｡
+レイヤ切り替えは&lt;code&gt;custom_keycode&lt;/code&gt;というenumで新しく追加したレイヤ切り替え専用のキーコードの入力を&lt;code&gt;process_record_user&lt;/code&gt;で処理する(プログラム&lt;a href=&quot;#process_record_user&quot;&gt;4&lt;/a&gt;)｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#process_record_user&quot;&gt;4&lt;/a&gt;. process_record_user&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;process_record_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;uint16_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keycode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keyrecord_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;keycode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// ......&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LOWER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;layer_on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_LOWER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;update_tri_layer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_LOWER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_SHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_LSHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;layer_off&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_LOWER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;update_tri_layer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_LOWER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_SHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_LSHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_LSFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;register_code&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;KC_LSFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;layer_on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_SHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;update_tri_layer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_LOWER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_SHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_LSHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;layer_off&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_SHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;update_tri_layer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_LOWER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_SHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_LSHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;unregister_code&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;KC_LSFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// ......&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_GRV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_EQL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_ASTR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;unregister_code&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;KC_LSFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;keycode&lt;/code&gt;は文字通りキーコード､&lt;code&gt;record&lt;/code&gt;は入力してるときの状態を表し､&lt;code&gt;record-&amp;gt;event.pressed&lt;/code&gt;でキーを押下したかどうかのブールを取れる｡
+関数の中を見てみると､&lt;code&gt;keycode&lt;/code&gt;でswitchして入力内容で分岐する｡&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#lower_layer&quot;&gt;LOWERレイヤ&lt;/a&gt;への切り替えは､&lt;code&gt;layer_on(_LOWER)&lt;/code&gt;と&lt;code&gt;layer_off(_LOWER)&lt;/code&gt;のあたりでおこなっている｡
+&lt;code&gt;LOWER+Shift&lt;/code&gt;の修飾では第3のレイヤ&lt;code&gt;_LSHIFT&lt;/code&gt;になる｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;KC_LSFT&lt;/code&gt;というキーコードが&lt;code&gt;Shift&lt;/code&gt;にあたる｡
+&lt;code&gt;Shift+0&lt;/code&gt;を押すと&lt;code&gt;?&lt;/code&gt;が出て欲しいなど､一部&lt;code&gt;Shift&lt;/code&gt;による修飾で送出される文字を変更したかったがお手軽な方法が一見してなさそうだった｡
+そのため､&lt;code&gt;Shift&lt;/code&gt;用に新たにレイヤを追加した｡
+また一部キーは&lt;code&gt;Shift&lt;/code&gt;修飾を外さないと意図した入力がおこなわれないため､&lt;code&gt;unregister_code(KC_LSFT)&lt;/code&gt;で&lt;code&gt;Shift&lt;/code&gt;の修飾を取り消している｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;process_record_user&lt;/code&gt;の戻り値は長押しキーリピートするかどうかである｡&lt;/p&gt;
+&lt;h1 id=&quot;part-2a293f8f4497efad&quot;&gt;使ってみての所感&lt;/h1&gt;
+&lt;p&gt;白軸カチャカチャして楽しい｡
+慣れるとだいぶ快適だし､Windowsでも使えるようにちょっとした工夫もしているためWindowsでも快適な入力ができる｡
+ウィンドウマネージャが変更できてフォントも綺麗に表示されてWSLがちゃんと動いてアレしてコレしたらWindowsでも快適に開発できそうですね!&lt;/p&gt;
+&lt;p&gt;ハードウェア的なところとしては概ね満足ですが､キーボードが格子状なのは慣れの問題なのか､なかなか打ちづらい｡
+あとパームレストがないと親指がキートップのエッジのせいでちょっと痛くなる｡
+というか上の行がちょっと打ちづらい?
+ともかくパームレストは遭ったほうが良いなこれは｡&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;これでボクがArchを使ってから愛用してきた秘伝の.xmodmapをファームウェアレベルでエミュレーションできたんじゃないでしょうか｡
+とはいえキーボードを持ち運ぶのはだるいので､基本的には在宅ワークするときやお家でツイッタ〜するときのみ活躍します｡&lt;/p&gt;
+&lt;p&gt;他にも状態のトグルなどちょっとした知見がコードに溜まってるので､qmk_firmwareを使ってなにかする人は上記のソースを見てみてください｡&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;ビルドガイドがボクの失敗を見たためかどうか､失敗したポイントについて丁寧な解説が加えられている｡みなさんは私の屍を超えて失敗レスに作ることができます｡ &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Sun, 02 Dec 2018 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html</guid>
+        
+        <category>WORD</category>
+        
+        <category>自作キーボード</category>
+        
+        <category>lily58</category>
+        
+        
+      </item>
     
       <item>
         <title>Lua VMに見る多値の扱い</title>
@@ -576,11 +848,11 @@ VM型インタプリタ面白いなと思った方は､ぜひこちらをご覧
 &lt;p&gt;追記おわり&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;さて､LaTeX文書からPDFを作成してpublishした人の多くはhyperrefパッケージを使っているかと思います｡
-hyperrefにはしおりを作る機能があります(図&lt;a href=&quot;#bookmarks&quot;&gt;0.1&lt;/a&gt;)｡&lt;/p&gt;
+hyperrefにはしおりを作る機能があります(図&lt;a href=&quot;#bookmarks&quot;&gt;1&lt;/a&gt;)｡&lt;/p&gt;
 &lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;bookmarks&quot;&gt;&lt;/label&gt;
 &lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/bookmarks.png&quot; alt=&quot;しおり&quot; title=&quot;しおり&quot;&gt;
-図&lt;a href=&quot;#bookmarks&quot;&gt;0.1&lt;/a&gt; evinceで正しく表示されるしおり
+図&lt;a href=&quot;#bookmarks&quot;&gt;1&lt;/a&gt; evinceで正しく表示されるしおり
 &lt;/center&gt;
 &lt;p&gt;今回我々はsubfilesで各々がファイルを書いてプロジェクトのルートのmain.texで各人のmainファイルを読むようにしました｡&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/Nymphium/nymphium.github.io/tree/source/src/latex-subfiles&quot;&gt;src/latex-subfiles&lt;/a&gt;&lt;/p&gt;
@@ -658,12 +930,12 @@ hyperrefにはしおりを作る機能があります(図&lt;a href=&quot;#bookm
 &lt;p&gt;この辺は好みによる｡
 今回はltjsarticleの&lt;code&gt;\maketitle&lt;/code&gt;コマンドを改造している｡
 section等のカウンタを0で初期化しているのがミソで､これをしないと各記事のカウンタが連番になってしまう｡
-しかしそうするとしおりが壊れる(図&lt;a href=&quot;#brokenbm&quot;&gt;0.2&lt;/a&gt;)｡&lt;/p&gt;
+しかしそうするとしおりが壊れる(図&lt;a href=&quot;#brokenbm&quot;&gt;2&lt;/a&gt;)｡&lt;/p&gt;
 &lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;brokenbm&quot;&gt;&lt;/label&gt;
 記事&lt;code&gt;あああ&lt;/code&gt;のサブセクション位置に次の記事が来てしまっている｡
 &lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/broken.png&quot; alt=&quot;壊れたしおり&quot; title=&quot;壊れたしおり&quot;&gt;
-図&lt;a href=&quot;#brokenbm&quot;&gt;0.2&lt;/a&gt; 壊れたしおり
+図&lt;a href=&quot;#brokenbm&quot;&gt;2&lt;/a&gt; 壊れたしおり
 &lt;/center&gt;
 &lt;p&gt;hyperrefパッケージのオプションに&lt;code&gt;hypertexnames=false&lt;/code&gt;を渡すことで解決する｡&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;......
@@ -676,9 +948,9 @@ section等のカウンタを0で初期化しているのがミソで､これを
 &lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;ok1&quot;&gt;&lt;/label&gt;
 &lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/ok1.png&quot; alt=&quot;ok1&quot; title=&quot;ok1&quot;&gt;
-図&lt;a href=&quot;#ok1&quot;&gt;0.3&lt;/a&gt; ok1
+図&lt;a href=&quot;#ok1&quot;&gt;3&lt;/a&gt; ok1
 &lt;/center&gt;
-&lt;p&gt;図&lt;a href=&quot;#bookmarks&quot;&gt;0.1&lt;/a&gt;のように記事名もしおりに入れたい｡
+&lt;p&gt;図&lt;a href=&quot;#bookmarks&quot;&gt;1&lt;/a&gt;のように記事名もしおりに入れたい｡
 記事名の子に各セクションが来てほしいので｡&lt;code&gt;\maketitle&lt;/code&gt;に手を加える｡&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;
 ......
@@ -696,7 +968,7 @@ section等のカウンタを0で初期化しているのがミソで､これを
 &lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;broken2&quot;&gt;&lt;/label&gt;
 &lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/broken2.png&quot; alt=&quot;broken2&quot; title=&quot;broken2&quot;&gt;
-図&lt;a href=&quot;#broken2&quot;&gt;0.4&lt;/a&gt; こわれる
+図&lt;a href=&quot;#broken2&quot;&gt;4&lt;/a&gt; こわれる
 &lt;/center&gt;
 &lt;p&gt;ここでおもむろに&lt;code&gt;\phantomsection&lt;/code&gt;を挿入する｡&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection&quot;&gt;hyperref - When do I need to invoke \phantomsection? - TeX - LaTeX Stack Exchange&lt;/a&gt;&lt;/p&gt;
@@ -710,7 +982,7 @@ section等のカウンタを0で初期化しているのがミソで､これを
 ......
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;これでやっと図&lt;a href=&quot;#bookmarks&quot;&gt;0.1&lt;/a&gt;のようになった｡&lt;/p&gt;
+&lt;p&gt;これでやっと図&lt;a href=&quot;#bookmarks&quot;&gt;1&lt;/a&gt;のようになった｡&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;ということでpdf版制作にもワザがありました｡
 表紙の&quot;interpr &lt;em&gt;i&lt;/em&gt; ter&quot;も修正されていると思いますので､近々出るpdf版もよろしくおねがいします｡&lt;/p&gt;</description>
@@ -1703,44 +1975,6 @@ Haskellならともかく､OCamlはstream fusionなんてやらないぜ｡
         <category>最適化</category>
         
         <category>コンパイラ</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>大学院における日本学生支援機構の奨学金</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
-絶賛胃炎中で食事が老人並みになりました｡
-新年あけまして暴飲が悪かったのか､ちょっと生っぽくて洗剤の味がした肉が悪かったのか､はたまた卒論によるストレスかー
-とはいえ平時よりも少ない量の食事で動けるので燃費が良くなった､と思っていたが鏡を見ると頬が痩けた男が写っていてビビりました｡&lt;/p&gt;
-&lt;h1 id=&quot;part-2a064f37de75b4c9&quot;&gt;はじめに&lt;/h1&gt;
-&lt;p&gt;びしょ〜じょ君は1､2年次でテンプレ的なダメ学生を謳歌し､無事留年しました｡
-留年確定の年の終わりに日本学生支援機構から借りていた奨学金も廃止されました｡
-3年次以降は気を改めて講義に臨んだが､どうしても取れない単位があったり興味がないのでギリギリまで手を抜いたりなどしてGPA&lt;sup id=&quot;fnref1&quot; title=&quot;Grade Point Averageのアクロニム｡簡単にいうと成績を数値化したもの｡ &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;が芳しくなかった｡
-さて､大学院で新たにびしょ〜じょ君は日本学生支援機構から奨学金を借りることができるのだろうか?&lt;/p&gt;
-&lt;h1 id=&quot;part-2a00357080695c85&quot;&gt;おわりに&lt;/h1&gt;
-&lt;p&gt;できた(完)&lt;/p&gt;
-&lt;p&gt;しかも間口の広い第2種ではなく､無利子の第1種である｡
-どうやら学部の成績は加味されないようだ｡
-重要な点は､先生に素晴らしい推薦書を書いてもらえるかどうかのようだ｡&lt;/p&gt;
-&lt;p&gt;学部で奨学金廃止されたみなさんも､大学院では再度借りることができるので､借金地獄を味わってください｡&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;(サンプル数: 1)&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-
-&lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;Grade Point Averageのアクロニム｡簡単にいうと成績を数値化したもの｡ &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-        <pubDate>Thu, 11 Jan 2018 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2018/01/11/%E5%A4%A7%E5%AD%A6%E9%99%A2%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%97%A5%E6%9C%AC%E5%AD%A6%E7%94%9F%E6%94%AF%E6%8F%B4%E6%A9%9F%E6%A7%8B%E3%81%AE%E5%A5%A8%E5%AD%A6%E9%87%91.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2018/01/11/%E5%A4%A7%E5%AD%A6%E9%99%A2%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%97%A5%E6%9C%AC%E5%AD%A6%E7%94%9F%E6%94%AF%E6%8F%B4%E6%A9%9F%E6%A7%8B%E3%81%AE%E5%A5%A8%E5%AD%A6%E9%87%91.html</guid>
-        
-        <category>雑感</category>
         
         
       </item>

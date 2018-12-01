@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lily58による.xmodmapのハードウェア実装 &#47; lilyum ensemble</title>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="lilyum ensemble">
+    <meta name="twitter:creator" content="Satoru Kawahara"> 
+    <meta name="twitter:text:description" content="Lily58による.xmodmapのハードウェア実装">
+    <meta name="twitter:title" content="Lily58による.xmodmapのハードウェア実装"> 
+    <meta name="twitter:url" content="https://nymphium.github.io/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html"> 
+    <meta name="twitter:description" content="こんにちは､びしょ〜じょです｡これはWORDIAN Advent Calendar 2018の2日目の記事です｡">
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet">
+    <!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Lily58による.xmodmapのハードウェア実装 | lilyum ensemble</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="Lily58による.xmodmapのハードウェア実装" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="こんにちは､びしょ〜じょです｡ これはWORDIAN Advent Calendar 2018の2日目の記事です｡" />
+<meta property="og:description" content="こんにちは､びしょ〜じょです｡ これはWORDIAN Advent Calendar 2018の2日目の記事です｡" />
+<link rel="canonical" href="https://nymphium.github.io/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html" />
+<meta property="og:url" content="https://nymphium.github.io/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-02T00:00:00+09:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html"},"description":"こんにちは､びしょ〜じょです｡ これはWORDIAN Advent Calendar 2018の2日目の記事です｡","@type":"BlogPosting","url":"https://nymphium.github.io/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html","headline":"Lily58による.xmodmapのハードウェア実装","dateModified":"2018-12-02T00:00:00+09:00","datePublished":"2018-12-02T00:00:00+09:00","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="keywords" content="WORD,自作キーボード,lily58">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Lily58による.xmodmapのハードウェア実装</h1>
+            <span class="post-meta">
+              <time datetime="2018-12-02T00:00:00+09:00" itemprop="datePublished">Dec 2, 2018</time>
+              <p>tag: &#123;<a href="/tags.html#WORD-ref">WORD</a>, <a href="/tags.html#自作キーボード-ref">自作キーボード</a>, <a href="/tags.html#lily58-ref">lily58</a>&#125;</p>
+            </span>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"
+                    onload="renderMathInElement(document.body);"></script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡
+これは<a href="https://adventar.org/calendars/3536">WORDIAN Advent Calendar 2018</a>の2日目の記事です｡</p>
+<p>12月2日といえば､翌3日は冴草きいちゃんの誕生日ですね!!!!!!!!!!!
+めでたいですね｡
+何度でも言うぞ｡</p>
+<hr>
+<p>さて今回はWORD部員協賛のもと､<a href="https://booth.pm/ja/items/1079687">Lily58</a>というキーボードを作りました｡</p>
+<div class="enclosed-tweet" align="center">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">寝ぼけてLily58ポチってしまった｡</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1063171636998754304?ref_src=twsrc%5Etfw">November 15, 2018</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<h1 id="part-8430afd85a09cc21">材料あつめ</h1>
+<p>上記のセットに加え､キースイッチとキーキャップを58個(とUSBケーブルとTRSケーブルを)揃える必要があります｡</p>
+<p>WORD編集部室には3x3で全色異なるキースイッチのサンプルがあるので､お手元が寂しくなるとつい手を動かしてしまうW部員達には重宝されている｡
+カチカチしまくった結果､緑軸が良いな〜と思ったので緑軸にしようとしたものの､ちょうどどこを探しても8000個から仕入れ可能みたいなものしかなかった｡
+仕方がないので､<a href="https://yushakobo.jp/shop/pg1350/">遊舎工房でKilhのロープロ白軸</a>を買った｡
+カチカチとクリック感があり､青軸のようにうるさいのでパソコンカタカタオタク演ってる感がでて良いかな〜というのが選定理由だ｡</p>
+<h1 id="part-654296cad72">作る</h1>
+<p>3月の引越しにつき祖父からもらったり実家からパチってきた激古はんだごてを全部捨ててしまったため､部員の<a href="https://twitter.com/rizaudo">@rizaudo</a>氏にはんだごてを借り､ついでに編集部室で作業をおこなう｡</p>
+<p><a href="https://github.com/kata0510/Lily58/blob/master/doc/buildguide_jp.md">ビルドガイド</a>にしたがって作っていく｡</p>
+<h2 id="pro-micro-1">pro micro事件1</h2>
+<p>が…</p>
+<div class="enclosed-tweet" align="center">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">前回までのラブライブ！ 逆に取り付けたので半田吸い取り機を使おうとするも半壊しているのでトーストでハンダを溶かそうとするもまたもや失敗。 <a href="https://t.co/cww2frd9vB">pic.twitter.com/cww2frd9vB</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1064870457642442752?ref_src=twsrc%5Etfw">November 20, 2018</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<p>ヘ タ ク ソ<sup id="fnref1" title="ビルドガイドがボクの失敗を見たためかどうか､失敗したポイントについて丁寧な解説が加えられている｡みなさんは私の屍を超えて失敗レスに作ることができます｡ "><a href="#fn1" rel="footnote">1</a></sup></p>
+<p>トーストによるハンダクラックは無事失敗｡
+部室にあったポンコツハンダ吸い取り器や､部員のハジョン氏にハンダ吸い取り線を借りるも難航｡
+rizaudo氏や部室を常時警備している<a href="https://twitter.com/akkkix">@akkkix</a>氏の協力のもとハンダを吸いまくるも取れる気配がない｡
+<a href="https://twitter.com/NTSC_J">@NTSC_J</a>氏にも部室にあるものよりも使えるハンダ吸い取り器を持ってきてもらい､交代しながらハンダを吸っていく｡</p>
+<p>日が変わり､そして―</p>
+<div class="enclosed-tweet" align="center">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">100年プロジェクトが完成した。 <a href="https://t.co/dFbRgmX33e">pic.twitter.com/dFbRgmX33e</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1064957919215538177?ref_src=twsrc%5Etfw">November 20, 2018</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<p>およそ5時間経過し､pro microを取り出すことに成功した｡
+作業員がこの時間で各々バイトをして発生した金で諸々買い直したほうが黒字だし早かったね､という話をした｡
+たしかにこの時点で人件費が材料費を上回ってしまっている｡</p>
+<p>くぅ〜疲れましたw これにてlily58完成です!
+とはいかず…｡</p>
+<h2 id="pro-micro-2">pro micro事件2</h2>
+<p>基板に全部くっつけたのでファームウェア書き込んでおわりや!!
+というところで片方に全然書き込めない｡
+オーブンで焼いたほうは特定のキー列だけ入力を受け付けたり受け付けなかったりする｡</p>
+<p>後者の問題はpro microを剥がしたときにランドが1つお亡くなりになったことに起因すると推理し､rizaudo氏がハンダを盛りまくることで導通してくれた｡
+謝謝茄子｡</p>
+<p>問題は前者である｡
+pro microを使う他の自作キーボードを作ってるブログなどを見てみると､なんかpro microを非対称(?)に付ける必要があるっぽいな…???</p>
+<p>(<strong><em>作ってる時には説明なかった</em></strong>)<a href="https://github.com/kata0510/Lily58/blob/master/doc/buildguide_jp.md#pro-micro%E3%82%92%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91%E3%81%99%E3%82%8B">pro microを取り付ける部分</a>はたしかになんか書いてありますねぇ!!</p>
+<p>恐怖のハンダ吸いが再び始まり―</p>
+<p></p><center>
+<label id="yaba"></label>
+<img src="/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/pinsocket.png" alt="やばい" title="yabai">
+図<a href="#yaba">1</a> ピンヘッダをなんとかしようとするrizaudoとakkkix
+
+<p></p>
+</center>
+<div class="enclosed-tweet" align="center">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">pro micro救出に成功 <a href="https://t.co/h3GMcZt1NU">pic.twitter.com/h3GMcZt1NU</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1065120644726054912?ref_src=twsrc%5Etfw">November 21, 2018</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<div class="enclosed-tweet" align="center">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">pro microを救いきれなかったので破棄そして新しいのを注文して明日再開…｡</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1065133627883708417?ref_src=twsrc%5Etfw">November 21, 2018</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<p>オワッ…</p>
+<p>仕方がないのでハードウェア的に問題ない半分を完成させた｡</p>
+<div class="enclosed-tweet" align="center">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">半分完成!!!（16時間経過） <a href="https://t.co/MUhWVl3TEv">pic.twitter.com/MUhWVl3TEv</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1065115902633365504?ref_src=twsrc%5Etfw">November 21, 2018</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<p>早速<a href="https://www.amazon.co.jp/gp/product/B01M6WULAO/">代打</a>を注文し､激戦の翌々日に届き､ネタが割れてしまえば爆速で完成｡</p>
+<div class="enclosed-tweet" align="center">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">lily58、pro microを一つ失って完成…!!!! <a href="https://t.co/ybr8uP24Lo">pic.twitter.com/ybr8uP24Lo</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1065851007630888960?ref_src=twsrc%5Etfw">November 23, 2018</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<h2 id="tips">tips</h2>
+<p>ロープロファイルだとアクリル板を止めるネジの頭にキーキャップが当たるので､キーキャップをちょっと削る必要がある(図<a href="#kezuri">2</a>)｡</p>
+<p></p><center>
+<label id="kezuri"></label>
+<img src="/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/kezuri.png" alt="削る" title="削る様子">
+図<a href="#kezuri">2</a> 削ったキーキャップ
+
+<p></p>
+</center>
+<p>そういえば昔WORDの記事でThinkPadのキートップを無刻印にすべくヤスリで削りまくった記憶がある｡
+今回はカッターでゴリゴリ削ってしまっているが､コチラのほうがはるかに作業時間が短い｡</p>
+<hr>
+<p>ハードウェアの実装は18時間くらいかかってしまった｡
+ご協力大変感謝いたします｡</p>
+<h1 id="qmk-firmware">qmk firmware</h1>
+<h2 id="xmodmap">xmodmapとはなんだったのか</h2>
+<p>まずはこちらをご覧ください｡</p>
+<p><a href="https://github.com/Nymphium/settings/blob/master/settingfiles/dots/.xmodmap">settings/settingfiles/dots/.xmodmap</a></p>
+<p>例えばキーボードの<code>3</code>を押すと<code>3</code>が入力され､<code>Shift</code>も一緒に押すと<code>#</code>が入力されたりする｡
+<code>Shift</code>のように､一緒におすとキーの入力が変わるのを修飾キーと呼びます｡
+他にも<code>Ctrl</code>も修飾キー｡
+そしてアクセント記号付き文字を入力するための<code>AltGr</code>というキーも存在しますが､概ね皆さんが使ってるキーボードには備わってません｡
+xmodmapによってキーマップを変更し､<code>AltGr</code>が使えるようになります｡</p>
+<p><code>AltGr</code>が使えるとどうなる?
+修飾ない状態､<code>Shift</code>修飾状態､<code>AltGr</code>修飾状態､<code>AltGr + Shift</code>修飾状態と1つのキー入力で最大4状態もたせる､つまり<strong>1つのキーと2つの修飾キーによって4通りの入力をおこなうことができる</strong>｡</p>
+<p>上記のキーマップでは<code>無変換</code>を<code>AltGr</code>にしてhjklで←↓↑→を入力できるようにしてます｡
+これは<em>V</em>の者にとっては非常に素晴らしいですね｡</p>
+<h3 id="part-3786c873856e287">困る点</h3>
+<p>X11アプリケーションなのでX Window Systemが動いてないといけない｡
+なのでWindowsとかXのない状況では諦めざるを得ない｡</p>
+<p>もう一つ重大な問題としては､キーコードに対するマッピングでしかないということである｡
+詳細は<a href="https://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%89">ウィキピージャ</a>見てください｡
+なにかアプリケーションでキー入力を受け付けるとき､文字コードではなくキーコードを受け付けている場合非常に困る｡</p>
+<h2 id="part-f86bf31bd42eedcf">そこでファームウェア</h2>
+<p>qmk_firmwareは名前の通りファームウェアでして､こいつを使うことでキースイッチの入力に対応する<em>キーコード</em>をプログラムすることができる｡</p>
+<div class="github-widget" data-repo="qmk/qmk_firmware"></div>
+<p>keyboards/以下に様々なキーボードのいろいろが突っ込まれてて正気の沙汰ではないですね｡
+サブモジュールって知ってますか?</p>
+<p>qmkにはレイヤという概念があり､上記の<code>AltGr</code>のような事を､レイヤを切り替えることによって実現している｡
+このレイヤはユーザによっていっぱい作れるので､様々なレイヤを定義､しよう｡</p>
+<p>そしてボクのキーマップはこんな感じになった｡</p>
+<p><a href="https://github.com/Nymphium/qmk_firmware/blob/nymphium/keyboards/lily58/keymaps/nymphium/keymap.c">https://github.com/Nymphium/qmk_firmware/blob/nymphium/keyboards/lily58/keymaps/nymphium/keymap.c</a></p>
+<p>キーマップのレイヤごとにAAを書くというのが習慣らしい｡
+たしかに分かりやすい(実際の設定と一致してれば)｡</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cm">/* DEFAULT
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |  P   |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |Enter |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |Muhen |      |
+ * |------+------+------+------+------+------|  Y    |    |   B   |------+------+------+------+------+------|
+ * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |      |      |      |MOUSE |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   |Super | LAlt |LOWER | / Space /       \ BSPC \  | Ctrl |MOUSE |Wdeflt|
+ *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   `----------------------------'           '------''--------------------'
+ */</span>
+</code></pre></div>
+<p>レイヤごとにキーコードを割り当てられる｡
+これはデフォルトレイヤーで次が上記のxmodmapのキーマップにおける<code>AltGr</code>を押した状態になる｡</p>
+<div class="highlight">
+<span class="listing-name">プログラム<a href="#lower_layer">3</a>. LOWERレイヤ</span><pre><code class="language-c" data-lang="c"><span class="cm">/* LOWER
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * |      | F1  |  F2  |  F3  |  F4  |  F5   |                    |      |  [   |   ]  | F12  |      |      |
+ * |------+-----+------+------+------+-------|                    |------+------+------+------+------+------|
+ * |      |  @  |  +   | ESC  |  ;   |  ^    |                    |      |  .   |  ,   | HOME | END  |      |
+ * |------+-----+------+------+------+-------|                    |------+------+------+------+------+------|
+ * |      |  -  |   %  |  \   |  /   |  '    |-------.    ,-------| Left | Down |  Up  |Right |Henkan|      |
+ * |------+-----+------+------+------+-------|       |    |       |------+------+------+------+------+------|
+ * |      | F6  |  F7  |  F8  |  F9  | F10   |-------|    |-------| F11  | PgDn | PgUp |      |      |      |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   |      |      |      | /       /       \Delete\  |      |      |      |
+ *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   `----------------------------'           '------''--------------------'
+ */</span>
+</code></pre>
+</div>
+<p>qmkはマウスのエミュレーションができる｡
+これはAAを用意してないんで実際の実装になっており､<code>LAYOUT</code>マクロに渡されているのはそれぞれキーコードに対応する｡
+<code>_______</code>は1つ前のレイヤのキーコードを参照する｡</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="p">[</span><span class="n">_MOUSE</span><span class="p">]</span> <span class="o">=</span> <span class="n">LAYOUT</span><span class="p">(</span> \
+  <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span>                   <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> \
+  <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span>                   <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> \
+  <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span>                   <span class="n">KC_MS_L</span><span class="p">,</span> <span class="n">KC_MS_D</span><span class="p">,</span> <span class="n">KC_MS_U</span><span class="p">,</span> <span class="n">KC_MS_R</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> \
+  <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> \
+                             <span class="n">KC_BTN1</span><span class="p">,</span> <span class="n">KC_BTN3</span><span class="p">,</span> <span class="n">KC_BTN2</span><span class="p">,</span> <span class="n">WHEEL</span><span class="p">,</span>   <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span> \
+<span class="p">),</span>
+</code></pre></div>
+<h2 id="part-89596d2caae9d0e1">キー入力処理</h2>
+<p>キー入力を<code>process_record_user</code>という関数で処理することができる｡
+レイヤ切り替えは<code>custom_keycode</code>というenumで新しく追加したレイヤ切り替え専用のキーコードの入力を<code>process_record_user</code>で処理する(プログラム<a href="#process_record_user">4</a>)｡</p>
+<div class="highlight">
+<span class="listing-name">プログラム<a href="#process_record_user">4</a>. process_record_user</span><pre><code class="language-c" data-lang="c"><span class="n">bool</span> <span class="nf">process_record_user</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">keycode</span><span class="p">,</span> <span class="n">keyrecord_t</span> <span class="o">*</span><span class="n">record</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="n">keycode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ......</span>
+
+    <span class="k">case</span> <span class="n">LOWER</span><span class="p">:</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">record</span><span class="o">-&gt;</span><span class="n">event</span><span class="p">.</span><span class="n">pressed</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">layer_on</span><span class="p">(</span><span class="n">_LOWER</span><span class="p">);</span>
+        <span class="n">update_tri_layer</span><span class="p">(</span><span class="n">_LOWER</span><span class="p">,</span> <span class="n">_SHIFT</span><span class="p">,</span> <span class="n">_LSHIFT</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">layer_off</span><span class="p">(</span><span class="n">_LOWER</span><span class="p">);</span>
+        <span class="n">update_tri_layer</span><span class="p">(</span><span class="n">_LOWER</span><span class="p">,</span> <span class="n">_SHIFT</span><span class="p">,</span> <span class="n">_LSHIFT</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+      <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="n">KC_LSFT</span><span class="p">:</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">record</span><span class="o">-&gt;</span><span class="n">event</span><span class="p">.</span><span class="n">pressed</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">register_code</span><span class="p">(</span><span class="n">KC_LSFT</span><span class="p">);</span>
+
+        <span class="n">layer_on</span><span class="p">(</span><span class="n">_SHIFT</span><span class="p">);</span>
+        <span class="n">update_tri_layer</span><span class="p">(</span><span class="n">_LOWER</span><span class="p">,</span> <span class="n">_SHIFT</span><span class="p">,</span> <span class="n">_LSHIFT</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">layer_off</span><span class="p">(</span><span class="n">_SHIFT</span><span class="p">);</span>
+        <span class="n">update_tri_layer</span><span class="p">(</span><span class="n">_LOWER</span><span class="p">,</span> <span class="n">_SHIFT</span><span class="p">,</span> <span class="n">_LSHIFT</span><span class="p">);</span>
+        <span class="n">unregister_code</span><span class="p">(</span><span class="n">KC_LSFT</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+      <span class="k">break</span><span class="p">;</span>
+
+    <span class="c1">// ......</span>
+
+    <span class="k">case</span> <span class="n">KC_GRV</span><span class="p">:</span>
+    <span class="k">case</span> <span class="n">KC_EQL</span><span class="p">:</span>
+    <span class="k">case</span> <span class="n">KC_ASTR</span><span class="p">:</span>
+      <span class="n">unregister_code</span><span class="p">(</span><span class="n">KC_LSFT</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p><code>keycode</code>は文字通りキーコード､<code>record</code>は入力してるときの状態を表し､<code>record-&gt;event.pressed</code>でキーを押下したかどうかのブールを取れる｡
+関数の中を見てみると､<code>keycode</code>でswitchして入力内容で分岐する｡</p>
+<p><a href="#lower_layer">LOWERレイヤ</a>への切り替えは､<code>layer_on(_LOWER)</code>と<code>layer_off(_LOWER)</code>のあたりでおこなっている｡
+<code>LOWER+Shift</code>の修飾では第3のレイヤ<code>_LSHIFT</code>になる｡</p>
+<p><code>KC_LSFT</code>というキーコードが<code>Shift</code>にあたる｡
+<code>Shift+0</code>を押すと<code>?</code>が出て欲しいなど､一部<code>Shift</code>による修飾で送出される文字を変更したかったがお手軽な方法が一見してなさそうだった｡
+そのため､<code>Shift</code>用に新たにレイヤを追加した｡
+また一部キーは<code>Shift</code>修飾を外さないと意図した入力がおこなわれないため､<code>unregister_code(KC_LSFT)</code>で<code>Shift</code>の修飾を取り消している｡</p>
+<p><code>process_record_user</code>の戻り値は長押しキーリピートするかどうかである｡</p>
+<h1 id="part-2a293f8f4497efad">使ってみての所感</h1>
+<p>白軸カチャカチャして楽しい｡
+慣れるとだいぶ快適だし､Windowsでも使えるようにちょっとした工夫もしているためWindowsでも快適な入力ができる｡
+ウィンドウマネージャが変更できてフォントも綺麗に表示されてWSLがちゃんと動いてアレしてコレしたらWindowsでも快適に開発できそうですね!</p>
+<p>ハードウェア的なところとしては概ね満足ですが､キーボードが格子状なのは慣れの問題なのか､なかなか打ちづらい｡
+あとパームレストがないと親指がキートップのエッジのせいでちょっと痛くなる｡
+というか上の行がちょっと打ちづらい?
+ともかくパームレストは遭ったほうが良いなこれは｡</p>
+<hr>
+<p>これでボクがArchを使ってから愛用してきた秘伝の.xmodmapをファームウェアレベルでエミュレーションできたんじゃないでしょうか｡
+とはいえキーボードを持ち運ぶのはだるいので､基本的には在宅ワークするときやお家でツイッタ〜するときのみ活躍します｡</p>
+<p>他にも状態のトグルなどちょっとした知見がコードに溜まってるので､qmk_firmwareを使ってなにかする人は上記のソースを見てみてください｡</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>ビルドガイドがボクの失敗を見たためかどうか､失敗したポイントについて丁寧な解説が加えられている｡みなさんは私の屍を超えて失敗レスに作ることができます｡ <a href="#fnref1" rev="footnote">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html" title="Lua VMに見る多値の扱い">&larr; Prev</a>
+        &#47;<a class="btn" href="/">Top</a>&#47;
+        <span class="btn next disabled">Next &rarr;</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
