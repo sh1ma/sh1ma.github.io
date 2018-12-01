@@ -9,7 +9,7 @@
     <meta name="twitter:creator" content="Satoru Kawahara"> 
     <meta name="twitter:title" content="Algebraic Effectsであそぼう - lilyum ensemble"> 
     <meta name="twitter:url" content="https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html"> 
-    <meta name="twitter:text:description" content="1234567Matija Prentar. “An Introduction to Algebraic Effects and Handlers.” Electronic Notes in Theoretical Computer Science 319. 2015. ↩Andrej Bauer. “What ...">
+    <meta name="twitter:text:description" content="こんにちは､びしょ〜じょです｡ここしばらく20行/日くらいしかコード書いてません｡いやもっと少ないかも…｡いや研究してますんで! いや〜研究もそんなにしてないな…じゃあ何を…1. はじめにAlg...">
     <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml">
@@ -28,7 +28,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-08-13T00:00:00+09:00" />
 <script type="application/ld+json">
-{"mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html"},"description":"1 2 3 4 5 6 7 Matija Prentar. “An Introduction to Algebraic Effects and Handlers.” Electronic Notes in Theoretical Computer Science 319. 2015. ↩ Andrej Bauer. “What is algebraic about algebraic effects and handlers?.” eprint arXiv:1807.05923. 2018. ↩ 快速のExtensible effects – モナドとわたしとコモナド https://fumieval.hatenablog.com/entry/2017/08/02/230422 ↩ Oleg Kiselyov, Amr Sabry, Cameron Swords. “Extensible Effeects: An Alternative to Monad Transformers.” ACM SIGPLAN Notices. Vol. 48. No. 12. ACM, 2013. ↩ Anderj Bauer, Matija Prentar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming, 84(1), pp.108-123. ↩ Dolan, Stephen, Spiros Eliopoulos, Daniel Hillerström, Anil Madhavapeddy, K. C. Sivaramakrishnan, Leo White. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming, pp. 98-117. Springer, Cham, 2017. ↩ Oleg Kiselyov, K. C. Sivaramakrishnan. “Eff directly in OCaml.” ML Workshop. 2016. ↩","@type":"BlogPosting","url":"https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html","headline":"Algebraic Effectsであそぼう","dateModified":"2018-08-13T00:00:00+09:00","datePublished":"2018-08-13T00:00:00+09:00","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
+{"description":"1 2 3 4 5 6 7 Matija Prentar. “An Introduction to Algebraic Effects and Handlers.” Electronic Notes in Theoretical Computer Science 319. 2015. ↩ Andrej Bauer. “What is algebraic about algebraic effects and handlers?.” eprint arXiv:1807.05923. 2018. ↩ 快速のExtensible effects – モナドとわたしとコモナド https://fumieval.hatenablog.com/entry/2017/08/02/230422 ↩ Oleg Kiselyov, Amr Sabry, Cameron Swords. “Extensible Effeects: An Alternative to Monad Transformers.” ACM SIGPLAN Notices. Vol. 48. No. 12. ACM, 2013. ↩ Anderj Bauer, Matija Prentar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming, 84(1), pp.108-123. ↩ Dolan, Stephen, Spiros Eliopoulos, Daniel Hillerström, Anil Madhavapeddy, K. C. Sivaramakrishnan, Leo White. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming, pp. 98-117. Springer, Cham, 2017. ↩ Oleg Kiselyov, K. C. Sivaramakrishnan. “Eff directly in OCaml.” ML Workshop. 2016. ↩","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"@type":"BlogPosting","url":"https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html","headline":"Algebraic Effectsであそぼう","dateModified":"2018-08-13T00:00:00+09:00","datePublished":"2018-08-13T00:00:00+09:00","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta name="keywords" content="OCaml,Algebraic Effects">
@@ -84,7 +84,7 @@
 <p>Algebraic effectsとは､2001年くらいに提唱されてから､爆流行らずともにわかに盛り上がりを見せつつある言語機能である｡
 極めて雑に説明すると､<em>継続を取ってこれる例外</em>である｡
 Plotkin氏(またお前か)が代数学的アプローチによる基盤を作り､そこにハンドラが付いてプログラム言語の機能として考えられるようになった｡
-ボクの話のうち1〜10割間違っていることは確かなので､誤った情報を一切入れたくない人は[<a href="#fn1">1</a>]を読んでください｡</p>
+ボクの話のうち1〜10割間違っていることは確かなので､誤った情報を一切入れたくない人は[<a id="fnref1" href="#fn1">1</a>]を読んでください｡</p>
 <h2 id="1-1-algebraic-effects">1-1. algebraic effects実装の有名どころ</h2>
 <ul>
 <li>
@@ -109,7 +109,7 @@ MLスタイルのシンタックスでHindley-Milner型推論がある｡</p>
 <p>ScalaのDSLとして実装されている</p>
 </li>
 <li>
-<p><a href="http://okmij.org/ftp/continuations/Eff/">『Eff Directly in OCaml』</a>[<a href="#fn7">7</a>]</p>
+<p><a href="http://okmij.org/ftp/continuations/Eff/">『Eff Directly in OCaml』</a>[<a id="fnref7" href="#fn7">7</a>]</p>
 
 <p>Oleg氏(またお前か)によるEffを､delimited continuationライブラリを使ってOCamlのDSLとして実装したもの｡
 Effはdelimited continuationをエミュレートできるが､実はEff <em>を</em> delimited continuationでエミュレートできることがわかる｡</p>
@@ -185,12 +185,12 @@ continuationがoneshotとなっており､明示的にクローンしないと2
   <span class="o">|</span> <span class="n">effect</span> <span class="p">(</span><span class="nc">Choose</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="p">))</span> <span class="n">k</span> <span class="o">-&gt;</span> <span class="n">k</span> <span class="n">x</span>
 </code></pre></div>
 <p>手軽だ｡
-HaskellではFreeモナドを発展させたextensible effects[<a href="#fn3">3</a>][<a href="#fn4">4</a>]といったものが流行っているそうで､
+HaskellではFreeモナドを発展させたextensible effects[<a id="fnref3" href="#fn3">3</a>][<a id="fnref4" href="#fn4">4</a>]といったものが流行っているそうで､
 確かにモナドトランスフォーマーガン積みして爆重になるという困難から抜け出せるらしい｡</p>
 <h1 id="3">3. 応用</h1>
 <p>delimited continuationが扱えるうえにCPS的な書き方ではなくdirect-styleで記述できるため､
 syntacticにきれいに､バグらず簡単に書ける､というありがたみがある｡
-ボクの語彙が少ないので詳細は文献[<a href="#fn5">5</a>][<a href="#fn6">6</a>]を読んでください｡</p>
+ボクの語彙が少ないので詳細は文献[<a id="fnref5" href="#fn5">5</a>][<a id="fnref6" href="#fn6">6</a>]を読んでください｡</p>
 <h1 id="4">4. おわりに</h1>
 <p>また情報量が0になってしまった……!!!</p>
 <h1 id="20181030">追記20181030</h1>

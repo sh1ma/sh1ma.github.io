@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 02 Dec 2018 02:26:36 +0900</pubDate>
-    <lastBuildDate>Sun, 02 Dec 2018 02:26:36 +0900</lastBuildDate>
+    <pubDate>Sun, 02 Dec 2018 04:28:47 +0900</pubDate>
+    <lastBuildDate>Sun, 02 Dec 2018 04:28:47 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
     
       <item>
@@ -1241,7 +1241,7 @@ Scalaを使っているサーバーサイドはだいたい実装ができてい
 &lt;p&gt;Algebraic effectsとは､2001年くらいに提唱されてから､爆流行らずともにわかに盛り上がりを見せつつある言語機能である｡
 極めて雑に説明すると､&lt;em&gt;継続を取ってこれる例外&lt;/em&gt;である｡
 Plotkin氏(またお前か)が代数学的アプローチによる基盤を作り､そこにハンドラが付いてプログラム言語の機能として考えられるようになった｡
-ボクの話のうち1〜10割間違っていることは確かなので､誤った情報を一切入れたくない人は[&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;]を読んでください｡&lt;/p&gt;
+ボクの話のうち1〜10割間違っていることは確かなので､誤った情報を一切入れたくない人は[&lt;a id=&quot;fnref1&quot; href=&quot;#fn1&quot;&gt;1&lt;/a&gt;]を読んでください｡&lt;/p&gt;
 &lt;h2 id=&quot;1-1-algebraic-effects&quot;&gt;1-1. algebraic effects実装の有名どころ&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1266,7 +1266,7 @@ MLスタイルのシンタックスでHindley-Milner型推論がある｡&lt;/p&
 &lt;p&gt;ScalaのDSLとして実装されている&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;http://okmij.org/ftp/continuations/Eff/&quot;&gt;『Eff Directly in OCaml』&lt;/a&gt;[&lt;a href=&quot;#fn7&quot;&gt;7&lt;/a&gt;]&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://okmij.org/ftp/continuations/Eff/&quot;&gt;『Eff Directly in OCaml』&lt;/a&gt;[&lt;a id=&quot;fnref7&quot; href=&quot;#fn7&quot;&gt;7&lt;/a&gt;]&lt;/p&gt;
 
 &lt;p&gt;Oleg氏(またお前か)によるEffを､delimited continuationライブラリを使ってOCamlのDSLとして実装したもの｡
 Effはdelimited continuationをエミュレートできるが､実はEff &lt;em&gt;を&lt;/em&gt; delimited continuationでエミュレートできることがわかる｡&lt;/p&gt;
@@ -1342,12 +1342,12 @@ continuationがoneshotとなっており､明示的にクローンしないと2
   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;手軽だ｡
-HaskellではFreeモナドを発展させたextensible effects[&lt;a href=&quot;#fn3&quot;&gt;3&lt;/a&gt;][&lt;a href=&quot;#fn4&quot;&gt;4&lt;/a&gt;]といったものが流行っているそうで､
+HaskellではFreeモナドを発展させたextensible effects[&lt;a id=&quot;fnref3&quot; href=&quot;#fn3&quot;&gt;3&lt;/a&gt;][&lt;a id=&quot;fnref4&quot; href=&quot;#fn4&quot;&gt;4&lt;/a&gt;]といったものが流行っているそうで､
 確かにモナドトランスフォーマーガン積みして爆重になるという困難から抜け出せるらしい｡&lt;/p&gt;
 &lt;h1 id=&quot;3&quot;&gt;3. 応用&lt;/h1&gt;
 &lt;p&gt;delimited continuationが扱えるうえにCPS的な書き方ではなくdirect-styleで記述できるため､
 syntacticにきれいに､バグらず簡単に書ける､というありがたみがある｡
-ボクの語彙が少ないので詳細は文献[&lt;a href=&quot;#fn5&quot;&gt;5&lt;/a&gt;][&lt;a href=&quot;#fn6&quot;&gt;6&lt;/a&gt;]を読んでください｡&lt;/p&gt;
+ボクの語彙が少ないので詳細は文献[&lt;a id=&quot;fnref5&quot; href=&quot;#fn5&quot;&gt;5&lt;/a&gt;][&lt;a id=&quot;fnref6&quot; href=&quot;#fn6&quot;&gt;6&lt;/a&gt;]を読んでください｡&lt;/p&gt;
 &lt;h1 id=&quot;4&quot;&gt;4. おわりに&lt;/h1&gt;
 &lt;p&gt;また情報量が0になってしまった……!!!&lt;/p&gt;
 &lt;h1 id=&quot;20181030&quot;&gt;追記20181030&lt;/h1&gt;
