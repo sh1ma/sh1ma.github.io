@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 02 Dec 2018 04:28:47 +0900</pubDate>
-    <lastBuildDate>Sun, 02 Dec 2018 04:28:47 +0900</lastBuildDate>
+    <pubDate>Sun, 02 Dec 2018 05:19:54 +0900</pubDate>
+    <lastBuildDate>Sun, 02 Dec 2018 05:19:54 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
     
       <item>
@@ -163,6 +163,7 @@ xmodmapによってキーマップを変更し､&lt;code&gt;AltGr&lt;/code&gt;�
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;レイヤごとにキーコードを割り当てられる｡
 これはデフォルトレイヤーで次が上記のxmodmapのキーマップにおける&lt;code&gt;AltGr&lt;/code&gt;を押した状態になる｡&lt;/p&gt;
+&lt;p&gt;&lt;label id=&quot;lower_layer&quot;&gt;&lt;/label&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lower_layer&quot;&gt;3&lt;/a&gt;. LOWERレイヤ&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cm&quot;&gt;/* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
