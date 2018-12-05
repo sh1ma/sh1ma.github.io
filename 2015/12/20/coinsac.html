@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2015-12-20T00:00:00+09:00" />
 <script type="application/ld+json">
-{"description":"こんにちは､びしょ〜じょです｡これはcoins Advent Calendar2015 20日目の記事ですが､あまり大学と関係ないです｡","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2015/12/20/coinsac.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"@type":"BlogPosting","url":"https://nymphium.github.io/2015/12/20/coinsac.html","headline":"Beamerを書く","dateModified":"2015-12-20T00:00:00+09:00","datePublished":"2015-12-20T00:00:00+09:00","@context":"http://schema.org"}</script>
+{"description":"こんにちは､びしょ〜じょです｡これはcoins Advent Calendar2015 20日目の記事ですが､あまり大学と関係ないです｡","headline":"Beamerを書く","dateModified":"2015-12-20T00:00:00+09:00","@type":"BlogPosting","datePublished":"2015-12-20T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2015/12/20/coinsac.html"},"url":"https://nymphium.github.io/2015/12/20/coinsac.html","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
@@ -63,24 +63,23 @@
             <h1 class="post-title" itemprop="name headline">Beamerを書く</h1>
             <span class="post-meta">
               <time datetime="2015-12-20T00:00:00+09:00" itemprop="datePublished">Dec 20, 2015</time>
-              <p>tag: &#123;<a href="/tags.html#LaTeX-ref">LaTeX</a>&#125;</p>
+              <p>tag: {<a href="/tags.html#LaTeX-ref">LaTeX</a>}</p>
             </span>
             <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
             <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
             <!-- The loading of KaTeX is deferred to speed up page rendering -->
             <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
-            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"
-                    onload="renderMathInElement(document.body);"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
           </header>
           <div class="post-content" itemprop="articleBody">
-<p>こんにちは､びしょ〜じょです｡これは<a href="http://www.adventar.org/calendars/1211">coins Advent Calendar2015</a> 20日目の記事ですが､あまり大学と関係ないです｡</p>
+<p>こんにちは､びしょ〜じょです｡これは<a href="http://www.adventar.org/calendars/1211" target="_blank" rel="noopener noreferrer">coins Advent Calendar2015</a> 20日目の記事ですが､あまり大学と関係ないです｡</p>
 <p>さて､先日は一発ネタ大会で<a href="/pdf/lonely_advent_calendar.html">ネタ</a>を披露しました｡
 ネタの解説という愚かな行為をすると､5分でスライド20枚捌くというものでしたがリハーサルなど一切せず臨んだため､なんと4分で終わってしまいました｡ありがとうございました｡
 で､だ｡早口おじさんという印象もどうかなと思ってきたのでスライドについて書きます｡LaTeXについて書くけどLaTeX Advent Calendarなどに投書しないということは､まぁその程度の内容です｡</p>
 <hr>
 <p><a href="/2015/12/17/niceyuri.html">前の記事</a>と同じようなことが書きたい｡前回はあまりにも適当だったので｡
-みなさんはスライドショーとか作るときに何使ってますか(中略)ということでBeamerのアレです｡リポジトリの<a href="https://github.com/Nymphium/my_LaTeX_template/tree/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1">commit d05c4c7</a>を解説します｡
+みなさんはスライドショーとか作るときに何使ってますか(中略)ということでBeamerのアレです｡リポジトリの<a href="https://github.com/Nymphium/my_LaTeX_template/tree/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1" target="_blank" rel="noopener noreferrer">commit d05c4c7</a>を解説します｡
 LuaLaTeX使ったので<code>\zw</code>とか出てきますが気にせず脳内変換してください｡</p>
 <p>やったことは</p>
 <ul>
@@ -90,7 +89,7 @@ LuaLaTeX使ったので<code>\zw</code>とか出てきますが気にせず脳�
 </ul>
 <p>上からみていきます｡</p>
 <h2 id="section-subsection-toc">section/subsection開始時にTOCページを挿入</h2>
-<p>なんとなく入れたくなったわけですな｡<a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#l97">97行目</a>からの<code>\AtBeginSection</code>､<code>\AtBeginSubsection</code>がソレ｡
+<p>なんとなく入れたくなったわけですな｡<a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#l97" target="_blank" rel="noopener noreferrer">97行目</a>からの<code>\AtBeginSection</code>､<code>\AtBeginSubsection</code>がソレ｡
 98行目でifがいっぱいあるが､これはTOCを入れたくなかったり次のTOCだけ消したりするため｡
 99､100､107､108行目の<code>\switchなんちゃら</code>は､上のほうのboolを切り替えてます(<code>\ifnofooter</code>､<code>\ifnoheader</code>)｡</p>
 <p>肝は101〜105行目です｡</p>
@@ -112,7 +111,7 @@ LuaLaTeX使ったので<code>\zw</code>とか出てきますが気にせず脳�
 で､106行目で<code>tocpage</code>というカウンタをインクリメントしています｡これは後ほど効いてきます｡</p>
 <p>といったぐあいにTOCページができたわけだ｡<code>\AtBeginSection</code>の説明をするだけで終わりですね｡</p>
 <h2 id="toc">タイトルをTOCページに挿入</h2>
-<p><a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#L86">86行目</a>からの<code>\setbeamertemplate{beamer}</code>です｡
+<p><a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#L86" target="_blank" rel="noopener noreferrer">86行目</a>からの<code>\setbeamertemplate{beamer}</code>です｡
 <code>\beamercolorbox</code>は便利なんじゃ(天才博士bot並の感想)｡で､colorboxにheaderのboxを突っ込む｡88行目ですね｡ミソは｡
 <code>\noheaderfalse</code>なら<code>\thetitle</code>を突っ込む｡だけ｡で､この<code>\thetitle</code>は実は自家製で､</p>
 <div class="highlight"><pre><code class="language-LaTeX" data-lang="LaTeX"><span class="k">\long\def\beamer</span>@title[#1]#2<span class="p">{</span> <span class="c">%</span>
@@ -147,7 +146,7 @@ TOCページを挿入するたびに<code>tocpage</code>がインクリメント
 <div class="highlight"><pre><code class="language-LaTeX" data-lang="LaTeX"><span class="k">\newcounter</span><span class="p">{</span>currentwotocframenumber<span class="p">}</span><span class="c">%</span>
 <span class="k">\newcounter</span><span class="p">{</span>wotoctotalframenumber<span class="p">}</span><span class="c">%</span>
 </code></pre></div>
-<p>で､<a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#L71">71行目</a>からのね…｡</p>
+<p>で､<a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#L71" target="_blank" rel="noopener noreferrer">71行目</a>からのね…｡</p>
 <div class="highlight"><pre><code class="language-LaTeX" data-lang="LaTeX"><span class="k">\setbeamertemplate</span><span class="p">{</span>footline<span class="p">}{</span> <span class="c">%</span>
     <span class="k">\leavevmode</span><span class="c">%</span>
     <span class="k">\vspace</span><span class="p">{</span>1<span class="k">\zw</span><span class="p">}</span>
@@ -185,9 +184,9 @@ TOCページを挿入するたびに<code>tocpage</code>がインクリメント
     </div>
     <footer>
       <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
-        <a class="btn prev" href="/2015/12/17/niceyuri.html" title="百合漫画と今年">&larr; Prev</a>
-        &#47;<a class="btn" href="/">Top</a>&#47;
-        <a class="btn next" href="/2015/12/24/hurikaeri2015.html" title="振り返り2015">Next &rarr;</a>
+        <a class="btn prev" href="/2015/12/17/niceyuri.html" title="百合漫画と今年">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2015/12/24/hurikaeri2015.html" title="振り返り2015">Next →</a>
       </div>
     </footer>
 

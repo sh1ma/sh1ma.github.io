@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2016-01-13T00:00:00+09:00" />
 <script type="application/ld+json">
-{"description":"こんにちは､びしょ〜じょです｡ではいきます｡","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2016/01/13/llix.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"@type":"BlogPosting","url":"https://nymphium.github.io/2016/01/13/llix.html","headline":"通年でLua処理系を作った","dateModified":"2016-01-13T00:00:00+09:00","datePublished":"2016-01-13T00:00:00+09:00","@context":"http://schema.org"}</script>
+{"description":"こんにちは､びしょ〜じょです｡ではいきます｡","headline":"通年でLua処理系を作った","dateModified":"2016-01-13T00:00:00+09:00","@type":"BlogPosting","datePublished":"2016-01-13T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2016/01/13/llix.html"},"url":"https://nymphium.github.io/2016/01/13/llix.html","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
@@ -63,20 +63,19 @@
             <h1 class="post-title" itemprop="name headline">通年でLua処理系を作った</h1>
             <span class="post-meta">
               <time datetime="2016-01-13T00:00:00+09:00" itemprop="datePublished">Jan 13, 2016</time>
-              <p>tag: &#123;<a href="/tags.html#Lua-ref">Lua</a>, <a href="/tags.html#MoonScript-ref">MoonScript</a>&#125;</p>
+              <p>tag: {<a href="/tags.html#Lua-ref">Lua</a>, <a href="/tags.html#MoonScript-ref">MoonScript</a>}</p>
             </span>
             <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
             <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
             <!-- The loading of KaTeX is deferred to speed up page rendering -->
             <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
-            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"
-                    onload="renderMathInElement(document.body);"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡ではいきます｡</p>
 <hr>
-<p>T大学の<a href="http://www.coins.tsukuba.ac.jp/syllabus/GB13312_GB13322.html">情報特別演習</a>というものでLuaの処理系を作りました｡</p>
+<p>T大学の<a href="http://www.coins.tsukuba.ac.jp/syllabus/GB13312_GB13322.html" target="_blank" rel="noopener noreferrer">情報特別演習</a>というものでLuaの処理系を作りました｡</p>
 <div class="github-widget" data-repo="Nymphium/llix"></div>
 <p>発表スライドは<a href="http://nymphium.github.io/pdf/information_special_seminar.html">こちら</a></p>
 <p>どうしても百合感を出したかったのでネーミングがやや強引ですが､OKです｡</p>
@@ -84,11 +83,11 @@
 <p>本稿では8分の発表に現れなかった部分を供養したい｡</p>
 <h1 id="1">1. 実装</h1>
 <p>MoonScriptで実装されている｡</p>
-<p><a href="https://github.com/Nymphium/llix/blob/master/llix/eval.moon#L17">17行目</a>はLuaへのDeepCopy関数をデフォルトで作ってくれという訴えであり､
-<a href="https://github.com/Nymphium/llix/blob/master/llix/eval.moon#L19">19行目</a>はOCamlなどのmatch文のようなことがしたかった､これはMoonScrriptへの要望ですね｡<code>guard</code>というのは当時の彼がガードとなにか混同してますね｡
+<p><a href="https://github.com/Nymphium/llix/blob/master/llix/eval.moon#L17" target="_blank" rel="noopener noreferrer">17行目</a>はLuaへのDeepCopy関数をデフォルトで作ってくれという訴えであり､
+<a href="https://github.com/Nymphium/llix/blob/master/llix/eval.moon#L19" target="_blank" rel="noopener noreferrer">19行目</a>はOCamlなどのmatch文のようなことがしたかった､これはMoonScrriptへの要望ですね｡<code>guard</code>というのは当時の彼がガードとなにか混同してますね｡
 プログラムから叫びが見える｡</p>
-<p><a href="https://github.com/Nymphium/llix/blob/master/llix/eval.moon#L56">関数呼び出しの管理にはcoroutineとスタックを用いている</a>｡
-後述する<a href="https://gist.github.com/Nymphium/e3740faa63d1f8292ab4">CPS変換する前</a>のevaluatorでは､ループ中でのbreakの実現にもこのcoroutine+スタックが用いられていた｡
+<p><a href="https://github.com/Nymphium/llix/blob/master/llix/eval.moon#L56" target="_blank" rel="noopener noreferrer">関数呼び出しの管理にはcoroutineとスタックを用いている</a>｡
+後述する<a href="https://gist.github.com/Nymphium/e3740faa63d1f8292ab4" target="_blank" rel="noopener noreferrer">CPS変換する前</a>のevaluatorでは､ループ中でのbreakの実現にもこのcoroutine+スタックが用いられていた｡
 coroutineを用いるのは実はこれが初めてなのだが､自分でもなかなかよくやったと思った｡でもCPS変換するとループの制御も簡単にできるのだ〜〜この構造は消えた｡
 関数の方も継続に突っ込めばできそう(実際できる)ですが今発表までに間に合わないと思ってやってない｡
 発表の質問でcoroutineに関するものがあり､つまりこのコールスタックの構造のままだとllixで動かすcoroutineなどを途中で破棄すると中のスタックはどうなるんだというものがあり､後ほど調査するかもしれない｡</p>
@@ -105,7 +104,7 @@ Lさんは人曰く､Luaとあまり関係ないし､先生の気まぐれに�
 <p>7月になっていた｡</p>
 <h2 id="2-2">2-2. 破</h2>
 <p>とりあえずCPSとかなしにインタプリターをつくった｡パースしたものをグヨグヨしていくだけなのでここはわりとスッといった｡
-デバッグなどで用いていたモジュール<a href="https://github.com/kikito/inspect.lua">inspect</a>が謎の挙動をたまに見せるので調査してpr送ってマージされたりした｡</p>
+デバッグなどで用いていたモジュール<a href="https://github.com/kikito/inspect.lua" target="_blank" rel="noopener noreferrer">inspect</a>が謎の挙動をたまに見せるので調査してpr送ってマージされたりした｡</p>
 <p><a href="http://nymphium.github.io/2015/10/03/intern_andother/">9月いっぱいはF社にインターン</a>だったが､御社は無慈悲にもインターネッツ回線を一切よこしてこなかった｡
 テザリングやモバイルWifiでしのいでいたが､後半は速度制限がかかったので128kbpsでbitbucketにpushした｡</p>
 <p>インターンとevaluatorの実装で9月が終わった｡</p>
@@ -116,7 +115,7 @@ Lさんは人曰く､Luaとあまり関係ないし､先生の気まぐれに�
 <p>しかしCPSとオフサイドルールは相性がぶっちゃけ最悪だ｡ガンガン深くしていく必要があり大変なことになった｡
 それでもLuaで<code>function()... end</code>地獄になるよりはマシだったかな｡eval.moonをLuaにトランスパイルすると行が2倍になる｡
 <code>k with y do ...</code>とか<code>-&gt; switch x</code>などから苦労が窺える｡</p>
-<p>小慣れてきたあたりで<a href="https://gist.github.com/Nymphium/48c909f622cb0f567c9e">適当な言語</a>をつくったりもした｡</p>
+<p>小慣れてきたあたりで<a href="https://gist.github.com/Nymphium/48c909f622cb0f567c9e" target="_blank" rel="noopener noreferrer">適当な言語</a>をつくったりもした｡</p>
 <p>12月ごろCPS変換が大方完了すると同時にスライドを書き始め､今年になってからREPLにlinenoiseなどを突っ込んだり突然リッチにした｡</p>
 <h1 id="shaji">Shaji</h1>
 <ul>
@@ -138,9 +137,9 @@ Lさんは人曰く､Luaとあまり関係ないし､先生の気まぐれに�
     </div>
     <footer>
       <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
-        <a class="btn prev" href="/2015/12/24/hurikaeri2015.html" title="振り返り2015">&larr; Prev</a>
-        &#47;<a class="btn" href="/">Top</a>&#47;
-        <a class="btn next" href="/2016/02/25/3rd2nd.html" title="3年次2年任期満了記念">Next &rarr;</a>
+        <a class="btn prev" href="/2015/12/24/hurikaeri2015.html" title="振り返り2015">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2016/02/25/3rd2nd.html" title="3年次2年任期満了記念">Next →</a>
       </div>
     </footer>
 

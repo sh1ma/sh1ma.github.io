@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2016-05-16T00:00:00+09:00" />
 <script type="application/ld+json">
-{"description":"lily, Aikatsu, Programming language, and more","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2016/05/16/luatable.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"@type":"BlogPosting","url":"https://nymphium.github.io/2016/05/16/luatable.html","headline":"Luaのtableについて","dateModified":"2016-05-16T00:00:00+09:00","datePublished":"2016-05-16T00:00:00+09:00","@context":"http://schema.org"}</script>
+{"description":"lily, Aikatsu, Programming language, and more","headline":"Luaのtableについて","dateModified":"2016-05-16T00:00:00+09:00","@type":"BlogPosting","datePublished":"2016-05-16T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2016/05/16/luatable.html"},"url":"https://nymphium.github.io/2016/05/16/luatable.html","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
@@ -63,23 +63,22 @@
             <h1 class="post-title" itemprop="name headline">Luaのtableについて</h1>
             <span class="post-meta">
               <time datetime="2016-05-16T00:00:00+09:00" itemprop="datePublished">May 16, 2016</time>
-              <p>tag: &#123;<a href="/tags.html#Lua-ref">Lua</a>&#125;</p>
+              <p>tag: {<a href="/tags.html#Lua-ref">Lua</a>}</p>
             </span>
             <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
             <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
             <!-- The loading of KaTeX is deferred to speed up page rendering -->
             <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
-            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"
-                    onload="renderMathInElement(document.body);"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡
-<a href="http://www.aikatsu.com/goods/magazine/top_of_works/">アイカツ! Top of works</a>はぶっちゃけヤバイ｡幸せがグッと詰まってるのでぜひ買ってください｡
+<a href="http://www.aikatsu.com/goods/magazine/top_of_works/" target="_blank" rel="noopener noreferrer">アイカツ! Top of works</a>はぶっちゃけヤバイ｡幸せがグッと詰まってるのでぜひ買ってください｡
 でかいので買う前にスペース確保などしてください｡</p>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr">縦幅が2.2TAPLある。 <a href="https://t.co/Pk4b1QugEX">pic.twitter.com/Pk4b1QugEX</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/732109386462584832?ref_src=twsrc%5Etfw">May 16, 2016</a>
+<p lang="ja" dir="ltr">縦幅が2.2TAPLある。 <a href="https://t.co/Pk4b1QugEX" target="_blank" rel="noopener noreferrer">pic.twitter.com/Pk4b1QugEX</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/732109386462584832?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">May 16, 2016</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
@@ -92,8 +91,8 @@
 もうすこしなんかやりたいところでしたね…｡</p>
 <p>他には面白い発表が聞けたので楽しかったです｡</p>
 <h2 id="intro">intro</h2>
-<p>さて､同イベントに参加した<a href="https://twitter.com/_yyu_">@_yyu_ </a>さんにLuaのtableの実装について聞かれたんですが､そこまで詳しくなかったので答えられないというインシデントがありました｡
-唯一のデータ構造といわれると確かにそこが気になるはずだ｡ちなみにScalaでは<a href="https://en.wikipedia.org/wiki/Hash_array_mapped_trie">HAMT</a>という高速な操作ができるデータ構造が用意されているようだ｡</p>
+<p>さて､同イベントに参加した<a href="https://twitter.com/_yyu_" target="_blank" rel="noopener noreferrer">@_yyu_ </a>さんにLuaのtableの実装について聞かれたんですが､そこまで詳しくなかったので答えられないというインシデントがありました｡
+唯一のデータ構造といわれると確かにそこが気になるはずだ｡ちなみにScalaでは<a href="https://en.wikipedia.org/wiki/Hash_array_mapped_trie" target="_blank" rel="noopener noreferrer">HAMT</a>という高速な操作ができるデータ構造が用意されているようだ｡</p>
 <p>さんざんLuaについて語っておいてそれはマズい､というわけでちょっとだけ調べた｡
 実装の詳細については資料がなかったのでソースを読まざるを得ない､しかしCはもう読みたくない､ということで実装の詳細には迫れなかったが､動作の概略を今回は掴んでみたい｡</p>
 <h1 id="2-lua-table">2. Luaのtableについて</h1>
@@ -215,16 +214,16 @@ moor on MoonScript version 0.4.0 on Lua 5.3
 <p>なるほど｡面白いのは最初(from 0 to 4999)のtableへの値の追加とケツの方ではあまり時間が変わらないんですねぇ｡
 前者は短い内でのtableの成長が大量に起きるので若干遅くなっている｡</p>
 <h1 id="4">4. おわりに</h1>
-<p><a href="https://twitter.com/_yyu_">@_yyu_ </a>さんが知りたいのは多分key-valueの保持とひも付けの方法だと思うんです､ボクもそれが知りたかった｡</p>
+<p><a href="https://twitter.com/_yyu_" target="_blank" rel="noopener noreferrer">@_yyu_ </a>さんが知りたいのは多分key-valueの保持とひも付けの方法だと思うんです､ボクもそれが知りたかった｡</p>
 <h1 id="part-2bb23717e7a4fb4a">参考文献</h1>
 <ul>
-<li><a href="https://www.lua.org/doc/jucs05.pdf">The implementation of Lua 5.0</a></li>
+<li><a href="https://www.lua.org/doc/jucs05.pdf" target="_blank" rel="noopener noreferrer">The implementation of Lua 5.0</a></li>
 </ul>
 <hr>
 <p>院に行くかどうかは確定的ではないが充分視野に入れているので､来月のTOEFLかTOEICかなんかがタダで受けられるらしいので頑張りたい｡
-ということで<a href="http://www.lua.org/wshop15.html">Lua workshop 2015</a>の発表をYoutubeで聞いてるわけですがポルトガルなまりの英語が難しいですおわり｡</p>
-<p>ところでTOEなんとかが終わるのが1300で､同日1630には<a href="http://showbyrock-anime.com/news/20160501-1818/">SB69一挙放送イベント</a>に行くわけですが気持ち高まってんぞ､
-その翌日はチケットがあたったら<a href="http://www.particle.jp.net/rs_event/index.html">りりくるのイベント</a>にも行くので6月も全力だぞオイ</p>
+ということで<a href="http://www.lua.org/wshop15.html" target="_blank" rel="noopener noreferrer">Lua workshop 2015</a>の発表をYoutubeで聞いてるわけですがポルトガルなまりの英語が難しいですおわり｡</p>
+<p>ところでTOEなんとかが終わるのが1300で､同日1630には<a href="http://showbyrock-anime.com/news/20160501-1818/" target="_blank" rel="noopener noreferrer">SB69一挙放送イベント</a>に行くわけですが気持ち高まってんぞ､
+その翌日はチケットがあたったら<a href="http://www.particle.jp.net/rs_event/index.html" target="_blank" rel="noopener noreferrer">りりくるのイベント</a>にも行くので6月も全力だぞオイ</p>
           </div>
         </article>
 
@@ -232,9 +231,9 @@ moor on MoonScript version 0.4.0 on Lua 5.3
     </div>
     <footer>
       <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
-        <a class="btn prev" href="/2016/04/25/luaquiz.html" title="Luaでは関数外でもreturnが書ける､これな〜んでだ?">&larr; Prev</a>
-        &#47;<a class="btn" href="/">Top</a>&#47;
-        <a class="btn next" href="/2016/06/07/lua533.html" title="Lua 5.3.3 release - 変更に"python rule"とありますが -">Next &rarr;</a>
+        <a class="btn prev" href="/2016/04/25/luaquiz.html" title="Luaでは関数外でもreturnが書ける､これな〜んでだ?">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2016/06/07/lua533.html" title="Lua 5.3.3 release - 変更に" python rule>Next →</a>
       </div>
     </footer>
 

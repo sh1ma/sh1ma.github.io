@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-05-27T00:00:00+09:00" />
 <script type="application/ld+json">
-{"description":"lily, Aikatsu, Programming language, and more","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/05/27/Ensime-vim%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"@type":"BlogPosting","url":"https://nymphium.github.io/2018/05/27/Ensime-vim%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B.html","headline":"Ensime-vimを入れる","dateModified":"2018-05-27T00:00:00+09:00","datePublished":"2018-05-27T00:00:00+09:00","@context":"http://schema.org"}</script>
+{"description":"lily, Aikatsu, Programming language, and more","headline":"Ensime-vimを入れる","dateModified":"2018-05-27T00:00:00+09:00","@type":"BlogPosting","datePublished":"2018-05-27T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/05/27/Ensime-vim%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B.html"},"url":"https://nymphium.github.io/2018/05/27/Ensime-vim%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B.html","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
@@ -63,15 +63,14 @@
             <h1 class="post-title" itemprop="name headline">Ensime-vimを入れる</h1>
             <span class="post-meta">
               <time datetime="2018-05-27T00:00:00+09:00" itemprop="datePublished">May 27, 2018</time>
-              <p>tag: &#123;<a href="/tags.html#Scala-ref">Scala</a>, <a href="/tags.html#Vim-ref">Vim</a>, <a href="/tags.html#ArchLinux-ref">ArchLinux</a>&#125;</p>
+              <p>tag: {<a href="/tags.html#Scala-ref">Scala</a>, <a href="/tags.html#Vim-ref">Vim</a>, <a href="/tags.html#ArchLinux-ref">ArchLinux</a>}</p>
             </span>
             <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
             <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
             <!-- The loading of KaTeX is deferred to speed up page rendering -->
             <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
-            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"
-                    onload="renderMathInElement(document.body);"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡
@@ -82,16 +81,16 @@
 動機としては､最近一切コードを書いてなかったのでなにか作ろうと思い､またScalaも以前から少し書いてみようと思っていたのでこの機会にと｡
 Vimでやろうとしたのは当然手元に(Neo)Vimがあるからだ｡</p>
 <h1 id="2">2. プラギン</h1>
-<h2 id="2-1-vim-scala">2-1. <a href="https://github.com/derekwyatt/vim-scala">vim-scala</a>
+<h2 id="2-1-vim-scala">2-1. <a href="https://github.com/derekwyatt/vim-scala" target="_blank" rel="noopener noreferrer">vim-scala</a>
 </h2>
 <p>シンタックスハイライトが寂しいので入れる｡</p>
-<h2 id="2-2-ensime-vim">2-2. <a href="https://github.com/ensime/ensime-vim">ensime-vim</a>
+<h2 id="2-2-ensime-vim">2-2. <a href="https://github.com/ensime/ensime-vim" target="_blank" rel="noopener noreferrer">ensime-vim</a>
 </h2>
 <p>Scalaも補完がされてほしい｡
 VimでJava/Scalaというと､EclimというEclipseの情報をVimから引っ張ってグニャグニャするやつがありますが､俺達VimmerとしてはエディタのためにIDEを使うのはなんとなくはばかられる｡</p>
 <p>(中略)</p>
 <p>特にArchLinux(でyaourt)を使っており､Pythonなんて書かねーよハゲということでpipも基本的に触らない人用にインストールガイドを書こう｡
-だいたいは<a href="http://ensime.github.io/editors/vim/install/">公式のインストールガイド</a>に則ればいい｡</p>
+だいたいは<a href="http://ensime.github.io/editors/vim/install/" target="_blank" rel="noopener noreferrer">公式のインストールガイド</a>に則ればいい｡</p>
 <h3 id="2-2-1-python-modules">2-2-1. Python modules</h3>
 <p>注意する点はpipに関する記述だが､Pythonは3で問題ない｡
 pipでなくpacman/yourtに任せたいので､公式リポジトリから<em>python-websocket-client</em>､AURから<em>python-sexpdata</em>を引っ張る｡
@@ -105,7 +104,7 @@ pipでなくpacman/yourtに任せたいので､公式リポジトリから<em>p
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">"org.ensime"</span> <span class="o">%</span> <span class="s">"sbt-ensime"</span> <span class="o">%</span> <span class="s">"2.6.0"</span><span class="o">)</span>
 </code></pre></div>
 <p>sbtで<code>ensimeConfig</code>を実行すると､プロジェクトルートに<code>.ensime</code>が生成される｡</p>
-<h2 id="2-3-neoformat">2-3. <a href="https://github.com/sbdchd/neoformat">neoformat</a>
+<h2 id="2-3-neoformat">2-3. <a href="https://github.com/sbdchd/neoformat" target="_blank" rel="noopener noreferrer">neoformat</a>
 </h2>
 <p>フォーマッター｡ScalaもscalafmtがあればOK｡
 ただ何もしないとフォーマット時にファイル先頭にゴミが入るので以下をvimrcに追加</p>
@@ -123,9 +122,9 @@ pipでなくpacman/yourtに任せたいので､公式リポジトリから<em>p
     </div>
     <footer>
       <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
-        <a class="btn prev" href="/2018/01/31/%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E4%B8%AD%E9%96%93%E8%A8%80%E8%AA%9E%E3%81%8A%E3%82%88%E3%81%B3%E3%81%9D%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AE%E5%AE%9F%E8%A3%85.html" title="コンパイラ中間言語およびその最適化の設計と実装">&larr; Prev</a>
-        &#47;<a class="btn" href="/">Top</a>&#47;
-        <a class="btn next" href="/2018/06/09/Scala%E6%9B%B8%E3%81%84%E3%81%9F.html" title="Scala書いた">Next &rarr;</a>
+        <a class="btn prev" href="/2018/01/31/%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E4%B8%AD%E9%96%93%E8%A8%80%E8%AA%9E%E3%81%8A%E3%82%88%E3%81%B3%E3%81%9D%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AE%E5%AE%9F%E8%A3%85.html" title="コンパイラ中間言語およびその最適化の設計と実装">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2018/06/09/Scala%E6%9B%B8%E3%81%84%E3%81%9F.html" title="Scala書いた">Next →</a>
       </div>
     </footer>
 

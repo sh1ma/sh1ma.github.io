@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-12-21T00:00:00+09:00" />
 <script type="application/ld+json">
-{"description":"lily, Aikatsu, Programming language, and more","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2017/12/21/LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"@type":"BlogPosting","url":"https://nymphium.github.io/2017/12/21/LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.html","headline":"LaTeXライティング","dateModified":"2017-12-21T00:00:00+09:00","datePublished":"2017-12-21T00:00:00+09:00","@context":"http://schema.org"}</script>
+{"description":"lily, Aikatsu, Programming language, and more","headline":"LaTeXライティング","dateModified":"2017-12-21T00:00:00+09:00","@type":"BlogPosting","datePublished":"2017-12-21T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2017/12/21/LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.html"},"url":"https://nymphium.github.io/2017/12/21/LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.html","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
@@ -63,25 +63,25 @@
             <h1 class="post-title" itemprop="name headline">LaTeXライティング</h1>
             <span class="post-meta">
               <time datetime="2017-12-21T00:00:00+09:00" itemprop="datePublished">Dec 21, 2017</time>
-              <p>tag: &#123;<a href="/tags.html#LaTeX-ref">LaTeX</a>, <a href="/tags.html#WORD-ref">WORD</a>&#125;</p>
+              <p>tag: {<a href="/tags.html#LaTeX-ref">LaTeX</a>, <a href="/tags.html#WORD-ref">WORD</a>}</p>
             </span>
             <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
             <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
             <!-- The loading of KaTeX is deferred to speed up page rendering -->
             <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
-            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"
-                    onload="renderMathInElement(document.body);"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
           </header>
           <div class="post-content" itemprop="articleBody">
-<p>こんにちは､びしょ〜じょです｡これは<a href="https://adventar.org/calendars/2573">WORD Advent Calendar 2017</a>の記事です｡</p>
+<p>こんにちは､びしょ〜じょです｡これは<a href="https://adventar.org/calendars/2573" target="_blank" rel="noopener noreferrer">WORD Advent Calendar 2017</a>の記事です｡</p>
 <p>12月21日といえば……特になにも思いつきませんでした｡
 あえて挙げるなら片岡鶴太郎､安斎肇､フランク・ザッパの誕生日だそうです(Wikipedia調べ)｡みんなで祝いましょう｡</p>
 <h1 id="word">WORDとは何か</h1>
-<p></p><center>
+<p></p>
+<center>
 <span style="font-size: XX-LARGE">!!!以下に詳細が!!!</span>
 
-<p><a href="https://www.word-ac.net/about/">https://www.word-ac.net/about/</a>
+<p><a href="https://www.word-ac.net/about/" target="_blank" rel="noopener noreferrer">https://www.word-ac.net/about/</a>
 </p>
 </center>
 <h1 id="1">1. はじめに</h1>
@@ -119,7 +119,7 @@ BibTeXやrefererence関係などをエイヤッとやってくれる偉い人で
 <code>function platex() { =platex $1 &amp;&amp; =platex $1}</code> みたいなものを.bashrcなどに書かなくてよくなります｡偉いね｡
 ~/.latexmkrcまたはcwdのlatexmkrcに設定ファイルを置くと記述に沿った動きをしてくれる｡</p>
 <p>[<a href="#fn1">1</a>]のlatexmkrcを見てみましょう｡</p>
-<p><a href="https://github.com/WORD-COINS/article-template/blob/master/articles/hinagata/latexmkrc">articles/hinagata/latexmkrc</a></p>
+<p><a href="https://github.com/WORD-COINS/article-template/blob/master/articles/hinagata/latexmkrc" target="_blank" rel="noopener noreferrer">articles/hinagata/latexmkrc</a></p>
 <div class="codeline with_caption"><pre>1
 2
 3
@@ -151,7 +151,7 @@ BibTeXやrefererence関係などをエイヤッとやってくれる偉い人で
 <p>latexmkを知らない人はいるかもしれないが､makeを知らない人は居ないでしょう｡
 またcwdにMakefileがあるとmakeを実行してしまうという人間の心理を突くこともできます｡</p>
 <p>例によって[<a href="#fn1">1</a>]のMakefileを見てみましょう｡</p>
-<p><a href="https://github.com/WORD-COINS/article-template/blob/master/articles/hinagata/Makefile">articles/hinagata/Makefile</a></p>
+<p><a href="https://github.com/WORD-COINS/article-template/blob/master/articles/hinagata/Makefile" target="_blank" rel="noopener noreferrer">articles/hinagata/Makefile</a></p>
 <div class="codeline with_caption"><pre>1
 2
 3
@@ -248,51 +248,51 @@ xmodmapで超高速記号タイピングなども書きたかったんですが�
 <ol>
 
 <li id="fn1">
-<p><a href="https://github.com/WORD-COINS/article-template">https://github.com/WORD-COINS/article-template</a> <a href="#fnref1" rev="footnote">↩</a></p>
+<p><a href="https://github.com/WORD-COINS/article-template" target="_blank" rel="noopener noreferrer">https://github.com/WORD-COINS/article-template</a> <a href="#fnref1" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn2">
-<p><a href="https://github.com/neomake/neomake">https://github.com/neomake/neomake</a> <a href="#fnref2" rev="footnote">↩</a></p>
+<p><a href="https://github.com/neomake/neomake" target="_blank" rel="noopener noreferrer">https://github.com/neomake/neomake</a> <a href="#fnref2" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn3">
-<p><a href="https://github.com/lervag/vimtex">https://github.com/lervag/vimtex</a> <a href="#fnref3" rev="footnote">↩</a></p>
+<p><a href="https://github.com/lervag/vimtex" target="_blank" rel="noopener noreferrer">https://github.com/lervag/vimtex</a> <a href="#fnref3" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn4">
-<p><a href="https://github.com/lervag/vimtex/wiki/usage#default-mappings">https://github.com/lervag/vimtex/wiki/usage#default-mappings</a> <a href="#fnref4" rev="footnote">↩</a></p>
+<p><a href="https://github.com/lervag/vimtex/wiki/usage#default-mappings" target="_blank" rel="noopener noreferrer">https://github.com/lervag/vimtex/wiki/usage#default-mappings</a> <a href="#fnref4" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn5">
-<p><a href="https://github.com/Shougo/neocomplete.vim">https://github.com/Shougo/neocomplete.vim</a> completion for Vim <a href="#fnref5" rev="footnote">↩</a></p>
+<p><a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="noopener noreferrer">https://github.com/Shougo/neocomplete.vim</a> completion for Vim <a href="#fnref5" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn6">
-<p><a href="https://github.com/Shougo/deoplete.nvim">https://github.com/Shougo/deoplete.nvim</a> completion for Neovim <a href="#fnref6" rev="footnote">↩</a></p>
+<p><a href="https://github.com/Shougo/deoplete.nvim" target="_blank" rel="noopener noreferrer">https://github.com/Shougo/deoplete.nvim</a> completion for Neovim <a href="#fnref6" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn7">
-<p><a href="https://github.com/tpope/vim-surround">https://github.com/tpope/vim-surround</a> <a href="#fnref7" rev="footnote">↩</a></p>
+<p><a href="https://github.com/tpope/vim-surround" target="_blank" rel="noopener noreferrer">https://github.com/tpope/vim-surround</a> <a href="#fnref7" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn8">
-<p><a href="http://personal.psu.edu/jcc8//software/latexmk">http://personal.psu.edu/jcc8//software/latexmk</a> <a href="#fnref8" rev="footnote">↩</a></p>
+<p><a href="http://personal.psu.edu/jcc8//software/latexmk" target="_blank" rel="noopener noreferrer">http://personal.psu.edu/jcc8//software/latexmk</a> <a href="#fnref8" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn9">
-<p><a href="https://texwiki.texjp.org/?Latexmk">https://texwiki.texjp.org/?Latexmk</a> <a href="#fnref9" rev="footnote">↩</a></p>
+<p><a href="https://texwiki.texjp.org/?Latexmk" target="_blank" rel="noopener noreferrer">https://texwiki.texjp.org/?Latexmk</a> <a href="#fnref9" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn10">
-<p><a href="http://detexify.kirelabs.org/classify.html">http://detexify.kirelabs.org/classify.html</a> <a href="#fnref10" rev="footnote">↩</a></p>
+<p><a href="http://detexify.kirelabs.org/classify.html" target="_blank" rel="noopener noreferrer">http://detexify.kirelabs.org/classify.html</a> <a href="#fnref10" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn11">
-<p><a href="https://github.com/kirel/detexify-hs-backend">https://github.com/kirel/detexify-hs-backend</a> <a href="#fnref11" rev="footnote">↩</a></p>
+<p><a href="https://github.com/kirel/detexify-hs-backend" target="_blank" rel="noopener noreferrer">https://github.com/kirel/detexify-hs-backend</a> <a href="#fnref11" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn12">
-<p><a href="https://github.com/WORD-COINS/texfiles">https://github.com/WORD-COINS/texfiles</a> <a href="#fnref12" rev="footnote">↩</a></p>
+<p><a href="https://github.com/WORD-COINS/texfiles" target="_blank" rel="noopener noreferrer">https://github.com/WORD-COINS/texfiles</a> <a href="#fnref12" rev="footnote">↩</a></p>
 </li>
 
 </ol>
@@ -304,9 +304,9 @@ xmodmapで超高速記号タイピングなども書きたかったんですが�
     </div>
     <footer>
       <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
-        <a class="btn prev" href="/2017/12/03/Menhir%E3%81%8C%E4%BE%BF%E5%88%A9.html" title="Menhirが便利">&larr; Prev</a>
-        &#47;<a class="btn" href="/">Top</a>&#47;
-        <a class="btn next" href="/2017/12/23/%E7%AD%8B%E8%82%89%E5%81%8F%E5%B7%AE%E5%80%A470.html" title="筋肉偏差値70">Next &rarr;</a>
+        <a class="btn prev" href="/2017/12/03/Menhir%E3%81%8C%E4%BE%BF%E5%88%A9.html" title="Menhirが便利">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2017/12/23/%E7%AD%8B%E8%82%89%E5%81%8F%E5%B7%AE%E5%80%A470.html" title="筋肉偏差値70">Next →</a>
       </div>
     </footer>
 

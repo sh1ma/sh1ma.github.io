@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-11-16T00:00:00+09:00" />
 <script type="application/ld+json">
-{"description":"lily, Aikatsu, Programming language, and more","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"@type":"BlogPosting","url":"https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html","headline":"Lua VMに見る多値の扱い","dateModified":"2018-11-16T00:00:00+09:00","datePublished":"2018-11-16T00:00:00+09:00","@context":"http://schema.org"}</script>
+{"description":"lily, Aikatsu, Programming language, and more","headline":"Lua VMに見る多値の扱い","dateModified":"2018-11-16T00:00:00+09:00","@type":"BlogPosting","datePublished":"2018-11-16T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html"},"url":"https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
@@ -63,24 +63,23 @@
             <h1 class="post-title" itemprop="name headline">Lua VMに見る多値の扱い</h1>
             <span class="post-meta">
               <time datetime="2018-11-16T00:00:00+09:00" itemprop="datePublished">Nov 16, 2018</time>
-              <p>tag: &#123;<a href="/tags.html#Go-ref">Go</a>, <a href="/tags.html#Lua VM-ref">Lua VM</a>, <a href="/tags.html#多値-ref">多値</a>, <a href="/tags.html#multiple value-ref">multiple value</a>&#125;</p>
+              <p>tag: {<a href="/tags.html#Go-ref">Go</a>, <a href="/tags.html#Lua%20VM-ref">Lua VM</a>, <a href="/tags.html#%E5%A4%9A%E5%80%A4-ref">多値</a>, <a href="/tags.html#multiple%20value-ref">multiple value</a>}</p>
             </span>
             <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
             <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
             <!-- The loading of KaTeX is deferred to speed up page rendering -->
             <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
-            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"
-                    onload="renderMathInElement(document.body);"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡</p>
 <h1 id="1">1. はじめに</h1>
 <p>さて､最近は多値に関する議論がホットだったようです｡
 ホットスポットはこちらの様子｡</p>
-<p><a href="http://bleis-tift.hatenablog.com/entry/multiple-values">多値について本気で考えてみた - ぐるぐる～</a></p>
+<p><a href="http://bleis-tift.hatenablog.com/entry/multiple-values" target="_blank" rel="noopener noreferrer">多値について本気で考えてみた - ぐるぐる～</a></p>
 <p>なるほど｡
-<a href="http://bleis-tift.hatenablog.com/entry/go-the-bad-parts">こちら</a><label id="kochira"></label>も見ておこう｡
+<a href="http://bleis-tift.hatenablog.com/entry/go-the-bad-parts" target="_blank" rel="noopener noreferrer">こちら</a><label id="kochira"></label>も見ておこう｡
 どうやらGoは多値が使えたり使えなかったりするらしい｡
 個人的には使えるか使えない(tupleにするとか)かのどちらかのほうが良い言語デザインだと思うけど､ユーザが問題ないなら…｡</p>
 <p>本稿ではLua VMが使える代表的な言語Luaを例に､Goとの多値の違いに付いて見ていき､Lua VMおよびLuaの多値の扱いが良い感じなことを確認したい｡
@@ -398,7 +397,7 @@ Lua VMは三番地コードを採用している｡
 第3オペランドがtableへのアクセスに使う値を決めるものであり､負のときは定数リストの<code>第3オペランド * -1 - 1</code>番目のキーを使う｡</p>
 <p><code>LOADK</code>で定数リストから<code>"Hello"</code>を取り出し､レジスタ1に格納する｡</p>
 <p><code>CALL</code>で関数呼出しをおこなう｡
-<label id="lopcodes.h"></label> <a href="https://github.com/lua/lua/blob/v5-3-4/lopcodes.h">命令の定義</a>に書かれたコメントを見てみる｡</p>
+<label id="lopcodes.h"></label> <a href="https://github.com/lua/lua/blob/v5-3-4/lopcodes.h" target="_blank" rel="noopener noreferrer">命令の定義</a>に書かれたコメントを見てみる｡</p>
 <div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">OP_CALL</span><span class="p">,</span><span class="cm">/*  A B C  R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) */</span>
 </code></pre></div>
 <p>分かる､分からない…｡
@@ -577,7 +576,7 @@ Luaにファーストクラスの継続はないが､だいたい継続であ�
 <p>ひさしぶりにLuaに思いを馳せたので思い出したり資料をのぞいたりで執筆に結構時間がかかってしまった｡</p>
 <p>ところで!
 VM型インタプリタ面白いなと思った方は､ぜひこちらをご覧ください｡</p>
-<p><a href="https://dragonuniversity.booth.pm/items/1055860">Dragon University 技術書典5 - Dragon University - BOOTH（同人誌通販・ダウンロード）</a></p>
+<p><a href="https://dragonuniversity.booth.pm/items/1055860" target="_blank" rel="noopener noreferrer">Dragon University 技術書典5 - Dragon University - BOOTH（同人誌通販・ダウンロード）</a></p>
 <p>宣伝おわり</p>
 <div class="footnotes">
 <hr>
@@ -588,7 +587,7 @@ VM型インタプリタ面白いなと思った方は､ぜひこちらをご覧
 </li>
 
 <li id="fn2">
-<p><a href="https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219">https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219</a> <a href="#fnref2" rev="footnote">↩</a></p>
+<p><a href="https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219" target="_blank" rel="noopener noreferrer">https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219</a> <a href="#fnref2" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn3">
@@ -604,9 +603,9 @@ VM型インタプリタ面白いなと思った方は､ぜひこちらをご覧
     </div>
     <footer>
       <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
-        <a class="btn prev" href="/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F-%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99.html" title="subfilesを使ってみんなで記事を書く､しおりも出す">&larr; Prev</a>
-        &#47;<a class="btn" href="/">Top</a>&#47;
-        <a class="btn next" href="/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html" title="Lily58による.xmodmapのハードウェア実装">Next &rarr;</a>
+        <a class="btn prev" href="/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F-%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99.html" title="subfilesを使ってみんなで記事を書く､しおりも出す">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html" title="Lily58による.xmodmapのハードウェア実装">Next →</a>
       </div>
     </footer>
 

@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2016-06-07T00:00:00+09:00" />
 <script type="application/ld+json">
-{"description":"こんにちは､びしょ〜じょです｡イベントに複数行ったらお金がなくなりました｡","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2016/06/07/lua533.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"@type":"BlogPosting","url":"https://nymphium.github.io/2016/06/07/lua533.html","headline":"Lua 5.3.3 release - 変更に&quot;python rule&quot;とありますが -","dateModified":"2016-06-07T00:00:00+09:00","datePublished":"2016-06-07T00:00:00+09:00","@context":"http://schema.org"}</script>
+{"description":"こんにちは､びしょ〜じょです｡イベントに複数行ったらお金がなくなりました｡","headline":"Lua 5.3.3 release - 変更に&quot;python rule&quot;とありますが -","dateModified":"2016-06-07T00:00:00+09:00","@type":"BlogPosting","datePublished":"2016-06-07T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2016/06/07/lua533.html"},"url":"https://nymphium.github.io/2016/06/07/lua533.html","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
@@ -63,26 +63,25 @@
             <h1 class="post-title" itemprop="name headline">Lua 5.3.3 release - 変更に"python rule"とありますが -</h1>
             <span class="post-meta">
               <time datetime="2016-06-07T00:00:00+09:00" itemprop="datePublished">Jun 7, 2016</time>
-              <p>tag: &#123;<a href="/tags.html#Lua-ref">Lua</a>&#125;</p>
+              <p>tag: {<a href="/tags.html#Lua-ref">Lua</a>}</p>
             </span>
             <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
             <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
             <!-- The loading of KaTeX is deferred to speed up page rendering -->
             <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
-            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"
-                    onload="renderMathInElement(document.body);"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡イベントに複数行ったらお金がなくなりました｡</p>
 <hr>
 <h1 id="1">1. はじめに</h1>
 <p>Lua 5.3.3がリリースされました｡</p>
-<p><a href="http://www.lua.org/work/diffu-lua-5.3.2-lua-5.3.3.html">diffu-lua-5.3.2-lua-5.3.3</a></p>
+<p><a href="http://www.lua.org/work/diffu-lua-5.3.2-lua-5.3.3.html" target="_blank" rel="noopener noreferrer">diffu-lua-5.3.2-lua-5.3.3</a></p>
 <p>5.3.2からのアップデートなのでbug fix <em>だけ</em> かと思いきや…｡</p>
 <h1 id="2-new-semantics-for-empty-matches-python-rule">2. new semantics for empty matches (“python rule”)</h1>
 <p>Lua 5.3.3-rc1のリリースではこんな感じのことが書かれてました｡</p>
-<p><a href="http://lua-users.org/lists/lua-l/2016-05/msg00068.html">Re: [ANN] Lua 5.3.3 (rc1) now available</a></p>
+<p><a href="http://lua-users.org/lists/lua-l/2016-05/msg00068.html" target="_blank" rel="noopener noreferrer">Re: [ANN] Lua 5.3.3 (rc1) now available</a></p>
 <blockquote>
 <ul>
 <li>new semantics for empty matches (“Python rule”)</li>
@@ -189,9 +188,9 @@ X1X2X3X 4
     </div>
     <footer>
       <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
-        <a class="btn prev" href="/2016/05/16/luatable.html" title="Luaのtableについて">&larr; Prev</a>
-        &#47;<a class="btn" href="/">Top</a>&#47;
-        <a class="btn next" href="/2016/06/11/%E4%BB%8A%E6%97%A5%E3%81%AFSB69%E3%81%AE%E6%97%A5.html" title="今日はSB69の日">Next &rarr;</a>
+        <a class="btn prev" href="/2016/05/16/luatable.html" title="Luaのtableについて">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2016/06/11/%E4%BB%8A%E6%97%A5%E3%81%AFSB69%E3%81%AE%E6%97%A5.html" title="今日はSB69の日">Next →</a>
       </div>
     </footer>
 

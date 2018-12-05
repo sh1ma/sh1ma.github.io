@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2016-12-11T00:00:00+09:00" />
 <script type="application/ld+json">
-{"description":"こんにちは､びしょ〜じょです｡これは言語実装 Advent Calendar 201611日目の記事です｡ 百合が好きなんですが､百合以外にも活動はしているということで､百合以外の活動について今回触れたいと､えぇ､思います｡","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2016/12/11/Use_Define_chain.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"@type":"BlogPosting","url":"https://nymphium.github.io/2016/12/11/Use_Define_chain.html","headline":"Define-Use chainとその構成法","dateModified":"2016-12-11T00:00:00+09:00","datePublished":"2016-12-11T00:00:00+09:00","@context":"http://schema.org"}</script>
+{"description":"こんにちは､びしょ〜じょです｡これは言語実装 Advent Calendar 201611日目の記事です｡ 百合が好きなんですが､百合以外にも活動はしているということで､百合以外の活動について今回触れたいと､えぇ､思います｡","headline":"Define-Use chainとその構成法","dateModified":"2016-12-11T00:00:00+09:00","@type":"BlogPosting","datePublished":"2016-12-11T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2016/12/11/Use_Define_chain.html"},"url":"https://nymphium.github.io/2016/12/11/Use_Define_chain.html","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
@@ -63,28 +63,27 @@
             <h1 class="post-title" itemprop="name headline">Define-Use chainとその構成法</h1>
             <span class="post-meta">
               <time datetime="2016-12-11T00:00:00+09:00" itemprop="datePublished">Dec 11, 2016</time>
-              <p>tag: &#123;<a href="/tags.html#Lua-ref">Lua</a>, <a href="/tags.html#MoonScript-ref">MoonScript</a>&#125;</p>
+              <p>tag: {<a href="/tags.html#Lua-ref">Lua</a>, <a href="/tags.html#MoonScript-ref">MoonScript</a>}</p>
             </span>
             <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
             <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
             <!-- The loading of KaTeX is deferred to speed up page rendering -->
             <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
-            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"
-                    onload="renderMathInElement(document.body);"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
           </header>
           <div class="post-content" itemprop="articleBody">
-<p>こんにちは､びしょ〜じょです｡これは<a href="http://qiita.com/advent-calendar/2016/lang_dev">言語実装 Advent Calendar 2016</a>11日目の記事です｡
+<p>こんにちは､びしょ〜じょです｡これは<a href="http://qiita.com/advent-calendar/2016/lang_dev" target="_blank" rel="noopener noreferrer">言語実装 Advent Calendar 2016</a>11日目の記事です｡
 百合が好きなんですが､百合以外にも活動はしているということで､百合以外の活動について今回触れたいと､えぇ､思います｡</p>
 <h1 id="1">1. はじめに</h1>
-<p>今年は通年の講義で<a href="https://lua.org">Lua</a> VMのバイトコードの最適化器を作っています｡
+<p>今年は通年の講義で<a href="https://lua.org" target="_blank" rel="noopener noreferrer">Lua</a> VMのバイトコードの最適化器を作っています｡
 去年は<a href="https://nymphium.github.io/2016/01/13/llix.html">こんなもの</a>を作ってました｡
 最適化器は最終報告会の後に公開しようと思っています｡</p>
 <p>さて､とある文による定義(や代入)がそれ以降使われないとき､その文を削除したいなんていうケースがあります｡
-はい､<a href="https://en.wikipedia.org/wiki/Dead_code_elimination">dead code elimination</a>などです｡
+はい､<a href="https://en.wikipedia.org/wiki/Dead_code_elimination" target="_blank" rel="noopener noreferrer">dead code elimination</a>などです｡
 この"それ以降使われない"かどうかの判別に<em>Define-Use Chain</em>を使います｡</p>
 <h2 id="1-1-prerequirements">1-1. prerequirements</h2>
-<p>まずひとつに､example codesは実装言語に倣って<a href="https://moonscript.org">MoonScript</a>を使います｡
+<p>まずひとつに､example codesは実装言語に倣って<a href="https://moonscript.org" target="_blank" rel="noopener noreferrer">MoonScript</a>を使います｡
 あまり分からなくてもいいですが､Luaのtableについて知っておいてもらえるとありがたいです､まぁだいたい連想配列でいいですはい｡</p>
 <p>それともう一つ､今回は<em>Lua VM</em>というレジスターベースのVMの命令をターゲットにして進めます｡
 Lua VM 5.3には47個の命令がありますが､今回簡単のため以下の5つで戦わせていただきます｡</p>
@@ -161,7 +160,7 @@ constant list: [3, 5, 7, 9]
 ということで書く｡</p>
 <h1 id="2-what-is-define-use-chain">2. What is Define-Use Chain?</h1>
 <p>Wikipediaを読んで知った気になるのが趣味なので､Wikipediaを引用します｡</p>
-<p><a href="https://en.wikipedia.org/wiki/Use-define_chain">Use-define chain - Wikipedia</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Use-define_chain" target="_blank" rel="noopener noreferrer">Use-define chain - Wikipedia</a></p>
 <blockquote>
 <p>A Use-Definition Chain (UD Chain) is a data structure that consists of a use, U, of a variable, and all the definitions, D, of that variable that can reach that use without any other intervening definitions.
 A definition can have many forms, but is generally taken to mean the assignment of some value to a variable (which is different from the use of the term that refers to the language construct involving a data type and allocating storage).</p>
@@ -493,23 +492,23 @@ RETURN 0 1
 <ol>
 
 <li id="fn1">
-<p>Dibyendu Majumdar. <a href="https://github.com/dibyendumajumdar/ravi/blob/master/readthedocs/lua_bytecode_reference.rst">Lua 5.3 Bytecode Reference</a> <a href="#fnref1" rev="footnote">↩</a></p>
+<p>Dibyendu Majumdar. <a href="https://github.com/dibyendumajumdar/ravi/blob/master/readthedocs/lua_bytecode_reference.rst" target="_blank" rel="noopener noreferrer">Lua 5.3 Bytecode Reference</a> <a href="#fnref1" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn2">
-<p>Kein-Hong Man. <a href="http://luaforge.net/docman/83/98/ANoFrillsIntroToLua51VMInstructions.pdf">A No-Frills Introduction to Lua 5.1 VM Instructions</a> <a href="#fnref2" rev="footnote">↩</a></p>
+<p>Kein-Hong Man. <a href="http://luaforge.net/docman/83/98/ANoFrillsIntroToLua51VMInstructions.pdf" target="_blank" rel="noopener noreferrer">A No-Frills Introduction to Lua 5.1 VM Instructions</a> <a href="#fnref2" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn3">
-<p>中田 育男, 佐々木 正孝, 滝本 宗宏, 渡邉 担. <a href="https://www.amazon.co.jp/%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E3%81%AE%E5%9F%BA%E7%9B%A4%E6%8A%80%E8%A1%93%E3%81%A8%E5%AE%9F%E8%B7%B5_%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E3%83%BB%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3COINS%E3%82%92%E7%94%A8%E3%81%84%E3%81%A6-%E4%B8%AD%E7%94%B0-%E8%82%B2%E7%94%B7/dp/4254121733">コンパイラの基盤技術と実践―コンパイラ・インフラストラクチャCOINSを用いて</a> <a href="#fnref3" rev="footnote">↩</a></p>
+<p>中田 育男, 佐々木 正孝, 滝本 宗宏, 渡邉 担. <a href="https://www.amazon.co.jp/%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E3%81%AE%E5%9F%BA%E7%9B%A4%E6%8A%80%E8%A1%93%E3%81%A8%E5%AE%9F%E8%B7%B5_%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E3%83%BB%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%83%81%E3%83%A3COINS%E3%82%92%E7%94%A8%E3%81%84%E3%81%A6-%E4%B8%AD%E7%94%B0-%E8%82%B2%E7%94%B7/dp/4254121733" target="_blank" rel="noopener noreferrer">コンパイラの基盤技術と実践―コンパイラ・インフラストラクチャCOINSを用いて</a> <a href="#fnref3" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn4">
-<p>Zdenek Dvorák, Jan Hubicka, Pavel Nejedlý, Josef Zlomek. <a href="http://www.ucw.cz/%7Ehubicka/papers/proj/node18.html#CFG">Control Flow Graph - Infrastructure for Profile Driven Optimizations in GCC Compiler</a> <a href="#fnref4" rev="footnote">↩</a></p>
+<p>Zdenek Dvorák, Jan Hubicka, Pavel Nejedlý, Josef Zlomek. <a href="http://www.ucw.cz/%7Ehubicka/papers/proj/node18.html#CFG" target="_blank" rel="noopener noreferrer">Control Flow Graph - Infrastructure for Profile Driven Optimizations in GCC Compiler</a> <a href="#fnref4" rev="footnote">↩</a></p>
 </li>
 
 <li id="fn5">
-<p>Enrique Garcíao. <a href="https://github.com/kikito/inspect.lua">inspect.lua</a> <a href="#fnref5" rev="footnote">↩</a></p>
+<p>Enrique Garcíao. <a href="https://github.com/kikito/inspect.lua" target="_blank" rel="noopener noreferrer">inspect.lua</a> <a href="#fnref5" rev="footnote">↩</a></p>
 </li>
 
 </ol>
@@ -521,9 +520,9 @@ RETURN 0 1
     </div>
     <footer>
       <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
-        <a class="btn prev" href="/2016/11/18/%E8%AA%AD%E3%82%93%E3%81%A0.html" title="読書の秋､ファミレスのドリンクバーで粘る秋">&larr; Prev</a>
-        &#47;<a class="btn" href="/">Top</a>&#47;
-        <a class="btn next" href="/2016/12/13/%E3%81%94%E5%A0%B1%E5%91%8A.html" title="ご報告">Next &rarr;</a>
+        <a class="btn prev" href="/2016/11/18/%E8%AA%AD%E3%82%93%E3%81%A0.html" title="読書の秋､ファミレスのドリンクバーで粘る秋">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2016/12/13/%E3%81%94%E5%A0%B1%E5%91%8A.html" title="ご報告">Next →</a>
       </div>
     </footer>
 

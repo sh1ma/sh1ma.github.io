@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-12-02T00:00:00+09:00" />
 <script type="application/ld+json">
-{"description":"こんにちは､びしょ〜じょです｡ これはWORDIAN Advent Calendar 2018の2日目の記事です｡","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"@type":"BlogPosting","url":"https://nymphium.github.io/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html","headline":"Lily58による.xmodmapのハードウェア実装","dateModified":"2018-12-02T00:00:00+09:00","datePublished":"2018-12-02T00:00:00+09:00","@context":"http://schema.org"}</script>
+{"description":"こんにちは､びしょ〜じょです｡ これはWORDIAN Advent Calendar 2018の2日目の記事です｡","headline":"Lily58による.xmodmapのハードウェア実装","dateModified":"2018-12-02T00:00:00+09:00","@type":"BlogPosting","datePublished":"2018-12-02T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html"},"url":"https://nymphium.github.io/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/2018/12/02/Lily58による.xmodmapのハードウェア実装/thumb.png"/>
@@ -63,27 +63,26 @@
             <h1 class="post-title" itemprop="name headline">Lily58による.xmodmapのハードウェア実装</h1>
             <span class="post-meta">
               <time datetime="2018-12-02T00:00:00+09:00" itemprop="datePublished">Dec 2, 2018</time>
-              <p>tag: &#123;<a href="/tags.html#WORD-ref">WORD</a>, <a href="/tags.html#自作キーボード-ref">自作キーボード</a>, <a href="/tags.html#lily58-ref">lily58</a>, <a href="/tags.html#qmk_firmware-ref">qmk_firmware</a>, <a href="/tags.html#xmodmap-ref">xmodmap</a>&#125;</p>
+              <p>tag: {<a href="/tags.html#WORD-ref">WORD</a>, <a href="/tags.html#%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89-ref">自作キーボード</a>, <a href="/tags.html#lily58-ref">lily58</a>, <a href="/tags.html#qmk_firmware-ref">qmk_firmware</a>, <a href="/tags.html#xmodmap-ref">xmodmap</a>}</p>
             </span>
             <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
             <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
             <!-- The loading of KaTeX is deferred to speed up page rendering -->
             <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
-            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"
-                    onload="renderMathInElement(document.body);"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡
-これは<a href="https://adventar.org/calendars/3536">WORDIAN Advent Calendar 2018</a>の2日目の記事です｡</p>
+これは<a href="https://adventar.org/calendars/3536" target="_blank" rel="noopener noreferrer">WORDIAN Advent Calendar 2018</a>の2日目の記事です｡</p>
 <p>12月2日といえば､翌3日は冴草きいちゃんの誕生日ですね!!!!!!!!!!!
 めでたいですね｡
 何度でも言うぞ｡</p>
 <hr>
-<p>さて今回はWORD部員協賛のもと､<a href="https://booth.pm/ja/items/1079687">Lily58</a>というキーボードを作りました｡</p>
+<p>さて今回はWORD部員協賛のもと､<a href="https://booth.pm/ja/items/1079687" target="_blank" rel="noopener noreferrer">Lily58</a>というキーボードを作りました｡</p>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr">寝ぼけてLily58ポチってしまった｡</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1063171636998754304?ref_src=twsrc%5Etfw">November 15, 2018</a>
+<p lang="ja" dir="ltr">寝ぼけてLily58ポチってしまった｡</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1063171636998754304?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">November 15, 2018</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
@@ -91,28 +90,28 @@
 <p>上記のセットに加え､キースイッチとキーキャップを58個(とUSBケーブルとTRSケーブルを)揃える必要があります｡</p>
 <p>WORD編集部室には3x3で全色異なるキースイッチのサンプルがあるので､お手元が寂しくなるとつい手を動かしてしまうW部員達には重宝されている｡
 カチカチしまくった結果､緑軸が良いな〜と思ったので緑軸にしようとしたものの､ちょうどどこを探しても8000個から仕入れ可能みたいなものしかなかった｡
-仕方がないので､<a href="https://yushakobo.jp/shop/pg1350/">遊舎工房でKailhのロープロ白軸</a>を買った｡
+仕方がないので､<a href="https://yushakobo.jp/shop/pg1350/" target="_blank" rel="noopener noreferrer">遊舎工房でKailhのロープロ白軸</a>を買った｡
 カチカチとクリック感があり､青軸のようにうるさいのでパソコンカタカタオタク演ってる感がでて良いかな〜というのが選定理由だ｡</p>
 <h1 id="part-654296cad72">作る</h1>
-<p>3月の引越しにつき祖父からもらったり実家からパチってきた激古はんだごてを全部捨ててしまったため､部員の<a href="https://twitter.com/rizaudo">@rizaudo</a>氏にはんだごてを借り､ついでに編集部室で作業をおこなう｡</p>
-<p><a href="https://github.com/kata0510/Lily58/blob/master/doc/buildguide_jp.md">ビルドガイド</a>にしたがって作っていく｡</p>
+<p>3月の引越しにつき祖父からもらったり実家からパチってきた激古はんだごてを全部捨ててしまったため､部員の<a href="https://twitter.com/rizaudo" target="_blank" rel="noopener noreferrer">@rizaudo</a>氏にはんだごてを借り､ついでに編集部室で作業をおこなう｡</p>
+<p><a href="https://github.com/kata0510/Lily58/blob/master/doc/buildguide_jp.md" target="_blank" rel="noopener noreferrer">ビルドガイド</a>にしたがって作っていく｡</p>
 <h2 id="pro-micro-1">pro micro事件1</h2>
 <p>が…</p>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr">前回までのラブライブ！ 逆に取り付けたので半田吸い取り機を使おうとするも半壊しているのでトーストでハンダを溶かそうとするもまたもや失敗。 <a href="https://t.co/cww2frd9vB">pic.twitter.com/cww2frd9vB</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1064870457642442752?ref_src=twsrc%5Etfw">November 20, 2018</a>
+<p lang="ja" dir="ltr">前回までのラブライブ！ 逆に取り付けたので半田吸い取り機を使おうとするも半壊しているのでトーストでハンダを溶かそうとするもまたもや失敗。 <a href="https://t.co/cww2frd9vB" target="_blank" rel="noopener noreferrer">pic.twitter.com/cww2frd9vB</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1064870457642442752?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">November 20, 2018</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 <p>ヘ タ ク ソ<sup id="fnref1" title="ビルドガイドがボクの失敗を見たためかどうか､失敗したポイントについて丁寧な解説が加えられている｡みなさんは私の屍を超えて失敗レスに作ることができます｡ "><a href="#fn1" rel="footnote">1</a></sup></p>
 <p>トーストによるハンダクラックは無事失敗｡
 部室にあったポンコツハンダ吸い取り器や､部員のハジョン氏にハンダ吸い取り線を借りるも難航｡
-rizaudo氏や部室を常時警備している<a href="https://twitter.com/akkkix">@akkkix</a>氏の協力のもとハンダを吸いまくるも取れる気配がない｡
-<a href="https://twitter.com/NTSC_J">@NTSC_J</a>氏にも部室にあるものよりも使えるハンダ吸い取り器を持ってきてもらい､交代しながらハンダを吸っていく｡</p>
+rizaudo氏や部室を常時警備している<a href="https://twitter.com/akkkix" target="_blank" rel="noopener noreferrer">@akkkix</a>氏の協力のもとハンダを吸いまくるも取れる気配がない｡
+<a href="https://twitter.com/NTSC_J" target="_blank" rel="noopener noreferrer">@NTSC_J</a>氏にも部室にあるものよりも使えるハンダ吸い取り器を持ってきてもらい､交代しながらハンダを吸っていく｡</p>
 <p>日が変わり､そして―</p>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr">100年プロジェクトが完成した。 <a href="https://t.co/dFbRgmX33e">pic.twitter.com/dFbRgmX33e</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1064957919215538177?ref_src=twsrc%5Etfw">November 20, 2018</a>
+<p lang="ja" dir="ltr">100年プロジェクトが完成した。 <a href="https://t.co/dFbRgmX33e" target="_blank" rel="noopener noreferrer">pic.twitter.com/dFbRgmX33e</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1064957919215538177?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">November 20, 2018</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
@@ -129,9 +128,10 @@ rizaudo氏や部室を常時警備している<a href="https://twitter.com/akkki
 謝謝茄子｡</p>
 <p>問題は前者である｡
 pro microを使う他の自作キーボードを作ってるブログなどを見てみると､なんかpro microを非対称(?)に付ける必要があるっぽいな…???</p>
-<p>(<strong><em>作ってる時には説明なかった</em></strong>)<a href="https://github.com/kata0510/Lily58/blob/master/doc/buildguide_jp.md#pro-micro%E3%82%92%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91%E3%81%99%E3%82%8B">pro microを取り付ける部分</a>はたしかになんか書いてありますねぇ!!</p>
+<p>(<strong><em>作ってる時には説明なかった</em></strong>)<a href="https://github.com/kata0510/Lily58/blob/master/doc/buildguide_jp.md#pro-micro%E3%82%92%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91%E3%81%99%E3%82%8B" target="_blank" rel="noopener noreferrer">pro microを取り付ける部分</a>はたしかになんか書いてありますねぇ!!</p>
 <p>恐怖のハンダ吸いが再び始まり―</p>
-<p></p><center>
+<p></p>
+<center>
 <label id="yaba"></label>
 <img src="/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/pinsocket.png" alt="やばい" title="yabai">
 図<a href="#yaba">1</a> ピンヘッダをなんとかしようとするrizaudoとakkkix
@@ -140,13 +140,13 @@ pro microを使う他の自作キーボードを作ってるブログなどを�
 </center>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr">pro micro救出に成功 <a href="https://t.co/h3GMcZt1NU">pic.twitter.com/h3GMcZt1NU</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1065120644726054912?ref_src=twsrc%5Etfw">November 21, 2018</a>
+<p lang="ja" dir="ltr">pro micro救出に成功 <a href="https://t.co/h3GMcZt1NU" target="_blank" rel="noopener noreferrer">pic.twitter.com/h3GMcZt1NU</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1065120644726054912?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">November 21, 2018</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr">pro microを救いきれなかったので破棄そして新しいのを注文して明日再開…｡</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1065133627883708417?ref_src=twsrc%5Etfw">November 21, 2018</a>
+<p lang="ja" dir="ltr">pro microを救いきれなかったので破棄そして新しいのを注文して明日再開…｡</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1065133627883708417?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">November 21, 2018</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
@@ -154,20 +154,21 @@ pro microを使う他の自作キーボードを作ってるブログなどを�
 <p>仕方がないのでハードウェア的に問題ない半分を完成させた｡</p>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr">半分完成!!!（16時間経過） <a href="https://t.co/MUhWVl3TEv">pic.twitter.com/MUhWVl3TEv</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1065115902633365504?ref_src=twsrc%5Etfw">November 21, 2018</a>
+<p lang="ja" dir="ltr">半分完成!!!（16時間経過） <a href="https://t.co/MUhWVl3TEv" target="_blank" rel="noopener noreferrer">pic.twitter.com/MUhWVl3TEv</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1065115902633365504?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">November 21, 2018</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
-<p>早速<a href="https://www.amazon.co.jp/gp/product/B01M6WULAO/">代打</a>を注文し､激戦の翌々日に届き､ネタが割れてしまえば爆速で完成｡</p>
+<p>早速<a href="https://www.amazon.co.jp/gp/product/B01M6WULAO/" target="_blank" rel="noopener noreferrer">代打</a>を注文し､激戦の翌々日に届き､ネタが割れてしまえば爆速で完成｡</p>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr">lily58、pro microを一つ失って完成…!!!! <a href="https://t.co/ybr8uP24Lo">pic.twitter.com/ybr8uP24Lo</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1065851007630888960?ref_src=twsrc%5Etfw">November 23, 2018</a>
+<p lang="ja" dir="ltr">lily58、pro microを一つ失って完成…!!!! <a href="https://t.co/ybr8uP24Lo" target="_blank" rel="noopener noreferrer">pic.twitter.com/ybr8uP24Lo</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1065851007630888960?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">November 23, 2018</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 <h2 id="tips">tips</h2>
 <p>ロープロファイルだとアクリル板を止めるネジの頭にキーキャップが当たるので､キーキャップをちょっと削る必要がある(図<a href="#kezuri">2</a>)｡</p>
-<p></p><center>
+<p></p>
+<center>
 <label id="kezuri"></label>
 <img src="/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/kezuri.png" alt="削る" title="削る様子">
 図<a href="#kezuri">2</a> 削ったキーキャップ
@@ -182,7 +183,7 @@ pro microを使う他の自作キーボードを作ってるブログなどを�
 <h1 id="qmk-firmware">qmk firmware</h1>
 <h2 id="xmodmap">xmodmapとはなんだったのか</h2>
 <p>まずはこちらをご覧ください｡</p>
-<p><a href="https://github.com/Nymphium/settings/blob/master/settingfiles/dots/.xmodmap">settings/settingfiles/dots/.xmodmap</a></p>
+<p><a href="https://github.com/Nymphium/settings/blob/master/settingfiles/dots/.xmodmap" target="_blank" rel="noopener noreferrer">settings/settingfiles/dots/.xmodmap</a></p>
 <p>例えばキーボードの<code>3</code>を押すと<code>3</code>が入力され､<code>Shift</code>も一緒に押すと<code>#</code>が入力されたりする｡
 <code>Shift</code>のように､一緒におすとキーの入力が変わるのを修飾キーと呼びます｡
 他にも<code>Ctrl</code>も修飾キー｡
@@ -196,7 +197,7 @@ xmodmapによってキーマップを変更し､<code>AltGr</code>が使える�
 <p>X11アプリケーションなのでX Window Systemが動いてないといけない｡
 なのでWindowsとかXのない状況では諦めざるを得ない｡</p>
 <p>もう一つ重大な問題としては､キーコードに対するマッピングでしかないということである｡
-詳細は<a href="https://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%89">ウィキピージャ</a>見てください｡
+詳細は<a href="https://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%89" target="_blank" rel="noopener noreferrer">ウィキピージャ</a>見てください｡
 なにかアプリケーションでキー入力を受け付けるとき､文字コードではなくキーコードを受け付けている場合非常に困る｡</p>
 <h2 id="part-f86bf31bd42eedcf">そこでファームウェア</h2>
 <p>qmk_firmwareは名前の通りファームウェアでして､こいつを使うことでキースイッチの入力に対応する<em>キーコード</em>をプログラムすることができる｡</p>
@@ -206,7 +207,7 @@ xmodmapによってキーマップを変更し､<code>AltGr</code>が使える�
 <p>qmkにはレイヤという概念があり､上記の<code>AltGr</code>のような事を､レイヤを切り替えることによって実現している｡
 このレイヤはユーザによっていっぱい作れるので､様々なレイヤを定義､しよう｡</p>
 <p>そしてボクのキーマップはこんな感じになった｡</p>
-<p><a href="https://github.com/Nymphium/qmk_firmware/blob/nymphium/keyboards/lily58/keymaps/nymphium/keymap.c">https://github.com/Nymphium/qmk_firmware/blob/nymphium/keyboards/lily58/keymaps/nymphium/keymap.c</a></p>
+<p><a href="https://github.com/Nymphium/qmk_firmware/blob/nymphium/keyboards/lily58/keymaps/nymphium/keymap.c" target="_blank" rel="noopener noreferrer">https://github.com/Nymphium/qmk_firmware/blob/nymphium/keyboards/lily58/keymaps/nymphium/keymap.c</a></p>
 <p>キーマップのレイヤごとにAAを書くというのが習慣らしい｡
 たしかに分かりやすい(実際の設定と一致してれば)｡</p>
 <div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cm">/* DEFAULT
@@ -339,9 +340,9 @@ xmodmapによってキーマップを変更し､<code>AltGr</code>が使える�
     </div>
     <footer>
       <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
-        <a class="btn prev" href="/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html" title="Lua VMに見る多値の扱い">&larr; Prev</a>
-        &#47;<a class="btn" href="/">Top</a>&#47;
-        <span class="btn next disabled">Next &rarr;</span>
+        <a class="btn prev" href="/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html" title="Lua VMに見る多値の扱い">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <span class="btn next disabled">Next →</span>
       </div>
     </footer>
 
