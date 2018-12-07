@@ -85,7 +85,7 @@
 </div>
 <p>右の方を天に還す｡</p>
 <p>で､Archをまたインストールバトルでな､はい｡インストール記事はインターネットの海にいっぱいあるのでそちらにアウトソーシングし､インストール直後の設定について書きたい｡インストーラでブートローダなどを設定した後のあたりから｡yaourtくらいは入れておいてほしい｡</p>
-<h2 id="f2fs">F2FS</h2>
+<h2 id="F2FS"><a class="headerlink" href="#F2FS">F2FS</a></h2>
 <p>推しFS｡Linux4.1でmisellaneousから昇格した｡4.2ではencryptionが入る｡</p>
 <div class="highlight"><pre><code class="language-" data-lang="">$ sudo pacman -S f2fs-tools
 $ sudo modprove f2fs
@@ -95,7 +95,7 @@ MODULES="... f2fs ..."
 ...
 $ mkinitcpio -p linux
 </code></pre></div>
-<h2 id="network">Network</h2>
+<h2 id="Network"><a class="headerlink" href="#Network">Network</a></h2>
 <p>なんでもかんでも<a href="https://wiki.archlinux.org/index.php/Systemd-networkd" target="_blank" rel="noopener noreferrer">systemd</a>に飲み込まれろ｡</p>
 <div class="highlight"><pre><code class="language-" data-lang="">% pacman -S vim wpa_supplicant
 % cat /etc/systemd/network/eth0.network
@@ -126,13 +126,13 @@ options cfg80211 ieee80211_regdom=JP
 <p>なんか上記は安定せず､dhcp + wpa_supplicantもびみょうだったのでNetworkManager落ちしました｡<code>nmtui</code>は便利｡</p>
 <p>(追記おわり)</p>
 <p><code>network/hoge.network</code>は名前なんでも良さそう｡</p>
-<h2 id="powertop">powertop</h2>
+<h2 id="powertop"><a class="headerlink" href="#powertop">powertop</a></h2>
 <p>バッテリーのみでも最大12hくらい動くようになる｡</p>
 <div class="highlight"><pre><code class="language-" data-lang="">$ yaourt -S powertop-autotune-systemd
 $ sudo powertop --calibrate
 $ sudo systemctl enable powertop-autotune.service
 </code></pre></div>
-<h2 id="trackpoint">TrackPoint</h2>
+<h2 id="TrackPoint"><a class="headerlink" href="#TrackPoint">TrackPoint</a></h2>
 <p>BIOSでTrackpadを抹殺してください｡</p>
 <div class="highlight"><pre><code class="language-" data-lang="">% pacman -S xf86-input-synaptics
 % modprobe -rv psmouse &amp;&amp; modprobe -v psmouse
@@ -149,7 +149,7 @@ Section "InputClass"
     Option          "XAxisMapping" "6 7" # horizontales Scrollen
 EndSection
 </code></pre></div>
-<h2 id="7-22">追記 7/22: でぃすぷれい</h2>
+<h2 id="%E8%BF%BD%E8%A8%98+7%2F22%3A+%E3%81%A7%E3%81%83%E3%81%99%E3%81%B7%E3%82%8C%E3%81%84"><a class="headerlink" href="#%E8%BF%BD%E8%A8%98+7%2F22%3A+%E3%81%A7%E3%81%83%E3%81%99%E3%81%B7%E3%82%8C%E3%81%84">追記 7/22: でぃすぷれい</a></h2>
 <p>(追記 7/23)</p>
 <p>全然ダメだった｡なんでX死んでしまうん…｡</p>
 <p>(追記終わり)</p>
@@ -165,7 +165,7 @@ No protocol specified
 </code></pre></div>
 <p>OK｡でもマイクラ1.8.7をやっているとi965-drvなんちゃらとかでエラーが出て落ちる｡でも他のpcでも起きているのでマイクラが悪い(断定)｡</p>
 <p>追記おわり</p>
-<h2 id="other">other</h2>
+<h2 id="other"><a class="headerlink" href="#other">other</a></h2>
 <p>tilda-gitはショートカットキーをどんなに変えてもCtrl+wで必ず"タブを閉じる"になるため､おとなしくcommunity/tildaを入れよう｡</p>
 <p>あとはHiDPIの項目を参照</p>
 <hr>

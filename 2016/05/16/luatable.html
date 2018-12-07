@@ -83,31 +83,31 @@
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 <hr>
-<h1 id="1">1. はじめに</h1>
-<h2 id="part-31d5a699563388c5">はじめにの前に</h2>
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
+<h2 id="%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB%E3%81%AE%E5%89%8D%E3%81%AB"><a class="headerlink" href="#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB%E3%81%AE%E5%89%8D%E3%81%AB">はじめにの前に</a></h2>
 <p>先日はこんな発表をしました｡</p>
 <p><a href="/pdf/tsukubapm3-luavm.html">Tsukuba.pm #3 LuaのVM</a></p>
 <p>内容はLua 5.2のVMのバイトコードを読むというもので､VMの命令とか定数をデコードするというものを作りました｡
 もうすこしなんかやりたいところでしたね…｡</p>
 <p>他には面白い発表が聞けたので楽しかったです｡</p>
-<h2 id="intro">intro</h2>
+<h2 id="intro"><a class="headerlink" href="#intro">intro</a></h2>
 <p>さて､同イベントに参加した<a href="https://twitter.com/_yyu_" target="_blank" rel="noopener noreferrer">@_yyu_ </a>さんにLuaのtableの実装について聞かれたんですが､そこまで詳しくなかったので答えられないというインシデントがありました｡
 唯一のデータ構造といわれると確かにそこが気になるはずだ｡ちなみにScalaでは<a href="https://en.wikipedia.org/wiki/Hash_array_mapped_trie" target="_blank" rel="noopener noreferrer">HAMT</a>という高速な操作ができるデータ構造が用意されているようだ｡</p>
 <p>さんざんLuaについて語っておいてそれはマズい､というわけでちょっとだけ調べた｡
 実装の詳細については資料がなかったのでソースを読まざるを得ない､しかしCはもう読みたくない､ということで実装の詳細には迫れなかったが､動作の概略を今回は掴んでみたい｡</p>
-<h1 id="2-lua-table">2. Luaのtableについて</h1>
+<h1 id="2.+Lua%E3%81%AEtable%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"><a class="headerlink" href="#2.+Lua%E3%81%AEtable%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">2. Luaのtableについて</a></h1>
 <p>今回はtableのhashとメモリ確保について｡</p>
 <p>Lua 4.0まではtableは完全にhash tableだったようですが､5.0以降はhash partとarray partという2つの構造を併せ持つハイブリッドな物体になっています｡
 これにより<code>t[1]</code>､<code>t[2]</code>､…などは､arrayの<code>n</code>番目という内部表現から得られるため､indexを保持する必要がなくなるなどの改善が得られました｡さて｡</p>
-<h1 id="3-allocation-index-key">3. allocationとindex/key</h1>
-<h2 id="3-1-key-or-index">3-1. key or index?</h2>
+<h1 id="3.+allocation%E3%81%A8index%2Fkey"><a class="headerlink" href="#3.+allocation%E3%81%A8index%2Fkey">3. allocationとindex/key</a></h1>
+<h2 id="3-1.+key+or+index%3F"><a class="headerlink" href="#3-1.+key+or+index%3F">3-1. key or index?</a></h2>
 <p>では以下のようなコードはどないすんじゃヴォケという考えに至ります｡</p>
 <div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">x</span><span class="p">[</span><span class="mi">10000</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"voke"</span>
 </code></pre></div>
 <p><code>x</code>の10000番目に値を入れるのか? 実はそうではない｡この場合<code>10000</code>という<em>key</em>に<code>"voke"</code>というvalueが入るため､<em><code>x</code>のarray partの長さは0</em>のままです｡</p>
 <p>数字は､プログラマーは､<strong>俺は､こいつはindexなのかkeyなのか</strong>､という問題に頭を抱えます｡</p>
-<h2 id="3-2-key-to-index">3-2. key to index</h2>
+<h2 id="3-2.+key+to+index"><a class="headerlink" href="#3-2.+key+to+index">3-2. key to index</a></h2>
 <p>数字の気持ちはともかく､プログラマーにはとりあえずなんとかわかりそうな気がしないでもない方法があります｡</p>
 <p>まずはarray partのサイズの確保について話します｡</p>
 <p>メモリ確保のタイミングはいつなのか｡
@@ -213,9 +213,9 @@ moor on MoonScript version 0.4.0 on Lua 5.3
 </code></pre></div>
 <p>なるほど｡面白いのは最初(from 0 to 4999)のtableへの値の追加とケツの方ではあまり時間が変わらないんですねぇ｡
 前者は短い内でのtableの成長が大量に起きるので若干遅くなっている｡</p>
-<h1 id="4">4. おわりに</h1>
+<h1 id="4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">4. おわりに</a></h1>
 <p><a href="https://twitter.com/_yyu_" target="_blank" rel="noopener noreferrer">@_yyu_ </a>さんが知りたいのは多分key-valueの保持とひも付けの方法だと思うんです､ボクもそれが知りたかった｡</p>
-<h1 id="part-2bb23717e7a4fb4a">参考文献</h1>
+<h1 id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><a class="headerlink" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">参考文献</a></h1>
 <ul>
 <li><a href="https://www.lua.org/doc/jucs05.pdf" target="_blank" rel="noopener noreferrer">The implementation of Lua 5.0</a></li>
 </ul>

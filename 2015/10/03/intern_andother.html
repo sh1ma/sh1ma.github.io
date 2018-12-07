@@ -86,7 +86,7 @@
 軽自動車に座っていて目線の高さが鹿の背中だったのでなかなか立派な鹿だったと思う｡交差点付近のため減速中だったので車が凹んだりはしなかった｡鹿も死ななかった｡
 4人中ボクが一番興奮してドライバーが一番青ざめていた｡でもその1hくらい後にはドライバーも刎ねられた鹿の真似(?)を始めて､うん｡</p>
 <hr>
-<h2 id="btrfs-on-bcache">Btrfs on Bcacheの性能調査</h2>
+<h2 id="Btrfs+on+Bcache%E3%81%AE%E6%80%A7%E8%83%BD%E8%AA%BF%E6%9F%BB"><a class="headerlink" href="#Btrfs+on+Bcache%E3%81%AE%E6%80%A7%E8%83%BD%E8%AA%BF%E6%9F%BB">Btrfs on Bcacheの性能調査</a></h2>
 <p>Linux3.10でメインラインにねじ込まれた､SSDを他のデバイスのキャッシュとして扱うという機能がBtrfsの上でもちゃんと動くのかということをまずひとつやった｡</p>
 <p>Fedora22､社のデカいマシンの1ノードを使った｡X5690とかそのへんのが積んであった｡メモリが16GB｡</p>
 <p>ベンチマークの自動化スクリプトではシェルスクリプトを500行くらい書いた｡ShellCheckの教えにより全然知らない記法などを覚えたり脳が柔軟になって<code>awk</code>1つで結果の統計が取れたりするようになった｡</p>
@@ -107,7 +107,7 @@ rw=randread
 [job2]
 rw=randwrite
 </code></pre></div>
-<h3 id="part-6542a5167e3">成果</h3>
+<h3 id="%E6%88%90%E6%9E%9C"><a class="headerlink" href="#%E6%88%90%E6%9E%9C">成果</a></h3>
 <p>結果はこんな感じ｡RAIDはBtrfsの機能で組んだやつ｡なので比較のXFSはシングルデバイスのみ｡
 Btrfs RAIDもデバイス数は最小(RAID0は2つ､RAID5は3つ)｡BcacheのモードはWriteback｡単位はIOPS｡</p>
 <table>
@@ -166,11 +166,11 @@ SSDもHDDも型が古かったのでもう少しいいものを使えば結果�
 readはキャッシュに当たらないので変わらない｡Single/RAID0なら書き込みが6倍速という結果になった｡
 Btrfsの他のモードはほとんど変わらなかったので割愛だにゃ｡他のRAIDとか､デバイス数との関係とかは皆さん頑張ってくれ給えよといった具合に｡
 RAMをブロックデバイスにしてSSDのキャッシュデバイスにするとかできるのかな､できたら楽しそう｡</p>
-<h3 id="bcache">Bcacheについて</h3>
+<h3 id="Bcache%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"><a class="headerlink" href="#Bcache%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">Bcacheについて</a></h3>
 <p>ファックです｡ベンチマーク自動化スクリプトの一番の障害だったのがBcacheです｡まぁ<code>make-bcache</code>は許すよ｡うん｡
 でも解除の方法が適当なファイルに1やUUIDを書き込んで<code>wipefs</code>でキレイにするというね､面倒｡
 うっかり変なファイルに書き込むとカーネルパニックしたりBcache作成時に何故かカーネルパニックしたり､お前なんでマージされたんだよ…｡</p>
-<h3 id="part-ba0088b749fac20f">インターンについて</h3>
+<h3 id="%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%B3%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"><a class="headerlink" href="#%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%B3%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">インターンについて</a></h3>
 <p>というわけでね､上記ともうひとつやったけどこれは成果0なので割愛｡</p>
 <p>社員寮に1ヶ月住んで､休日は本を読んだり港へ行ったり山を登ったり､友人と静岡旅行したりとそれなりに楽しかったが､平日はつらかった｡
 寮なのになぜか社までバスで40分もかかるところに立地しており朝は0700くらいにおきる必要があった｡
@@ -205,13 +205,13 @@ SEなどのみならず営業のインターンとかもあって､その発表
 もう一人はDockerの調査でrunCとか調べてた｡</p>
 <p>沼津編おわり</p>
 <hr>
-<h2 id="github-pages-jekyll">GitHub PagesとJekyll</h2>
+<h2 id="GitHub+Pages%E3%81%A8Jekyll"><a class="headerlink" href="#GitHub+Pages%E3%81%A8Jekyll">GitHub PagesとJekyll</a></h2>
 <p>当サイトがね､うん｡</p>
 <p>Jekyllのプラギンなどを用いてスマートに書きたいということで､<a href="http://gosyujin.github.io/2013/05/21/jekyll-plugin-githubpages/" target="_blank" rel="noopener noreferrer">こちら</a>を参考にした｡
 それはよかったんだけど､<a href="https://github.com/JoelSutherland/GitHub-jQuery-Repo-Widget" target="_blank" rel="noopener noreferrer">GitHub jQuery Repo Widget</a>がGoogle Chromeで見てみると表示されず…なんでや…｡</p>
 <div class="github-widget" data-repo="JoelSutherland/GitHub-jQuery-Repo-Widget"></div>
 <p>早く世界中のブラウザがひとつになってほしい｡</p>
-<h3 id="part-65432f7b3b1">追記</h3>
+<h3 id="%E8%BF%BD%E8%A8%98"><a class="headerlink" href="#%E8%BF%BD%E8%A8%98">追記</a></h3>
 <p>これは<a href="http://qiita.com/futoase/items/39cb4b7d704b1e53e7f6" target="_blank" rel="noopener noreferrer">こういう</a>ことです｡</p>
 <p>追記おわり</p>
 <hr>

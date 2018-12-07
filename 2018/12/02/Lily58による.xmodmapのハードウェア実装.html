@@ -86,16 +86,16 @@
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
-<h1 id="part-8430afd85a09cc21">材料あつめ</h1>
+<h1 id="%E6%9D%90%E6%96%99%E3%81%82%E3%81%A4%E3%82%81"><a class="headerlink" href="#%E6%9D%90%E6%96%99%E3%81%82%E3%81%A4%E3%82%81">材料あつめ</a></h1>
 <p>上記のセットに加え､キースイッチとキーキャップを58個(とUSBケーブルとTRSケーブルを)揃える必要があります｡</p>
 <p>WORD編集部室には3x3で全色異なるキースイッチのサンプルがあるので､お手元が寂しくなるとつい手を動かしてしまうW部員達には重宝されている｡
 カチカチしまくった結果､緑軸が良いな〜と思ったので緑軸にしようとしたものの､ちょうどどこを探しても8000個から仕入れ可能みたいなものしかなかった｡
 仕方がないので､<a href="https://yushakobo.jp/shop/pg1350/" target="_blank" rel="noopener noreferrer">遊舎工房でKailhのロープロ白軸</a>を買った｡
 カチカチとクリック感があり､青軸のようにうるさいのでパソコンカタカタオタク演ってる感がでて良いかな〜というのが選定理由だ｡</p>
-<h1 id="part-654296cad72">作る</h1>
+<h1 id="%E4%BD%9C%E3%82%8B"><a class="headerlink" href="#%E4%BD%9C%E3%82%8B">作る</a></h1>
 <p>3月の引越しにつき祖父からもらったり実家からパチってきた激古はんだごてを全部捨ててしまったため､部員の<a href="https://twitter.com/rizaudo" target="_blank" rel="noopener noreferrer">@rizaudo</a>氏にはんだごてを借り､ついでに編集部室で作業をおこなう｡</p>
 <p><a href="https://github.com/kata0510/Lily58/blob/master/doc/buildguide_jp.md" target="_blank" rel="noopener noreferrer">ビルドガイド</a>にしたがって作っていく｡</p>
-<h2 id="pro-micro-1">pro micro事件1</h2>
+<h2 id="pro+micro%E4%BA%8B%E4%BB%B61"><a class="headerlink" href="#pro+micro%E4%BA%8B%E4%BB%B61">pro micro事件1</a></h2>
 <p>が…</p>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
@@ -120,7 +120,7 @@ rizaudo氏や部室を常時警備している<a href="https://twitter.com/akkki
 たしかにこの時点で人件費が材料費を上回ってしまっている｡</p>
 <p>くぅ〜疲れましたw これにてlily58完成です!
 とはいかず…｡</p>
-<h2 id="pro-micro-2">pro micro事件2</h2>
+<h2 id="pro+micro%E4%BA%8B%E4%BB%B62"><a class="headerlink" href="#pro+micro%E4%BA%8B%E4%BB%B62">pro micro事件2</a></h2>
 <p>基板に全部くっつけたのでファームウェア書き込んでおわりや!!
 というところで片方に全然書き込めない｡
 オーブンで焼いたほうは特定のキー列だけ入力を受け付けたり受け付けなかったりする｡</p>
@@ -165,7 +165,7 @@ pro microを使う他の自作キーボードを作ってるブログなどを�
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
-<h2 id="tips">tips</h2>
+<h2 id="tips"><a class="headerlink" href="#tips">tips</a></h2>
 <p>ロープロファイルだとアクリル板を止めるネジの頭にキーキャップが当たるので､キーキャップをちょっと削る必要がある(図<a href="#kezuri">2</a>)｡</p>
 <p></p>
 <center>
@@ -180,8 +180,8 @@ pro microを使う他の自作キーボードを作ってるブログなどを�
 <hr>
 <p>ハードウェアの実装は18時間くらいかかってしまった｡
 ご協力大変感謝いたします｡</p>
-<h1 id="qmk-firmware">qmk firmware</h1>
-<h2 id="xmodmap">xmodmapとはなんだったのか</h2>
+<h1 id="qmk+firmware"><a class="headerlink" href="#qmk+firmware">qmk firmware</a></h1>
+<h2 id="xmodmap%E3%81%A8%E3%81%AF%E3%81%AA%E3%82%93%E3%81%A0%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%8B"><a class="headerlink" href="#xmodmap%E3%81%A8%E3%81%AF%E3%81%AA%E3%82%93%E3%81%A0%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%8B">xmodmapとはなんだったのか</a></h2>
 <p>まずはこちらをご覧ください｡</p>
 <p><a href="https://github.com/Nymphium/settings/blob/master/settingfiles/dots/.xmodmap" target="_blank" rel="noopener noreferrer">settings/settingfiles/dots/.xmodmap</a></p>
 <p>例えばキーボードの<code>3</code>を押すと<code>3</code>が入力され､<code>Shift</code>も一緒に押すと<code>#</code>が入力されたりする｡
@@ -193,13 +193,13 @@ xmodmapによってキーマップを変更し､<code>AltGr</code>が使える�
 修飾ない状態､<code>Shift</code>修飾状態､<code>AltGr</code>修飾状態､<code>AltGr + Shift</code>修飾状態と1つのキー入力で最大4状態もたせる､つまり<strong>1つのキーと2つの修飾キーによって4通りの入力をおこなうことができる</strong>｡</p>
 <p>上記のキーマップでは<code>無変換</code>を<code>AltGr</code>にしてhjklで←↓↑→を入力できるようにしてます｡
 これは<em>V</em>の者にとっては非常に素晴らしいですね｡</p>
-<h3 id="part-3786c873856e287">困る点</h3>
+<h3 id="%E5%9B%B0%E3%82%8B%E7%82%B9"><a class="headerlink" href="#%E5%9B%B0%E3%82%8B%E7%82%B9">困る点</a></h3>
 <p>X11アプリケーションなのでX Window Systemが動いてないといけない｡
 なのでWindowsとかXのない状況では諦めざるを得ない｡</p>
 <p>もう一つ重大な問題としては､キーコードに対するマッピングでしかないということである｡
 詳細は<a href="https://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%89" target="_blank" rel="noopener noreferrer">ウィキピージャ</a>見てください｡
 なにかアプリケーションでキー入力を受け付けるとき､文字コードではなくキーコードを受け付けている場合非常に困る｡</p>
-<h2 id="part-f86bf31bd42eedcf">そこでファームウェア</h2>
+<h2 id="%E3%81%9D%E3%81%93%E3%81%A7%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E3%82%A6%E3%82%A7%E3%82%A2"><a class="headerlink" href="#%E3%81%9D%E3%81%93%E3%81%A7%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E3%82%A6%E3%82%A7%E3%82%A2">そこでファームウェア</a></h2>
 <p>qmk_firmwareは名前の通りファームウェアでして､こいつを使うことでキースイッチの入力に対応する<em>キーコード</em>をプログラムすることができる｡</p>
 <div class="github-widget" data-repo="qmk/qmk_firmware"></div>
 <p>keyboards/以下に様々なキーボードのいろいろが突っ込まれてて正気の沙汰ではないですね｡
@@ -256,7 +256,7 @@ xmodmapによってキーマップを変更し､<code>AltGr</code>が使える�
                              <span class="n">KC_BTN1</span><span class="p">,</span> <span class="n">KC_BTN3</span><span class="p">,</span> <span class="n">KC_BTN2</span><span class="p">,</span> <span class="n">WHEEL</span><span class="p">,</span>   <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span><span class="p">,</span> <span class="n">_______</span> \
 <span class="p">),</span>
 </code></pre></div>
-<h2 id="part-89596d2caae9d0e1">キー入力処理</h2>
+<h2 id="%E3%82%AD%E3%83%BC%E5%85%A5%E5%8A%9B%E5%87%A6%E7%90%86"><a class="headerlink" href="#%E3%82%AD%E3%83%BC%E5%85%A5%E5%8A%9B%E5%87%A6%E7%90%86">キー入力処理</a></h2>
 <p>キー入力を<code>process_record_user</code>という関数で処理することができる｡
 レイヤ切り替えは<code>custom_keycode</code>というenumで新しく追加したレイヤ切り替え専用のキーコードの入力を<code>process_record_user</code>で処理する(プログラム<a href="#process_record_user">4</a>)｡</p>
 <div class="highlight">
@@ -311,7 +311,7 @@ xmodmapによってキーマップを変更し､<code>AltGr</code>が使える�
 そのため､<code>Shift</code>用に新たにレイヤを追加した｡
 また一部キーは<code>Shift</code>修飾を外さないと意図した入力がおこなわれないため､<code>unregister_code(KC_LSFT)</code>で<code>Shift</code>の修飾を取り消している｡</p>
 <p><code>process_record_user</code>の戻り値は長押しキーリピートするかどうかである｡</p>
-<h1 id="part-2a293f8f4497efad">使ってみての所感</h1>
+<h1 id="%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E3%81%AE%E6%89%80%E6%84%9F"><a class="headerlink" href="#%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E3%81%AE%E6%89%80%E6%84%9F">使ってみての所感</a></h1>
 <p>白軸カチャカチャして楽しい｡
 慣れるとだいぶ快適だし､Windowsでも使えるようにちょっとした工夫もしているためWindowsでも快適な入力ができる｡
 ウィンドウマネージャが変更できてフォントも綺麗に表示されてWSLがちゃんと動いてアレしてコレしたらWindowsでも快適に開発できそうですね!</p>

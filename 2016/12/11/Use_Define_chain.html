@@ -75,14 +75,14 @@
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡これは<a href="http://qiita.com/advent-calendar/2016/lang_dev" target="_blank" rel="noopener noreferrer">言語実装 Advent Calendar 2016</a>11日目の記事です｡
 百合が好きなんですが､百合以外にも活動はしているということで､百合以外の活動について今回触れたいと､えぇ､思います｡</p>
-<h1 id="1">1. はじめに</h1>
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
 <p>今年は通年の講義で<a href="https://lua.org" target="_blank" rel="noopener noreferrer">Lua</a> VMのバイトコードの最適化器を作っています｡
 去年は<a href="https://nymphium.github.io/2016/01/13/llix.html">こんなもの</a>を作ってました｡
 最適化器は最終報告会の後に公開しようと思っています｡</p>
 <p>さて､とある文による定義(や代入)がそれ以降使われないとき､その文を削除したいなんていうケースがあります｡
 はい､<a href="https://en.wikipedia.org/wiki/Dead_code_elimination" target="_blank" rel="noopener noreferrer">dead code elimination</a>などです｡
 この"それ以降使われない"かどうかの判別に<em>Define-Use Chain</em>を使います｡</p>
-<h2 id="1-1-prerequirements">1-1. prerequirements</h2>
+<h2 id="1-1.+prerequirements"><a class="headerlink" href="#1-1.+prerequirements">1-1. prerequirements</a></h2>
 <p>まずひとつに､example codesは実装言語に倣って<a href="https://moonscript.org" target="_blank" rel="noopener noreferrer">MoonScript</a>を使います｡
 あまり分からなくてもいいですが､Luaのtableについて知っておいてもらえるとありがたいです､まぁだいたい連想配列でいいですはい｡</p>
 <p>それともう一つ､今回は<em>Lua VM</em>というレジスターベースのVMの命令をターゲットにして進めます｡
@@ -158,7 +158,7 @@ constant list: [3, 5, 7, 9]
 しかしプログラムは書かないといけない｡
 人間も､もっと複雑なものがでてくるとあっぷあっぷになる｡
 ということで書く｡</p>
-<h1 id="2-what-is-define-use-chain">2. What is Define-Use Chain?</h1>
+<h1 id="2.+What+is+Define-Use+Chain%3F"><a class="headerlink" href="#2.+What+is+Define-Use+Chain%3F">2. What is Define-Use Chain?</a></h1>
 <p>Wikipediaを読んで知った気になるのが趣味なので､Wikipediaを引用します｡</p>
 <p><a href="https://en.wikipedia.org/wiki/Use-define_chain" target="_blank" rel="noopener noreferrer">Use-define chain - Wikipedia</a></p>
 <blockquote>
@@ -170,14 +170,14 @@ A definition can have many forms, but is generally taken to mean the assignment 
 例で見ると､<code>EQ</code>からどこで定義されたレジスター<code>1</code>の値を使いたいか､ということになりますね｡</p>
 <p><em>Define-Use Chain</em>はその逆で､定義から使用先が紐付けられています｡
 例でいくと､2行目の宣言は誰も使ってないので参照する使用先が無い､3行目は<code>EQ</code>で使われるので使用先が1つある､となり2行目が不要であることが分かるわけですね!</p>
-<h1 id="3-reachable-definition">3. Reachable Definition</h1>
+<h1 id="3.+Reachable+Definition"><a class="headerlink" href="#3.+Reachable+Definition">3. Reachable Definition</a></h1>
 <p>ただ､資料に乏しく､なんかウマイ感じのアルゴリズムの説明もありません｡
 仕方なく雰囲気だけで我流の実装をしてみたところもちろんガバガバで爆死しました｡</p>
 <p>先生に伺ったところ､｢<em>Reachable Definition</em>からちょっと発展させればできる｣とのことでした｡
 Reachable Definition､それならちょっと前に読んだ本<sup id="fnref3" title="中田 育男, 佐々木 正孝, 滝本 宗宏, 渡邉 担. コンパイラの基盤技術と実践―コンパイラ・インフラストラクチャCOINSを用いて "><a href="#fn3" rel="footnote">3</a></sup>に出てきたなとなってなんとかなりそうだった｡</p>
 <p>段階を追うのが下手なので､ここで強制的に段階を追わせていただきます｡
 まず､Reachable Definitionについて語るために､<em>Control Flow Graph</em>について語る必要があります｡</p>
-<h2 id="3-1-control-flow-graph-cfg">3-1. Control Flow Graph (CFG)</h2>
+<h2 id="3-1.+Control+Flow+Graph+%28CFG%29"><a class="headerlink" href="#3-1.+Control+Flow+Graph+%28CFG%29">3-1. Control Flow Graph (CFG)</a></h2>
 <p>簡単に言ってしまうと､プログラムの実行の流れをグラフにしたようなものです｡context-free grammarではないよ｡
 最適化などでしょっちゅう使われる物体ですね<sup id="fnref4" title="Zdenek Dvorák, Jan Hubicka, Pavel Nejedlý, Josef Zlomek. Control Flow Graph - Infrastructure for Profile Driven Optimizations in GCC Compiler "><a href="#fn4" rel="footnote">4</a></sup>｡
 各ノードは<em>基本ブロック</em>と呼ばれ､各ブロックには文が突っ込まれている｡
@@ -369,7 +369,7 @@ constant list: [3, 5, 7, 9]
 </p>
 <p>で､それを各ブロックの<code>block.out</code>の変更がなくなるまで繰り返しておりますわけですな｡</p>
 <p>これでCFGにReachable Definitionをくっつけた感じになりました｡</p>
-<h1 id="4-du-chain">4. DU Chainの構成</h1>
+<h1 id="4.+DU+Chain%E3%81%AE%E6%A7%8B%E6%88%90"><a class="headerlink" href="#4.+DU+Chain%E3%81%AE%E6%A7%8B%E6%88%90">4. DU Chainの構成</a></h1>
 <p>さてここまでくれば後は簡単｡かも｡
 今の所CFG'に定義の集合<code>block.def</code>が無く､<code>block.def</code>から使用をたどるといったギミックがありません｡
 逆にこの2つを実装するとゴールです｡がんばります｡</p>
@@ -478,7 +478,7 @@ constant list: [3, 5, 7, 9]
     <span class="n">use</span> <span class="o">=</span> <span class="p">{</span> <span class="o">&lt;</span><span class="n">table</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">table</span> <span class="mi">6</span><span class="o">&gt;</span> <span class="p">}</span>
   <span class="p">},</span> <span class="o">&lt;</span><span class="n">table</span> <span class="mi">7</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">table</span> <span class="mi">12</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">table</span> <span class="mi">8</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">table</span> <span class="mi">10</span><span class="o">&gt;</span> <span class="p">}</span>
 </code></pre></div>
-<h1 id="5">5. おわりに</h1>
+<h1 id="5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">5. おわりに</a></h1>
 <p>それでは皆さんもガンガン最適化をしていってください｡
 ちなみに､現在鋭意製作中の最適化器を用いると､例は以下のように最適化されます｡</p>
 <div class="highlight"><pre><code class="language-" data-lang="">JMP 0 0

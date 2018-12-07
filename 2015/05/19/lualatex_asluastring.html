@@ -75,7 +75,7 @@
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡アイカツ劇場版のBD発売ももうすぐですね｡もちろん予約注文してあります｡ソウルマリオネットコーデがあとブーツだけなので皆さんよろしくお願いします｡当方トップスが被っております｡</p>
 <hr>
-<h2 id="texlua">クソッタレtexluaを使う</h2>
+<h2 id="%E3%82%AF%E3%82%BD%E3%83%83%E3%82%BF%E3%83%ACtexlua%E3%82%92%E4%BD%BF%E3%81%86"><a class="headerlink" href="#%E3%82%AF%E3%82%BD%E3%83%83%E3%82%BF%E3%83%ACtexlua%E3%82%92%E4%BD%BF%E3%81%86">クソッタレtexluaを使う</a></h2>
 <p>texluaとは､LuaTeXにねじ込まれているLuaの処理系であり､クソッタレである｡</p>
 <div class="highlight"><pre><code class="language-tex" data-lang="tex"><span class="k">\documentclass</span><span class="p">{</span>ltjsarticle<span class="p">}</span>
 
@@ -112,7 +112,7 @@ tex.print([[Hello, <span class="k">\LaTeX</span>]])
 ...
 </code></pre></div>
 <p><code>! Undefined control seq</code> <strong><em>ファーーーック</em></strong> 慈悲はない｡</p>
-<h3 id="part-37870d0ca98db96">解決法</h3>
+<h3 id="%E8%A7%A3%E6%B1%BA%E6%B3%95"><a class="headerlink" href="#%E8%A7%A3%E6%B1%BA%E6%B3%95">解決法</a></h3>
 <div class="highlight"><pre><code class="language-" data-lang="">...
 tex.print(\asluastring{Hello, \LaTeX})
 ...
@@ -140,9 +140,9 @@ tex.print("<span class="p">{</span>" .. <span class="k">\asluastring</span><span
 ...
 </code></pre></div>
 <p>こんな感じにすることで漏れを防ぐ｡<code>\asluastring{\texttt{}</code>みたいな感じにするとコンパイルエラーになるので注意｡</p>
-<h2 id="part-b8a957a">他</h2>
+<h2 id="%E4%BB%96"><a class="headerlink" href="#%E4%BB%96">他</a></h2>
 <p>luatexja-presetにdeluxeオプションを渡すと編集中のtexファイルとは無関係そうな場所を指摘され､なんだか腹が立つ｡これはluatexja-fontspecのバグで､<a href="http://osdn.jp/projects/luatex-ja/wiki/FrontPage#h3-.E3.83.90.E3.82.B0.E6.83.85.E5.A0.B1" target="_blank" rel="noopener noreferrer">こちら</a>を参照｡これはtexluaとあまり関係はないですね､はい｡</p>
-<h2 id="2">他2</h2>
+<h2 id="%E4%BB%962"><a class="headerlink" href="#%E4%BB%962">他2</a></h2>
 <p>LuaLaTeXはコンパイル時にTwitterのタイムラインを取得できる数少ないLaTeX処理系なので好きですよ｡</p>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">

@@ -80,7 +80,7 @@
 また<a href="http://nymphium.github.io/2016/09/26/10%E6%9C%88%E3%81%AE%E6%B1%BA%E6%84%8F.html">毎週焼肉月間</a>などをやりたいぜ｡</p>
 <p>もう少し序文を書こうと思ったけど特に無いので終わり｡</p>
 <hr>
-<h1 id="typed-racket">Typed Racket</h1>
+<h1 id="Typed+Racket"><a class="headerlink" href="#Typed+Racket">Typed Racket</a></h1>
 <p>最近はRacketの､特にTyped Racketという物体を書き始めたので､ちょっとやっていきたいと思います｡
 動機としては､なんとなくマクロに興味を持って､マクロといえばLispやろなぁということですね｡
 身近にはschemeでポエムを書くwasao君やEmacsに生かされているリザウド君などがいるのでそういった毒電波の影響を無意識のうちに受けていたという可能性もあります｡</p>
@@ -91,7 +91,7 @@
 </center>
 <p>これもマクロによるcore Racketの拡張なんですねぇ｡
 数日前にPerlのソースフィルターという機能を知って(Perl5を書いたことは1回もない)､それで型を突っ込んでいくみたいなことを話したあとだったので､それにだいぶ近いというかほとんど同じだなと思った｡ </p>
-<h2 id="occurrence-typing">Occurrence Typing</h2>
+<h2 id="Occurrence+Typing"><a class="headerlink" href="#Occurrence+Typing">Occurrence Typing</a></h2>
 <p>さて､Typed Racketは<em>Occurrence typing</em>という型付け規則を採用している｡
 簡単にいうと､ある変数<code>x</code>に関して型情報がわかりそうなconditionalがあると､その後のbodyにその型情報が伝播するようだ｡</p>
 <div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">flexible-length</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">U</span> <span class="nv">String</span> <span class="p">(</span><span class="nf">Listof</span> <span class="nv">Any</span><span class="p">))</span> <span class="nv">Integer</span><span class="p">))</span>
@@ -107,10 +107,10 @@
 <code>flexible-length</code>はStringと(Listof Any)のUnion型をとり､Integerを返す｡
 if構文の中で､String型のときとそうでないときに分かれている｡
 このif構文の中で<code>str-or-list</code>を型が異なる関数に適用させても全体として型が一致するのは､このOccurrence Typingによる型情報の伝播のおかげ､とのこと｡</p>
-<h2 id="pros">pros</h2>
+<h2 id="pros"><a class="headerlink" href="#pros">pros</a></h2>
 <p>型のないRacketないしはLispを知らないので､なかった頃との比較はできない｡
 ただわりとイケる感じがある(雑)｡</p>
-<h2 id="cons">cons</h2>
+<h2 id="cons"><a class="headerlink" href="#cons">cons</a></h2>
 <p>やはりデータ型の定義が難点ですね｡
 たとえばよくあるOptional型だと</p>
 <div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">define-type</span> <span class="p">(</span><span class="nf">Optional</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">U</span> <span class="p">(</span><span class="nf">Some</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">None</span><span class="p">)))</span>
@@ -120,7 +120,7 @@ if構文の中で､String型のときとそうでないときに分かれてい
 <p>のように書くことになる｡
 OCamlやHaskellと比べるとあまりにも…という感じですが､Typed Racketのデータ型の実態としてはまさに書いたとおりstructureのUnionですからねぇ…けどねぇ…｡
 やはりデータ型を定義するときは<code>define-datatype</code>みたいなマクロを作ってstructureの定義は隠蔽したいものです｡</p>
-<h3 id="2017-04-16">追記 2017/04/16</h3>
+<h3 id="%E8%BF%BD%E8%A8%98+2017%2F04%2F16"><a class="headerlink" href="#%E8%BF%BD%E8%A8%98+2017%2F04%2F16">追記 2017/04/16</a></h3>
 <p>ずばりなものを実装している人がおりました｡
 <a href="https://lexi-lambda.github.io/blog/2015/12/21/adts-in-typed-racket-with-macros/" target="_blank" rel="noopener noreferrer">ADTs in Typed Racket with macros</a></p>
 <p>これにより良い感じになる｡</p>
@@ -133,7 +133,7 @@ OCamlやHaskellと比べるとあまりにも…という感じですが､Typed
                  <span class="p">(</span><span class="nf">Right</span> <span class="nv">R</span><span class="p">))</span>
 </code></pre></div>
 <p>ただ､各structureに<code>#:transparent</code>(Haskellなどにおける<code>deriving Show</code>に<em>働きとしては</em>近い)など､オプションを渡すことができないため､もう少し工夫が必要になるだろう｡</p>
-<h2 id="syntastic">Syntasticと罠</h2>
+<h2 id="Syntastic%E3%81%A8%E7%BD%A0"><a class="headerlink" href="#Syntastic%E3%81%A8%E7%BD%A0">Syntasticと罠</a></h2>
 <p>みなさんVimはお使いかと思いますが､Syntasticも使っているはずですね｡
 Syntasticがあると型の不一致もちゃんと怒ってくれている…のですが…｡
 SyntasticのRacket syntastic checkerはデフォルトでは<code>racket</code>コマンドをただ叩いているだけ…つまりファイルを実行してしまっているんですね｡最悪です｡</p>
@@ -146,7 +146,7 @@ Typed Racketはマクロ展開時に型チェックをおこなうというタ�
 </code></pre></div>
 <p>これで適当にガッとやって終わりや｡
 そのうちSyntasticにprなどをサッと打ちたい｡</p>
-<h3 id="2017-04-16">追記 2017/04/16</h3>
+<h3 id="%E8%BF%BD%E8%A8%98+2017%2F04%2F16"><a class="headerlink" href="#%E8%BF%BD%E8%A8%98+2017%2F04%2F16">追記 2017/04/16</a></h3>
 <p>やっていきをした <a href="https://github.com/vim-syntastic/syntastic/pull/2001" target="_blank" rel="noopener noreferrer">vim-syntastic/syntastic PR #2001</a></p>
 <hr>
 <p>“<em>Typed</em>” Racketとしてみるとなんともいえない感じを残しましたが､Racketはなかなかおもしろい言語だと思いました｡

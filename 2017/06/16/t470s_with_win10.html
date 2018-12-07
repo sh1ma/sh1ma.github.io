@@ -77,7 +77,7 @@
 PFDSをTyped Racketで実装するやつをもう少し進めたいですが、なんとなく億劫という諸般の事情やその他でやってないです。
 卒研テーマを決めるリミットはあと2週間です。良いですね。</p>
 <hr>
-<h1 id="part-b8a9993">序</h1>
+<h1 id="%E5%BA%8F"><a class="headerlink" href="#%E5%BA%8F">序</a></h1>
 <p>さて、前回冒頭でノートPCがあれやこれやした話を書きました。
 で、血縁者にノートPCを新たに買ってもらいました。これが生殖の力です。</p>
 <div class="enclosed-tweet" align="center">
@@ -106,13 +106,13 @@ PFDSをTyped Racketで実装するやつをもう少し進めたいですが、�
 <p>さて、カスタムオーダーなので注文してしばらくしてからアパートに届いた。
 ところで研究室の先生がオヒス製品やアドベ製品を大学ライセンスで研究室の民々に適宜配布しており、曰く「先に入れておくかヤバくなってから入れるかではだいぶ違う」とのことで、Winは生き残らせたいという気持ちがふつふつと湧いた。</p>
 <p>はいArchLinuxを入れる手順を上から順番に! 走って!</p>
-<h1 id="part-b8a9ee0">破</h1>
-<h2 id="part-8381d746ef86e191">インストーラーの起動</h2>
+<h1 id="%E7%A0%B4"><a class="headerlink" href="#%E7%A0%B4">破</a></h1>
+<h2 id="%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%A9%E3%83%BC%E3%81%AE%E8%B5%B7%E5%8B%95"><a class="headerlink" href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%A9%E3%83%BC%E3%81%AE%E8%B5%B7%E5%8B%95">インストーラーの起動</a></h2>
 <p>BIOSからF12連打で華麗にインストーラー起動といきたいところだったが、素のままではsecure bootがenabledなので起動できない。
 secure bootをdisabledにすると晴れてインストーラーが起動する。</p>
 <p>ブートローダーを入れたあとの話をすると、secure bootを切ったままWinを起動するとBitLockerに怒られ、1億桁くらいの回復キーを打つ羽目になる。
 セキュリティー意識が希薄な人やBitLockerのちからを信じていない人はここでBitLockerをdisabledにすると話がかんたんに進む。</p>
-<h2 id="part-3a54c7ceca5d81fa">パーティション関係</h2>
+<h2 id="%E3%83%91%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%A2%E4%BF%82"><a class="headerlink" href="#%E3%83%91%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%A2%E4%BF%82">パーティション関係</a></h2>
 <p>さて、いよいよというところだがパーティションを切るところで出鼻をくじかれた。
 <code>/dev/nvme0n1p</code>って何やねん殺すぞ…。</p>
 <p>そもそもWinで使い切ってるので縮小させなければならない。適当に100GBくらいもらっていく。
@@ -121,7 +121,7 @@ secure bootをdisabledにすると晴れてインストーラーが起動する�
 <p>これでWinとArchが共存した。共有ディレクトリーみたいなものは作ってない。
 あえて言うなら<code>/boot</code>だが、そんなことせんでもWinパーティションを適当にマウントしてスッとファイルを置いておけばいいので問題ない。
 WinからArchに何か渡したいということはまずなさそう。</p>
-<h2 id="i3lock">i3lock</h2>
+<h2 id="i3lock"><a class="headerlink" href="#i3lock">i3lock</a></h2>
 <p>ノートPCの画面ロックにはi3lockを使っていた。が、v2.9(このときの最新)とかみ合わせが悪いのか、i3lockを実行してパスワードを打っていくととにかくモッサリして使い物にならない。
 仕方なくv2.8をインストールする。こういったことは初めてなので、メモする…までもない。Arch wikiに全部書いてある。でも書いてしまう。人は。</p>
 <p><a href="https://archive.archlinux.org/packages/" target="_blank" rel="noopener noreferrer">パッケージアーカイブ</a>から探していく。
@@ -138,7 +138,7 @@ WinからArchに何か渡したいということはまずなさそう。</p>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
-<h1 id="part-b8a9670">急</h1>
+<h1 id="%E6%80%A5"><a class="headerlink" href="#%E6%80%A5">急</a></h1>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
 <p lang="ja" dir="ltr">T470sが届いて１日で壊れた。手が滑って思いっきり床に叩きつけられてしまった。奇しくも同じ場所がぶち壊れた。</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/875282937079504897?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">June 15, 2017</a>

@@ -74,38 +74,38 @@
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡映画プリパラとミルキィホームズを観てきました｡連続で森脇ふでやすペアの作品は疲れますね｡</p>
-<h1 id="1">1. はじめに</h1>
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
 <p>世の中にはこんな便利なLuaモジュールがあります｡</p>
 <div class="github-widget" data-repo="nymphium/luakatsu"></div>
 <p>ところでawesomeというLuaで設定ファイルを記述できるウィンドウマネージャがあります｡ピンときましたね｡</p>
 <p>そうですね､<em>お誕生日にメッセージが出る</em>とハッピーですね｡</p>
-<h1 id="2-awesome-timer-api">2. awesome timer API</h1>
+<h1 id="2.+awesome+timer+API"><a class="headerlink" href="#2.+awesome+timer+API">2. awesome timer API</a></h1>
 <p>awesomeには実はtimer APIというものがあったんですねぇ…｡</p>
 <p><a href="https://awesomewm.org/doc/api/modules/timer.html#timer" target="_blank" rel="noopener noreferrer">awesome API Document: timer module</a></p>
 <p>せっかくなのでちょっとみてみます｡ドキュメントは(個人的に)初見だと若干不親切だったので補足ッピよ｡</p>
-<h2 id="table">table</h2>
-<h3 id="timer">timer</h3>
+<h2 id="table"><a class="headerlink" href="#table">table</a></h2>
+<h3 id="timer"><a class="headerlink" href="#timer">timer</a></h3>
 <p><code>timer</code>はtableですが､オブジェクト指向のクラスだと思ってください｡
 awesome実行時に_Gに展開されます｡
 <code>{timeout = N}</code>というtableを渡すことでインスタンスを生成します｡
 この<code>N</code>は､number型で､N秒ごとにこのインスタンスに登録されているイベントを､やっていく｡
 また､読み取り専用でインスタンスには<code>started</code>というbool型のメンバ変数があり､インスタンスのタイマーが開始されているか(後述)がわかります｡</p>
 <p>このtimreインスタンスにイベントを追加していくということです｡</p>
-<h2 id="function">function</h2>
-<h3 id="t-start">t:start()</h3>
+<h2 id="function"><a class="headerlink" href="#function">function</a></h2>
+<h3 id="t%3Astart%28%29"><a class="headerlink" href="#t%3Astart%28%29">t:start()</a></h3>
 <p>timerのインスタンスtを開始します｡これによりtのタイマーが起動し､<code>t.timeout</code>秒ごとにイベントを繰り出します｡
 <code>T:f()</code>は<code>T.f(T)</code>の糖衣構文なのでもちろん<code>timer.start(t)</code>とすることもできます｡</p>
 <p>このとき､<code>t.started</code>は<code>true</code>となります｡</p>
-<h3 id="t-stop">t:stop()</h3>
+<h3 id="t%3Astop%28%29"><a class="headerlink" href="#t%3Astop%28%29">t:stop()</a></h3>
 <p>インスタンスtのタイマーを止めます｡</p>
 <p>このとき､<code>t.started</code>は<code>false</code>となります｡</p>
-<h3 id="t-again">t:again()</h3>
+<h3 id="t%3Aagain%28%29"><a class="headerlink" href="#t%3Aagain%28%29">t:again()</a></h3>
 <p>止まっているtを再開します｡</p>
-<h3 id="t-connect_signal-signame-func">t:connect_signal(signame, func)</h3>
+<h3 id="t%3Aconnect_signal%28signame%2C+func%29"><a class="headerlink" href="#t%3Aconnect_signal%28signame%2C+func%29">t:connect_signal(signame, func)</a></h3>
 <p>これがイベントの追加関数です｡<code>signame</code>にはstring型でsignal名を追加します｡
 signal is 何な人はawesome のsignalを学んでほしい｡と言いたいところですが､timerは<code>"timeout"</code>signalを見るので､ここは<code>"timeout"</code>とでもしておいてください｡
 <code>func</code>には関数を追加します｡この登録する関数は第1引数にtを取ります｡第2引数以降にブツをわたしたいときは､後述の<code>t:emmit_signal()</code>を使います｡</p>
-<h3 id="t-disconnect_signal-signame-func">t:disconnect_signal(signame, func)</h3>
+<h3 id="t%3Adisconnect_signal%28signame%2C+func%29"><a class="headerlink" href="#t%3Adisconnect_signal%28signame%2C+func%29">t:disconnect_signal(signame, func)</a></h3>
 <p>イベントを削除します｡<code>signame</code>は上記と同じですね｡<code>"timeout"</code>としておいてください｡
 <code>func</code>ですが､例えば<code>foo</code>という関数を登録した場合､<code>t:disconnect_signal("timeout", foo)</code>としないといかんのですな｡</p>
 <p>ところでLuaでは各関数にidが振ってあります｡
@@ -113,11 +113,11 @@ signal is 何な人はawesome のsignalを学んでほしい｡と言いたい�
 これはtableも同じで､中身が同じでもidが異なると､<code>foo == bar</code>は<code>false</code>を返します｡</p>
 <p>なにが言いたいかというと､<code>disconnect_signal()</code>の第2引数には登録した関数そのものを渡したいので
 ､イベントを削除したい場合は<code>connect_signal()</code>に無名関数を渡すのはまずく､適当な変数にバインドしてください｡</p>
-<h3 id="t-emit_signal-signame">t:emit_signal(signame, …)</h3>
+<h3 id="t%3Aemit_signal%28signame%2C+%E2%80%A6%29"><a class="headerlink" href="#t%3Aemit_signal%28signame%2C+%E2%80%A6%29">t:emit_signal(signame, …)</a></h3>
 <p>インスタンスtの<code>signame</code> signalに登録されている関数すべてを適用します｡各関数の第1引数にはtが､それ以降には<code>...</code>が渡されます｡</p>
-<h3 id="timer-instances">timer.instances()</h3>
+<h3 id="timer.instances%28%29"><a class="headerlink" href="#timer.instances%28%29">timer.instances()</a></h3>
 <p>timer全体で登録されているイベントの数を返します｡インスタンス毎じゃないぞ､timer全体だぞ｡なので引数はいりません｡</p>
-<h1 id="3">3. 実装</h1>
+<h1 id="3.+%E5%AE%9F%E8%A3%85"><a class="headerlink" href="#3.+%E5%AE%9F%E8%A3%85">3. 実装</a></h1>
 <p>まず考えよっか｡</p>
 <hr>
 <p>luakatsuの<code>find_birthday()</code>を使います｡<code>find_birthday(today)</code>でアイドル情報が帰ってきたらそれを出力します｡</p>
@@ -166,7 +166,7 @@ signal is 何な人はawesome のsignalを学んでほしい｡と言いたい�
 実際に実行したいタイマー<code>timer</code>を引数にとり､期を待ちます｡
 第一引数には登録したインスタンスが来るので､<code>self</code>で受けます｡で､中で<code>stop()</code> &amp; <code>start()</code>｡</p>
 <p>この関数をパディング用タイマーに登録してさっきの泥臭い手法で計算した<code>sec</code>秒後に発火させておわり｡</p>
-<h2 id="3-1">3-1. 全体</h2>
+<h2 id="3-1.+%E5%85%A8%E4%BD%93"><a class="headerlink" href="#3-1.+%E5%85%A8%E4%BD%93">3-1. 全体</a></h2>
 <div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="k">do</span>
     <span class="nb">package.path</span> <span class="o">=</span> <span class="nb">package.path</span> <span class="o">..</span> <span class="n">LUAKATSU_PATH</span>
     <span class="kd">local</span> <span class="n">naughty</span> <span class="o">=</span> <span class="n">naughty</span> <span class="ow">or</span> <span class="nb">require</span><span class="s1">'naughty'</span>
@@ -236,7 +236,7 @@ signal is 何な人はawesome のsignalを学んでほしい｡と言いたい�
 <p>実装の全体図です｡
 awesome-clientなどで<code>error(pcakage.path)</code>などdirtyな方法で<code>package.path</code>をさっと確認してもらえればわかりますが､luakatsuなどがありそうなパスは読んでくれませんね｡
 ということで､<code>package.path</code>にパスを追加します｡設定ファイル内の名前空間を汚したくないので､<code>do ... end</code>でくくっています｡</p>
-<h1 id="4-demo">4. demo</h1>
+<h1 id="4.+demo"><a class="headerlink" href="#4.+demo">4. demo</a></h1>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
 <p lang="ja" dir="ltr">awesomeでやっとちゃんとした定刻での自動通知ができた｡ <a href="https://t.co/AIxhOJrmJb" target="_blank" rel="noopener noreferrer">pic.twitter.com/AIxhOJrmJb</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/711097741535895552?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">March 19, 2016</a>
@@ -244,7 +244,7 @@ awesome-clientなどで<code>error(pcakage.path)</code>などdirtyな方法で<c
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 <p>今日は3/19で､あいにくアイカツキャラで誕生日の人はいませんでした｡が､アイマスなら人間が多いので今日もだれか誕生日だろうという予想がずばりあたり､後略</p>
-<h1 id="5">5. おわりに</h1>
+<h1 id="5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">5. おわりに</a></h1>
 <p>awesomeは実はまだまだ機能が豊富なんですよねぇ〜使ってない機能は多々あるのでガンガン発掘していきたい｡
 awesomeは今年に入ってから3.5.6→3.5.9と開発がぐんぐん進んでいるので注目していきたい｡</p>
 <p>おわりだよー(○・▽・○)</p>

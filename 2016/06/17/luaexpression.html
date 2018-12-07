@@ -74,10 +74,10 @@
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡極めて眠いホトトギス</p>
-<h1 id="1">1. はじめに</h1>
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
 <p>Lua5.2のVMのバイトコードをデコードする物体を用いて､Lua5.3のVMのバイトコードをデコードしようとしたら結構つまづきました｡という話｡
 Luaはわりと､関数が減っただ増えただ程度の変更しか無く､互換性は高いかのように見えますが､内部ではガッツリ変わってるんですねぇここ2ヶ月で思い知らされました｡</p>
-<h1 id="2-internal-constant-expression">2. internal constant expression</h1>
+<h1 id="2.+internal+constant+expression"><a class="headerlink" href="#2.+internal+constant+expression">2. internal constant expression</a></h1>
 <p>luaファイルを<code>luac</code>でコンパイルすると<em>luac.out</em>というファイルが得られます｡</p>
 <p>ところで<code>"hoge"</code>とか<code>3</code>などの定数はluac.outのfunction blockのconstants listという部分に､コード中での出現順に格納されます｡
 もう少し解説すると､constants listは以下のような構造になっている｡</p>
@@ -85,7 +85,7 @@ Luaはわりと､関数が減っただ増えただ程度の変更しか無く�
 [格納されている定数の数(4\mathsf{byte})][定数[種類(1\mathsf{byte}) 種類別(n\ \mathsf{byte})]…]
 \]</p>
 <p>この種類がクセモノなんですねぇ…｡</p>
-<h1 id="3-integer-long-string">3. 型が増えた? integer, long string</h1>
+<h1 id="3.+%E5%9E%8B%E3%81%8C%E5%A2%97%E3%81%88%E3%81%9F%3F+integer%2C+long+string"><a class="headerlink" href="#3.+%E5%9E%8B%E3%81%8C%E5%A2%97%E3%81%88%E3%81%9F%3F+integer%2C+long+string">3. 型が増えた? integer, long string</a></h1>
 <p>まずこの種類について見ていきます｡constants listに現れる種類は以下のようになります｡</p>
 <table>
 <thead>
@@ -119,7 +119,7 @@ Luaはわりと､関数が減っただ増えただ程度の変更しか無く�
 <span class="kd">local</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">3</span><span class="p">.</span><span class="mi">0</span>
 <span class="kd">local</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">4</span>
 </code></pre></div>
-<h2 id="3-1-until-lua-5-2">3-1. until Lua 5.2</h2>
+<h2 id="3-1.+until+Lua+5.2"><a class="headerlink" href="#3-1.+until+Lua+5.2">3-1. until Lua 5.2</a></h2>
 <p>まずLua5.2でコンパイルしてバイトコードを見てみる｡</p>
 <div class="highlight"><pre><code class="language-" data-lang="">$ luac5.2  hoge.lua
 $ xxd -g 1 luac.out
@@ -137,13 +137,13 @@ $ xxd -g 1 luac.out
 <p>ヘッダがあり､(中略)､0x00000031からconstants listです｡
 ちなみにヘッダからリトルエンディアンであることがわかるので､最初の<code>03 00 00 00</code>はつまり"3"､定数の数です｡一致していますね｡</p>
 <p>次に定数が3つ出現順に見えますはい｡ここから本題なんやな｡</p>
-<h3 id="3-1-1-string-a">3-1-1. string <code>a</code>
-</h3>
+<h3 id="3-1-1.+string+%3Ccode%3Ea%3C%2Fcode%3E%0A"><a class="headerlink" href="#3-1-1.+string+%3Ccode%3Ea%3C%2Fcode%3E%0A">3-1-1. string <code>a</code>
+</a></h3>
 <p>まず1byte､種類がみえてくるわけですが<code>04</code>ということはつまりstring､これはつまり変数<code>a</code>に格納される定数<code>"aaaaaa....aa"</code>ですね｡
 次の8byteは実は文字列の長さなんですねぇ､はい｡<code>01 01 00 00 00 00 00 00</code>ということで､リトルエンディアンで解釈すると257文字ですか､この+1は<code>\0</code>ですねわかります｡
 さて257byteみていくと､たしかに0x61が256個並んで最後に0x00があります｡いいですね｡ここまでで0x0000013eまで読みました｡</p>
-<h3 id="3-1-2-number-b-c">3-1-2. number <code>b</code>, <code>c</code>
-</h3>
+<h3 id="3-1-2.+number+%3Ccode%3Eb%3C%2Fcode%3E%2C+%3Ccode%3Ec%3C%2Fcode%3E%0A"><a class="headerlink" href="#3-1-2.+number+%3Ccode%3Eb%3C%2Fcode%3E%2C+%3Ccode%3Ec%3C%2Fcode%3E%0A">3-1-2. number <code>b</code>, <code>c</code>
+</a></h3>
 <p>さて続きまして1byte見ると<code>03</code>ということで､numberですか｡8byte読んでみてください｡はい<code>00 00 00 00 00 00 08 40</code>ということですがまずこれをIEEE 754 単精度浮動小数点数にするんやな…｡
 ではこちらをご覧ください｡</p>
 <div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">decodenum</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
@@ -170,7 +170,7 @@ $ xxd -g 1 luac.out
 </code></pre></div>
 <p>はい､<code>3.0</code>ということで､<code>b</code>ですね｡OK｡0x00000147まで読みました｡</p>
 <p>同様にして次は<code>4.0</code>ですねはい論破</p>
-<h2 id="3-2-lua-5-3">3-2. Lua 5.3</h2>
+<h2 id="3-2.+Lua+5.3"><a class="headerlink" href="#3-2.+Lua+5.3">3-2. Lua 5.3</a></h2>
 <p>いやいや内部表現変わらんでしょ→死</p>
 <p>ではコンパイルしてみる｡</p>
 <div class="highlight"><pre><code class="language-" data-lang="">$ luac5.3 hoge.lua
@@ -188,7 +188,7 @@ $ xxd -g 1 luac.out
 ......
 </code></pre></div>
 <p>ウーン､そうですか…｡0x0000004bからconstants listが始まり､<code>03 00 00 00</code>からconstantは3つということがわかるんですが…｡</p>
-<h3 id="3-2-1-long-string">3-2-1. long string ←は?</h3>
+<h3 id="3-2-1.+long+string+%E2%86%90%E3%81%AF%3F"><a class="headerlink" href="#3-2-1.+long+string+%E2%86%90%E3%81%AF%3F">3-2-1. long string ←は?</a></h3>
 <p>1byte読みすすめると早速0x14という謎の種類が爆誕するんですねぇ実はコレLua5.3から追加されたlong stringですが内部表現のみに現れるので皆さん安心してください｡</p>
 <p>さらに進めてみると<code>ff 01 01 00 00 00 00 00 00 61 61 61 61 61 ......</code>というよくわからない感じになってますね｡
 0x61は'a'だというのはわかる｡その前の<code>ff 01 01 00 00 00 00 00 00</code>はおそらく文字列の長さなんですが､なんだこれは｡
@@ -196,11 +196,11 @@ $ xxd -g 1 luac.out
 頭の<code>ff</code>は変わらないんで､<code>14 ff</code>がobject typeだと思っていいんじゃないでしょうか｡
 で､0x100文字で<code>a</code>が出土したと｡ポイントは､’\0'はいらなくなったので<code>0x101 - 1</code> ですね｡</p>
 <p>ネタバレをいうと､255文字以下はLua 5.2までと同じです｡0xff文字以下とそれより上を別のオブジェクトとすることで､何か良いことがあるんですかねぇ謎｡</p>
-<h3 id="3-2-2-integer">3-2-2. integer ←は?</h3>
+<h3 id="3-2-2.+integer+%E2%86%90%E3%81%AF%3F"><a class="headerlink" href="#3-2-2.+integer+%E2%86%90%E3%81%AF%3F">3-2-2. integer ←は?</a></h3>
 <p>まぁええわ｡次は<code>b</code>ですね〜ハイハイ同じ感じで<code>03 00 00 00 00 00 00 08 40</code>ですね終わり｡この時点で0x00000161まで読みました｡</p>
 <p>次に<code>13</code>というのが来て､民衆は困惑するんですねぇ…｡と思ったけどじつはだいぶ素直で､8byte読んでみると<code>04 00 00 00 00 00 00 00</code>でこれはリトルエンディアンで読むとたちどころに<code>4</code>であることが分かってしまう｡</p>
 <p><em>まさにintegerって感じですね!</em> Lua 5.3からbitwise operation(<code>&amp;</code>, <code>|</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code>, <code>bit32</code>モジュール)が追加されたので､これを速く動かしたいという狙いなのかもしれない｡ちなみにsigned integerなので0x7fffffffffffffff(16桁)がINT_MAXッシュ</p>
-<h3 id="3-2-3-lua-5-3">3-2-3. Lua 5.3での内部のオブジェクトの種類</h3>
+<h3 id="3-2-3.+Lua+5.3%E3%81%A7%E3%81%AE%E5%86%85%E9%83%A8%E3%81%AE%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E7%A8%AE%E9%A1%9E"><a class="headerlink" href="#3-2-3.+Lua+5.3%E3%81%A7%E3%81%AE%E5%86%85%E9%83%A8%E3%81%AE%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E7%A8%AE%E9%A1%9E">3-2-3. Lua 5.3での内部のオブジェクトの種類</a></h3>
 <p>つまりこう｡</p>
 <table>
 <thead>
@@ -244,9 +244,9 @@ $ xxd -g 1 luac.out
 </tbody>
 </table>
 <p>nilとboolってさぁ…<code>LOADNIL</code>命令と<code>LOADBOOL</code>命令があるんだから定数としてなんていらないんだよなぁ…｡</p>
-<h1 id="4">4. ベンチマーク</h1>
+<h1 id="4.+%E3%83%99%E3%83%B3%E3%83%81%E3%83%9E%E3%83%BC%E3%82%AF"><a class="headerlink" href="#4.+%E3%83%99%E3%83%B3%E3%83%81%E3%83%9E%E3%83%BC%E3%82%AF">4. ベンチマーク</a></h1>
 <p>long stringはどれくらい活きるのか､integerは､ファイッ</p>
-<h2 id="4-1">4-1. 環境</h2>
+<h2 id="4-1.+%E7%92%B0%E5%A2%83"><a class="headerlink" href="#4-1.+%E7%92%B0%E5%A2%83">4-1. 環境</a></h2>
 <table>
 <thead>
 <tr>
@@ -266,7 +266,7 @@ $ xxd -g 1 luac.out
 </tbody>
 </table>
 <p>処理系はLua 5.2.5､5.3.3を使用</p>
-<h2 id="4-2-prerequirement">4-2. Prerequirement</h2>
+<h2 id="4-2.+Prerequirement"><a class="headerlink" href="#4-2.+Prerequirement">4-2. Prerequirement</a></h2>
 <div class="highlight"><pre><code class="language-" data-lang="">$ luarocls --local install luasock
 $ luarocls-5.2 --local install luasock
 </code></pre></div>
@@ -289,7 +289,7 @@ testsuite.lua
   <span class="k">end</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="4-3-long-string">4-3. long string</h2>
+<h2 id="4-3.+long+string"><a class="headerlink" href="#4-3.+long+string">4-3. long string</a></h2>
 <p>次のようなものを考える｡メモリの確保･開放を見る｡</p>
 <div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">_ENV</span> <span class="o">=</span> <span class="nb">setmetatable</span><span class="p">(</span><span class="nb">require</span><span class="s1">'testsuite'</span><span class="p">,</span> <span class="p">{</span><span class="n">__index</span><span class="o">=</span><span class="n">_ENV</span><span class="p">})</span>
 
@@ -438,7 +438,7 @@ testsuite.lua
 </tbody>
 </table>
 <p>あんまおもんないですね｡</p>
-<h2 id="4-4-integer-number">4-4. integer/number</h2>
+<h2 id="4-4.+integer%2Fnumber"><a class="headerlink" href="#4-4.+integer%2Fnumber">4-4. integer/number</a></h2>
 <div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">_ENV</span> <span class="o">=</span> <span class="nb">setmetatable</span><span class="p">(</span><span class="nb">require</span><span class="s1">'testsuite'</span><span class="p">,</span> <span class="p">{</span><span class="n">__index</span><span class="o">=</span><span class="n">_ENV</span><span class="p">})</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">get_exectime</span><span class="p">(</span><span class="k">function</span><span class="p">()</span>
@@ -557,9 +557,9 @@ testsuite.lua
 </tbody>
 </table>
 <p>という具合ですね｡</p>
-<h2 id="4-5">4-5. さらなる詳細</h2>
+<h2 id="4-5.+%E3%81%95%E3%82%89%E3%81%AA%E3%82%8B%E8%A9%B3%E7%B4%B0"><a class="headerlink" href="#4-5.+%E3%81%95%E3%82%89%E3%81%AA%E3%82%8B%E8%A9%B3%E7%B4%B0">4-5. さらなる詳細</a></h2>
 <p><code>grep -rE 'LUA_(TNUMINT|TLNGSTR)' lua-5.3.3/src</code> してください(飽きた)｡</p>
-<h1 id="5">5. おわりに</h1>
+<h1 id="5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">5. おわりに</a></h1>
 <p>stringは何も変わらなくてつまらない感じでしたが､integer型はtableのindexingでそこそこの性能がありますね｡
 ボクはbytecodeの解析時にLua 5.2のノリで5.3をやったら突然の種類追加につまづいたので､みなさんもつまづいてください｡</p>
 <hr>

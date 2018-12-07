@@ -76,22 +76,24 @@
 <p>こんにちは､びしょ〜じょです｡
 最近は死んでるのでコードも全然書いてませんでした｡</p>
 <hr>
-<h1 id="1">1. はじめに</h1>
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
 <p>VimでScalaを書いている､というと赤黒いアイコンを思い出すかもしれないが､そんな感じになっている｡
 動機としては､最近一切コードを書いてなかったのでなにか作ろうと思い､またScalaも以前から少し書いてみようと思っていたのでこの機会にと｡
 Vimでやろうとしたのは当然手元に(Neo)Vimがあるからだ｡</p>
-<h1 id="2">2. プラギン</h1>
-<h2 id="2-1-vim-scala">2-1. <a href="https://github.com/derekwyatt/vim-scala" target="_blank" rel="noopener noreferrer">vim-scala</a>
+<h1 id="2.+%E3%83%97%E3%83%A9%E3%82%AE%E3%83%B3"><a class="headerlink" href="#2.+%E3%83%97%E3%83%A9%E3%82%AE%E3%83%B3">2. プラギン</a></h1>
+<h2 id="2-1.+%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fderekwyatt%2Fvim-scala%22%3Evim-scala%3C%2Fa%3E%0A">
+<a class="headerlink" href="#2-1.+%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fderekwyatt%2Fvim-scala%22%3Evim-scala%3C%2Fa%3E%0A">2-1. </a><a href="https://github.com/derekwyatt/vim-scala" target="_blank" rel="noopener noreferrer">vim-scala</a>
 </h2>
 <p>シンタックスハイライトが寂しいので入れる｡</p>
-<h2 id="2-2-ensime-vim">2-2. <a href="https://github.com/ensime/ensime-vim" target="_blank" rel="noopener noreferrer">ensime-vim</a>
+<h2 id="2-2.+%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fensime%2Fensime-vim%22%3Eensime-vim%3C%2Fa%3E%0A">
+<a class="headerlink" href="#2-2.+%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fensime%2Fensime-vim%22%3Eensime-vim%3C%2Fa%3E%0A">2-2. </a><a href="https://github.com/ensime/ensime-vim" target="_blank" rel="noopener noreferrer">ensime-vim</a>
 </h2>
 <p>Scalaも補完がされてほしい｡
 VimでJava/Scalaというと､EclimというEclipseの情報をVimから引っ張ってグニャグニャするやつがありますが､俺達VimmerとしてはエディタのためにIDEを使うのはなんとなくはばかられる｡</p>
 <p>(中略)</p>
 <p>特にArchLinux(でyaourt)を使っており､Pythonなんて書かねーよハゲということでpipも基本的に触らない人用にインストールガイドを書こう｡
 だいたいは<a href="http://ensime.github.io/editors/vim/install/" target="_blank" rel="noopener noreferrer">公式のインストールガイド</a>に則ればいい｡</p>
-<h3 id="2-2-1-python-modules">2-2-1. Python modules</h3>
+<h3 id="2-2-1.+Python+modules"><a class="headerlink" href="#2-2-1.+Python+modules">2-2-1. Python modules</a></h3>
 <p>注意する点はpipに関する記述だが､Pythonは3で問題ない｡
 pipでなくpacman/yourtに任せたいので､公式リポジトリから<em>python-websocket-client</em>､AURから<em>python-sexpdata</em>を引っ張る｡
 後者は微妙にメンテされておらず､PKGSBUILDをいじる必要がある｡</p>
@@ -99,12 +101,13 @@ pipでなくpacman/yourtに任せたいので､公式リポジトリから<em>p
 <span class="gd">-source=("http://pypi.python.org/packages/source/s/sexpdata/sexpdata-${pkgver}.tar.gz")
 </span><span class="gi">+source=("https://pypi.python.org/packages/source/s/sexpdata/sexpdata-${pkgver}.tar.gz")
 </span></code></pre></div>
-<h3 id="2-2-2-sbt-plugin">2-2-2. sbt plugin</h3>
+<h3 id="2-2-2.+sbt+plugin"><a class="headerlink" href="#2-2-2.+sbt+plugin">2-2-2. sbt plugin</a></h3>
 <p>あとはsbtのグローバルプラグインに以下を追加する｡</p>
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">"org.ensime"</span> <span class="o">%</span> <span class="s">"sbt-ensime"</span> <span class="o">%</span> <span class="s">"2.6.0"</span><span class="o">)</span>
 </code></pre></div>
 <p>sbtで<code>ensimeConfig</code>を実行すると､プロジェクトルートに<code>.ensime</code>が生成される｡</p>
-<h2 id="2-3-neoformat">2-3. <a href="https://github.com/sbdchd/neoformat" target="_blank" rel="noopener noreferrer">neoformat</a>
+<h2 id="2-3.+%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fsbdchd%2Fneoformat%22%3Eneoformat%3C%2Fa%3E%0A">
+<a class="headerlink" href="#2-3.+%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fsbdchd%2Fneoformat%22%3Eneoformat%3C%2Fa%3E%0A">2-3. </a><a href="https://github.com/sbdchd/neoformat" target="_blank" rel="noopener noreferrer">neoformat</a>
 </h2>
 <p>フォーマッター｡ScalaもscalafmtがあればOK｡
 ただ何もしないとフォーマット時にファイル先頭にゴミが入るので以下をvimrcに追加</p>
@@ -113,7 +116,7 @@ pipでなくpacman/yourtに任せたいので､公式リポジトリから<em>p
 <span class="se">  \</span> <span class="s1">'replace'</span><span class="p">:</span> <span class="m">1</span><span class="p">,</span>
 <span class="se">  \</span> <span class="p">}</span>
 </code></pre></div>
-<h1 id="3">3. おわりに</h1>
+<h1 id="3.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#3.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">3. おわりに</a></h1>
 <p>人生おわった</p>
           </div>
         </article>

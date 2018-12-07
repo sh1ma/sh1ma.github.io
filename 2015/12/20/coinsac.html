@@ -88,7 +88,7 @@ LuaLaTeX使ったので<code>\zw</code>とか出てきますが気にせず脳�
 <li>フッターに<em>現フレーム数/総フレーム数</em>を挿入</li>
 </ul>
 <p>上からみていきます｡</p>
-<h2 id="section-subsection-toc">section/subsection開始時にTOCページを挿入</h2>
+<h2 id="section%2Fsubsection%E9%96%8B%E5%A7%8B%E6%99%82%E3%81%ABTOC%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E6%8C%BF%E5%85%A5"><a class="headerlink" href="#section%2Fsubsection%E9%96%8B%E5%A7%8B%E6%99%82%E3%81%ABTOC%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E6%8C%BF%E5%85%A5">section/subsection開始時にTOCページを挿入</a></h2>
 <p>なんとなく入れたくなったわけですな｡<a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#l97" target="_blank" rel="noopener noreferrer">97行目</a>からの<code>\AtBeginSection</code>､<code>\AtBeginSubsection</code>がソレ｡
 98行目でifがいっぱいあるが､これはTOCを入れたくなかったり次のTOCだけ消したりするため｡
 99､100､107､108行目の<code>\switchなんちゃら</code>は､上のほうのboolを切り替えてます(<code>\ifnofooter</code>､<code>\ifnoheader</code>)｡</p>
@@ -110,7 +110,7 @@ LuaLaTeX使ったので<code>\zw</code>とか出てきますが気にせず脳�
 <p>と､みたまんまです｡subsectionも同じです｡
 で､106行目で<code>tocpage</code>というカウンタをインクリメントしています｡これは後ほど効いてきます｡</p>
 <p>といったぐあいにTOCページができたわけだ｡<code>\AtBeginSection</code>の説明をするだけで終わりですね｡</p>
-<h2 id="toc">タイトルをTOCページに挿入</h2>
+<h2 id="%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB%E3%82%92TOC%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AB%E6%8C%BF%E5%85%A5"><a class="headerlink" href="#%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB%E3%82%92TOC%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AB%E6%8C%BF%E5%85%A5">タイトルをTOCページに挿入</a></h2>
 <p><a href="https://github.com/Nymphium/my_LaTeX_template/blob/d05c4c70ea6d8839bd63e5776ec7d3142726c5f1/beamertemp.tex#L86" target="_blank" rel="noopener noreferrer">86行目</a>からの<code>\setbeamertemplate{beamer}</code>です｡
 <code>\beamercolorbox</code>は便利なんじゃ(天才博士bot並の感想)｡で､colorboxにheaderのboxを突っ込む｡88行目ですね｡ミソは｡
 <code>\noheaderfalse</code>なら<code>\thetitle</code>を突っ込む｡だけ｡で､この<code>\thetitle</code>は実は自家製で､</p>
@@ -122,8 +122,8 @@ LuaLaTeX使ったので<code>\zw</code>とか出てきますが気にせず脳�
 </code></pre></div>
 <p><code>\title</code>の定義場所を探して､無事突き止めたbeamerbasetitle.styから借用した｡ごっそさん｡上記2行目でわかるように<code>\thetitle</code>をここで頂く｡で､使う｡
 87〜89行がsectionで､90〜92行がsubsection｡</p>
-<h2 id="part-effae92181f51d65">フッターに現フレーム数/総フレーム数を挿入</h2>
-<h3 id="part-6542d68ab3f">注意</h3>
+<h2 id="%E3%83%95%E3%83%83%E3%82%BF%E3%83%BC%E3%81%AB%E7%8F%BE%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E6%95%B0%2F%E7%B7%8F%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E6%95%B0%E3%82%92%E6%8C%BF%E5%85%A5"><a class="headerlink" href="#%E3%83%95%E3%83%83%E3%82%BF%E3%83%BC%E3%81%AB%E7%8F%BE%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E6%95%B0%2F%E7%B7%8F%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E6%95%B0%E3%82%92%E6%8C%BF%E5%85%A5">フッターに現フレーム数/総フレーム数を挿入</a></h2>
+<h3 id="%E6%B3%A8%E6%84%8F"><a class="headerlink" href="#%E6%B3%A8%E6%84%8F">注意</a></h3>
 <p>フレーム数 is not ページ数です｡フレーム数というのはframe環境の数で､ページ数はコンパイルしてpdfにしたときのpdfのページ数です｡</p>
 <p>やることといえば根性です｡Beamerなものをコンパイルすると .navファイルというものが生成される｡ここをよくみてみるとなんか色々書いてある｡
 例えば<code>\beamer@documentpages</code>なんてものがある｡<code>locate beamer.cls</code>とかやると<code>/usr/share/texmf-dixt/tex/latex/beamer</code>というディレクトリが"くさい"ことに気づく｡
@@ -165,7 +165,7 @@ TOCページを挿入するたびに<code>tocpage</code>がインクリメント
 </code></pre></div>
 <p><font size="36pt"><strong><em>あ〜〜〜〜\(\LaTeX\)最高!! Power Pointはクソ!!!!!!!!!</em></strong></font></p>
 <p>などと言ってると老害認定されるので気をつけよう｡気合で何でも書けるということは気合で色々書く必要があるということです｡が､ もっと拡張しよう､拡張するときはソースを参考にすると参考になる､いいぞ､頑張れ｡</p>
-<h2 id="beamer-lualatex-ultimate-fuckin-awesome-tip">Beamer + LuaLaTeX Ultimate fuckin’ awesome Tip</h2>
+<h2 id="Beamer+%2B+LuaLaTeX+Ultimate+fuckin%E2%80%99+awesome+Tip"><a class="headerlink" href="#Beamer+%2B+LuaLaTeX+Ultimate+fuckin%E2%80%99+awesome+Tip">Beamer + LuaLaTeX Ultimate fuckin’ awesome Tip</a></h2>
 <p><code>\documentclass</code>のオプションに<code>unicode</code>を渡すとpdfのタイトルや著者名が文字化けしないぞい</p>
 <div class="footnotes">
 <hr>

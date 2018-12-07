@@ -88,7 +88,7 @@
 </div>
 <p>本を買ってもらったりノートpcを貸してもらったりして､研究室はどんどん利用していきたいですね｡</p>
 <hr>
-<h1 id="1">1. はじめに</h1>
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
 <p>『Purely Functional Data Structures』<sup id="fnref2" title="原著と邦訳版 "><a href="#fn2" rel="footnote">2</a></sup>(以降､"PFDS"と省略する)という本の邦訳版が出ました｡
 名著とのことで､また読める位置にも原著があったが結局読んでこなかったが､この度ジャパニーズで読めてしまう以上は読んでおきたいと思い､購入に至りました｡</p>
 <p>さて､PFDSに記述されている例はすべてStandard MLで書かれている｡
@@ -99,8 +99,8 @@
 しかし残念ながらMLのmodule systemやHaskellの型クラスに相当するものはない｡
 core RacketにもMLとは別のmodule systemがあるため､マクロ展開時にmodule importをcontractで制御できればいい感じになるんちゃうかと思うんですが､皆さんへの課題とします｡
 parametric contractをrequire/contractに噛ませるといいんですかね｡適当言ってます｡</p>
-<h1 id="2">2. 永続性 ー リスト､スタック､二分探索木</h1>
-<h2 id="2-1">2-1. リスト</h2>
+<h1 id="2.+%E6%B0%B8%E7%B6%9A%E6%80%A7+%E3%83%BC+%E3%83%AA%E3%82%B9%E3%83%88%EF%BD%A4%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%EF%BD%A4%E4%BA%8C%E5%88%86%E6%8E%A2%E7%B4%A2%E6%9C%A8"><a class="headerlink" href="#2.+%E6%B0%B8%E7%B6%9A%E6%80%A7+%E3%83%BC+%E3%83%AA%E3%82%B9%E3%83%88%EF%BD%A4%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%EF%BD%A4%E4%BA%8C%E5%88%86%E6%8E%A2%E7%B4%A2%E6%9C%A8">2. 永続性 ー リスト､スタック､二分探索木</a></h1>
+<h2 id="2-1.+%E3%83%AA%E3%82%B9%E3%83%88"><a class="headerlink" href="#2-1.+%E3%83%AA%E3%82%B9%E3%83%88">2-1. リスト</a></h2>
 <p><a href="/src/pfds/2/list.rkt">src/pfds/2/list.rkt</a></p>
 <div class="codeline with_caption"><pre>1
 2
@@ -210,14 +210,14 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
 </code></pre>
 </div>
 <p>なるほど｡いろいろなパターンマッチの方法がある以外あまり見どころはないですね｡</p>
-<h3 id="2-1">演習2.1</h3>
+<h3 id="%E6%BC%94%E7%BF%922.1"><a class="headerlink" href="#%E6%BC%94%E7%BF%922.1">演習2.1</a></h3>
 <div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">suffixes</span> <span class="p">(</span><span class="nf">All</span> <span class="p">{</span><span class="nf">A</span><span class="p">}</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="nf">MyList</span> <span class="p">(</span><span class="nf">MyList</span> <span class="nv">A</span><span class="p">)))))</span>
 <span class="p">(</span><span class="nf">define/match</span> <span class="p">(</span><span class="nf">suffixes</span> <span class="nv">xs</span><span class="p">)</span>
   <span class="p">[((</span><span class="nf">Empty</span><span class="p">))</span> <span class="nv">empty</span><span class="p">]</span>
   <span class="p">[((</span><span class="nf">Cons</span> <span class="nv">_</span> <span class="nv">xsr</span><span class="p">))</span> <span class="p">(</span><span class="nb">cons</span> <span class="nv">xs</span> <span class="p">(</span><span class="nf">suffixes</span> <span class="nv">xsr</span><span class="p">))])</span>
 </code></pre></div>
 <p>リストの先頭を消費して残りを再帰的に適用していくので､リストの長さ\(n\)に対して\(O(n)\)｡</p>
-<h2 id="2-2">2-2. 二分探索木</h2>
+<h2 id="2-2.+%E4%BA%8C%E5%88%86%E6%8E%A2%E7%B4%A2%E6%9C%A8"><a class="headerlink" href="#2-2.+%E4%BA%8C%E5%88%86%E6%8E%A2%E7%B4%A2%E6%9C%A8">2-2. 二分探索木</a></h2>
 <p><a href="/src/pfds/2/binsearchtree.rkt">src/pfds/2/binsearchtree.rkt</a></p>
 <div class="codeline with_caption"><pre>1
 2
@@ -295,8 +295,8 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
 </code></pre>
 </div>
 <p><code>(Tree Real)</code>しか使えないのはやはり厳しいですね｡モジュールや型クラスを用いずに<code>&gt;</code>などを持つ型<code>A</code>といった感じのものを定めるには…｡</p>
-<h3 id="2-2-1-member">演習2.2 ノードの値の比較回数が(木の深さ+1)に収まる<code>member</code>
-</h3>
+<h3 id="%E6%BC%94%E7%BF%922.2+%E3%83%8E%E3%83%BC%E3%83%89%E3%81%AE%E5%80%A4%E3%81%AE%E6%AF%94%E8%BC%83%E5%9B%9E%E6%95%B0%E3%81%8C%28%E6%9C%A8%E3%81%AE%E6%B7%B1%E3%81%95%2B1%29%E3%81%AB%E5%8F%8E%E3%81%BE%E3%82%8B%3Ccode%3Emember%3C%2Fcode%3E%0A"><a class="headerlink" href="#%E6%BC%94%E7%BF%922.2+%E3%83%8E%E3%83%BC%E3%83%89%E3%81%AE%E5%80%A4%E3%81%AE%E6%AF%94%E8%BC%83%E5%9B%9E%E6%95%B0%E3%81%8C%28%E6%9C%A8%E3%81%AE%E6%B7%B1%E3%81%95%2B1%29%E3%81%AB%E5%8F%8E%E3%81%BE%E3%82%8B%3Ccode%3Emember%3C%2Fcode%3E%0A">演習2.2 ノードの値の比較回数が(木の深さ+1)に収まる<code>member</code>
+</a></h3>
 <div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">member2</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="nv">Boolean</span><span class="p">))</span>
 <span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">member2</span> <span class="nv">a</span> <span class="nv">t</span><span class="p">)</span>
   <span class="p">(</span><span class="nf">:</span> <span class="nv">member2-impl</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="nv">Real</span> <span class="nv">Boolean</span><span class="p">))</span>
@@ -312,8 +312,8 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
 </code></pre></div>
 <p>比較したノードの値をキャッシュとして持っていって､木の底についたらキャッシュした値との比較の結果を返します｡
 キャッシュの初期値に0を与えているけどいいのかな､わからん｡</p>
-<h3 id="2-3-a-insert">演習2.3 すでに木の中に要素<code>a</code>がある場合はノードのコピーをしない<code>insert</code>
-</h3>
+<h3 id="%E6%BC%94%E7%BF%922.3+%E3%81%99%E3%81%A7%E3%81%AB%E6%9C%A8%E3%81%AE%E4%B8%AD%E3%81%AB%E8%A6%81%E7%B4%A0%3Ccode%3Ea%3C%2Fcode%3E%E3%81%8C%E3%81%82%E3%82%8B%E5%A0%B4%E5%90%88%E3%81%AF%E3%83%8E%E3%83%BC%E3%83%89%E3%81%AE%E3%82%B3%E3%83%94%E3%83%BC%E3%82%92%E3%81%97%E3%81%AA%E3%81%84%3Ccode%3Einsert%3C%2Fcode%3E%0A"><a class="headerlink" href="#%E6%BC%94%E7%BF%922.3+%E3%81%99%E3%81%A7%E3%81%AB%E6%9C%A8%E3%81%AE%E4%B8%AD%E3%81%AB%E8%A6%81%E7%B4%A0%3Ccode%3Ea%3C%2Fcode%3E%E3%81%8C%E3%81%82%E3%82%8B%E5%A0%B4%E5%90%88%E3%81%AF%E3%83%8E%E3%83%BC%E3%83%89%E3%81%AE%E3%82%B3%E3%83%94%E3%83%BC%E3%82%92%E3%81%97%E3%81%AA%E3%81%84%3Ccode%3Einsert%3C%2Fcode%3E%0A">演習2.3 すでに木の中に要素<code>a</code>がある場合はノードのコピーをしない<code>insert</code>
+</a></h3>
 <div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">insert2</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)))</span>
 <span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">insert2</span> <span class="nv">a</span> <span class="nv">tx</span><span class="p">)</span>
   <span class="p">(</span><span class="nf">:</span> <span class="nv">insert2-impl</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">))</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)))</span>
@@ -331,8 +331,8 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
 </code></pre></div>
 <p>Blood of schemeということでcall/ccを使ってみました｡雑だ｡
 もともとは例外飛ばしていけとのことなので､例外キャッチして元の値を返すなどでOKでしょう｡</p>
-<h3 id="2-4-2-2-2-3-1-a-insert">演習2.4 演習2.2と2.3の融合 ノードの値の比較回数が(木の深さ+1)に収まる､すでに木の中に要素<code>a</code>がある場合はノードのコピーをしない<code>insert</code>
-</h3>
+<h3 id="%E6%BC%94%E7%BF%922.4+%E6%BC%94%E7%BF%922.2%E3%81%A82.3%E3%81%AE%E8%9E%8D%E5%90%88+%E3%83%8E%E3%83%BC%E3%83%89%E3%81%AE%E5%80%A4%E3%81%AE%E6%AF%94%E8%BC%83%E5%9B%9E%E6%95%B0%E3%81%8C%28%E6%9C%A8%E3%81%AE%E6%B7%B1%E3%81%95%2B1%29%E3%81%AB%E5%8F%8E%E3%81%BE%E3%82%8B%EF%BD%A4%E3%81%99%E3%81%A7%E3%81%AB%E6%9C%A8%E3%81%AE%E4%B8%AD%E3%81%AB%E8%A6%81%E7%B4%A0%3Ccode%3Ea%3C%2Fcode%3E%E3%81%8C%E3%81%82%E3%82%8B%E5%A0%B4%E5%90%88%E3%81%AF%E3%83%8E%E3%83%BC%E3%83%89%E3%81%AE%E3%82%B3%E3%83%94%E3%83%BC%E3%82%92%E3%81%97%E3%81%AA%E3%81%84%3Ccode%3Einsert%3C%2Fcode%3E%0A"><a class="headerlink" href="#%E6%BC%94%E7%BF%922.4+%E6%BC%94%E7%BF%922.2%E3%81%A82.3%E3%81%AE%E8%9E%8D%E5%90%88+%E3%83%8E%E3%83%BC%E3%83%89%E3%81%AE%E5%80%A4%E3%81%AE%E6%AF%94%E8%BC%83%E5%9B%9E%E6%95%B0%E3%81%8C%28%E6%9C%A8%E3%81%AE%E6%B7%B1%E3%81%95%2B1%29%E3%81%AB%E5%8F%8E%E3%81%BE%E3%82%8B%EF%BD%A4%E3%81%99%E3%81%A7%E3%81%AB%E6%9C%A8%E3%81%AE%E4%B8%AD%E3%81%AB%E8%A6%81%E7%B4%A0%3Ccode%3Ea%3C%2Fcode%3E%E3%81%8C%E3%81%82%E3%82%8B%E5%A0%B4%E5%90%88%E3%81%AF%E3%83%8E%E3%83%BC%E3%83%89%E3%81%AE%E3%82%B3%E3%83%94%E3%83%BC%E3%82%92%E3%81%97%E3%81%AA%E3%81%84%3Ccode%3Einsert%3C%2Fcode%3E%0A">演習2.4 演習2.2と2.3の融合 ノードの値の比較回数が(木の深さ+1)に収まる､すでに木の中に要素<code>a</code>がある場合はノードのコピーをしない<code>insert</code>
+</a></h3>
 <div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">insert3</span> <span class="p">(</span><span class="nf">All</span> <span class="p">{</span><span class="nf">A</span><span class="p">}</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">))))</span>
 <span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">insert3</span> <span class="nv">a</span> <span class="nv">tx</span><span class="p">)</span>
   <span class="p">(</span><span class="nf">:</span> <span class="nv">insert3-impl</span> <span class="p">(</span><span class="nf">All</span> <span class="p">{</span><span class="nf">All</span><span class="p">}</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="nv">Real</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">))</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">))))</span>
@@ -350,7 +350,7 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
   <span class="p">(</span><span class="nb">call/cc</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">([</span><span class="nf">k</span> <span class="nv">:</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">)</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">Real</span><span class="p">))])</span> <span class="p">(</span><span class="nf">insert3-impl</span> <span class="nv">a</span> <span class="nv">tx</span> <span class="mi">0</span> <span class="nv">k</span><span class="p">))))</span>
 </code></pre></div>
 <p><code>member2</code>のように底までキャッシュを引き回して､底に来たときに比較してあるやんけ! となれば最初に受け取った引数の木を継続に渡して脱出します｡やったか…!?</p>
-<h3 id="2-5">演習2.5</h3>
+<h3 id="%E6%BC%94%E7%BF%922.5"><a class="headerlink" href="#%E6%BC%94%E7%BF%922.5">演習2.5</a></h3>
 <h4 id="1-x-d">(1) すべてのノードに<code>x</code>が格納された､深さ<code>d</code>の完全二分木ジェネレーター</h4>
 <div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">:</span> <span class="nv">complete</span> <span class="p">(</span><span class="nf">All</span> <span class="p">{</span><span class="nf">A</span><span class="p">}</span> <span class="p">(</span><span class="nf">-&gt;</span> <span class="nv">A</span> <span class="nv">Integer</span> <span class="p">(</span><span class="nf">Tree</span> <span class="nv">A</span><span class="p">))))</span>
 <span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">complete</span> <span class="nv">x</span> <span class="nv">n</span><span class="p">)</span>
@@ -363,13 +363,13 @@ parametric contractをrequire/contractに噛ませるといいんですかね｡
 <p>はい｡</p>
 <h4 id="2">(2) 任意のサイズの平衡木ジェネレーター</h4>
 <p>よくわからん</p>
-<h3 id="2-6">演習2.6</h3>
+<h3 id="%E6%BC%94%E7%BF%922.6"><a class="headerlink" href="#%E6%BC%94%E7%BF%922.6">演習2.6</a></h3>
 <p>ファンクターに相当する機能なし</p>
-<h1 id="3">3. おわりに</h1>
+<h1 id="3.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#3.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">3. おわりに</a></h1>
 <p>Typed RacketはuntypedだったRacketの資産も活用してうまくやっていこうというGradual typingなのであんまり強くないね､というのを再確認しました｡
 Typed LuaやFlowtype､Pythonの型アノテーション､といった型の面々…</p>
 <hr>
-<h1 id="part-a08237e8bb632c1">今週の百合コーナー</h1>
+<h1 id="%E4%BB%8A%E9%80%B1%E3%81%AE%E7%99%BE%E5%90%88%E3%82%B3%E3%83%BC%E3%83%8A%E3%83%BC"><a class="headerlink" href="#%E4%BB%8A%E9%80%B1%E3%81%AE%E7%99%BE%E5%90%88%E3%82%B3%E3%83%BC%E3%83%8A%E3%83%BC">今週の百合コーナー</a></h1>
 <p>『コレクターズ』が本当にやばかった｡『となりのロボット』を書き上げる西UKO先生ですからね､最高や｡</p>
 <div class="footnotes">
 <hr>

@@ -75,14 +75,14 @@
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡梅祭りということでT山に行ったら本場のガマ口上が聞けたんですが､老人が景気の良い話しててムカついた｡</p>
 <hr>
-<h1 id="1">1. はじめに</h1>
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
 <p>ネタがないのでまたこれの話です｡</p>
 <div class="github-widget" data-repo="Nymphium/llix"></div>
 <p>動機は特に無く､時間を大きく潰す必要がありながらも徹夜で頭がうまく働かないというシナリオの上で何をするのが良いかというと既存の拙作いじるのが無難かなと｡</p>
 <p>だらだらツイタッーをみていたら構文木の最適化の話がちょっとでて､パーサーをいじろうという気持ちがフッとわいてきた｡
 ところでRustのチュートリアルを読み進めていて､Rustにはコメントによる型注釈というものが将来できるらしい<sup id="fnref1" title="https://doc.rust-lang.org/nightly/book/variable-bindings.html#type-annotations "><a href="#fn1" rel="footnote">1</a></sup>｡
 じゃ､型注釈実装しよっか｡</p>
-<h1 id="2">2. 実装</h1>
+<h1 id="2.+%E5%AE%9F%E8%A3%85"><a class="headerlink" href="#2.+%E5%AE%9F%E8%A3%85">2. 実装</a></h1>
 <p></p>
 <noscript><pre>-- ......
   Comment:
@@ -108,7 +108,7 @@
 ですので<em><code>foo</code>の定義以降なら</em>どこに書いてもいいことになります｡しかし定義と注釈のあいだに何かあると､型検査(ただの<code>assert</code>)がされずに進んでいきます｡だめじゃん(完)｡</p>
 <p><code>@ foo :: T</code>でもよかったと思うけど､｢luadocとかぶってはマズい｣という全く必要のない心配をしたので<code>T@</code>という目印にしました｡</p>
 <p><code>assert(A == B)</code>の構文木を手で書くのはアレだし今後書き換わる可能性も考えてパーサー内でパーサーを使うことにした｡これが一番ミソですね｡嘘です｡</p>
-<h1 id="3">3. 後に出す先行研究</h1>
+<h1 id="3.+%E5%BE%8C%E3%81%AB%E5%87%BA%E3%81%99%E5%85%88%E8%A1%8C%E7%A0%94%E7%A9%B6"><a class="headerlink" href="#3.+%E5%BE%8C%E3%81%AB%E5%87%BA%E3%81%99%E5%85%88%E8%A1%8C%E7%A0%94%E7%A9%B6">3. 後に出す先行研究</a></h1>
 <div class="github-widget" data-repo="andremm/typedlua"></div>
 <p><em>(Lua+Rustとか風の型注釈)→コンパイル→Lua</em></p>
 <p>という物体です｡こちらは今回の型注釈と違いコメント外にダイレクトに書くのでLuaとしてのポータビリティ(?)にやや欠ける､
@@ -116,7 +116,7 @@
 さらにはHOGE.tldというファイルに型情報を記述するだけでそれもしっかりチェキしてくれるのでもう言うことなしです最高｡
 今日お客さんがたにお伝えしたかったのはこのTypedLuaです!!! 以上!!!!</p>
 <hr>
-<h1 id="4">4. おわりに</h1>
+<h1 id="4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">4. おわりに</a></h1>
 <p>今月中にはRust Tutorialを抜けたい､あと倉敷に行くぞ､六識美砂さんの働いていた場所で『受胎告知』を観るぞ｡
 あと<a href="https://twitter.com/ranha" target="_blank" rel="noopener noreferrer">@ranha </a>さんが大量に捨てていった本を大量に拾ったので､どんどん読んで行かないとね…｡</p>
 <p>とりあえず『集合とはなにか』､『理科系のための英文作法』を読んだ｡両方とも共通しているのは"読み進めさせる文章力"ですね｡

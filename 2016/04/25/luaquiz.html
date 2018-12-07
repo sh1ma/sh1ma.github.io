@@ -80,7 +80,7 @@
 結局1000円札5枚を100円玉50枚にしたら､全部使うことなく閉店時間になり小銭入れがパンパンのまま帰る羽目になりました｡</p>
 <p>データカードダス アイカツスターズ! は5月19日から! ということでまたやりに行こうと思います｡CPのスクールドレスは絶対にそろえたいなぁ､あときいちゃんが書いてあるやつ!</p>
 <hr>
-<h1 id="1-q-lua-return">1. Q. Luaでは関数外でもreturnが書ける､これな〜んで?</h1>
+<h1 id="1.+Q.+Lua%E3%81%A7%E3%81%AF%E9%96%A2%E6%95%B0%E5%A4%96%E3%81%A7%E3%82%82return%E3%81%8C%E6%9B%B8%E3%81%91%E3%82%8B%EF%BD%A4%E3%81%93%E3%82%8C%E3%81%AA%E3%80%9C%E3%82%93%E3%81%A7%3F"><a class="headerlink" href="#1.+Q.+Lua%E3%81%A7%E3%81%AF%E9%96%A2%E6%95%B0%E5%A4%96%E3%81%A7%E3%82%82return%E3%81%8C%E6%9B%B8%E3%81%91%E3%82%8B%EF%BD%A4%E3%81%93%E3%82%8C%E3%81%AA%E3%80%9C%E3%82%93%E3%81%A7%3F">1. Q. Luaでは関数外でもreturnが書ける､これな〜んで?</a></h1>
 <p>実はLuaでは関数外でも<code>retun</code>書けるし構文的には何の問題もないんですねぇ…｡
 Luaの予約語である<code>return</code>は､CとかJavaなどと同じで､関数の戻り値を書くわけです(多値という違いはありますが)｡</p>
 <div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">-- foo.lua</span>
@@ -92,11 +92,11 @@ Luaの予約語である<code>return</code>は､CとかJavaなどと同じで�
 <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span> <span class="k">do</span>
  <span class="o">......</span>
 </code></pre></div>
-<h1 id="2-a-require">2. A. <code>require</code>の戻り値に渡すため</h1>
+<h1 id="2.+A.+%3Ccode%3Erequire%3C%2Fcode%3E%E3%81%AE%E6%88%BB%E3%82%8A%E5%80%A4%E3%81%AB%E6%B8%A1%E3%81%99%E3%81%9F%E3%82%81"><a class="headerlink" href="#2.+A.+%3Ccode%3Erequire%3C%2Fcode%3E%E3%81%AE%E6%88%BB%E3%82%8A%E5%80%A4%E3%81%AB%E6%B8%A1%E3%81%99%E3%81%9F%E3%82%81">2. A. <code>require</code>の戻り値に渡すため</a></h1>
 <p>実はなんてことない話で､<code>require('foo')</code>したときの戻り値に<code>return 5</code>が渡されるというだけです｡</p>
 <p>luaファイルは全て<code>require([[filename]])</code>することでモジュールとして呼び出すことができ､<code>filename.lua</code>の<em>戻り値</em>､つまり<code>return ...</code>が<code>require([[filename]])</code>の戻り値になります｡
 <code>filename.lua</code>に戻り値がなければ<code>require([[filename]])</code>は<code>true</code>(または呼び出し時に失敗すれば<code>false</code>)を返します｡</p>
-<h1 id="3">3. 関数との関係</h1>
+<h1 id="3.+%E9%96%A2%E6%95%B0%E3%81%A8%E3%81%AE%E9%96%A2%E4%BF%82"><a class="headerlink" href="#3.+%E9%96%A2%E6%95%B0%E3%81%A8%E3%81%AE%E9%96%A2%E4%BF%82">3. 関数との関係</a></h1>
 <p>さて､関数の<code>return</code>と何か関係があるのではないか､という考えをするのが人間です｡
 実はだいぶあります｡</p>
 <p>ところで､ここで関数のおさらいです｡以下の関数<code>f</code>と<code>g</code>は<em>全く</em>同じ意味を持ちます｡</p>
@@ -113,8 +113,8 @@ Luaの予約語である<code>return</code>は､CとかJavaなどと同じで�
 <span class="c1">-- g_ DOES NOT contains g_</span>
 <span class="kd">local</span> <span class="n">g_</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span> <span class="n">g_</span> <span class="ow">or</span> <span class="mi">1</span> <span class="k">end</span>
 </code></pre></div>
-<h2 id="3-1-string-dump">3-1. <code>string.dump</code>
-</h2>
+<h2 id="3-1.+%3Ccode%3Estring.dump%3C%2Fcode%3E%0A"><a class="headerlink" href="#3-1.+%3Ccode%3Estring.dump%3C%2Fcode%3E%0A">3-1. <code>string.dump</code>
+</a></h2>
 <p>まず関係を示すために､ユーザー定義関数をバイナリ表現にしてくれる<code>string.dump</code>について｡</p>
 <p>言ったまんまですが､定義した関数を渡すと､実際にLua VM上で動くバイトコードに変換してくれます｡
 使いどころがよくわからない気もしますが､今が使い時です｡</p>
@@ -152,7 +152,7 @@ hello   3
 <p><code>kantannna_kansuu.lua</code>をLua VMのバイトコードにコンパイルし､<code>compiled_kantannna_kansuu.out</code>というファイルに書き出しました｡</p>
 <p>ここで!! おもむろにバイナリエディタなどで<code>kantannna_kansuu.out</code>と<code>compiled_kantannna_kansuu.out</code>を見比べてみてください｡
 実はこれ<strong><em>全く同じ</em></strong>なんですね｡</p>
-<h1 id="4">4. 関数の実態</h1>
+<h1 id="4.+%E9%96%A2%E6%95%B0%E3%81%AE%E5%AE%9F%E6%85%8B"><a class="headerlink" href="#4.+%E9%96%A2%E6%95%B0%E3%81%AE%E5%AE%9F%E6%85%8B">4. 関数の実態</a></h1>
 <p><code>luac</code>コマンドには便利なオプションがああります｡<code>luac -l luac.out</code>でLua VMの挙動がわかります｡</p>
 <p>これで<code>kantannna_kansuu.out</code>を見てみます｡</p>
 <div class="highlight"><pre><code class="language-" data-lang="">$ luac -l kantannna_kansuu.out
@@ -221,9 +221,9 @@ true    exit    0 # これは`os.execute()`の戻り値
 <p>上の方の命令に<code>CLOSURE</code>というのがあるので､クロージャを作ってる<code>compound()</code>がこれかな｡
 下が､<code>compound()</code>が返している関数の中身のようなので､これを見てみますと､まず<code>GETUPVAL</code>で引数の<code>f</code>と<code>g</code>を取得しているようだ｡
 <code>MOVE</code>命令で<code>x</code>を引っ張って<code>CALL</code>してるように見えるおわり｡</p>
-<h1 id="5">5. おわりに</h1>
+<h1 id="5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">5. おわりに</a></h1>
 <p>｢だから何だ｣という話ですが､クイズの答えとその解説というだけで､どうするかは考えてください｡</p>
-<h2 id="part-3f3b31866c98add5">あわせて読みたい</h2>
+<h2 id="%E3%81%82%E3%82%8F%E3%81%9B%E3%81%A6%E8%AA%AD%E3%81%BF%E3%81%9F%E3%81%84"><a class="headerlink" href="#%E3%81%82%E3%82%8F%E3%81%9B%E3%81%A6%E8%AA%AD%E3%81%BF%E3%81%9F%E3%81%84">あわせて読みたい</a></h2>
 <p><a href="http://luaforge.net/docman/83/98/ANoFrillsIntroToLua51VMInstructions.pdf" target="_blank" rel="noopener noreferrer">A No-Frills Introduction to Lua 5.1 VM instructions</a></p>
 <p>Lua VMの命令の解説です｡Lua 5.1に関するものですが､VM自体は5.3になってもあまり進化してない(気がする)ので､現在でも使える知識です｡</p>
 <p>この記事と関係があるかないかで言うと､今ボクが読んでます｡</p>

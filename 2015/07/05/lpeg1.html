@@ -80,7 +80,7 @@
 <p>本当に最高でした､秋篇も非常に楽しみです｡カラノショージョ3もあるしイノグレさまさまって感じ｡</p>
 <p>追伸 なんか今回沙沙貴姉妹以前より増してすごく可愛くなかったですか｡ハグしてくれのところとか親友のところとか｡</p>
 <hr>
-<h1 id="lpeg">LPegとは</h1>
+<h1 id="LPeg%E3%81%A8%E3%81%AF"><a class="headerlink" href="#LPeg%E3%81%A8%E3%81%AF">LPegとは</a></h1>
 <p></p>
 <center>
 <img src="/pictures/2015-07-05-lpeg_logo.gif" alt="LPeg">
@@ -94,9 +94,9 @@ luarocks <span class="nt">--local</span> <span class="nb">install </span>lpeg
 </code></pre></div>
 <p>Luaの(サブセットの)処理系をMoonScriptで書くことになったので､本稿は使い方の備忘録となる｡</p>
 <p>まずpatternで文法を作る(らしい)(詳しく知らない)｡</p>
-<h1 id="pattern">Pattern</h1>
+<h1 id="Pattern"><a class="headerlink" href="#Pattern">Pattern</a></h1>
 <p>MoonScript + LPeg的には<code>import P, S, R, V, C from require "lpeg"</code>等とするのがいいが､説明のため<code>lpeg = require "lpeg"</code>ってな感じに｡</p>
-<h2 id="lpeg-p-val">lpeg.P(val)</h2>
+<h2 id="lpeg.P%28val%29"><a class="headerlink" href="#lpeg.P%28val%29">lpeg.P(val)</a></h2>
 <p>なかなかトリッキーな関数｡</p>
 <ul>
 <li>
@@ -111,23 +111,23 @@ luarocks <span class="nt">--local</span> <span class="nb">install </span>lpeg
 </li>
 </ul>
 <p>他にも渡された型によっていろいろできる｡<a href="http://www.inf.puc-rio.br/%7Eroberto/lpeg/#op-p" target="_blank" rel="noopener noreferrer">公式</a>をご覧ください(丸投げ)｡</p>
-<h2 id="lpeg-r-range">lpeg.R(range)</h2>
+<h2 id="lpeg.R%28range%29"><a class="headerlink" href="#lpeg.R%28range%29">lpeg.R(range)</a></h2>
 <p>正規表現的にいうと〜<code>lpeg.R "09"</code>は[0-9]とか<code>lpeg.R "az"</code>は[a-z]みたいな感じのpatternを返す｡</p>
-<h2 id="lpeg-s-str">lpeg.S(str)</h2>
+<h2 id="lpeg.S%28str%29"><a class="headerlink" href="#lpeg.S%28str%29">lpeg.S(str)</a></h2>
 <p>正規表現的にいうと<code>lpeg.S "+-/*%"</code>で[+-/*%]みたいな感じのpatternを返す｡正規表現を見ると前項の<code>lpeg.R</code>とで少々の混乱が生まれた｡</p>
-<h2 id="lpeg-v-v">lpeg.V(v)</h2>
+<h2 id="lpeg.V%28v%29"><a class="headerlink" href="#lpeg.V%28v%29">lpeg.V(v)</a></h2>
 <p>文法を定義するとき､非終端記号を示すのに使われる｡</p>
-<h1 id="part-3786f0dc2688989">演算子</h1>
+<h1 id="%E6%BC%94%E7%AE%97%E5%AD%90"><a class="headerlink" href="#%E6%BC%94%E7%AE%97%E5%AD%90">演算子</a></h1>
 <p>文法について触れる前にpattern同士の演算子をよォ…｡</p>
-<h2 id="pat-pat">pat * pat</h2>
+<h2 id="pat+%2A+pat"><a class="headerlink" href="#pat+%2A+pat">pat * pat</a></h2>
 <p>連接を表す｡PEGだと\(S\cdot{}E\)または\(SE\)みたいな感じになる｡<code>S * E</code></p>
-<h2 id="pat-pat">pat + pat</h2>
+<h2 id="pat+%2B+pat"><a class="headerlink" href="#pat+%2B+pat">pat + pat</a></h2>
 <p>和集合｡ PEGだと\(S/E\)となる｡ここでひとまずPEGの説明をすると､この\(/\)は文脈自由文法でいうところの\(|\)に似ているが､異なる点は\(S\)に失敗すると\(E\)に適合するか調べ､\(S\)<em>には戻らない</em>ところ｡これがPEGの曖昧さを破壊している｡</p>
-<h2 id="pat-n">pat^n</h2>
+<h2 id="pat%5En"><a class="headerlink" href="#pat%5En">pat^n</a></h2>
 <p>patをn回以上繰り返す｡nが負の数だと最小マッチになる｡<code>n == -1</code>のときはPEGの\(pat?\)(省略可能)になる｡</p>
-<h2 id="pat">(pat)</h2>
+<h2 id="%28pat%29"><a class="headerlink" href="#%28pat%29">(pat)</a></h2>
 <p>いつものグルーピング｡</p>
-<h1 id="grammer">Grammer</h1>
+<h1 id="Grammer"><a class="headerlink" href="#Grammer">Grammer</a></h1>
 <p><code>lpeg.P</code>にtableを渡すことでPEGを定義できる｡四則演算はこんな感じかしら｡</p>
 <div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">space = lpeg.S' \t\n'
 grammer = lpeg.P{
@@ -148,7 +148,7 @@ Prm\leftarrow{}‘(’\cdot{}Term^*\cdot{}Space^*{‘)’}/[0-9]^+
 $$
 </div>
 <p>渡すtableの1番目には開始記号を明示していする｡</p>
-<h1 id="tips">Tips</h1>
+<h1 id="Tips"><a class="headerlink" href="#Tips">Tips</a></h1>
 <p>MoonScriptでLPegを使う際､想いがMoonScript処理系に伝わらないことがある｡例えば\([0-9][a-z][A-Z]\)というものを書きたい時､</p>
 <div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">-- MoonScript
 R '09' * R 'az' * R 'AZ'

@@ -74,7 +74,7 @@
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡女性が､自分の本当の気持ちに気づかずに男性に嫉妬するシーン最高ですね､本当に最高｡</p>
-<h1 id="1">1. はじめに</h1>
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
 <p lang="ja" dir="ltr">体調も悪ければPCの体調も悪い <a href="https://t.co/MRyWk50P81" target="_blank" rel="noopener noreferrer">pic.twitter.com/MRyWk50P81</a></p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/745232517612003330?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">June 21, 2016</a>
@@ -94,10 +94,10 @@
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 <p>ところでSSDを買い換えました｡ArchInstallBattleです｡</p>
-<h1 id="tl-dr">TL; DR</h1>
+<h1 id="TL%3B+DR"><a class="headerlink" href="#TL%3B+DR">TL; DR</a></h1>
 <p>ArchWiki嫁</p>
-<h1 id="2">2. 準備</h1>
-<h2 id="2-1">2-1. ストレージ</h2>
+<h1 id="2.+%E6%BA%96%E5%82%99"><a class="headerlink" href="#2.+%E6%BA%96%E5%82%99">2. 準備</a></h1>
+<h2 id="2-1.+%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B8"><a class="headerlink" href="#2-1.+%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B8">2-1. ストレージ</a></h2>
 <p>まずSSDを換装します｡ThinkPad X1 CarbonなのでM.2 SSDですね｡いや〜こういうの買うとだいたい規格を間違えるんですよねぇこれ長いのと短いのがあって､でもまぁ流石にパソコン触って何年目だよってね</p>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
@@ -105,10 +105,10 @@
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
-<h2 id="2-2-iso">2-2. iso</h2>
+<h2 id="2-2.+iso"><a class="headerlink" href="#2-2.+iso">2-2. iso</a></h2>
 <p>Archの最新インストーラを引っ張ってUSBメモリに流し込む｡</p>
-<h1 id="3">3. インストール</h1>
-<h2 id="3-1-partitioning">3-1. partitioning</h2>
+<h1 id="3.+%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><a class="headerlink" href="#3.+%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">3. インストール</a></h1>
+<h2 id="3-1.+partitioning"><a class="headerlink" href="#3-1.+partitioning">3-1. partitioning</a></h2>
 <p><code>/</code>と<code>/home</code>を分けようかなと思いました｡でも同一ストレージ上で分けてもなんだか効果薄い気もしますが､まぁ気分が大事っつーわけよ｡
 で､今回は<a href="http://www.phoronix.com/scan.php?page=article&amp;item=linux_raid_fs4" target="_blank" rel="noopener noreferrer">RAID0にしてF2FSだな</a>､という気持ちがふつふつと湧いてきた｡
 BtrFSのようにRAID機能を提供してくれているわけではまったくないので､mdadmすっぞ｡
@@ -118,29 +118,29 @@ BtrFSのようにRAID機能を提供してくれているわけではまった�
 <div class="highlight"><pre><code class="language-" data-lang="">$ mdadm --create /dev/md0 --level=0 --raid-devices=2 /dev/sdb1 /dev/sdb2
 $ mdadm --create /dev/md1 --level=1 --raid-devices=2 /dev/sdb3 /dev/sdb4
 </code></pre></div>
-<h2 id="3-2-format">3-2. format</h2>
+<h2 id="3-2.+format"><a class="headerlink" href="#3-2.+format">3-2. format</a></h2>
 <p>でF2FSでガッといく｡</p>
 <div class="highlight"><pre><code class="language-" data-lang="">$ mkfs.f2fs /dev/md{0,1}
 </code></pre></div>
-<h2 id="3-3-mount">3-3. mount</h2>
+<h2 id="3-3.+mount"><a class="headerlink" href="#3-3.+mount">3-3. mount</a></h2>
 <p>でスッと…｡</p>
 <div class="highlight"><pre><code class="language-" data-lang="">$ mount /dev/md0 /mnt
 $ mkdir /mnt/{home,boot}
 $ mount /dev/md1 /mnt/home
 $ mount /dev/sdb5 /mnt/boot
 </code></pre></div>
-<h2 id="3-4-chrooting">3-4. <code>chroot</code>ing</h2>
+<h2 id="3-4.+%3Ccode%3Echroot%3C%2Fcode%3Eing"><a class="headerlink" href="#3-4.+%3Ccode%3Echroot%3C%2Fcode%3Eing">3-4. <code>chroot</code>ing</a></h2>
 <p>で<code>pacstrap</code>とかなんとかしてサーッといって<code>arch-chroot</code>する｡以降はchroot下の話になるぽよ</p>
 <p><code>f2fs-tools</code>とか<code>refind-efi</code>をヌッとやる必要がある｡</p>
 <div class="highlight"><pre><code class="language-" data-lang="">$(chroot) pacman -S f2fs-tools refind-efi neovim
 $(chroot) refind-install
 </code></pre></div>
-<h2 id="3-5-register-raid-device">3-5. register raid device</h2>
+<h2 id="3-5.+register+raid+device"><a class="headerlink" href="#3-5.+register+raid+device">3-5. register raid device</a></h2>
 <p>ひとまず登録</p>
 <div class="highlight"><pre><code class="language-" data-lang="">$(chroot) mdadm --detail --scan &gt; /etc/mdadm.conf
 $(chroot) mdadm --assemble --scan
 </code></pre></div>
-<h2 id="3-6-mkinitcpio">3-6. mkinitcpio</h2>
+<h2 id="3-6.+mkinitcpio"><a class="headerlink" href="#3-6.+mkinitcpio">3-6. mkinitcpio</a></h2>
 <p><code>/etc/mkinitcpio.conf</code>をいじる必要があるんやな｡</p>
 <div class="highlight"><pre><code class="language-config" data-lang="config">......
 <span class="n">MODULES</span>=<span class="s2">"...... f2fs crc32_generic crc32-pclmul"</span>
@@ -150,7 +150,7 @@ $(chroot) mdadm --assemble --scan
 <span class="n">HOOKS</span>=<span class="s2">"...... mdadm_udev ....."</span>
 ......
 </code></pre></div>
-<h2 id="3-7-refind">3-7. refind</h2>
+<h2 id="3-7.+refind"><a class="headerlink" href="#3-7.+refind">3-7. refind</a></h2>
 <p>あと<code>/boot/redind_linux.conf</code>をいじる｡</p>
 <div class="highlight"><pre><code class="language-" data-lang="">"Boot with standard option" "ro root=/dev/md0 md=0,/dev/sda1,/dev/sda2 md=1,/dev/sda3,/dev/sda4"
 "Boot to single-user mode" "ro root=/dev/md0 md=0,/dev/sda1,/dev/sda2 md=1,/dev/sda3,/dev/sda4 single"
@@ -162,7 +162,7 @@ $(chroot) mdadm --assemble --scan
 </code></pre></div>
 <p>chroot抜けてあれしてこれしておわり</p>
 <p>俺はちゃんと起動した｡お前はどうだ?</p>
-<h1 id="4">4. おわりに</h1>
+<h1 id="4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">4. おわりに</a></h1>
 <p>fstabに<a href="https://www.kernel.org/doc/Documentation/filesystems/f2fs.txt" target="_blank" rel="noopener noreferrer">オプション</a>をいろいろ突っ込んで爆上げや｡</p>
 <hr>
 <p>今週は期末試験100連発です｡</p>

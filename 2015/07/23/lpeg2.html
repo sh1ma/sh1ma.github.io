@@ -74,8 +74,8 @@
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>その2です｡LPegの日本語解説が世界的に少ないので多少の需要があると信じて書いていきたい｡</p>
-<h1 id="pattern">Pattern</h1>
-<h2 id="lpeg-p-val">lpeg.P(val) つづき</h2>
+<h1 id="Pattern"><a class="headerlink" href="#Pattern">Pattern</a></h1>
+<h2 id="lpeg.P%28val%29+%E3%81%A4%E3%81%A5%E3%81%8D"><a class="headerlink" href="#lpeg.P%28val%29+%E3%81%A4%E3%81%A5%E3%81%8D">lpeg.P(val) つづき</a></h2>
 <ul>
 <li>
 <p><code>type(val) == "number" and val &gt; 0</code></p>
@@ -93,8 +93,8 @@
 4
 </code></pre></div>
 <p>lpeg.Cはpatternを取りキャプチャを返します｡そのうち書きます｡lpeg.matchはマッチです(雑)｡</p>
-<h1 id="part-3786f0dc2688989">演算子</h1>
-<h2 id="pat1-pat2">pat1 - pat2</h2>
+<h1 id="%E6%BC%94%E7%AE%97%E5%AD%90"><a class="headerlink" href="#%E6%BC%94%E7%AE%97%E5%AD%90">演算子</a></h1>
+<h2 id="pat1+-+pat2"><a class="headerlink" href="#pat1+-+pat2">pat1 - pat2</a></h2>
 <p>“pat2を含まないpat2にマッチするパターン"を還す｡\(!pat2 pat1\)</p>
 <p>上記のlpeg.P(number)と合わせてみる｡</p>
 <div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">&gt; C(2 - P("ae"))\match "ai"
@@ -104,7 +104,7 @@
 &gt; --&gt; nothing
 </code></pre></div>
 <p>ただどうしてもこのマイナスを四則演算として処理され､エラーなどになることがあるので省略できないこともある｡う〜ん動的型付け</p>
-<h2 id="pat-func">pat / func</h2>
+<h2 id="pat+%2F+func"><a class="headerlink" href="#pat+%2F+func">pat / func</a></h2>
 <p>patにマッチしたとき､マッチした文字列をfuncに渡し､マッチ時にfuncが即実行される｡</p>
 <div class="highlight"><pre><code class="language-MoonScript" data-lang="MoonScript">&gt; p = P("aiueo") / (...) -&gt; print "match: #{...}"
 &gt; p2 = P"kakikukeko"
