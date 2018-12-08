@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>Asymmetric CoroutinesによるOneshot Algebraic Effectsの実装 - lilyum ensemble</title>
+    <meta itemprop="name" content="Asymmetric CoroutinesによるOneshot Algebraic Effectsの実装 - lilyum ensemble"/>
+    <meta name="keywords" content="Lua,Coroutines,Algebraic Effects,Advent Calendar"/>
+    <meta name="thumbnail" content="https://nymphium.github.io/pictures/2018/12/09/asymmetric coroutinesによるoneshot algebraic effectsの実装/thumb.png"/>
+    <meta itemprop="image" content="https://nymphium.github.io/pictures/2018/12/09/asymmetric coroutinesによるoneshot algebraic effectsの実装/thumb.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="Asymmetric CoroutinesによるOneshot Algebraic Effectsの実装 - lilyum ensemble"/>
+    <meta name="twitter:url" content="https://nymphium.github.io/2018/12/09/asymmetric-coroutines%E3%81%AB%E3%82%88%E3%82%8Boneshot-algebraic-effects%E3%81%AE%E5%AE%9F%E8%A3%85.html"/> 
+    <meta name="twitter:text:description" content="こんにちは､びしょ〜じょです｡これは言語実装Advent Calendar 2018の9日目の記事です｡最初は “変数が全部箱の言語の設計と実装” と題して全部optionにくるまれてる参照とか..."/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/2018/12/09/asymmetric coroutinesによるoneshot algebraic effectsの実装/thumb.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="Asymmetric CoroutinesによるOneshot Algebraic Effectsの実装" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="lily, Aikatsu, Programming language, and more" />
+<meta property="og:description" content="lily, Aikatsu, Programming language, and more" />
+<link rel="canonical" href="https://nymphium.github.io/2018/12/09/asymmetric-coroutines%E3%81%AB%E3%82%88%E3%82%8Boneshot-algebraic-effects%E3%81%AE%E5%AE%9F%E8%A3%85.html" />
+<meta property="og:url" content="https://nymphium.github.io/2018/12/09/asymmetric-coroutines%E3%81%AB%E3%82%88%E3%82%8Boneshot-algebraic-effects%E3%81%AE%E5%AE%9F%E8%A3%85.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-09T00:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"lily, Aikatsu, Programming language, and more","headline":"Asymmetric CoroutinesによるOneshot Algebraic Effectsの実装","dateModified":"2018-12-09T00:00:00+09:00","datePublished":"2018-12-09T00:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/12/09/asymmetric-coroutines%E3%81%AB%E3%82%88%E3%82%8Boneshot-algebraic-effects%E3%81%AE%E5%AE%9F%E8%A3%85.html"},"url":"https://nymphium.github.io/2018/12/09/asymmetric-coroutines%E3%81%AB%E3%82%88%E3%82%8Boneshot-algebraic-effects%E3%81%AE%E5%AE%9F%E8%A3%85.html","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="https://nymphium.github.io/pictures/2018/12/09/asymmetric coroutinesによるoneshot algebraic effectsの実装/thumb.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Asymmetric CoroutinesによるOneshot Algebraic Effectsの実装</h1>
+            <span class="post-meta">
+              <time datetime="2018-12-09T00:00:00+09:00" itemprop="datePublished">Dec 9, 2018</time>
+              <p>tag: {<a href="/tags.html#Lua-ref">Lua</a>, <a href="/tags.html#Coroutines-ref">Coroutines</a>, <a href="/tags.html#Algebraic%20Effects-ref">Algebraic Effects</a>, <a href="/tags.html#Advent%20Calendar-ref">Advent Calendar</a>}</p>
+            </span>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡
+これは<a href="https://qiita.com/advent-calendar/2018/lang_dev" target="_blank" rel="noopener noreferrer">言語実装Advent Calendar 2018</a>の9日目の記事です｡
+最初は “変数が全部箱の言語の設計と実装” と題して全部optionにくるまれてる参照とかそういう感じの何かを作ろうとしたけど多分面白くなくなって筆者の熱も醒めると思ったのでやめた｡
+またそうこうしてるうちに良い感じのものが作れたので､論理的背景を整理するためにも内容を再考して今回のような内容となりました｡
+ほならね早速いってみましょう｡</p>
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
+<p>Algebraic effects and handlers(以降 “algebraic effects” と省略)は､いわば限定継続を取れる例外である｡
+try節をdelimiterとし､例外発生位置から残りの計算を限定継続として受け取り､継続をもちいて例外から復帰したり､単に継続を捨てて例外として扱うこともできる｡
+最近各所で注目されており､組み込みの言語機能やライブラリとしていくつか提供されている｡
+しかし､強力なコントロールオペレータとしての様々な使用が期待される一方､実装はそれほど多くないのが難点である｡</p>
+<p>Asymmetric coroutinesは､コントロール抽象化機構の一つであり､ノンプリエンプティブなマルチタスクをおこなうことができる｡
+Lua､Rubyなどの言語機能またはライブラリとして提供されており､様々な場面で使うことができる｡
+一方コントロールオペレータとして扱うには操作が低級であり､スパゲッティコードになりがちである｡</p>
+<p>本稿では､oneshot algebraic effectsからasymmetric coroutinesへの変換､つまり､asymmetric coroutinesによる､継続の使用をワンショットに制限したalgebraic effectsの実装を考える｡
+これによりalgebraic effectsをよりカジュアルにあつかえるようになり､さらにasymmetric coroutinesよりも高級なコントロールの操作により､コードを簡潔に書くことが期待される｡</p>
+<p>コントロールオペレータとしてのasymmetric coroutinesについて述べ､asymmetric coroutinesとoneshot algebraic effectsとの関係について述べる｡
+余力があれば実際に変換を考え､変換を元にした実装を眺める｡
+変換の正しさについては証明はないため､読者への課題､あるいは筆者の研究の一環とする｡</p>
+<p>本稿の実装はLuaのモジュールとして公開してある｡
+お手元にご用意したりして本稿をお楽しみください｡</p>
+<p><label id="repo"></label>
+</p>
+<div class="github-widget" data-repo="Nymphium/eff.lua"></div>
+<h1 id="2.+algebraic+effects"><a class="headerlink" href="#2.+algebraic+effects">2. algebraic effects</a></h1>
+<p>これについては直近でそこそこ話したので､<a href="/2018/08/13/algebraic_effects_tutorial.html">あれ</a>とか<a href="/pdf/mlday2.html">これ</a>とか<a href="https://qiita.com/Nymphium/items/e6ce580da8b87ded912b" target="_blank" rel="noopener noreferrer">それ</a>とかをご参照ください｡</p>
+<h2 id="2-1.+Core+Eff"><a class="headerlink" href="#2-1.+Core+Eff">2-1. Core Eff</a></h2>
+<p>今回は1つのハンドラでハンドルできるエフェクトは1つというCore Effという言語を考える(図<a href="#ce-syn">2.1</a>)｡
+<span class="cite">[<a href="#fn1" rel="footnote" title="Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. " id="fnref1">1</a>]</span>を参考にした｡</p>
+<div>
+<center>
+<label id="ce-syn"></label>
+\[
+\begin{array}{rrl}
+  x &amp; \in &amp; \text{\textit{Variables}}\\
+  \text{\textit{eff}} &amp; \in &amp; \text{\textit{Effects}}\\
+  v &amp; ::= &amp; x \mid h \mid \lambda x. e \mid \mathtt{perform}\ \text{\textit{eff}}\ v \\
+  e &amp; ::= &amp; v \mid v\ v \mid \mathtt{let}\ x=e\ \mathtt{in}\ e\\
+    &amp;\mid &amp; \mathtt{inst}\ \left(\right) \mid \mathtt{with}\ h\ \mathtt{handle}\ e \\
+  h &amp; ::= &amp; \mathtt{handler}\ v\ \left(\mathtt{val}\ x \rightarrow e\right)\ \left(\left(x, k\right)\rightarrow e\right)
+\end{array}
+
+\]
+図<a href="#ce-syn">2.1</a>. the syntax of Core Eff
+</center>
+</div>
+<p>ラムダ計算に<code>let</code>が付いて､あとはalgebraic effects関連の項が追加されている｡
+<code>inst ()</code>でエフェクトインスタンスを生成する｡
+エフェクトインスタンスは任意のエフェクト定義に対応する｡
+例えば<code>State</code>モナドっぽい<code>State</code>エフェクトを定義するとなどきに､ハンドラと対応するエフェクトを一意に定められるという点とか各所メリットがある｡
+<code>perform eff e</code>は引数<code>e</code>を渡しエフェクト<code>eff</code>を発生する｡
+<code>handler eff vh effh</code>でエフェクト<code>eff</code>のハンドラを定義する｡
+<code>vh</code>はvalue handlerとなり､ハンドラがエフェクトをハンドルしきって値を返すときにvalue handlerによりハンドルした値を返す｡
+<code>effh</code>はエフェクトの引数と継続を取る｡</p>
+<p>ハンドルできるエフェクトが少ないため一見して弱くなったか? と思うがそんなことはない｡
+<span class="cite">[<a href="#fn1" rel="footnote" title="Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. " id="fnref1">1</a>]</span>ではエフェクトにADTを渡してハンドラ内でさらにパターンマッチする方法で事実上n個のエフェクトをハンルするようにしている｡</p>
+<p>意味論に関してはっきりと示せる自信がない(面倒くさいとも言う)のと､後述のように継続の使用回数を制限するので省略します｡
+<span class="cite">[<a href="#fn2" rel="footnote" title="Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. " id="fnref2">2</a>]</span>にあるような､よくあるcall by valueの体系を想定している｡
+次の例題で雰囲気を掴んでもらいたい｡</p>
+<h2 id="2-2.+%E4%BE%8B%E9%A1%8C"><a class="headerlink" href="#2-2.+%E4%BE%8B%E9%A1%8C">2-2. 例題</a></h2>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">choose</span> <span class="o">=</span> <span class="n">inst</span> <span class="bp">()</span> <span class="k">in</span> <span class="c">(* instantiate *)</span>
+<span class="k">let</span> <span class="n">lh</span> <span class="o">=</span> <span class="n">handler</span> <span class="n">choose</span>
+          <span class="p">(</span><span class="k">val</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">)</span>
+          <span class="p">(((</span><span class="n">l</span><span class="o">,</span> <span class="n">r</span><span class="p">)</span><span class="o">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">k</span> <span class="n">l</span><span class="p">)</span> <span class="c">(* choose left *)</span>
+<span class="k">in</span>
+<span class="k">with</span> <span class="n">lh</span> <span class="n">handle</span> <span class="p">(</span><span class="n">perform</span> <span class="n">choose</span> <span class="p">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">10</span><span class="p">))</span> <span class="o">+</span> <span class="mi">5</span> <span class="c">(* returns `8` *)</span>
+</code></pre></div>
+<p>突然tupleが出てきましたが､純真な心で呼んでみてください｡
+<code>inst ()</code>が返す値はeffect instancesの中でuniqueならなんでもいい｡
+ハンドラ<code>lh</code>を定義する｡
+エフェクトハンドラ<code>((l, r), k) -&gt; k l</code>を見ると､<code>(l, r)</code>というtupleを受け取って継続<code>k</code>に<code>l</code>だけ渡して<code>r</code>は捨てる｡</p>
+<h2 id="2-3.+oneshot+algebraic+effects"><a class="headerlink" href="#2-3.+oneshot+algebraic+effects">2-3. oneshot algebraic effects</a></h2>
+<p>今回はさらに､継続の使用を高々1回に制限する｡
+マイナーな言語機能でさらに制限を加えてしまっているが､例えば<a href="http://ocamllabs.io/doc/multicore.html" target="_blank" rel="noopener noreferrer">Multicore OCaml</a>は原則的に継続の使用は1回に制限されている<sup id="fnref3" title="むしろ他に継続がワンショットのalgebraic effectsを知りませんが…｡あとMulticore OCamlにはObj.clone_continuationという継続を複製する関数が用意されており､ランタイムにコストを支払うことで継続を2回以上使うことができる｡ "><a href="#fn3" rel="footnote">3</a></sup>｡
+例えば次のような例(コード<a href="#ng-twice">2.2</a>)はNGにしたい｡
+continuationを2回使ってはいけない(戒め)｡</p>
+<div class="highlight">
+<span class="listing-name">コード<a href="#ng-twice">2.2</a>. NG: using <em>k</em> twice</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">p</span> <span class="o">=</span> <span class="n">inst</span> <span class="nc">E</span> <span class="k">in</span>
+<span class="k">with</span> <span class="p">(</span><span class="n">handler</span> <span class="n">p</span>
+  <span class="p">(</span><span class="k">val</span> <span class="n">x</span>  <span class="o">-&gt;</span> <span class="n">x</span><span class="p">)</span>
+  <span class="p">((</span><span class="n">x</span><span class="o">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">print</span> <span class="p">(</span><span class="n">k</span> <span class="p">(</span><span class="n">k</span> <span class="n">x</span><span class="p">))))</span> <span class="c">(* NG!!! 2回使うな!!! *)</span>
+<span class="n">handle</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">perform</span> <span class="p">(</span><span class="nc">E</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>Affine typesなどにより継続を2回使う箇所を検出したいが､それはまたいつかお話しましょう｡
+高級な型システムでなくても､継続に適当な型を付けてdef-use chainを使えばヒューリスティックに解決できそうですね｡</p>
+<p>今回は継続を2回以上使ってはいけない<em>お約束</em>しかないので誰も注意してくれない｡
+そのため我々が注意するしかない｡</p>
+<p>継続が1回しか使えないのはmultishot(ノーマルな) algebraic effectsと比較すると真にパワーが弱くなっている｡
+とはいえ継続を2回も使う必要のない場面<span class="cite">[<a href="#fn4" rel="footnote" title="Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. " id="fnref4">4</a>]</span>が多く､継続がワンショットであることを前提にするとパフォーマンスの良い実装ができる<span class="cite">[<a href="#fn5" rel="footnote" title="Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. " id="fnref5">5</a>]</span><span class="cite">[<a href="#fn6" rel="footnote" title="Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. " id="fnref6">6</a>]</span>｡</p>
+<h1 id="3.+asymmetric+coroutines"><a class="headerlink" href="#3.+asymmetric+coroutines">3. asymmetric coroutines</a></h1>
+<h2 id="3-1.+asymmetric%3F"><a class="headerlink" href="#3-1.+asymmetric%3F">3-1. asymmetric?</a></h2>
+<p>非常に簡単に説明すると､みなさんがお使いのコルーチンは概ねasymmetric coroutineです｡
+Asymmetric coroutineがあるのでsymmetric coroutineももちろん存在する｡
+Asymmetric coroutinesは対象のコルーチンへ<em>飛ぶ</em>操作resumeと操作してるコルーチンから<em>戻る</em>操作yieldの2つを持つ｡
+一方symmetric coroutinesはコントロールを移すという唯一の操作controlのみを持ちます(表<a href="#tbl-cor">3.1</a>)｡</p>
+<p></p>
+<center>
+<label id="tbl-cor"></label>
+表<a href="#tbl-cor">3.1</a>. the comparision of a?symmetric coroutines
+
+<table>
+<thead>
+<tr>
+<th style="text-align: center"></th>
+<th style="text-align: left">
+<strong><em>a</em></strong>symmetric coroutines</th>
+<th style="text-align: left">symmetric coroutines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">control manipuration</td>
+<td style="text-align: left">resume, yield</td>
+<td style="text-align: left">conttrol</td>
+</tr>
+</tbody>
+</table>
+
+<p></p>
+</center>
+<p>Asymmetric coroutinesはresumeで呼び出す呼び出し側と､呼び出される側という呼ぶ呼ばれるの関係がコルーチン(とメインスレッド)間にあるのが特徴となっている｡</p>
+<div class="highlight">
+<span class="listing-name">example.lua</span><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">co</span><span class="p">,</span> <span class="n">co2</span>
+<span class="n">co</span> <span class="o">=</span> <span class="nb">coroutine.create</span><span class="p">(</span><span class="k">function</span><span class="p">()</span>
+  <span class="nb">coroutine.yield</span><span class="p">(</span><span class="nb">print</span><span class="p">(</span><span class="s2">"a"</span><span class="p">))</span>
+  <span class="nb">coroutine.resume</span><span class="p">(</span><span class="n">co2</span><span class="p">)</span>
+  <span class="nb">coroutine.yield</span><span class="p">(</span><span class="nb">print</span><span class="p">(</span><span class="s2">"c"</span><span class="p">))</span>
+  <span class="nb">coroutine.resume</span><span class="p">(</span><span class="n">co2</span><span class="p">)</span>
+<span class="k">end</span><span class="p">)</span>
+
+<span class="n">co2</span> <span class="o">=</span> <span class="nb">coroutine.create</span><span class="p">(</span><span class="k">function</span><span class="p">()</span>
+  <span class="nb">coroutine.yield</span><span class="p">(</span><span class="nb">print</span><span class="p">(</span><span class="s2">"b"</span><span class="p">))</span>
+  <span class="nb">coroutine.resume</span><span class="p">(</span><span class="n">co</span><span class="p">)</span>
+  <span class="nb">coroutine.yield</span><span class="p">(</span><span class="nb">print</span><span class="p">(</span><span class="s2">"d"</span><span class="p">))</span>
+<span class="k">end</span><span class="p">)</span>
+
+<span class="nb">coroutine.resume</span><span class="p">(</span><span class="n">co</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">" 1"</span><span class="p">)</span>
+<span class="nb">coroutine.resume</span><span class="p">(</span><span class="n">co</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">" 2"</span><span class="p">)</span>
+<span class="nb">coroutine.resume</span><span class="p">(</span><span class="n">co</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">" 3"</span><span class="p">)</span>
+
+<span class="cm">--[[ prints
+a
+ 1
+b
+c
+ 2
+d
+ 3
+--]]</span>
+</code></pre>
+</div>
+<p>なるほど､<strong><em>完全に理解した</em></strong>｡</p>
+<h2 id="3-2.+%CE%BB%3Csub%3Ecor%3C%2Fsub%3E%0A"><a class="headerlink" href="#3-2.+%CE%BB%3Csub%3Ecor%3C%2Fsub%3E%0A">3-2. λ<sub>cor</sub>
+</a></h2>
+<p>Luaだとちょっと大きすぎるし扱いづらいため､変換のための小さな計算体系として\(\lambda_{\text{\textit{cor}}}\)を考える(図<a href="#lcor-syn">3.2</a>)｡</p>
+<div>
+<center>
+<label id="lcor-syn"></label>
+\[
+\begin{array}{rrl}
+  x &amp; \in &amp; \text{\textit{Variables}}\\
+  K &amp; \in &amp; \{\text{\textit{Eff}}, \text{\textit{Val}}, \text{\textit{UncaughtEff}}\} \text{ // constructors} \\
+  \text{\textit{eff}} &amp; \in &amp; \text{\textit{Effects}}\\
+  v &amp; ::= &amp; x \mid \lambda x. e\\
+  e &amp; ::= &amp; v \mid e\ e \mid \mathtt{let}\ x = e\ \mathtt{in}\ e \mid \mathtt{inst}\ \left(\right) \\
+    &amp; \mid&amp; \mathtt{match}\ e\ \mathtt{with}\ \overrightarrow{case} \\
+    &amp; \mid&amp; \mathtt{create}\ e \mid \mathtt{resume}\ e\ e \mid \mathtt{yield}\ e \text{ // coroutine manipurations} \\
+  case    &amp; ::= &amp; K\ x \rightarrow e \mid K\ x\ \textit{when}\ e = e \rightarrow e \\
+  letrec &amp; ::= &amp; \mathtt{let}\ \mathtt{rec}\ f\ x = e\ mutrec\\
+  mutrec &amp; ::= &amp; \mathtt{and}\ f\ x = e \mid \mathtt{in}\ e
+\end{array}
+\]
+図<a href="#lcor-syn">3.2</a>. the syntax of \(\lambda_{\text{\textit{cor}}}\)
+</center>
+</div>
+<p>こちらも筆者が疲れたので意味論はフィーリングで行く｡
+すまんが<span class="cite">[<a href="#fn7" rel="footnote" title="Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. " id="fnref7">7</a>]</span>を参照されたし｡
+ランタイムにラベルストアなどを用意してがちゃがちゃやっていく感じ｡</p>
+<p>構成員としては､ラムダ計算にくわえ､<code>let</code>式､(相互)再帰､ADTとパターンマッチに加え､コルーチンの操作<code>create</code> <code>resume</code> <code>yield</code>がある｡
+各エフェクトを一意にするために<code>inst ()</code>もそのまま持ってきている｡
+小さくなるよう努力したものの､依然としてゴタゴタしているのはひとえに筆者の力不足である｡</p>
+<p>ところで上記のプログラムは書けるのだろうか?
+</p>
+<div class="enclosed-tweet" align="center">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">mutual referring(なんて言うのか?) objectをmutual recursionでなんとかできる? できない? 今の脳の稼働率ではわからん｡</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1070882855582986241?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">December 7, 2018</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<p>変換のターゲットとしてコルーチンが出てくるため､上記のようなプログラムは\(\lambda_{\text{\textit{cor}}}\)では書けなくても問題はないので問題ない｡</p>
+<h2 id="3-3.+asymmetric+coroutines+and+oneshot+continuation"><a class="headerlink" href="#3-3.+asymmetric+coroutines+and+oneshot+continuation">3-3. asymmetric coroutines and oneshot continuation</a></h2>
+<p>Asymmetric coroutinesは強力なコントロールオペレータであり､まずsymmetric coroutinesを模倣することができ､のみならずcall/1ccもasymmetric coroutinesにより実装することができる<span class="cite">[<a href="#fn7" rel="footnote" title="Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. " id="fnref7">7</a>]</span>｡
+call/1ccとは､継続の実行が高々1回に制限されているcall/ccである｡</p>
+<p>オッoneshotnessが出てきた｡
+これはcontinuationがコルーチンに対応し､コルーチンは状態を複製する操作が基本的に提供されてないためである｡
+したがってコルーチンの状態を複製する操作が追加されない限りは､コルーチンで継続をエミュレーションするときは基本的にワンショットである(表<a href="#tbl-cont-cor">3.3</a>)｡</p>
+<p></p>
+<center>
+<label id="tbl-cont-cor"></label>
+表<a href="#tbl-cont-cor">3.3</a>. the correspondence between continuations and asymmetric coroutines
+
+<table>
+<thead>
+<tr>
+<th style="text-align: left"></th>
+<th style="text-align: left">continuations</th>
+<th style="text-align: left">asymmetric coroutines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left">continuation object</td>
+<td style="text-align: left">function</td>
+<td style="text-align: left">coroutine thread</td>
+</tr>
+<tr>
+<td style="text-align: left">run continuation</td>
+<td style="text-align: left">call function</td>
+<td style="text-align: left"><code>resume</code></td>
+</tr>
+<tr>
+<td style="text-align: left">suspend</td>
+<td style="text-align: left">waste continuation</td>
+<td style="text-align: left"><code>yield</code></td>
+</tr>
+</tbody>
+</table>
+
+<p></p>
+</center>
+<h2 id="%E3%82%B3%E3%83%A9%E3%83%A0%3A+JavaScript%E3%81%AEgenerator"><a class="headerlink" href="#%E3%82%B3%E3%83%A9%E3%83%A0%3A+JavaScript%E3%81%AEgenerator">コラム: JavaScriptのgenerator</a></h2>
+<p>ES2015からgeneratorというものが追加された｡</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span><span class="o">*</span> <span class="nx">gen</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">yield</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="k">yield</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">c</span> <span class="o">=</span> <span class="nx">gen</span><span class="p">()</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// { value: 3, done: false }</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// { value: 5, done: false }</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// { value: 0, done: true }</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// { value: undefined, done: true }</span>
+</code></pre></div>
+<p>おっこれはasymmetric coroutineか? と一瞬錯覚するが､実はasymmetric coroutinesよりも表現力が低い｡
+理由は簡単､<code>yield</code>はgenerator <strong>リテラル</strong>の直下にしか書けないためである｡
+つまり以下のようなことがsyntacticに書けない｡</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">yieldf</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">=&gt;</span> <span class="k">yield</span> <span class="nx">x</span><span class="p">;</span>
+
+<span class="kd">function</span><span class="o">*</span> <span class="nx">gen</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">yieldf</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="nx">yieldf</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/*
+const yieldf = x =&gt; yield x;
+                          ^
+
+SyntaxError: Unexpected identifier
+*/</span>
+</code></pre></div>
+<p>筆者の推理としては､(おそらく)asymmetric coroutinesをCPSで表現するのは難しいが､
+JSのgeneratorなら多分CPS変換できるので､babelなどによるES2015以前のJSへのコンパイルが可能になるからではないかと考えられる｡</p>
+<div class="enclosed-tweet" align="center">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">JSのgeneratorってそうかyieldをgnerator関数の直下にしかかけないから継続の実行がワンショットのCPSに変換できるんだな。babel的な理由でcoroutineにしなかったんだろうか。</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1069176528032849923?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">December 2, 2018</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<p>ところで､generatorも(おそらく)状態を複製する操作が用意されてないので､変換先のCPSの継続はワンショットになるはずである｡</p>
+<h1 id="4.+oneshot+algebraic+effects+%E2%86%92+asymmetric+coroutines"><a class="headerlink" href="#4.+oneshot+algebraic+effects+%E2%86%92+asymmetric+coroutines">4. oneshot algebraic effects → asymmetric coroutines</a></h1>
+<p>Core Effから\(\lambda_{\text{\textit{cor}}}\)への変換､つまり言語Aから言語Bへの変換なのでコンパイルですね｡本稿の変換の実装はすなわちコンパイラになります｡
+言語実装アドベントカレンダーにふさわしいですね｡
+本稿では変換の実装はしないので読者の課題あるいは筆者の研究の一環です｡</p>
+<h2 id="4-1.+%E7%9B%B4%E6%84%9F%E7%9A%84%E3%81%AA%E5%AF%BE%E5%BF%9C"><a class="headerlink" href="#4-1.+%E7%9B%B4%E6%84%9F%E7%9A%84%E3%81%AA%E5%AF%BE%E5%BF%9C">4-1. 直感的な対応</a></h2>
+<p>筆者は直観で実装してしまったので､とりあえず直感的なところからかためていく｡
+方針としてはこんな感じになるだろうか(表<a href="#tbl-aeac">4.1</a>).</p>
+<p></p>
+<center>
+<label id="tbl-aeac"></label>
+表<a href="#tbl-aeac">4.1</a>. the intuitional correspondence between (oneshot ) algebraic effects and asymmetric coroutines
+
+<table>
+<thead>
+<tr>
+<th style="text-align: left">(oneshot) algebraic effects</th>
+<th style="text-align: left">asymmetric coroutines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left">handler</td>
+<td style="text-align: left">(<code>create</code> &amp; <code>resume</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left">perform</td>
+<td style="text-align: left"><code>yield</code></td>
+</tr>
+<tr>
+<td style="text-align: left">continuation</td>
+<td style="text-align: left">coroutine thread</td>
+</tr>
+<tr>
+<td style="text-align: left">run continuation</td>
+<td style="text-align: left"><code>resume</code></td>
+</tr>
+</tbody>
+</table>
+
+<p></p>
+</center>
+<p>ハンドラは対応が取りづらいので曖昧になっている｡
+ハンドラの動作を思い出そう｡
+エフェクトインスタンス､value handler, effect handlerを受け取ったらthunkを取ってそのthunkをハンドラでハンドルする､という動作である｡
+thunk内でエフェクトを発生(<code>yield</code>)すると一時停止してハンドラに操作が移ってほしい､とするとthunkをコルーチンでencapsulateして即実行､という流れになる｡
+なのでとりあえず<code>create</code> &amp; <code>resume</code>としてある｡</p>
+<h2 id="4-2.+%E5%A4%89%E6%8F%9B"><a class="headerlink" href="#4-2.+%E5%A4%89%E6%8F%9B">4-2. 変換</a></h2>
+<div>
+<center>
+<label id="conv"></label>
+\[
+\begin{array}{c}
+  \left[\left[e_{ce}\right]\right]\eta = e_{\lambda \textit{cor}}\\
+  \ \\
+  \text{  // $c$ is anything to run coroutine at first, like \textit{nil}, $\left(\right)$, etc.}\\
+  \begin{aligned}
+    \left[\left[x\right]\right]\eta &amp;= \eta(x) \\
+    \left[\left[\textit{eff}\right]\right]\eta &amp;= \textit{eff}\\
+    \left[\left[\lambda x. e\right]\right]\eta &amp;= \lambda x’. \left[\left[e\right]\right]\eta\left[x\mapsto x’\right] \\
+    \left[\left[\mathtt{let}\ x = e\ \mathtt{in}\ e’\right]\right]\eta &amp;= \mathtt{let}\ x’ = \left[\left[e\right]\right]\eta\ \mathtt{in}\ \left[\left[e’\right]\right]\eta\left[x\mapsto x’\right]\\
+    \left[\left[v_1\ v_2\right]\right]\eta &amp;= \left(\left[\left[v_1\right]\right]\eta\right) \ \left(\left[\left[v_2\right]\right]\eta\right) \\
+    \left[\left[\mathtt{inst}\ \left(\right)\right]\right]\eta &amp;= \mathtt{inst}\ \left(\right)\\
+    \left[\left[\mathtt{perform}\ \text{\textit{eff}}\ v\right]\right]\eta &amp;= \mathtt{yield}\ \left(\text{\textit{Eff}}\left(\left[\left[\textit{eff}\right]\right]\eta, \left[\left[v\right]\right]\eta\right)\right)\\
+    \left[\left[\mathtt{with}\ h\ \mathtt{handle}\ e\right]\right]\eta &amp;= \left[\left[h\right]\right]\eta\ \left(\lambda c. \left[\left[e\right]\right]\eta\right)\\
+    \left[\left[\mathtt{handler}\ \textit{eff}\ (\mathtt{val}\ x\rightarrow e_v) \ \left(\left(x, k\right) \rightarrow e_{\textit{eff}}\right) \right]\right]\eta%
+                                                                   &amp;= \\
+                                                                   &amp; \mathtt{let}\ \textit{eff} = \left[\left[\textit{eff}\right]\right]\eta\ \mathtt{in}\\
+                                                                   &amp; \mathtt{let}\ \textit{vh} = \lambda x’. \left[\left[e_v\right]\right]\eta\left[x \mapsto x’\right] \ \mathtt{in}\\
+                                                                   &amp; \mathtt{let}\ \textit{effh} = \lambda x’\ k’. \left[\left[e_{\textit{eff}}\right]\right]\eta\left[x \mapsto x’, k \mapsto k’\right]\ \mathtt{in}\\
+                                                                   &amp; \lambda \textit{th}.\\
+                                                                   &amp; \quad \mathtt{let}\ \textit{co} = \mathtt{create}\ \textit{th}\ \mathtt{in} \\
+                                                                   &amp; \quad \quad  \mathtt{let\ rec}\ \textit{handle}\ r =\\
+                                                                   &amp; \quad \qquad \mathtt{match}\ r\ \mathtt{with}\\
+                                                                   &amp; \quad \qquad \mid \textit{Eff}\ \left(\textit{eff’}, v\right)\ \textit{when}\ \textit{eff’} = \textit{eff} \rightarrow\\
+                                                                   &amp; \quad \qquad \quad \textit{effh}\ v\ (\lambda \textit{arg}.\\
+                                                                   &amp; \quad \qquad \quad \mathtt{let}\ \textit{ret} =\textit{continue}\ \textit{arg}\ \mathtt{in}\\
+                                                                   &amp; \quad \qquad \quad (\mathtt{match}\ \textit{ret}\ \mathtt{with}\\
+                                                                   &amp; \quad \qquad \quad \mid \textit{Val}\ \text{\textunderscore} \rightarrow \textit{ret}\\
+                                                                   &amp; \quad \qquad \quad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \textit{ret}))\\
+                                                                   &amp; \quad \qquad \mid \textit{Eff}\ \left(\text{\textunderscore}, \text{\textunderscore}\right)\rightarrow \mathtt{yield}\ \left(\textit{UncaughtEff}\ \left(r, \textit{continue}\right)\right)\\
+                                                                   &amp; \quad \qquad \mid \textit{UncaughtEff}\ \left(\textit{Eff}\ \left(\textit{eff’}, v\right) , k\right) \ \textit{when}\ \textit{eff’} = \textit{eff} \rightarrow \\
+                                                                   &amp; \quad \qquad \quad \textit{effh}\ v\ (\lambda \textit{arg}.\\
+                                                                   &amp; \quad \qquad \qquad \mathtt{let}\ \textit{ret} = k\ \textit{arg} \ \mathtt{in}\\
+                                                                   &amp; \quad \qquad \qquad \textit{continue}\ (\mathtt{match}\ \textit{ret} \ \mathtt{with}\\
+                                                                   &amp; \quad \qquad \qquad \mid \textit{Val}\ \text{\textunderscore} \rightarrow \textit{ret}\\
+                                                                   &amp; \quad \qquad \qquad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \textit{ret}))\\
+                                                                   &amp; \quad \qquad \mid \textit{UncaughtEff}\ (\textit{effv’}, k’) \rightarrow\\ 
+                                                                   &amp; \quad \qquad \qquad \mathtt{yield}\ (\textit{UncaughtEff}\ (\textit{effv’}, \lambda \textit{arg}.\\
+                                                                   &amp; \quad \qquad \qquad \quad \mathtt{let}\ \textit{ret} = k’\ \textit{arg} \ \mathtt{in}\\
+                                                                   &amp; \quad \qquad \qquad \quad \textit{continue}\ (\mathtt{match}\ \textit{ret} \ \mathtt{with}\\
+                                                                   &amp; \quad \qquad \qquad \quad \mid \textit{Val}\ \text{\textunderscore} \rightarrow \textit{ret}\\
+                                                                   &amp; \quad \qquad \qquad \quad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \textit{ret}))) \\
+                                                                   &amp; \quad \qquad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \left(\textit{vh}\ r\right)\\
+                                                                   &amp; \quad \quad  \mathtt{and}\ \textit{continue}\ \textit{arg} =\\
+                                                                   &amp; \quad \qquad \mathtt{let}\ r = \mathtt{resume}\ \textit{arg}\ \mathtt{in}\\
+                                                                   &amp; \quad \qquad \mathtt{match}\ r\ \mathtt{with}\\
+                                                                   &amp; \quad \qquad \mid \textit{Val}\ v \rightarrow v\\
+                                                                   &amp; \quad \qquad \mid \text{\textunderscore} \rightarrow \textit{handle}\ r\\
+                                                                   &amp; \quad \quad  \mathtt{in}\\
+                                                                   &amp; \quad \quad  \mathtt{match}\ \textit{continue}\ c\ \mathtt{with} \\
+                                                                   &amp; \quad \quad  \mid \textit{Val}\ v \rightarrow v\\
+                                                                   &amp; \quad \quad  \mid r \rightarrow r\\
+  \end{aligned}
+\end{array}
+\]
+図<a href="#conv">4.2</a>. the conversion \(\left[\left[e_{ce}\right]\right] = e_{\lambda_{\textit{cor}}}\)
+</center>
+</div>
+<p><strong><em><code>handler</code>長すぎんじゃボケー!!!</em></strong>
+ただの実装やろがい!!!
+散々引っ張っておいて大変申し訳無いが､今の所スッキリできそうにないので勘弁してもらいたい｡
+さらに見返してみるとなんだか洗練されてない｡
+もう少しCPSっぽく書ける部分がたしかにあり､そうすれば末尾呼び出しになって良いことがありそうだが､筆者はCPSで実装を試みたところバグバグになって一回諦めているため､読者への課題としたい｡
+CPSにすればvalue handlerを複数使ってしまうのを防ぐための<code>Val</code>コンストラクタが不要になるだろう｡</p>
+<p>メタの話はこの程度にして､内容を見てみよう｡
+<code>handler</code>以外はだいたいふ〜んて感じで､<code>perform</code>も表<a href="#tbl-aeac">4.1</a>でぼんやりと考えたとおりに<code>yield</code>に対応している｡</p>
+<p>問題は爆発している<code>handler</code>である｡
+thunkを受け取ってコルーチンを作り､<code>resume</code>のラッパーとなっている<code>continue</code>を走らせてるので､なるほど<code>create</code> &amp; <code>resume</code>である｡</p>
+<p><code>handler</code>の内部の<code>handle</code>が一番仕事してる雰囲気を出している｡
+<code>handle</code>は<code>contiue</code>からのみ呼ばれており､呼び出し時に<code>resume</code>の戻り値､つまり<code>yield</code>に渡された引数かコルーチンでencapsulateされた関数の戻り値である｡
+<code>Val</code>以外でコルーチンから戻ってくるものとなると､<code>yield</code>は<code>perform</code>だから<code>Eff</code>だな｡</p>
+<p>そして<code>Eff(eff', v)</code>の<code>eff'</code>がハンドルすべきエフェクト<code>eff</code>の場合は<code>effh</code>によって処理をおこなっている｡
+<code>effh</code>に渡される第2引数は限定継続であるが､ここでは<code>continue</code>をさらにラップして<code>Val</code>タグを剥がしている｡
+ハンドルしないエフェクトの場合は<code>UncaughtEff</code>にエフェクトと継続を渡して<strong><code>yield</code>している</strong>｡
+これによって一つ外側のハンドラにエフェクトを飛ばしているのである｡
+だからさっき述べた<code>continue</code>内の<code>resume</code>が返すのは関数の戻り値と<code>Eff</code>だけでなく<code>UncaughtEff</code>もある｡</p>
+<p>では<code>handle</code>内で<code>UncaughtEff</code>をハンドルしてる部分を見る｡
+だいたい同じ要領だが､<code>effh</code>に渡している継続は様子がちょっとちがう｡
+<code>UncaughtEff</code>は継続を一緒にもってくるので､まずこれを走らせる｡
+そして継続の戻り値をさらに<em>現在の</em>継続に渡して現在の継続を走らせる｡
+ハンドルできない<code>UncaughtEff</code>の場合も面白い｡
+さらに外側のハンドラにエフェクトの処理をまかせたいので同様に<code>UncaughtEff</code>を<code>yield</code>で飛ばしている｡
+ただし<code>UncaughtEff</code>に渡している継続は､渡ってきた継続の結果をさらに現在の継続に渡している｡
+つまりこれは継続をネストさせている｡
+ますますCPSで実装したくなりますね｡
+実装に自信ニキはよろしくお願いします｡
+脳が発光しますね｡</p>
+<p>最後に<code>Val</code>が来た場合､中身を剥がしてvalue handlerに突っ込んでいる｡
+型がない世界でよかったですね｡</p>
+<h1 id="5.+%E5%AE%9F%E8%A3%85"><a class="headerlink" href="#5.+%E5%AE%9F%E8%A3%85">5. 実装</a></h1>
+<p>それでは改めて<a href="#repo">リポジトリ</a>の方を見てみよう｡
+Asymmetric coroutinesと非常に縁の深いLuaにより実装した｡
+本稿で変換を改めて考えるにあたり､バグが複数発見､修正された｡
+フィーリングの脆さと簡単なモデルに落として内容をしっかり検討することの重要さを再確認した｡</p>
+<p>実装は図<a href="#conv">4.2</a>とほとんど同じである｡
+なんといっても順番が逆で､実装が先にあり､図<a href="#conv">4.2</a>は実装をもとに書き下したためである｡
+しかしLuaはclassもADTもないし関数リテラルが冗長､文志向なので<code>return</code>必須といろいろしんどいところがあった｡</p>
+<p>本稿の変換と異なる点は､ハンドラが多値に対応している点である｡
+…というのは半分ウソというか､Multicore OCamlではtupleで表現するところを､tableでガッとやるのではなく可変長引数や多値などといったLuaの持ち味を活かすための細工をおこなった｡
+多値を引き回すのは面倒なので､ハンドラに渡ってきた多値をtableに押し込み､実際に使われるタイミングで<code>unpack</code>によって多値に戻している｡
+この操作のため､effect handlerの引数の順序が<code>(value, continuation)</code>から<code>(continuation, value...)</code>と逆になっている｡
+多値については<a href="/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html">こちら</a>を参照…とおもったけど多値を返す関数の呼び出しをそのまま関数の引数の位置に書いた場合についてはあまりふれられてませんね｡
+Lua VM的な説明をすると､引数の末尾位置に多値を返す関数の呼び出しを書かないと､1引数分､つまり1レジスタしか関数の戻り値を受けるレジスタが用意されないためである｡</p>
+<p>最初期からフィーリングで突っ走っており､<code>UncaughtEff</code>相当のことを､赤ちゃんでも思いつくような､例外処理機によって実装していた｡
+OCamlのように代数的な例外がないのも相まって散々な目にあったが､部分的にはalgebraic effectsを実装していた｡
+例外のハンドリングは一般にコストフル<sup id="fnref8" title="例外処理のある言語は概ねモダンであり､モダンな言語は比較的親切であり､親切な言語はエラーを吐くとスタックトレースを出してくれる｡ この新設のためにスタックトレースを記録するので遅くなる｡gotoとしての例外おおいに結構しかしパフォーマンスとしっかり勘案すること｡ "><a href="#fn8" rel="footnote">8</a></sup>であり､Luaもご多分に漏れず遅い｡
+コントロールを全てコルーチンの操作だけでおこなった場合と例外でぴょんぴょんする場合のパフォーマンスを比較してみたいが､まぁ半分ナンセンスだし半分は筆者のやる気不足なので､多分速くなってるだろうということで終わる｡</p>
+<h2 id="5-1.+%E3%83%87%E3%83%A2"><a class="headerlink" href="#5-1.+%E3%83%87%E3%83%A2">5-1. デモ</a></h2>
+<p>皆さん大好き<a href="https://github.com/Nymphium/eff.lua/blob/master/example/shiftreset.lua" target="_blank" rel="noopener noreferrer">multiprompt shift/resetが実装できる</a>｡
+ただしエフェクトハンドラの継続をそのままつかっているので､継続の使用は高々1回に制限されている｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">eff</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"eff"</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">Eff</span><span class="p">,</span> <span class="n">perform</span><span class="p">,</span> <span class="n">handler</span> <span class="o">=</span> <span class="n">eff</span><span class="p">.</span><span class="n">Eff</span><span class="p">,</span> <span class="n">eff</span><span class="p">.</span><span class="n">perform</span><span class="p">,</span> <span class="n">eff</span><span class="p">.</span><span class="n">handler</span>
+
+<span class="kd">local</span> <span class="n">sr0</span>
+<span class="k">do</span>
+  <span class="kd">local</span> <span class="n">new_prompt</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
+    <span class="kd">local</span> <span class="n">Shift0</span> <span class="o">=</span> <span class="n">Eff</span><span class="p">(</span><span class="s2">"Shift0"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="n">take</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">return</span> <span class="n">perform</span><span class="p">(</span><span class="n">Shift0</span><span class="p">(</span><span class="n">f</span><span class="p">))</span> <span class="k">end</span><span class="p">,</span>
+      <span class="n">push</span> <span class="o">=</span> <span class="n">handler</span><span class="p">(</span><span class="n">Shift0</span><span class="p">,</span>
+        <span class="k">function</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">return</span> <span class="n">v</span> <span class="k">end</span><span class="p">,</span>
+        <span class="k">function</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+          <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="k">end</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="kd">local</span> <span class="n">reset_at</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">th</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">th</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="kd">local</span> <span class="n">shift0_at</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p</span><span class="p">.</span><span class="n">take</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">sr0</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">new_prompt</span> <span class="o">=</span> <span class="n">new_prompt</span><span class="p">,</span>
+    <span class="n">reset_at</span> <span class="o">=</span> <span class="n">reset_at</span><span class="p">,</span>
+    <span class="n">shift0_at</span> <span class="o">=</span> <span class="n">shift0_at</span>
+  <span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>プロンプトごとに<code>Shift0</code>エフェクトインスタンスを作っている｡
+<code>handler</code>がそのまんまdelimiterになってるのがいいよね｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">p</span> <span class="o">=</span> <span class="n">sr0</span><span class="p">.</span><span class="n">new_prompt</span><span class="p">()</span>
+
+<span class="n">sr0</span><span class="p">.</span><span class="n">reset_at</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">sr0</span><span class="p">.</span><span class="n">shift0_at</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+     <span class="n">k</span><span class="p">(</span><span class="s2">"Hello"</span><span class="p">)</span>
+     <span class="nb">print</span><span class="p">(</span><span class="s2">"?"</span><span class="p">)</span>
+  <span class="k">end</span><span class="p">))</span>
+
+  <span class="nb">io.write</span><span class="p">(</span><span class="s2">"World"</span><span class="p">)</span>
+<span class="k">end</span><span class="p">)</span>
+
+<span class="cm">--[[ prints
+Hello
+World?
+--]]</span>
+</code></pre></div>
+<p>だいぶ自然に書けているんじゃないでしょうか｡</p>
+<p>エフェクトの抽象化､実装の分離…<a href="https://github.com/Nymphium/eff.lua/blob/master/example/typeclass.lua" target="_blank" rel="noopener noreferrer">型クラス</a>か?</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">Map</span> <span class="o">=</span> <span class="n">Eff</span><span class="p">(</span><span class="s2">"Map"</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">map</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fa</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">perform</span><span class="p">(</span><span class="n">Map</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fa</span><span class="p">))</span>
+<span class="k">end</span>
+
+<span class="c1">-- list map</span>
+<span class="kd">local</span> <span class="n">lmaph</span> <span class="o">=</span> <span class="n">handler</span><span class="p">(</span><span class="n">Map</span><span class="p">,</span>
+  <span class="k">function</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">return</span> <span class="n">v</span> <span class="k">end</span><span class="p">,</span>
+  <span class="k">function</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">fa</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">newt</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="k">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">fa</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">newt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">return</span> <span class="n">k</span><span class="p">(</span><span class="n">newt</span><span class="p">)</span>
+  <span class="k">end</span><span class="p">)</span>
+
+<span class="n">lmaph</span><span class="p">(</span><span class="k">function</span><span class="p">()</span>
+  <span class="kd">local</span> <span class="n">t</span> <span class="o">=</span> <span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="k">end</span><span class="p">,</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">})</span>
+
+  <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">t</span> <span class="k">do</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+  <span class="k">end</span>
+<span class="k">end</span><span class="p">)</span>
+
+<span class="c1">-- string map</span>
+<span class="kd">local</span> <span class="n">smaph</span> <span class="o">=</span> <span class="n">handler</span><span class="p">(</span><span class="n">Map</span><span class="p">,</span>
+  <span class="k">function</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">return</span> <span class="n">v</span> <span class="k">end</span><span class="p">,</span>
+  <span class="k">function</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">news</span> <span class="o">=</span> <span class="s2">""</span>
+
+    <span class="k">for</span> <span class="n">c</span> <span class="k">in</span> <span class="n">s</span><span class="p">:</span><span class="n">gmatch</span><span class="p">(</span><span class="s2">"."</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">news</span> <span class="o">=</span> <span class="n">news</span> <span class="o">..</span> <span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">return</span> <span class="n">k</span><span class="p">(</span><span class="n">news</span><span class="p">)</span>
+  <span class="k">end</span><span class="p">)</span>
+
+<span class="n">smaph</span><span class="p">(</span><span class="k">function</span><span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">return</span> <span class="n">c</span> <span class="o">..</span> <span class="n">c</span> <span class="k">end</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">))</span>
+<span class="k">end</span><span class="p">)</span>
+</code></pre></div>
+<p>Functorっぽいものを書いてるなと思ったが<code>smaph</code>をみると全然そんなことなく､自分でも困惑した｡
+Luaは残念ながら型のない世界なのでなんでもアリである｡</p>
+<h1 id="6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6"><a class="headerlink" href="#6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6">6. 関連研究</a></h1>
+<p>Koka言語などをやっていってるLeijenによりC言語によるalgebraic effectsの実装<span class="cite">[<a href="#fn9" rel="footnote" title="Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. " id="fnref9">9</a>]</span>kがおこなわれている｡
+本稿と比較すると1ハンドラ1エフェクトや継続がワンショットなどの制限ががない一方､非常にユーザーアンフレンドリーな構文となっている｡
+そのためP言語などのコンパイラのターゲットという位置づけがなされている｡
+本稿では式指向の言語での変換をおこなっており､\(\lambda_{\textit{cor}}\)相当をサブセットとして持つ言語ならばsyntacticな辛さはない､と思う｡</p>
+<h1 id="7.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#7.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">7. おわりに</a></h1>
+<p>本稿ではoneshot algebraic effectsからasymmetric coroutinesへの変換を提示した｡
+この変換を用いることで､asymmetric coroutinesを持つ言語でoneshot algebraic effectsを使用することが可能になる｡
+本稿ではすでにLuaによる実装を与えており､Luaはalgebraic effects-readyな状態となっている｡</p>
+<p>ただし本稿の変換の正しさについては証明されていない｡
+いまのところ “なんとなくうごいてる” 状態であり､とりあえずテストに<a href="https://github.com/ocamllabs/ocaml-effects-tutorial" target="_blank" rel="noopener noreferrer">Multicore OCamlのチュートリアル</a>を実装することで正しく動いてそうなことを確認している｡
+未来のボクや､読者のみなさんに託されています｡
+2019年には本稿の変換の証明､あるいは間違った部分の指摘などが湧き出ることを願っている｡</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. <a href="#fnref1" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn2">
+<p>Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. <a href="#fnref2" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn3">
+<p>むしろ他に継続がワンショットのalgebraic effectsを知りませんが…｡あとMulticore OCamlには<code>Obj.clone_continuation</code>という継続を複製する関数が用意されており､ランタイムにコストを支払うことで継続を2回以上使うことができる｡ <a href="#fnref3" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn4">
+<p>Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. <a href="#fnref4" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn5">
+<p>Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. <a href="#fnref5" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn6">
+<p>Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. <a href="#fnref6" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn7">
+<p>Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. <a href="#fnref7" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn8">
+<p>例外処理のある言語は概ねモダンであり､モダンな言語は比較的親切であり､親切な言語はエラーを吐くとスタックトレースを出してくれる｡ この新設のためにスタックトレースを記録するので遅くなる｡gotoとしての例外おおいに結構しかしパフォーマンスとしっかり勘案すること｡ <a href="#fnref8" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn9">
+<p>Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. <a href="#fnref9" rev="footnote">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html" title="Lily58による.xmodmapのハードウェア実装">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <span class="btn next disabled">Next →</span>
+      </div>
+    </footer>
+
+  </body>
+</html>

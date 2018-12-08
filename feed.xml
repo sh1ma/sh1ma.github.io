@@ -5,9 +5,609 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 08 Dec 2018 04:43:56 +0900</pubDate>
-    <lastBuildDate>Sat, 08 Dec 2018 04:43:56 +0900</lastBuildDate>
+    <pubDate>Sun, 09 Dec 2018 00:02:05 +0900</pubDate>
+    <lastBuildDate>Sun, 09 Dec 2018 00:02:05 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
+    
+      <item>
+        <title>Asymmetric CoroutinesによるOneshot Algebraic Effectsの実装</title>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
+これは&lt;a href=&quot;https://qiita.com/advent-calendar/2018/lang_dev&quot;&gt;言語実装Advent Calendar 2018&lt;/a&gt;の9日目の記事です｡
+最初は “変数が全部箱の言語の設計と実装” と題して全部optionにくるまれてる参照とかそういう感じの何かを作ろうとしたけど多分面白くなくなって筆者の熱も醒めると思ったのでやめた｡
+またそうこうしてるうちに良い感じのものが作れたので､論理的背景を整理するためにも内容を再考して今回のような内容となりました｡
+ほならね早速いってみましょう｡&lt;/p&gt;
+&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;Algebraic effects and handlers(以降 “algebraic effects” と省略)は､いわば限定継続を取れる例外である｡
+try節をdelimiterとし､例外発生位置から残りの計算を限定継続として受け取り､継続をもちいて例外から復帰したり､単に継続を捨てて例外として扱うこともできる｡
+最近各所で注目されており､組み込みの言語機能やライブラリとしていくつか提供されている｡
+しかし､強力なコントロールオペレータとしての様々な使用が期待される一方､実装はそれほど多くないのが難点である｡&lt;/p&gt;
+&lt;p&gt;Asymmetric coroutinesは､コントロール抽象化機構の一つであり､ノンプリエンプティブなマルチタスクをおこなうことができる｡
+Lua､Rubyなどの言語機能またはライブラリとして提供されており､様々な場面で使うことができる｡
+一方コントロールオペレータとして扱うには操作が低級であり､スパゲッティコードになりがちである｡&lt;/p&gt;
+&lt;p&gt;本稿では､oneshot algebraic effectsからasymmetric coroutinesへの変換､つまり､asymmetric coroutinesによる､継続の使用をワンショットに制限したalgebraic effectsの実装を考える｡
+これによりalgebraic effectsをよりカジュアルにあつかえるようになり､さらにasymmetric coroutinesよりも高級なコントロールの操作により､コードを簡潔に書くことが期待される｡&lt;/p&gt;
+&lt;p&gt;コントロールオペレータとしてのasymmetric coroutinesについて述べ､asymmetric coroutinesとoneshot algebraic effectsとの関係について述べる｡
+余力があれば実際に変換を考え､変換を元にした実装を眺める｡
+変換の正しさについては証明はないため､読者への課題､あるいは筆者の研究の一環とする｡&lt;/p&gt;
+&lt;p&gt;本稿の実装はLuaのモジュールとして公開してある｡
+お手元にご用意したりして本稿をお楽しみください｡&lt;/p&gt;
+&lt;p&gt;&lt;label id=&quot;repo&quot;&gt;&lt;/label&gt;
+&lt;/p&gt;&lt;div class=&quot;github-widget&quot; data-repo=&quot;Nymphium/eff.lua&quot;&gt;&lt;/div&gt;
+&lt;h1 id=&quot;2.+algebraic+effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+algebraic+effects&quot;&gt;2. algebraic effects&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;これについては直近でそこそこ話したので､&lt;a href=&quot;/2018/08/13/algebraic_effects_tutorial.html&quot;&gt;あれ&lt;/a&gt;とか&lt;a href=&quot;/pdf/mlday2.html&quot;&gt;これ&lt;/a&gt;とか&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot;&gt;それ&lt;/a&gt;とかをご参照ください｡&lt;/p&gt;
+&lt;h2 id=&quot;2-1.+Core+Eff&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-1.+Core+Eff&quot;&gt;2-1. Core Eff&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;今回は1つのハンドラでハンドルできるエフェクトは1つというCore Effという言語を考える(図&lt;a href=&quot;#ce-syn&quot;&gt;2.1&lt;/a&gt;)｡
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title=&quot;Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;を参考にした｡&lt;/p&gt;
+&lt;div&gt;
+&lt;center&gt;
+&lt;label id=&quot;ce-syn&quot;&gt;&lt;/label&gt;
+\[
+\begin{array}{rrl}
+  x &amp;amp; \in &amp;amp; \text{\textit{Variables}}\\
+  \text{\textit{eff}} &amp;amp; \in &amp;amp; \text{\textit{Effects}}\\
+  v &amp;amp; ::= &amp;amp; x \mid h \mid \lambda x. e \mid \mathtt{perform}\ \text{\textit{eff}}\ v \\
+  e &amp;amp; ::= &amp;amp; v \mid v\ v \mid \mathtt{let}\ x=e\ \mathtt{in}\ e\\
+    &amp;amp;\mid &amp;amp; \mathtt{inst}\ \left(\right) \mid \mathtt{with}\ h\ \mathtt{handle}\ e \\
+  h &amp;amp; ::= &amp;amp; \mathtt{handler}\ v\ \left(\mathtt{val}\ x \rightarrow e\right)\ \left(\left(x, k\right)\rightarrow e\right)
+\end{array}
+
+\]
+図&lt;a href=&quot;#ce-syn&quot;&gt;2.1&lt;/a&gt;. the syntax of Core Eff
+&lt;/center&gt;
+&lt;/div&gt;
+&lt;p&gt;ラムダ計算に&lt;code&gt;let&lt;/code&gt;が付いて､あとはalgebraic effects関連の項が追加されている｡
+&lt;code&gt;inst ()&lt;/code&gt;でエフェクトインスタンスを生成する｡
+エフェクトインスタンスは任意のエフェクト定義に対応する｡
+例えば&lt;code&gt;State&lt;/code&gt;モナドっぽい&lt;code&gt;State&lt;/code&gt;エフェクトを定義するとなどきに､ハンドラと対応するエフェクトを一意に定められるという点とか各所メリットがある｡
+&lt;code&gt;perform eff e&lt;/code&gt;は引数&lt;code&gt;e&lt;/code&gt;を渡しエフェクト&lt;code&gt;eff&lt;/code&gt;を発生する｡
+&lt;code&gt;handler eff vh effh&lt;/code&gt;でエフェクト&lt;code&gt;eff&lt;/code&gt;のハンドラを定義する｡
+&lt;code&gt;vh&lt;/code&gt;はvalue handlerとなり､ハンドラがエフェクトをハンドルしきって値を返すときにvalue handlerによりハンドルした値を返す｡
+&lt;code&gt;effh&lt;/code&gt;はエフェクトの引数と継続を取る｡&lt;/p&gt;
+&lt;p&gt;ハンドルできるエフェクトが少ないため一見して弱くなったか? と思うがそんなことはない｡
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title=&quot;Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;ではエフェクトにADTを渡してハンドラ内でさらにパターンマッチする方法で事実上n個のエフェクトをハンルするようにしている｡&lt;/p&gt;
+&lt;p&gt;意味論に関してはっきりと示せる自信がない(面倒くさいとも言う)のと､後述のように継続の使用回数を制限するので省略します｡
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot; title=&quot;Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;にあるような､よくあるcall by valueの体系を想定している｡
+次の例題で雰囲気を掴んでもらいたい｡&lt;/p&gt;
+&lt;h2 id=&quot;2-2.+%E4%BE%8B%E9%A1%8C&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-2.+%E4%BE%8B%E9%A1%8C&quot;&gt;2-2. 例題&lt;/a&gt;&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choose&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inst&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* instantiate *)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lh&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choose&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* choose left *)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lh&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handle&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* returns `8` *)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;突然tupleが出てきましたが､純真な心で呼んでみてください｡
+&lt;code&gt;inst ()&lt;/code&gt;が返す値はeffect instancesの中でuniqueならなんでもいい｡
+ハンドラ&lt;code&gt;lh&lt;/code&gt;を定義する｡
+エフェクトハンドラ&lt;code&gt;((l, r), k) -&amp;gt; k l&lt;/code&gt;を見ると､&lt;code&gt;(l, r)&lt;/code&gt;というtupleを受け取って継続&lt;code&gt;k&lt;/code&gt;に&lt;code&gt;l&lt;/code&gt;だけ渡して&lt;code&gt;r&lt;/code&gt;は捨てる｡&lt;/p&gt;
+&lt;h2 id=&quot;2-3.+oneshot+algebraic+effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-3.+oneshot+algebraic+effects&quot;&gt;2-3. oneshot algebraic effects&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;今回はさらに､継続の使用を高々1回に制限する｡
+マイナーな言語機能でさらに制限を加えてしまっているが､例えば&lt;a href=&quot;http://ocamllabs.io/doc/multicore.html&quot;&gt;Multicore OCaml&lt;/a&gt;は原則的に継続の使用は1回に制限されている&lt;sup id=&quot;fnref3&quot; title=&quot;むしろ他に継続がワンショットのalgebraic effectsを知りませんが…｡あとMulticore OCamlにはObj.clone_continuationという継続を複製する関数が用意されており､ランタイムにコストを支払うことで継続を2回以上使うことができる｡ &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;｡
+例えば次のような例(コード&lt;a href=&quot;#ng-twice&quot;&gt;2.2&lt;/a&gt;)はNGにしたい｡
+continuationを2回使ってはいけない(戒め)｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;コード&lt;a href=&quot;#ng-twice&quot;&gt;2.2&lt;/a&gt;. NG: using &lt;em&gt;k&lt;/em&gt; twice&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inst&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* NG!!! 2回使うな!!! *)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;handle&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Affine typesなどにより継続を2回使う箇所を検出したいが､それはまたいつかお話しましょう｡
+高級な型システムでなくても､継続に適当な型を付けてdef-use chainを使えばヒューリスティックに解決できそうですね｡&lt;/p&gt;
+&lt;p&gt;今回は継続を2回以上使ってはいけない&lt;em&gt;お約束&lt;/em&gt;しかないので誰も注意してくれない｡
+そのため我々が注意するしかない｡&lt;/p&gt;
+&lt;p&gt;継続が1回しか使えないのはmultishot(ノーマルな) algebraic effectsと比較すると真にパワーが弱くなっている｡
+とはいえ継続を2回も使う必要のない場面&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;が多く､継続がワンショットであることを前提にするとパフォーマンスの良い実装ができる&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot; title=&quot;Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. &quot; id=&quot;fnref5&quot;&gt;5&lt;/a&gt;]&lt;/span&gt;&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn6&quot; rel=&quot;footnote&quot; title=&quot;Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. &quot; id=&quot;fnref6&quot;&gt;6&lt;/a&gt;]&lt;/span&gt;｡&lt;/p&gt;
+&lt;h1 id=&quot;3.+asymmetric+coroutines&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+asymmetric+coroutines&quot;&gt;3. asymmetric coroutines&lt;/a&gt;&lt;/h1&gt;
+&lt;h2 id=&quot;3-1.+asymmetric%3F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-1.+asymmetric%3F&quot;&gt;3-1. asymmetric?&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;非常に簡単に説明すると､みなさんがお使いのコルーチンは概ねasymmetric coroutineです｡
+Asymmetric coroutineがあるのでsymmetric coroutineももちろん存在する｡
+Asymmetric coroutinesは対象のコルーチンへ&lt;em&gt;飛ぶ&lt;/em&gt;操作resumeと操作してるコルーチンから&lt;em&gt;戻る&lt;/em&gt;操作yieldの2つを持つ｡
+一方symmetric coroutinesはコントロールを移すという唯一の操作controlのみを持ちます(表&lt;a href=&quot;#tbl-cor&quot;&gt;3.1&lt;/a&gt;)｡&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;label id=&quot;tbl-cor&quot;&gt;&lt;/label&gt;
+表&lt;a href=&quot;#tbl-cor&quot;&gt;3.1&lt;/a&gt;. the comparision of a?symmetric coroutines
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align: center&quot;&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align: left&quot;&gt;
+&lt;strong&gt;&lt;em&gt;a&lt;/em&gt;&lt;/strong&gt;symmetric coroutines&lt;/th&gt;
+&lt;th style=&quot;text-align: left&quot;&gt;symmetric coroutines&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;control manipuration&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;resume, yield&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;conttrol&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;/p&gt;
+&lt;/center&gt;
+&lt;p&gt;Asymmetric coroutinesはresumeで呼び出す呼び出し側と､呼び出される側という呼ぶ呼ばれるの関係がコルーチン(とメインスレッド)間にあるのが特徴となっている｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;example.lua&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;co2&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;coroutine.yield&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;a&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;coroutine.yield&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;c&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;co2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;coroutine.yield&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;b&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;coroutine.yield&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; 1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; 2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; 3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;--[[ prints
+a
+ 1
+b
+c
+ 2
+d
+ 3
+--]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;なるほど､&lt;strong&gt;&lt;em&gt;完全に理解した&lt;/em&gt;&lt;/strong&gt;｡&lt;/p&gt;
+&lt;h2 id=&quot;3-2.+%CE%BB%3Csub%3Ecor%3C%2Fsub%3E%0A&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-2.+%CE%BB%3Csub%3Ecor%3C%2Fsub%3E%0A&quot;&gt;3-2. λ&lt;sub&gt;cor&lt;/sub&gt;
+&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Luaだとちょっと大きすぎるし扱いづらいため､変換のための小さな計算体系として\(\lambda_{\text{\textit{cor}}}\)を考える(図&lt;a href=&quot;#lcor-syn&quot;&gt;3.2&lt;/a&gt;)｡&lt;/p&gt;
+&lt;div&gt;
+&lt;center&gt;
+&lt;label id=&quot;lcor-syn&quot;&gt;&lt;/label&gt;
+\[
+\begin{array}{rrl}
+  x &amp;amp; \in &amp;amp; \text{\textit{Variables}}\\
+  K &amp;amp; \in &amp;amp; \{\text{\textit{Eff}}, \text{\textit{Val}}, \text{\textit{UncaughtEff}}\} \text{ // constructors} \\
+  \text{\textit{eff}} &amp;amp; \in &amp;amp; \text{\textit{Effects}}\\
+  v &amp;amp; ::= &amp;amp; x \mid \lambda x. e\\
+  e &amp;amp; ::= &amp;amp; v \mid e\ e \mid \mathtt{let}\ x = e\ \mathtt{in}\ e \mid \mathtt{inst}\ \left(\right) \\
+    &amp;amp; \mid&amp;amp; \mathtt{match}\ e\ \mathtt{with}\ \overrightarrow{case} \\
+    &amp;amp; \mid&amp;amp; \mathtt{create}\ e \mid \mathtt{resume}\ e\ e \mid \mathtt{yield}\ e \text{ // coroutine manipurations} \\
+  case    &amp;amp; ::= &amp;amp; K\ x \rightarrow e \mid K\ x\ \textit{when}\ e = e \rightarrow e \\
+  letrec &amp;amp; ::= &amp;amp; \mathtt{let}\ \mathtt{rec}\ f\ x = e\ mutrec\\
+  mutrec &amp;amp; ::= &amp;amp; \mathtt{and}\ f\ x = e \mid \mathtt{in}\ e
+\end{array}
+\]
+図&lt;a href=&quot;#lcor-syn&quot;&gt;3.2&lt;/a&gt;. the syntax of \(\lambda_{\text{\textit{cor}}}\)
+&lt;/center&gt;
+&lt;/div&gt;
+&lt;p&gt;こちらも筆者が疲れたので意味論はフィーリングで行く｡
+すまんが&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref7&quot;&gt;7&lt;/a&gt;]&lt;/span&gt;を参照されたし｡
+ランタイムにラベルストアなどを用意してがちゃがちゃやっていく感じ｡&lt;/p&gt;
+&lt;p&gt;構成員としては､ラムダ計算にくわえ､&lt;code&gt;let&lt;/code&gt;式､(相互)再帰､ADTとパターンマッチに加え､コルーチンの操作&lt;code&gt;create&lt;/code&gt; &lt;code&gt;resume&lt;/code&gt; &lt;code&gt;yield&lt;/code&gt;がある｡
+各エフェクトを一意にするために&lt;code&gt;inst ()&lt;/code&gt;もそのまま持ってきている｡
+小さくなるよう努力したものの､依然としてゴタゴタしているのはひとえに筆者の力不足である｡&lt;/p&gt;
+&lt;p&gt;ところで上記のプログラムは書けるのだろうか?
+&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;mutual referring(なんて言うのか?) objectをmutual recursionでなんとかできる? できない? 今の脳の稼働率ではわからん｡&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1070882855582986241?ref_src=twsrc%5Etfw&quot;&gt;December 7, 2018&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;
+&lt;p&gt;変換のターゲットとしてコルーチンが出てくるため､上記のようなプログラムは\(\lambda_{\text{\textit{cor}}}\)では書けなくても問題はないので問題ない｡&lt;/p&gt;
+&lt;h2 id=&quot;3-3.+asymmetric+coroutines+and+oneshot+continuation&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-3.+asymmetric+coroutines+and+oneshot+continuation&quot;&gt;3-3. asymmetric coroutines and oneshot continuation&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Asymmetric coroutinesは強力なコントロールオペレータであり､まずsymmetric coroutinesを模倣することができ､のみならずcall/1ccもasymmetric coroutinesにより実装することができる&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref7&quot;&gt;7&lt;/a&gt;]&lt;/span&gt;｡
+call/1ccとは､継続の実行が高々1回に制限されているcall/ccである｡&lt;/p&gt;
+&lt;p&gt;オッoneshotnessが出てきた｡
+これはcontinuationがコルーチンに対応し､コルーチンは状態を複製する操作が基本的に提供されてないためである｡
+したがってコルーチンの状態を複製する操作が追加されない限りは､コルーチンで継続をエミュレーションするときは基本的にワンショットである(表&lt;a href=&quot;#tbl-cont-cor&quot;&gt;3.3&lt;/a&gt;)｡&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;label id=&quot;tbl-cont-cor&quot;&gt;&lt;/label&gt;
+表&lt;a href=&quot;#tbl-cont-cor&quot;&gt;3.3&lt;/a&gt;. the correspondence between continuations and asymmetric coroutines
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align: left&quot;&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align: left&quot;&gt;continuations&lt;/th&gt;
+&lt;th style=&quot;text-align: left&quot;&gt;asymmetric coroutines&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;continuation object&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;function&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;coroutine thread&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;run continuation&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;call function&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;resume&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;suspend&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;waste continuation&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;yield&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;/p&gt;
+&lt;/center&gt;
+&lt;h2 id=&quot;%E3%82%B3%E3%83%A9%E3%83%A0%3A+JavaScript%E3%81%AEgenerator&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%82%B3%E3%83%A9%E3%83%A0%3A+JavaScript%E3%81%AEgenerator&quot;&gt;コラム: JavaScriptのgenerator&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;ES2015からgeneratorというものが追加された｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// { value: 3, done: false }&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// { value: 5, done: false }&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// { value: 0, done: true }&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// { value: undefined, done: true }&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;おっこれはasymmetric coroutineか? と一瞬錯覚するが､実はasymmetric coroutinesよりも表現力が低い｡
+理由は簡単､&lt;code&gt;yield&lt;/code&gt;はgenerator &lt;strong&gt;リテラル&lt;/strong&gt;の直下にしか書けないためである｡
+つまり以下のようなことがsyntacticに書けない｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;yieldf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;yieldf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;yieldf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;/*
+const yieldf = x =&amp;gt; yield x;
+                          ^
+
+SyntaxError: Unexpected identifier
+*/&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;筆者の推理としては､(おそらく)asymmetric coroutinesをCPSで表現するのは難しいが､
+JSのgeneratorなら多分CPS変換できるので､babelなどによるES2015以前のJSへのコンパイルが可能になるからではないかと考えられる｡&lt;/p&gt;
+&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;JSのgeneratorってそうかyieldをgnerator関数の直下にしかかけないから継続の実行がワンショットのCPSに変換できるんだな。babel的な理由でcoroutineにしなかったんだろうか。&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1069176528032849923?ref_src=twsrc%5Etfw&quot;&gt;December 2, 2018&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;
+&lt;p&gt;ところで､generatorも(おそらく)状態を複製する操作が用意されてないので､変換先のCPSの継続はワンショットになるはずである｡&lt;/p&gt;
+&lt;h1 id=&quot;4.+oneshot+algebraic+effects+%E2%86%92+asymmetric+coroutines&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+oneshot+algebraic+effects+%E2%86%92+asymmetric+coroutines&quot;&gt;4. oneshot algebraic effects → asymmetric coroutines&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;Core Effから\(\lambda_{\text{\textit{cor}}}\)への変換､つまり言語Aから言語Bへの変換なのでコンパイルですね｡本稿の変換の実装はすなわちコンパイラになります｡
+言語実装アドベントカレンダーにふさわしいですね｡
+本稿では変換の実装はしないので読者の課題あるいは筆者の研究の一環です｡&lt;/p&gt;
+&lt;h2 id=&quot;4-1.+%E7%9B%B4%E6%84%9F%E7%9A%84%E3%81%AA%E5%AF%BE%E5%BF%9C&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4-1.+%E7%9B%B4%E6%84%9F%E7%9A%84%E3%81%AA%E5%AF%BE%E5%BF%9C&quot;&gt;4-1. 直感的な対応&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;筆者は直観で実装してしまったので､とりあえず直感的なところからかためていく｡
+方針としてはこんな感じになるだろうか(表&lt;a href=&quot;#tbl-aeac&quot;&gt;4.1&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;label id=&quot;tbl-aeac&quot;&gt;&lt;/label&gt;
+表&lt;a href=&quot;#tbl-aeac&quot;&gt;4.1&lt;/a&gt;. the intuitional correspondence between (oneshot ) algebraic effects and asymmetric coroutines
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align: left&quot;&gt;(oneshot) algebraic effects&lt;/th&gt;
+&lt;th style=&quot;text-align: left&quot;&gt;asymmetric coroutines&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;handler&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;(&lt;code&gt;create&lt;/code&gt; &amp;amp; &lt;code&gt;resume&lt;/code&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;perform&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;yield&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;continuation&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;coroutine thread&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;run continuation&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;resume&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;/p&gt;
+&lt;/center&gt;
+&lt;p&gt;ハンドラは対応が取りづらいので曖昧になっている｡
+ハンドラの動作を思い出そう｡
+エフェクトインスタンス､value handler, effect handlerを受け取ったらthunkを取ってそのthunkをハンドラでハンドルする､という動作である｡
+thunk内でエフェクトを発生(&lt;code&gt;yield&lt;/code&gt;)すると一時停止してハンドラに操作が移ってほしい､とするとthunkをコルーチンでencapsulateして即実行､という流れになる｡
+なのでとりあえず&lt;code&gt;create&lt;/code&gt; &amp;amp; &lt;code&gt;resume&lt;/code&gt;としてある｡&lt;/p&gt;
+&lt;h2 id=&quot;4-2.+%E5%A4%89%E6%8F%9B&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4-2.+%E5%A4%89%E6%8F%9B&quot;&gt;4-2. 変換&lt;/a&gt;&lt;/h2&gt;
+&lt;div&gt;
+&lt;center&gt;
+&lt;label id=&quot;conv&quot;&gt;&lt;/label&gt;
+\[
+\begin{array}{c}
+  \left[\left[e_{ce}\right]\right]\eta = e_{\lambda \textit{cor}}\\
+  \ \\
+  \text{  // $c$ is anything to run coroutine at first, like \textit{nil}, $\left(\right)$, etc.}\\
+  \begin{aligned}
+    \left[\left[x\right]\right]\eta &amp;amp;= \eta(x) \\
+    \left[\left[\textit{eff}\right]\right]\eta &amp;amp;= \textit{eff}\\
+    \left[\left[\lambda x. e\right]\right]\eta &amp;amp;= \lambda x’. \left[\left[e\right]\right]\eta\left[x\mapsto x’\right] \\
+    \left[\left[\mathtt{let}\ x = e\ \mathtt{in}\ e’\right]\right]\eta &amp;amp;= \mathtt{let}\ x’ = \left[\left[e\right]\right]\eta\ \mathtt{in}\ \left[\left[e’\right]\right]\eta\left[x\mapsto x’\right]\\
+    \left[\left[v_1\ v_2\right]\right]\eta &amp;amp;= \left(\left[\left[v_1\right]\right]\eta\right) \ \left(\left[\left[v_2\right]\right]\eta\right) \\
+    \left[\left[\mathtt{inst}\ \left(\right)\right]\right]\eta &amp;amp;= \mathtt{inst}\ \left(\right)\\
+    \left[\left[\mathtt{perform}\ \text{\textit{eff}}\ v\right]\right]\eta &amp;amp;= \mathtt{yield}\ \left(\text{\textit{Eff}}\left(\left[\left[\textit{eff}\right]\right]\eta, \left[\left[v\right]\right]\eta\right)\right)\\
+    \left[\left[\mathtt{with}\ h\ \mathtt{handle}\ e\right]\right]\eta &amp;amp;= \left[\left[h\right]\right]\eta\ \left(\lambda c. \left[\left[e\right]\right]\eta\right)\\
+    \left[\left[\mathtt{handler}\ \textit{eff}\ (\mathtt{val}\ x\rightarrow e_v) \ \left(\left(x, k\right) \rightarrow e_{\textit{eff}}\right) \right]\right]\eta%
+                                                                   &amp;amp;= \\
+                                                                   &amp;amp; \mathtt{let}\ \textit{eff} = \left[\left[\textit{eff}\right]\right]\eta\ \mathtt{in}\\
+                                                                   &amp;amp; \mathtt{let}\ \textit{vh} = \lambda x’. \left[\left[e_v\right]\right]\eta\left[x \mapsto x’\right] \ \mathtt{in}\\
+                                                                   &amp;amp; \mathtt{let}\ \textit{effh} = \lambda x’\ k’. \left[\left[e_{\textit{eff}}\right]\right]\eta\left[x \mapsto x’, k \mapsto k’\right]\ \mathtt{in}\\
+                                                                   &amp;amp; \lambda \textit{th}.\\
+                                                                   &amp;amp; \quad \mathtt{let}\ \textit{co} = \mathtt{create}\ \textit{th}\ \mathtt{in} \\
+                                                                   &amp;amp; \quad \quad  \mathtt{let\ rec}\ \textit{handle}\ r =\\
+                                                                   &amp;amp; \quad \qquad \mathtt{match}\ r\ \mathtt{with}\\
+                                                                   &amp;amp; \quad \qquad \mid \textit{Eff}\ \left(\textit{eff’}, v\right)\ \textit{when}\ \textit{eff’} = \textit{eff} \rightarrow\\
+                                                                   &amp;amp; \quad \qquad \quad \textit{effh}\ v\ (\lambda \textit{arg}.\\
+                                                                   &amp;amp; \quad \qquad \quad \mathtt{let}\ \textit{ret} =\textit{continue}\ \textit{arg}\ \mathtt{in}\\
+                                                                   &amp;amp; \quad \qquad \quad (\mathtt{match}\ \textit{ret}\ \mathtt{with}\\
+                                                                   &amp;amp; \quad \qquad \quad \mid \textit{Val}\ \text{\textunderscore} \rightarrow \textit{ret}\\
+                                                                   &amp;amp; \quad \qquad \quad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \textit{ret}))\\
+                                                                   &amp;amp; \quad \qquad \mid \textit{Eff}\ \left(\text{\textunderscore}, \text{\textunderscore}\right)\rightarrow \mathtt{yield}\ \left(\textit{UncaughtEff}\ \left(r, \textit{continue}\right)\right)\\
+                                                                   &amp;amp; \quad \qquad \mid \textit{UncaughtEff}\ \left(\textit{Eff}\ \left(\textit{eff’}, v\right) , k\right) \ \textit{when}\ \textit{eff’} = \textit{eff} \rightarrow \\
+                                                                   &amp;amp; \quad \qquad \quad \textit{effh}\ v\ (\lambda \textit{arg}.\\
+                                                                   &amp;amp; \quad \qquad \qquad \mathtt{let}\ \textit{ret} = k\ \textit{arg} \ \mathtt{in}\\
+                                                                   &amp;amp; \quad \qquad \qquad \textit{continue}\ (\mathtt{match}\ \textit{ret} \ \mathtt{with}\\
+                                                                   &amp;amp; \quad \qquad \qquad \mid \textit{Val}\ \text{\textunderscore} \rightarrow \textit{ret}\\
+                                                                   &amp;amp; \quad \qquad \qquad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \textit{ret}))\\
+                                                                   &amp;amp; \quad \qquad \mid \textit{UncaughtEff}\ (\textit{effv’}, k’) \rightarrow\\ 
+                                                                   &amp;amp; \quad \qquad \qquad \mathtt{yield}\ (\textit{UncaughtEff}\ (\textit{effv’}, \lambda \textit{arg}.\\
+                                                                   &amp;amp; \quad \qquad \qquad \quad \mathtt{let}\ \textit{ret} = k’\ \textit{arg} \ \mathtt{in}\\
+                                                                   &amp;amp; \quad \qquad \qquad \quad \textit{continue}\ (\mathtt{match}\ \textit{ret} \ \mathtt{with}\\
+                                                                   &amp;amp; \quad \qquad \qquad \quad \mid \textit{Val}\ \text{\textunderscore} \rightarrow \textit{ret}\\
+                                                                   &amp;amp; \quad \qquad \qquad \quad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \textit{ret}))) \\
+                                                                   &amp;amp; \quad \qquad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \left(\textit{vh}\ r\right)\\
+                                                                   &amp;amp; \quad \quad  \mathtt{and}\ \textit{continue}\ \textit{arg} =\\
+                                                                   &amp;amp; \quad \qquad \mathtt{let}\ r = \mathtt{resume}\ \textit{arg}\ \mathtt{in}\\
+                                                                   &amp;amp; \quad \qquad \mathtt{match}\ r\ \mathtt{with}\\
+                                                                   &amp;amp; \quad \qquad \mid \textit{Val}\ v \rightarrow v\\
+                                                                   &amp;amp; \quad \qquad \mid \text{\textunderscore} \rightarrow \textit{handle}\ r\\
+                                                                   &amp;amp; \quad \quad  \mathtt{in}\\
+                                                                   &amp;amp; \quad \quad  \mathtt{match}\ \textit{continue}\ c\ \mathtt{with} \\
+                                                                   &amp;amp; \quad \quad  \mid \textit{Val}\ v \rightarrow v\\
+                                                                   &amp;amp; \quad \quad  \mid r \rightarrow r\\
+  \end{aligned}
+\end{array}
+\]
+図&lt;a href=&quot;#conv&quot;&gt;4.2&lt;/a&gt;. the conversion \(\left[\left[e_{ce}\right]\right] = e_{\lambda_{\textit{cor}}}\)
+&lt;/center&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;&lt;code&gt;handler&lt;/code&gt;長すぎんじゃボケー!!!&lt;/em&gt;&lt;/strong&gt;
+ただの実装やろがい!!!
+散々引っ張っておいて大変申し訳無いが､今の所スッキリできそうにないので勘弁してもらいたい｡
+さらに見返してみるとなんだか洗練されてない｡
+もう少しCPSっぽく書ける部分がたしかにあり､そうすれば末尾呼び出しになって良いことがありそうだが､筆者はCPSで実装を試みたところバグバグになって一回諦めているため､読者への課題としたい｡
+CPSにすればvalue handlerを複数使ってしまうのを防ぐための&lt;code&gt;Val&lt;/code&gt;コンストラクタが不要になるだろう｡&lt;/p&gt;
+&lt;p&gt;メタの話はこの程度にして､内容を見てみよう｡
+&lt;code&gt;handler&lt;/code&gt;以外はだいたいふ〜んて感じで､&lt;code&gt;perform&lt;/code&gt;も表&lt;a href=&quot;#tbl-aeac&quot;&gt;4.1&lt;/a&gt;でぼんやりと考えたとおりに&lt;code&gt;yield&lt;/code&gt;に対応している｡&lt;/p&gt;
+&lt;p&gt;問題は爆発している&lt;code&gt;handler&lt;/code&gt;である｡
+thunkを受け取ってコルーチンを作り､&lt;code&gt;resume&lt;/code&gt;のラッパーとなっている&lt;code&gt;continue&lt;/code&gt;を走らせてるので､なるほど&lt;code&gt;create&lt;/code&gt; &amp;amp; &lt;code&gt;resume&lt;/code&gt;である｡&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;handler&lt;/code&gt;の内部の&lt;code&gt;handle&lt;/code&gt;が一番仕事してる雰囲気を出している｡
+&lt;code&gt;handle&lt;/code&gt;は&lt;code&gt;contiue&lt;/code&gt;からのみ呼ばれており､呼び出し時に&lt;code&gt;resume&lt;/code&gt;の戻り値､つまり&lt;code&gt;yield&lt;/code&gt;に渡された引数かコルーチンでencapsulateされた関数の戻り値である｡
+&lt;code&gt;Val&lt;/code&gt;以外でコルーチンから戻ってくるものとなると､&lt;code&gt;yield&lt;/code&gt;は&lt;code&gt;perform&lt;/code&gt;だから&lt;code&gt;Eff&lt;/code&gt;だな｡&lt;/p&gt;
+&lt;p&gt;そして&lt;code&gt;Eff(eff', v)&lt;/code&gt;の&lt;code&gt;eff'&lt;/code&gt;がハンドルすべきエフェクト&lt;code&gt;eff&lt;/code&gt;の場合は&lt;code&gt;effh&lt;/code&gt;によって処理をおこなっている｡
+&lt;code&gt;effh&lt;/code&gt;に渡される第2引数は限定継続であるが､ここでは&lt;code&gt;continue&lt;/code&gt;をさらにラップして&lt;code&gt;Val&lt;/code&gt;タグを剥がしている｡
+ハンドルしないエフェクトの場合は&lt;code&gt;UncaughtEff&lt;/code&gt;にエフェクトと継続を渡して&lt;strong&gt;&lt;code&gt;yield&lt;/code&gt;している&lt;/strong&gt;｡
+これによって一つ外側のハンドラにエフェクトを飛ばしているのである｡
+だからさっき述べた&lt;code&gt;continue&lt;/code&gt;内の&lt;code&gt;resume&lt;/code&gt;が返すのは関数の戻り値と&lt;code&gt;Eff&lt;/code&gt;だけでなく&lt;code&gt;UncaughtEff&lt;/code&gt;もある｡&lt;/p&gt;
+&lt;p&gt;では&lt;code&gt;handle&lt;/code&gt;内で&lt;code&gt;UncaughtEff&lt;/code&gt;をハンドルしてる部分を見る｡
+だいたい同じ要領だが､&lt;code&gt;effh&lt;/code&gt;に渡している継続は様子がちょっとちがう｡
+&lt;code&gt;UncaughtEff&lt;/code&gt;は継続を一緒にもってくるので､まずこれを走らせる｡
+そして継続の戻り値をさらに&lt;em&gt;現在の&lt;/em&gt;継続に渡して現在の継続を走らせる｡
+ハンドルできない&lt;code&gt;UncaughtEff&lt;/code&gt;の場合も面白い｡
+さらに外側のハンドラにエフェクトの処理をまかせたいので同様に&lt;code&gt;UncaughtEff&lt;/code&gt;を&lt;code&gt;yield&lt;/code&gt;で飛ばしている｡
+ただし&lt;code&gt;UncaughtEff&lt;/code&gt;に渡している継続は､渡ってきた継続の結果をさらに現在の継続に渡している｡
+つまりこれは継続をネストさせている｡
+ますますCPSで実装したくなりますね｡
+実装に自信ニキはよろしくお願いします｡
+脳が発光しますね｡&lt;/p&gt;
+&lt;p&gt;最後に&lt;code&gt;Val&lt;/code&gt;が来た場合､中身を剥がしてvalue handlerに突っ込んでいる｡
+型がない世界でよかったですね｡&lt;/p&gt;
+&lt;h1 id=&quot;5.+%E5%AE%9F%E8%A3%85&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E5%AE%9F%E8%A3%85&quot;&gt;5. 実装&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;それでは改めて&lt;a href=&quot;#repo&quot;&gt;リポジトリ&lt;/a&gt;の方を見てみよう｡
+Asymmetric coroutinesと非常に縁の深いLuaにより実装した｡
+本稿で変換を改めて考えるにあたり､バグが複数発見､修正された｡
+フィーリングの脆さと簡単なモデルに落として内容をしっかり検討することの重要さを再確認した｡&lt;/p&gt;
+&lt;p&gt;実装は図&lt;a href=&quot;#conv&quot;&gt;4.2&lt;/a&gt;とほとんど同じである｡
+なんといっても順番が逆で､実装が先にあり､図&lt;a href=&quot;#conv&quot;&gt;4.2&lt;/a&gt;は実装をもとに書き下したためである｡
+しかしLuaはclassもADTもないし関数リテラルが冗長､文志向なので&lt;code&gt;return&lt;/code&gt;必須といろいろしんどいところがあった｡&lt;/p&gt;
+&lt;p&gt;本稿の変換と異なる点は､ハンドラが多値に対応している点である｡
+…というのは半分ウソというか､Multicore OCamlではtupleで表現するところを､tableでガッとやるのではなく可変長引数や多値などといったLuaの持ち味を活かすための細工をおこなった｡
+多値を引き回すのは面倒なので､ハンドラに渡ってきた多値をtableに押し込み､実際に使われるタイミングで&lt;code&gt;unpack&lt;/code&gt;によって多値に戻している｡
+この操作のため､effect handlerの引数の順序が&lt;code&gt;(value, continuation)&lt;/code&gt;から&lt;code&gt;(continuation, value...)&lt;/code&gt;と逆になっている｡
+多値については&lt;a href=&quot;/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html&quot;&gt;こちら&lt;/a&gt;を参照…とおもったけど多値を返す関数の呼び出しをそのまま関数の引数の位置に書いた場合についてはあまりふれられてませんね｡
+Lua VM的な説明をすると､引数の末尾位置に多値を返す関数の呼び出しを書かないと､1引数分､つまり1レジスタしか関数の戻り値を受けるレジスタが用意されないためである｡&lt;/p&gt;
+&lt;p&gt;最初期からフィーリングで突っ走っており､&lt;code&gt;UncaughtEff&lt;/code&gt;相当のことを､赤ちゃんでも思いつくような､例外処理機によって実装していた｡
+OCamlのように代数的な例外がないのも相まって散々な目にあったが､部分的にはalgebraic effectsを実装していた｡
+例外のハンドリングは一般にコストフル&lt;sup id=&quot;fnref8&quot; title=&quot;例外処理のある言語は概ねモダンであり､モダンな言語は比較的親切であり､親切な言語はエラーを吐くとスタックトレースを出してくれる｡ この新設のためにスタックトレースを記録するので遅くなる｡gotoとしての例外おおいに結構しかしパフォーマンスとしっかり勘案すること｡ &quot;&gt;&lt;a href=&quot;#fn8&quot; rel=&quot;footnote&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;であり､Luaもご多分に漏れず遅い｡
+コントロールを全てコルーチンの操作だけでおこなった場合と例外でぴょんぴょんする場合のパフォーマンスを比較してみたいが､まぁ半分ナンセンスだし半分は筆者のやる気不足なので､多分速くなってるだろうということで終わる｡&lt;/p&gt;
+&lt;h2 id=&quot;5-1.+%E3%83%87%E3%83%A2&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5-1.+%E3%83%87%E3%83%A2&quot;&gt;5-1. デモ&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;皆さん大好き&lt;a href=&quot;https://github.com/Nymphium/eff.lua/blob/master/example/shiftreset.lua&quot;&gt;multiprompt shift/resetが実装できる&lt;/a&gt;｡
+ただしエフェクトハンドラの継続をそのままつかっているので､継続の使用は高々1回に制限されている｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eff&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;eff&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sr0&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_prompt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Shift0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Shift0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;take&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Shift0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Shift0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reset_at&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;th&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;th&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shift0_at&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;take&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;sr0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;new_prompt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_prompt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;reset_at&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reset_at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;shift0_at&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shift0_at&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;プロンプトごとに&lt;code&gt;Shift0&lt;/code&gt;エフェクトインスタンスを作っている｡
+&lt;code&gt;handler&lt;/code&gt;がそのまんまdelimiterになってるのがいいよね｡&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sr0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_prompt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;sr0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reset_at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sr0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shift0_at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+  &lt;span class=&quot;nb&quot;&gt;io.write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;World&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;--[[ prints
+Hello
+World?
+--]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;だいぶ自然に書けているんじゃないでしょうか｡&lt;/p&gt;
+&lt;p&gt;エフェクトの抽象化､実装の分離…&lt;a href=&quot;https://github.com/Nymphium/eff.lua/blob/master/example/typeclass.lua&quot;&gt;型クラス&lt;/a&gt;か?&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Map&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Map&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fa&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fa&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;-- list map&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lmaph&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fa&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ipairs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fa&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;newt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;newt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;lmaph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;-- string map&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;smaph&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;news&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gmatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;news&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;news&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;news&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;smaph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Functorっぽいものを書いてるなと思ったが&lt;code&gt;smaph&lt;/code&gt;をみると全然そんなことなく､自分でも困惑した｡
+Luaは残念ながら型のない世界なのでなんでもアリである｡&lt;/p&gt;
+&lt;h1 id=&quot;6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;6. 関連研究&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;Koka言語などをやっていってるLeijenによりC言語によるalgebraic effectsの実装&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn9&quot; rel=&quot;footnote&quot; title=&quot;Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. &quot; id=&quot;fnref9&quot;&gt;9&lt;/a&gt;]&lt;/span&gt;kがおこなわれている｡
+本稿と比較すると1ハンドラ1エフェクトや継続がワンショットなどの制限ががない一方､非常にユーザーアンフレンドリーな構文となっている｡
+そのためP言語などのコンパイラのターゲットという位置づけがなされている｡
+本稿では式指向の言語での変換をおこなっており､\(\lambda_{\textit{cor}}\)相当をサブセットとして持つ言語ならばsyntacticな辛さはない､と思う｡&lt;/p&gt;
+&lt;h1 id=&quot;7.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#7.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;7. おわりに&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;本稿ではoneshot algebraic effectsからasymmetric coroutinesへの変換を提示した｡
+この変換を用いることで､asymmetric coroutinesを持つ言語でoneshot algebraic effectsを使用することが可能になる｡
+本稿ではすでにLuaによる実装を与えており､Luaはalgebraic effects-readyな状態となっている｡&lt;/p&gt;
+&lt;p&gt;ただし本稿の変換の正しさについては証明されていない｡
+いまのところ “なんとなくうごいてる” 状態であり､とりあえずテストに&lt;a href=&quot;https://github.com/ocamllabs/ocaml-effects-tutorial&quot;&gt;Multicore OCamlのチュートリアル&lt;/a&gt;を実装することで正しく動いてそうなことを確認している｡
+未来のボクや､読者のみなさんに託されています｡
+2019年には本稿の変換の証明､あるいは間違った部分の指摘などが湧き出ることを願っている｡&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn2&quot;&gt;
+&lt;p&gt;Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn3&quot;&gt;
+&lt;p&gt;むしろ他に継続がワンショットのalgebraic effectsを知りませんが…｡あとMulticore OCamlには&lt;code&gt;Obj.clone_continuation&lt;/code&gt;という継続を複製する関数が用意されており､ランタイムにコストを支払うことで継続を2回以上使うことができる｡ &lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn4&quot;&gt;
+&lt;p&gt;Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. &lt;a href=&quot;#fnref4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn5&quot;&gt;
+&lt;p&gt;Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. &lt;a href=&quot;#fnref5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn6&quot;&gt;
+&lt;p&gt;Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. &lt;a href=&quot;#fnref6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn7&quot;&gt;
+&lt;p&gt;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &lt;a href=&quot;#fnref7&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn8&quot;&gt;
+&lt;p&gt;例外処理のある言語は概ねモダンであり､モダンな言語は比較的親切であり､親切な言語はエラーを吐くとスタックトレースを出してくれる｡ この新設のためにスタックトレースを記録するので遅くなる｡gotoとしての例外おおいに結構しかしパフォーマンスとしっかり勘案すること｡ &lt;a href=&quot;#fnref8&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn9&quot;&gt;
+&lt;p&gt;Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. &lt;a href=&quot;#fnref9&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Sun, 09 Dec 2018 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2018/12/09/asymmetric-coroutines%E3%81%AB%E3%82%88%E3%82%8Boneshot-algebraic-effects%E3%81%AE%E5%AE%9F%E8%A3%85.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2018/12/09/asymmetric-coroutines%E3%81%AB%E3%82%88%E3%82%8Boneshot-algebraic-effects%E3%81%AE%E5%AE%9F%E8%A3%85.html</guid>
+        
+        <category>Lua</category>
+        
+        <category>Coroutines</category>
+        
+        <category>Algebraic Effects</category>
+        
+        <category>Advent Calendar</category>
+        
+        
+      </item>
     
       <item>
         <title>Lily58による.xmodmapのハードウェア実装</title>
@@ -1814,169 +2414,6 @@ pipでなくpacman/yourtに任せたいので､公式リポジトリから&lt;e
         <category>Vim</category>
         
         <category>ArchLinux</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>コンパイラ中間言語およびその最適化の設計と実装</title>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
-年明けに買った対洗濯物用乾燥機のおかげで窓を開けたりカーテンレールにハンガーを吊るす日々が終わりました｡
-ところで2月分の電気代はすでに1月分を越えようとしています｡&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;今年は4年次なので卒業研究! ということでjoin pointを追加したコンパイラ中間言語の設計と､その上での最適化を定義してやっていきました｡
-実装はこちら&lt;/p&gt;
-&lt;div class=&quot;github-widget&quot; data-repo=&quot;nymphium/joel&quot;&gt;&lt;/div&gt;
-&lt;p&gt;卒研発表をスライドを作るためにも､何をしたかを噛み砕いて文に起こしてみたいと思います｡&lt;/p&gt;
-&lt;h1 id=&quot;2.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;2. 関連研究&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;PLDI 2017で『Compiling without Continuations』&lt;sup id=&quot;fnref1&quot; title=&quot;Luke Maurer, et al. Compiling without Continuations. https://dl.acm.org/citation.cfm?id=3062380 &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;という発表がありました｡
-継続の緑の本をもじったタイトルですが､CPSと直接戦っている感じではないです｡
-join pointと呼ばれるものを明示的に扱うことでコードサイズの爆発を抑えたり高速に動作するターゲット言語に変換しようという試みです｡&lt;/p&gt;
-&lt;h2 id=&quot;2-1.+join+point%E3%81%A8%E3%81%AF&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-1.+join+point%E3%81%A8%E3%81%AF&quot;&gt;2-1. join pointとは&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;プログラム&lt;a href=&quot;#joinpoint-example&quot;&gt;2.1&lt;/a&gt;における分岐した制御フローが合流する場所をjoin pointと呼ぶ｡
-あるいは制御フローグラフ&lt;a href=&quot;#cfg&quot;&gt;2.2&lt;/a&gt;の赤点で囲んだ部分｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#joinpoint-example&quot;&gt;2.1&lt;/a&gt; join point example&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e4&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j5&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e5&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j5&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j5&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;/p&gt;&lt;center&gt;
-&lt;img src=&quot;/pictures/2018-01-31-%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E4%B8%AD%E9%96%93%E8%A8%80%E8%AA%9E%E3%81%8A%E3%82%88%E3%81%B3%E3%81%9D%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AE%E5%AE%9F%E8%A3%85/cfg.png&quot; alt=&quot;cfg.png&quot;&gt;
-&lt;label id=&quot;cfg&quot;&gt;&lt;/label&gt;
-図&lt;a href=&quot;#cfg&quot;&gt;2.2&lt;/a&gt; 制御フローグラフ
-&lt;/center&gt;
-&lt;p&gt;CPSでは継続になるし､ANFではコード複製で表現することになる｡
-ここで最適化するとコードサイズがボワーっとなってしまう｡
-そこでMaurerらは\(\text{System F}_J\)という､合流点を明示的に扱う中間言語を提案した｡
-合流点を用いることでコードサイズの爆発が抑えられ､さらに再帰的な合流点を用いることでstream fusionができることを示した｡&lt;/p&gt;
-&lt;p&gt;しかしSystem Fjは純粋な必要呼びの､Haskellのような言語を対象としたコンパイラ中間言語として設計されたので､ジャバなどの広く使われているプログラム言語とはギャップがある｡&lt;/p&gt;
-&lt;h1 id=&quot;3.+%E6%9C%AC%E7%A0%94%E7%A9%B6&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+%E6%9C%AC%E7%A0%94%E7%A9%B6&quot;&gt;3. 本研究&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;System Fjとその困った点を踏まえて､非純粋な値呼びの､明示的な合流点を持つコンパイラ中間言語\(Joel\)を提案する｡
-非純粋性として､多くのプログラム言語で使われており､合流点と競合しそうなコントロールエフェクトを持っている例外を追加した｡&lt;/p&gt;
-&lt;p&gt;例外を考慮した最適化を定義した｡
-評価コンテキストをばらまく､commuting conversionの一種である最適化がtry-with式の位置を変えてトライキャッチプリキュアのメタモルフォーゼに失敗してプログラムの意味が変わってしまうのを防ぐために､
-try-with式の含まれない評価コンテキストを新たに定義し､最適化規則に用いた｡&lt;/p&gt;
-&lt;h1 id=&quot;4.+%E6%80%A7%E8%83%BD%E8%A9%95%E4%BE%A1&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%E6%80%A7%E8%83%BD%E8%A9%95%E4%BE%A1&quot;&gt;4. 性能評価&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;Joel上の最適化を評価するため､CPS上で最適化されて生成されたターゲット言語との比較をおこなった｡
-ソース言語にはOCamlのサブセットであるCore MLを新たに定義し､!!!!ターゲット言語はOCamlとした｡!!!!
-これがあまりよくなかった｡&lt;/p&gt;
-&lt;p&gt;CPSも､Double-Barreled CPSをもとに複数の例外をハンドルできるような体系を新たに定義した｡&lt;/p&gt;
-&lt;h2 id=&quot;4-1.+%E8%BF%BD%E8%A8%9820180321&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4-1.+%E8%BF%BD%E8%A8%9820180321&quot;&gt;4-1. 追記20180321&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;ここからしばらく嘘が書いてある!! ので途中は飛ばしてください｡
-おわり&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;stream fusionがうまくいったけど全然速くならなかったという結果でした(&lt;a href=&quot;https://github.com/Nymphium/joel/blob/bachelor_thesis_poc/test/benchmark/benchmark.ml#L60&quot;&gt;このへんの例&lt;/a&gt;)｡
-予備実験をすべきでしたが､つまるところ以下の例がOCamlではほとんど同じ速度で実行されます｡&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fold&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;fold&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fold&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;なんでOCamlこれ同じ速度で動くんだ､分からんということでここからなんとかしなければならない…｡
-ちなみに&lt;code&gt;map&lt;/code&gt;を20回くらいやったものと&lt;code&gt;(fun x y -&amp;gt; x + (y * y * y * y * ... * y))&lt;/code&gt;を&lt;code&gt;fold&lt;/code&gt;に渡すものだと実行速度に差が出ました｡
-同じようなコードをLuaで書いたら即差が出ましたので､ターゲット言語によってはしっかり実行速度に関してアドが言えるんじゃないでしょうか｡&lt;/p&gt;
-&lt;h2 id=&quot;%E8%BF%BD%E8%A8%9820180321&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%BF%BD%E8%A8%9820180321&quot;&gt;追記20180321&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;私の手抜きが原因でした｡
-&lt;a href=&quot;http://localhost:4000/2017/11/18/OCaml%E3%81%A7eval%E3%81%97%E3%81%A6%E7%B5%90%E6%9E%9C%E3%82%92string%E3%81%A7%E5%BE%97%E3%82%8B.html&quot;&gt;この記事&lt;/a&gt;で書いたようなものを使ってベンチマークを取っていた(!!!!)わけですが､
-どうやら&lt;code&gt;execute_phrase&lt;/code&gt;は&lt;em&gt;何回も実行していくうちに遅くなる&lt;/em&gt;(???)ということが後に発覚したため､ベンチマーク周りを0から再実装しました…｡
-よくわからないと思いますがボクもよくわからないので､とりあえず皆さんお手元で試してみてください｡&lt;/p&gt;
-&lt;p&gt;仕切り直しです｡
-Haskellならともかく､OCamlはstream fusionなんてやらないぜ｡
-&lt;a href=&quot;https://github.com/janestreet/core_bench&quot;&gt;core_bench&lt;/a&gt;で試してみましょう｡&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;/src/20180131ps/test.ml&quot;&gt;src/20180131ps/test.ml&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;test.ml&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Core_bench&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Std&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs'&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foldl&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs'&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fused&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mapf&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foldf&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;foldf&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mapf&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs'&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;nn&quot;&gt;Random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self_init&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Core_bench&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Test&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;init&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;nn&quot;&gt;Core&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Bench&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_command&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;map&quot;&lt;/span&gt;     &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;foldl&quot;&lt;/span&gt;   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foldl&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;mapfold&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foldl&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;fused&quot;&lt;/span&gt;   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fused&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;うん&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; ocamlfind ocamlopt &lt;span class=&quot;nt&quot;&gt;-package&lt;/span&gt; core_bench &lt;span class=&quot;nt&quot;&gt;-linkpkg&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-thread&lt;/span&gt; test.ml
-&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; ./a.out &lt;span class=&quot;nt&quot;&gt;-ascii&lt;/span&gt;
-&lt;span class=&quot;go&quot;&gt;Estimated testing time 40s (4 benchmarks x 10s). Change using -quota SECS.
-
-  Name      Time/Run      mWd/Run   mjWd/Run   Prom/Run   Percentage
- --------- ---------- ------------ ---------- ---------- ------------
-  map       139.93us   30_004.72w     2.03kw     2.03kw       87.99%
-  foldl      37.26us        5.00w                             23.43%
-  mapfold   159.04us   30_009.71w     1.79kw     1.79kw      100.00%
-  fused      49.41us        6.00w                             31.07%
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;注目すべきは下2つですね｡
-&lt;code&gt;mapfold&lt;/code&gt;は読んで字の如く&lt;code&gt;map&lt;/code&gt;して&lt;code&gt;fold&lt;/code&gt;してます｡
-&lt;code&gt;fused&lt;/code&gt;は&lt;code&gt;map&lt;/code&gt;に渡す関数と&lt;code&gt;fold&lt;/code&gt;に渡す関数を一気に適用してるので中間リストを生成しないしtail recursionだし良いね｡
-実行速度の差が無いって言ったやつ誰やねん…｡&lt;/p&gt;
-&lt;p&gt;1つのベンチマークのうちに実行速度にだいぶ差があるベンチマーク関数があると&lt;code&gt;Time/Run&lt;/code&gt;の表示がだいぶ怪しい数字を出すことも分かったので､結局卒論提出版ではcore_benchのソースを参考にしてお手製ベンチマークで切り抜けました｡おわり｡&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;生成されるコードサイズに関しては､Joelによる最適化を経て得られたものが一番小さかったので､そこはadvantageがあったと言えます｡&lt;/p&gt;
-&lt;h1 id=&quot;5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;5. おわりに&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;終わらないんだよなぁ…&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-
-&lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;Luke Maurer, et al. Compiling without Continuations. &lt;a href=&quot;https://dl.acm.org/citation.cfm?id=3062380&quot;&gt;https://dl.acm.org/citation.cfm?id=3062380&lt;/a&gt; &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-        <pubDate>Wed, 31 Jan 2018 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2018/01/31/%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E4%B8%AD%E9%96%93%E8%A8%80%E8%AA%9E%E3%81%8A%E3%82%88%E3%81%B3%E3%81%9D%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AE%E5%AE%9F%E8%A3%85.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2018/01/31/%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E4%B8%AD%E9%96%93%E8%A8%80%E8%AA%9E%E3%81%8A%E3%82%88%E3%81%B3%E3%81%9D%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AE%E5%AE%9F%E8%A3%85.html</guid>
-        
-        <category>OCaml</category>
-        
-        <category>卒研</category>
-        
-        <category>最適化</category>
-        
-        <category>コンパイラ</category>
         
         
       </item>
