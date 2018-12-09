@@ -655,7 +655,7 @@ World?
 <p>Functorっぽいものを書いてるなと思ったが<code>smaph</code>をみると全然そんなことなく､自分でも困惑した｡
 Luaは残念ながら型のない世界なのでなんでもアリである｡</p>
 <h1 id="6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6"><a class="headerlink" href="#6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6">6. 関連研究</a></h1>
-<p>Koka言語などをやっていってるLeijenによりC言語によるalgebraic effectsの実装<span class="cite">[<a href="#fn9" rel="footnote" title="Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. " id="fnref9">9</a>]</span>kがおこなわれている｡
+<p>Koka言語などをやっていってるLeijenによりC言語によるalgebraic effectsの実装<span class="cite">[<a href="#fn9" rel="footnote" title="Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. " id="fnref9">9</a>]</span>がおこなわれている｡
 本稿と比較すると1ハンドラ1エフェクトや継続がワンショットなどの制限ががない一方､非常にユーザーアンフレンドリーな構文となっている｡
 そのためP言語などのコンパイラのターゲットという位置づけがなされている｡
 本稿では式指向の言語での変換をおこなっており､\(\lambda_{\textit{cor}}\)相当をサブセットとして持つ言語ならばsyntacticな辛さはない､と思う｡</p>
@@ -664,7 +664,7 @@ Luaは残念ながら型のない世界なのでなんでもアリである｡</
 この変換を用いることで､asymmetric coroutinesを持つ言語でoneshot algebraic effectsを使用することが可能になる｡
 本稿ではすでにLuaによる実装を与えており､Luaはalgebraic effects-readyな状態となっている｡</p>
 <p>ただし本稿の変換の正しさについては証明されていない｡
-いまのところ “なんとなくうごいてる” 状態であり､とりあえずテストに<a href="https://github.com/ocamllabs/ocaml-effects-tutorial" target="_blank" rel="noopener noreferrer">Multicore OCamlのチュートリアル</a>を実装することで正しく動いてそうなことを確認している｡
+いまのところ “なんとなくうごいてる” 状態であり､とりあえずテストに<a href="https://github.com/ocamllabs/ocaml-effects-tutorial" target="_blank" rel="noopener noreferrer">Multicore OCamlのチュートリアル</a><a href="https://github.com/Nymphium/eff.lua/tree/master/test" target="_blank" rel="noopener noreferrer">を実装する</a>ことで正しく動いてそうなことを確認している｡
 未来のボクや､読者のみなさんに託されています｡
 2019年には本稿の変換の証明､あるいは間違った部分の指摘などが湧き出ることを願っている｡</p>
 <div class="footnotes">

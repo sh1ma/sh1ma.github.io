@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 09 Dec 2018 18:51:20 +0900</pubDate>
-    <lastBuildDate>Sun, 09 Dec 2018 18:51:20 +0900</lastBuildDate>
+    <pubDate>Sun, 09 Dec 2018 23:56:38 +0900</pubDate>
+    <lastBuildDate>Sun, 09 Dec 2018 23:56:38 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
     
       <item>
@@ -589,7 +589,7 @@ World?
 &lt;p&gt;Functorっぽいものを書いてるなと思ったが&lt;code&gt;smaph&lt;/code&gt;をみると全然そんなことなく､自分でも困惑した｡
 Luaは残念ながら型のない世界なのでなんでもアリである｡&lt;/p&gt;
 &lt;h1 id=&quot;6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;6. 関連研究&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;Koka言語などをやっていってるLeijenによりC言語によるalgebraic effectsの実装&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn9&quot; rel=&quot;footnote&quot; title=&quot;Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. &quot; id=&quot;fnref9&quot;&gt;9&lt;/a&gt;]&lt;/span&gt;kがおこなわれている｡
+&lt;p&gt;Koka言語などをやっていってるLeijenによりC言語によるalgebraic effectsの実装&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn9&quot; rel=&quot;footnote&quot; title=&quot;Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. &quot; id=&quot;fnref9&quot;&gt;9&lt;/a&gt;]&lt;/span&gt;がおこなわれている｡
 本稿と比較すると1ハンドラ1エフェクトや継続がワンショットなどの制限ががない一方､非常にユーザーアンフレンドリーな構文となっている｡
 そのためP言語などのコンパイラのターゲットという位置づけがなされている｡
 本稿では式指向の言語での変換をおこなっており､\(\lambda_{\textit{cor}}\)相当をサブセットとして持つ言語ならばsyntacticな辛さはない､と思う｡&lt;/p&gt;
@@ -598,7 +598,7 @@ Luaは残念ながら型のない世界なのでなんでもアリである｡&l
 この変換を用いることで､asymmetric coroutinesを持つ言語でoneshot algebraic effectsを使用することが可能になる｡
 本稿ではすでにLuaによる実装を与えており､Luaはalgebraic effects-readyな状態となっている｡&lt;/p&gt;
 &lt;p&gt;ただし本稿の変換の正しさについては証明されていない｡
-いまのところ “なんとなくうごいてる” 状態であり､とりあえずテストに&lt;a href=&quot;https://github.com/ocamllabs/ocaml-effects-tutorial&quot;&gt;Multicore OCamlのチュートリアル&lt;/a&gt;を実装することで正しく動いてそうなことを確認している｡
+いまのところ “なんとなくうごいてる” 状態であり､とりあえずテストに&lt;a href=&quot;https://github.com/ocamllabs/ocaml-effects-tutorial&quot;&gt;Multicore OCamlのチュートリアル&lt;/a&gt;&lt;a href=&quot;https://github.com/Nymphium/eff.lua/tree/master/test&quot;&gt;を実装する&lt;/a&gt;ことで正しく動いてそうなことを確認している｡
 未来のボクや､読者のみなさんに託されています｡
 2019年には本稿の変換の証明､あるいは間違った部分の指摘などが湧き出ることを願っている｡&lt;/p&gt;
 &lt;div class=&quot;footnotes&quot;&gt;
