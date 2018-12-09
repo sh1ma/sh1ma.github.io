@@ -5,12 +5,13 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 09 Dec 2018 00:02:05 +0900</pubDate>
-    <lastBuildDate>Sun, 09 Dec 2018 00:02:05 +0900</lastBuildDate>
+    <pubDate>Sun, 09 Dec 2018 15:30:55 +0900</pubDate>
+    <lastBuildDate>Sun, 09 Dec 2018 15:30:55 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
     
       <item>
         <title>Asymmetric CoroutinesによるOneshot Algebraic Effectsの実装</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
 これは&lt;a href=&quot;https://qiita.com/advent-calendar/2018/lang_dev&quot;&gt;言語実装Advent Calendar 2018&lt;/a&gt;の9日目の記事です｡
 最初は “変数が全部箱の言語の設計と実装” と題して全部optionにくるまれてる参照とかそういう感じの何かを作ろうとしたけど多分面白くなくなって筆者の熱も醒めると思ったのでやめた｡
@@ -611,6 +612,7 @@ Luaは残念ながら型のない世界なのでなんでもアリである｡&l
     
       <item>
         <title>Lily58による.xmodmapのハードウェア実装</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
 これは&lt;a href=&quot;https://adventar.org/calendars/3536&quot;&gt;WORDIAN Advent Calendar 2018&lt;/a&gt;の2日目の記事です｡&lt;/p&gt;
 &lt;p&gt;12月2日といえば､翌3日は冴草きいちゃんの誕生日ですね!!!!!!!!!!!
@@ -888,6 +890,7 @@ xmodmapによってキーマップを変更し､&lt;code&gt;AltGr&lt;/code&gt;�
     
       <item>
         <title>Lua VMに見る多値の扱い</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;
 &lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;さて､最近は多値に関する議論がホットだったようです｡
@@ -1428,6 +1431,7 @@ VM型インタプリタ面白いなと思った方は､ぜひこちらをご覧
     
       <item>
         <title>subfilesを使ってみんなで記事を書く､しおりも出す</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;
 &lt;p&gt;この度､『Dragon University 技術書典5』を手にとっていただいて誠にありがとうございました｡&lt;/p&gt;
 &lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -1604,6 +1608,7 @@ section等のカウンタを0で初期化しているのがミソで､これを
     
       <item>
         <title>ML Dayやった, 新たなバイト始まった, 技術書典がある</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;
 &lt;p&gt;8月終わりからイベントが立て込んで､気づけば夏休みが終わってしまいました｡
 悲しいね｡&lt;/p&gt;
@@ -1694,6 +1699,7 @@ ASTからVM命令へのコンパイル規則がダラダラと書かれている
     
       <item>
         <title>現在のスキルセット</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
 こんなことがあったんや｡&lt;/p&gt;
 &lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -1828,6 +1834,7 @@ Scalaを使っているサーバーサイドはだいたい実装ができてい
     
       <item>
         <title>Algebraic Effectsであそぼう</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;
 &lt;p&gt;ここしばらく20行/日くらいしかコード書いてません｡
 いやもっと少ないかも…｡
@@ -1997,6 +2004,7 @@ syntacticにきれいに､バグらず簡単に書ける､というありが�
     
       <item>
         <title>delimited continuationの夏</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
 control/promptとprompt tagへの理解が必要になったため､やっていきましょう｡&lt;/p&gt;
 &lt;h1 id=&quot;1.+continuation%3F%3F%3F+%E7%B6%99%E7%B6%9A%3F%3F%3F+is+power+%3F%3F%3F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+continuation%3F%3F%3F+%E7%B6%99%E7%B6%9A%3F%3F%3F+is+power+%3F%3F%3F&quot;&gt;1. continuation??? 継続??? is power ???&lt;/a&gt;&lt;/h1&gt;
@@ -2234,6 +2242,7 @@ Guileだと&lt;code&gt;(use-modules (ice-9 control))&lt;/code&gt;やね｡&lt;/p
     
       <item>
         <title>Scala書いた</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
 最近はヴァーチャルユーチューバーに脳を破壊されてしまってほぼ毎日観てます｡
 剣持&lt;em&gt;力&lt;/em&gt;也くんが好きです｡&lt;/p&gt;
@@ -2360,6 +2369,7 @@ Scalaはちゃんとかいたのがここ3､4週間くらいなので､もう�
     
       <item>
         <title>Ensime-vimを入れる</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
 最近は死んでるのでコードも全然書いてませんでした｡&lt;/p&gt;
 &lt;hr&gt;
