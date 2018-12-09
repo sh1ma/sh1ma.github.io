@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 09 Dec 2018 15:30:55 +0900</pubDate>
-    <lastBuildDate>Sun, 09 Dec 2018 15:30:55 +0900</lastBuildDate>
+    <pubDate>Sun, 09 Dec 2018 18:51:20 +0900</pubDate>
+    <lastBuildDate>Sun, 09 Dec 2018 18:51:20 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
     
       <item>
@@ -328,6 +328,10 @@ JSのgeneratorなら多分CPS変換できるので､babelなどによるES2015�
 thunk内でエフェクトを発生(&lt;code&gt;yield&lt;/code&gt;)すると一時停止してハンドラに操作が移ってほしい､とするとthunkをコルーチンでencapsulateして即実行､という流れになる｡
 なのでとりあえず&lt;code&gt;create&lt;/code&gt; &amp;amp; &lt;code&gt;resume&lt;/code&gt;としてある｡&lt;/p&gt;
 &lt;h2 id=&quot;4-2.+%E5%A4%89%E6%8F%9B&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4-2.+%E5%A4%89%E6%8F%9B&quot;&gt;4-2. 変換&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;%E8%BF%BD%E8%A8%9820181209&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%BF%BD%E8%A8%9820181209&quot;&gt;追記20181209&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;投稿即バグが見つかり泣きました｡
+まずは修正前をご覧ください｡
+追記suspend&lt;/p&gt;
 &lt;div&gt;
 &lt;center&gt;
 &lt;label id=&quot;conv&quot;&gt;&lt;/label&gt;
@@ -352,37 +356,38 @@ thunk内でエフェクトを発生(&lt;code&gt;yield&lt;/code&gt;)すると一�
                                                                    &amp;amp; \mathtt{let}\ \textit{effh} = \lambda x’\ k’. \left[\left[e_{\textit{eff}}\right]\right]\eta\left[x \mapsto x’, k \mapsto k’\right]\ \mathtt{in}\\
                                                                    &amp;amp; \lambda \textit{th}.\\
                                                                    &amp;amp; \quad \mathtt{let}\ \textit{co} = \mathtt{create}\ \textit{th}\ \mathtt{in} \\
-                                                                   &amp;amp; \quad \quad  \mathtt{let\ rec}\ \textit{handle}\ r =\\
-                                                                   &amp;amp; \quad \qquad \mathtt{match}\ r\ \mathtt{with}\\
-                                                                   &amp;amp; \quad \qquad \mid \textit{Eff}\ \left(\textit{eff’}, v\right)\ \textit{when}\ \textit{eff’} = \textit{eff} \rightarrow\\
-                                                                   &amp;amp; \quad \qquad \quad \textit{effh}\ v\ (\lambda \textit{arg}.\\
-                                                                   &amp;amp; \quad \qquad \quad \mathtt{let}\ \textit{ret} =\textit{continue}\ \textit{arg}\ \mathtt{in}\\
-                                                                   &amp;amp; \quad \qquad \quad (\mathtt{match}\ \textit{ret}\ \mathtt{with}\\
-                                                                   &amp;amp; \quad \qquad \quad \mid \textit{Val}\ \text{\textunderscore} \rightarrow \textit{ret}\\
-                                                                   &amp;amp; \quad \qquad \quad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \textit{ret}))\\
-                                                                   &amp;amp; \quad \qquad \mid \textit{Eff}\ \left(\text{\textunderscore}, \text{\textunderscore}\right)\rightarrow \mathtt{yield}\ \left(\textit{UncaughtEff}\ \left(r, \textit{continue}\right)\right)\\
-                                                                   &amp;amp; \quad \qquad \mid \textit{UncaughtEff}\ \left(\textit{Eff}\ \left(\textit{eff’}, v\right) , k\right) \ \textit{when}\ \textit{eff’} = \textit{eff} \rightarrow \\
-                                                                   &amp;amp; \quad \qquad \quad \textit{effh}\ v\ (\lambda \textit{arg}.\\
-                                                                   &amp;amp; \quad \qquad \qquad \mathtt{let}\ \textit{ret} = k\ \textit{arg} \ \mathtt{in}\\
-                                                                   &amp;amp; \quad \qquad \qquad \textit{continue}\ (\mathtt{match}\ \textit{ret} \ \mathtt{with}\\
-                                                                   &amp;amp; \quad \qquad \qquad \mid \textit{Val}\ \text{\textunderscore} \rightarrow \textit{ret}\\
-                                                                   &amp;amp; \quad \qquad \qquad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \textit{ret}))\\
-                                                                   &amp;amp; \quad \qquad \mid \textit{UncaughtEff}\ (\textit{effv’}, k’) \rightarrow\\ 
-                                                                   &amp;amp; \quad \qquad \qquad \mathtt{yield}\ (\textit{UncaughtEff}\ (\textit{effv’}, \lambda \textit{arg}.\\
-                                                                   &amp;amp; \quad \qquad \qquad \quad \mathtt{let}\ \textit{ret} = k’\ \textit{arg} \ \mathtt{in}\\
-                                                                   &amp;amp; \quad \qquad \qquad \quad \textit{continue}\ (\mathtt{match}\ \textit{ret} \ \mathtt{with}\\
-                                                                   &amp;amp; \quad \qquad \qquad \quad \mid \textit{Val}\ \text{\textunderscore} \rightarrow \textit{ret}\\
-                                                                   &amp;amp; \quad \qquad \qquad \quad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \textit{ret}))) \\
-                                                                   &amp;amp; \quad \qquad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \left(\textit{vh}\ r\right)\\
-                                                                   &amp;amp; \quad \quad  \mathtt{and}\ \textit{continue}\ \textit{arg} =\\
-                                                                   &amp;amp; \quad \qquad \mathtt{let}\ r = \mathtt{resume}\ \textit{arg}\ \mathtt{in}\\
-                                                                   &amp;amp; \quad \qquad \mathtt{match}\ r\ \mathtt{with}\\
-                                                                   &amp;amp; \quad \qquad \mid \textit{Val}\ v \rightarrow v\\
-                                                                   &amp;amp; \quad \qquad \mid \text{\textunderscore} \rightarrow \textit{handle}\ r\\
-                                                                   &amp;amp; \quad \quad  \mathtt{in}\\
-                                                                   &amp;amp; \quad \quad  \mathtt{match}\ \textit{continue}\ c\ \mathtt{with} \\
-                                                                   &amp;amp; \quad \quad  \mid \textit{Val}\ v \rightarrow v\\
-                                                                   &amp;amp; \quad \quad  \mid r \rightarrow r\\
+                                                                   &amp;amp; \quad  \mathtt{let\ rec}\ \textit{handle}\ r =\\
+                                                                   &amp;amp; \qquad \mathtt{match}\ r\ \mathtt{with}\\
+                                                                   &amp;amp; \qquad \mid \textit{Eff}\ \left(\textit{eff’}, v\right)\ \textit{when}\ \textit{eff’} = \textit{eff} \rightarrow\\
+                                                                   &amp;amp; \qquad \quad \textit{effh}\ v\ (\lambda \textit{arg}.\\
+                                                                   &amp;amp; \qquad \quad \mathtt{let}\ \textit{ret} =\textit{continue}\ \textit{arg}\ \mathtt{in}\\
+                                                                   &amp;amp; \qquad \quad (\mathtt{match}\ \textit{ret}\ \mathtt{with}\\
+                                                                   &amp;amp; \qquad \quad \mid \textit{Val}\ \text{\textunderscore} \rightarrow \textit{ret}\\
+                                                                   &amp;amp; \qquad \quad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \textit{ret}))\\
+                                                                   &amp;amp; \qquad \mid \textit{Eff}\ \left(\text{\textunderscore}, \text{\textunderscore}\right)\rightarrow \mathtt{yield}\ \left(\textit{UncaughtEff}\ \left(r, \textit{continue}\right)\right)\\
+                                                                   &amp;amp; \qquad \mid \textit{UncaughtEff}\ \left(\textit{Eff}\ \left(\textit{eff’}, v\right) , k\right) \ \textit{when}\ \textit{eff’} = \textit{eff} \rightarrow \\
+                                                                   &amp;amp; \qquad \quad \textit{effh}\ v\ (\lambda \textit{arg}.\\
+                                                                   &amp;amp; \qquad \qquad \mathtt{let}\ \textit{ret} = k\ \textit{arg} \ \mathtt{in}\\
+                                                                   &amp;amp; \qquad \qquad \textit{continue}\ (\mathtt{match}\ \textit{ret} \ \mathtt{with}\\
+                                                                   &amp;amp; \qquad \qquad \mid \textit{Val}\ \text{\textunderscore} \rightarrow \textit{ret}\\
+                                                                   &amp;amp; \qquad \qquad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \textit{ret}))\\
+                                                                   &amp;amp; \qquad \mid \textit{UncaughtEff}\ (\textit{effv’}, k’) \rightarrow\\ 
+                                                                   &amp;amp; \qquad \qquad \mathtt{yield}\ (\textit{UncaughtEff}\ (\textit{effv’}, \lambda \textit{arg}.\\
+                                                                   &amp;amp; \qquad \qquad \quad \mathtt{let}\ \textit{ret} = k’\ \textit{arg} \ \mathtt{in}\\
+                                                                   &amp;amp; \qquad \qquad \quad \textit{continue}\ (\mathtt{match}\ \textit{ret} \ \mathtt{with}\\
+                                                                   &amp;amp; \qquad \qquad \quad \mid \textit{Val}\ \text{\textunderscore} \rightarrow \textit{ret}\\
+                                                                   &amp;amp; \qquad \qquad \quad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \textit{ret}))) \\
+                                                                   &amp;amp; \qquad \mid \text{\textunderscore} \rightarrow \textit{Val}\ \left(\textit{vh}\ r\right)\\
+                                                                   &amp;amp; \quad  \mathtt{and}\ \textit{continue}\ \textit{arg} =\\
+                                                                   &amp;amp; \qquad \text{ // 追記20181209 resumeにcoを渡し忘れてたのを修正 } \\
+                                                                   &amp;amp; \qquad \mathtt{let}\ r = \mathtt{resume}\ \textit{co}\ \textit{arg}\ \mathtt{in}\\
+                                                                   &amp;amp; \qquad \mathtt{match}\ r\ \mathtt{with}\\
+                                                                   &amp;amp; \qquad \mid \textit{Val}\ v \rightarrow v\\
+                                                                   &amp;amp; \qquad \mid \text{\textunderscore} \rightarrow \textit{handle}\ r\\
+                                                                   &amp;amp; \quad  \mathtt{in}\\
+                                                                   &amp;amp; \quad  \mathtt{match}\ \textit{continue}\ c\ \mathtt{with} \\
+                                                                   &amp;amp; \quad  \mid \textit{Val}\ v \rightarrow v\\
+                                                                   &amp;amp; \quad  \mid r \rightarrow r\\
   \end{aligned}
 \end{array}
 \]
@@ -420,6 +425,49 @@ thunkを受け取ってコルーチンを作り､&lt;code&gt;resume&lt;/code&gt
 脳が発光しますね｡&lt;/p&gt;
 &lt;p&gt;最後に&lt;code&gt;Val&lt;/code&gt;が来た場合､中身を剥がしてvalue handlerに突っ込んでいる｡
 型がない世界でよかったですね｡&lt;/p&gt;
+&lt;h2 id=&quot;%E8%BF%BD%E8%A8%9820181209+resume&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%BF%BD%E8%A8%9820181209+resume&quot;&gt;追記20181209 resume&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;多分これが一番正しいと思います｡&lt;/p&gt;
+&lt;div&gt;
+&lt;center&gt;
+&lt;label id=&quot;conv2&quot;&gt;&lt;/label&gt;
+\[
+\begin{array}{c}
+  \left[\left[e_{ce}\right]\right]\eta = e_{\lambda \textit{cor}}\\
+  \ \\
+  \begin{aligned}
+      &amp;amp;\left[\left[\mathtt{handler}\ \textit{eff}\ (\mathtt{val}\ x\rightarrow e_v) \ \left(\left(x, k\right) \rightarrow e_{\textit{eff}}\right) \right]\right]\eta%
+      = \\
+      &amp;amp;\qquad \mathtt{let}\ \textit{eff} = \left[\left[\textit{eff}\right]\right]\eta\ \mathtt{in}\\
+      &amp;amp;\qquad \mathtt{let}\ \textit{vh} = \lambda x’. \left[\left[e_v\right]\right]\eta\left[x \mapsto x’\right] \ \mathtt{in}\\
+      &amp;amp;\qquad \mathtt{let}\ \textit{effh} = \lambda x’\ k’. \left[\left[e_{\textit{eff}}\right]\right]\eta\left[x \mapsto x’, k \mapsto k’\right]\ \mathtt{in}\\
+      &amp;amp;\qquad \lambda \textit{th}.\\
+      &amp;amp;\qquad \quad \mathtt{let}\ \textit{co} = \mathtt{create}\ \textit{th}\ \mathtt{in} \\
+      &amp;amp;\qquad \quad  \mathtt{let\ rec}\ \textit{handle}\ r =\\
+      &amp;amp;\qquad \qquad \mathtt{match}\ r\ \mathtt{with}\\
+      &amp;amp;\qquad \qquad \mid \textit{Eff}\ \left(\textit{eff’}, v\right)\ \textit{when}\ \textit{eff’} = \textit{eff} \rightarrow \textit{effh}\ v\ \textit{continue}\\
+      &amp;amp;\qquad \qquad \mid \textit{Eff}\ \left(\text{\textunderscore}, \text{\textunderscore}\right)\rightarrow \mathtt{yield}\ \left(\textit{UncaughtEff}\ \left(r, \textit{continue}\right)\right)\\
+      &amp;amp;\qquad \qquad \mid \textit{UncaughtEff}\ \left(\textit{Eff}\ \left(\textit{eff’}, v\right) , k\right) \ \textit{when}\ \textit{eff’} = \textit{eff} \rightarrow \\
+      &amp;amp;\qquad \qquad \quad \textit{effh}\ v\ \left(\lambda \textit{arg}. \textit{handle}\ \left(\mathtt{resume}\ \left(\mathtt{create}\ k\right)\ \mathtt{arg}\right)\right)\\
+      &amp;amp;\qquad \qquad \mid \textit{UncaughtEff}\ \left(\textit{effv’}, k\right) \rightarrow\\ 
+      &amp;amp;\qquad \qquad \qquad \mathtt{yield}\ \left(\textit{UncaughtEff}\ \left(\textit{effv’}, \lambda \textit{arg}. \textit{handle}\ \left(\mathtt{resume}\ \left(\mathtt{create}\ k\right)\ \mathtt{arg}\right)\right)\right)\\
+      &amp;amp;\qquad \qquad \mid \text{\textunderscore\ /* ANY value */} \rightarrow \textit{vh}\ r\\
+      &amp;amp;\qquad \quad  \mathtt{and}\ \textit{continue}\ \textit{arg} = \textit{handle}\ \left(\mathtt{resume}\ \textit{co}\ \textit{arg}\right)\\
+      &amp;amp;\qquad \quad  \mathtt{in}\\
+      &amp;amp;\qquad \quad  \textit{continue}\ c
+  \end{aligned}
+\end{array}
+\]
+図&lt;a href=&quot;#conv2&quot;&gt;4.3&lt;/a&gt;. the revision of the conversion
+&lt;/center&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;handler&lt;/code&gt;だけの変更だが､だいぶダイエットに成功した｡
+&lt;code&gt;Val&lt;/code&gt;タグはそもそも不要だったことがわかった｡
+&lt;code&gt;UncaughtEff&lt;/code&gt;をハンドルしてる部分も様子が変わっている｡
+&lt;code&gt;UncaughtEff&lt;/code&gt;が持ってきた継続をコルーチンでencapsulateして即走らせ､その値を&lt;code&gt;handle&lt;/code&gt;に渡す､という関数を&lt;code&gt;effh&lt;/code&gt;に継続として渡している｡
+&lt;code&gt;continue&lt;/code&gt;を見るとだいたい同じことをやっており､encapsulateしない場合コルーチンを突き抜けて&lt;code&gt;yield&lt;/code&gt;してしまうパターンがあった｡
+また現在の継続は&lt;code&gt;handle&lt;/code&gt;が内部で&lt;code&gt;continue&lt;/code&gt;を呼んでくれるため､わざわざ&lt;code&gt;continue&lt;/code&gt;を引っ張る必要はなく､走らせる継続の戻り値は&lt;code&gt;handle&lt;/code&gt;でハンドルするという元からの考えを使えばいいだけだった｡
+操作を継続の中に押し込んでいく感じが､なんとなく&lt;code&gt;Functor Free&lt;/code&gt;を思わせる｡&lt;/p&gt;
+&lt;p&gt;追記おわり&lt;/p&gt;
 &lt;h1 id=&quot;5.+%E5%AE%9F%E8%A3%85&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E5%AE%9F%E8%A3%85&quot;&gt;5. 実装&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;それでは改めて&lt;a href=&quot;#repo&quot;&gt;リポジトリ&lt;/a&gt;の方を見てみよう｡
 Asymmetric coroutinesと非常に縁の深いLuaにより実装した｡
