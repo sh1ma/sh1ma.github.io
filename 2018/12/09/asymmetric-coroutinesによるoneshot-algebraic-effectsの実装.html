@@ -534,6 +534,38 @@ thunkを受け取ってコルーチンを作り､<code>resume</code>のラッ�
 また現在の継続は<code>handle</code>が内部で<code>continue</code>を呼んでくれるため､わざわざ<code>continue</code>を引っ張る必要はなく､走らせる継続の戻り値は<code>handle</code>でハンドルするという元からの考えを使えばいいだけだった｡
 操作を継続の中に押し込んでいく感じが､なんとなく<code>Functor Free</code>を思わせる｡</p>
 <p>追記おわり</p>
+<h1 id="%E8%BF%BD%E8%A8%9820181216"><a class="headerlink" href="#%E8%BF%BD%E8%A8%9820181216">追記20181216</a></h1>
+<p>さらに大学のゼミ発表などを経てコンパクトになりました｡</p>
+<div>
+<center>
+<label id="conv3"></label>
+\[
+\begin{aligned}
+  &amp;\left[\left[\mathrm{handler}\ \textit{eff}\ \left(\mathtt{val}\ x \rightarrow e_v\right)\ \left(\left(x, k\right) \rightarrow e_\textit{eff}\right)\right]\right]\eta = \\
+  &amp; \qquad \mathtt{let}\ \textit{eff} = \left[\left[\textit{eff}\right]\right]\eta\ \mathtt{in}\\
+  &amp; \qquad \mathtt{let}\ \textit{vh} = \lambda x’. \left[\left[e_v\right]\right]\eta \left[x \mapsto x’\right]\ \mathtt{in}\\
+  &amp; \qquad \mathtt{let}\ \textit{effh} = \lambda x’\, k’. \left[\left[e_\textit{eff}\right]\right]\eta \left[x\mapsto x’, k \mapsto k’\right] \mathtt{in}\\
+  &amp; \qquad \lambda \textit{th}.\\
+  &amp; \qquad \quad \mathtt{let}\ \textit{co} = \mathtt{create}\ \textit{th}\ \mathtt{in}\\
+  &amp; \qquad \quad \mathtt{let}\ \mathtt{rec}\ \textit{handle}\ r =\\
+  &amp; \qquad \qquad \mathtt{match}\ r\ \mathtt{with}\\
+  &amp; \qquad \qquad \mid \textit{Eff}\left(\textit{eff’}, v\right)\ \mathtt{when}\ \textit{eff’} = \textit{eff} \rightarrow \textit{effh}\ v\ \left(\textit{continue}\ \textit{co}\right)\\
+  &amp; \qquad \qquad \mid \textit{Eff}\left(\text{\textunderscore}, \text{\textunderscore}\right) \rightarrow \mathtt{yield}\ \left(\textit{UncaughtEff}\left(r, \left(\textit{continue}\ \textit{co}\right)\right)\right)\\
+  &amp; \qquad \qquad \mid \textit{UncaughtEff}\left(\textit{Eff}\left(\textit{eff’}, v\right), k\right)\ \mathtt{when}\ \textit{eff’} = \textit{eff} \rightarrow \textit{effh}\ v\ \left(\textit{continue}\ \left(\mathtt{create}\ k\right)\right)\\
+  &amp; \qquad \qquad \mid \textit{UncaughtEff}(\textit{effv}, k) \rightarrow \mathtt{yield}\ (\textit{UncaughtEff}\left(\textit{effv}, \left(\textit{continue}\ \left(\mathtt{create}\ k\right)\right)\right))\\
+  &amp; \qquad \qquad \mid \text{\textunderscore} \rightarrow \textit{vh}\ r\\
+  &amp; \qquad \quad \mathtt{and}\ \textit{conrtinue}\ \textit{co}\ \textit{arg} = \textit{handle}\ \left(\mathtt{resume}\ \textit{co}\ \textit{arg}\right)\\
+  &amp; \qquad \quad \mathtt{in}\ \textit{continue}\ \textit{co}\ \textit{c}
+\end{aligned}
+\]
+図<a href="#conv3">4.4</a>. the conversion v3.
+</center>
+</div>
+<p><a href="#conv2">4.3</a>とは本質的に何も変わってません｡
+<code>continue</code>を汎用的なものにした｡
+これにより､処理がどうなってるかがより簡潔になったんじゃないでしょうか｡
+<code>handle</code>を連れ回すことで現在のハンドラによるハンドル処理を続けることができる｡
+<code>UncaughtEff</code>に渡す継続をコルーチンでencapsulateするのは､エフェクトの発生(<code>yield</code>)を再びキャッチするためである｡</p>
 <h1 id="5.+%E5%AE%9F%E8%A3%85"><a class="headerlink" href="#5.+%E5%AE%9F%E8%A3%85">5. 実装</a></h1>
 <p>それでは改めて<a href="#repo">リポジトリ</a>の方を見てみよう｡
 Asymmetric coroutinesと非常に縁の深いLuaにより実装した｡
