@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 17 Dec 2018 00:18:40 +0900</pubDate>
-    <lastBuildDate>Mon, 17 Dec 2018 00:18:40 +0900</lastBuildDate>
+    <pubDate>Tue, 18 Dec 2018 10:12:26 +0900</pubDate>
+    <lastBuildDate>Tue, 18 Dec 2018 10:12:26 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
     
       <item>
@@ -621,7 +621,7 @@ World?
 &lt;p&gt;Functorっぽいものを書いてるなと思ったが&lt;code&gt;smaph&lt;/code&gt;をみると全然そんなことなく､自分でも困惑した｡
 Luaは残念ながら型のない世界なのでなんでもアリである｡&lt;/p&gt;
 &lt;h1 id=&quot;6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;6. 関連研究&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;Koka言語などをやっていってるLeijenによりC言語によるalgebraic effectsの実装&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn9&quot; rel=&quot;footnote&quot; title=&quot;Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. &quot; id=&quot;fnref9&quot;&gt;9&lt;/a&gt;]&lt;/span&gt;がおこなわれている｡
+&lt;p&gt;Koka言語などをやっていってるDaan氏によりC言語によるalgebraic effectsの実装&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn9&quot; rel=&quot;footnote&quot; title=&quot;Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. &quot; id=&quot;fnref9&quot;&gt;9&lt;/a&gt;]&lt;/span&gt;がおこなわれている｡
 本稿と比較すると1ハンドラ1エフェクトや継続がワンショットなどの制限ががない一方､非常にユーザーアンフレンドリーな構文となっている｡
 そのためP言語などのコンパイラのターゲットという位置づけがなされている｡
 本稿では式指向の言語での変換をおこなっており､\(\lambda_{\textit{cor}}\)相当をサブセットとして持つ言語ならばsyntacticな辛さはない､と思う｡&lt;/p&gt;
