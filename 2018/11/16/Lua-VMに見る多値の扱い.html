@@ -16,7 +16,7 @@
     <meta name="twitter:site" content="lilyum ensemble"/>
     <meta name="twitter:title" content="Lua VMに見る多値の扱い - lilyum ensemble"/>
     <meta name="twitter:url" content="https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html"/> 
-    <meta name="twitter:text:description" content="こんにちは､びしょ〜じょです｡1. はじめにさて､最近は多値に関する議論がホットだったようです｡ホットスポットはこちらの様子｡多値について本気で考えてみた - ぐるぐる～なるほど｡こちらも見てお..."/>
+    <meta name="twitter:text:description" content="こんにちは､びしょ〜じょです｡1. はじめにさて､最近は多値に関する議論がホットだったようです｡ホットスポットはこちらの様子｡        多値について本気で考えてみた - ぐるぐる～    ..."/>
     <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-11-16T00:00:00+09:00" />
 <script type="application/ld+json">
-{"description":"lily, Aikatsu, Programming language, and more","headline":"Lua VMに見る多値の扱い","dateModified":"2018-11-16T00:00:00+09:00","datePublished":"2018-11-16T00:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html"},"url":"https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
+{"description":"lily, Aikatsu, Programming language, and more","@type":"BlogPosting","headline":"Lua VMに見る多値の扱い","dateModified":"2018-11-16T00:00:00+09:00","datePublished":"2018-11-16T00:00:00+09:00","url":"https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
@@ -77,10 +77,24 @@
 <h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
 <p>さて､最近は多値に関する議論がホットだったようです｡
 ホットスポットはこちらの様子｡</p>
-<p><a href="http://bleis-tift.hatenablog.com/entry/multiple-values" target="_blank" rel="noopener noreferrer">多値について本気で考えてみた - ぐるぐる～</a></p>
-<p>なるほど｡
-<a href="http://bleis-tift.hatenablog.com/entry/go-the-bad-parts" target="_blank" rel="noopener noreferrer">こちら</a><label id="kochira"></label>も見ておこう｡
-どうやらGoは多値が使えたり使えなかったりするらしい｡
+<div class="twicard">
+  <span class="image"><div><img src="https://cdn.blog.st-hatena.com/images/theme/og-image-1500.png"></div></span>
+  <span class="txt">
+    <div class="title"><a href="http://bleis-tift.hatenablog.com/entry/multiple-values" target="_blank" rel="noopener noreferrer">多値について本気で考えてみた - ぐるぐる～</a></div>
+    <div class="description">先日のエントリの反応として、多値の批判をしているように受け取られた方がいました。 実際には、多値の批判をしているのではなく、Go言語の「多値とそう見えるけど違うものがある」という仕様を批判…</div>
+  </span>
+</div>
+<p>なるほど｡こちらも見ておこう｡
+<label id="kochira"></label>
+</p>
+<div class="twicard">
+  <span class="image"><div><img src="https://cdn.blog.st-hatena.com/images/theme/og-image-1500.png"></div></span>
+  <span class="txt">
+    <div class="title"><a href="http://bleis-tift.hatenablog.com/entry/go-the-bad-parts" target="_blank" rel="noopener noreferrer">Go言語のイケてない部分 - ぐるぐる～</a></div>
+    <div class="description">最近色々あって仕事でGo言語を使っています。 色々割り切っている言語なので、こんなこと言ってもしゃーないんですが、言語設計はミスってるんじゃなかなぁ、と思わざるを得ない点が多々あります。 …</div>
+  </span>
+</div>
+<p>どうやらGoは多値が使えたり使えなかったりするらしい｡
 個人的には使えるか使えない(tupleにするとか)かのどちらかのほうが良い言語デザインだと思うけど､ユーザが問題ないなら…｡</p>
 <p>本稿ではLua VMが使える代表的な言語Luaを例に､Goとの多値の違いに付いて見ていき､Lua VMおよびLuaの多値の扱いが良い感じなことを確認したい｡
 拙者Goは知らない侍につき､Goに関してはご容赦｡</p>
@@ -576,7 +590,13 @@ Luaにファーストクラスの継続はないが､だいたい継続であ�
 <p>ひさしぶりにLuaに思いを馳せたので思い出したり資料をのぞいたりで執筆に結構時間がかかってしまった｡</p>
 <p>ところで!
 VM型インタプリタ面白いなと思った方は､ぜひこちらをご覧ください｡</p>
-<p><a href="https://dragonuniversity.booth.pm/items/1055860" target="_blank" rel="noopener noreferrer">Dragon University 技術書典5 - Dragon University - BOOTH（同人誌通販・ダウンロード）</a></p>
+<div class="twicard">
+  <span class="image"><div><img src="https://booth.pximg.net/c/620x620/a00fe615-aca9-4ac2-9e73-c117987944f4/i/1055860/0273cc3f-790b-4942-8b48-c406e61ec61d_base_resized.jpg"></div></span>
+  <span class="txt">
+    <div class="title"><a href="https://dragonuniversity.booth.pm/items/1055860" target="_blank" rel="noopener noreferrer">Dragon University 技術書典5 - Drag…</a></div>
+    <div class="description">技術書典5で配布した「Dragon University 技術書典5」のPDF版です。 ※紙媒体を持っている場合は別場所でダウンロードできるように作業中です。お待ち下さい。 記事一覧: G…</div>
+  </span>
+</div>
 <p>宣伝おわり</p>
 <div class="footnotes">
 <hr>
