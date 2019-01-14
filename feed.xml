@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 15 Jan 2019 02:29:20 +0900</pubDate>
-    <lastBuildDate>Tue, 15 Jan 2019 02:29:20 +0900</lastBuildDate>
+    <pubDate>Tue, 15 Jan 2019 02:41:20 +0900</pubDate>
+    <lastBuildDate>Tue, 15 Jan 2019 02:41:20 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
     
       <item>
@@ -1700,7 +1700,13 @@ section等のカウンタを0で初期化しているのがミソで､これを
 図&lt;a href=&quot;#broken2&quot;&gt;4&lt;/a&gt; こわれる
 &lt;/center&gt;
 &lt;p&gt;ここでおもむろに&lt;code&gt;\phantomsection&lt;/code&gt;を挿入する｡&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection&quot;&gt;hyperref - When do I need to invoke \phantomsection? - TeX - LaTeX Stack Exchange&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://cdn.sstatic.net/Sites/tex/img/apple-touch-icon@2.png?v=eaf26b461720&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;When do I need to invoke \phantomsection?&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;Inspired by question When do I need invoke \clearpage manually?:When do I need to invoke \phantomsection?In what condition is invoking \phantomsection necessary?&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;
 ......
 &lt;span class=&quot;k&quot;&gt;\renewcommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\maketitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
