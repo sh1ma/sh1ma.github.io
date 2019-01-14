@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 25 Dec 2018 22:20:56 +0900</pubDate>
-    <lastBuildDate>Tue, 25 Dec 2018 22:20:56 +0900</lastBuildDate>
+    <pubDate>Tue, 15 Jan 2019 01:56:51 +0900</pubDate>
+    <lastBuildDate>Tue, 15 Jan 2019 01:56:51 +0900</lastBuildDate>
     <generator>Jekyll v3.8.4</generator>
     
       <item>
@@ -2080,7 +2080,13 @@ syntacticにきれいに､バグらず簡単に書ける､というありが�
 &lt;p&gt;また情報量が0になってしまった……!!!&lt;/p&gt;
 &lt;h1 id=&quot;%E8%BF%BD%E8%A8%9820181030&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%BF%BD%E8%A8%9820181030&quot;&gt;追記20181030&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;ReactにHooksという機能が追加されたがこれはまさにAlgebraic Effectsということで､ReactはさておきAlgebraic Effectsに関してもう少し実例を交えて詳しいものをQiitaに発射した｡&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot;&gt;Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました! - Qiita&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://cdn.qiita.com/assets/qiita-fb-2887e7b4aad86fd8c25cea84846f2236.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました! - Qiita&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;ReactのHooksが実質algebraic effectsなんじゃないかということでalgebraic effectsに関する怪文書が流布して鼻白んでしまう､そんな未来を阻止するため､曲がりなりにもalgebraic effect…&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
 &lt;p&gt;追記おわり&lt;/p&gt;
 &lt;hr&gt;
 &lt;div class=&quot;footnotes&quot;&gt;
