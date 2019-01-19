@@ -24,7 +24,7 @@
     <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml"/>
     <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
 <!-- Begin Jekyll SEO tag v2.5.0 -->
-<meta name="generator" content="Jekyll v3.8.4" />
+<meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="筋肉偏差値70" />
 <meta name="author" content="Satoru Kawahara" />
 <meta property="og:locale" content="en_US" />
@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-12-23T00:00:00+09:00" />
 <script type="application/ld+json">
-{"description":"lily, Aikatsu, Programming language, and more","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2017/12/23/%E7%AD%8B%E8%82%89%E5%81%8F%E5%B7%AE%E5%80%A470.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"@type":"BlogPosting","url":"https://nymphium.github.io/2017/12/23/%E7%AD%8B%E8%82%89%E5%81%8F%E5%B7%AE%E5%80%A470.html","headline":"筋肉偏差値70","dateModified":"2017-12-23T00:00:00+09:00","datePublished":"2017-12-23T00:00:00+09:00","@context":"http://schema.org"}</script>
+{"dateModified":"2017-12-23T00:00:00+09:00","datePublished":"2017-12-23T00:00:00+09:00","description":"lily, Aikatsu, Programming language, and more","author":{"@type":"Person","name":"Satoru Kawahara"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2017/12/23/%E7%AD%8B%E8%82%89%E5%81%8F%E5%B7%AE%E5%80%A470.html"},"@type":"BlogPosting","url":"https://nymphium.github.io/2017/12/23/%E7%AD%8B%E8%82%89%E5%81%8F%E5%B7%AE%E5%80%A470.html","headline":"筋肉偏差値70","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
@@ -72,7 +72,15 @@
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
             <!-- The loading of KaTeX is deferred to speed up page rendering -->
             <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
-            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>document.addEventListener("DOMContentLoaded", function(){
+                    renderMathInElement(document.body,
+                            { delimiters: [ {left: "[[",  right: "]]",  display: true}
+                                          , {left: "$",   right: "$",   display: false}
+                                          , {left: "$$",  right: "$$",  display: true}
+                                          , {left: "\\(", right: "\\)", display: false}
+                                          , {left: "\\[", right: "\\]", display: true} ]
+                            , })});</script>
           </header>
           <div class="post-content" itemprop="articleBody">
 <p>こんにちは､びしょ〜じょです｡これは<a href="https://adventar.org/calendars/2573" target="_blank" rel="noopener noreferrer">WORD Advent Calendar 2017</a>の記事です｡</p>
@@ -113,13 +121,13 @@
 <h1 id="7.+startup"><a class="headerlink" href="#7.+startup">7. startup</a></h1>
 <p>以下のような言語を考える｡</p>
 <div>
-$$
+\[
 \begin{array}{rrl}
     e  &amp; ::=  &amp; x\mid \lambda x.e \mid e\,e\\
        &amp; \mid &amp; e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}\left(x\right)\rightarrow e}\\
        &amp; \mid &amp; \mathbf{raise}\,\mathit{Exn}\left(e\right)
 \end{array}
-$$
+\]
 </div>
 <p>\(e\,\mathbf{handle}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)は実質\(\mathbf{try}\,e\,\mathbf{with}\,\overrightarrow{\mathit{Exn}(x)\rightarrow e’}\)ですね｡
 操作的意味論は君の中に既にあるはずだ｡</p>
@@ -127,7 +135,7 @@ $$
 <p>既存の手法としてDouble-Barreled CPSというものが知られています<sup id="fnref3" title="Hayo Thielecke. Comparing Control Constructs by Double-Barrelled CPS "><a href="#fn3" rel="footnote">3</a></sup>｡
 継続ともう一つ例外処理に対応する関数､つまりdouble-barreledなCPSを作ります｡</p>
 <div>
-$$
+\[
 \begin{array}{c}
     \fbox{\lceil e\rceil = e_{cps}}\\
     \begin{array}{rcl}
@@ -138,7 +146,7 @@ $$
         \lceil \mathbf{raise}\,\mathit{Exn}\left(e\right)\rceil &amp; = &amp; \lambda k.\lambda h.\lceil e\rceil \,h\,h\\
     \end{array}
 \end{array}
-$$
+\]
 </div>
 <p>\(e_{cps}\)は\(e\)のサブセットっぽいのでなんだかいい感じですね｡
 例外ハンドラのアーム(\(Exn(x)\rightarrow e\))を継続として(\(\lambda x.\lceil e\rceil\)) 第2の継続パラメータに渡すわけですな｡
@@ -150,7 +158,7 @@ $$
 \(h\)を(例外名とハンドラ関数のペア)のリストとして､初期値を空リストとして与える｡</p>
 <div>
 <label id="fig:approx"></label>
-$$
+\[
 \begin{array}{rcl}
     \lceil \lambda x.e\rceil_h &amp; = &amp; \lambda k. \lambda x.\lambda k’. \lceil e\rceil_h\, k’\\
     \lceil x\rceil_h &amp; = &amp; \lambda k. k\,x\\
@@ -164,7 +172,7 @@ $$
             \mathrm{undefined} &amp; \mathit{otherwise}
         \end{array}\right.
 \end{array}
-$$
+\]
 </div>
 <p>オッ? いい感じな気もするが……｡</p>
 <h3 id="9-1-1.+%E5%95%8F%E9%A1%8C%E7%82%B9"><a class="headerlink" href="#9-1-1.+%E5%95%8F%E9%A1%8C%E7%82%B9">9-1-1. 問題点</a></h3>
@@ -172,7 +180,7 @@ $$
 次のようなケースを考えてみる｡</p>
 <div>
 <label id="fig:example"></label>
-$$
+\[
 \begin{array}{rcl}
 \begin{array}{l}
 \mathbf{let}\,f\,x=\mathbf{raise}\,\mathit{Exn}\left(x\right)\,\mathbf{in}\\
@@ -181,7 +189,7 @@ f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x
 \left(\lambda f. f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x\right)\,%
 \left(\lambda x.\mathbf{raise}\,\mathit{Exn}\left(x\right)\right)
 \end{array}
-$$
+\]
 </div>
 <p>関数fの中でraiseしとります｡
 <a href="#fig:approx">9.1</a>で変換するとどうなるか……?</p>
@@ -195,7 +203,7 @@ $$
 <p>のでCPS termを拡張したい｡</p>
 <div>
 <label id="fig:syn"></label>
-$$
+\[
 \begin{array}{rrl}
 e_{cps} &amp; ::= &amp; x \mid \lambda x. e_{cps} \mid e_{cps}\, e_{cps}\\
         &amp; \mid&amp; \left[\right] \\
@@ -203,12 +211,12 @@ e_{cps} &amp; ::= &amp; x \mid \lambda x. e_{cps} \mid e_{cps}\, e_{cps}\\
         &amp; \mid&amp; \left(\mathit{Exn}, e_{cps} \right)\\
         &amp; \mid&amp; \mathbf{lookup}(\mathit{Exn}, e_{cps})\\
 \end{array}
-$$
+\]
 </div>
 <p>はい</p>
 <h2 id="10-2.+%E5%A4%89%E6%8F%9B%E8%A6%8F%E5%89%87"><a class="headerlink" href="#10-2.+%E5%A4%89%E6%8F%9B%E8%A6%8F%E5%89%87">10-2. 変換規則</a></h2>
 <div>
-$$
+\[
 \begin{array}{c}
     \fbox{\lceil e\rceil=e_{cps}}\\
     \begin{array}{rcl}
@@ -222,30 +230,30 @@ $$
         \left\lceil \mathbf{raise}\,\mathit{Exn}\left(e\right) \right\rceil &amp; = &amp; \lambda k.\lambda h. \left(\lambda f_\mathit{Exn}. \lceil e \rceil\, f_\mathit{Exn}\,f_\mathit{Exn} \right) \mathbf{lookup}\left(\mathit{Exn},h\right)
     \end{array}
 \end{array}
-$$
+\]
 </div>
 <p>先程の<a href="#fig:example">例</a>を変換してみましょう｡</p>
 <div>
-$$
+\[
 \begin{array}{rcl}
     \lceil e\rceil &amp; = &amp; \lambda k. \lambda h. \left\lceil \lambda f. f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x \right\rceil%
         \left(\lambda f. \left\lceil \lambda x.\mathbf{raise}\,\mathit{Exn}\left(x\right) \right\rceil \left( \lambda a. f\,a\,k\,h\right)\,h\right)\,h\\
       &amp;=&amp; \lambda k.\lambda h. \left(\lambda k_0.\lambda h_0. \lambda f. \lambda k_0’. \lambda h_0’.  \left(\left(\lambda k_2.\lambda h_2. \left(\lambda k_3.\lambda h_3. k_3\,f\right) \left(\lambda f’.  \left(\lambda k_4.\lambda h_4. k_4\,m\right) \left(\lambda m’. f’\,m’\,k_2\,h_2 \right)\,h_2 \right)\,h_2\right)\, k_1\, \left(\left(\mathit{Exn}, \lambda k_5.\lambda h_5.\lambda x. \lambda k_6. \lambda h_6. k_6\,x\right) \,::\, h_1\right)\right) \, k_0’\,h_0’\right) \left(\lambda f. (\lambda k_7. \lambda h_7. \lambda x. \lambda k_7’. \lambda h_7’. \left(\lambda k_8. \lambda h_8. \left(\lambda f_\mathit{Exn}.  \left(\lambda k_9. \lambda h_9. k_9 x\right) f_\mathit{Exn} f_\mathit{Exn}\right) \mathbf{lookup}\left(\mathit{Exn}, h_8\right)\right) k_7’\,h_7’)\, \left(\lambda a. f\,a\,k\,h\right)\, h \right)\,h
 \end{array}
-$$
+\]
 </div>
 <p>こんなもんですか? あとは作者の気持ちに沿ってrunしていくと</p>
 <div>
-$$
+\[
 \mathit{run}\, \lceil e\rceil = \lceil e\rceil \left(\lambda k. k\right) [] = \cdots \cdots
-$$
+\]
 </div>
 <p>あ〜〜やりたくない､これは読者の皆さんへの課題としますが､多分いい感じにハンドラが動くんでしょう｡</p>
 <h2 id="10-3.+%E8%BF%BD%E8%A8%9820171225"><a class="headerlink" href="#10-3.+%E8%BF%BD%E8%A8%9820171225">10-3. 追記20171225</a></h2>
 <p>素晴らしいことに変換規則が間違ってますね｡</p>
 <p>次のような感じだと正解だろうか｡</p>
 <div>
-$$
+\[
 \begin{array}{rcl}
     \lceil \lambda x.e\rceil &amp; =&amp;%
         \lambda k. \lambda h. k \left(\lambda x.\lambda k’. \lambda h’.  \lceil e\rceil\, k’\, h’\right)\\
@@ -256,7 +264,7 @@ $$
         \lambda k.\lambda h. \lceil e\rceil\,k\, \left(\overrightarrow{\left(\mathit{Exn},\lambda x. \lceil e’ \rceil\, k\,h\right)} \,@\, h\right) \ \\
     \lceil \mathbf{raise}\,\mathit{Exn}\left(e\right) \rceil &amp; =&amp; \lambda k.\lambda h. \lceil e\rceil \left(\lambda v. \left(\mathbf{lookup}\left(\mathit{Exn}, h\right)\right)\, v\right)\, h
 \end{array}
-$$
+\]
 </div>
 <p>正しさを検証するのは皆さんへの宿題とします｡
 かんたんな実装を載せますんで後は頼んだ｡</p>
