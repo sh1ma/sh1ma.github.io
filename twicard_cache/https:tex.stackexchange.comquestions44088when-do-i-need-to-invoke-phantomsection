@@ -27,10 +27,10 @@ When do I need to invoke \phantomsection?
 
 In what condition is invoking \phantomsection necessary?" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://cdn.sstatic.net/Js/stub.en.js?v=af17e90a6333"></script>
+        <script src="https://cdn.sstatic.net/Js/stub.en.js?v=9186999a8536"></script>
     
-    <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/Shared/stacks.css?v=5023e4724ed5" >
-    <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/Sites/tex/primary.css?v=ecb140eef390" >
+    <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/Shared/stacks.css?v=49e3a1a14444" >
+    <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/Sites/tex/primary.css?v=d6bc18f6e125" >
 
     
             <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;When do I need to invoke \phantomsection?&#39;" href="/feeds/question/44088">
@@ -79,8 +79,8 @@ In what condition is invoking \phantomsection necessary?" />
         });
     </script>
     <script>
-        StackExchange.init({"locale":"en","serverTime":1547559952,"routeName":"Questions/Show","stackAuthUrl":"https://stackauth.com","networkMetaHostname":"meta.stackexchange.com","site":{"name":"TeX - LaTeX Stack Exchange","description":"Q&A for users of TeX, LaTeX, ConTeXt, and related typesetting systems","isNoticesTabEnabled":true,"enableNewTagCreationWarning":false,"insertSpaceAfterNameTabCompletion":false,"id":85,"childUrl":"https://tex.meta.stackexchange.com","enableSocialMediaInSharePopup":true,"protocol":"https"},"user":{"fkey":"88c8125e311cce275fdf7a79ce456b6ef7f583915e68925d1397569dcf427f53","tid":"b34d29c0-71c3-10a6-a7f6-0c722d618c6f","rep":0,"isAnonymous":true,"isAnonymousNetworkWide":true,"ab":{"inline_signup_hero":{"v":"d","g":1}}},"realtime":{"newest":true,"active":true,"tagged":true,"staleDisconnectIntervalInHours":0,"workerIframeDomain":"https://cdn.sstatic.net"},"events":{"postType":{"question":1},"postEditionSection":{"title":1,"body":2,"tags":3}},"story":{"minCompleteBodyLength":75,"likedTagsMaxLength":300,"dislikedTagsMaxLength":300},"jobPreferences":{"maxNumDeveloperRoles":2,"maxNumIndustries":4},"svgIconPath":"https://cdn.sstatic.net/Img/svg-icons","svgIconHash":"6fdddd5ad9af"}, {"site":{"allowImageUploads":true,"enableUserHovercards":true,"styleCode":true,"enableImgurHttps":true,"forceHttpsImages":true},"userMessaging":{},"comments":{},"userProfile":{},"tags":{},"accounts":{"currentPasswordRequiredForChangingStackIdPassword":true},"flags":{"allowRetractingFlags":true},"snippets":{"renderDomain":"stacksnippets.net"},"paths":{},"markdown":{"asteriskIntraWordEmphasis":true},"monitoring":{"clientTimingsAbsoluteTimeout":30000,"clientTimingsDebounceTimeout":1000},"mentions":{"maxNumUsersInDropdown":50},"slack":{"sidebarAdDismissCookie":"slack-sidebar-ad"}});
-        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"0f5589ee3016","js/moderator.en.js":"03fc056a8161","js/full-anon.en.js":"9f93e6711e1a","js/full.en.js":"b7d4e79e328d","js/wmd.en.js":"2799e2334cfa","js/mobile.en.js":"1346d05813e6","js/help.en.js":"2b56b54af6b0","js/tageditor.en.js":"b597f194db91","js/tageditornew.en.js":"bcc5f2dc6d75","js/inline-tag-editing.en.js":"8bea6d7daa14","js/revisions.en.js":"d059a98114ef","js/review.en.js":"6aa85d8930ba","js/tagsuggestions.en.js":"ddb0e41afe26","js/post-validation.en.js":"6d261dfc5dd6","js/explore-qlist.en.js":"e71f14781288","js/events.en.js":"d72e4e583974","js/keyboard-shortcuts.en.js":"4c772f7047ac","js/external-editor.en.js":"a576414bcfed","js/adops.en.js":"22a9bd59b1e9","js/begin-edit-event.en.js":"3238dd301e69","js/stacks-polyfills.en.js":"d42370a805a2"});
+        StackExchange.init({"locale":"en","serverTime":1547965616,"routeName":"Questions/Show","stackAuthUrl":"https://stackauth.com","networkMetaHostname":"meta.stackexchange.com","site":{"name":"TeX - LaTeX Stack Exchange","description":"Q&A for users of TeX, LaTeX, ConTeXt, and related typesetting systems","isNoticesTabEnabled":true,"enableNewTagCreationWarning":false,"insertSpaceAfterNameTabCompletion":false,"id":85,"childUrl":"https://tex.meta.stackexchange.com","enableSocialMediaInSharePopup":true,"protocol":"https"},"user":{"fkey":"4e3817bf7e26234414334b8fc8495867db47b7cb07287e39ff66487f38fb06ea","tid":"25128c7d-ef46-4efa-67a1-62c1b2b8fa61","rep":0,"isAnonymous":true,"isAnonymousNetworkWide":true,"ab":{"inline_signup_hero":{"v":"d","g":1}}},"realtime":{"newest":true,"active":true,"tagged":true,"staleDisconnectIntervalInHours":0,"workerIframeDomain":"https://cdn.sstatic.net"},"events":{"postType":{"question":1},"postEditionSection":{"title":1,"body":2,"tags":3}},"story":{"minCompleteBodyLength":75,"likedTagsMaxLength":300,"dislikedTagsMaxLength":300},"jobPreferences":{"maxNumDeveloperRoles":2,"maxNumIndustries":4},"svgIconPath":"https://cdn.sstatic.net/Img/svg-icons","svgIconHash":"001231902048"}, {"site":{"allowImageUploads":true,"enableUserHovercards":true,"styleCode":true,"enableImgurHttps":true,"forceHttpsImages":true},"userMessaging":{},"comments":{},"userProfile":{},"tags":{},"accounts":{"currentPasswordRequiredForChangingStackIdPassword":true},"flags":{"allowRetractingFlags":true},"snippets":{"renderDomain":"stacksnippets.net"},"paths":{},"markdown":{"asteriskIntraWordEmphasis":true},"monitoring":{"clientTimingsAbsoluteTimeout":30000,"clientTimingsDebounceTimeout":1000},"mentions":{"maxNumUsersInDropdown":50},"slack":{"sidebarAdDismissCookie":"slack-sidebar-ad"}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"61c1392b2971","js/moderator.en.js":"9f14d62ad49a","js/full-anon.en.js":"bdb75abacc49","js/full.en.js":"1e5901a4df24","js/wmd.en.js":"ca0a6e6b6b69","js/mobile.en.js":"0a863ae7d590","js/help.en.js":"292011d3c2af","js/tageditor.en.js":"2389441ee382","js/tageditornew.en.js":"e8b09d5de422","js/inline-tag-editing.en.js":"abc66f94ddbd","js/revisions.en.js":"fba9a05eaeb4","js/review.en.js":"8b3c339d63ec","js/tagsuggestions.en.js":"ddb0e41afe26","js/post-validation.en.js":"e9ef7e51453f","js/explore-qlist.en.js":"e2a8178eb759","js/events.en.js":"2f50ae369780","js/keyboard-shortcuts.en.js":"43657b84e495","js/external-editor.en.js":"c43eead3e71c","js/adops.en.js":"22a9bd59b1e9","js/begin-edit-event.en.js":"7415f5dee62d","js/stacks-polyfills.en.js":"c8fa0cb9b943"});
         StackExchange.using("gps", function() {
              StackExchange.gps.init(true);
         });
@@ -120,8 +120,8 @@ In what condition is invoking \phantomsection necessary?" />
 
             <form id="search" action=/search method="get" class="searchbar js-searchbar " autocomplete="off" role="search">
                     <div class="ps-relative">
-                        <input name="q" type="text" placeholder="Search on TeX - LaTeX…" value="" autocomplete="off" maxlength="240" class="f-input js-search-field " />
-                        <button type="submit" aria-label="Search..." class="s-btn s-btn__primary btn-topbar-primary js-search-submit"><svg aria-hidden="true" class="svg-icon iconSearch" width="18" height="18" viewBox="0 0 18 18"><path d="M12.86 11.32L18 16.5 16.5 18l-5.18-5.14v-.35a7 7 0 1 1 1.19-1.19h.35zM7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10z"/></svg></button>
+                        <input name="q" type="text" placeholder="Search on TeX - LaTeX…" value="" autocomplete="off" maxlength="240" class="s-input js-search-field " />
+                        <button type="submit" aria-label="Search…" class="s-btn s-btn__primary s-btn__icon btn-topbar-primary js-search-submit"><svg aria-hidden="true" class="svg-icon iconSearch" width="18" height="18" viewBox="0 0 18 18"><path d="M12.86 11.32L18 16.5 16.5 18l-5.18-5.14v-.35a7 7 0 1 1 1.19-1.19h.35zM7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10z"/></svg></button>
                     </div>
             </form>
 
@@ -699,7 +699,7 @@ Unanswered        </a>
         <button class="js-vote-down-btn grid--cell s-btn s-btn__unset c-pointer" title="This answer is not useful" aria-pressed="false" aria-label="down vote" data-selected-classes="fc-theme-primary"><svg aria-hidden="true" class="svg-icon m0 iconArrowDownLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 10h32L18 26z"/></svg></button>
 
 
-                <div class="js-accepted-answer-indicator grid--item fc-green-500 ta-center p4 d-none" title="loading when this answer was accepted..." aria-label="accepted"><svg aria-hidden="true" class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8z"/></svg></div>
+                <div class="js-accepted-answer-indicator grid--item fc-green-500 ta-center p4 d-none" title="loading when this answer was accepted..." tabindex="0" role="note" aria-label="accepted"><svg aria-hidden="true" class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8z"/></svg></div>
 
 </div>
 
@@ -757,7 +757,7 @@ Unanswered        </a>
     <div class="user-details" itemprop="author" itemscope itemtype="http://schema.org/Person">
         <a href="/users/1683/danie-els">Danie Els</a><span class="d-none" itemprop="name">Danie Els</span>
         <div class="-flair">
-            <span class="reputation-score" title="reputation score 15,341" dir="ltr">15.3k</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="48 silver badges"><span class="badge2"></span><span class="badgecount">48</span></span><span title="58 bronze badges"><span class="badge3"></span><span class="badgecount">58</span></span>
+            <span class="reputation-score" title="reputation score 15,361" dir="ltr">15.4k</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="48 silver badges"><span class="badge2"></span><span class="badgecount">48</span></span><span title="58 bronze badges"><span class="badge3"></span><span class="badgecount">58</span></span>
         </div>
     </div>
 </div>
@@ -791,7 +791,7 @@ Unanswered        </a>
                 <span class="comment-copy">Especially elegant, your <code>\providecommand</code></span>
                 
                     &ndash;&nbsp;<a href="/users/344/brent-longborough"
-                       title="19,241 reputation"
+                       title="19,261 reputation"
                        class="comment-user">Brent.Longborough</a>
                 <span class="comment-date" dir="ltr"><span title="2012-02-10 11:46:56Z" class="relativetime-clean">Feb 10 '12 at 11:46</span></span>
                                                                             </div>
@@ -827,7 +827,7 @@ Unanswered        </a>
                 <span class="comment-copy">Since <code>hyperref</code> 2009/11/25 v6.79h <code>\phantomsection</code> is no longer necessary in this situation. With this usage, the anchor is put <i>after</i>  the chapter title.</span>
                 
                     &ndash;&nbsp;<a href="/users/16967/heiko-oberdiek"
-                       title="228,690 reputation"
+                       title="228,850 reputation"
                        class="comment-user">Heiko Oberdiek</a>
                 <span class="comment-date" dir="ltr"><span title="2012-10-17 13:19:43Z" class="relativetime-clean">Oct 17 '12 at 13:19</span></span>
                                                                             </div>
@@ -846,7 +846,7 @@ Unanswered        </a>
                 <span class="comment-copy">@L&#233;oL&#233;opoldHertz준영 When hyperref is not loaded, it is not defined.</span>
                 
                     &ndash;&nbsp;<a href="/users/1683/danie-els"
-                       title="15,341 reputation"
+                       title="15,361 reputation"
                        class="comment-user">Danie Els</a>
                 <span class="comment-date" dir="ltr"><span title="2017-04-23 09:00:32Z" class="relativetime-clean">Apr 23 '17 at 9:00</span></span>
                                                                             </div>
@@ -897,7 +897,7 @@ Unanswered        </a>
         <button class="js-vote-down-btn grid--cell s-btn s-btn__unset c-pointer" title="This answer is not useful" aria-pressed="false" aria-label="down vote" data-selected-classes="fc-theme-primary"><svg aria-hidden="true" class="svg-icon m0 iconArrowDownLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 10h32L18 26z"/></svg></button>
 
 
-                <div class="js-accepted-answer-indicator grid--item fc-green-500 ta-center p4 d-none" title="loading when this answer was accepted..." aria-label="accepted"><svg aria-hidden="true" class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8z"/></svg></div>
+                <div class="js-accepted-answer-indicator grid--item fc-green-500 ta-center p4 d-none" title="loading when this answer was accepted..." tabindex="0" role="note" aria-label="accepted"><svg aria-hidden="true" class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8z"/></svg></div>
 
 </div>
 
@@ -975,7 +975,7 @@ This is just \hyperref[some]{some place} in the document.
                 <span class="comment-copy">Thank you for this informative answer.  Too bad I can&#39;t upvote it again.</span>
                 
                     &ndash;&nbsp;<a href="/users/25858/steven-b-segletes"
-                       title="152,839 reputation"
+                       title="152,859 reputation"
                        class="comment-user">Steven B. Segletes</a>
                 <span class="comment-date" dir="ltr"><span title="2017-08-01 18:13:23Z" class="relativetime-clean">Aug 1 '17 at 18:13</span></span>
                                                                             </div>
@@ -1007,7 +1007,7 @@ This is just \hyperref[some]{some place} in the document.
         <button class="js-vote-down-btn grid--cell s-btn s-btn__unset c-pointer" title="This answer is not useful" aria-pressed="false" aria-label="down vote" data-selected-classes="fc-theme-primary"><svg aria-hidden="true" class="svg-icon m0 iconArrowDownLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 10h32L18 26z"/></svg></button>
 
 
-                <div class="js-accepted-answer-indicator grid--item fc-green-500 ta-center p4 d-none" title="loading when this answer was accepted..." aria-label="accepted"><svg aria-hidden="true" class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8z"/></svg></div>
+                <div class="js-accepted-answer-indicator grid--item fc-green-500 ta-center p4 d-none" title="loading when this answer was accepted..." tabindex="0" role="note" aria-label="accepted"><svg aria-hidden="true" class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8z"/></svg></div>
 
 </div>
 
@@ -1077,7 +1077,7 @@ This is just \hyperref[some]{some place} in the document.
                 <span class="comment-copy">This looks very similar to the code Nathan Grigg posted: could you elaborate on the difference?</span>
                 
                     &ndash;&nbsp;<a href="/users/73/joseph-wright"
-                       title="202,567 reputation"
+                       title="202,742 reputation"
                        class="comment-user">Joseph Wright<span class="mod-flair" title="moderator">&#9830;</span></a>
                 <span class="comment-date" dir="ltr"><span title="2013-03-05 08:01:41Z" class="relativetime-clean">Mar 5 '13 at 8:01</span></span>
                                                                             </div>
@@ -1203,7 +1203,7 @@ This is just \hyperref[some]{some place} in the document.
     <div id="wmd-preview" class="wmd-preview"></div>
     <div></div>
     <div class="edit-block">
-        <input id="fkey" name="fkey" type="hidden" value="88c8125e311cce275fdf7a79ce456b6ef7f583915e68925d1397569dcf427f53">
+        <input id="fkey" name="fkey" type="hidden" value="4e3817bf7e26234414334b8fc8495867db47b7cb07287e39ff66487f38fb06ea">
         <input id="author" name="author" type="text">
     </div>
 
@@ -1337,7 +1337,7 @@ Not the answer you&#39;re looking for?                            Browse other q
 
                             <td style="padding-left: 10px">
                                 <p class="label-key">
-                                    <b>50,760 times</b>
+                                    <b>50,875 times</b>
                                 </p>
                             </td>
                         </tr>
@@ -1351,7 +1351,24 @@ Not the answer you&#39;re looking for?                            Browse other q
                             </tr>
                     </table>
                 </div>
-            
+            <div class="module community-bulletin" data-tracker="cb=1">
+    <div class="related">
+                <div class="bulletin-title">
+                    Blog
+                </div>
+                <hr />
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <a href="https://stackoverflow.blog/2019/01/18/state-of-the-stack-2019-a-year-in-review/" class="question-hyperlink" data-ga="[&quot;community bulletin board&quot;,&quot;Blog&quot;,&quot;https://stackoverflow.blog/2019/01/18/state-of-the-stack-2019-a-year-in-review/&quot;,null,null]">
+<div class="favicon favicon-stackexchangemeta" title="Meta Stack Exchange"></div>                </a>
+        </div>
+        <div class="bulletin-item-content">
+            <a href="https://stackoverflow.blog/2019/01/18/state-of-the-stack-2019-a-year-in-review/" class="question-hyperlink" data-ga="[&quot;community bulletin board&quot;,&quot;Blog&quot;,&quot;https://stackoverflow.blog/2019/01/18/state-of-the-stack-2019-a-year-in-review/&quot;,null,null]">State of the Stack 2019: A Year in Review</a>
+        </div>
+        <br class="cbt" />
+    </div>
+    </div>
+</div>
 
             <div class="module sidebar-linked">
 	<h4 id="h-linked">Linked</h4>
@@ -1439,122 +1456,32 @@ Not the answer you&#39;re looking for?                            Browse other q
     </h4>
     <ul>
             <li >
-                <div class="favicon favicon-politics" title="Politics Stack Exchange"></div><a href="https://politics.stackexchange.com/questions/37917/what-did-frank-herbert-mean-when-he-said-humans-do-not-have-equal-ability-con" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:475 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    What did Frank Herbert mean when he said “humans do not have equal ability”, concerning equality?
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="https://unix.stackexchange.com/questions/495422/what-is-the-difference-between-the-commands-builtin-cd-and-cd" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the difference between the commands builtin cd and cd?
                 </a>
 
             </li>
             <li >
-                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="https://stackoverflow.com/questions/54197195/what-is-the-memory-layout-of-vector-of-arrays" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    What is the memory layout of vector of arrays?
+                <div class="favicon favicon-apple" title="Ask Different"></div><a href="https://apple.stackexchange.com/questions/349087/what-is-the-latest-version-of-firmware-for-the-airpods-first-generation" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:118 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the latest version of firmware for the AirPods (first generation)?
                 </a>
 
             </li>
             <li >
-                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="https://academia.stackexchange.com/questions/122795/dressing-down-to-impress-in-academic-settings" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    &quot;Dressing down&quot; to impress in academic settings
+                <div class="favicon favicon-photo" title="Photography Stack Exchange"></div><a href="https://photo.stackexchange.com/questions/104365/why-is-the-steerage-hailed-one-of-the-greatest-photographs-of-all-time" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:61 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is &quot;The Steerage&quot; hailed &quot;one of the greatest photographs of all time&quot;?
                 </a>
 
             </li>
             <li >
-                <div class="favicon favicon-sharepoint" title="SharePoint Stack Exchange"></div><a href="https://sharepoint.stackexchange.com/questions/255781/permission-level-which-doesnt-allow-renaming-file-in-document-library" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:232 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Permission Level which doesn&#39;t allow renaming file in document library
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="https://worldbuilding.stackexchange.com/questions/137009/what-would-birds-look-like-if-they-used-buoyancy-to-fight-gravity" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What would birds look like if they used buoyancy to fight gravity?
                 </a>
 
             </li>
             <li >
-                <div class="favicon favicon-gis" title="Geographic Information Systems Stack Exchange"></div><a href="https://gis.stackexchange.com/questions/308659/how-to-create-a-polygon-from-hole-in-qgis-2-18-1" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:79 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    How to create a polygon from hole in QGIS 2.18.1?
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-blender" title="Blender Stack Exchange"></div><a href="https://blender.stackexchange.com/questions/128812/moving-objects-away-from-3d-cursor-equally-like-scale-without-actually-scaling" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:502 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Moving objects away from 3D cursor equally like scale, without actually scaling
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="https://scifi.stackexchange.com/questions/203414/why-does-commander-riker-assume-that-the-simulation-isnt-real" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Why does Commander Riker assume that the simulation isn&#39;t real?
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="https://rpg.stackexchange.com/questions/139064/how-to-convince-players-to-trust-me-as-the-player-after-my-character-got-posse" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    How to convince players to trust me, as the player, after my character got possessed?
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="https://math.stackexchange.com/questions/3074164/complex-version-of-the-fermat-last-problem" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Complex version of the Fermat last problem
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-mathoverflow" title="MathOverflow"></div><a href="https://mathoverflow.net/questions/320857/geodesics-on-the-sphere" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:504 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Geodesics on the sphere
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-codereview" title="Code Review Stack Exchange"></div><a href="https://codereview.stackexchange.com/questions/211515/c-implementation-of-basic-string" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:196 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    C++ implementation of basic_string
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-history" title="History Stack Exchange"></div><a href="https://history.stackexchange.com/questions/50628/where-if-anywhere-were-x-ray-machines-put-on-trains-or-trolleys-to-image-ever" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:324 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Where (if anywhere) were X-ray machines put on trains or trolleys to image &quot;Everybody over 14 years old&quot;?
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="https://stackoverflow.com/questions/54194759/macro-replacement-list-rescanning-for-replacement" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Macro replacement list rescanning for replacement
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-mathoverflow" title="MathOverflow"></div><a href="https://mathoverflow.net/questions/320906/biographical-information-on-anne-marie-whitney" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:504 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Biographical information on Anne Marie Whitney
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-electronics" title="Electrical Engineering Stack Exchange"></div><a href="https://electronics.stackexchange.com/questions/417024/what-is-this-unknown-part" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:135 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    What is this unknown part?
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="https://rpg.stackexchange.com/questions/139037/how-can-i-impose-consequences-when-pcs-commit-severe-crimes" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    How can I impose consequences when PCs commit severe crimes?
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-photo" title="Photography Stack Exchange"></div><a href="https://photo.stackexchange.com/questions/104247/why-is-the-cost-of-film-going-up-so-fast" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:61 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Why is the cost of film going up so fast?
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-hinduism" title="Hinduism Stack Exchange"></div><a href="https://hinduism.stackexchange.com/questions/31915/are-children-of-brahmin-parents-also-brahmin-by-caste" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:567 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Are children of Brahmin parents also Brahmin by caste?
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-money" title="Personal Finance &amp; Money Stack Exchange"></div><a href="https://money.stackexchange.com/questions/104052/what-happens-to-the-shareholder-when-public-company-declare-bankruptcy" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:93 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    What happens to the shareholder when public company declare bankruptcy?
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="https://physics.stackexchange.com/questions/454158/how-is-quantum-mechanics-consistent-with-statistical-mechanics" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    How is quantum mechanics consistent with statistical mechanics?
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="https://rpg.stackexchange.com/questions/138988/how-can-i-explain-to-my-player-that-alchemists-fire-is-safe-to-carry" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I explain to my player that Alchemist&#39;s Fire is safe to carry?
                 </a>
 
             </li>
@@ -1565,20 +1492,110 @@ Not the answer you&#39;re looking for?                            Browse other q
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-money" title="Personal Finance &amp; Money Stack Exchange"></div><a href="https://money.stackexchange.com/questions/104062/handling-waitress-unclaimed-pay-from-three-years-ago" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:93 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Handling waitress unclaimed pay from three years ago
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="https://security.stackexchange.com/questions/201566/is-displaying-remaining-password-retry-count-a-security-risk" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is displaying remaining password retry count a security risk?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="https://workplace.stackexchange.com/questions/126413/should-i-have-concern-for-my-previous-workplace-when-considering-a-new-job" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Should I have concern for my previous workplace, when considering a new job?
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="https://unix.stackexchange.com/questions/495506/check-data-integrity-after-copying-thousands-of-files" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Check data integrity after copying thousands of files
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-psychology" title="Psychology &amp; Neuroscience Stack Exchange"></div><a href="https://psychology.stackexchange.com/questions/21492/what-is-the-medical-term-for-semi-mindless-activities-to-help-reduce-anxiety" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:391 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    What is the medical term for semi-mindless activities to help reduce anxiety? ... such as gardening, mowing, cleaning... perhaps driving
+                <div class="favicon favicon-diy" title="Home Improvement Stack Exchange"></div><a href="https://diy.stackexchange.com/questions/155291/big-voltage-drop" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:73 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Big Voltage drop
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-politics" title="Politics Stack Exchange"></div><a href="https://politics.stackexchange.com/questions/38046/what-is-capitalisms-answer-to-constant-economic-growth-hitting-the-limit-of-the" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:475 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is capitalism&#39;s answer to constant economic growth hitting the limit of the planet&#39;s finite resources?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="https://workplace.stackexchange.com/questions/126543/is-it-inappropriate-to-invite-all-my-coworkers-except-for-one-person-to-a-privat" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it inappropriate to invite all my coworkers except for one person to a private event?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="https://rpg.stackexchange.com/questions/139505/how-should-a-dm-resolve-a-smooth-talking-player-with-a-weak-charisma-score-pc" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How should a DM resolve a smooth-talking player with a weak Charisma score PC?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="https://scifi.stackexchange.com/questions/203732/why-did-voldemort-have-to-torture-garrick-ollivander-for-information-on-the-elde" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why did Voldemort have to torture Garrick Ollivander for information on the Elder Wand?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-askubuntu" title="Ask Ubuntu"></div><a href="https://askubuntu.com/questions/1110791/why-do-windows-and-linux-see-different-files-on-a-dvd-rom" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:89 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why do Windows and Linux see different files on a DVD ROM?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="https://worldbuilding.stackexchange.com/questions/136671/is-it-harder-for-an-intelligent-octopus-to-live-on-land-or-a-human-to-live-in-s" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it harder for an intelligent octopus to live on land, or a human to live in space?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-hsm" title="History of Science and Mathematics Stack Exchange"></div><a href="https://hsm.stackexchange.com/questions/8184/examples-of-when-the-professional-scientists-or-mathematicians-were-wrong-but-t" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:587 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Examples of when the professional scientists or mathematicians were wrong, but the nonprofessionals were right?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="https://math.stackexchange.com/questions/3079912/sixth-grade-math-number-related-problem" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Sixth grade math (number related) problem
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-politics" title="Politics Stack Exchange"></div><a href="https://politics.stackexchange.com/questions/38104/how-did-theresa-may-remain-pm-after-her-brexit-deal-was-rejected" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:475 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How did Theresa May remain PM after her Brexit deal was rejected?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="https://workplace.stackexchange.com/questions/126782/coworker-posted-a-piece-of-source-code-on-social-network-what-do-i-do" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Coworker posted a piece of source code on social network. What do I do?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-travel" title="Travel Stack Exchange"></div><a href="https://travel.stackexchange.com/questions/130490/will-it-cause-problems-if-my-hair-is-too-short-on-my-passport-photo" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:273 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Will it cause problems if my hair is too short on my passport photo?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="https://tex.stackexchange.com/questions/470961/how-to-properly-smuggle-with-or-even-without-tikz" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to properly smuggle (with or even without TikZ)?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-mathoverflow" title="MathOverflow"></div><a href="https://mathoverflow.net/questions/321246/zeros-of-an-infinite-series" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:504 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Zeros of an infinite series
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="https://security.stackexchange.com/questions/201654/is-it-safe-to-give-my-email-address-to-a-service-like-haveibeenpwned-in-light-of" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it safe to give my email address to a service like haveibeenpwned in light of the publication of &quot;Collection #1&quot;?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-writing" title="Writing Stack Exchange"></div><a href="https://writing.stackexchange.com/questions/41384/how-to-explain-the-main-plot-with-science-based-concepts-without-the-non-sci-fi" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:166 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to explain the main plot with science based concepts, without the non-sci-fi fans getting bored?
                 </a>
 
             </li>
@@ -1599,8 +1616,8 @@ Not the answer you&#39;re looking for?                            Browse other q
 </div>
         </div>
     </div>
-<script>StackExchange.ready(function(){$.get('/posts/44088/ivc/aaa4');});</script>
-<noscript><div><img src="/posts/44088/ivc/aaa4" class="dno" alt="" width="0" height="0"></div></noscript><div style="display:none" id="prettify-lang">lang-tex</div></div>
+<script>StackExchange.ready(function(){$.get('/posts/44088/ivc/58e4');});</script>
+<noscript><div><img src="/posts/44088/ivc/58e4" class="dno" alt="" width="0" height="0"></div></noscript><div style="display:none" id="prettify-lang">lang-tex</div></div>
 
 
         </div>
@@ -1795,7 +1812,7 @@ Not the answer you&#39;re looking for?                            Browse other q
                 <p class="mt-auto mb24">
 site design / logo &#169; 2019 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a>
                             with <a href="https://stackoverflow.blog/2009/06/25/attribution-required/" rel="license">attribution required</a>.
-                    <span id="svnrev">rev&nbsp;2019.1.14.32653</span>
+                    <span id="svnrev">rev&nbsp;2019.1.18.32694</span>
                 </p>
             </div>
         </div>

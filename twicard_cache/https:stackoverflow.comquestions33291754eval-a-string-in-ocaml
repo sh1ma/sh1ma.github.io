@@ -23,10 +23,10 @@
 
 So far I&#39;ve not been able to find much. The Parsing module looks l..." />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://cdn.sstatic.net/Js/stub.en.js?v=af17e90a6333"></script>
+        <script src="https://cdn.sstatic.net/Js/stub.en.js?v=9186999a8536"></script>
     
-    <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/Shared/stacks.css?v=5023e4724ed5" >
-    <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/Sites/stackoverflow/primary.css?v=2ce35b22d509" >
+    <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/Shared/stacks.css?v=49e3a1a14444" >
+    <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/Sites/stackoverflow/primary.css?v=a2ec55699aa6" >
 
     
             <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;&quot;Eval&quot; a string in OCaml&#39;" href="/feeds/question/33291754">
@@ -73,8 +73,8 @@ So far I&#39;ve not been able to find much. The Parsing module looks l..." />
 
 
         <script>
-        StackExchange.init({"locale":"en","serverTime":1547559947,"routeName":"Questions/Show","stackAuthUrl":"https://stackauth.com","networkMetaHostname":"meta.stackexchange.com","site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"enableNewTagCreationWarning":true,"insertSpaceAfterNameTabCompletion":false,"id":1,"childUrl":"https://meta.stackoverflow.com","enableSocialMediaInSharePopup":true,"protocol":"https"},"user":{"fkey":"88c8125e311cce275fdf7a79ce456b6ef7f583915e68925d1397569dcf427f53","tid":"fcc1f013-e4c8-a544-902a-a799c6f53ee2","rep":0,"isAnonymous":true,"isAnonymousNetworkWide":true,"ab":{"inline_signup_hero":{"v":"d","g":1}}},"events":{"postType":{"question":1},"postEditionSection":{"title":1,"body":2,"tags":3}},"story":{"minCompleteBodyLength":75,"likedTagsMaxLength":300,"dislikedTagsMaxLength":300},"jobPreferences":{"maxNumDeveloperRoles":2,"maxNumIndustries":4},"svgIconPath":"https://cdn.sstatic.net/Img/svg-icons","svgIconHash":"6fdddd5ad9af"}, {"site":{"allowImageUploads":true,"enableUserHovercards":true,"styleCode":true,"enableImgurHttps":true,"forceHttpsImages":true},"userMessaging":{},"comments":{},"userProfile":{"openGraphAPIKey":"58740831ad23540e00c58987"},"tags":{},"accounts":{"currentPasswordRequiredForChangingStackIdPassword":true},"flags":{"allowRetractingFlags":true},"snippets":{"snippetsEnabled":true,"renderDomain":"stacksnippets.net"},"paths":{},"markdown":{"asteriskIntraWordEmphasis":true},"monitoring":{"clientTimingsAbsoluteTimeout":30000,"clientTimingsDebounceTimeout":1000},"mentions":{"maxNumUsersInDropdown":50},"slack":{"sidebarAdDismissCookie":"slack-sidebar-ad"}});
-        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"0f5589ee3016","js/moderator.en.js":"03fc056a8161","js/full-anon.en.js":"9f93e6711e1a","js/full.en.js":"b7d4e79e328d","js/wmd.en.js":"2799e2334cfa","js/mobile.en.js":"1346d05813e6","js/help.en.js":"2b56b54af6b0","js/tageditor.en.js":"b597f194db91","js/tageditornew.en.js":"bcc5f2dc6d75","js/inline-tag-editing.en.js":"8bea6d7daa14","js/revisions.en.js":"d059a98114ef","js/review.en.js":"6aa85d8930ba","js/tagsuggestions.en.js":"ddb0e41afe26","js/post-validation.en.js":"6d261dfc5dd6","js/explore-qlist.en.js":"e71f14781288","js/events.en.js":"d72e4e583974","js/keyboard-shortcuts.en.js":"4c772f7047ac","js/external-editor.en.js":"a576414bcfed","js/adops.en.js":"22a9bd59b1e9","js/begin-edit-event.en.js":"3238dd301e69","js/stacks-polyfills.en.js":"d42370a805a2","js/external-editor.en.js":"a576414bcfed","js/snippet-javascript.en.js":"ebc751779f44","js/snippet-javascript-codemirror.en.js":"8ee2e7cde38d"});
+        StackExchange.init({"locale":"en","serverTime":1547965605,"routeName":"Questions/Show","stackAuthUrl":"https://stackauth.com","networkMetaHostname":"meta.stackexchange.com","site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"enableNewTagCreationWarning":true,"insertSpaceAfterNameTabCompletion":false,"id":1,"childUrl":"https://meta.stackoverflow.com","enableSocialMediaInSharePopup":true,"protocol":"https"},"user":{"fkey":"4e3817bf7e26234414334b8fc8495867db47b7cb07287e39ff66487f38fb06ea","tid":"e5fe8a40-00bf-3f9d-aced-ddf52fc12dbb","rep":0,"isAnonymous":true,"isAnonymousNetworkWide":true,"ab":{"inline_signup_hero":{"v":"d","g":1}}},"events":{"postType":{"question":1},"postEditionSection":{"title":1,"body":2,"tags":3}},"story":{"minCompleteBodyLength":75,"likedTagsMaxLength":300,"dislikedTagsMaxLength":300},"jobPreferences":{"maxNumDeveloperRoles":2,"maxNumIndustries":4},"svgIconPath":"https://cdn.sstatic.net/Img/svg-icons","svgIconHash":"001231902048"}, {"site":{"allowImageUploads":true,"enableUserHovercards":true,"styleCode":true,"enableImgurHttps":true,"forceHttpsImages":true},"userMessaging":{},"comments":{},"userProfile":{"openGraphAPIKey":"58740831ad23540e00c58987"},"tags":{},"accounts":{"currentPasswordRequiredForChangingStackIdPassword":true},"flags":{"allowRetractingFlags":true},"snippets":{"snippetsEnabled":true,"renderDomain":"stacksnippets.net"},"paths":{},"markdown":{"asteriskIntraWordEmphasis":true},"monitoring":{"clientTimingsAbsoluteTimeout":30000,"clientTimingsDebounceTimeout":1000},"mentions":{"maxNumUsersInDropdown":50},"slack":{"sidebarAdDismissCookie":"slack-sidebar-ad"}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"61c1392b2971","js/moderator.en.js":"9f14d62ad49a","js/full-anon.en.js":"bdb75abacc49","js/full.en.js":"1e5901a4df24","js/wmd.en.js":"ca0a6e6b6b69","js/mobile.en.js":"0a863ae7d590","js/help.en.js":"292011d3c2af","js/tageditor.en.js":"2389441ee382","js/tageditornew.en.js":"e8b09d5de422","js/inline-tag-editing.en.js":"abc66f94ddbd","js/revisions.en.js":"fba9a05eaeb4","js/review.en.js":"8b3c339d63ec","js/tagsuggestions.en.js":"ddb0e41afe26","js/post-validation.en.js":"e9ef7e51453f","js/explore-qlist.en.js":"e2a8178eb759","js/events.en.js":"2f50ae369780","js/keyboard-shortcuts.en.js":"43657b84e495","js/external-editor.en.js":"c43eead3e71c","js/adops.en.js":"22a9bd59b1e9","js/begin-edit-event.en.js":"7415f5dee62d","js/stacks-polyfills.en.js":"c8fa0cb9b943","js/external-editor.en.js":"c43eead3e71c","js/snippet-javascript.en.js":"ebc751779f44","js/snippet-javascript-codemirror.en.js":"c31a9f377238"});
         StackExchange.using("gps", function() {
              StackExchange.gps.init(true);
         });
@@ -103,8 +103,8 @@ So far I&#39;ve not been able to find much. The Parsing module looks l..." />
 
             <form id="search" action=/search method="get" class="searchbar js-searchbar " autocomplete="off" role="search">
                     <div class="ps-relative">
-                        <input name="q" type="text" placeholder="Search…" value="" autocomplete="off" maxlength="240" class="f-input js-search-field " />
-                        <button type="submit" aria-label="Search..." class="s-btn s-btn__primary btn-topbar-primary js-search-submit"><svg aria-hidden="true" class="svg-icon iconSearch" width="18" height="18" viewBox="0 0 18 18"><path d="M12.86 11.32L18 16.5 16.5 18l-5.18-5.14v-.35a7 7 0 1 1 1.19-1.19h.35zM7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10z"/></svg></button>
+                        <input name="q" type="text" placeholder="Search…" value="" autocomplete="off" maxlength="240" class="s-input js-search-field " />
+                        <button type="submit" aria-label="Search…" class="s-btn s-btn__primary s-btn__icon btn-topbar-primary js-search-submit"><svg aria-hidden="true" class="svg-icon iconSearch" width="18" height="18" viewBox="0 0 18 18"><path d="M12.86 11.32L18 16.5 16.5 18l-5.18-5.14v-.35a7 7 0 1 1 1.19-1.19h.35zM7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10z"/></svg></button>
                     </div>
             </form>
 
@@ -372,7 +372,7 @@ Jobs        </a>
 
 <div class="d-none create-team-tooltip js-create-team-tooltip bar-sm bg-blue-500 fc-white l100 md:d-none mln24 new-feature-wrapper p16 pr32 t0 ws2"
      data-cookie="notice-ctt"
-     data-expire-date="1863179148006">
+     data-expire-date="1863584805476">
     <svg aria-hidden="true" class="svg-icon ps-absolute r12 c-pointer iconClearSm" width="14" height="14" viewBox="0 0 14 14"><path d="M12 3.41L10.59 2 7 5.59 3.41 2 2 3.41 5.59 7 2 10.59 3.41 12 7 8.41 10.59 12 12 10.59 8.41 7z"/></svg>
     <p class="mb0">Q&amp;A for work. A dedicated place to share your team’s knowledge.</p>
 </div>
@@ -508,7 +508,7 @@ Jobs        </a>
                 <span class="comment-copy">Could you give details on your precise use case ?</span>
                 
                     &ndash;&nbsp;<a href="/users/4220738/drup"
-                       title="3,130 reputation"
+                       title="3,145 reputation"
                        class="comment-user">Drup</a>
                 <span class="comment-date" dir="ltr"><span title="2015-10-22 23:23:56Z" class="relativetime-clean">Oct 22 '15 at 23:23</span></span>
                                                                             </div>
@@ -569,7 +569,7 @@ Jobs        </a>
         <button class="js-vote-down-btn grid--cell s-btn s-btn__unset c-pointer" title="This answer is not useful" aria-pressed="false" aria-label="down vote" data-selected-classes="fc-theme-primary"><svg aria-hidden="true" class="svg-icon m0 iconArrowDownLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 10h32L18 26z"/></svg></button>
 
 
-                <div class="js-accepted-answer-indicator grid--item fc-green-500 ta-center p4" title="loading when this answer was accepted..." aria-label="accepted"><svg aria-hidden="true" class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8z"/></svg></div>
+                <div class="js-accepted-answer-indicator grid--item fc-green-500 ta-center p4" title="loading when this answer was accepted..." tabindex="0" role="note" aria-label="accepted"><svg aria-hidden="true" class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8z"/></svg></div>
 
 </div>
 
@@ -630,7 +630,7 @@ let eval code =
     <div class="user-details" itemprop="author" itemscope itemtype="http://schema.org/Person">
         <a href="/users/1971598/edgar-aroutiounian">Edgar Aroutiounian</a><span class="d-none" itemprop="name">Edgar Aroutiounian</span>
         <div class="-flair">
-            <span class="reputation-score" title="reputation score " dir="ltr">4,046</span><span title="8 gold badges"><span class="badge1"></span><span class="badgecount">8</span></span><span title="24 silver badges"><span class="badge2"></span><span class="badgecount">24</span></span><span title="38 bronze badges"><span class="badge3"></span><span class="badgecount">38</span></span>
+            <span class="reputation-score" title="reputation score " dir="ltr">4,051</span><span title="8 gold badges"><span class="badge1"></span><span class="badgecount">8</span></span><span title="24 silver badges"><span class="badge2"></span><span class="badgecount">24</span></span><span title="38 bronze badges"><span class="badge3"></span><span class="badgecount">38</span></span>
         </div>
     </div>
 </div>
@@ -696,7 +696,7 @@ let eval code =
                 <span class="comment-copy">@lezed1 Okay but I really recommend you not use this, its completely side stepping the type system.</span>
                 
                     &ndash;&nbsp;<a href="/users/1971598/edgar-aroutiounian"
-                       title="4,046 reputation"
+                       title="4,051 reputation"
                        class="comment-user">Edgar Aroutiounian</a>
                 <span class="comment-date" dir="ltr"><span title="2015-10-28 11:45:09Z" class="relativetime-clean">Oct 28 '15 at 11:45</span></span>
                                                                             </div>
@@ -728,7 +728,7 @@ let eval code =
         <button class="js-vote-down-btn grid--cell s-btn s-btn__unset c-pointer" title="This answer is not useful" aria-pressed="false" aria-label="down vote" data-selected-classes="fc-theme-primary"><svg aria-hidden="true" class="svg-icon m0 iconArrowDownLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 10h32L18 26z"/></svg></button>
 
 
-                <div class="js-accepted-answer-indicator grid--item fc-green-500 ta-center p4 d-none" title="loading when this answer was accepted..." aria-label="accepted"><svg aria-hidden="true" class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8z"/></svg></div>
+                <div class="js-accepted-answer-indicator grid--item fc-green-500 ta-center p4 d-none" title="loading when this answer was accepted..." tabindex="0" role="note" aria-label="accepted"><svg aria-hidden="true" class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8z"/></svg></div>
 
 </div>
 
@@ -758,7 +758,7 @@ let eval code =
     <div class="user-details" itemprop="author" itemscope itemtype="http://schema.org/Person">
         <a href="/users/821679/jeffrey-scofield">Jeffrey Scofield</a><span class="d-none" itemprop="name">Jeffrey Scofield</span>
         <div class="-flair">
-            <span class="reputation-score" title="reputation score 47,363" dir="ltr">47.4k</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="49 silver badges"><span class="badge2"></span><span class="badgecount">49</span></span><span title="78 bronze badges"><span class="badge3"></span><span class="badgecount">78</span></span>
+            <span class="reputation-score" title="reputation score 47,438" dir="ltr">47.4k</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="49 silver badges"><span class="badge2"></span><span class="badgecount">49</span></span><span title="79 bronze badges"><span class="badge3"></span><span class="badgecount">79</span></span>
         </div>
     </div>
 </div>
@@ -824,7 +824,7 @@ let eval code =
                 <span class="comment-copy">@lezed1You can do it....ie compile it on the file and then exec the code, but this is the wrong way to code in OCaml. (Compiler-libs is where to look)</span>
                 
                     &ndash;&nbsp;<a href="/users/1971598/edgar-aroutiounian"
-                       title="4,046 reputation"
+                       title="4,051 reputation"
                        class="comment-user">Edgar Aroutiounian</a>
                 <span class="comment-date" dir="ltr"><span title="2015-10-23 00:27:28Z" class="relativetime-clean">Oct 23 '15 at 0:27</span></span>
                                                                             </div>
@@ -940,7 +940,7 @@ let eval code =
     <div id="wmd-preview" class="wmd-preview"></div>
     <div></div>
     <div class="edit-block">
-        <input id="fkey" name="fkey" type="hidden" value="88c8125e311cce275fdf7a79ce456b6ef7f583915e68925d1397569dcf427f53">
+        <input id="fkey" name="fkey" type="hidden" value="4e3817bf7e26234414334b8fc8495867db47b7cb07287e39ff66487f38fb06ea">
         <input id="author" name="author" type="text">
     </div>
 
@@ -1062,7 +1062,7 @@ Not the answer you&#39;re looking for?                            Browse other q
                             <td style="padding-left: 10px">
                                 <p class="label-key" title="2015-10-22 22:21:39Z">
                                     <b>
-                                        <time itemprop="dateCreated" datetime="2015-10-22T22:21:39">3 years, 2 months ago</time>
+                                        <time itemprop="dateCreated" datetime="2015-10-22T22:21:39">3 years, 3 months ago</time>
                                     </b>
                                 </p>
                             </td>
@@ -1074,7 +1074,7 @@ Not the answer you&#39;re looking for?                            Browse other q
 
                             <td style="padding-left: 10px">
                                 <p class="label-key">
-                                    <b>1,013 times</b>
+                                    <b>1,017 times</b>
                                 </p>
                             </td>
                         </tr>
@@ -1088,14 +1088,31 @@ Not the answer you&#39;re looking for?                            Browse other q
                             </tr>
                     </table>
                 </div>
-            
+            <div class="module community-bulletin" data-tracker="cb=1">
+    <div class="related">
+                <div class="bulletin-title">
+                    Blog
+                </div>
+                <hr />
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <a href="https://stackoverflow.blog/2019/01/18/state-of-the-stack-2019-a-year-in-review/" class="question-hyperlink" data-ga="[&quot;community bulletin board&quot;,&quot;Blog&quot;,&quot;https://stackoverflow.blog/2019/01/18/state-of-the-stack-2019-a-year-in-review/&quot;,null,null]">
+<div class="favicon favicon-stackexchangemeta" title="Meta Stack Exchange"></div>                </a>
+        </div>
+        <div class="bulletin-item-content">
+            <a href="https://stackoverflow.blog/2019/01/18/state-of-the-stack-2019-a-year-in-review/" class="question-hyperlink" data-ga="[&quot;community bulletin board&quot;,&quot;Blog&quot;,&quot;https://stackoverflow.blog/2019/01/18/state-of-the-stack-2019-a-year-in-review/&quot;,null,null]">State of the Stack 2019: A Year in Review</a>
+        </div>
+        <br class="cbt" />
+    </div>
+    </div>
+</div>
 <div id="dfp-tsb" class="everyonelovesstackoverflow everyoneloves__top-sidebar"></div>
             <div id="hireme"></div>
 <script>;try{(function(a){function b(a){return'string'==typeof a?document.getElementById(a):a}function c(a){return a=b(a),!!a&&'none'===getComputedStyle(a).display}function d(a){return!c(a)}function e(a){return!!a}function f(a){return /^\s*$/.test(b(a).innerHTML)}function g(a){var b=a.style;b.height=b.maxHeight=b.minHeight='auto',b.display='none',[].forEach.call(a.children,g)}function h(a,b){var c;return function(){return a&&(c=a.call(b||this,arguments),a=null),c}}function i(a){var b=document.createElement('script');b.src=a,document.body.appendChild(b)}function j(a){return k([],a)}function k(a,b){return a.push=function(a){return b(),delete this.push,this.push(a)},a}function l(){try{return!new Function('return async()=>{};')}catch(a){return!0}}function m(){return'undefined'!=typeof googletag&&!!googletag.apiReady}function n(){m()||(googletag={cmd:j(A)})}function o(){var a=document.createElement('div');a.className='adsbox',a.id='clc-abd',a.style.position='absolute',a.style.pointerEvents='none',a.innerHTML='&nbsp;',document.body.appendChild(a)}function p(a){var b=a.serviceName,c=a.slot,d=a.lineItemId;try{var e=c.getSlotElementId(),f=[];e||f.push('id=0');var h=document.getElementById(e);if(!e||h?h.hasAttribute('data-clc-stalled')&&f.push('st=1'):f.push('el=0'),0!==f.length)return void B(f.join('&'));-1===x.dh.indexOf(d)?h.setAttribute('data-clc-prefilled','true'):g(h),h.setAttribute('data-clc-ready','true')}catch(a){var i=document.querySelector('#dfp-tsb, #dfp-isb, #clc-tsb');i&&i.setAttribute('data-clc-ready','true'),B('e=1')}}function q(){return Object.keys(F.ids)}function r(a){var b=F.ids[a],c=F.slots[b];'function'==typeof c&&(c=c(a));return{path:'/'+C+'/'+E+'/'+b+'/'+D,sizes:c,zone:b}}function s(a){return!(clc.collapse&&void 0!==clc.collapse[a])||!!clc.collapse[a]}function t(a,b){'dfp-isb'===a&&b.setTargeting('Sidebar',['Inline']),'dfp-tsb'===a&&b.setTargeting('Sidebar',['Right']);var c=r(a),d=c.path,e=c.sizes,f=c.zone,g=googletag.defineSlot(d,e,a);s(f)&&g.setCollapseEmptyDiv(!0,!0),g.addService(b),!1}function u(b){var c=a.dfp&&a.dfp.targeting||{};Object.keys(c).forEach(function(a){b.setTargeting(a,c[a])})}function v(a){var g=a.map(b).filter(e);return{eligible:g.filter(f).filter(d).map(function(a){return a.id}),ineligible:g.filter(c)}}function w(b){if(void 0===b&&(b=q()),!m())return n(),void googletag.cmd.push(function(){return w(b)});var c=v(b),d=c.eligible,e=c.ineligible;if(e.forEach(g),0!==d.length){o(),googletag.destroySlots();var f=googletag.pubads();f.enableSingleRequest(),a.sreEvent||(f.addEventListener('slotRenderEnded',p),a.sreEvent=!0),u(f),d.forEach(function(a){return t(a,f)}),googletag.enableServices(),d.forEach(function(a){googletag.display(a)})}}var x=function(a){for(var b=[],c=1;c<arguments.length;c++)b[c-1]=arguments[c];for(var d,e=0,f=b;e<f.length;e++)for(var g in d=f[e],d)a[g]=d[g];return a}({"lib":"https://cdn.sstatic.net/clc/clc.min.js?v=d926a9d0eedc","style":"https://cdn.sstatic.net/clc/styles/clc.min.css?v=768595a6d237","u":"https://clc.stackoverflow.com/markup.js","wa":true,"kt":2000,"tto":true,"h":"clc.stackoverflow.com","allowed":"^(((talent\\.)?stackoverflow)|(blog\\.codinghorror)|(serverfault|askubuntu)|([^\\.]+\\.stackexchange))\\.com$","wv":true,"al":false,"dh":[4385506061,4386578282,4386579572]},a.options||{}),y=h(function(){var a=x.lib;l()&&(a=a.replace(/(\.min)?\.js(\?v=[0-9a-fA-F]+)?$/,'.ie$1.js$2')),i(a)}),z=a.cmd||[];Array.isArray(z)&&(0<z.length?y():k(z,y));var A=h(function(){i('https://www.googletagservices.com/tag/js/gpt.js')}),B=function(a){new Image().src='https://'+x.h+'/stalled.gif?'+a},C='248424177',D=/^\/tags\//.test(location.pathname)||/^\/questions\/tagged\//.test(location.pathname)?'tag-pages':'question-pages',E=location.hostname;var F={slots:{lb:[[728,90]],mlb:[[728,90]],smlb:[[728,90]],bmlb:[[728,90]],sb:function(a){return'dfp-tsb'===a?[[300,250],[300,600]]:[[300,250]]},"tag-sponsorship":[[730,135]],"mobile-below-question":[[320,50],[300,250]]},ids:{"dfp-tlb":'lb',"dfp-mlb":'mlb',"dfp-smlb":'smlb',"dfp-bmlb":'bmlb',"dfp-tsb":'sb',"dfp-isb":'sb',"dfp-tag":'tag-sponsorship',"dfp-m-aq":'mobile-below-question',"clc-tlb":'lb',"clc-mlb":'mlb',"clc-smlb":'smlb',"clc-bmlb":'bmlb',"clc-tsb":'sb'}};(function(){var b=x.al;b&&z.push(function(){return a.load()})})(),n(),a.dfp={load:w},a.options=x,a.cmd=z})(this.clc=this.clc||{})}catch(a){window.console.error(a)}</script>            <script>
                 var clc = clc || {};
                 clc.collapse = { sb: !0,'tag-sponsorship':!0,lb:!1,mlb:!1,smlb:!1,bmlb:!1,'mobile-below-question':!0};
                 clc.cmd = clc.cmd || [];
-                clc.cmd.push(function () { window.clc_request='AjuKYsHvetYIAAAAAOr9-wECAAAAAgAAAAAMAAAAfG9jYW1sfGV2YWx8ALUO9u9whzZb8tA'; clc.load(); });
+                clc.cmd.push(function () { window.clc_request='Ak3iF0CgftYIAAAAAOr9-wECAAAAAgAAAAAMAAAAfG9jYW1sfGV2YWx8ABfUZwejZS0vGpo'; clc.load(); });
                                 clc.dfp = clc.dfp || {};
                 clc.dfp.targeting = {Registered:['false'],'so-tag':['ocaml','eval']};
                 
@@ -1122,146 +1139,146 @@ Not the answer you&#39;re looking for?                            Browse other q
     </h4>
     <ul>
             <li >
-                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="https://rpg.stackexchange.com/questions/139094/is-there-an-item-or-spell-to-see-through-the-disguise-self-spell" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Is there an item or spell to see through the Disguise Self spell?
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="https://math.stackexchange.com/questions/3079912/sixth-grade-math-number-related-problem" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Sixth grade math (number related) problem
                 </a>
 
             </li>
             <li >
-                <div class="favicon favicon-dba" title="Database Administrators Stack Exchange"></div><a href="https://dba.stackexchange.com/questions/227095/is-the-keyword-alias-actually-used" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:182 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Is the keyword &quot;ALIAS&quot; actually used?
+                <div class="favicon favicon-ell" title="English Language Learners Stack Exchange"></div><a href="https://ell.stackexchange.com/questions/193454/whats-the-cream-or-powder-that-removes-hair-called" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:481 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What&#39;s the cream or powder that removes hair called?
                 </a>
 
             </li>
             <li >
-                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="https://stackoverflow.com/questions/54194759/macro-replacement-list-rescanning-for-replacement" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Macro replacement list rescanning for replacement
+                <div class="favicon favicon-chemistry" title="Chemistry Stack Exchange"></div><a href="https://chemistry.stackexchange.com/questions/108186/does-a-neutral-dimercury-molecule-exist" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:431 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does a neutral dimercury molecule exist?
                 </a>
 
             </li>
             <li >
-                <div class="favicon favicon-cooking" title="Seasoned Advice"></div><a href="https://cooking.stackexchange.com/questions/95649/the-more-i-season-the-worse-it-gets-with-my-cast-iron" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:49 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    The more I season, the worse it gets with my cast iron
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="https://math.stackexchange.com/questions/3080181/using-partial-limit" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Using Partial Limit
                 </a>
 
             </li>
             <li >
-                <div class="favicon favicon-money" title="Personal Finance &amp; Money Stack Exchange"></div><a href="https://money.stackexchange.com/questions/104062/handling-waitress-unclaimed-pay-from-three-years-ago" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:93 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Handling waitress unclaimed pay from three years ago
+                <div class="favicon favicon-politics" title="Politics Stack Exchange"></div><a href="https://politics.stackexchange.com/questions/37875/why-is-a-border-wall-such-a-polarising-issue-in-american-politics" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:475 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is a border wall such a polarising issue in American politics?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="https://academia.stackexchange.com/questions/123096/phd-in-machine-learning-in-my-life-im-37-graduating-with-ba-in-math-online-d" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    PhD in machine learning in my life? I&#39;m 37; graduating with BA in math (online degree) this summer
+                <div class="favicon favicon-skeptics" title="Skeptics Stack Exchange"></div><a href="https://skeptics.stackexchange.com/questions/43234/does-youtube-delete-video-dislikes" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:212 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does YouTube delete video dislikes?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-ell" title="English Language Learners Stack Exchange"></div><a href="https://ell.stackexchange.com/questions/192890/tea-drinking-vs-tea-drunk-in-this-context" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:481 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    &quot;Tea drinking&quot; vs. &quot;tea drunk&quot; in this context
+                <div class="favicon favicon-serverfault" title="Server Fault"></div><a href="https://serverfault.com/questions/949919/cant-get-grub2-boot-menu-via-com2-port" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:2 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can&#39;t get grub2 boot menu via COM2 port
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-music" title="Music: Practice &amp; Theory Stack Exchange"></div><a href="https://music.stackexchange.com/questions/78686/correct-writing" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:240 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Correct Writing?
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="https://math.stackexchange.com/questions/3080067/combinatorics-of-sums" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Combinatorics of sums
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="https://academia.stackexchange.com/questions/122795/dressing-down-to-impress-in-academic-settings" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    &quot;Dressing down&quot; to impress in academic settings
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="https://worldbuilding.stackexchange.com/questions/137009/what-would-birds-look-like-if-they-used-buoyancy-to-fight-gravity" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What would birds look like if they used buoyancy to fight gravity?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="https://rpg.stackexchange.com/questions/139064/how-to-convince-players-to-trust-me-as-the-player-after-my-character-got-posse" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    How to convince players to trust me, as the player, after my character got possessed?
+                <div class="favicon favicon-chemistry" title="Chemistry Stack Exchange"></div><a href="https://chemistry.stackexchange.com/questions/108219/largest-alkane-having-a-given-alkane-as-its-base-name" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:431 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Largest alkane having a given alkane as its base name
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="https://math.stackexchange.com/questions/3074138/matrices-with-all-non-zero-entries" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Matrices with all non-zero entries.
+                <div class="favicon favicon-cooking" title="Seasoned Advice"></div><a href="https://cooking.stackexchange.com/questions/95671/if-you-add-spices-to-boiling-pasta-will-it-absorb-spices-flavours" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:49 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    If you add spices to boiling pasta, will it absorb spices/flavours?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-space" title="Space Exploration Stack Exchange"></div><a href="https://space.stackexchange.com/questions/33532/which-country-borders-are-visible-from-space" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:508 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Which country borders are visible from space?
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="https://rpg.stackexchange.com/questions/139037/how-can-i-impose-consequences-when-pcs-commit-severe-crimes" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I impose consequences when PCs commit severe crimes?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="https://worldbuilding.stackexchange.com/questions/136580/could-crystals-grow-on-living-things" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Could crystals grow on living things?
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="https://security.stackexchange.com/questions/201210/why-is-gbt3fc79zmmefufj-a-weak-password" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is Gbt3fC79ZmMEFUFJ a weak password?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="https://stackoverflow.com/questions/54190113/is-a-negative-integer-summed-with-a-greater-unsigned-integer-promoted-to-unsigne" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Is a negative integer summed with a greater unsigned integer promoted to unsigned int?
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="https://codegolf.stackexchange.com/questions/178837/increment-a-guid" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Increment a GUID
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="https://scifi.stackexchange.com/questions/203391/fantasy-book-where-a-normal-man-accepts-job-advertisement-to-become-a-king-of-a" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Fantasy book where a normal man accepts job advertisement to become a king of a fantasy kingdom
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="https://codegolf.stackexchange.com/questions/178888/generate-a-password" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Generate a password
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-askubuntu" title="Ask Ubuntu"></div><a href="https://askubuntu.com/questions/1109859/why-is-syslog-a-user" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:89 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Why is syslog a user?
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="https://academia.stackexchange.com/questions/123303/my-significant-other-is-a-member-of-a-research-project-that-i-coordinate-how-to" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    My significant other is a member of a research project that I coordinate. How to allocate funding?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="https://stackoverflow.com/questions/54197195/what-is-the-memory-layout-of-vector-of-arrays" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    What is the memory layout of vector of arrays?
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="https://workplace.stackexchange.com/questions/126721/how-to-handle-lack-of-talking-by-coworkers" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to handle lack of talking by coworkers
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="https://codegolf.stackexchange.com/questions/178728/matrix-jigsaw-puzzles" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Matrix Jigsaw Puzzles
+                <div class="favicon favicon-mathoverflow" title="MathOverflow"></div><a href="https://mathoverflow.net/questions/321261/lorenz-attractor-path-connected" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:504 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Lorenz attractor path-connected?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-law" title="Law Stack Exchange"></div><a href="https://law.stackexchange.com/questions/36162/in-fiction-is-it-legal-to-state-a-newspaper-wrote-an-article-when-in-fact-it-ne" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:617 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    In fiction, is it legal to state a newspaper wrote an article when in fact it never did?
+                <div class="favicon favicon-puzzling" title="Puzzling Stack Exchange"></div><a href="https://puzzling.stackexchange.com/questions/78493/im-famously-rectangular" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:559 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    I&#39;m famously rectangular
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="https://academia.stackexchange.com/questions/123139/why-would-a-prospective-advisor-ask-if-im-meeting-other-advisors" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Why would a prospective advisor ask if I&#39;m meeting other advisors?
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="https://worldbuilding.stackexchange.com/questions/136901/a-solution-for-the-time-travel-paradox-what-could-go-wrong" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    A solution for the time-travel paradox - What could go wrong?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-outdoors" title="The Great Outdoors Stack Exchange"></div><a href="https://outdoors.stackexchange.com/questions/21454/how-do-you-know-you-have-reached-north-or-south-pole-without-gps" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:395 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    How do you know you have reached North or South Pole without GPS?
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="https://english.stackexchange.com/questions/481921/is-there-a-word-used-to-describe-a-weekend-plus-a-one-day-holiday" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there a word used to describe a weekend plus a one-day holiday?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-arduino" title="Arduino Stack Exchange"></div><a href="https://arduino.stackexchange.com/questions/60618/simultanous-button-reading" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:540 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Simultanous button reading?
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="https://mathematica.stackexchange.com/questions/189764/sisyphus-random-walk" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Sisyphus Random Walk
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="https://mathematica.stackexchange.com/questions/189485/cant-blend-gradient-colors-with-a-stream" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    can&#39;t blend gradient colors with a stream
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="https://academia.stackexchange.com/questions/123244/what-can-i-do-with-like-new-recent-edition-textbooks-that-im-not-allowed-to-se" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What can I do with like-new, recent-edition textbooks that I&#39;m not allowed to sell?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="https://english.stackexchange.com/questions/481186/what-do-you-do-to-the-throttle-on-a-motorcycle" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    What do you do to the throttle on a motorcycle?
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="https://unix.stackexchange.com/questions/495477/using-pv-with-md5sum" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Using pv with md5sum
                 </a>
 
             </li>
@@ -1282,8 +1299,8 @@ Not the answer you&#39;re looking for?                            Browse other q
 </div>
         </div>
     </div>
-<script>StackExchange.ready(function(){$.get('/posts/33291754/ivc/aaa4');});</script>
-<noscript><div><img src="/posts/33291754/ivc/aaa4" class="dno" alt="" width="0" height="0"></div></noscript><div style="display:none" id="prettify-lang">lang-ml</div></div>
+<script>StackExchange.ready(function(){$.get('/posts/33291754/ivc/58e4');});</script>
+<noscript><div><img src="/posts/33291754/ivc/58e4" class="dno" alt="" width="0" height="0"></div></noscript><div style="display:none" id="prettify-lang">lang-ml</div></div>
 
 
         </div>
@@ -1493,7 +1510,7 @@ Not the answer you&#39;re looking for?                            Browse other q
                 <p class="mt-auto mb24">
 site design / logo &#169; 2019 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a>
                             with <a href="https://stackoverflow.blog/2009/06/25/attribution-required/" rel="license">attribution required</a>.
-                    <span id="svnrev">rev&nbsp;2019.1.14.32653</span>
+                    <span id="svnrev">rev&nbsp;2019.1.18.32694</span>
                 </p>
             </div>
         </div>
