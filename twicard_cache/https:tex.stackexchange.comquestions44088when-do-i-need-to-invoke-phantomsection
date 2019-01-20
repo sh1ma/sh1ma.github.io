@@ -79,7 +79,7 @@ In what condition is invoking \phantomsection necessary?" />
         });
     </script>
     <script>
-        StackExchange.init({"locale":"en","serverTime":1547965616,"routeName":"Questions/Show","stackAuthUrl":"https://stackauth.com","networkMetaHostname":"meta.stackexchange.com","site":{"name":"TeX - LaTeX Stack Exchange","description":"Q&A for users of TeX, LaTeX, ConTeXt, and related typesetting systems","isNoticesTabEnabled":true,"enableNewTagCreationWarning":false,"insertSpaceAfterNameTabCompletion":false,"id":85,"childUrl":"https://tex.meta.stackexchange.com","enableSocialMediaInSharePopup":true,"protocol":"https"},"user":{"fkey":"4e3817bf7e26234414334b8fc8495867db47b7cb07287e39ff66487f38fb06ea","tid":"25128c7d-ef46-4efa-67a1-62c1b2b8fa61","rep":0,"isAnonymous":true,"isAnonymousNetworkWide":true,"ab":{"inline_signup_hero":{"v":"d","g":1}}},"realtime":{"newest":true,"active":true,"tagged":true,"staleDisconnectIntervalInHours":0,"workerIframeDomain":"https://cdn.sstatic.net"},"events":{"postType":{"question":1},"postEditionSection":{"title":1,"body":2,"tags":3}},"story":{"minCompleteBodyLength":75,"likedTagsMaxLength":300,"dislikedTagsMaxLength":300},"jobPreferences":{"maxNumDeveloperRoles":2,"maxNumIndustries":4},"svgIconPath":"https://cdn.sstatic.net/Img/svg-icons","svgIconHash":"001231902048"}, {"site":{"allowImageUploads":true,"enableUserHovercards":true,"styleCode":true,"enableImgurHttps":true,"forceHttpsImages":true},"userMessaging":{},"comments":{},"userProfile":{},"tags":{},"accounts":{"currentPasswordRequiredForChangingStackIdPassword":true},"flags":{"allowRetractingFlags":true},"snippets":{"renderDomain":"stacksnippets.net"},"paths":{},"markdown":{"asteriskIntraWordEmphasis":true},"monitoring":{"clientTimingsAbsoluteTimeout":30000,"clientTimingsDebounceTimeout":1000},"mentions":{"maxNumUsersInDropdown":50},"slack":{"sidebarAdDismissCookie":"slack-sidebar-ad"}});
+        StackExchange.init({"locale":"en","serverTime":1547966220,"routeName":"Questions/Show","stackAuthUrl":"https://stackauth.com","networkMetaHostname":"meta.stackexchange.com","site":{"name":"TeX - LaTeX Stack Exchange","description":"Q&A for users of TeX, LaTeX, ConTeXt, and related typesetting systems","isNoticesTabEnabled":true,"enableNewTagCreationWarning":false,"insertSpaceAfterNameTabCompletion":false,"id":85,"childUrl":"https://tex.meta.stackexchange.com","enableSocialMediaInSharePopup":true,"protocol":"https"},"user":{"fkey":"4e3817bf7e26234414334b8fc8495867db47b7cb07287e39ff66487f38fb06ea","tid":"59605f8e-eeb7-3f66-ac47-51563cd95cda","rep":0,"isAnonymous":true,"isAnonymousNetworkWide":true,"ab":{"inline_signup_hero":{"v":"d","g":1}}},"realtime":{"newest":true,"active":true,"tagged":true,"staleDisconnectIntervalInHours":0,"workerIframeDomain":"https://cdn.sstatic.net"},"events":{"postType":{"question":1},"postEditionSection":{"title":1,"body":2,"tags":3}},"story":{"minCompleteBodyLength":75,"likedTagsMaxLength":300,"dislikedTagsMaxLength":300},"jobPreferences":{"maxNumDeveloperRoles":2,"maxNumIndustries":4},"svgIconPath":"https://cdn.sstatic.net/Img/svg-icons","svgIconHash":"001231902048"}, {"site":{"allowImageUploads":true,"enableUserHovercards":true,"styleCode":true,"enableImgurHttps":true,"forceHttpsImages":true},"userMessaging":{},"comments":{},"userProfile":{},"tags":{},"accounts":{"currentPasswordRequiredForChangingStackIdPassword":true},"flags":{"allowRetractingFlags":true},"snippets":{"renderDomain":"stacksnippets.net"},"paths":{},"markdown":{"asteriskIntraWordEmphasis":true},"monitoring":{"clientTimingsAbsoluteTimeout":30000,"clientTimingsDebounceTimeout":1000},"mentions":{"maxNumUsersInDropdown":50},"slack":{"sidebarAdDismissCookie":"slack-sidebar-ad"}});
         StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"61c1392b2971","js/moderator.en.js":"9f14d62ad49a","js/full-anon.en.js":"bdb75abacc49","js/full.en.js":"1e5901a4df24","js/wmd.en.js":"ca0a6e6b6b69","js/mobile.en.js":"0a863ae7d590","js/help.en.js":"292011d3c2af","js/tageditor.en.js":"2389441ee382","js/tageditornew.en.js":"e8b09d5de422","js/inline-tag-editing.en.js":"abc66f94ddbd","js/revisions.en.js":"fba9a05eaeb4","js/review.en.js":"8b3c339d63ec","js/tagsuggestions.en.js":"ddb0e41afe26","js/post-validation.en.js":"e9ef7e51453f","js/explore-qlist.en.js":"e2a8178eb759","js/events.en.js":"2f50ae369780","js/keyboard-shortcuts.en.js":"43657b84e495","js/external-editor.en.js":"c43eead3e71c","js/adops.en.js":"22a9bd59b1e9","js/begin-edit-event.en.js":"7415f5dee62d","js/stacks-polyfills.en.js":"c8fa0cb9b943"});
         StackExchange.using("gps", function() {
              StackExchange.gps.init(true);
@@ -1369,7 +1369,26 @@ Not the answer you&#39;re looking for?                            Browse other q
     </div>
     </div>
 </div>
+<div class="module" id="chat-feature">
 
+    <h4><a href="http://chat.stackexchange.com" id="h-chat-link">Visit Chat</a></h4>
+    <div class="related" id="ad502-rooms"></div>
+    <script>
+    // <!--
+        StackExchange.ready(
+        function () {
+            var options = {
+                chatUrl: 'http://chat.stackexchange.com',
+                reloadUrl: '/api/recent-chat',
+                preloadData: {"activeUsers":43,"activeRooms":40,"rooms":[{"name":"TeX, LaTeX and Friends","id":41,"lastPost":1547947648,"posts":688256,"users":[{"name":"Faheem Mitha","id":7257,"emailhash":"2b37134235e21817f74cd8c47eb0538d","lastPost":1547947648},{"name":"marmot","id":256525,"emailhash":"!https://i.stack.imgur.com/5vfbM.png?s=128\u0026g=1","lastPost":1547943414},{"name":"egreg","id":11727,"emailhash":"!https://i.stack.imgur.com/wJWMb.png?s=128\u0026g=1","lastPost":1547940578},{"name":"Alan Munn","id":3827,"emailhash":"fea119cd75e85ff3356c1987bfed76c1","lastPost":1547932175},{"name":"barbara beeton","id":28584,"emailhash":"!https://i.stack.imgur.com/Rvkr5.png?s=128\u0026g=1","lastPost":1547910112},{"name":"Phelype Oleinik","id":304333,"emailhash":"!https://i.stack.imgur.com/YXa8I.jpg?s=128\u0026g=1","lastPost":1547841027},{"name":"AlexG","id":12528,"emailhash":"339fbca6d5da0b38942e2e6ed599eca0","lastPost":1547376846}],"messages":[{"date":1547947648,"user":"Faheem Mitha","userid":7257}],"singleImage":false,"tags":[]},{"name":"Secret Room (Don\u0027t Enter!!!)","id":87082,"lastPost":1547956385,"posts":423,"users":[],"messages":[{"date":1547956385,"user":"God Must Be Crazy","userid":166388}],"singleImage":false,"tags":[]}]} 
+            };
+
+            StackExchange.chatAd.init(options);
+        });
+    // -->
+    </script>
+
+</div>
             <div class="module sidebar-linked">
 	<h4 id="h-linked">Linked</h4>
 	<div class="linked" data-tracker="lq=1">
@@ -1456,68 +1475,68 @@ Not the answer you&#39;re looking for?                            Browse other q
     </h4>
     <ul>
             <li >
-                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="https://unix.stackexchange.com/questions/495422/what-is-the-difference-between-the-commands-builtin-cd-and-cd" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    What is the difference between the commands builtin cd and cd?
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="https://worldbuilding.stackexchange.com/questions/136901/a-solution-for-the-time-travel-paradox-what-could-go-wrong" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    A solution for the time-travel paradox - What could go wrong?
                 </a>
 
             </li>
             <li >
-                <div class="favicon favicon-apple" title="Ask Different"></div><a href="https://apple.stackexchange.com/questions/349087/what-is-the-latest-version-of-firmware-for-the-airpods-first-generation" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:118 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    What is the latest version of firmware for the AirPods (first generation)?
+                <div class="favicon favicon-bitcoin" title="Bitcoin Stack Exchange"></div><a href="https://bitcoin.stackexchange.com/questions/83818/is-a-bitcoin-address-collision-possible-if-generating-90-million-addresses-every" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:308 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is a bitcoin address collision possible if generating 90 million addresses every 4 hours?
                 </a>
 
             </li>
             <li >
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="https://worldbuilding.stackexchange.com/questions/136971/what-could-prevent-us-from-making-alien-technology-if-we-had-the-schematics" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What could prevent us from making alien technology if we had the schematics?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="https://mathematica.stackexchange.com/questions/189814/how-to-concatenate-list-of-integers-into-a-single-number" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to concatenate list of integers into a single number
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="https://tex.stackexchange.com/questions/470926/automatically-formatting-mesostics" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Automatically formatting mesostics
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-mathoverflow" title="MathOverflow"></div><a href="https://mathoverflow.net/questions/321261/lorenz-attractor-path-connected" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:504 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Lorenz attractor path-connected?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-puzzling" title="Puzzling Stack Exchange"></div><a href="https://puzzling.stackexchange.com/questions/78493/im-famously-rectangular" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:559 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    I&#39;m famously rectangular
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-chemistry" title="Chemistry Stack Exchange"></div><a href="https://chemistry.stackexchange.com/questions/108186/does-a-neutral-dimercury-molecule-exist" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:431 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does a neutral dimercury molecule exist?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
                 <div class="favicon favicon-photo" title="Photography Stack Exchange"></div><a href="https://photo.stackexchange.com/questions/104365/why-is-the-steerage-hailed-one-of-the-greatest-photographs-of-all-time" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:61 }); posts_hot_network.click({ item_type:2, location:11 })">
                     Why is &quot;The Steerage&quot; hailed &quot;one of the greatest photographs of all time&quot;?
                 </a>
 
             </li>
-            <li >
-                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="https://worldbuilding.stackexchange.com/questions/137009/what-would-birds-look-like-if-they-used-buoyancy-to-fight-gravity" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    What would birds look like if they used buoyancy to fight gravity?
-                </a>
-
-            </li>
-            <li >
-                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="https://rpg.stackexchange.com/questions/138988/how-can-i-explain-to-my-player-that-alchemists-fire-is-safe-to-carry" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    How can I explain to my player that Alchemist&#39;s Fire is safe to carry?
+            <li class="dno js-hidden">
+                <div class="favicon favicon-writing" title="Writing Stack Exchange"></div><a href="https://writing.stackexchange.com/questions/41384/how-to-explain-the-main-plot-with-science-based-concepts-without-the-non-sci-fi" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:166 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to explain the main plot with science based concepts, without the non-sci-fi fans getting bored?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="https://physics.stackexchange.com/questions/454292/is-the-higgs-boson-an-elementary-particle-if-so-why-does-it-decay" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Is the Higgs boson an elementary particle? If so, why does it decay?
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="https://security.stackexchange.com/questions/201566/is-displaying-remaining-password-retry-count-a-security-risk" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Is displaying remaining password retry count a security risk?
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="https://unix.stackexchange.com/questions/495506/check-data-integrity-after-copying-thousands-of-files" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Check data integrity after copying thousands of files
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-diy" title="Home Improvement Stack Exchange"></div><a href="https://diy.stackexchange.com/questions/155291/big-voltage-drop" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:73 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Big Voltage drop
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-politics" title="Politics Stack Exchange"></div><a href="https://politics.stackexchange.com/questions/38046/what-is-capitalisms-answer-to-constant-economic-growth-hitting-the-limit-of-the" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:475 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    What is capitalism&#39;s answer to constant economic growth hitting the limit of the planet&#39;s finite resources?
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="https://workplace.stackexchange.com/questions/126543/is-it-inappropriate-to-invite-all-my-coworkers-except-for-one-person-to-a-privat" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Is it inappropriate to invite all my coworkers except for one person to a private event?
+                <div class="favicon favicon-writing" title="Writing Stack Exchange"></div><a href="https://writing.stackexchange.com/questions/41285/is-the-hero-guy-saves-girl-trope-misogynistic" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:166 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is the &quot;hero guy saves girl&quot; trope misogynistic?
                 </a>
 
             </li>
@@ -1528,14 +1547,20 @@ Not the answer you&#39;re looking for?                            Browse other q
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="https://scifi.stackexchange.com/questions/203732/why-did-voldemort-have-to-torture-garrick-ollivander-for-information-on-the-elde" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Why did Voldemort have to torture Garrick Ollivander for information on the Elder Wand?
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="https://math.stackexchange.com/questions/3080102/probability-mass-functions-dont-have-to-sum-to-1" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Probability mass functions don&#39;t have to sum to 1?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-askubuntu" title="Ask Ubuntu"></div><a href="https://askubuntu.com/questions/1110791/why-do-windows-and-linux-see-different-files-on-a-dvd-rom" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:89 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Why do Windows and Linux see different files on a DVD ROM?
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="https://tex.stackexchange.com/questions/470931/how-to-calculate-the-current-school-year-in-a-tcolorbox" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to calculate the current school year in a tcolorbox?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="https://unix.stackexchange.com/questions/495422/what-is-the-difference-between-the-commands-builtin-cd-and-cd" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the difference between the commands builtin cd and cd?
                 </a>
 
             </li>
@@ -1546,56 +1571,50 @@ Not the answer you&#39;re looking for?                            Browse other q
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-hsm" title="History of Science and Mathematics Stack Exchange"></div><a href="https://hsm.stackexchange.com/questions/8184/examples-of-when-the-professional-scientists-or-mathematicians-were-wrong-but-t" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:587 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Examples of when the professional scientists or mathematicians were wrong, but the nonprofessionals were right?
+                <div class="favicon favicon-space" title="Space Exploration Stack Exchange"></div><a href="https://space.stackexchange.com/questions/33712/has-any-man-made-satellite-or-space-vehicle-ever-been-hit-by-a-natural-meteoroid" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:508 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Has any man-made satellite or space vehicle ever been hit by a natural meteoroid?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="https://math.stackexchange.com/questions/3079912/sixth-grade-math-number-related-problem" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Sixth grade math (number related) problem
+                <div class="favicon favicon-diy" title="Home Improvement Stack Exchange"></div><a href="https://diy.stackexchange.com/questions/155291/big-voltage-drop" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:73 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Big Voltage drop
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-politics" title="Politics Stack Exchange"></div><a href="https://politics.stackexchange.com/questions/38104/how-did-theresa-may-remain-pm-after-her-brexit-deal-was-rejected" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:475 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    How did Theresa May remain PM after her Brexit deal was rejected?
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="https://security.stackexchange.com/questions/201566/is-displaying-remaining-password-retry-count-a-security-risk" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is displaying remaining password retry count a security risk?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="https://workplace.stackexchange.com/questions/126782/coworker-posted-a-piece-of-source-code-on-social-network-what-do-i-do" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Coworker posted a piece of source code on social network. What do I do?
+                <div class="favicon favicon-space" title="Space Exploration Stack Exchange"></div><a href="https://space.stackexchange.com/questions/33687/are-there-any-known-reasons-why-there-are-no-spaceports-in-the-european-union" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:508 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Are there any known reasons why there are no spaceports in the European Union?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-travel" title="Travel Stack Exchange"></div><a href="https://travel.stackexchange.com/questions/130490/will-it-cause-problems-if-my-hair-is-too-short-on-my-passport-photo" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:273 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Will it cause problems if my hair is too short on my passport photo?
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="https://unix.stackexchange.com/questions/495519/less-r-not-working" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    &#39;less -R&#39; not working
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="https://tex.stackexchange.com/questions/470961/how-to-properly-smuggle-with-or-even-without-tikz" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    How to properly smuggle (with or even without TikZ)?
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="https://mathematica.stackexchange.com/questions/189764/sisyphus-random-walk" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Sisyphus Random Walk
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-mathoverflow" title="MathOverflow"></div><a href="https://mathoverflow.net/questions/321246/zeros-of-an-infinite-series" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:504 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Zeros of an infinite series
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="https://worldbuilding.stackexchange.com/questions/136980/how-can-i-get-mutants-to-cooperate-with-a-registration-program" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I get mutants to cooperate with a registration program?
                 </a>
 
             </li>
             <li class="dno js-hidden">
-                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="https://security.stackexchange.com/questions/201654/is-it-safe-to-give-my-email-address-to-a-service-like-haveibeenpwned-in-light-of" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    Is it safe to give my email address to a service like haveibeenpwned in light of the publication of &quot;Collection #1&quot;?
-                </a>
-
-            </li>
-            <li class="dno js-hidden">
-                <div class="favicon favicon-writing" title="Writing Stack Exchange"></div><a href="https://writing.stackexchange.com/questions/41384/how-to-explain-the-main-plot-with-science-based-concepts-without-the-non-sci-fi" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:166 }); posts_hot_network.click({ item_type:2, location:11 })">
-                    How to explain the main plot with science based concepts, without the non-sci-fi fans getting bored?
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="https://english.stackexchange.com/questions/481921/is-there-a-word-used-to-describe-a-weekend-plus-a-one-day-holiday" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there a word used to describe a weekend plus a one-day holiday?
                 </a>
 
             </li>
@@ -1616,8 +1635,8 @@ Not the answer you&#39;re looking for?                            Browse other q
 </div>
         </div>
     </div>
-<script>StackExchange.ready(function(){$.get('/posts/44088/ivc/58e4');});</script>
-<noscript><div><img src="/posts/44088/ivc/58e4" class="dno" alt="" width="0" height="0"></div></noscript><div style="display:none" id="prettify-lang">lang-tex</div></div>
+<script>StackExchange.ready(function(){$.get('/posts/44088/ivc/9825');});</script>
+<noscript><div><img src="/posts/44088/ivc/9825" class="dno" alt="" width="0" height="0"></div></noscript><div style="display:none" id="prettify-lang">lang-tex</div></div>
 
 
         </div>
