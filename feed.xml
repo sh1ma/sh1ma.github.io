@@ -5,9 +5,159 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 27 Jan 2019 17:06:07 +0900</pubDate>
-    <lastBuildDate>Sun, 27 Jan 2019 17:06:07 +0900</lastBuildDate>
+    <pubDate>Sun, 27 Jan 2019 19:31:35 +0900</pubDate>
+    <lastBuildDate>Sun, 27 Jan 2019 19:31:35 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>stackfulness of coroutines</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
+気づいたら1月も終わりますね｡
+お前も俺も､もう終わりだ｡&lt;/p&gt;&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;研究ではコルーチンを使っている｡
+ここでひとつコルーチンについてまとめておきたい｡
+特にstackfulnessについての考察をこれまでおこなっていなかったため､そこに重点を置く｡
+本稿では文献&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;を参考にする｡&lt;/p&gt;&lt;h1 id=&quot;2.+%E5%AF%BE%E7%A7%B0%E6%80%A7%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+%E5%AF%BE%E7%A7%B0%E6%80%A7%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;2. 対称性による分類&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;コルーチンとは､一時停止､再開のできるサブルーチンを指す｡
+コルーチンを呼び出した呼び出し元にコントロールを戻す操作の有無により､コルーチンを対称コルーチンと&lt;em&gt;非&lt;/em&gt;対称コルーチンの2種類に分けることができる(図&lt;a href=&quot;#tbl1&quot;&gt;2.1&lt;/a&gt;)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;label id=&quot;tbl1&quot;&gt;&lt;/label&gt;
+表&lt;a href=&quot;#tbl1&quot;&gt;2.1&lt;/a&gt;. コルーチンの対称性による分類
+&lt;/center&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align: left&quot;&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align: center&quot;&gt;対称コルーチン&lt;/th&gt;
+&lt;th style=&quot;text-align: center&quot;&gt;非対照コルーチン&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;“戻る” 操作&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;ない&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;ある&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;&lt;p&gt;対称コルーチンを持つプログラム言語は筆者は知らない｡
+非対称コルーチンはわりとメジャーな機能で､コルーチンやFiberと言われる言語機能は概ね非対称コルーチンと思われる｡
+“戻る” 操作とは､多くの非対称コルーチンを持つプログラム言語では&lt;code&gt;yield&lt;/code&gt;というキーワードや関数名として使うことができる｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;yield example&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;nb&quot;&gt;coroutine.create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;-- callerに&quot;戻る&quot;&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;coroutine.yield&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;h1 id=&quot;3.+stackfulness%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+stackfulness%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;3. stackfulnessによる分類&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;コールスタックをまたいで&lt;/strong&gt; yieldできるかどうかで､非対称コルーチンをさらに2つに分類できる(表&lt;a href=&quot;#tbl2&quot;&gt;3.1&lt;/a&gt;)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;label id=&quot;tbl2&quot;&gt;&lt;/label&gt;
+表&lt;a href=&quot;#tbl2&quot;&gt;3.1&lt;/a&gt;. stackfulnessによる分類
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align: left&quot;&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align: left&quot;&gt;stackful&lt;/th&gt;
+&lt;th style=&quot;text-align: left&quot;&gt;stackless&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;またいでyield&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;できる&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;できない&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;examples&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;Luaのcoroutine, RubyのFiber&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;Rustのcoroutine, JSのGenerator&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;/p&gt;
+&lt;/center&gt;&lt;p&gt;stackful coroutinesは単に “coroutine” ､ あるいは “fiber” と呼ばれ､
+stackless coroutinesは “generator” と称される傾向にある｡&lt;/p&gt;&lt;p&gt;では､ “コールスタックをまたげる” とはどういうことか?
+これはyieldがネストした関数呼出しから一気にコルーチンの呼び出し元まで戻れる､またyieldした位置にコントロールを戻せるということである｡
+次の例を見てみる(プログラム&lt;a href=&quot;#lst:stackfulexample&quot;&gt;3.2&lt;/a&gt;, プログラム&lt;a href=&quot;#lst:stacklessexample&quot;&gt;3.3&lt;/a&gt;)｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:stackfulexample&quot;&gt;3.2&lt;/a&gt;. stackfull example in Lua&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;send&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yield&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;co&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- prints 10&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- prints 15&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:stacklessexample&quot;&gt;3.3&lt;/a&gt;. stackless example in JS&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;cm&quot;&gt;/* syntax error
+function send(x) {
+  yield x
+}
+*/&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;co&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;enxt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// prints 10&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// prints 13&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;&lt;a href=&quot;#lst:stackfulexample&quot;&gt;3.2&lt;/a&gt;を見てみる｡
+関数&lt;code&gt;send&lt;/code&gt;の中で&lt;code&gt;yield&lt;/code&gt;しているが､&lt;code&gt;send&lt;/code&gt;自体はただの関数である｡
+&lt;code&gt;send&lt;/code&gt;をコルーチン&lt;code&gt;co&lt;/code&gt;の中で呼び出すと､この&lt;code&gt;yield&lt;/code&gt;で一時停止する｡
+2度目の&lt;code&gt;resume&lt;/code&gt;で渡した&lt;code&gt;2&lt;/code&gt;が､&lt;code&gt;yield&lt;/code&gt;の戻り値となり､&lt;code&gt;send&lt;/code&gt;の戻り値は&lt;code&gt;2 + 3&lt;/code&gt;となる｡&lt;/p&gt;&lt;p&gt;一方&lt;a href=&quot;#lst:stacklessexample&quot;&gt;3.3&lt;/a&gt;は､コルーチン(generator)の中でしか&lt;code&gt;yield&lt;/code&gt;できない｡
+特にJSは&lt;code&gt;yield&lt;/code&gt;がキーワードとして扱われ､generatorの中でしか書けないというsyntacticな制約がある｡&lt;/p&gt;&lt;h1 id=&quot;4.+pros%2Fcons&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+pros%2Fcons&quot;&gt;4. pros/cons&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;非対称コルーチンをさらにstaclful､stacklessの2種類に分類した｡
+利点と欠点をまとめてみると､次のようになる(表&lt;a href=&quot;#tbl3&quot;&gt;4.1&lt;/a&gt;)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;label id=&quot;tbl3&quot;&gt;&lt;/label&gt;
+表&lt;a href=&quot;#tbl3&quot;&gt;4.1&lt;/a&gt;. 利点･欠点まとめ
+&lt;/center&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align: left&quot;&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align: left&quot;&gt;stackful&lt;/th&gt;
+&lt;th style=&quot;text-align: left&quot;&gt;stackless&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;利点&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;関数呼出しをまたいだyieldができ､&lt;br&gt;stacklessよりも表現力が高い&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;ステートマシンに変換でき､実装が簡潔な&lt;br&gt;だけでなく実行のパフォーマンスも良い&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;欠点&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;実装が煩雑となり､コンテキストスイッチの&lt;br&gt;オーバーヘッドがかかる&lt;/td&gt;
+&lt;td style=&quot;text-align: left&quot;&gt;表現力が低い&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;&lt;p&gt;stackful coroutinesの利点･欠点が､逆にstackless coroutinesの欠点･利点と､一長一短となっている｡&lt;/p&gt;&lt;h1 id=&quot;5.+%E7%A0%94%E7%A9%B6%E3%81%A8%E3%81%AE%E9%96%A2%E9%80%A3%E6%80%A7&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E7%A0%94%E7%A9%B6%E3%81%A8%E3%81%AE%E9%96%A2%E9%80%A3%E6%80%A7&quot;&gt;5. 研究との関連性&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;筆者の研究では “ネストした関数呼出しから一気に飛び出せる” というstackful coroutinesの特性を利用している｡
+そのためstackless coroutinesではすぐには代替できない｡
+stackful coroutines → stackless coroutinesの変換がある場合はなんとかなるかもしれないので､教えてください｡&lt;/p&gt;&lt;h1 id=&quot;6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;6. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;という話をゼミでやった｡
+(研究の進捗は)ないです&lt;/p&gt;&lt;h1 id=&quot;%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E4%BB%96&quot;&gt;他&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;なんかわかりやすいやつ&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://stackoverflow.com/questions/28977302/how-do-stackless-coroutines-differ-from-stackful-coroutines&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon@2.png?v=73d79a89bded&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://stackoverflow.com/questions/28977302/how-do-stackless-coroutines-differ-from-stackful-coroutines&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;How do stackless coroutines differ from stackful coroutines?&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;Background:I’m asking this because I currently have an application with many (hundreds to thousands) of threads. Most of those threads are idle a great portion of the time, waiting on work items …&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;hr&gt;&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Sun, 27 Jan 2019 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2019/01/27/stackfulness-of-coroutines.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2019/01/27/stackfulness-of-coroutines.html</guid>
+        
+        <category>coroutines</category>
+        
+        
+      </item>
     
       <item>
         <title>Asymmetric CoroutinesによるOneshot Algebraic Effectsの実装</title>
@@ -1996,45 +2146,6 @@ Scalaはちゃんとかいたのがここ3､4週間くらいなので､もう�
         <guid isPermaLink="true">https://nymphium.github.io/2018/06/09/Scala%E6%9B%B8%E3%81%84%E3%81%9F.html</guid>
         
         <category>Scala</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Ensime-vimを入れる</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
-最近は死んでるのでコードも全然書いてませんでした｡&lt;/p&gt;&lt;hr&gt;&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;VimでScalaを書いている､というと赤黒いアイコンを思い出すかもしれないが､そんな感じになっている｡
-動機としては､最近一切コードを書いてなかったのでなにか作ろうと思い､またScalaも以前から少し書いてみようと思っていたのでこの機会にと｡
-Vimでやろうとしたのは当然手元に(Neo)Vimがあるからだ｡&lt;/p&gt;&lt;h1 id=&quot;2.+%E3%83%97%E3%83%A9%E3%82%AE%E3%83%B3&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+%E3%83%97%E3%83%A9%E3%82%AE%E3%83%B3&quot;&gt;2. プラギン&lt;/a&gt;&lt;/h1&gt;&lt;h2 id=&quot;2-1.+%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fderekwyatt%2Fvim-scala%22%3Evim-scala%3C%2Fa%3E%0A&quot;&gt;
-&lt;a class=&quot;headerlink&quot; href=&quot;#2-1.+%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fderekwyatt%2Fvim-scala%22%3Evim-scala%3C%2Fa%3E%0A&quot;&gt;2-1. &lt;/a&gt;&lt;a href=&quot;https://github.com/derekwyatt/vim-scala&quot;&gt;vim-scala&lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;シンタックスハイライトが寂しいので入れる｡&lt;/p&gt;&lt;h2 id=&quot;2-2.+%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fensime%2Fensime-vim%22%3Eensime-vim%3C%2Fa%3E%0A&quot;&gt;
-&lt;a class=&quot;headerlink&quot; href=&quot;#2-2.+%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fensime%2Fensime-vim%22%3Eensime-vim%3C%2Fa%3E%0A&quot;&gt;2-2. &lt;/a&gt;&lt;a href=&quot;https://github.com/ensime/ensime-vim&quot;&gt;ensime-vim&lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;Scalaも補完がされてほしい｡
-VimでJava/Scalaというと､EclimというEclipseの情報をVimから引っ張ってグニャグニャするやつがありますが､俺達VimmerとしてはエディタのためにIDEを使うのはなんとなくはばかられる｡&lt;/p&gt;&lt;p&gt;(中略)&lt;/p&gt;&lt;p&gt;特にArchLinux(でyaourt)を使っており､Pythonなんて書かねーよハゲということでpipも基本的に触らない人用にインストールガイドを書こう｡
-だいたいは&lt;a href=&quot;http://ensime.github.io/editors/vim/install/&quot;&gt;公式のインストールガイド&lt;/a&gt;に則ればいい｡&lt;/p&gt;&lt;h3 id=&quot;2-2-1.+Python+modules&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-2-1.+Python+modules&quot;&gt;2-2-1. Python modules&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;注意する点はpipに関する記述だが､Pythonは3で問題ない｡
-pipでなくpacman/yourtに任せたいので､公式リポジトリから&lt;em&gt;python-websocket-client&lt;/em&gt;､AURから&lt;em&gt;python-sexpdata&lt;/em&gt;を引っ張る｡
-後者は微妙にメンテされておらず､PKGSBUILDをいじる必要がある｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-diff&quot; data-lang=&quot;diff&quot;&gt;# http -&amp;gt; httpsにするだけだが
-&lt;span class=&quot;gd&quot;&gt;-source=(&quot;http://pypi.python.org/packages/source/s/sexpdata/sexpdata-${pkgver}.tar.gz&quot;)
-&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+source=(&quot;https://pypi.python.org/packages/source/s/sexpdata/sexpdata-${pkgver}.tar.gz&quot;)
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&quot;2-2-2.+sbt+plugin&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-2-2.+sbt+plugin&quot;&gt;2-2-2. sbt plugin&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;あとはsbtのグローバルプラグインに以下を追加する｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scala&quot; data-lang=&quot;scala&quot;&gt;&lt;span class=&quot;n&quot;&gt;addSbtPlugin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;org.ensime&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;sbt-ensime&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;2.6.0&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;sbtで&lt;code&gt;ensimeConfig&lt;/code&gt;を実行すると､プロジェクトルートに&lt;code&gt;.ensime&lt;/code&gt;が生成される｡&lt;/p&gt;&lt;h2 id=&quot;2-3.+%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fsbdchd%2Fneoformat%22%3Eneoformat%3C%2Fa%3E%0A&quot;&gt;
-&lt;a class=&quot;headerlink&quot; href=&quot;#2-3.+%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fsbdchd%2Fneoformat%22%3Eneoformat%3C%2Fa%3E%0A&quot;&gt;2-3. &lt;/a&gt;&lt;a href=&quot;https://github.com/sbdchd/neoformat&quot;&gt;neoformat&lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;フォーマッター｡ScalaもscalafmtがあればOK｡
-ただ何もしないとフォーマット時にファイル先頭にゴミが入るので以下をvimrcに追加&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-vim&quot; data-lang=&quot;vim&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g:neoformat_scala_scalafmt&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;se&quot;&gt;  \&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'exe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'scalafmt'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-&lt;span class=&quot;se&quot;&gt;  \&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'replace'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-&lt;span class=&quot;se&quot;&gt;  \&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&quot;3.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;3. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;人生おわった&lt;/p&gt;</description>
-        <pubDate>Sun, 27 May 2018 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2018/05/27/Ensime-vim%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2018/05/27/Ensime-vim%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B.html</guid>
-        
-        <category>Scala</category>
-        
-        <category>Vim</category>
-        
-        <category>ArchLinux</category>
         
         
       </item>
