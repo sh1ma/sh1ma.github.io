@@ -407,7 +407,8 @@ thunk内でエフェクトを発生(<code>yield</code>)すると一時停止し�
 <h2 id="4-2.+%E5%A4%89%E6%8F%9B"><a class="headerlink" href="#4-2.+%E5%A4%89%E6%8F%9B">4-2. 変換</a></h2>
 <h2 id="%E8%BF%BD%E8%A8%9820181209"><a class="headerlink" href="#%E8%BF%BD%E8%A8%9820181209">追記20181209</a></h2>
 <p>投稿即バグが見つかり泣きました｡
-まずは修正前をご覧ください｡
+まずは修正前をご覧ください｡</p>
+<p>最新は<a href="#%E8%BF%BD%E8%A8%9820190127">こちら</a>
 追記suspend</p>
 <div>
 <center>
@@ -577,6 +578,62 @@ thunkを受け取ってコルーチンを作り､<code>resume</code>のラッ�
 これにより､処理がどうなってるかがより簡潔になったんじゃないでしょうか｡
 <code>handle</code>を連れ回すことで現在のハンドラによるハンドル処理を続けることができる｡
 <code>UncaughtEff</code>に渡す継続をコルーチンでencapsulateするのは､エフェクトの発生(<code>yield</code>)を再びキャッチするためである｡</p>
+<h1 id="%E8%BF%BD%E8%A8%9820190127"><a class="headerlink" href="#%E8%BF%BD%E8%A8%9820190127">追記20190127</a></h1>
+<p>バグってました｡</p>
+<div>
+<center>
+<label id="conv4"></label>
+$$
+\begin{aligned}
+  &amp;\left[\left[\mathrm{handler}\ \textit{eff}\ \left(\mathtt{val}\ x \rightarrow e_v\right)\ \left(\left(x, k\right) \rightarrow e_\textit{eff}\right)\right]\right]\eta = \\
+  &amp; \qquad \mathtt{let}\ \textit{eff} = \left[\left[\textit{eff}\right]\right]\eta\ \mathtt{in}\\
+  &amp; \qquad \mathtt{let}\ \textit{vh} = \lambda x’. \left[\left[e_v\right]\right]\eta \left[x \mapsto x’\right]\ \mathtt{in}\\
+  &amp; \qquad \mathtt{let}\ \textit{effh} = \lambda x’\, k’. \left[\left[e_\textit{eff}\right]\right]\eta \left[x\mapsto x’, k \mapsto k’\right] \mathtt{in}\\
+  &amp; \qquad \lambda \textit{th}.\\
+  &amp; \qquad \quad \mathtt{let}\ \textit{co} = \mathtt{create}\ \textit{th}\ \mathtt{in}\\
+  &amp; \qquad \quad \mathtt{let}\ \mathtt{rec}\ \textit{handle}\ r =\\
+  &amp; \qquad \qquad \mathtt{match}\ r\ \mathtt{with}\\
+  &amp; \qquad \qquad \mid \textit{Eff}\left(\textit{eff’}, v\right)\ \mathtt{when}\ \textit{eff’} = \textit{eff} \rightarrow \textit{effh}\ v\ \left(\textit{continue}\ \textit{co}\right)\\
+  &amp; \qquad \qquad \mid \textit{Eff}\left(\text{\textunderscore}, \text{\textunderscore}\right) \rightarrow \mathtt{yield}\ \left(\textit{UncaughtEff}\left(r, \left(\textit{continue}\ \textit{co}\right)\right)\right)\\
+  &amp; \qquad \qquad \mid \textit{UncaughtEff}\left(\textit{Eff}\left(\textit{eff’}, v\right), k\right)\ \mathtt{when}\ \textit{eff’} = \textit{eff} \rightarrow \textit{effh}\ v\ \left(\textit{rehandle}\ k \right)\\
+  &amp; \qquad \qquad \mid \textit{UncaughtEff}(\textit{effv}, k) \rightarrow \mathtt{yield}\ \left(\textit{UncaughtEff}\left(\textit{effv}, \textit{rehandle}\ k \right)\right)\\
+  &amp; \qquad \qquad \mid \text{\textunderscore} \rightarrow \textit{vh}\ r\\
+  &amp; \qquad \quad \mathtt{and}\ \textit{conrtinue}\ \textit{co}\ \textit{arg} = \textit{handle}\ \left(\mathtt{resume}\ \textit{co}\ \textit{arg}\right)\\
+  &amp; \qquad \quad \mathtt{and}\ \textit{rehhandle}\ \textit{k}\ \textit{arg} = \textit{handler}\ \textit{eff}\ \left(\textit{continue}\ \textit{co}\right)\ \textit{effh}\ \left(\lambda c. k\ \textit{arg}\right) \\
+  &amp; \qquad \quad \mathtt{in}\ \textit{continue}\ \textit{co}\ \textit{c}
+\end{aligned}
+$$
+図<a href="#conv4">4.5</a>. the conversion v4.
+</center>
+</div>
+<p>$\textit{Eff}$のハンドルは<a href="#conv2">v2</a>や<a href="#conv3">v3</a>と変わりない｡
+$\textit{rehandle}$という関数が追加され､$\textit{UncaughtEff}$に渡す､あるいは使う継続を$\textit{reandle}$に渡している｡
+では$\textit{rehandle}$は何をしてるんですか? 新しくハンドラを作り､2つの引数を実行するサンクを作ってハンドラに渡すことで､サンクの中身をハンドルして実行する｡</p>
+<p>我々の実現したいdeep handlerを考えれば確かにこのような実装になる｡
+deep handlerとは､ハンドラの取り出した継続も同じハンドラによってハンドルされる｡
+逆となる概念はshallow handlerであり､取り出された継続は同ハンドラからのハンドルを逃れる｡</p>
+<p>ハンドルされる$\textit{UncaughtEff}$を見てみる｡</p>
+<div>
+<center>
+$\mid \textit{UncaughtEff}\left(\textit{Eff}\left(\textit{eff’}, v\right), k\right)\ \mathtt{when}\ \textit{eff’} = \textit{eff} \rightarrow \textit{effh}\ v\ \left(\textit{rehandle}\ k \right)$
+</center>
+</div>
+<p>この矢印の右辺を展開すると､</p>
+<div>
+<center>
+$$
+\begin{array}{l}
+\textit{effh}\ v \left(\lambda \textit{arg}.\right.\\
+\quad  \textit{handler}\ \textit{eff}\ \left(\textit{continue}\ \textit{co}\right)\ \textit{effh}\ \left( \lambda c. k\ \textit{arg} \right)\left.\right)
+\end{array}
+$$
+</center>
+</div>
+<p>特にポイントとなるのが､新しく作るハンドラのvalue handlerが､現在のハンドラが持ってるencapsulateしたサンクを$\textit{continue}$する､いわばハンドラが持ってる継続にハンドルの結果を渡しているCPSのような構造になる｡
+ハンドラによって$\textit{UncaughtEff}$が持ってきた$k$をハンドラによってハンドルすることで､晴れて現在のハンドラでもeffectをハンドルできるようになる｡</p>
+<p>これまでの変換では､渡ってきた継続のeffectをハンドルできてるようでできてなかった｡
+今回の変換により､なんとか解決したんじゃないでしょうか｡
+実装も更新しているので､よかったら使ってみてバグを発見してください｡</p>
 <h1 id="5.+%E5%AE%9F%E8%A3%85"><a class="headerlink" href="#5.+%E5%AE%9F%E8%A3%85">5. 実装</a></h1>
 <p>それでは改めて<a href="#repo">リポジトリ</a>の方を見てみよう｡
 Asymmetric coroutinesと非常に縁の深いLuaにより実装した｡
