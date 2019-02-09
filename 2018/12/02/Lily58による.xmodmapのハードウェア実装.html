@@ -169,8 +169,10 @@ pro microを使う他の自作キーボードを作ってるブログなどを�
 <p></p>
 <center>
 <label id="yaba"></label>
-<img src="/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/pinsocket.png" alt="やばい" title="yabai">
-図<a href="#yaba">1</a> ピンヘッダをなんとかしようとするrizaudoとakkkix
+
+<p><img src="/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/pinsocket.png" alt="やばい" title="yabai">
+図<a href="#yaba">1</a>
+ ピンヘッダをなんとかしようとするrizaudoとakkkix</p>
 
 <p></p>
 </center>
@@ -202,12 +204,15 @@ pro microを使う他の自作キーボードを作ってるブログなどを�
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 <h2 id="tips"><a class="headerlink" href="#tips">tips</a></h2>
-<p>ロープロファイルだとアクリル板を止めるネジの頭にキーキャップが当たるので､キーキャップをちょっと削る必要がある(図<a href="#kezuri">2</a>)｡</p>
+<p>ロープロファイルだとアクリル板を止めるネジの頭にキーキャップが当たるので､キーキャップをちょっと削る必要がある(図<a href="#kezuri">2</a>
+)｡</p>
 <p></p>
 <center>
 <label id="kezuri"></label>
-<img src="/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/kezuri.png" alt="削る" title="削る様子">
-図<a href="#kezuri">2</a> 削ったキーキャップ
+
+<p><img src="/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/kezuri.png" alt="削る" title="削る様子">
+図<a href="#kezuri">2</a>
+ 削ったキーキャップ</p>
 
 <p></p>
 </center>
@@ -265,7 +270,8 @@ xmodmapによってキーマップを変更し､<code>AltGr</code>が使える�
 これはデフォルトレイヤーで次が上記のxmodmapのキーマップにおける<code>AltGr</code>を押した状態になる｡</p>
 <p><label id="lower_layer"></label></p>
 <div class="highlight">
-<span class="listing-name">プログラム<a href="#lower_layer">3</a>. LOWERレイヤ</span><pre><code class="language-c" data-lang="c"><span class="cm">/* LOWER
+<span class="listing-name">プログラム<a href="#lower_layer">3</a>
+. LOWERレイヤ</span><pre><code class="language-c" data-lang="c"><span class="cm">/* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      | F1  |  F2  |  F3  |  F4  |  F5   |                    |      |  [   |   ]  | F12  |      |      |
  * |------+-----+------+------+------+-------|                    |------+------+------+------+------+------|
@@ -294,9 +300,12 @@ xmodmapによってキーマップを変更し､<code>AltGr</code>が使える�
 </code></pre></div>
 <h2 id="%E3%82%AD%E3%83%BC%E5%85%A5%E5%8A%9B%E5%87%A6%E7%90%86"><a class="headerlink" href="#%E3%82%AD%E3%83%BC%E5%85%A5%E5%8A%9B%E5%87%A6%E7%90%86">キー入力処理</a></h2>
 <p>キー入力を<code>process_record_user</code>という関数で処理することができる｡
-レイヤ切り替えは<code>custom_keycode</code>というenumで新しく追加したレイヤ切り替え専用のキーコードの入力を<code>process_record_user</code>で処理する(プログラム<a href="#process_record_user">4</a>)｡</p>
+レイヤ切り替えは<code>custom_keycode</code>というenumで新しく追加したレイヤ切り替え専用のキーコードの入力を<code>process_record_user</code>で処理する(プログラム<a href="#process_record_user">4</a>
+)｡</p>
+<p><label id="process_record_user"></label></p>
 <div class="highlight">
-<span class="listing-name">プログラム<a href="#process_record_user">4</a>. process_record_user</span><pre><code class="language-c" data-lang="c"><span class="n">bool</span> <span class="nf">process_record_user</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">keycode</span><span class="p">,</span> <span class="n">keyrecord_t</span> <span class="o">*</span><span class="n">record</span><span class="p">)</span> <span class="p">{</span>
+<span class="listing-name">プログラム<a href="#process_record_user">4</a>
+. process_record_user</span><pre><code class="language-c" data-lang="c"><span class="n">bool</span> <span class="nf">process_record_user</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">keycode</span><span class="p">,</span> <span class="n">keyrecord_t</span> <span class="o">*</span><span class="n">record</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">switch</span> <span class="p">(</span><span class="n">keycode</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// ......</span>
 
@@ -340,7 +349,8 @@ xmodmapによってキーマップを変更し､<code>AltGr</code>が使える�
 </div>
 <p><code>keycode</code>は文字通りキーコード､<code>record</code>は入力してるときの状態を表し､<code>record-&gt;event.pressed</code>でキーを押下したかどうかのブールを取れる｡
 関数の中を見てみると､<code>keycode</code>でswitchして入力内容で分岐する｡</p>
-<p><a href="#lower_layer">LOWERレイヤ</a>への切り替えは､<code>layer_on(_LOWER)</code>と<code>layer_off(_LOWER)</code>のあたりでおこなっている｡
+<p><a href="#lower_layer">LOWERレイヤ</a>
+への切り替えは､<code>layer_on(_LOWER)</code>と<code>layer_off(_LOWER)</code>のあたりでおこなっている｡
 <code>LOWER+Shift</code>の修飾では第3のレイヤ<code>_LSHIFT</code>になる｡</p>
 <p><code>KC_LSFT</code>というキーコードが<code>Shift</code>にあたる｡
 <code>Shift+0</code>を押すと<code>?</code>が出て欲しいなど､一部<code>Shift</code>による修飾で送出される文字を変更したかったがお手軽な方法が一見してなさそうだった｡

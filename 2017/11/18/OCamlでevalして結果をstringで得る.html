@@ -100,7 +100,8 @@ document.addEventListener("DOMContentLoaded", function(){
 </div>
 <p>以下引用(upop上で動くよ)｡</p>
 <div class="highlight">
-<span class="listing-name">eval<label id="fig-origeval"></label></span><pre><code class="language-ocaml" data-lang="ocaml"><span class="o">#</span><span class="n">require</span> <span class="s2">"compiler-libs"</span> <span class="c">(* Assuming you're using utop, if compiling then this is the package you need *)</span>
+<span class="listing-name">eval<label id="fig-origeval"></label>
+</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="o">#</span><span class="n">require</span> <span class="s2">"compiler-libs"</span> <span class="c">(* Assuming you're using utop, if compiling then this is the package you need *)</span>
 <span class="k">let</span> <span class="n">eval</span> <span class="n">code</span> <span class="o">=</span>
   <span class="k">let</span> <span class="n">as_buf</span> <span class="o">=</span> <span class="nn">Lexing</span><span class="p">.</span><span class="n">from_string</span> <span class="n">code</span> <span class="k">in</span>
   <span class="k">let</span> <span class="n">parsed</span> <span class="o">=</span> <span class="o">!</span><span class="nn">Toploop</span><span class="p">.</span><span class="n">parse_toplevel_phrase</span> <span class="n">as_buf</span> <span class="k">in</span>
@@ -119,7 +120,8 @@ document.addEventListener("DOMContentLoaded", function(){
 <p><a href="http://qnighy.hatenablog.com/entry/2017/01/26/215948" target="_blank" rel="noopener noreferrer">OCamlのformat (型安全なprintf/scanf) の仕組み - 簡潔なQ</a></p>
 <p>話おわり</p>
 <h1 id="4.+%E8%A7%A3"><a class="headerlink" href="#4.+%E8%A7%A3">4. 解</a></h1>
-<p><a href="#fig-origeval">eval</a>の<code>Toploop.execute_phrase</code>に渡している引数を観察すると､
+<p><a href="#fig-origeval">eval</a>
+の<code>Toploop.execute_phrase</code>に渡している引数を観察すると､
 <code>true</code>と<code>Format.std_formatter</code>を渡していることが分かる｡</p>
 <p><code>true</code>は後述｡第2引数は件の<code>format</code>じゃねえかい｡
 このformatの出力先を<code>string ref</code>みたいなところに出してその中身を返せば行けそうだ｡

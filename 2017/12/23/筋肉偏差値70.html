@@ -162,6 +162,7 @@ document.addEventListener("DOMContentLoaded", function(){
 \(h\)を(例外名とハンドラ関数のペア)のリストとして､初期値を空リストとして与える｡</p>
 <div>
 <label id="fig:approx"></label>
+
 \[
 \begin{array}{rcl}
     \lceil \lambda x.e\rceil_h &amp; = &amp; \lambda k. \lambda x.\lambda k’. \lceil e\rceil_h\, k’\\
@@ -184,6 +185,7 @@ document.addEventListener("DOMContentLoaded", function(){
 次のようなケースを考えてみる｡</p>
 <div>
 <label id="fig:example"></label>
+
 \[
 \begin{array}{rcl}
 \begin{array}{l}
@@ -196,10 +198,12 @@ f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x
 \]
 </div>
 <p>関数fの中でraiseしとります｡
-<a href="#fig:approx">9.1</a>で変換するとどうなるか……?</p>
+<a href="#fig:approx">9.1</a>
+で変換するとどうなるか……?</p>
 <p>どうなるかというと､引数である\(\lambda\)の中のraiseをちゃんとハンドルできないので爆発します｡
 これはなぜか｡
-<a href="#fig:approx">9.1</a>では\(\lambda\)抽象を作る際のハンドラはそのコンテキストで生まれたハンドラを使ってしまっているので､
+<a href="#fig:approx">9.1</a>
+では\(\lambda\)抽象を作る際のハンドラはそのコンテキストで生まれたハンドラを使ってしまっているので､
 外側のコンテキストである関数内のhandleが作るハンドラ群を使えないのである｡</p>
 <h1 id="10.+%E8%A7%A3%E6%B3%95"><a class="headerlink" href="#10.+%E8%A7%A3%E6%B3%95">10. 解法</a></h1>
 <p>ハンドラをダイナミックにばらまくので､記述言語だけで回していくには厳しい｡</p>
@@ -207,6 +211,7 @@ f\,m\,\mathbf{handle}\,\mathit{Exn}\left(x\right)\rightarrow x
 <p>のでCPS termを拡張したい｡</p>
 <div>
 <label id="fig:syn"></label>
+
 \[
 \begin{array}{rrl}
 e_{cps} &amp; ::= &amp; x \mid \lambda x. e_{cps} \mid e_{cps}\, e_{cps}\\
@@ -236,7 +241,8 @@ e_{cps} &amp; ::= &amp; x \mid \lambda x. e_{cps} \mid e_{cps}\, e_{cps}\\
 \end{array}
 \]
 </div>
-<p>先程の<a href="#fig:example">例</a>を変換してみましょう｡</p>
+<p>先程の<a href="#fig:example">例</a>
+を変換してみましょう｡</p>
 <div>
 \[
 \begin{array}{rcl}
@@ -272,10 +278,9 @@ e_{cps} &amp; ::= &amp; x \mid \lambda x. e_{cps} \mid e_{cps}\, e_{cps}\\
 </div>
 <p>正しさを検証するのは皆さんへの宿題とします｡
 かんたんな実装を載せますんで後は頼んだ｡</p>
-<p></p>
-<noscript><pre>400: Invalid request
-</pre></noscript>
-<script src="https://gist.github.com/Nymphium.js?file=b5864f0f774fcf45bb18d5a27e395be0"> </script><h1 id="11.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB%282%29"><a class="headerlink" href="#11.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB%282%29">11. おわりに(2)</a></h1>
+<p><noscript><pre>400: Invalid request
+</pre></noscript><script src="https://gist.github.com/Nymphium.js?file=b5864f0f774fcf45bb18d5a27e395be0"> </script></p>
+<h1 id="11.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB%282%29"><a class="headerlink" href="#11.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB%282%29">11. おわりに(2)</a></h1>
 <p>という話を明日研究室のゼミで話すかもしれない｡</p>
 <div class="footnotes">
 <hr>

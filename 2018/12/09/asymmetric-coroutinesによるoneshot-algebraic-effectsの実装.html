@@ -107,17 +107,19 @@ Lua､Rubyなどの言語機能またはライブラリとして提供されて�
 変換の正しさについては証明はないため､読者への課題､あるいは筆者の研究の一環とする｡</p>
 <p>本稿の実装はLuaのモジュールとして公開してある｡
 お手元にご用意したりして本稿をお楽しみください｡</p>
-<p><label id="repo"></label>
-</p>
+<p><label id="repo"></label></p>
 <div class="github-widget" data-repo="Nymphium/eff.lua"></div>
 <h1 id="2.+algebraic+effects"><a class="headerlink" href="#2.+algebraic+effects">2. algebraic effects</a></h1>
 <p>これについては直近でそこそこ話したので､<a href="/2018/08/13/algebraic_effects_tutorial.html">あれ</a>とか<a href="/pdf/mlday2.html">これ</a>とか<a href="https://qiita.com/Nymphium/items/e6ce580da8b87ded912b" target="_blank" rel="noopener noreferrer">それ</a>とかをご参照ください｡</p>
 <h2 id="2-1.+Core+Eff"><a class="headerlink" href="#2-1.+Core+Eff">2-1. Core Eff</a></h2>
-<p>今回は1つのハンドラでハンドルできるエフェクトは1つというCore Effという言語を考える(図<a href="#ce-syn">2.1</a>)｡
-<span class="cite">[<a href="#fn1" rel="footnote" title="Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. " id="fnref1">1</a>]</span>を参考にした｡</p>
+<p>今回は1つのハンドラでハンドルできるエフェクトは1つというCore Effという言語を考える(図<a href="#ce-syn">2.1</a>
+)｡
+<span class="cite">[<a href="#fn1" rel="footnote" title="Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. " id="fnref1">1</a>]</span>
+を参考にした｡</p>
 <div>
 <center>
 <label id="ce-syn"></label>
+
 \[
 \begin{array}{rrl}
   x &amp; \in &amp; \text{\textit{Variables}}\\
@@ -129,7 +131,8 @@ Lua､Rubyなどの言語機能またはライブラリとして提供されて�
 \end{array}
 
 \]
-図<a href="#ce-syn">2.1</a>. the syntax of Core Eff
+図<a href="#ce-syn">2.1</a>
+. the syntax of Core Eff
 </center>
 </div>
 <p>ラムダ計算に<code>let</code>が付いて､あとはalgebraic effects関連の項が追加されている｡
@@ -141,9 +144,11 @@ Lua､Rubyなどの言語機能またはライブラリとして提供されて�
 <code>vh</code>はvalue handlerとなり､ハンドラがエフェクトをハンドルしきって値を返すときにvalue handlerによりハンドルした値を返す｡
 <code>effh</code>はエフェクトの引数と継続を取る｡</p>
 <p>ハンドルできるエフェクトが少ないため一見して弱くなったか? と思うがそんなことはない｡
-<span class="cite">[<a href="#fn1" rel="footnote" title="Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. " id="fnref1">1</a>]</span>ではエフェクトにADTを渡してハンドラ内でさらにパターンマッチする方法で事実上n個のエフェクトをハンルするようにしている｡</p>
+<span class="cite">[<a href="#fn1" rel="footnote" title="Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. " id="fnref1">1</a>]</span>
+ではエフェクトにADTを渡してハンドラ内でさらにパターンマッチする方法で事実上n個のエフェクトをハンルするようにしている｡</p>
 <p>意味論に関してはっきりと示せる自信がない(面倒くさいとも言う)のと､後述のように継続の使用回数を制限するので省略します｡
-<span class="cite">[<a href="#fn2" rel="footnote" title="Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. " id="fnref2">2</a>]</span>にあるような､よくあるcall by valueの体系を想定している｡
+<span class="cite">[<a href="#fn2" rel="footnote" title="Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. " id="fnref2">2</a>]</span>
+にあるような､よくあるcall by valueの体系を想定している｡
 次の例題で雰囲気を掴んでもらいたい｡</p>
 <h2 id="2-2.+%E4%BE%8B%E9%A1%8C"><a class="headerlink" href="#2-2.+%E4%BE%8B%E9%A1%8C">2-2. 例題</a></h2>
 <div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">choose</span> <span class="o">=</span> <span class="n">inst</span> <span class="bp">()</span> <span class="k">in</span> <span class="c">(* instantiate *)</span>
@@ -160,10 +165,13 @@ Lua､Rubyなどの言語機能またはライブラリとして提供されて�
 <h2 id="2-3.+oneshot+algebraic+effects"><a class="headerlink" href="#2-3.+oneshot+algebraic+effects">2-3. oneshot algebraic effects</a></h2>
 <p>今回はさらに､継続の使用を高々1回に制限する｡
 マイナーな言語機能でさらに制限を加えてしまっているが､例えば<a href="http://ocamllabs.io/doc/multicore.html" target="_blank" rel="noopener noreferrer">Multicore OCaml</a>は原則的に継続の使用は1回に制限されている<sup id="fnref3" title="むしろ他に継続がワンショットのalgebraic effectsを知りませんが…｡あとMulticore OCamlにはObj.clone_continuationという継続を複製する関数が用意されており､ランタイムにコストを支払うことで継続を2回以上使うことができる｡ "><a href="#fn3" rel="footnote">3</a></sup>｡
-例えば次のような例(コード<a href="#ng-twice">2.2</a>)はNGにしたい｡
+例えば次のような例(コード<a href="#ng-twice">2.2</a>
+)はNGにしたい｡
 continuationを2回使ってはいけない(戒め)｡</p>
+<p><label id="ng-twice"></label></p>
 <div class="highlight">
-<span class="listing-name">コード<a href="#ng-twice">2.2</a>. NG: using <em>k</em> twice</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">p</span> <span class="o">=</span> <span class="n">inst</span> <span class="nc">E</span> <span class="k">in</span>
+<span class="listing-name">コード<a href="#ng-twice">2.2</a>
+. NG: using <em>k</em> twice</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">p</span> <span class="o">=</span> <span class="n">inst</span> <span class="nc">E</span> <span class="k">in</span>
 <span class="k">with</span> <span class="p">(</span><span class="n">handler</span> <span class="n">p</span>
   <span class="p">(</span><span class="k">val</span> <span class="n">x</span>  <span class="o">-&gt;</span> <span class="n">x</span><span class="p">)</span>
   <span class="p">((</span><span class="n">x</span><span class="o">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">print</span> <span class="p">(</span><span class="n">k</span> <span class="p">(</span><span class="n">k</span> <span class="n">x</span><span class="p">))))</span> <span class="c">(* NG!!! 2回使うな!!! *)</span>
@@ -175,17 +183,23 @@ continuationを2回使ってはいけない(戒め)｡</p>
 <p>今回は継続を2回以上使ってはいけない<em>お約束</em>しかないので誰も注意してくれない｡
 そのため我々が注意するしかない｡</p>
 <p>継続が1回しか使えないのはmultishot(ノーマルな) algebraic effectsと比較すると真にパワーが弱くなっている｡
-とはいえ継続を2回も使う必要のない場面<span class="cite">[<a href="#fn4" rel="footnote" title="Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. " id="fnref4">4</a>]</span>が多く､継続がワンショットであることを前提にするとパフォーマンスの良い実装ができる<span class="cite">[<a href="#fn5" rel="footnote" title="Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. " id="fnref5">5</a>]</span><span class="cite">[<a href="#fn6" rel="footnote" title="Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. " id="fnref6">6</a>]</span>｡</p>
+とはいえ継続を2回も使う必要のない場面<span class="cite">[<a href="#fn4" rel="footnote" title="Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. " id="fnref4">4</a>]</span>
+が多く､継続がワンショットであることを前提にするとパフォーマンスの良い実装ができる<span class="cite">[<a href="#fn5" rel="footnote" title="Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. " id="fnref5">5</a>]</span>
+<span class="cite">[<a href="#fn6" rel="footnote" title="Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. " id="fnref6">6</a>]</span>
+｡</p>
 <h1 id="3.+asymmetric+coroutines"><a class="headerlink" href="#3.+asymmetric+coroutines">3. asymmetric coroutines</a></h1>
 <h2 id="3-1.+asymmetric%3F"><a class="headerlink" href="#3-1.+asymmetric%3F">3-1. asymmetric?</a></h2>
 <p>非常に簡単に説明すると､みなさんがお使いのコルーチンは概ねasymmetric coroutineです｡
 Asymmetric coroutineがあるのでsymmetric coroutineももちろん存在する｡
 Asymmetric coroutinesは対象のコルーチンへ<em>飛ぶ</em>操作resumeと操作してるコルーチンから<em>戻る</em>操作yieldの2つを持つ｡
-一方symmetric coroutinesはコントロールを移すという唯一の操作controlのみを持ちます(表<a href="#tbl-cor">3.1</a>)｡</p>
+一方symmetric coroutinesはコントロールを移すという唯一の操作controlのみを持ちます(表<a href="#tbl-cor">3.1</a>
+)｡</p>
 <p></p>
 <center>
 <label id="tbl-cor"></label>
-表<a href="#tbl-cor">3.1</a>. the comparision of a?symmetric coroutines
+
+<p>表<a href="#tbl-cor">3.1</a>
+. the comparision of a?symmetric coroutines</p>
 
 <table>
 <thead>
@@ -244,10 +258,12 @@ d
 <p>なるほど､<strong><em>完全に理解した</em></strong>｡</p>
 <h2 id="3-2.+%CE%BB%3Csub%3Ecor%3C%2Fsub%3E%0A"><a class="headerlink" href="#3-2.+%CE%BB%3Csub%3Ecor%3C%2Fsub%3E%0A">3-2. λ<sub>cor</sub>
 </a></h2>
-<p>Luaだとちょっと大きすぎるし扱いづらいため､変換のための小さな計算体系として\(\lambda_{\text{\textit{cor}}}\)を考える(図<a href="#lcor-syn">3.2</a>)｡</p>
+<p>Luaだとちょっと大きすぎるし扱いづらいため､変換のための小さな計算体系として\(\lambda_{\text{\textit{cor}}}\)を考える(図<a href="#lcor-syn">3.2</a>
+)｡</p>
 <div>
 <center>
 <label id="lcor-syn"></label>
+
 \[
 \begin{array}{rrl}
   x &amp; \in &amp; \text{\textit{Variables}}\\
@@ -262,11 +278,13 @@ d
   mutrec &amp; ::= &amp; \mathtt{and}\ f\ x = e \mid \mathtt{in}\ e
 \end{array}
 \]
-図<a href="#lcor-syn">3.2</a>. the syntax of \(\lambda_{\text{\textit{cor}}}\)
+図<a href="#lcor-syn">3.2</a>
+. the syntax of \(\lambda_{\text{\textit{cor}}}\)
 </center>
 </div>
 <p>こちらも筆者が疲れたので意味論はフィーリングで行く｡
-すまんが<span class="cite">[<a href="#fn7" rel="footnote" title="Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. " id="fnref7">7</a>]</span>を参照されたし｡
+すまんが<span class="cite">[<a href="#fn7" rel="footnote" title="Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. " id="fnref7">7</a>]</span>
+を参照されたし｡
 ランタイムにラベルストアなどを用意してがちゃがちゃやっていく感じ｡</p>
 <p>構成員としては､ラムダ計算にくわえ､<code>let</code>式､(相互)再帰､ADTとパターンマッチに加え､コルーチンの操作<code>create</code> <code>resume</code> <code>yield</code>がある｡
 各エフェクトを一意にするために<code>inst ()</code>もそのまま持ってきている｡
@@ -281,15 +299,19 @@ d
 </div>
 <p>変換のターゲットとしてコルーチンが出てくるため､上記のようなプログラムは\(\lambda_{\text{\textit{cor}}}\)では書けなくても問題はないので問題ない｡</p>
 <h2 id="3-3.+asymmetric+coroutines+and+oneshot+continuation"><a class="headerlink" href="#3-3.+asymmetric+coroutines+and+oneshot+continuation">3-3. asymmetric coroutines and oneshot continuation</a></h2>
-<p>Asymmetric coroutinesは強力なコントロールオペレータであり､まずsymmetric coroutinesを模倣することができ､のみならずcall/1ccもasymmetric coroutinesにより実装することができる<span class="cite">[<a href="#fn7" rel="footnote" title="Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. " id="fnref7">7</a>]</span>｡
+<p>Asymmetric coroutinesは強力なコントロールオペレータであり､まずsymmetric coroutinesを模倣することができ､のみならずcall/1ccもasymmetric coroutinesにより実装することができる<span class="cite">[<a href="#fn7" rel="footnote" title="Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. " id="fnref7">7</a>]</span>
+｡
 call/1ccとは､継続の実行が高々1回に制限されているcall/ccである｡</p>
 <p>オッoneshotnessが出てきた｡
 これはcontinuationがコルーチンに対応し､コルーチンは状態を複製する操作が基本的に提供されてないためである｡
-したがってコルーチンの状態を複製する操作が追加されない限りは､コルーチンで継続をエミュレーションするときは基本的にワンショットである(表<a href="#tbl-cont-cor">3.3</a>)｡</p>
+したがってコルーチンの状態を複製する操作が追加されない限りは､コルーチンで継続をエミュレーションするときは基本的にワンショットである(表<a href="#tbl-cont-cor">3.3</a>
+)｡</p>
 <p></p>
 <center>
 <label id="tbl-cont-cor"></label>
-表<a href="#tbl-cont-cor">3.3</a>. the correspondence between continuations and asymmetric coroutines
+
+<p>表<a href="#tbl-cont-cor">3.3</a>
+. the correspondence between continuations and asymmetric coroutines</p>
 
 <table>
 <thead>
@@ -367,11 +389,14 @@ JSのgeneratorなら多分CPS変換できるので､babelなどによるES2015�
 本稿では変換の実装はしないので読者の課題あるいは筆者の研究の一環です｡</p>
 <h2 id="4-1.+%E7%9B%B4%E6%84%9F%E7%9A%84%E3%81%AA%E5%AF%BE%E5%BF%9C"><a class="headerlink" href="#4-1.+%E7%9B%B4%E6%84%9F%E7%9A%84%E3%81%AA%E5%AF%BE%E5%BF%9C">4-1. 直感的な対応</a></h2>
 <p>筆者は直観で実装してしまったので､とりあえず直感的なところからかためていく｡
-方針としてはこんな感じになるだろうか(表<a href="#tbl-aeac">4.1</a>).</p>
+方針としてはこんな感じになるだろうか(表<a href="#tbl-aeac">4.1</a>
+).</p>
 <p></p>
 <center>
 <label id="tbl-aeac"></label>
-表<a href="#tbl-aeac">4.1</a>. the intuitional correspondence between (oneshot ) algebraic effects and asymmetric coroutines
+
+<p>表<a href="#tbl-aeac">4.1</a>
+. the intuitional correspondence between (oneshot ) algebraic effects and asymmetric coroutines</p>
 
 <table>
 <thead>
@@ -411,11 +436,12 @@ thunk内でエフェクトを発生(<code>yield</code>)すると一時停止し�
 <h2 id="%E8%BF%BD%E8%A8%9820181209"><a class="headerlink" href="#%E8%BF%BD%E8%A8%9820181209">追記20181209</a></h2>
 <p>投稿即バグが見つかり泣きました｡
 まずは修正前をご覧ください｡</p>
-<p>最新は<a href="#%E8%BF%BD%E8%A8%9820190127">こちら</a>
-追記suspend</p>
+<p>最新は<a href="#%E8%BF%BD%E8%A8%9820190127">こちら</a></p>
+<p>追記suspend</p>
 <div>
 <center>
 <label id="conv"></label>
+
 \[
 \begin{array}{c}
   \left[\left[e_{ce}\right]\right]\eta = e_{\lambda \textit{cor}}\\
@@ -472,7 +498,8 @@ thunk内でエフェクトを発生(<code>yield</code>)すると一時停止し�
   \end{aligned}
 \end{array}
 \]
-図<a href="#conv">4.2</a>. the conversion \(\left[\left[e_{ce}\right]\right] = e_{\lambda_{\textit{cor}}}\)
+図<a href="#conv">4.2</a>
+. the conversion \(\left[\left[e_{ce}\right]\right] = e_{\lambda_{\textit{cor}}}\)
 </center>
 </div>
 <p><strong><em><code>handler</code>長すぎんじゃボケー!!!</em></strong>
@@ -482,7 +509,8 @@ thunk内でエフェクトを発生(<code>yield</code>)すると一時停止し�
 もう少しCPSっぽく書ける部分がたしかにあり､そうすれば末尾呼び出しになって良いことがありそうだが､筆者はCPSで実装を試みたところバグバグになって一回諦めているため､読者への課題としたい｡
 CPSにすればvalue handlerを複数使ってしまうのを防ぐための<code>Val</code>コンストラクタが不要になるだろう｡</p>
 <p>メタの話はこの程度にして､内容を見てみよう｡
-<code>handler</code>以外はだいたいふ〜んて感じで､<code>perform</code>も表<a href="#tbl-aeac">4.1</a>でぼんやりと考えたとおりに<code>yield</code>に対応している｡</p>
+<code>handler</code>以外はだいたいふ〜んて感じで､<code>perform</code>も表<a href="#tbl-aeac">4.1</a>
+でぼんやりと考えたとおりに<code>yield</code>に対応している｡</p>
 <p>問題は爆発している<code>handler</code>である｡
 thunkを受け取ってコルーチンを作り､<code>resume</code>のラッパーとなっている<code>continue</code>を走らせてるので､なるほど<code>create</code> &amp; <code>resume</code>である｡</p>
 <p><code>handler</code>の内部の<code>handle</code>が一番仕事してる雰囲気を出している｡
@@ -511,6 +539,7 @@ thunkを受け取ってコルーチンを作り､<code>resume</code>のラッ�
 <div>
 <center>
 <label id="conv2"></label>
+
 \[
 \begin{array}{c}
   \left[\left[e_{ce}\right]\right]\eta = e_{\lambda \textit{cor}}\\
@@ -538,7 +567,8 @@ thunkを受け取ってコルーチンを作り､<code>resume</code>のラッ�
   \end{aligned}
 \end{array}
 \]
-図<a href="#conv2">4.3</a>. the revision of the conversion
+図<a href="#conv2">4.3</a>
+. the revision of the conversion
 </center>
 </div>
 <p><code>handler</code>だけの変更だが､だいぶダイエットに成功した｡
@@ -554,6 +584,7 @@ thunkを受け取ってコルーチンを作り､<code>resume</code>のラッ�
 <div>
 <center>
 <label id="conv3"></label>
+
 \[
 \begin{aligned}
   &amp;\left[\left[\mathrm{handler}\ \textit{eff}\ \left(\mathtt{val}\ x \rightarrow e_v\right)\ \left(\left(x, k\right) \rightarrow e_\textit{eff}\right)\right]\right]\eta = \\
@@ -573,10 +604,12 @@ thunkを受け取ってコルーチンを作り､<code>resume</code>のラッ�
   &amp; \qquad \quad \mathtt{in}\ \textit{continue}\ \textit{co}\ \textit{c}
 \end{aligned}
 \]
-図<a href="#conv3">4.4</a>. the conversion v3.
+図<a href="#conv3">4.4</a>
+. the conversion v3.
 </center>
 </div>
-<p><a href="#conv2">4.3</a>とは本質的に何も変わってません｡
+<p><a href="#conv2">4.3</a>
+とは本質的に何も変わってません｡
 <code>continue</code>を汎用的なものにした｡
 これにより､処理がどうなってるかがより簡潔になったんじゃないでしょうか｡
 <code>handle</code>を連れ回すことで現在のハンドラによるハンドル処理を続けることができる｡
@@ -586,6 +619,7 @@ thunkを受け取ってコルーチンを作り､<code>resume</code>のラッ�
 <div>
 <center>
 <label id="conv4"></label>
+
 $$
 \begin{aligned}
   &amp;\left[\left[\mathrm{handler}\ \textit{eff}\ \left(\mathtt{val}\ x \rightarrow e_v\right)\ \left(\left(x, k\right) \rightarrow e_\textit{eff}\right)\right]\right]\eta = \\
@@ -606,10 +640,13 @@ $$
   &amp; \qquad \quad \mathtt{in}\ \textit{continue}\ \textit{co}\ \textit{c}
 \end{aligned}
 $$
-図<a href="#conv4">4.5</a>. the conversion v4.
+図<a href="#conv4">4.5</a>
+. the conversion v4.
 </center>
 </div>
-<p>$\textit{Eff}$のハンドルは<a href="#conv2">v2</a>や<a href="#conv3">v3</a>と変わりない｡
+<p>$\textit{Eff}$のハンドルは<a href="#conv2">v2</a>
+や<a href="#conv3">v3</a>
+と変わりない｡
 $\textit{rehandle}$という関数が追加され､$\textit{UncaughtEff}$に渡す､あるいは使う継続を$\textit{reandle}$に渡している｡
 では$\textit{rehandle}$は何をしてるんですか? 新しくハンドラを作り､2つの引数を実行するサンクを作ってハンドラに渡すことで､サンクの中身をハンドルして実行する｡</p>
 <p>我々の実現したいdeep handlerを考えれば確かにこのような実装になる｡
@@ -638,12 +675,15 @@ $$
 今回の変換により､なんとか解決したんじゃないでしょうか｡
 実装も更新しているので､よかったら使ってみてバグを発見してください｡</p>
 <h1 id="5.+%E5%AE%9F%E8%A3%85"><a class="headerlink" href="#5.+%E5%AE%9F%E8%A3%85">5. 実装</a></h1>
-<p>それでは改めて<a href="#repo">リポジトリ</a>の方を見てみよう｡
+<p>それでは改めて<a href="#repo">リポジトリ</a>
+の方を見てみよう｡
 Asymmetric coroutinesと非常に縁の深いLuaにより実装した｡
 本稿で変換を改めて考えるにあたり､バグが複数発見､修正された｡
 フィーリングの脆さと簡単なモデルに落として内容をしっかり検討することの重要さを再確認した｡</p>
-<p>実装は図<a href="#conv">4.2</a>とほとんど同じである｡
-なんといっても順番が逆で､実装が先にあり､図<a href="#conv">4.2</a>は実装をもとに書き下したためである｡
+<p>実装は図<a href="#conv">4.2</a>
+とほとんど同じである｡
+なんといっても順番が逆で､実装が先にあり､図<a href="#conv">4.2</a>
+は実装をもとに書き下したためである｡
 しかしLuaはclassもADTもないし関数リテラルが冗長､文志向なので<code>return</code>必須といろいろしんどいところがあった｡</p>
 <p>本稿の変換と異なる点は､ハンドラが多値に対応している点である｡
 …というのは半分ウソというか､Multicore OCamlではtupleで表現するところを､tableでガッとやるのではなく可変長引数や多値などといったLuaの持ち味を活かすための細工をおこなった｡
@@ -758,7 +798,8 @@ World?
 <p>Functorっぽいものを書いてるなと思ったが<code>smaph</code>をみると全然そんなことなく､自分でも困惑した｡
 Luaは残念ながら型のない世界なのでなんでもアリである｡</p>
 <h1 id="6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6"><a class="headerlink" href="#6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6">6. 関連研究</a></h1>
-<p>Koka言語などをやっていってるDaan氏によりC言語によるalgebraic effectsの実装<span class="cite">[<a href="#fn9" rel="footnote" title="Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. " id="fnref9">9</a>]</span>がおこなわれている｡
+<p>Koka言語などをやっていってるDaan氏によりC言語によるalgebraic effectsの実装<span class="cite">[<a href="#fn9" rel="footnote" title="Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. " id="fnref9">9</a>]</span>
+がおこなわれている｡
 本稿と比較すると1ハンドラ1エフェクトや継続がワンショットなどの制限ががない一方､非常にユーザーアンフレンドリーな構文となっている｡
 そのためP言語などのコンパイラのターゲットという位置づけがなされている｡
 本稿では式指向の言語での変換をおこなっており､\(\lambda_{\textit{cor}}\)相当をサブセットとして持つ言語ならばsyntacticな辛さはない､と思う｡</p>

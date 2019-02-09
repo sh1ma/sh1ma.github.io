@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 27 Jan 2019 19:31:35 +0900</pubDate>
-    <lastBuildDate>Sun, 27 Jan 2019 19:31:35 +0900</lastBuildDate>
+    <pubDate>Sun, 10 Feb 2019 03:36:01 +0900</pubDate>
+    <lastBuildDate>Sun, 10 Feb 2019 03:36:01 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -17,10 +17,15 @@
 お前も俺も､もう終わりだ｡&lt;/p&gt;&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;研究ではコルーチンを使っている｡
 ここでひとつコルーチンについてまとめておきたい｡
 特にstackfulnessについての考察をこれまでおこなっていなかったため､そこに重点を置く｡
-本稿では文献&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;を参考にする｡&lt;/p&gt;&lt;h1 id=&quot;2.+%E5%AF%BE%E7%A7%B0%E6%80%A7%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+%E5%AF%BE%E7%A7%B0%E6%80%A7%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;2. 対称性による分類&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;コルーチンとは､一時停止､再開のできるサブルーチンを指す｡
-コルーチンを呼び出した呼び出し元にコントロールを戻す操作の有無により､コルーチンを対称コルーチンと&lt;em&gt;非&lt;/em&gt;対称コルーチンの2種類に分けることができる(図&lt;a href=&quot;#tbl1&quot;&gt;2.1&lt;/a&gt;)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+本稿では文献&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
+を参考にする｡&lt;/p&gt;&lt;h1 id=&quot;2.+%E5%AF%BE%E7%A7%B0%E6%80%A7%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+%E5%AF%BE%E7%A7%B0%E6%80%A7%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;2. 対称性による分類&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;コルーチンとは､一時停止､再開のできるサブルーチンを指す｡
+コルーチンを呼び出した呼び出し元にコントロールを戻す操作の有無により､コルーチンを対称コルーチンと&lt;em&gt;非&lt;/em&gt;対称コルーチンの2種類に分けることができる(図&lt;a href=&quot;#tbl1&quot;&gt;2.1&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;tbl1&quot;&gt;&lt;/label&gt;
-表&lt;a href=&quot;#tbl1&quot;&gt;2.1&lt;/a&gt;. コルーチンの対称性による分類
+
+&lt;p&gt;表&lt;a href=&quot;#tbl1&quot;&gt;2.1&lt;/a&gt;
+. コルーチンの対称性による分類
+&lt;/p&gt;
 &lt;/center&gt;&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -44,9 +49,12 @@
   &lt;span class=&quot;nb&quot;&gt;coroutine.yield&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;h1 id=&quot;3.+stackfulness%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+stackfulness%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;3. stackfulnessによる分類&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;コールスタックをまたいで&lt;/strong&gt; yieldできるかどうかで､非対称コルーチンをさらに2つに分類できる(表&lt;a href=&quot;#tbl2&quot;&gt;3.1&lt;/a&gt;)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;/div&gt;&lt;h1 id=&quot;3.+stackfulness%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+stackfulness%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;3. stackfulnessによる分類&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;コールスタックをまたいで&lt;/strong&gt; yieldできるかどうかで､非対称コルーチンをさらに2つに分類できる(表&lt;a href=&quot;#tbl2&quot;&gt;3.1&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;tbl2&quot;&gt;&lt;/label&gt;
-表&lt;a href=&quot;#tbl2&quot;&gt;3.1&lt;/a&gt;. stackfulnessによる分類
+
+&lt;p&gt;表&lt;a href=&quot;#tbl2&quot;&gt;3.1&lt;/a&gt;
+. stackfulnessによる分類&lt;/p&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
@@ -74,8 +82,11 @@
 &lt;/center&gt;&lt;p&gt;stackful coroutinesは単に “coroutine” ､ あるいは “fiber” と呼ばれ､
 stackless coroutinesは “generator” と称される傾向にある｡&lt;/p&gt;&lt;p&gt;では､ “コールスタックをまたげる” とはどういうことか?
 これはyieldがネストした関数呼出しから一気にコルーチンの呼び出し元まで戻れる､またyieldした位置にコントロールを戻せるということである｡
-次の例を見てみる(プログラム&lt;a href=&quot;#lst:stackfulexample&quot;&gt;3.2&lt;/a&gt;, プログラム&lt;a href=&quot;#lst:stacklessexample&quot;&gt;3.3&lt;/a&gt;)｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:stackfulexample&quot;&gt;3.2&lt;/a&gt;. stackfull example in Lua&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;send&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+次の例を見てみる(プログラム&lt;a href=&quot;#lst:stackfulexample&quot;&gt;3.2&lt;/a&gt;
+, プログラム&lt;a href=&quot;#lst:stacklessexample&quot;&gt;3.3&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:stackfulexample&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:stackfulexample&quot;&gt;3.2&lt;/a&gt;
+. stackfull example in Lua&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;send&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yield&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
@@ -88,8 +99,9 @@ stackless coroutinesは “generator” と称される傾向にある｡&lt;/p&
 &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- prints 10&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- prints 15&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:stacklessexample&quot;&gt;3.3&lt;/a&gt;. stackless example in JS&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;cm&quot;&gt;/* syntax error
+&lt;/div&gt;&lt;p&gt;&lt;label id=&quot;lst:stacklessexample&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:stacklessexample&quot;&gt;3.3&lt;/a&gt;
+. stackless example in JS&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;cm&quot;&gt;/* syntax error
 function send(x) {
   yield x
 }
@@ -103,14 +115,20 @@ function send(x) {
 &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;enxt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// prints 10&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// prints 13&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;&lt;a href=&quot;#lst:stackfulexample&quot;&gt;3.2&lt;/a&gt;を見てみる｡
+&lt;/div&gt;&lt;p&gt;&lt;a href=&quot;#lst:stackfulexample&quot;&gt;3.2&lt;/a&gt;
+を見てみる｡
 関数&lt;code&gt;send&lt;/code&gt;の中で&lt;code&gt;yield&lt;/code&gt;しているが､&lt;code&gt;send&lt;/code&gt;自体はただの関数である｡
 &lt;code&gt;send&lt;/code&gt;をコルーチン&lt;code&gt;co&lt;/code&gt;の中で呼び出すと､この&lt;code&gt;yield&lt;/code&gt;で一時停止する｡
-2度目の&lt;code&gt;resume&lt;/code&gt;で渡した&lt;code&gt;2&lt;/code&gt;が､&lt;code&gt;yield&lt;/code&gt;の戻り値となり､&lt;code&gt;send&lt;/code&gt;の戻り値は&lt;code&gt;2 + 3&lt;/code&gt;となる｡&lt;/p&gt;&lt;p&gt;一方&lt;a href=&quot;#lst:stacklessexample&quot;&gt;3.3&lt;/a&gt;は､コルーチン(generator)の中でしか&lt;code&gt;yield&lt;/code&gt;できない｡
+2度目の&lt;code&gt;resume&lt;/code&gt;で渡した&lt;code&gt;2&lt;/code&gt;が､&lt;code&gt;yield&lt;/code&gt;の戻り値となり､&lt;code&gt;send&lt;/code&gt;の戻り値は&lt;code&gt;2 + 3&lt;/code&gt;となる｡&lt;/p&gt;&lt;p&gt;一方&lt;a href=&quot;#lst:stacklessexample&quot;&gt;3.3&lt;/a&gt;
+は､コルーチン(generator)の中でしか&lt;code&gt;yield&lt;/code&gt;できない｡
 特にJSは&lt;code&gt;yield&lt;/code&gt;がキーワードとして扱われ､generatorの中でしか書けないというsyntacticな制約がある｡&lt;/p&gt;&lt;h1 id=&quot;4.+pros%2Fcons&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+pros%2Fcons&quot;&gt;4. pros/cons&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;非対称コルーチンをさらにstaclful､stacklessの2種類に分類した｡
-利点と欠点をまとめてみると､次のようになる(表&lt;a href=&quot;#tbl3&quot;&gt;4.1&lt;/a&gt;)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+利点と欠点をまとめてみると､次のようになる(表&lt;a href=&quot;#tbl3&quot;&gt;4.1&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;tbl3&quot;&gt;&lt;/label&gt;
-表&lt;a href=&quot;#tbl3&quot;&gt;4.1&lt;/a&gt;. 利点･欠点まとめ
+
+&lt;p&gt;表&lt;a href=&quot;#tbl3&quot;&gt;4.1&lt;/a&gt;
+. 利点･欠点まとめ
+&lt;/p&gt;
 &lt;/center&gt;&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -175,11 +193,13 @@ Lua､Rubyなどの言語機能またはライブラリとして提供されて�
 これによりalgebraic effectsをよりカジュアルにあつかえるようになり､さらにasymmetric coroutinesよりも高級なコントロールの操作により､コードを簡潔に書くことが期待される｡&lt;/p&gt;&lt;p&gt;コントロールオペレータとしてのasymmetric coroutinesについて述べ､asymmetric coroutinesとoneshot algebraic effectsとの関係について述べる｡
 余力があれば実際に変換を考え､変換を元にした実装を眺める｡
 変換の正しさについては証明はないため､読者への課題､あるいは筆者の研究の一環とする｡&lt;/p&gt;&lt;p&gt;本稿の実装はLuaのモジュールとして公開してある｡
-お手元にご用意したりして本稿をお楽しみください｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;repo&quot;&gt;&lt;/label&gt;
-&lt;/p&gt;&lt;div class=&quot;github-widget&quot; data-repo=&quot;Nymphium/eff.lua&quot;&gt;&lt;/div&gt;&lt;h1 id=&quot;2.+algebraic+effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+algebraic+effects&quot;&gt;2. algebraic effects&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;これについては直近でそこそこ話したので､&lt;a href=&quot;/2018/08/13/algebraic_effects_tutorial.html&quot;&gt;あれ&lt;/a&gt;とか&lt;a href=&quot;/pdf/mlday2.html&quot;&gt;これ&lt;/a&gt;とか&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot;&gt;それ&lt;/a&gt;とかをご参照ください｡&lt;/p&gt;&lt;h2 id=&quot;2-1.+Core+Eff&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-1.+Core+Eff&quot;&gt;2-1. Core Eff&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;今回は1つのハンドラでハンドルできるエフェクトは1つというCore Effという言語を考える(図&lt;a href=&quot;#ce-syn&quot;&gt;2.1&lt;/a&gt;)｡
-&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title=&quot;Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;を参考にした｡&lt;/p&gt;&lt;div&gt;
+お手元にご用意したりして本稿をお楽しみください｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;repo&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;github-widget&quot; data-repo=&quot;Nymphium/eff.lua&quot;&gt;&lt;/div&gt;&lt;h1 id=&quot;2.+algebraic+effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+algebraic+effects&quot;&gt;2. algebraic effects&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;これについては直近でそこそこ話したので､&lt;a href=&quot;/2018/08/13/algebraic_effects_tutorial.html&quot;&gt;あれ&lt;/a&gt;とか&lt;a href=&quot;/pdf/mlday2.html&quot;&gt;これ&lt;/a&gt;とか&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot;&gt;それ&lt;/a&gt;とかをご参照ください｡&lt;/p&gt;&lt;h2 id=&quot;2-1.+Core+Eff&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-1.+Core+Eff&quot;&gt;2-1. Core Eff&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;今回は1つのハンドラでハンドルできるエフェクトは1つというCore Effという言語を考える(図&lt;a href=&quot;#ce-syn&quot;&gt;2.1&lt;/a&gt;
+)｡
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title=&quot;Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
+を参考にした｡&lt;/p&gt;&lt;div&gt;
 &lt;center&gt;
 &lt;label id=&quot;ce-syn&quot;&gt;&lt;/label&gt;
+
 \[
 \begin{array}{rrl}
   x &amp;amp; \in &amp;amp; \text{\textit{Variables}}\\
@@ -191,7 +211,8 @@ Lua､Rubyなどの言語機能またはライブラリとして提供されて�
 \end{array}
 
 \]
-図&lt;a href=&quot;#ce-syn&quot;&gt;2.1&lt;/a&gt;. the syntax of Core Eff
+図&lt;a href=&quot;#ce-syn&quot;&gt;2.1&lt;/a&gt;
+. the syntax of Core Eff
 &lt;/center&gt;
 &lt;/div&gt;&lt;p&gt;ラムダ計算に&lt;code&gt;let&lt;/code&gt;が付いて､あとはalgebraic effects関連の項が追加されている｡
 &lt;code&gt;inst ()&lt;/code&gt;でエフェクトインスタンスを生成する｡
@@ -201,8 +222,10 @@ Lua､Rubyなどの言語機能またはライブラリとして提供されて�
 &lt;code&gt;handler eff vh effh&lt;/code&gt;でエフェクト&lt;code&gt;eff&lt;/code&gt;のハンドラを定義する｡
 &lt;code&gt;vh&lt;/code&gt;はvalue handlerとなり､ハンドラがエフェクトをハンドルしきって値を返すときにvalue handlerによりハンドルした値を返す｡
 &lt;code&gt;effh&lt;/code&gt;はエフェクトの引数と継続を取る｡&lt;/p&gt;&lt;p&gt;ハンドルできるエフェクトが少ないため一見して弱くなったか? と思うがそんなことはない｡
-&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title=&quot;Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;ではエフェクトにADTを渡してハンドラ内でさらにパターンマッチする方法で事実上n個のエフェクトをハンルするようにしている｡&lt;/p&gt;&lt;p&gt;意味論に関してはっきりと示せる自信がない(面倒くさいとも言う)のと､後述のように継続の使用回数を制限するので省略します｡
-&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot; title=&quot;Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;にあるような､よくあるcall by valueの体系を想定している｡
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title=&quot;Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
+ではエフェクトにADTを渡してハンドラ内でさらにパターンマッチする方法で事実上n個のエフェクトをハンルするようにしている｡&lt;/p&gt;&lt;p&gt;意味論に関してはっきりと示せる自信がない(面倒くさいとも言う)のと､後述のように継続の使用回数を制限するので省略します｡
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot; title=&quot;Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;
+にあるような､よくあるcall by valueの体系を想定している｡
 次の例題で雰囲気を掴んでもらいたい｡&lt;/p&gt;&lt;h2 id=&quot;2-2.+%E4%BE%8B%E9%A1%8C&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-2.+%E4%BE%8B%E9%A1%8C&quot;&gt;2-2. 例題&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choose&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inst&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* instantiate *)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lh&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choose&lt;/span&gt;
           &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -214,9 +237,11 @@ Lua､Rubyなどの言語機能またはライブラリとして提供されて�
 ハンドラ&lt;code&gt;lh&lt;/code&gt;を定義する｡
 エフェクトハンドラ&lt;code&gt;((l, r), k) -&amp;gt; k l&lt;/code&gt;を見ると､&lt;code&gt;(l, r)&lt;/code&gt;というtupleを受け取って継続&lt;code&gt;k&lt;/code&gt;に&lt;code&gt;l&lt;/code&gt;だけ渡して&lt;code&gt;r&lt;/code&gt;は捨てる｡&lt;/p&gt;&lt;h2 id=&quot;2-3.+oneshot+algebraic+effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-3.+oneshot+algebraic+effects&quot;&gt;2-3. oneshot algebraic effects&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;今回はさらに､継続の使用を高々1回に制限する｡
 マイナーな言語機能でさらに制限を加えてしまっているが､例えば&lt;a href=&quot;http://ocamllabs.io/doc/multicore.html&quot;&gt;Multicore OCaml&lt;/a&gt;は原則的に継続の使用は1回に制限されている&lt;sup id=&quot;fnref3&quot; title=&quot;むしろ他に継続がワンショットのalgebraic effectsを知りませんが…｡あとMulticore OCamlにはObj.clone_continuationという継続を複製する関数が用意されており､ランタイムにコストを支払うことで継続を2回以上使うことができる｡ &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;｡
-例えば次のような例(コード&lt;a href=&quot;#ng-twice&quot;&gt;2.2&lt;/a&gt;)はNGにしたい｡
-continuationを2回使ってはいけない(戒め)｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;コード&lt;a href=&quot;#ng-twice&quot;&gt;2.2&lt;/a&gt;. NG: using &lt;em&gt;k&lt;/em&gt; twice&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inst&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+例えば次のような例(コード&lt;a href=&quot;#ng-twice&quot;&gt;2.2&lt;/a&gt;
+)はNGにしたい｡
+continuationを2回使ってはいけない(戒め)｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;ng-twice&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;コード&lt;a href=&quot;#ng-twice&quot;&gt;2.2&lt;/a&gt;
+. NG: using &lt;em&gt;k&lt;/em&gt; twice&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inst&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* NG!!! 2回使うな!!! *)&lt;/span&gt;
@@ -225,12 +250,18 @@ continuationを2回使ってはいけない(戒め)｡&lt;/p&gt;&lt;div class=&q
 &lt;/div&gt;&lt;p&gt;Affine typesなどにより継続を2回使う箇所を検出したいが､それはまたいつかお話しましょう｡
 高級な型システムでなくても､継続に適当な型を付けてdef-use chainを使えばヒューリスティックに解決できそうですね｡&lt;/p&gt;&lt;p&gt;今回は継続を2回以上使ってはいけない&lt;em&gt;お約束&lt;/em&gt;しかないので誰も注意してくれない｡
 そのため我々が注意するしかない｡&lt;/p&gt;&lt;p&gt;継続が1回しか使えないのはmultishot(ノーマルな) algebraic effectsと比較すると真にパワーが弱くなっている｡
-とはいえ継続を2回も使う必要のない場面&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;が多く､継続がワンショットであることを前提にするとパフォーマンスの良い実装ができる&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot; title=&quot;Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. &quot; id=&quot;fnref5&quot;&gt;5&lt;/a&gt;]&lt;/span&gt;&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn6&quot; rel=&quot;footnote&quot; title=&quot;Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. &quot; id=&quot;fnref6&quot;&gt;6&lt;/a&gt;]&lt;/span&gt;｡&lt;/p&gt;&lt;h1 id=&quot;3.+asymmetric+coroutines&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+asymmetric+coroutines&quot;&gt;3. asymmetric coroutines&lt;/a&gt;&lt;/h1&gt;&lt;h2 id=&quot;3-1.+asymmetric%3F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-1.+asymmetric%3F&quot;&gt;3-1. asymmetric?&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;非常に簡単に説明すると､みなさんがお使いのコルーチンは概ねasymmetric coroutineです｡
+とはいえ継続を2回も使う必要のない場面&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
+が多く､継続がワンショットであることを前提にするとパフォーマンスの良い実装ができる&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot; title=&quot;Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. &quot; id=&quot;fnref5&quot;&gt;5&lt;/a&gt;]&lt;/span&gt;
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn6&quot; rel=&quot;footnote&quot; title=&quot;Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. &quot; id=&quot;fnref6&quot;&gt;6&lt;/a&gt;]&lt;/span&gt;
+｡&lt;/p&gt;&lt;h1 id=&quot;3.+asymmetric+coroutines&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+asymmetric+coroutines&quot;&gt;3. asymmetric coroutines&lt;/a&gt;&lt;/h1&gt;&lt;h2 id=&quot;3-1.+asymmetric%3F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-1.+asymmetric%3F&quot;&gt;3-1. asymmetric?&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;非常に簡単に説明すると､みなさんがお使いのコルーチンは概ねasymmetric coroutineです｡
 Asymmetric coroutineがあるのでsymmetric coroutineももちろん存在する｡
 Asymmetric coroutinesは対象のコルーチンへ&lt;em&gt;飛ぶ&lt;/em&gt;操作resumeと操作してるコルーチンから&lt;em&gt;戻る&lt;/em&gt;操作yieldの2つを持つ｡
-一方symmetric coroutinesはコントロールを移すという唯一の操作controlのみを持ちます(表&lt;a href=&quot;#tbl-cor&quot;&gt;3.1&lt;/a&gt;)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+一方symmetric coroutinesはコントロールを移すという唯一の操作controlのみを持ちます(表&lt;a href=&quot;#tbl-cor&quot;&gt;3.1&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;tbl-cor&quot;&gt;&lt;/label&gt;
-表&lt;a href=&quot;#tbl-cor&quot;&gt;3.1&lt;/a&gt;. the comparision of a?symmetric coroutines
+
+&lt;p&gt;表&lt;a href=&quot;#tbl-cor&quot;&gt;3.1&lt;/a&gt;
+. the comparision of a?symmetric coroutines&lt;/p&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
@@ -284,9 +315,11 @@ d
 --]]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;&lt;p&gt;なるほど､&lt;strong&gt;&lt;em&gt;完全に理解した&lt;/em&gt;&lt;/strong&gt;｡&lt;/p&gt;&lt;h2 id=&quot;3-2.+%CE%BB%3Csub%3Ecor%3C%2Fsub%3E%0A&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-2.+%CE%BB%3Csub%3Ecor%3C%2Fsub%3E%0A&quot;&gt;3-2. λ&lt;sub&gt;cor&lt;/sub&gt;
-&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Luaだとちょっと大きすぎるし扱いづらいため､変換のための小さな計算体系として\(\lambda_{\text{\textit{cor}}}\)を考える(図&lt;a href=&quot;#lcor-syn&quot;&gt;3.2&lt;/a&gt;)｡&lt;/p&gt;&lt;div&gt;
+&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Luaだとちょっと大きすぎるし扱いづらいため､変換のための小さな計算体系として\(\lambda_{\text{\textit{cor}}}\)を考える(図&lt;a href=&quot;#lcor-syn&quot;&gt;3.2&lt;/a&gt;
+)｡&lt;/p&gt;&lt;div&gt;
 &lt;center&gt;
 &lt;label id=&quot;lcor-syn&quot;&gt;&lt;/label&gt;
+
 \[
 \begin{array}{rrl}
   x &amp;amp; \in &amp;amp; \text{\textit{Variables}}\\
@@ -301,10 +334,12 @@ d
   mutrec &amp;amp; ::= &amp;amp; \mathtt{and}\ f\ x = e \mid \mathtt{in}\ e
 \end{array}
 \]
-図&lt;a href=&quot;#lcor-syn&quot;&gt;3.2&lt;/a&gt;. the syntax of \(\lambda_{\text{\textit{cor}}}\)
+図&lt;a href=&quot;#lcor-syn&quot;&gt;3.2&lt;/a&gt;
+. the syntax of \(\lambda_{\text{\textit{cor}}}\)
 &lt;/center&gt;
 &lt;/div&gt;&lt;p&gt;こちらも筆者が疲れたので意味論はフィーリングで行く｡
-すまんが&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref7&quot;&gt;7&lt;/a&gt;]&lt;/span&gt;を参照されたし｡
+すまんが&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref7&quot;&gt;7&lt;/a&gt;]&lt;/span&gt;
+を参照されたし｡
 ランタイムにラベルストアなどを用意してがちゃがちゃやっていく感じ｡&lt;/p&gt;&lt;p&gt;構成員としては､ラムダ計算にくわえ､&lt;code&gt;let&lt;/code&gt;式､(相互)再帰､ADTとパターンマッチに加え､コルーチンの操作&lt;code&gt;create&lt;/code&gt; &lt;code&gt;resume&lt;/code&gt; &lt;code&gt;yield&lt;/code&gt;がある｡
 各エフェクトを一意にするために&lt;code&gt;inst ()&lt;/code&gt;もそのまま持ってきている｡
 小さくなるよう努力したものの､依然としてゴタゴタしているのはひとえに筆者の力不足である｡&lt;/p&gt;&lt;p&gt;ところで上記のプログラムは書けるのだろうか?
@@ -313,12 +348,16 @@ d
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;mutual referring(なんて言うのか?) objectをmutual recursionでなんとかできる? できない? 今の脳の稼働率ではわからん｡&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1070882855582986241?ref_src=twsrc%5Etfw&quot;&gt;December 7, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;p&gt;変換のターゲットとしてコルーチンが出てくるため､上記のようなプログラムは\(\lambda_{\text{\textit{cor}}}\)では書けなくても問題はないので問題ない｡&lt;/p&gt;&lt;h2 id=&quot;3-3.+asymmetric+coroutines+and+oneshot+continuation&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-3.+asymmetric+coroutines+and+oneshot+continuation&quot;&gt;3-3. asymmetric coroutines and oneshot continuation&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Asymmetric coroutinesは強力なコントロールオペレータであり､まずsymmetric coroutinesを模倣することができ､のみならずcall/1ccもasymmetric coroutinesにより実装することができる&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref7&quot;&gt;7&lt;/a&gt;]&lt;/span&gt;｡
+&lt;/div&gt;&lt;p&gt;変換のターゲットとしてコルーチンが出てくるため､上記のようなプログラムは\(\lambda_{\text{\textit{cor}}}\)では書けなくても問題はないので問題ない｡&lt;/p&gt;&lt;h2 id=&quot;3-3.+asymmetric+coroutines+and+oneshot+continuation&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-3.+asymmetric+coroutines+and+oneshot+continuation&quot;&gt;3-3. asymmetric coroutines and oneshot continuation&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Asymmetric coroutinesは強力なコントロールオペレータであり､まずsymmetric coroutinesを模倣することができ､のみならずcall/1ccもasymmetric coroutinesにより実装することができる&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref7&quot;&gt;7&lt;/a&gt;]&lt;/span&gt;
+｡
 call/1ccとは､継続の実行が高々1回に制限されているcall/ccである｡&lt;/p&gt;&lt;p&gt;オッoneshotnessが出てきた｡
 これはcontinuationがコルーチンに対応し､コルーチンは状態を複製する操作が基本的に提供されてないためである｡
-したがってコルーチンの状態を複製する操作が追加されない限りは､コルーチンで継続をエミュレーションするときは基本的にワンショットである(表&lt;a href=&quot;#tbl-cont-cor&quot;&gt;3.3&lt;/a&gt;)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+したがってコルーチンの状態を複製する操作が追加されない限りは､コルーチンで継続をエミュレーションするときは基本的にワンショットである(表&lt;a href=&quot;#tbl-cont-cor&quot;&gt;3.3&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;tbl-cont-cor&quot;&gt;&lt;/label&gt;
-表&lt;a href=&quot;#tbl-cont-cor&quot;&gt;3.3&lt;/a&gt;. the correspondence between continuations and asymmetric coroutines
+
+&lt;p&gt;表&lt;a href=&quot;#tbl-cont-cor&quot;&gt;3.3&lt;/a&gt;
+. the correspondence between continuations and asymmetric coroutines&lt;/p&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
@@ -384,9 +423,12 @@ JSのgeneratorなら多分CPS変換できるので､babelなどによるES2015�
 &lt;/div&gt;&lt;p&gt;ところで､generatorも(おそらく)状態を複製する操作が用意されてないので､変換先のCPSの継続はワンショットになるはずである｡&lt;/p&gt;&lt;h1 id=&quot;4.+oneshot+algebraic+effects+%E2%86%92+asymmetric+coroutines&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+oneshot+algebraic+effects+%E2%86%92+asymmetric+coroutines&quot;&gt;4. oneshot algebraic effects → asymmetric coroutines&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Core Effから\(\lambda_{\text{\textit{cor}}}\)への変換､つまり言語Aから言語Bへの変換なのでコンパイルですね｡本稿の変換の実装はすなわちコンパイラになります｡
 言語実装アドベントカレンダーにふさわしいですね｡
 本稿では変換の実装はしないので読者の課題あるいは筆者の研究の一環です｡&lt;/p&gt;&lt;h2 id=&quot;4-1.+%E7%9B%B4%E6%84%9F%E7%9A%84%E3%81%AA%E5%AF%BE%E5%BF%9C&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4-1.+%E7%9B%B4%E6%84%9F%E7%9A%84%E3%81%AA%E5%AF%BE%E5%BF%9C&quot;&gt;4-1. 直感的な対応&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;筆者は直観で実装してしまったので､とりあえず直感的なところからかためていく｡
-方針としてはこんな感じになるだろうか(表&lt;a href=&quot;#tbl-aeac&quot;&gt;4.1&lt;/a&gt;).&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+方針としてはこんな感じになるだろうか(表&lt;a href=&quot;#tbl-aeac&quot;&gt;4.1&lt;/a&gt;
+).&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;tbl-aeac&quot;&gt;&lt;/label&gt;
-表&lt;a href=&quot;#tbl-aeac&quot;&gt;4.1&lt;/a&gt;. the intuitional correspondence between (oneshot ) algebraic effects and asymmetric coroutines
+
+&lt;p&gt;表&lt;a href=&quot;#tbl-aeac&quot;&gt;4.1&lt;/a&gt;
+. the intuitional correspondence between (oneshot ) algebraic effects and asymmetric coroutines&lt;/p&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
@@ -421,10 +463,10 @@ JSのgeneratorなら多分CPS変換できるので､babelなどによるES2015�
 エフェクトインスタンス､value handler, effect handlerを受け取ったらthunkを取ってそのthunkをハンドラでハンドルする､という動作である｡
 thunk内でエフェクトを発生(&lt;code&gt;yield&lt;/code&gt;)すると一時停止してハンドラに操作が移ってほしい､とするとthunkをコルーチンでencapsulateして即実行､という流れになる｡
 なのでとりあえず&lt;code&gt;create&lt;/code&gt; &amp;amp; &lt;code&gt;resume&lt;/code&gt;としてある｡&lt;/p&gt;&lt;h2 id=&quot;4-2.+%E5%A4%89%E6%8F%9B&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4-2.+%E5%A4%89%E6%8F%9B&quot;&gt;4-2. 変換&lt;/a&gt;&lt;/h2&gt;&lt;h2 id=&quot;%E8%BF%BD%E8%A8%9820181209&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%BF%BD%E8%A8%9820181209&quot;&gt;追記20181209&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;投稿即バグが見つかり泣きました｡
-まずは修正前をご覧ください｡&lt;/p&gt;&lt;p&gt;最新は&lt;a href=&quot;#%E8%BF%BD%E8%A8%9820190127&quot;&gt;こちら&lt;/a&gt;
-追記suspend&lt;/p&gt;&lt;div&gt;
+まずは修正前をご覧ください｡&lt;/p&gt;&lt;p&gt;最新は&lt;a href=&quot;#%E8%BF%BD%E8%A8%9820190127&quot;&gt;こちら&lt;/a&gt;&lt;/p&gt;&lt;p&gt;追記suspend&lt;/p&gt;&lt;div&gt;
 &lt;center&gt;
 &lt;label id=&quot;conv&quot;&gt;&lt;/label&gt;
+
 \[
 \begin{array}{c}
   \left[\left[e_{ce}\right]\right]\eta = e_{\lambda \textit{cor}}\\
@@ -481,7 +523,8 @@ thunk内でエフェクトを発生(&lt;code&gt;yield&lt;/code&gt;)すると一�
   \end{aligned}
 \end{array}
 \]
-図&lt;a href=&quot;#conv&quot;&gt;4.2&lt;/a&gt;. the conversion \(\left[\left[e_{ce}\right]\right] = e_{\lambda_{\textit{cor}}}\)
+図&lt;a href=&quot;#conv&quot;&gt;4.2&lt;/a&gt;
+. the conversion \(\left[\left[e_{ce}\right]\right] = e_{\lambda_{\textit{cor}}}\)
 &lt;/center&gt;
 &lt;/div&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;&lt;code&gt;handler&lt;/code&gt;長すぎんじゃボケー!!!&lt;/em&gt;&lt;/strong&gt;
 ただの実装やろがい!!!
@@ -489,7 +532,8 @@ thunk内でエフェクトを発生(&lt;code&gt;yield&lt;/code&gt;)すると一�
 さらに見返してみるとなんだか洗練されてない｡
 もう少しCPSっぽく書ける部分がたしかにあり､そうすれば末尾呼び出しになって良いことがありそうだが､筆者はCPSで実装を試みたところバグバグになって一回諦めているため､読者への課題としたい｡
 CPSにすればvalue handlerを複数使ってしまうのを防ぐための&lt;code&gt;Val&lt;/code&gt;コンストラクタが不要になるだろう｡&lt;/p&gt;&lt;p&gt;メタの話はこの程度にして､内容を見てみよう｡
-&lt;code&gt;handler&lt;/code&gt;以外はだいたいふ〜んて感じで､&lt;code&gt;perform&lt;/code&gt;も表&lt;a href=&quot;#tbl-aeac&quot;&gt;4.1&lt;/a&gt;でぼんやりと考えたとおりに&lt;code&gt;yield&lt;/code&gt;に対応している｡&lt;/p&gt;&lt;p&gt;問題は爆発している&lt;code&gt;handler&lt;/code&gt;である｡
+&lt;code&gt;handler&lt;/code&gt;以外はだいたいふ〜んて感じで､&lt;code&gt;perform&lt;/code&gt;も表&lt;a href=&quot;#tbl-aeac&quot;&gt;4.1&lt;/a&gt;
+でぼんやりと考えたとおりに&lt;code&gt;yield&lt;/code&gt;に対応している｡&lt;/p&gt;&lt;p&gt;問題は爆発している&lt;code&gt;handler&lt;/code&gt;である｡
 thunkを受け取ってコルーチンを作り､&lt;code&gt;resume&lt;/code&gt;のラッパーとなっている&lt;code&gt;continue&lt;/code&gt;を走らせてるので､なるほど&lt;code&gt;create&lt;/code&gt; &amp;amp; &lt;code&gt;resume&lt;/code&gt;である｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;handler&lt;/code&gt;の内部の&lt;code&gt;handle&lt;/code&gt;が一番仕事してる雰囲気を出している｡
 &lt;code&gt;handle&lt;/code&gt;は&lt;code&gt;contiue&lt;/code&gt;からのみ呼ばれており､呼び出し時に&lt;code&gt;resume&lt;/code&gt;の戻り値､つまり&lt;code&gt;yield&lt;/code&gt;に渡された引数かコルーチンでencapsulateされた関数の戻り値である｡
 &lt;code&gt;Val&lt;/code&gt;以外でコルーチンから戻ってくるものとなると､&lt;code&gt;yield&lt;/code&gt;は&lt;code&gt;perform&lt;/code&gt;だから&lt;code&gt;Eff&lt;/code&gt;だな｡&lt;/p&gt;&lt;p&gt;そして&lt;code&gt;Eff(eff', v)&lt;/code&gt;の&lt;code&gt;eff'&lt;/code&gt;がハンドルすべきエフェクト&lt;code&gt;eff&lt;/code&gt;の場合は&lt;code&gt;effh&lt;/code&gt;によって処理をおこなっている｡
@@ -510,6 +554,7 @@ thunkを受け取ってコルーチンを作り､&lt;code&gt;resume&lt;/code&gt
 型がない世界でよかったですね｡&lt;/p&gt;&lt;h2 id=&quot;%E8%BF%BD%E8%A8%9820181209+resume&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%BF%BD%E8%A8%9820181209+resume&quot;&gt;追記20181209 resume&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;多分これが一番正しいと思います｡&lt;/p&gt;&lt;div&gt;
 &lt;center&gt;
 &lt;label id=&quot;conv2&quot;&gt;&lt;/label&gt;
+
 \[
 \begin{array}{c}
   \left[\left[e_{ce}\right]\right]\eta = e_{\lambda \textit{cor}}\\
@@ -537,7 +582,8 @@ thunkを受け取ってコルーチンを作り､&lt;code&gt;resume&lt;/code&gt
   \end{aligned}
 \end{array}
 \]
-図&lt;a href=&quot;#conv2&quot;&gt;4.3&lt;/a&gt;. the revision of the conversion
+図&lt;a href=&quot;#conv2&quot;&gt;4.3&lt;/a&gt;
+. the revision of the conversion
 &lt;/center&gt;
 &lt;/div&gt;&lt;p&gt;&lt;code&gt;handler&lt;/code&gt;だけの変更だが､だいぶダイエットに成功した｡
 &lt;code&gt;Val&lt;/code&gt;タグはそもそも不要だったことがわかった｡
@@ -548,6 +594,7 @@ thunkを受け取ってコルーチンを作り､&lt;code&gt;resume&lt;/code&gt
 操作を継続の中に押し込んでいく感じが､なんとなく&lt;code&gt;Functor Free&lt;/code&gt;を思わせる｡&lt;/p&gt;&lt;p&gt;追記おわり&lt;/p&gt;&lt;h1 id=&quot;%E8%BF%BD%E8%A8%9820181216&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%BF%BD%E8%A8%9820181216&quot;&gt;追記20181216&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;さらに大学のゼミ発表などを経てコンパクトになりました｡&lt;/p&gt;&lt;div&gt;
 &lt;center&gt;
 &lt;label id=&quot;conv3&quot;&gt;&lt;/label&gt;
+
 \[
 \begin{aligned}
   &amp;amp;\left[\left[\mathrm{handler}\ \textit{eff}\ \left(\mathtt{val}\ x \rightarrow e_v\right)\ \left(\left(x, k\right) \rightarrow e_\textit{eff}\right)\right]\right]\eta = \\
@@ -567,15 +614,18 @@ thunkを受け取ってコルーチンを作り､&lt;code&gt;resume&lt;/code&gt
   &amp;amp; \qquad \quad \mathtt{in}\ \textit{continue}\ \textit{co}\ \textit{c}
 \end{aligned}
 \]
-図&lt;a href=&quot;#conv3&quot;&gt;4.4&lt;/a&gt;. the conversion v3.
+図&lt;a href=&quot;#conv3&quot;&gt;4.4&lt;/a&gt;
+. the conversion v3.
 &lt;/center&gt;
-&lt;/div&gt;&lt;p&gt;&lt;a href=&quot;#conv2&quot;&gt;4.3&lt;/a&gt;とは本質的に何も変わってません｡
+&lt;/div&gt;&lt;p&gt;&lt;a href=&quot;#conv2&quot;&gt;4.3&lt;/a&gt;
+とは本質的に何も変わってません｡
 &lt;code&gt;continue&lt;/code&gt;を汎用的なものにした｡
 これにより､処理がどうなってるかがより簡潔になったんじゃないでしょうか｡
 &lt;code&gt;handle&lt;/code&gt;を連れ回すことで現在のハンドラによるハンドル処理を続けることができる｡
 &lt;code&gt;UncaughtEff&lt;/code&gt;に渡す継続をコルーチンでencapsulateするのは､エフェクトの発生(&lt;code&gt;yield&lt;/code&gt;)を再びキャッチするためである｡&lt;/p&gt;&lt;h1 id=&quot;%E8%BF%BD%E8%A8%9820190127&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%BF%BD%E8%A8%9820190127&quot;&gt;追記20190127&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;バグってました｡&lt;/p&gt;&lt;div&gt;
 &lt;center&gt;
 &lt;label id=&quot;conv4&quot;&gt;&lt;/label&gt;
+
 $$
 \begin{aligned}
   &amp;amp;\left[\left[\mathrm{handler}\ \textit{eff}\ \left(\mathtt{val}\ x \rightarrow e_v\right)\ \left(\left(x, k\right) \rightarrow e_\textit{eff}\right)\right]\right]\eta = \\
@@ -596,9 +646,12 @@ $$
   &amp;amp; \qquad \quad \mathtt{in}\ \textit{continue}\ \textit{co}\ \textit{c}
 \end{aligned}
 $$
-図&lt;a href=&quot;#conv4&quot;&gt;4.5&lt;/a&gt;. the conversion v4.
+図&lt;a href=&quot;#conv4&quot;&gt;4.5&lt;/a&gt;
+. the conversion v4.
 &lt;/center&gt;
-&lt;/div&gt;&lt;p&gt;$\textit{Eff}$のハンドルは&lt;a href=&quot;#conv2&quot;&gt;v2&lt;/a&gt;や&lt;a href=&quot;#conv3&quot;&gt;v3&lt;/a&gt;と変わりない｡
+&lt;/div&gt;&lt;p&gt;$\textit{Eff}$のハンドルは&lt;a href=&quot;#conv2&quot;&gt;v2&lt;/a&gt;
+や&lt;a href=&quot;#conv3&quot;&gt;v3&lt;/a&gt;
+と変わりない｡
 $\textit{rehandle}$という関数が追加され､$\textit{UncaughtEff}$に渡す､あるいは使う継続を$\textit{reandle}$に渡している｡
 では$\textit{rehandle}$は何をしてるんですか? 新しくハンドラを作り､2つの引数を実行するサンクを作ってハンドラに渡すことで､サンクの中身をハンドルして実行する｡&lt;/p&gt;&lt;p&gt;我々の実現したいdeep handlerを考えれば確かにこのような実装になる｡
 deep handlerとは､ハンドラの取り出した継続も同じハンドラによってハンドルされる｡
@@ -618,11 +671,14 @@ $$
 &lt;/div&gt;&lt;p&gt;特にポイントとなるのが､新しく作るハンドラのvalue handlerが､現在のハンドラが持ってるencapsulateしたサンクを$\textit{continue}$する､いわばハンドラが持ってる継続にハンドルの結果を渡しているCPSのような構造になる｡
 ハンドラによって$\textit{UncaughtEff}$が持ってきた$k$をハンドラによってハンドルすることで､晴れて現在のハンドラでもeffectをハンドルできるようになる｡&lt;/p&gt;&lt;p&gt;これまでの変換では､渡ってきた継続のeffectをハンドルできてるようでできてなかった｡
 今回の変換により､なんとか解決したんじゃないでしょうか｡
-実装も更新しているので､よかったら使ってみてバグを発見してください｡&lt;/p&gt;&lt;h1 id=&quot;5.+%E5%AE%9F%E8%A3%85&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E5%AE%9F%E8%A3%85&quot;&gt;5. 実装&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;それでは改めて&lt;a href=&quot;#repo&quot;&gt;リポジトリ&lt;/a&gt;の方を見てみよう｡
+実装も更新しているので､よかったら使ってみてバグを発見してください｡&lt;/p&gt;&lt;h1 id=&quot;5.+%E5%AE%9F%E8%A3%85&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E5%AE%9F%E8%A3%85&quot;&gt;5. 実装&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;それでは改めて&lt;a href=&quot;#repo&quot;&gt;リポジトリ&lt;/a&gt;
+の方を見てみよう｡
 Asymmetric coroutinesと非常に縁の深いLuaにより実装した｡
 本稿で変換を改めて考えるにあたり､バグが複数発見､修正された｡
-フィーリングの脆さと簡単なモデルに落として内容をしっかり検討することの重要さを再確認した｡&lt;/p&gt;&lt;p&gt;実装は図&lt;a href=&quot;#conv&quot;&gt;4.2&lt;/a&gt;とほとんど同じである｡
-なんといっても順番が逆で､実装が先にあり､図&lt;a href=&quot;#conv&quot;&gt;4.2&lt;/a&gt;は実装をもとに書き下したためである｡
+フィーリングの脆さと簡単なモデルに落として内容をしっかり検討することの重要さを再確認した｡&lt;/p&gt;&lt;p&gt;実装は図&lt;a href=&quot;#conv&quot;&gt;4.2&lt;/a&gt;
+とほとんど同じである｡
+なんといっても順番が逆で､実装が先にあり､図&lt;a href=&quot;#conv&quot;&gt;4.2&lt;/a&gt;
+は実装をもとに書き下したためである｡
 しかしLuaはclassもADTもないし関数リテラルが冗長､文志向なので&lt;code&gt;return&lt;/code&gt;必須といろいろしんどいところがあった｡&lt;/p&gt;&lt;p&gt;本稿の変換と異なる点は､ハンドラが多値に対応している点である｡
 …というのは半分ウソというか､Multicore OCamlではtupleで表現するところを､tableでガッとやるのではなく可変長引数や多値などといったLuaの持ち味を活かすための細工をおこなった｡
 多値を引き回すのは面倒なので､ハンドラに渡ってきた多値をtableに押し込み､実際に使われるタイミングで&lt;code&gt;unpack&lt;/code&gt;によって多値に戻している｡
@@ -724,7 +780,8 @@ World?
   &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Functorっぽいものを書いてるなと思ったが&lt;code&gt;smaph&lt;/code&gt;をみると全然そんなことなく､自分でも困惑した｡
-Luaは残念ながら型のない世界なのでなんでもアリである｡&lt;/p&gt;&lt;h1 id=&quot;6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;6. 関連研究&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Koka言語などをやっていってるDaan氏によりC言語によるalgebraic effectsの実装&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn9&quot; rel=&quot;footnote&quot; title=&quot;Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. &quot; id=&quot;fnref9&quot;&gt;9&lt;/a&gt;]&lt;/span&gt;がおこなわれている｡
+Luaは残念ながら型のない世界なのでなんでもアリである｡&lt;/p&gt;&lt;h1 id=&quot;6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;6. 関連研究&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Koka言語などをやっていってるDaan氏によりC言語によるalgebraic effectsの実装&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn9&quot; rel=&quot;footnote&quot; title=&quot;Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. &quot; id=&quot;fnref9&quot;&gt;9&lt;/a&gt;]&lt;/span&gt;
+がおこなわれている｡
 本稿と比較すると1ハンドラ1エフェクトや継続がワンショットなどの制限ががない一方､非常にユーザーアンフレンドリーな構文となっている｡
 そのためP言語などのコンパイラのターゲットという位置づけがなされている｡
 本稿では式指向の言語での変換をおこなっており､\(\lambda_{\textit{cor}}\)相当をサブセットとして持つ言語ならばsyntacticな辛さはない､と思う｡&lt;/p&gt;&lt;h1 id=&quot;7.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#7.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;7. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;本稿ではoneshot algebraic effectsからasymmetric coroutinesへの変換を提示した｡
@@ -843,8 +900,10 @@ rizaudo氏や部室を常時警備している&lt;a href=&quot;https://twitter.c
 謝謝茄子｡&lt;/p&gt;&lt;p&gt;問題は前者である｡
 pro microを使う他の自作キーボードを作ってるブログなどを見てみると､なんかpro microを非対称(?)に付ける必要があるっぽいな…???&lt;/p&gt;&lt;p&gt;(&lt;strong&gt;&lt;em&gt;作ってる時には説明なかった&lt;/em&gt;&lt;/strong&gt;)&lt;a href=&quot;https://github.com/kata0510/Lily58/blob/master/doc/buildguide_jp.md#pro-micro%E3%82%92%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91%E3%81%99%E3%82%8B&quot;&gt;pro microを取り付ける部分&lt;/a&gt;はたしかになんか書いてありますねぇ!!&lt;/p&gt;&lt;p&gt;恐怖のハンダ吸いが再び始まり―&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;yaba&quot;&gt;&lt;/label&gt;
-&lt;img src=&quot;/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/pinsocket.png&quot; alt=&quot;やばい&quot; title=&quot;yabai&quot;&gt;
-図&lt;a href=&quot;#yaba&quot;&gt;1&lt;/a&gt; ピンヘッダをなんとかしようとするrizaudoとakkkix
+
+&lt;p&gt;&lt;img src=&quot;/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/pinsocket.png&quot; alt=&quot;やばい&quot; title=&quot;yabai&quot;&gt;
+図&lt;a href=&quot;#yaba&quot;&gt;1&lt;/a&gt;
+ ピンヘッダをなんとかしようとするrizaudoとakkkix&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 &lt;/center&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -867,10 +926,13 @@ pro microを使う他の自作キーボードを作ってるブログなどを�
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;lily58、pro microを一つ失って完成…!!!! &lt;a href=&quot;https://t.co/ybr8uP24Lo&quot;&gt;pic.twitter.com/ybr8uP24Lo&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065851007630888960?ref_src=twsrc%5Etfw&quot;&gt;November 23, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;h2 id=&quot;tips&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#tips&quot;&gt;tips&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;ロープロファイルだとアクリル板を止めるネジの頭にキーキャップが当たるので､キーキャップをちょっと削る必要がある(図&lt;a href=&quot;#kezuri&quot;&gt;2&lt;/a&gt;)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;/div&gt;&lt;h2 id=&quot;tips&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#tips&quot;&gt;tips&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;ロープロファイルだとアクリル板を止めるネジの頭にキーキャップが当たるので､キーキャップをちょっと削る必要がある(図&lt;a href=&quot;#kezuri&quot;&gt;2&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;kezuri&quot;&gt;&lt;/label&gt;
-&lt;img src=&quot;/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/kezuri.png&quot; alt=&quot;削る&quot; title=&quot;削る様子&quot;&gt;
-図&lt;a href=&quot;#kezuri&quot;&gt;2&lt;/a&gt; 削ったキーキャップ
+
+&lt;p&gt;&lt;img src=&quot;/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/kezuri.png&quot; alt=&quot;削る&quot; title=&quot;削る様子&quot;&gt;
+図&lt;a href=&quot;#kezuri&quot;&gt;2&lt;/a&gt;
+ 削ったキーキャップ&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 &lt;/center&gt;&lt;p&gt;そういえば昔WORDの記事でThinkPadのキートップを無刻印にすべくヤスリで削りまくった記憶がある｡
@@ -903,7 +965,8 @@ xmodmapによってキーマップを変更し､&lt;code&gt;AltGr&lt;/code&gt;�
  */&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;レイヤごとにキーコードを割り当てられる｡
 これはデフォルトレイヤーで次が上記のxmodmapのキーマップにおける&lt;code&gt;AltGr&lt;/code&gt;を押した状態になる｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lower_layer&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lower_layer&quot;&gt;3&lt;/a&gt;. LOWERレイヤ&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cm&quot;&gt;/* LOWER
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lower_layer&quot;&gt;3&lt;/a&gt;
+. LOWERレイヤ&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cm&quot;&gt;/* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      | F1  |  F2  |  F3  |  F4  |  F5   |                    |      |  [   |   ]  | F12  |      |      |
  * |------+-----+------+------+------+-------|                    |------+------+------+------+------+------|
@@ -928,8 +991,10 @@ xmodmapによってキーマップを変更し､&lt;code&gt;AltGr&lt;/code&gt;�
                              &lt;span class=&quot;n&quot;&gt;KC_BTN1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_BTN3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_BTN2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WHEEL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt; \
 &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&quot;%E3%82%AD%E3%83%BC%E5%85%A5%E5%8A%9B%E5%87%A6%E7%90%86&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%82%AD%E3%83%BC%E5%85%A5%E5%8A%9B%E5%87%A6%E7%90%86&quot;&gt;キー入力処理&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;キー入力を&lt;code&gt;process_record_user&lt;/code&gt;という関数で処理することができる｡
-レイヤ切り替えは&lt;code&gt;custom_keycode&lt;/code&gt;というenumで新しく追加したレイヤ切り替え専用のキーコードの入力を&lt;code&gt;process_record_user&lt;/code&gt;で処理する(プログラム&lt;a href=&quot;#process_record_user&quot;&gt;4&lt;/a&gt;)｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#process_record_user&quot;&gt;4&lt;/a&gt;. process_record_user&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;process_record_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;uint16_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keycode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keyrecord_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+レイヤ切り替えは&lt;code&gt;custom_keycode&lt;/code&gt;というenumで新しく追加したレイヤ切り替え専用のキーコードの入力を&lt;code&gt;process_record_user&lt;/code&gt;で処理する(プログラム&lt;a href=&quot;#process_record_user&quot;&gt;4&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;process_record_user&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#process_record_user&quot;&gt;4&lt;/a&gt;
+. process_record_user&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;process_record_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;uint16_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keycode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keyrecord_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;keycode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;c1&quot;&gt;// ......&lt;/span&gt;
 
@@ -971,7 +1036,8 @@ xmodmapによってキーマップを変更し､&lt;code&gt;AltGr&lt;/code&gt;�
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;&lt;p&gt;&lt;code&gt;keycode&lt;/code&gt;は文字通りキーコード､&lt;code&gt;record&lt;/code&gt;は入力してるときの状態を表し､&lt;code&gt;record-&amp;gt;event.pressed&lt;/code&gt;でキーを押下したかどうかのブールを取れる｡
-関数の中を見てみると､&lt;code&gt;keycode&lt;/code&gt;でswitchして入力内容で分岐する｡&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;#lower_layer&quot;&gt;LOWERレイヤ&lt;/a&gt;への切り替えは､&lt;code&gt;layer_on(_LOWER)&lt;/code&gt;と&lt;code&gt;layer_off(_LOWER)&lt;/code&gt;のあたりでおこなっている｡
+関数の中を見てみると､&lt;code&gt;keycode&lt;/code&gt;でswitchして入力内容で分岐する｡&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;#lower_layer&quot;&gt;LOWERレイヤ&lt;/a&gt;
+への切り替えは､&lt;code&gt;layer_on(_LOWER)&lt;/code&gt;と&lt;code&gt;layer_off(_LOWER)&lt;/code&gt;のあたりでおこなっている｡
 &lt;code&gt;LOWER+Shift&lt;/code&gt;の修飾では第3のレイヤ&lt;code&gt;_LSHIFT&lt;/code&gt;になる｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;KC_LSFT&lt;/code&gt;というキーコードが&lt;code&gt;Shift&lt;/code&gt;にあたる｡
 &lt;code&gt;Shift+0&lt;/code&gt;を押すと&lt;code&gt;?&lt;/code&gt;が出て欲しいなど､一部&lt;code&gt;Shift&lt;/code&gt;による修飾で送出される文字を変更したかったがお手軽な方法が一見してなさそうだった｡
 そのため､&lt;code&gt;Shift&lt;/code&gt;用に新たにレイヤを追加した｡
@@ -1019,8 +1085,7 @@ xmodmapによってキーマップを変更し､&lt;code&gt;AltGr&lt;/code&gt;�
     &lt;div class=&quot;description&quot;&gt;先日のエントリの反応として、多値の批判をしているように受け取られた方がいました。 実際には、多値の批判をしているのではなく、Go言語の「多値とそう見えるけど違うものがある」という仕様を批判したものでした。 また、タプルにこだわっているという受け取り方をした方もいました。 このエントリでは、「タプルにこだわっているのでは…&lt;/div&gt;
   &lt;/span&gt;
 &lt;/div&gt;&lt;p&gt;なるほど｡こちらも見ておこう｡
-&lt;label id=&quot;kochira&quot;&gt;&lt;/label&gt;
-&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+&lt;label id=&quot;kochira&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
   &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;http://bleis-tift.hatenablog.com/entry/go-the-bad-parts&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://cdn.blog.st-hatena.com/images/theme/og-image-1500.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;http://bleis-tift.hatenablog.com/entry/go-the-bad-parts&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Go言語のイケてない部分 - ぐるぐる～&lt;/a&gt;&lt;/div&gt;
@@ -1044,7 +1109,7 @@ luacはLuaをLua VMバイトコードにコンパイルしてくれるすごい�
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;min:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;, max:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// =&amp;gt; min: 10, max: 20&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;&lt;p&gt;よくあるやつですね｡
-Luaで書くとこうなる｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+Luaで書くとこうなる｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;minmax&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
@@ -1070,7 +1135,8 @@ call by valueなので虚空に消えても値なので特に問題ありませ�
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 
 &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minmax2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 10 20&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;問題ないね｡&lt;/p&gt;&lt;h2 id=&quot;2-1.+%E2%80%9C%E5%A4%9A%E5%80%A4%E3%81%A3%E3%81%BD%E3%81%84%E6%A7%8B%E6%96%87%E3%81%AA%E3%81%AE%E3%81%AB%E5%A4%9A%E5%80%A4%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%84%E6%A9%9F%E8%83%BD%22%E3%81%AFLua%E3%81%AB%E3%81%AF%E7%84%A1%E3%81%84%E3%81%9C&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-1.+%E2%80%9C%E5%A4%9A%E5%80%A4%E3%81%A3%E3%81%BD%E3%81%84%E6%A7%8B%E6%96%87%E3%81%AA%E3%81%AE%E3%81%AB%E5%A4%9A%E5%80%A4%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%84%E6%A9%9F%E8%83%BD%22%E3%81%AFLua%E3%81%AB%E3%81%AF%E7%84%A1%E3%81%84%E3%81%9C&quot;&gt;2-1. “多値っぽい構文なのに多値ではない機能&quot;はLuaには無いぜ&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;#kochira&quot;&gt;1.1&lt;/a&gt;では &quot;多値っぽい構文なのに多値ではない機能&quot;としてfor rangeが例に出されています｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;問題ないね｡&lt;/p&gt;&lt;h2 id=&quot;2-1.+%E2%80%9C%E5%A4%9A%E5%80%A4%E3%81%A3%E3%81%BD%E3%81%84%E6%A7%8B%E6%96%87%E3%81%AA%E3%81%AE%E3%81%AB%E5%A4%9A%E5%80%A4%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%84%E6%A9%9F%E8%83%BD%22%E3%81%AFLua%E3%81%AB%E3%81%AF%E7%84%A1%E3%81%84%E3%81%9C&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-1.+%E2%80%9C%E5%A4%9A%E5%80%A4%E3%81%A3%E3%81%BD%E3%81%84%E6%A7%8B%E6%96%87%E3%81%AA%E3%81%AE%E3%81%AB%E5%A4%9A%E5%80%A4%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%84%E6%A9%9F%E8%83%BD%22%E3%81%AFLua%E3%81%AB%E3%81%AF%E7%84%A1%E3%81%84%E3%81%9C&quot;&gt;2-1. “多値っぽい構文なのに多値ではない機能&quot;はLuaには無いぜ&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;#kochira&quot;&gt;1.1&lt;/a&gt;
+では &quot;多値っぽい構文なのに多値ではない機能&quot;としてfor rangeが例に出されています｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;引用&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;make&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
@@ -1252,7 +1318,8 @@ Lua VMは三番地コードを採用している｡
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;GETTABUP&lt;/code&gt;命令で&lt;code&gt;_ENV&lt;/code&gt;に格納されている&lt;code&gt;print&lt;/code&gt;をレジスタ0に引っ張っている｡
 第1レジスタで格納するレジスタを指定し､第2オペランドで上位値を指定する｡
 第3オペランドがtableへのアクセスに使う値を決めるものであり､負のときは定数リストの&lt;code&gt;第3オペランド * -1 - 1&lt;/code&gt;番目のキーを使う｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;LOADK&lt;/code&gt;で定数リストから&lt;code&gt;&quot;Hello&quot;&lt;/code&gt;を取り出し､レジスタ1に格納する｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;CALL&lt;/code&gt;で関数呼出しをおこなう｡
-&lt;label id=&quot;lopcodes.h&quot;&gt;&lt;/label&gt; &lt;a href=&quot;https://github.com/lua/lua/blob/v5-3-4/lopcodes.h&quot;&gt;命令の定義&lt;/a&gt;に書かれたコメントを見てみる｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;OP_CALL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/*  A B C  R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) */&lt;/span&gt;
+&lt;label id=&quot;lopcodes.h&quot;&gt;&lt;/label&gt;
+ &lt;a href=&quot;https://github.com/lua/lua/blob/v5-3-4/lopcodes.h&quot;&gt;命令の定義&lt;/a&gt;に書かれたコメントを見てみる｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;OP_CALL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/*  A B C  R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) */&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;分かる､分からない…｡
 レジスタAの関数にレジスタ(A + 1), …, レジスタ(A + B - 1)を渡して呼び出し､
 結果をレジスタA, …, レジスタ(A + C - 2)に格納する､という感じだな｡
@@ -1370,7 +1437,8 @@ ABC型の命令は各オペランドは8, 9, 9bit(ニーモニックは全部等
 今回は特になにもクロージングしてないですね｡
 5つ目の&lt;code&gt;CALL 2 2 0&lt;/code&gt;が&lt;code&gt;f&lt;/code&gt;の呼び出しになっている｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;CALL&lt;/code&gt; 振り返り&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;OP_CALL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/*  A B C  R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) */&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A+C-2は0ですが､一体なにがどうなって?
-&lt;a href=&quot;#fn2&quot;&gt;lopcode.h&lt;/a&gt;の下の方になんかかいてあるな｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;  Notes:
+&lt;a href=&quot;#fn2&quot;&gt;lopcode.h&lt;/a&gt;
+の下の方になんかかいてあるな｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;  Notes:
   (*) In OP_CALL, if (B == 0) then B = top. If (C == 0), then 'top' is
   set to last_result+1, so next open instruction (OP_CALL, OP_RETURN,
   OP_SETLIST) may use 'top'.
@@ -1447,10 +1515,14 @@ VM型インタプリタ面白いなと思った方は､ぜひこちらをご覧
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;してました｡&lt;/p&gt;&lt;h2 id=&quot;%E8%BF%BD%E8%A8%9820181018&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%BF%BD%E8%A8%9820181018&quot;&gt;追記20181018&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;もうはじまってる!!!&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://dragonuniversity.booth.pm/items/1055860&quot;&gt;https://dragonuniversity.booth.pm/items/1055860&lt;/a&gt;&lt;/p&gt;&lt;p&gt;追記おわり&lt;/p&gt;&lt;hr&gt;&lt;p&gt;さて､LaTeX文書からPDFを作成してpublishした人の多くはhyperrefパッケージを使っているかと思います｡
-hyperrefにはしおりを作る機能があります(図&lt;a href=&quot;#bookmarks&quot;&gt;1&lt;/a&gt;)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+hyperrefにはしおりを作る機能があります(図&lt;a href=&quot;#bookmarks&quot;&gt;1&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;bookmarks&quot;&gt;&lt;/label&gt;
-&lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/bookmarks.png&quot; alt=&quot;しおり&quot; title=&quot;しおり&quot;&gt;
-図&lt;a href=&quot;#bookmarks&quot;&gt;1&lt;/a&gt; evinceで正しく表示されるしおり
+
+&lt;p&gt;&lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/bookmarks.png&quot; alt=&quot;しおり&quot; title=&quot;しおり&quot;&gt;
+図&lt;a href=&quot;#bookmarks&quot;&gt;1&lt;/a&gt;
+ evinceで正しく表示されるしおり
+&lt;/p&gt;
 &lt;/center&gt;&lt;p&gt;今回我々はsubfilesで各々がファイルを書いてプロジェクトのルートのmain.texで各人のmainファイルを読むようにしました｡&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Nymphium/nymphium.github.io/tree/source/src/latex-subfiles&quot;&gt;src/latex-subfiles&lt;/a&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;.
 ├── authors
 │   ├── ore
@@ -1516,11 +1588,15 @@ hyperrefにはしおりを作る機能があります(図&lt;a href=&quot;#bookm
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;この辺は好みによる｡
 今回はltjsarticleの&lt;code&gt;\maketitle&lt;/code&gt;コマンドを改造している｡
 section等のカウンタを0で初期化しているのがミソで､これをしないと各記事のカウンタが連番になってしまう｡
-しかしそうするとしおりが壊れる(図&lt;a href=&quot;#brokenbm&quot;&gt;2&lt;/a&gt;)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+しかしそうするとしおりが壊れる(図&lt;a href=&quot;#brokenbm&quot;&gt;2&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;brokenbm&quot;&gt;&lt;/label&gt;
-記事&lt;code&gt;あああ&lt;/code&gt;のサブセクション位置に次の記事が来てしまっている｡
+
+&lt;p&gt;記事&lt;code&gt;あああ&lt;/code&gt;のサブセクション位置に次の記事が来てしまっている｡
 &lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/broken.png&quot; alt=&quot;壊れたしおり&quot; title=&quot;壊れたしおり&quot;&gt;
-図&lt;a href=&quot;#brokenbm&quot;&gt;2&lt;/a&gt; 壊れたしおり
+図&lt;a href=&quot;#brokenbm&quot;&gt;2&lt;/a&gt;
+ 壊れたしおり
+&lt;/p&gt;
 &lt;/center&gt;&lt;p&gt;hyperrefパッケージのオプションに&lt;code&gt;hypertexnames=false&lt;/code&gt;を渡すことで解決する｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;......
 &lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;[&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
   pdfencoding=auto&lt;span class=&quot;c&quot;&gt;% 文字化け防止&lt;/span&gt;
@@ -1529,9 +1605,13 @@ section等のカウンタを0で初期化しているのがミソで､これを
 ......
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;ok1&quot;&gt;&lt;/label&gt;
-&lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/ok1.png&quot; alt=&quot;ok1&quot; title=&quot;ok1&quot;&gt;
-図&lt;a href=&quot;#ok1&quot;&gt;3&lt;/a&gt; ok1
-&lt;/center&gt;&lt;p&gt;図&lt;a href=&quot;#bookmarks&quot;&gt;1&lt;/a&gt;のように記事名もしおりに入れたい｡
+
+&lt;p&gt;&lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/ok1.png&quot; alt=&quot;ok1&quot; title=&quot;ok1&quot;&gt;
+図&lt;a href=&quot;#ok1&quot;&gt;3&lt;/a&gt;
+ ok1
+&lt;/p&gt;
+&lt;/center&gt;&lt;p&gt;図&lt;a href=&quot;#bookmarks&quot;&gt;1&lt;/a&gt;
+のように記事名もしおりに入れたい｡
 記事名の子に各セクションが来てほしいので｡&lt;code&gt;\maketitle&lt;/code&gt;に手を加える｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;
 ......
 &lt;span class=&quot;k&quot;&gt;\renewcommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\maketitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;%&lt;/span&gt;
@@ -1545,8 +1625,11 @@ section等のカウンタを0で初期化しているのがミソで､これを
 目次はchapterよりもpartのほうが見栄えが良かったのでpartにした｡&lt;/p&gt;&lt;p&gt;そしてまた壊れる｡壊れるなぁ…｡
 &lt;/p&gt;&lt;center&gt;
 &lt;label id=&quot;broken2&quot;&gt;&lt;/label&gt;
-&lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/broken2.png&quot; alt=&quot;broken2&quot; title=&quot;broken2&quot;&gt;
-図&lt;a href=&quot;#broken2&quot;&gt;4&lt;/a&gt; こわれる
+
+&lt;p&gt;&lt;img src=&quot;/pictures/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F%EF%BD%A4%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99/broken2.png&quot; alt=&quot;broken2&quot; title=&quot;broken2&quot;&gt;
+図&lt;a href=&quot;#broken2&quot;&gt;4&lt;/a&gt;
+ こわれる
+&lt;/p&gt;
 &lt;/center&gt;&lt;p&gt;ここでおもむろに&lt;code&gt;\phantomsection&lt;/code&gt;を挿入する｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
   &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://tex.stackexchange.com/questions/44088/when-do-i-need-to-invoke-phantomsection&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://cdn.sstatic.net/Sites/tex/img/apple-touch-icon@2.png?v=eaf26b461720&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
@@ -1562,7 +1645,8 @@ section等のカウンタを0で初期化しているのがミソで､これを
   &lt;span class=&quot;k&quot;&gt;\newpage\null&lt;/span&gt;
 ......
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これでやっと図&lt;a href=&quot;#bookmarks&quot;&gt;1&lt;/a&gt;のようになった｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;ということでpdf版制作にもワザがありました｡
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これでやっと図&lt;a href=&quot;#bookmarks&quot;&gt;1&lt;/a&gt;
+のようになった｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;ということでpdf版制作にもワザがありました｡
 表紙の&quot;interpr &lt;em&gt;i&lt;/em&gt; ter&quot;も修正されていると思いますので､近々出るpdf版もよろしくおねがいします｡&lt;/p&gt;</description>
         <pubDate>Wed, 17 Oct 2018 00:00:00 +0900</pubDate>
         <link>https://nymphium.github.io/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F-%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99.html</link>
@@ -1735,7 +1819,8 @@ Scalaを使っているサーバーサイドはだいたい実装ができてい
 いや研究してますんで! いや〜研究もそんなにしてないな…じゃあ何を…&lt;/p&gt;&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Algebraic effectsとは､2001年くらいに提唱されてから､爆流行らずともにわかに盛り上がりを見せつつある言語機能である｡
 極めて雑に説明すると､&lt;em&gt;継続を取ってこれる例外&lt;/em&gt;である｡
 Plotkin氏(またお前か)が代数学的アプローチによる基盤を作り､そこにハンドラが付いてプログラム言語の機能として考えられるようになった｡
-ボクの話のうち1〜10割間違っていることは確かなので､誤った情報を一切入れたくない人は&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title='Matija Prentar. &quot;An Introduction to Algebraic Effects and Handlers.” Electronic Notes in Theoretical Computer Science 319. 2015. ' id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;を読んでください｡&lt;/p&gt;&lt;h2 id=&quot;1-1.+algebraic+effects%E5%AE%9F%E8%A3%85%E3%81%AE%E6%9C%89%E5%90%8D%E3%81%A9%E3%81%93%E3%82%8D&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1-1.+algebraic+effects%E5%AE%9F%E8%A3%85%E3%81%AE%E6%9C%89%E5%90%8D%E3%81%A9%E3%81%93%E3%82%8D&quot;&gt;1-1. algebraic effects実装の有名どころ&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+ボクの話のうち1〜10割間違っていることは確かなので､誤った情報を一切入れたくない人は&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title='Matija Prentar. &quot;An Introduction to Algebraic Effects and Handlers.” Electronic Notes in Theoretical Computer Science 319. 2015. ' id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
+を読んでください｡&lt;/p&gt;&lt;h2 id=&quot;1-1.+algebraic+effects%E5%AE%9F%E8%A3%85%E3%81%AE%E6%9C%89%E5%90%8D%E3%81%A9%E3%81%93%E3%82%8D&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1-1.+algebraic+effects%E5%AE%9F%E8%A3%85%E3%81%AE%E6%9C%89%E5%90%8D%E3%81%A9%E3%81%93%E3%82%8D&quot;&gt;1-1. algebraic effects実装の有名どころ&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.eff-lang.org/&quot;&gt;Eff&lt;/a&gt;&lt;/p&gt;
 
@@ -1818,15 +1903,20 @@ continuationがoneshotとなっており､明示的にクローンしないと2
 ここでHaskellerは｢Freeモナドやんけ!｣となるらしいですがボクはHaskellをやっていってないのでわかりませんでした｡
 型だけ定義して､interpretationはユーザに任せるということなので確かに同じようだ｡
 そもそもalgebraic effectの&lt;em&gt;algebraic&lt;/em&gt;は&quot;free &lt;em&gt;algebra&lt;/em&gt;“から来てるそう&lt;sup id=&quot;fnref3&quot; title=&quot;Andrej Bauer. “What is algebraic about algebraic effects and handlers?.” eprint arXiv:1807.05923. 2018. &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;なので､袂を分かつ存在である｡
-実際&lt;a href=&quot;#effinterp&quot;&gt;Effインタプリタ&lt;/a&gt;はFreeモナドを使って実装しているようだ｡&lt;/p&gt;&lt;p&gt;そしていろんなeffectsをいっぺんにハンドルするぜ!&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;
+実際&lt;a href=&quot;#effinterp&quot;&gt;Effインタプリタ&lt;/a&gt;
+はFreeモナドを使って実装しているようだ｡&lt;/p&gt;&lt;p&gt;そしていろんなeffectsをいっぺんにハンドルするぜ!&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;
   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;手軽だ｡
-HaskellではFreeモナドを発展させたextensible effects&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;快速のExtensible effects  – モナドとわたしとコモナド https://fumieval.hatenablog.com/entry/2017/08/02/230422 &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot; title=&quot;Oleg Kiselyov, Amr Sabry, Cameron Swords. “Extensible Effeects: An Alternative to Monad Transformers.” ACM SIGPLAN Notices. Vol. 48. No. 12. ACM, 2013. &quot; id=&quot;fnref5&quot;&gt;5&lt;/a&gt;]&lt;/span&gt;といったものが流行っているそうで､
+HaskellではFreeモナドを発展させたextensible effects&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;快速のExtensible effects  – モナドとわたしとコモナド https://fumieval.hatenablog.com/entry/2017/08/02/230422 &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot; title=&quot;Oleg Kiselyov, Amr Sabry, Cameron Swords. “Extensible Effeects: An Alternative to Monad Transformers.” ACM SIGPLAN Notices. Vol. 48. No. 12. ACM, 2013. &quot; id=&quot;fnref5&quot;&gt;5&lt;/a&gt;]&lt;/span&gt;
+といったものが流行っているそうで､
 確かにモナドトランスフォーマーガン積みして爆重になるという困難から抜け出せるらしい｡&lt;/p&gt;&lt;h1 id=&quot;3.+%E5%BF%9C%E7%94%A8&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+%E5%BF%9C%E7%94%A8&quot;&gt;3. 応用&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;delimited continuationが扱えるうえにCPS的な書き方ではなくdirect-styleで記述できるため､
 syntacticにきれいに､バグらず簡単に書ける､というありがたみがある｡
-ボクの語彙が少ないので詳細は文献&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn6&quot; rel=&quot;footnote&quot; title=&quot;Anderj Bauer, Matija Prentar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming, 84(1), pp.108-123. &quot; id=&quot;fnref6&quot;&gt;6&lt;/a&gt;]&lt;/span&gt;&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot; title=&quot;Dolan, Stephen, Spiros Eliopoulos, Daniel Hillerström, Anil Madhavapeddy, K. C. Sivaramakrishnan, Leo White. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming, pp. 98-117. Springer, Cham, 2017. &quot; id=&quot;fnref7&quot;&gt;7&lt;/a&gt;]&lt;/span&gt;を読んでください｡&lt;/p&gt;&lt;h1 id=&quot;4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;4. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;また情報量が0になってしまった……!!!&lt;/p&gt;&lt;h1 id=&quot;%E8%BF%BD%E8%A8%9820181030&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%BF%BD%E8%A8%9820181030&quot;&gt;追記20181030&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ReactにHooksという機能が追加されたがこれはまさにAlgebraic Effectsということで､ReactはさておきAlgebraic Effectsに関してもう少し実例を交えて詳しいものをQiitaに発射した｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+ボクの語彙が少ないので詳細は文献&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn6&quot; rel=&quot;footnote&quot; title=&quot;Anderj Bauer, Matija Prentar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming, 84(1), pp.108-123. &quot; id=&quot;fnref6&quot;&gt;6&lt;/a&gt;]&lt;/span&gt;
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot; title=&quot;Dolan, Stephen, Spiros Eliopoulos, Daniel Hillerström, Anil Madhavapeddy, K. C. Sivaramakrishnan, Leo White. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming, pp. 98-117. Springer, Cham, 2017. &quot; id=&quot;fnref7&quot;&gt;7&lt;/a&gt;]&lt;/span&gt;
+を読んでください｡&lt;/p&gt;&lt;h1 id=&quot;4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;4. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;また情報量が0になってしまった……!!!&lt;/p&gt;&lt;h1 id=&quot;%E8%BF%BD%E8%A8%9820181030&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%BF%BD%E8%A8%9820181030&quot;&gt;追記20181030&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ReactにHooksという機能が追加されたがこれはまさにAlgebraic Effectsということで､ReactはさておきAlgebraic Effectsに関してもう少し実例を交えて詳しいものをQiitaに発射した｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
   &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://cdn.qiita.com/assets/qiita-fb-2887e7b4aad86fd8c25cea84846f2236.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました! - Qiita&lt;/a&gt;&lt;/div&gt;

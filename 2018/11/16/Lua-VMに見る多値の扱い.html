@@ -99,8 +99,7 @@ document.addEventListener("DOMContentLoaded", function(){
   </span>
 </div>
 <p>なるほど｡こちらも見ておこう｡
-<label id="kochira"></label>
-</p>
+<label id="kochira"></label></p>
 <div class="twicard">
   <span class="image"><a href="http://bleis-tift.hatenablog.com/entry/go-the-bad-parts" target="_blank" rel="noopener noreferrer"><div><img src="https://cdn.blog.st-hatena.com/images/theme/og-image-1500.png"></div></a></span>
   <span class="txt">
@@ -132,6 +131,7 @@ luacはLuaをLua VMバイトコードにコンパイルしてくれるすごい�
 </div>
 <p>よくあるやつですね｡
 Luaで書くとこうなる｡</p>
+<p><label id="minmax"></label></p>
 <div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">minmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
   <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="k">then</span>
     <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
@@ -171,7 +171,8 @@ call by valueなので虚空に消えても値なので特に問題ありませ�
 </code></pre></div>
 <p>問題ないね｡</p>
 <h2 id="2-1.+%E2%80%9C%E5%A4%9A%E5%80%A4%E3%81%A3%E3%81%BD%E3%81%84%E6%A7%8B%E6%96%87%E3%81%AA%E3%81%AE%E3%81%AB%E5%A4%9A%E5%80%A4%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%84%E6%A9%9F%E8%83%BD%22%E3%81%AFLua%E3%81%AB%E3%81%AF%E7%84%A1%E3%81%84%E3%81%9C"><a class="headerlink" href="#2-1.+%E2%80%9C%E5%A4%9A%E5%80%A4%E3%81%A3%E3%81%BD%E3%81%84%E6%A7%8B%E6%96%87%E3%81%AA%E3%81%AE%E3%81%AB%E5%A4%9A%E5%80%A4%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%84%E6%A9%9F%E8%83%BD%22%E3%81%AFLua%E3%81%AB%E3%81%AF%E7%84%A1%E3%81%84%E3%81%9C">2-1. “多値っぽい構文なのに多値ではない機能"はLuaには無いぜ</a></h2>
-<p><a href="#kochira">1.1</a>では "多値っぽい構文なのに多値ではない機能"としてfor rangeが例に出されています｡</p>
+<p><a href="#kochira">1.1</a>
+では "多値っぽい構文なのに多値ではない機能"としてfor rangeが例に出されています｡</p>
 <div class="highlight">
 <span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="n">ys</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="x"> </span><span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span><span class="x">
 </span><span class="k">for</span><span class="x"> </span><span class="n">i</span><span class="p">,</span><span class="x"> </span><span class="n">x</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="k">range</span><span class="x"> </span><span class="n">xs</span><span class="x"> </span><span class="p">{</span><span class="x">
@@ -425,7 +426,8 @@ Lua VMは三番地コードを採用している｡
 第3オペランドがtableへのアクセスに使う値を決めるものであり､負のときは定数リストの<code>第3オペランド * -1 - 1</code>番目のキーを使う｡</p>
 <p><code>LOADK</code>で定数リストから<code>"Hello"</code>を取り出し､レジスタ1に格納する｡</p>
 <p><code>CALL</code>で関数呼出しをおこなう｡
-<label id="lopcodes.h"></label> <a href="https://github.com/lua/lua/blob/v5-3-4/lopcodes.h" target="_blank" rel="noopener noreferrer">命令の定義</a>に書かれたコメントを見てみる｡</p>
+<label id="lopcodes.h"></label>
+ <a href="https://github.com/lua/lua/blob/v5-3-4/lopcodes.h" target="_blank" rel="noopener noreferrer">命令の定義</a>に書かれたコメントを見てみる｡</p>
 <div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">OP_CALL</span><span class="p">,</span><span class="cm">/*  A B C  R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) */</span>
 </code></pre></div>
 <p>分かる､分からない…｡
@@ -569,7 +571,8 @@ ABC型の命令は各オペランドは8, 9, 9bit(ニーモニックは全部等
 <div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">OP_CALL</span><span class="p">,</span><span class="cm">/*  A B C  R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) */</span>
 </code></pre></div>
 <p>A+C-2は0ですが､一体なにがどうなって?
-<a href="#fn2">lopcode.h</a>の下の方になんかかいてあるな｡</p>
+<a href="#fn2">lopcode.h</a>
+の下の方になんかかいてあるな｡</p>
 <div class="highlight"><pre><code class="language-" data-lang="">  Notes:
   (*) In OP_CALL, if (B == 0) then B = top. If (C == 0), then 'top' is
   set to last_result+1, so next open instruction (OP_CALL, OP_RETURN,

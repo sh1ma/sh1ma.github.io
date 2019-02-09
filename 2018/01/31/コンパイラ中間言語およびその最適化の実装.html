@@ -101,10 +101,14 @@ document.addEventListener("DOMContentLoaded", function(){
 継続の緑の本をもじったタイトルですが､CPSと直接戦っている感じではないです｡
 join pointと呼ばれるものを明示的に扱うことでコードサイズの爆発を抑えたり高速に動作するターゲット言語に変換しようという試みです｡</p>
 <h2 id="2-1.+join+point%E3%81%A8%E3%81%AF"><a class="headerlink" href="#2-1.+join+point%E3%81%A8%E3%81%AF">2-1. join pointとは</a></h2>
-<p>プログラム<a href="#joinpoint-example">2.1</a>における分岐した制御フローが合流する場所をjoin pointと呼ぶ｡
-あるいは制御フローグラフ<a href="#cfg">2.2</a>の赤点で囲んだ部分｡</p>
+<p>プログラム<a href="#joinpoint-example">2.1</a>
+における分岐した制御フローが合流する場所をjoin pointと呼ぶ｡
+あるいは制御フローグラフ<a href="#cfg">2.2</a>
+の赤点で囲んだ部分｡</p>
+<p><label id="joinpoint-example"></label></p>
 <div class="highlight">
-<span class="listing-name">プログラム<a href="#joinpoint-example">2.1</a> join point example</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">j4</span> <span class="n">x</span> <span class="o">=</span> <span class="n">e4</span> <span class="k">in</span> <span class="k">let</span> <span class="n">j5</span> <span class="n">y</span> <span class="o">=</span> <span class="n">e5</span> <span class="k">in</span>
+<span class="listing-name">プログラム<a href="#joinpoint-example">2.1</a>
+ join point example</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">j4</span> <span class="n">x</span> <span class="o">=</span> <span class="n">e4</span> <span class="k">in</span> <span class="k">let</span> <span class="n">j5</span> <span class="n">y</span> <span class="o">=</span> <span class="n">e5</span> <span class="k">in</span>
   <span class="k">if</span> <span class="n">e1</span> <span class="k">then</span> <span class="p">(</span><span class="k">if</span> <span class="n">e2</span> <span class="k">then</span> <span class="n">j4</span> <span class="n">m</span> <span class="k">else</span> <span class="n">j5</span> <span class="n">n</span>
   <span class="k">else</span> <span class="p">(</span><span class="k">if</span> <span class="n">e3</span> <span class="k">then</span> <span class="n">j4</span> <span class="n">o</span> <span class="k">else</span> <span class="n">j5</span> <span class="n">p</span><span class="p">)</span>
 </code></pre>
@@ -113,7 +117,10 @@ join pointと呼ばれるものを明示的に扱うことでコードサイズ�
 <center>
 <img src="/pictures/2018-01-31-%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E4%B8%AD%E9%96%93%E8%A8%80%E8%AA%9E%E3%81%8A%E3%82%88%E3%81%B3%E3%81%9D%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AE%E5%AE%9F%E8%A3%85/cfg.png" alt="cfg.png">
 <label id="cfg"></label>
-図<a href="#cfg">2.2</a> 制御フローグラフ
+
+<p>図<a href="#cfg">2.2</a>
+ 制御フローグラフ
+</p>
 </center>
 <p>CPSでは継続になるし､ANFではコード複製で表現することになる｡
 ここで最適化するとコードサイズがボワーっとなってしまう｡
