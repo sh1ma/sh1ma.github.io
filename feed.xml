@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 28 Mar 2019 23:14:06 +0900</pubDate>
-    <lastBuildDate>Thu, 28 Mar 2019 23:14:06 +0900</lastBuildDate>
+    <pubDate>Sun, 26 May 2019 04:52:33 +0900</pubDate>
+    <lastBuildDate>Sun, 26 May 2019 04:52:33 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -18,12 +18,16 @@
   &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://connpass.com/event/124786/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://connpass.com/static/img/468_468.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://connpass.com/event/124786/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;effect system勉強会 (2019/05/26 13:00〜)&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;# 概要  プログラム言語の新たな機能として注目されつつあるalgebraic effectsや､モナド変換子に代わる新たなモナドの合成手法であるextensible effectsなど､近年動きが活発なeffect systemに関する勉強会です｡  代数､圏論などといった基礎的な部分から､プロダクト開発における利用のような応用まで幅広い内容を受け付けています｡  ## 発表    * 先着順で発表者を募集しています｡発表枠とLT枠の2つがあります      * 発表枠  一人持ち時間30分(発表20分､質問10分を目安)でお願いします      * LT枠  一人持ち時間10分(発表…&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;## 会場の入館について  入館方法についてはこちらをご確認ください｡ 入館IDについてはメッセージを送ってあるのでそちっらをご確認ください｡  ## タイムテーブル  時間 | 発表者 | タイトル   —|—|—   12:45~ | - | 開場   13:00~13:10 | びしょ〜じょ | 諸注意など   13:10~13:40 | halcat0x15a | Extensible Eff Applicative   13:40~13:50 | fumieval | (LT) 名前付きeffects   13:50~14:00 | - | 休憩 (10分)   1…&lt;/div&gt;
   &lt;/span&gt;
 &lt;/div&gt;&lt;p&gt;おかげさまで一般枠はいっぱいですが､発表､LT枠が余ってますので発表していただける方お待ちしております｡&lt;/p&gt;&lt;p&gt;さて､今湘南でalgebraic effectsに関するなんやかがおこなわれているわけですが､
-&lt;/p&gt;&lt;center&gt;
-  &lt;a href=&quot;http://shonan.nii.ac.jp/shonan/blog/2018/05/07/no-146-programming-and-reasoning-with-algebraic-effects-and-effect-handlers/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;No.146 Programming and Reasoning with Algebraic Effects and Effect Handlers – Shonan Meeting&lt;/a&gt;
-&lt;/center&gt;&lt;p&gt;Organizersの一人のOleg Kiselyovさんが上記の勉強会を発見して私ほか数名に連絡をくださいました｡
+&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;http://shonan.nii.ac.jp/shonan/blog/2018/05/07/no-146-programming-and-reasoning-with-algebraic-effects-and-effect-handlers/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://shonan.nii.ac.jp/_libs/images/common/ogp.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;http://shonan.nii.ac.jp/shonan/blog/2018/05/07/no-146-programming-and-reasoning-with-algebraic-effects-and-effect-handlers/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;No.146 Programming and Reasoning with Algebraic Effects and Effect Handlers | SeminarsNII Shonan Meeting&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;Organizersの一人のOleg Kiselyovさんが上記の勉強会を発見して私ほか数名に連絡をくださいました｡
 曰く､湘南ミーティングの後にもGordon Plotkin先生がしばらく日本にいらっしゃるので講演をしていただける可能性がある､とのことでした｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
 え?!
 &lt;/center&gt;&lt;p&gt;Gordon Plotkin先生､なんか知ってる名前ですね…｡
@@ -36,7 +40,7 @@ algebraic effectsの最初の論文&lt;span class=&quot;cite&quot;&gt;[&lt;a hre
   &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://connpass.com/event/125885/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://connpass.com/static/img/468_468.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://connpass.com/event/125885/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Gordon Plotkin先生に学ぶAlgebraic Effect (2019/03/30 14:00〜)&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;Algebraic Effectの提唱者であるGordon Plotkinさんが来日されており、Oleg Kiselyovさんの案内の下、講演をいただく機会が得られました。 少し急ではありますがPlotkin先生、Oleg先生を囲みAlgebraic Effectについて学びましょう。 また勉強会の後にPlotkin先生とともに食事に向かう予定です。熱い議論を交わしましょう。  時間 | 内容   —|—   14:00-15:00 | Gordon Plotkinさん講演   15:00-15:15 | 休憩   15:15-16:15 | Oleg Kiselyovさん講演 …&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;Algebraic Effectの提唱者であるGordon Plotkinさんが来日されており、Oleg Kiselyovさんの案内の下、講演をいただく機会が得られました。 少し急ではありますがPlotkin先生、Oleg先生を囲みAlgebraic Effectについて学びましょう。 また勉強会の後にPlotkin先生とともに食事に向かう予定です。熱い議論を交わしましょう。  時間 | 内容   —|—   13:30-14:00 | 開場   14:00-15:30 | Gordon Plotkinさん講演   15:30-15:40 | 休憩   15:40-16:40 |…&lt;/div&gt;
   &lt;/span&gt;
 &lt;/div&gt;&lt;p&gt;今日が3月28でこの会合が3月30日なんでだいぶ急ですが貴重な機会なので是非ご参加ください｡
 また､声をかけてくださったOlegさん､connpassでイベント作成したり会場をとったりしてくださったκeenさん重ねてありがとうございます｡&lt;/p&gt;&lt;p&gt;なんだか日本でalgebraic effectsがにわかに流行りそうで良いですね｡
@@ -401,7 +405,7 @@ d
 小さくなるよう努力したものの､依然としてゴタゴタしているのはひとえに筆者の力不足である｡&lt;/p&gt;&lt;p&gt;ところで上記のプログラムは書けるのだろうか?
 &lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;mutual referring(なんて言うのか?) objectをmutual recursionでなんとかできる? できない? 今の脳の稼働率ではわからん｡&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1070882855582986241?ref_src=twsrc%5Etfw&quot;&gt;December 7, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;mutual referring(なんて言うのか?) objectをmutual recursionでなんとかできる? できない? 今の脳の稼働率ではわからん｡&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1070882855582986241?ref_src=twsrc%5Etfw&quot;&gt;December 7, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;変換のターゲットとしてコルーチンが出てくるため､上記のようなプログラムは\(\lambda_{\text{\textit{cor}}}\)では書けなくても問題はないので問題ない｡&lt;/p&gt;&lt;h2 id=&quot;3-3.+asymmetric+coroutines+and+oneshot+continuation&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-3.+asymmetric+coroutines+and+oneshot+continuation&quot;&gt;3-3. asymmetric coroutines and oneshot continuation&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Asymmetric coroutinesは強力なコントロールオペレータであり､まずsymmetric coroutinesを模倣することができ､のみならずcall/1ccもasymmetric coroutinesにより実装することができる&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref7&quot;&gt;7&lt;/a&gt;]&lt;/span&gt;
@@ -473,7 +477,7 @@ SyntaxError: Unexpected identifier
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;筆者の推理としては､(おそらく)asymmetric coroutinesをCPSで表現するのは難しいが､
 JSのgeneratorなら多分CPS変換できるので､babelなどによるES2015以前のJSへのコンパイルが可能になるからではないかと考えられる｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;JSのgeneratorってそうかyieldをgnerator関数の直下にしかかけないから継続の実行がワンショットのCPSに変換できるんだな。babel的な理由でcoroutineにしなかったんだろうか。&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1069176528032849923?ref_src=twsrc%5Etfw&quot;&gt;December 2, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;JSのgeneratorってそうかyieldをgnerator関数の直下にしかかけないから継続の実行がワンショットのCPSに変換できるんだな。babel的な理由でcoroutineにしなかったんだろうか。&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1069176528032849923?ref_src=twsrc%5Etfw&quot;&gt;December 2, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;ところで､generatorも(おそらく)状態を複製する操作が用意されてないので､変換先のCPSの継続はワンショットになるはずである｡&lt;/p&gt;&lt;h1 id=&quot;4.+oneshot+algebraic+effects+%E2%86%92+asymmetric+coroutines&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+oneshot+algebraic+effects+%E2%86%92+asymmetric+coroutines&quot;&gt;4. oneshot algebraic effects → asymmetric coroutines&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Core Effから\(\lambda_{\text{\textit{cor}}}\)への変換､つまり言語Aから言語Bへの変換なのでコンパイルですね｡本稿の変換の実装はすなわちコンパイラになります｡
@@ -922,7 +926,7 @@ Luaは残念ながら型のない世界なのでなんでもアリである｡&l
   &lt;/span&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;寝ぼけてLily58ポチってしまった｡&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1063171636998754304?ref_src=twsrc%5Etfw&quot;&gt;November 15, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;寝ぼけてLily58ポチってしまった｡&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1063171636998754304?ref_src=twsrc%5Etfw&quot;&gt;November 15, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;h1 id=&quot;%E6%9D%90%E6%96%99%E3%81%82%E3%81%A4%E3%82%81&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E6%9D%90%E6%96%99%E3%81%82%E3%81%A4%E3%82%81&quot;&gt;材料あつめ&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;上記のセットに加え､キースイッチとキーキャップを58個(とUSBケーブルとTRSケーブルを)揃える必要があります｡&lt;/p&gt;&lt;p&gt;WORD編集部室には3x3で全色異なるキースイッチのサンプルがあるので､お手元が寂しくなるとつい手を動かしてしまうW部員達には重宝されている｡
@@ -936,7 +940,7 @@ Luaは残念ながら型のない世界なのでなんでもアリである｡&l
   &lt;/span&gt;
 &lt;/div&gt;&lt;p&gt;カチカチとクリック感があり､青軸のようにうるさいのでパソコンカタカタオタク演ってる感がでて良いかな〜というのが選定理由だ｡&lt;/p&gt;&lt;h1 id=&quot;%E4%BD%9C%E3%82%8B&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E4%BD%9C%E3%82%8B&quot;&gt;作る&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;3月の引越しにつき祖父からもらったり実家からパチってきた激古はんだごてを全部捨ててしまったため､部員の&lt;a href=&quot;https://twitter.com/rizaudo&quot;&gt;@rizaudo&lt;/a&gt;氏にはんだごてを借り､ついでに編集部室で作業をおこなう｡&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/kata0510/Lily58/blob/master/doc/buildguide_jp.md&quot;&gt;ビルドガイド&lt;/a&gt;にしたがって作っていく｡&lt;/p&gt;&lt;h2 id=&quot;pro+micro%E4%BA%8B%E4%BB%B61&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#pro+micro%E4%BA%8B%E4%BB%B61&quot;&gt;pro micro事件1&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;が…&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;前回までのラブライブ！ 逆に取り付けたので半田吸い取り機を使おうとするも半壊しているのでトーストでハンダを溶かそうとするもまたもや失敗。 &lt;a href=&quot;https://t.co/cww2frd9vB&quot;&gt;pic.twitter.com/cww2frd9vB&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1064870457642442752?ref_src=twsrc%5Etfw&quot;&gt;November 20, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;前回までのラブライブ！ 逆に取り付けたので半田吸い取り機を使おうとするも半壊しているのでトーストでハンダを溶かそうとするもまたもや失敗。 &lt;a href=&quot;https://t.co/cww2frd9vB&quot;&gt;pic.twitter.com/cww2frd9vB&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1064870457642442752?ref_src=twsrc%5Etfw&quot;&gt;November 20, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;ヘ タ ク ソ&lt;sup id=&quot;fnref1&quot; title=&quot;ビルドガイドがボクの失敗を見たためかどうか､失敗したポイントについて丁寧な解説が加えられている｡みなさんは私の屍を超えて失敗レスに作ることができます｡ &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;&lt;p&gt;トーストによるハンダクラックは無事失敗｡
@@ -944,7 +948,7 @@ Luaは残念ながら型のない世界なのでなんでもアリである｡&l
 rizaudo氏や部室を常時警備している&lt;a href=&quot;https://twitter.com/akkkix&quot;&gt;@akkkix&lt;/a&gt;氏の協力のもとハンダを吸いまくるも取れる気配がない｡
 &lt;a href=&quot;https://twitter.com/NTSC_J&quot;&gt;@NTSC_J&lt;/a&gt;氏にも部室にあるものよりも使えるハンダ吸い取り器を持ってきてもらい､交代しながらハンダを吸っていく｡&lt;/p&gt;&lt;p&gt;日が変わり､そして―&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;100年プロジェクトが完成した。 &lt;a href=&quot;https://t.co/dFbRgmX33e&quot;&gt;pic.twitter.com/dFbRgmX33e&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1064957919215538177?ref_src=twsrc%5Etfw&quot;&gt;November 20, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;100年プロジェクトが完成した。 &lt;a href=&quot;https://t.co/dFbRgmX33e&quot;&gt;pic.twitter.com/dFbRgmX33e&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1064957919215538177?ref_src=twsrc%5Etfw&quot;&gt;November 20, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;およそ5時間経過し､pro microを取り出すことに成功した｡
@@ -964,22 +968,22 @@ pro microを使う他の自作キーボードを作ってるブログなどを�
 &lt;p&gt;&lt;/p&gt;
 &lt;/center&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;pro micro救出に成功 &lt;a href=&quot;https://t.co/h3GMcZt1NU&quot;&gt;pic.twitter.com/h3GMcZt1NU&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065120644726054912?ref_src=twsrc%5Etfw&quot;&gt;November 21, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;pro micro救出に成功 &lt;a href=&quot;https://t.co/h3GMcZt1NU&quot;&gt;pic.twitter.com/h3GMcZt1NU&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065120644726054912?ref_src=twsrc%5Etfw&quot;&gt;November 21, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;pro microを救いきれなかったので破棄そして新しいのを注文して明日再開…｡&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065133627883708417?ref_src=twsrc%5Etfw&quot;&gt;November 21, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;pro microを救いきれなかったので破棄そして新しいのを注文して明日再開…｡&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065133627883708417?ref_src=twsrc%5Etfw&quot;&gt;November 21, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;オワッ…&lt;/p&gt;&lt;p&gt;仕方がないのでハードウェア的に問題ない半分を完成させた｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;半分完成!!!（16時間経過） &lt;a href=&quot;https://t.co/MUhWVl3TEv&quot;&gt;pic.twitter.com/MUhWVl3TEv&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065115902633365504?ref_src=twsrc%5Etfw&quot;&gt;November 21, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;半分完成!!!（16時間経過） &lt;a href=&quot;https://t.co/MUhWVl3TEv&quot;&gt;pic.twitter.com/MUhWVl3TEv&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065115902633365504?ref_src=twsrc%5Etfw&quot;&gt;November 21, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;早速&lt;a href=&quot;https://www.amazon.co.jp/gp/product/B01M6WULAO/&quot;&gt;代打&lt;/a&gt;を注文し､激戦の翌々日に届き､ネタが割れてしまえば爆速で完成｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;lily58、pro microを一つ失って完成…!!!! &lt;a href=&quot;https://t.co/ybr8uP24Lo&quot;&gt;pic.twitter.com/ybr8uP24Lo&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065851007630888960?ref_src=twsrc%5Etfw&quot;&gt;November 23, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;lily58、pro microを一つ失って完成…!!!! &lt;a href=&quot;https://t.co/ybr8uP24Lo&quot;&gt;pic.twitter.com/ybr8uP24Lo&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065851007630888960?ref_src=twsrc%5Etfw&quot;&gt;November 23, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;h2 id=&quot;tips&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#tips&quot;&gt;tips&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;ロープロファイルだとアクリル板を止めるネジの頭にキーキャップが当たるので､キーキャップをちょっと削る必要がある(図&lt;a href=&quot;#kezuri&quot;&gt;2&lt;/a&gt;
@@ -1560,14 +1564,14 @@ VM型インタプリタ面白いなと思った方は､ぜひこちらをご覧
         <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;&lt;p&gt;この度､『Dragon University 技術書典5』を手にとっていただいて誠にありがとうございました｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;70部弱売れたのでええ感じでした。ありがとうございました。 &lt;a href=&quot;https://t.co/dYxhhgDnnx&quot;&gt;pic.twitter.com/dYxhhgDnnx&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1049208145816350721?ref_src=twsrc%5Etfw&quot;&gt;October 8, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;70部弱売れたのでええ感じでした。ありがとうございました。 &lt;a href=&quot;https://t.co/dYxhhgDnnx&quot;&gt;pic.twitter.com/dYxhhgDnnx&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1049208145816350721?ref_src=twsrc%5Etfw&quot;&gt;October 8, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;“70部&lt;strong&gt;&lt;em&gt;弱&lt;/em&gt;&lt;/strong&gt;&quot;とありますが実際は&quot;70部&lt;strong&gt;&lt;em&gt;強&lt;/em&gt;&lt;/strong&gt;&quot;です｡
 重ねてありがとございました｡&lt;/p&gt;&lt;p&gt;さて､ここからが大事だ｡
 大事な話をする｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Dragon Universityは近々ダウンロード販売をやるようなのでお待ち下さい､物理媒体を購入した方はnページ目m行目s文字目～t文字などのパスフレーズを入力すると無料でゲットできるようにする(はず)&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1049334128800219137?ref_src=twsrc%5Etfw&quot;&gt;October 8, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Dragon Universityは近々ダウンロード販売をやるようなのでお待ち下さい､物理媒体を購入した方はnページ目m行目s文字目～t文字などのパスフレーズを入力すると無料でゲットできるようにする(はず)&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1049334128800219137?ref_src=twsrc%5Etfw&quot;&gt;October 8, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;してました｡&lt;/p&gt;&lt;h2 id=&quot;%E8%BF%BD%E8%A8%9820181018&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%BF%BD%E8%A8%9820181018&quot;&gt;追記20181018&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;もうはじまってる!!!&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://dragonuniversity.booth.pm/items/1055860&quot;&gt;https://dragonuniversity.booth.pm/items/1055860&lt;/a&gt;&lt;/p&gt;&lt;p&gt;追記おわり&lt;/p&gt;&lt;hr&gt;&lt;p&gt;さて､LaTeX文書からPDFを作成してpublishした人の多くはhyperrefパッケージを使っているかと思います｡
@@ -1724,22 +1728,22 @@ section等のカウンタを0で初期化しているのがミソで､これを
 モノレールの駅は面白かった｡
 &lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;阪大に接続しているためか、乗客の知能が高そう。 &lt;a href=&quot;https://t.co/Ydf49eB8Ap&quot;&gt;pic.twitter.com/Ydf49eB8Ap&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1034591116090257409?ref_src=twsrc%5Etfw&quot;&gt;August 28, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;阪大に接続しているためか、乗客の知能が高そう。 &lt;a href=&quot;https://t.co/Ydf49eB8Ap&quot;&gt;pic.twitter.com/Ydf49eB8Ap&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1034591116090257409?ref_src=twsrc%5Etfw&quot;&gt;August 28, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;内容を決めてから発表するまでが20日くらいだったのでまじで8月はオワッでした｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;終了条件未遂 &lt;a href=&quot;https://t.co/7JiPWsTLts&quot;&gt;pic.twitter.com/7JiPWsTLts&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1028466431069904897?ref_src=twsrc%5Etfw&quot;&gt;August 12, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;終了条件未遂 &lt;a href=&quot;https://t.co/7JiPWsTLts&quot;&gt;pic.twitter.com/7JiPWsTLts&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1028466431069904897?ref_src=twsrc%5Etfw&quot;&gt;August 12, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;und&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/%E4%BC%9A%E3%81%88%E3%82%8B%E3%83%9E%E3%82%B7%E3%83%BC%E3%83%8A%E3%83%AA%E3%83%BC%E3%81%A8%E3%82%82%E5%AD%90?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#会えるマシーナリーとも子&lt;/a&gt; &lt;a href=&quot;https://t.co/xxyK0jsmI4&quot;&gt;pic.twitter.com/xxyK0jsmI4&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1028521136387063809?ref_src=twsrc%5Etfw&quot;&gt;August 12, 2018&lt;/a&gt;
+&lt;p lang=&quot;und&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/%E4%BC%9A%E3%81%88%E3%82%8B%E3%83%9E%E3%82%B7%E3%83%BC%E3%83%8A%E3%83%AA%E3%83%BC%E3%81%A8%E3%82%82%E5%AD%90?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#会えるマシーナリーとも子&lt;/a&gt; &lt;a href=&quot;https://t.co/xxyK0jsmI4&quot;&gt;pic.twitter.com/xxyK0jsmI4&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1028521136387063809?ref_src=twsrc%5Etfw&quot;&gt;August 12, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;und&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/%E3%81%95%E3%81%BE%E3%81%96%E3%81%BE%E3%81%AA%E3%83%8A%E3%82%A4%E3%83%88?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#さまざまなナイト&lt;/a&gt; &lt;a href=&quot;https://t.co/nLV0ymb1D5&quot;&gt;pic.twitter.com/nLV0ymb1D5&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1030358939081175040?ref_src=twsrc%5Etfw&quot;&gt;August 17, 2018&lt;/a&gt;
+&lt;p lang=&quot;und&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/%E3%81%95%E3%81%BE%E3%81%96%E3%81%BE%E3%81%AA%E3%83%8A%E3%82%A4%E3%83%88?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#さまざまなナイト&lt;/a&gt; &lt;a href=&quot;https://t.co/nLV0ymb1D5&quot;&gt;pic.twitter.com/nLV0ymb1D5&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1030358939081175040?ref_src=twsrc%5Etfw&quot;&gt;August 17, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;途中でKoka言語の処理系Kokaのビルドシステムの改善をやってました｡&lt;/p&gt;&lt;div class=&quot;github-widget&quot; data-repo=&quot;koka-lang/koka&quot;&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/koka-lang/koka/pull/74&quot;&gt;buildable with stack ghc #74 - koka-lang/koka&lt;/a&gt;&lt;/p&gt;&lt;h1 id=&quot;ML+Day+%232%E3%81%A7%E7%99%BA%E8%A1%A8%E3%81%97%E3%81%9F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#ML+Day+%232%E3%81%A7%E7%99%BA%E8%A1%A8%E3%81%97%E3%81%9F&quot;&gt;ML Day #2で発表した&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;『Dive into algebraic effects』というタイトルで発表しました｡
@@ -1748,7 +1752,7 @@ section等のカウンタを0で初期化しているのがミソで､これを
 あと懇親会でいろいろ話せたのでよかった｡&lt;/p&gt;&lt;p&gt;このTシャツがウケたのでよかったです｡
 &lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Tシャツ入手しました。 &lt;a href=&quot;https://t.co/47Jyb7rHEg&quot;&gt;pic.twitter.com/47Jyb7rHEg&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/893078289710931968?ref_src=twsrc%5Etfw&quot;&gt;August 3, 2017&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Tシャツ入手しました。 &lt;a href=&quot;https://t.co/47Jyb7rHEg&quot;&gt;pic.twitter.com/47Jyb7rHEg&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/893078289710931968?ref_src=twsrc%5Etfw&quot;&gt;August 3, 2017&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;h1 id=&quot;HERP%E3%81%AB%E5%85%A5%E3%81%A3%E3%81%9F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#HERP%E3%81%AB%E5%85%A5%E3%81%A3%E3%81%9F&quot;&gt;HERPに入った&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;/2018/08/18/%E7%8F%BE%E5%9C%A8%E3%81%AE%E3%82%B9%E3%82%AD%E3%83%AB%E3%82%BB%E3%83%83%E3%83%88.html&quot;&gt;前回の記事&lt;/a&gt;でお仕事情報古事記を発射したところ､&lt;a href=&quot;https://twitter.com/hiroqn&quot;&gt;@hiroqn&lt;/a&gt;さんに声をかけていただいて&lt;a href=&quot;https://herp.co.jp/&quot;&gt;HERP&lt;/a&gt;に長期インターンとして雇われました｡
@@ -1789,7 +1793,7 @@ ASTからVM命令へのコンパイル規則がダラダラと書かれている
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
 こんなことがあったんや｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;先生にインターンに面接で落ちた話をしたら「君は自己アピールが下手だからね」と言われたので､自分のスキルセットをピタリと表す何かをそのうちまとめたいと思う｡でもまず､どこまでが自分でどこまでが自分じゃない…??&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1028226226274484225?ref_src=twsrc%5Etfw&quot;&gt;August 11, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;先生にインターンに面接で落ちた話をしたら「君は自己アピールが下手だからね」と言われたので､自分のスキルセットをピタリと表す何かをそのうちまとめたいと思う｡でもまず､どこまでが自分でどこまでが自分じゃない…??&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1028226226274484225?ref_src=twsrc%5Etfw&quot;&gt;August 11, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;非常に厳しいですね｡
@@ -1854,7 +1858,7 @@ Scalaを使っているサーバーサイドはだいたい実装ができてい
 この度は誠にありがとうございました｡
 リモートでOKということで家からでなくて最高です｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;ツイッで職を探したらHERPに拾われました。写真はブレた牛タンです。 &lt;a href=&quot;https://t.co/6WHdopXHLK&quot;&gt;pic.twitter.com/6WHdopXHLK&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ@書典け46 (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1047447450338742272?ref_src=twsrc%5Etfw&quot;&gt;October 3, 2018&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;ツイッで職を探したらHERPに拾われました。写真はブレた牛タンです。 &lt;a href=&quot;https://t.co/6WHdopXHLK&quot;&gt;pic.twitter.com/6WHdopXHLK&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1047447450338742272?ref_src=twsrc%5Etfw&quot;&gt;October 3, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;この牛タンは美味かった｡&lt;/p&gt;&lt;p&gt;2020年3月卒業後のお仕事はまだ探してますんでよろしくおねがいします｡&lt;/p&gt;&lt;p&gt;追記おわり&lt;/p&gt;&lt;hr&gt;</description>
