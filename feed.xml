@@ -5,9 +5,391 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 27 May 2019 14:15:22 +0900</pubDate>
-    <lastBuildDate>Mon, 27 May 2019 14:15:22 +0900</lastBuildDate>
+    <pubDate>Tue, 28 May 2019 04:08:57 +0900</pubDate>
+    <lastBuildDate>Tue, 28 May 2019 04:08:57 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>技術書典6に合同誌を出した; effect system勉強会をやった</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
+なんか最近時間なくないですか? モンスターをハントしてる場合ではないんですが…｡&lt;/p&gt;&lt;h1 id=&quot;%E6%8A%80%E8%A1%93%E6%9B%B8%E5%85%B86&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E6%8A%80%E8%A1%93%E6%9B%B8%E5%85%B86&quot;&gt;技術書典6&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;4月の話なんですが5月にやっていいですか｡やります｡
+典5に続いてDragon Universityやっていきました｡&lt;/p&gt;&lt;p&gt;首謀者の&lt;a href=&quot;https://twitter.com/rizaudo&quot;&gt;@rizaudo &lt;/a&gt;､&lt;a href=&quot;https://twitter.com/ntsc_j&quot;&gt;@ntsc_j &lt;/a&gt;や&lt;a href=&quot;https://twitter.com/xrekkusu&quot;&gt;@xrekkusu &lt;/a&gt;とだいたい似た面子で行った｡
+前回同様ぼちぼち売れたので打ち上げで無事生肉を焼く儀式を開くことができました｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Dragon Universityの売上を可視化してる様子を撮りました。 &lt;a href=&quot;https://t.co/YX1pLUet9n&quot;&gt;pic.twitter.com/YX1pLUet9n&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1119188965997678592?ref_src=twsrc%5Etfw&quot;&gt;April 19, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;p&gt;しかし前回と比べて売上はやや落ち込みました｡
+貴重なAI人材(AI人材ではない)rizaudo氏が今回はネットワークシミュレータの記事で挑んだためではないかと推察されます｡&lt;/p&gt;&lt;p&gt;『Let’s go Algebraic Effects and Handlers: from an introduction to advanced topics』というタイトルで書きましたが､3月はPPLに行ったり九州旅行に行ったりして気づけばギリギリになってしまいadvanced topicsに関してはちょっと物足りなくなってます｡
+他3記事も面白いのでそれで目をつぶってください｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://dragonuniversity.booth.pm/items/1317197&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://booth.pximg.net/c/620x620/a00fe615-aca9-4ac2-9e73-c117987944f4/i/1317197/bd45f811-5cda-44ff-addf-b6306223184d_base_resized.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://dragonuniversity.booth.pm/items/1317197&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Dragon University 2019.4(技術書典6) - Dragon University - BOOTH&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;Dragon Universityも今回で4回目、今回は人気のAlgebraic Effectsやスマートコントラクト・SGXに加えCORE(本当に人気か？)の各種解説記事が揃ってます！ 「Let’s go Algebraic Effects and Handlers: from an introduction to advanced topics」 「スマートコントラクトCTF入門」 「SGX-ROP 不完全解説」 「CORE で作るテストベッド」&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;h1 id=&quot;effect+system%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%92%E3%82%84%E3%81%A3%E3%81%9F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#effect+system%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%92%E3%82%84%E3%81%A3%E3%81%9F&quot;&gt;effect system勉強会をやった&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://nymphium.github.io/2019/03/28/%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%92%E9%96%8B%E5%82%AC%E3%81%97%E3%81%9F%E3%82%89big-name%E3%82%92%E5%8F%AC%E5%96%9A%E3%81%97%E3%81%A6%E3%81%97%E3%81%BE%E3%81%A3%E3%81%9F.html&quot;&gt;前回&lt;/a&gt;触れたとおり､来る5月26日に日本全国のeffect system researcherやuserが集うかもしれないeffect system勉強会がありました｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://connpass.com/event/124786/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://connpass.com/static/img/468_468.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://connpass.com/event/124786/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;effect system勉強会 (2019/05/26 13:00〜)&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;## 会場の入館について  入館方法についてはこちらをご確認ください｡ 入館IDについてはメッセージを送ってあるのでそちっらをご確認ください｡  ## タイムテーブル  時間 | 発表者 | タイトル   —|—|—   12:45~ | - | 開場   13:00~13:10 | びしょ〜じょ | 諸注意など   13:10~13:40 | halcat0x15a | Extensible Eff Applicative   13:40~13:50 | fumieval | (LT) 名前付きeffects   13:50~14:00 | - | 休憩 (10分)   1…&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;“日本全国のeffect system researcherやuserが集うかもしれない” なんて適当言いましたが､予想を上回る数の参加者に驚きました｡
+最初はマイナージャンルだし集まるのは高々20人くらいだろうと思ってたんですがなんかめちゃくちゃ人きた……｡&lt;/p&gt;&lt;p&gt;ボクが適当人間であることを知ってるので会場を積極的に用意してくれた &lt;a href=&quot;https://twitter.com/linerlock&quot;&gt;@linerlock &lt;/a&gt;センパイおよびサイボウズ株式会社様ありがとうございました｡
+カンファレンスルームは最大200人収容できるそうです｡あとパークがある｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;ピザを待っています &lt;a href=&quot;https://t.co/xcgMOjyPPk&quot;&gt;pic.twitter.com/xcgMOjyPPk&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1132562844807884800?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;p&gt;また､主催として同行していただいていろいろやっていただいた&lt;a href=&quot;https://twitter.com/ryotakameoka&quot;&gt;@ryotakameoka &lt;/a&gt;さん&lt;a href=&quot;https://twitter.com/hiroqn&quot;&gt;@hiroqn &lt;/a&gt;さんありがとうございました｡
+そして発表者の皆さんと参加者の皆さんも勉強会を盛り上げて頂いて大変ありがとうございました｡&lt;/p&gt;&lt;p&gt;発表は20分枠が私含め5人+10分枠が3人と､8人も集まりました｡effect systemというジャンルで8人集まるのはすごいと思いました｡&lt;/p&gt;&lt;p&gt;それでは発表を軽く見直してみましょう｡&lt;/p&gt;&lt;h2 id=&quot;Extensible+Eff+Applicative&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Extensible+Eff+Applicative&quot;&gt;Extensible Eff Applicative&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://twitter.com/halcat0x15a&quot;&gt;@halcat0x15a &lt;/a&gt;さんによる発表でした｡資料は&lt;a href=&quot;https://www.slideshare.net/SanshiroYoshida/extensible-eff-applicative&quot;&gt;こちら&lt;/a&gt;｡&lt;/p&gt;&lt;p&gt;Free ApplicativeをOpen UnionでEffのように複数の文脈をいちどきに扱えるように拡張するという内容でした｡
+皆さんへの課題として､簡潔なハンドラの定義と､データ構造をどうするかというものが与えられました｡&lt;/p&gt;&lt;p&gt;HaskellをモリモリやってないんでApplicativeにできてMonadにできないことがあるのは知らなかったデス｡
+モチベーションがわかりやすくて課題とそれに対する複数の解法とそれらの利点欠点がまとまっており非常にわかりやすかったです｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;そもそもApplicativeのトランスフォーマー（？）を考えたことがなかったな。 &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 吉村 優 / YOSHIMURA Yuu (@_yyu_) &lt;a href=&quot;https://twitter.com/_yyu_/status/1132501011866607618?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Monadだと後ろの計算は前の計算に依存してしまうので個別に実行できないけど、Applicativeだと依存関係がないので大丈夫なのか &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— でこれき (@dico_leque) &lt;a href=&quot;https://twitter.com/dico_leque/status/1132500764197236736?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; ありそうでなかなかなかったFree applicativeの紹介と、そのextensible化。途中の計算結果に依存しないという性質を利用してRPCなどの記述に使えそう&lt;/p&gt;— ふみ　🐦☀💧🌳 (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132501183875100672?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Free ApplicativeとFree Monadのliftを共通化するのは面白そうだ &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— ふみ　🐦☀💧🌳 (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132502512680833024?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;CiteSeerX — Algebraic Effects and Effect Handlers for Idioms and Arrows&lt;a href=&quot;https://t.co/jQp8jkVQid&quot;&gt;https://t.co/jQp8jkVQid&lt;/a&gt; みたいな話が来るかと思ったけどちがった（未読 &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— でこれき (@dico_leque) &lt;a href=&quot;https://twitter.com/dico_leque/status/1132503577019133953?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;h2 id=&quot;%E5%90%8D%E5%89%8D%E4%BB%98%E3%81%8Dextenslble+effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E5%90%8D%E5%89%8D%E4%BB%98%E3%81%8Dextenslble+effects&quot;&gt;名前付きextenslble effects&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;次は&lt;a href=&quot;https://twitter.com/fumieval&quot;&gt;@fumieval &lt;/a&gt;さんの発表でした｡資料は&lt;a href=&quot;https://shared-assets.adobe.com/link/a5ae0acd-4d78-4774-6590-2b6b79b5dcc1&quot;&gt;こちら&lt;/a&gt;｡
+イラレでスライド作っとる!!? すごい……｡&lt;/p&gt;&lt;p&gt;内容は､extensible effectsに名前をつけることで種々の問題を解決するというものでした｡
+モナトラの問題点とextensible effectsによる解決と､extensible effectsに残った問題点と名前付きextensible effectsによる解決と､うまく要点のまとまった発表でした｡&lt;/p&gt;&lt;p&gt;open unionをdictionaryにするのはなかなかおもしろいですね｡&lt;/p&gt;&lt;div style=&quot;font-size: 34pt;&quot;&gt;
+&lt;p&gt;今すぐダウンロー&lt;/p&gt;
+
+&lt;center&gt;
+  &lt;a href=&quot;http://hackage.haskell.org/package/extensible&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;http://hackage.haskell.org/package/extensible&lt;/a&gt;
+&lt;/center&gt;
+
+
+&lt;p&gt;ド&lt;/p&gt;
+&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://github.com/fumieval/extensible&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://avatars2.githubusercontent.com/u/761865?s=400&amp;amp;v=4&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://github.com/fumieval/extensible&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;fumieval/extensible&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;Extensible records, variants, structs, effects, tangles - fumieval/extensible&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;毎回思うけどイラレで発表資料作るの気合入っててすごい &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— Ryota Kameoka 𓆉 @ HERP, Inc. (@ryotakameoka) &lt;a href=&quot;https://twitter.com/ryotakameoka/status/1132504296530989056?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;extensible effectsの問題点: &lt;br&gt;* 型が推論されない&lt;br&gt;* 対応できない&lt;br&gt;* 再利用できない&lt;br&gt;&lt;br&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— κeen (@blackenedgold) &lt;a href=&quot;https://twitter.com/blackenedgold/status/1132504993011912704?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;型レベルリストを型レベルマップに変えるのか &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— でこれき (@dico_leque) &lt;a href=&quot;https://twitter.com/dico_leque/status/1132505654705283072?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;エフェクトをキーで指定できるの、本当に便利そう &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— ryna4c2e (@ryna4c2e) &lt;a href=&quot;https://twitter.com/ryna4c2e/status/1132505916241108992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;DataKind &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— ryna4c2e (@ryna4c2e) &lt;a href=&quot;https://twitter.com/ryna4c2e/status/1132506703084212224?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;名前は型レベル(DataKindsを使用)なのでstaticに作られる &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1132507189275348993?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;h2 id=&quot;Effect%7Bive%2Cful%7D+Cycle.js&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Effect%7Bive%2Cful%7D+Cycle.js&quot;&gt;Effect{ive,ful} Cycle.js&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;3番手は&lt;a href=&quot;https://twitter.com/ryotakameoka&quot;&gt;@ryotakameoka &lt;/a&gt;さんの発表でした｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://qiita.com/ryota-ka/items/b46f43dc18a9229feb03&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://cdn.qiita.com/assets/qiita-fb-2887e7b4aad86fd8c25cea84846f2236.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://qiita.com/ryota-ka/items/b46f43dc18a9229feb03&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Effect{ive,ful} Cycle.js - Qiita&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;# おことわり- この発表はかなり&lt;b&gt;お気持ち&lt;/b&gt;です- 他の発表とは異なり(？)なんら学術的裏付けがあるものではありません- なんと(？)まったく数式が出てきません— # 自己紹介- 亀岡 亮太- […&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;内容は､Webフロントエンドにおける様々な副作用をCycle.jsでうまくやっていくというものでした｡&lt;/p&gt;&lt;p&gt;副作用を分離して処理したい､まさにalgebraic effectsがやろうとしてることですね｡
+実際にHERP社さんですか?でもプロダクトですでに活用しているとのことです｡
+HERP社さん面白いですね｡
+product-capableなCycle.jsの実装を見ていくと面白いものが見られるかも｡&lt;/p&gt;&lt;p&gt;ryotakaさんがトゥギャ(?)ってたのを引用します｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://twitter.com/i/moments/1132869165562310656&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;640&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://twitter.com/i/moments/1132869165562310656&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Effect{ive,ful} Cycle.js&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;2019年5月26日に行われた effect system 勉強会での “Effect{ive,ful} Cycle.js” の様子です．&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;h2 id=&quot;Effective+Rust&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Effective+Rust&quot;&gt;Effective Rust&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;続いて&lt;a href=&quot;https://twitter.com/__pandaman64__&quot;&gt;@__pandaman64__ &lt;/a&gt;さんの発表でした｡資料は&lt;a href=&quot;https://docs.google.com/presentation/d/1RYu-XDa0GWGGxAcOq2LzYEjJLbQYcWM-DJcN2hN9g2I&quot;&gt;こちら&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Rustのcoroutinesを使ってalgebraic effectsを実装したぜ､という内容でした｡
+なんと&lt;a href=&quot;https://nymphium.github.io/2018/12/09/asymmetric-coroutines%E3%81%AB%E3%82%88%E3%82%8Boneshot-algebraic-effects%E3%81%AE%E5%AE%9F%E8%A3%85.html&quot;&gt;ボクの記事&lt;/a&gt;を読んでインスピレーションを受けたそうです｡
+書いた甲斐がありました｡&lt;/p&gt;&lt;p&gt;Rustだと所有権が絡んできて大変な場面があり､Frankを参考にするとうまくいったという面白い噛み合わせの話が聞けました｡
+また序盤のいらすとやによる所有権の話がわかりやすくて面白かった｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;所有権でoneshotnessを保証するの良いですよね〜良い &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1132520285477847040?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;コルーチンがあればAlgebraic Effectが実装できる記事→Rustにコルーチンが入るよー → Rustで実装できるのでは&lt;br&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— κeen (@blackenedgold) &lt;a href=&quot;https://twitter.com/blackenedgold/status/1132520179206725634?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Rustは副作用使い放題の素晴らしい言語 &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典6 か15 (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132520819630804992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;可変な変数でStateを実装しようとすると型チェックで弾かれる。RefCellではつらい &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典6 か15 (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132521274125590528?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Frank 言語これ？ &lt;a href=&quot;https://t.co/277z76pxLr&quot;&gt;https://t.co/277z76pxLr&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— かずきに天使が舞い降りた (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132522163989204992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Rustのジェネレータはpollingモデルっていうのが伝わらないとFrankスタイルの方が速いってのが伝わらなそう。あとクロージャはできる限り作らない方がいいとか。&lt;br&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— κeen (@blackenedgold) &lt;a href=&quot;https://twitter.com/blackenedgold/status/1132523401271074816?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Effective Rustでも非同期実行を扱えるようにしたくて，となるとFutureは良くできてるのでわざと真似て設計してます．しかもFutureへの変換が簡単にできるのでFutureランタイム(tokio, runtime)を流用できるのもうれしい！&lt;a href=&quot;https://t.co/hZPw3Ie6Tj&quot;&gt;https://t.co/hZPw3Ie6Tj&lt;/a&gt;&lt;br&gt;この記事は関係を詳しく書いてます &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; &lt;a href=&quot;https://t.co/nODGlQrAUG&quot;&gt;https://t.co/nODGlQrAUG&lt;/a&gt;&lt;/p&gt;— 井山梃子歴史館 (@__pandaman64__) &lt;a href=&quot;https://twitter.com/__pandaman64__/status/1132590740159131649?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;買わせてもらいました！ / Rustジェネレータ徹底解説 | 井山梃子歴史館 &lt;a href=&quot;https://t.co/KvD7oQ8BN4&quot;&gt;https://t.co/KvD7oQ8BN4&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/booth_pm?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#booth_pm&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 画力・博士号・油田 (@bd_gfngfn) &lt;a href=&quot;https://twitter.com/bd_gfngfn/status/1132524127556739072?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;p&gt;書典6で販売したRustのジェネレータの解説本をBOOTHでも販売中とのこと｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://booth.pm/ja/items/1318774&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://booth.pximg.net/c/620x620/b3df3e2a-38d7-4eda-8df5-f70aa806cdfa/i/1318774/6f724242-516e-425b-a2bc-5fdc97f23bab_base_resized.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://booth.pm/ja/items/1318774&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Rustジェネレータ徹底解説 - 井山梃子歴史館 - BOOTH&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;技術書典6で頒布した『Rustジェネレータ徹底解説』です． ジェネレータとは，RustでもPythonやJavaSciprtのyield式を使うために実装された言語機能であり，Rustにおける非同期プログラミングを裏から支えています． 『Rustジェネレータ徹底解説』では 1. なぜFutureに基づく非同期プログラミングがジェネレータの発明に繋がったのか 2. ジェネレータはコンパイラ内部でどのように扱われるのか などコンパイラのソースコードも見ながら紹介します&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;h2 id=&quot;Monads+and+Effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Monads+and+Effects&quot;&gt;Monads and Effects&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;5番目は&lt;a href=&quot;https://twitter.com/myuon_myon&quot;&gt;@myuon_myon &lt;/a&gt;さんの発表でした｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/myuon/monads-and-effects&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/32863616b9924a559e5f0c307d38e788/slide_0.jpg?518860&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/myuon/monads-and-effects&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Monads and Effects&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;effect systemとはなにかから､Kokaを題材にあげ､最終的にmonadsとの関係について述べるという内容でした｡&lt;/p&gt;&lt;p&gt;Kokaの処理系の&lt;a href=&quot;https://github.com/koka-lang/koka/pull/74&quot;&gt;ビルドシステム周りで少しだけcontributionした&lt;/a&gt;ので勝手に親近感を持ってる言語です｡
+あとshift0/reset0は書けるけどshift/resetは型で弾かれた経験があるので､もう少し頑張ってトライしてみたいです｡
+&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://gist.github.com/Nymphium/3cb574cb511a179a30390599e6e51669&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://avatars2.githubusercontent.com/u/5901180?s=400&amp;amp;v=4&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://gist.github.com/Nymphium/3cb574cb511a179a30390599e6e51669&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;typed prompt-less shift/reset in Koka language&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;typed prompt-less shift/reset in Koka language. GitHub Gist: instantly share code, notes, and snippets.&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;圏論におけるMonadわからんマンなのでがんばっていかんとな……&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Effect System: Γ├ M : A ! e &lt;br&gt;(Type system estimates the effect of computation M to be at most e) &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— Yasuhiro Inami (@inamiy) &lt;a href=&quot;https://twitter.com/inamiy/status/1132527229370478594?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Effects can be stacked&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— ゆーちき (@yuchiki1000yen) &lt;a href=&quot;https://twitter.com/yuchiki1000yen/status/1132527206490447873?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://t.co/jtyN9nZOrk&quot;&gt;https://t.co/jtyN9nZOrk&lt;/a&gt;&lt;br&gt;&amp;gt;Koka is a function-oriented programming language that seperates pure values from side-effecting computations, where the effect of every function is automatically inferred.&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— ゆーちき (@yuchiki1000yen) &lt;a href=&quot;https://twitter.com/yuchiki1000yen/status/1132528208065073152?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— Kon《remember to love &amp;amp; don’t do infinites》 (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;kokaの語源は効果(effect)であってほしい &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— iintyo (@e_ntyo) &lt;a href=&quot;https://twitter.com/e_ntyo/status/1132528132940951553?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;“The word ‘koka’ (or 効果) means “effect” or “effective” in Japanese” &lt;a href=&quot;https://t.co/VW4SslMsnI&quot;&gt;https://t.co/VW4SslMsnI&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— shionemo (@shionemo) &lt;a href=&quot;https://twitter.com/shionemo/status/1132528733217148928?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; KokaはEffectをより細かく分類して制御できるようになっている。printとerrorの副作用は分類されて別物として扱われている。おお！&lt;/p&gt;— よんたゟ (@keita44_f4) &lt;a href=&quot;https://twitter.com/keita44_f4/status/1132529327411613699?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; λ抽象と関数適用のeffectの答え合わせ。なるほど、λ抽象自体はeffectが推論されないけど、λ抽象のbody内に適用時に起こるeffectが内包されているのか。&lt;/p&gt;— よんたゟ (@keita44_f4) &lt;a href=&quot;https://twitter.com/keita44_f4/status/1132530399161139200?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;関数適用は､例えばEffとかだと `v v` の形でしか適用を許さないようにしてたりして､この辺は言語の違いに味が出る &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1132530719325020160?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;EffectはMonadにparameterを付けたようなもの&lt;br&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— κeen (@blackenedgold) &lt;a href=&quot;https://twitter.com/blackenedgold/status/1132530858819088384?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;このあたりを読むとわかりやすい話ですね： &lt;br&gt;The marriage of effects and monads [Wadler 1998]&lt;a href=&quot;https://t.co/mzP4NT5hMH&quot;&gt;https://t.co/mzP4NT5hMH&lt;/a&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 画力・博士号・油田 (@bd_gfngfn) &lt;a href=&quot;https://twitter.com/bd_gfngfn/status/1132531060141506561?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Do be do be do [Lindley, McBride &amp;amp; McLaughlin 2016] &lt;a href=&quot;https://t.co/Xum448lhRL&quot;&gt;https://t.co/Xum448lhRL&lt;/a&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 画力・博士号・油田 (@bd_gfngfn) &lt;a href=&quot;https://twitter.com/bd_gfngfn/status/1132533468221493248?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;p&gt;↑Frankの論文のタイトルが『Do be do be do』なのってFrank Sinatraの捩りか&lt;/p&gt;&lt;h2 id=&quot;How+do+you+implement+Algebraic+Effects%3F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#How+do+you+implement+Algebraic+Effects%3F&quot;&gt;How do you implement Algebraic Effects?&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;6番目はボクが発表しました｡資料は&lt;a href=&quot;https://nymphium.github.io/pdf/effect_study.html&quot;&gt;こちら&lt;/a&gt;｡&lt;/p&gt;&lt;p&gt;内容は､Algebraic Effects and Handlersのさまざまなインプリ方法について考える｡というものでした｡&lt;/p&gt;&lt;p&gt;libhandler, eff.lua, Multicore OCaml, Effekt, Effの内部の実装方針について軽くまとめてみました｡
+いかがでしたか?
+ライブラリとしてのalgebraic effectsの利点というのは､まさにボクの研究のモチベーションとして強く主張すべき部分なので言いたかったです｡
+適切な場所がなかったのでconclusionの1枚手前という微妙な位置になってしまったのはかなり反省です｡
+というわけでみなさんやっていきましょう｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Algebraic Effectの実装、libhandlerの場合：longjmp, stack frame+ip &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典6 か15 (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132534088089292800?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;「Java で&quot;すら&quot;コルーチンを持っている」 &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— Ryota Kameoka 𓆉 @ HERP, Inc. (@ryotakameoka) &lt;a href=&quot;https://twitter.com/ryotakameoka/status/1132534848910872577?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Coroutine: Multicore OCaml, eff.lua&lt;br&gt;effect invocation → yield&lt;br&gt;effect handler → create &amp;amp; resume&lt;br&gt;continuation → coroutine (one-shot)&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— Yasuhiro Inami (@inamiy) &lt;a href=&quot;https://twitter.com/inamiy/status/1132535016355901440?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Obj.clone_continuationの実装:&lt;br&gt; ocaml-multicore/fiber.c at 75362d1f2cae362e45c67aa4e32b641a5485f845 · ocaml-multicore/ocaml-multicore&lt;a href=&quot;https://t.co/TSX35MJhId&quot;&gt;https://t.co/TSX35MJhId&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— でこれき (@dico_leque) &lt;a href=&quot;https://twitter.com/dico_leque/status/1132535471500718085?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; 「Multiprompt shift/resetの説明をします」 &lt;br&gt;こ、これは！！名古屋の &lt;a href=&quot;https://twitter.com/hashtag/k_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#k_study&lt;/a&gt; でやったやつだ！！&lt;/p&gt;— よんたゟ (@keita44_f4) &lt;a href=&quot;https://twitter.com/keita44_f4/status/1132535385085448193?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;A Monadic Framework for Delimited Continuations - Microsoft Research&lt;a href=&quot;https://t.co/3rTfvWx39S&quot;&gt;https://t.co/3rTfvWx39S&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— でこれき (@dico_leque) &lt;a href=&quot;https://twitter.com/dico_leque/status/1132536355332825089?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;コントロール的何かを全部Algebraic Effectsに落とせると思うとすごいすっきりするな 良いモチベーションだ &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— みょん (@myuon_myon) &lt;a href=&quot;https://twitter.com/myuon_myon/status/1132538503844073473?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;FSCD 2017で継続のない計算体系への変換が議論されてる&lt;br&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— κeen (@blackenedgold) &lt;a href=&quot;https://twitter.com/blackenedgold/status/1132538873425174528?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;p&gt;手前味噌で持ってきたN-Barreled CPSですが､質問で耳寄り情報をいただきましたが､すでにAlgebraic EffectsをCPS変換する研究はあるそうです(当然)&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+  &lt;a href=&quot;https://bentnib.org/handlers-cps.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Continuation Passing Style for Effect Handlers&lt;/a&gt;
+&lt;/center&gt;&lt;p&gt;あと&lt;a href=&quot;https://twitter.com/__pandaman64__&quot;&gt;@__pandaman64__ &lt;/a&gt;さんが宣伝してたんでボクもしようと思ってそのまま忘れてたんで宣伝します｡
+なんかいろいろまとめたやつです｡
+大事なことなので2回&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://dragonuniversity.booth.pm/items/1317197&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://booth.pximg.net/c/620x620/a00fe615-aca9-4ac2-9e73-c117987944f4/i/1317197/bd45f811-5cda-44ff-addf-b6306223184d_base_resized.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://dragonuniversity.booth.pm/items/1317197&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Dragon University 2019.4(技術書典6) - Dragon University - BOOTH&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;Dragon Universityも今回で4回目、今回は人気のAlgebraic Effectsやスマートコントラクト・SGXに加えCORE(本当に人気か？)の各種解説記事が揃ってます！ 「Let’s go Algebraic Effects and Handlers: from an introduction to advanced topics」 「スマートコントラクトCTF入門」 「SGX-ROP 不完全解説」 「CORE で作るテストベッド」&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;h2 id=&quot;Effective+Idris%3A+Effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Effective+Idris%3A+Effects&quot;&gt;Effective Idris: Effects&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;次は&lt;a href=&quot;https://twitter.com/blackenedgold&quot;&gt;@blackenedgold &lt;/a&gt;さんの発表でした｡ 資料は&lt;a href=&quot;https://keens.github.io/slide/effective_idris__effects/&quot;&gt;こちら&lt;/a&gt;｡&lt;/p&gt;&lt;p&gt;Effを参考にしたIdrisのAlgebraic Effectsライブラリの話でした｡
+Idrisに詳しくないんで “型がfirst-class” というところでspace catになってしまいました｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;「Idrisって言語知らないですかね？依存型のあるHaskellです」 &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— Yuki Ishikawa (@rider_yi) &lt;a href=&quot;https://twitter.com/rider_yi/status/1132545126603952128?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;– Idris Effect&lt;br&gt;Effect : Type&lt;br&gt;Effect = (x : Type) -&amp;gt; Type -&amp;gt; (x -&amp;gt; Type) -&amp;gt; Type&lt;br&gt;&lt;br&gt;data EFFECT : Type where &lt;br&gt;    MkEff : Type -&amp;gt; Effect -&amp;gt; EFFECT&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— Yasuhiro Inami (@inamiy) &lt;a href=&quot;https://twitter.com/inamiy/status/1132545844941533184?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;インターフェースはHaskellのeffect-monad library的な何かなのだろうか？(よく知らずに言ってる)&lt;a href=&quot;https://t.co/F0x1Q9roFj&quot;&gt;https://t.co/F0x1Q9roFj&lt;/a&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— みょん (@myuon_myon) &lt;a href=&quot;https://twitter.com/myuon_myon/status/1132546912035278849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Effの作り方がバリバリ依存型ですごい さすがIdris &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— みょん (@myuon_myon) &lt;a href=&quot;https://twitter.com/myuon_myon/status/1132547550618120192?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Type -&amp;gt; Typeすき &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 井山梃子歴史館 (@__pandaman64__) &lt;a href=&quot;https://twitter.com/__pandaman64__/status/1132547897025687553?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;h2 id=&quot;Row-based+type+systems+for+algebraic+effect+handlers&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Row-based+type+systems+for+algebraic+effect+handlers&quot;&gt;Row-based type systems for algebraic effect handlers&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;最後は&lt;a href=&quot;https://twitter.com/skymountain_&quot;&gt;@skymountain_ &lt;/a&gt;さんによる発表でした｡資料は&lt;a href=&quot;https://www.slideshare.net/TaroSekiyama/rowbased-effect-systems-for-algebraic-effect-handlers&quot;&gt;こちら&lt;/a&gt;&lt;/p&gt;&lt;p&gt;内容は､parameterized effectsを持つrow-based type systemsにおけるeffect handlerの話でした｡&lt;/p&gt;&lt;p&gt;序盤ではAlgebraic Effectsについて簡単な例から初めて丁寧な説明があり､effect systemを知らない方にも優しいintroductionでした｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;最初に聞きたい感じの発表だった &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— かずきに天使が舞い降りた (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132554009481322497?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;p&gt;これは私がミスったわね｡&lt;/p&gt;&lt;p&gt;parameterized effectsの導入から､row-based effect systemとその特徴について述べ､他のset-based onesとの比較など大変わかり易く面白い内容でした｡&lt;/p&gt;&lt;p&gt;Kokaの論文を中途半端に読んでたのでtype systemの部分をちゃんと読み直そうと思います｡
+fumievalさんの名前付きextensible effectsとrow-based effect systemはなにか近そうな感じがするので､深堀りしてみると面白い発見があるかもしれない｡&lt;/p&gt;&lt;p&gt;call for collaborationも出していらっしゃったので興味のある方はぜひ｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;operationに型をつけて型ごとにhandlerを与えられるの面白いな &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— みょん (@myuon_myon) &lt;a href=&quot;https://twitter.com/myuon_myon/status/1132550779267477506?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;setじゃないので複数の同じeffectが起こるかもしれない状況を表現できる&lt;br&gt;(row polymorphism)&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— ゆーちき (@yuchiki1000yen) &lt;a href=&quot;https://twitter.com/yuchiki1000yen/status/1132552819586658304?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;row-polymorphismだとsubtypingが簡単になる､なるほど &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1132553055377866753?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;rowの順序はhandlingに対応する &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1132553610686951424?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;“Row Polymorphism Isn’t Subtyping” 関係の質問かな？ &lt;a href=&quot;https://t.co/bb2HDXSAFD&quot;&gt;https://t.co/bb2HDXSAFD&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— ねっけつ (@nekketsuuu) &lt;a href=&quot;https://twitter.com/nekketsuuu/status/1132554452349595649?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;「名前が違えは順序が入れ替えられるが名前が同じだと順序が意味をなす」はlabel-selective lambda calculusと似てる気がします &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 画力・博士号・油田 (@bd_gfngfn) &lt;a href=&quot;https://twitter.com/bd_gfngfn/status/1132555193713741824?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;h2 id=&quot;%E3%81%93%E3%82%93%E3%81%97%E3%82%93%E3%81%8B%E3%81%84&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%81%93%E3%82%93%E3%81%97%E3%82%93%E3%81%8B%E3%81%84&quot;&gt;こんしんかい&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;(めっちゃ腹減ってたししこたま酒を飲んだんで写真などは)ないです&lt;/p&gt;&lt;p&gt;25人くらい参加してくださいました｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;開催しといてなんですがどうなるかと思ってました､が､参加者5､60人くらい+発表者8人と大きな会で無事発表もつつがなく終わって本当に良かったです｡&lt;/p&gt;&lt;h1 id=&quot;%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E4%BB%96&quot;&gt;他&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ん?&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; 宣伝させてください。再来週6/6(木)・7(金)のIPSJ-PRO@名古屋はエフェクト計算の講演2件を初日に予定しています。 &lt;a href=&quot;https://t.co/oReOjrwzyi&quot;&gt;https://t.co/oReOjrwzyi&lt;/a&gt;&lt;/p&gt;— Keigo Imai (@keigoi) &lt;a href=&quot;https://twitter.com/keigoi/status/1132522206502633472?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;p&gt;(うち一人ですが資料づくり終わって)ないです…&lt;/p&gt;</description>
+        <pubDate>Tue, 28 May 2019 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2019/05/28/%E6%8A%80%E8%A1%93%E6%9B%B8%E5%85%B86%E3%81%AB%E5%90%88%E5%90%8C%E8%AA%8C%E3%82%92%E5%87%BA%E3%81%97%E3%81%9F;-effect-system%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%92%E3%82%84%E3%81%A3%E3%81%9F.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2019/05/28/%E6%8A%80%E8%A1%93%E6%9B%B8%E5%85%B86%E3%81%AB%E5%90%88%E5%90%8C%E8%AA%8C%E3%82%92%E5%87%BA%E3%81%97%E3%81%9F;-effect-system%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%92%E3%82%84%E3%81%A3%E3%81%9F.html</guid>
+        
+        <category>技術書典</category>
+        
+        <category>effect system</category>
+        
+        <category>勉強会</category>
+        
+        <category>algebraic effects</category>
+        
+        
+      </item>
     
       <item>
         <title>勉強会を開催したらbig nameを召喚してしまった</title>
@@ -25,7 +407,7 @@
   &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;http://shonan.nii.ac.jp/shonan/blog/2018/05/07/no-146-programming-and-reasoning-with-algebraic-effects-and-effect-handlers/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://shonan.nii.ac.jp/_libs/images/common/ogp.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;http://shonan.nii.ac.jp/shonan/blog/2018/05/07/no-146-programming-and-reasoning-with-algebraic-effects-and-effect-handlers/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;No.146 Programming and Reasoning with Algebraic Effects and Effect Handlers | SeminarsNII Shonan Meeting&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;NII Shonan Meeting is a series of informatics seminars managed by NII, aiming to promote informatics research by providing premier venue in order for the leading scientists, young researchers, and practitioners to exchange, discuss and explore their research findings and cutting-edge topics.&lt;/div&gt;
   &lt;/span&gt;
 &lt;/div&gt;&lt;p&gt;Organizersの一人のOleg Kiselyovさんが上記の勉強会を発見して私ほか数名に連絡をくださいました｡
 曰く､湘南ミーティングの後にもGordon Plotkin先生がしばらく日本にいらっしゃるので講演をしていただける可能性がある､とのことでした｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
@@ -2023,192 +2405,6 @@ syntacticにきれいに､バグらず簡単に書ける､というありが�
         <category>OCaml</category>
         
         <category>Algebraic Effects</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>delimited continuationの夏</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
-control/promptとprompt tagへの理解が必要になったため､やっていきましょう｡&lt;/p&gt;&lt;h1 id=&quot;1.+continuation%3F%3F%3F+%E7%B6%99%E7%B6%9A%3F%3F%3F+is+power+%3F%3F%3F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+continuation%3F%3F%3F+%E7%B6%99%E7%B6%9A%3F%3F%3F+is+power+%3F%3F%3F&quot;&gt;1. continuation??? 継続??? is power ???&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;継続とは &lt;em&gt;“残りの計算”&lt;/em&gt; などと言われます｡
-\(e_1+e_2\)という式があって､左辺から計算がおこなわれていくとする｡
-\(e_1 \Downarrow v_1\)となると､残りの計算は\(\lambda x. x + e_2 \)となります｡
-\(\lambda x. x + e_2 \)はよく\([\ ]+e_2\)と表現され､この\([\ ]\)はholeと呼ばれたりする｡
-この継続を\(E\)などとおいて､\(E\)をぶっこ抜いてきてなにか値を渡したりするときは\(E[x]\)と表記し､holeに\(x\)が入っていく｡
-OK､私も皆さんも &lt;strong&gt;&lt;em&gt;完全に理解した&lt;/em&gt;&lt;/strong&gt; と思うので話を進めよう｡&lt;/p&gt;&lt;h1 id=&quot;2.+Delimited+continuation&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+Delimited+continuation&quot;&gt;2. Delimited continuation&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;和訳すると限定継続です｡これで9割は分かったと思うが､call/ccよりも取ってくる継続の範囲が限定されているというイッメジです｡
-StackOverflowのこれ&lt;sup id=&quot;fnref1&quot; title=&quot;What exactly is a “continuation prompt?” &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;が図解付きでわかりやすい｡&lt;/p&gt;&lt;h2 id=&quot;2-1.+shift%2Freset&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-1.+shift%2Freset&quot;&gt;2-1. shift/reset&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;久しぶりにRacket引っ張ってきます｡Schemeでもなんでもdelimited continuationが使えれば良いですが｡
-Racketだとshift/resetを使うには&lt;code&gt;(require racket/control)&lt;/code&gt;する必要がある｡
-Guileだと&lt;code&gt;(use-modules (ice-9 control))&lt;/code&gt;やね｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;call/cc&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;call/cc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))))&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;; displays &quot;-16&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;shift/reset&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;c1&quot;&gt;; (require racket/control)&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))))&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;; displays &quot;-13&quot;&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;; displays &quot;-13&quot; (work in the same way as above)&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))))&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;; displays &quot;-19&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;雑な説明でしたが､&lt;code&gt;call/cc&lt;/code&gt;は中のコンテキスト&lt;code&gt;(+ 3 [])&lt;/code&gt;も継続の呼び出し時に捨ててますね｡
-あとRacketの&lt;code&gt;shift&lt;/code&gt;は&lt;code&gt;reset&lt;/code&gt;が見つからなかったらエラーにならずに最外のコンテキストを持ってくるんですねぇ｡&lt;/p&gt;&lt;p&gt;shift/resetの詳細は文献&lt;sup id=&quot;fnref2&quot; title=&quot;浅井健一. “shift/reset プログラミング入門.” ACM SIGPLAN Continuation Workshop 2011. 2011. http://pllab.is.ocha.ac.jp/~asai/cw2011tutorial/main-j.pdf &quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;をご覧ください｡
-…ちょっと待って! &lt;code&gt;shift0&lt;/code&gt;が無いやん! ということで文献&lt;sup id=&quot;fnref3&quot; title=&quot;Shan, Chung-chieh. “Shift to control.” Proceedings of the 5th workshop on Scheme and Functional Programming. 2004. ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103 &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;を見る｡&lt;/p&gt;&lt;p&gt;まず&lt;code&gt;shift&lt;/code&gt;の定義を見ます｡&lt;/p&gt;&lt;p&gt;\[
-\begin{array}{r}
-    M\left[\left(\mathtt{reset}\ C\left[\left(\mathtt{shift\ f}\ E\right)\right]\right)\right] \triangleright M\left[\left(\mathtt{reset}\ E’\right)\right]\\
-    \mathrm{where}\ E’=E \{\mathtt{f}\mapsto \left(\mathtt{lambda}\ \left(\mathtt{x}\right)\ \left(\mathtt{reset}\ C[\mathtt{x}]\right)\right)\}
-\end{array}
-\]&lt;/p&gt;&lt;p&gt;おk｡&lt;/p&gt;&lt;p&gt;では&lt;code&gt;shift0&lt;/code&gt;はどうかな?&lt;/p&gt;&lt;p&gt;\[
-\begin{array}{r}
-    M\left[\left(\mathtt{reset}\ C\left[\left(\mathtt{shift0\ f}\ E\right)\right]\right)\right] \triangleright M\left[E’\right]\\
-    \mathrm{where}\ E’=E \{\mathtt{f}\mapsto \left(\mathtt{lambda}\ \left(\mathtt{x}\right)\ \left(\mathtt{reset}\ C[\mathtt{x}]\right)\right)\}
-\end{array}
-\]&lt;/p&gt;&lt;p&gt;えっ何が違うん? と一瞬困るわけですが､&lt;code&gt;shift0&lt;/code&gt;では一発評価が進むと&lt;code&gt;M&lt;/code&gt;の中から&lt;code&gt;reset&lt;/code&gt;が消えてますね｡
-なので&lt;code&gt;E'&lt;/code&gt;の中の最外の&lt;code&gt;shift0&lt;/code&gt;は&lt;code&gt;M&lt;/code&gt;まで行ってしまうわけです｡
-&lt;code&gt;shift&lt;/code&gt;と&lt;code&gt;shift0&lt;/code&gt;の違いを実際に文献の例から見てみます｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;with-shift&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))))&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;; returns '(a)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;ここの&lt;code&gt;reset&lt;/code&gt;外のコンテキスト&lt;code&gt;M&lt;/code&gt;は&lt;code&gt;(reset (cons 'a []))&lt;/code&gt;となる｡
-つまり変換規則で対象となっている&lt;code&gt;reset&lt;/code&gt;は内側のほう｡
-&lt;code&gt;shift&lt;/code&gt;外のコンテキスト&lt;code&gt;C&lt;/code&gt;は&lt;code&gt;[]&lt;/code&gt;､つまり空ですので最外の&lt;code&gt;shift&lt;/code&gt;が対象となっている｡
-&lt;code&gt;E&lt;/code&gt;は&lt;code&gt;(shift g '())&lt;/code&gt;となる｡&lt;/p&gt;&lt;p&gt;ではワンステップすすめると&lt;code&gt;M[(reset E{f := (lambda (x) (reset C[x]))})]&lt;/code&gt;なので&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()))))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;あとは同様にやっていく｡内側の&lt;code&gt;reset&lt;/code&gt;をやっていくので&lt;code&gt;(reset (cons 'a (reset '())))&lt;/code&gt;で､あとはアーナンダビッグステップに行くぞということで&lt;code&gt;'(a)&lt;/code&gt;が得られる｡&lt;/p&gt;&lt;p&gt;続いて&lt;code&gt;shift0&lt;/code&gt;について見よう｡
-文献&lt;sup id=&quot;fnref3&quot; title=&quot;Shan, Chung-chieh. “Shift to control.” Proceedings of the 5th workshop on Scheme and Functional Programming. 2004. ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103 &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;ではdelimiterは&lt;code&gt;reset&lt;/code&gt;のみだったが､racket/controlの&lt;code&gt;shift0&lt;/code&gt;に対応するdelimiterは&lt;code&gt;reset0&lt;/code&gt;となる｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;with-shift0&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift0&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift0&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))))&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;; returns '()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;オッなんか違うな｡当然違うわけだ｡
-だいたい形は同じなのですが､
-ワンステップすすめると&lt;code&gt;M[(E{f := (lambda (x) (reset0 C[x]))})]&lt;/code&gt;となる｡
-&lt;code&gt;E&lt;/code&gt;の外に&lt;code&gt;reset(0)&lt;/code&gt;がつかないわけだ｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift0&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;で&lt;code&gt;reset0&lt;/code&gt;と&lt;code&gt;shift0&lt;/code&gt;の間のコンテキストは拾われずに&lt;code&gt;shift0&lt;/code&gt;内のexpressionが生き残るので､&lt;code&gt;'()&lt;/code&gt;を返す｡&lt;/p&gt;&lt;p&gt;あ〜〜 &lt;strong&gt;&lt;em&gt;完全に理解した&lt;/em&gt;&lt;/strong&gt; ｡
-この &lt;em&gt;“resetは1度しか使えない”&lt;/em&gt; という回数制限はlinear logicの影が潜んでいそうだ｡
-実際この回数制限nessを型で表そうとするとそんな雰囲気になるはずだ｡&lt;/p&gt;&lt;h2 id=&quot;2-2.+control%2Fprompt&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-2.+control%2Fprompt&quot;&gt;2-2. control/prompt&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;だいたいshift/resetというと語弊があるが､だいたいそんな感じという認識がある(間違ってると思うのでご教授願います｡)｡
-&lt;code&gt;prompt&lt;/code&gt;は&lt;code&gt;control&lt;/code&gt;と対応するdelimiterに過ぎず､動きとしては&lt;code&gt;reset&lt;/code&gt;同様に継続を区切るだけだ｡
-“control prompt&quot;で検索するときは､”-command&quot;を付けないとコマンドプロンプトに関する話が大量に出てきて血管ブチ切れそうになる｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;control&lt;/code&gt;は文献&lt;sup id=&quot;fnref3&quot; title=&quot;Shan, Chung-chieh. “Shift to control.” Proceedings of the 5th workshop on Scheme and Functional Programming. 2004. ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103 &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;より､
-\[
-\begin{array}{r}
-    M\left[\left(\mathtt{reset}\ C\left[\left(\mathtt{control\ f}\ E\right)\right]\right)\right] \triangleright M\left[\left(\mathtt{reset}\ E’\right)\right]\\
-    \mathrm{where}\ E’=E \{\mathtt{f}\mapsto \left(\mathtt{lambda}\ \left(\mathtt{x}\right)\ \left(C[\mathtt{x}]\right)\right)\}
-\end{array}
-\]&lt;/p&gt;&lt;p&gt;この論文ではdelimiterが&lt;code&gt;reset&lt;/code&gt;だがとりあえずOKとしたい｡
-&lt;code&gt;f&lt;/code&gt;にバインドされる継続の中に&lt;code&gt;reset&lt;/code&gt;がないという点で&lt;code&gt;shift&lt;/code&gt;と異なっている｡
-論文の例を見てみよう｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;with-shift&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))]&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;; returns '(a)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;Racketは3種類のカッコが使えるからS式もちょっぴり分かりやすくなるぞ!
-これを規則にそって解いてくと次のように進む｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;c1&quot;&gt;; 1&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()]))&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;; 2&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()]&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))))&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;; 3&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;; 4&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;; 5&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ふむふむ｡はい｡&lt;/p&gt;&lt;p&gt;では&lt;code&gt;shift&lt;/code&gt;を&lt;code&gt;control&lt;/code&gt;にしたらどうなるか―&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;control&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))]&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;control&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;; returns '()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;結果が異なるわけだな｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;c1&quot;&gt;; 1&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;λ&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;control&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())])&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;; 2&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()]&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;control&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))])&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;; 3&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;control&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())])&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;; 4  gが使われないので `[cons 'a ...]` が破棄される&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;; 5&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;わかった｡
-とりあえずこのへんで &lt;strong&gt;&lt;em&gt;完全に理解した&lt;/em&gt;&lt;/strong&gt; ということにいたしましょうか…｡&lt;/p&gt;&lt;h1 id=&quot;3.+prompt+tag&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+prompt+tag&quot;&gt;3. prompt tag&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;継続をキャプチャするオペレータ(&lt;code&gt;shift&lt;/code&gt;, &lt;code&gt;shift0&lt;/code&gt;,&lt;code&gt;control&lt;/code&gt;など)はそれぞれ対応する､取るべき継続を区切ってくれるdelimiterがある｡
-例えばracket/controlでは&lt;code&gt;shift&lt;/code&gt;に対応するのは&lt;code&gt;reset&lt;/code&gt;で､&lt;code&gt;shift0&lt;/code&gt;には&lt;code&gt;reset0&lt;/code&gt;が対応する｡
-更には同じ&lt;code&gt;shift&lt;/code&gt;でも､&lt;code&gt;shift&lt;/code&gt;式&lt;sup id=&quot;fnref4&quot; title=&quot;racket/controlのshiftはマクロ! はいごもっとも! &quot;&gt;&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;のコンテキストで最も近い&lt;code&gt;reset&lt;/code&gt;が動的に対応付けられる｡&lt;/p&gt;&lt;p&gt;この､&lt;code&gt;shift&lt;/code&gt;や&lt;code&gt;control&lt;/code&gt;などのcontrol operatorとdelimiterの対応をもっと柔軟にしたい! という要望に応えるのがprompt tagである｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;prompt tag&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-scheme&quot; data-lang=&quot;scheme&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;p&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;make-continuation-prompt-tag&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;p~&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;make-continuation-prompt-tag&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'p~&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset-at&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;p&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset-at&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;p~&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
-          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift-at&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;begin&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;display&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;this is p&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shift-at&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;p~&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;begin&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;display&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;this is p~&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))))&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;; display &quot;this is pthis is p~23&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;確かに､最寄りの&lt;code&gt;reset&lt;/code&gt;ではなく､プロンプトに対応する&lt;code&gt;reset-at&lt;/code&gt;の継続を取っている｡&lt;/p&gt;&lt;p&gt;ちなみにOCamlのdelimited continuationライブラリ&lt;a href=&quot;http://okmij.org/ftp/continuations/implementations.html#caml-shift&quot;&gt;delimcc&lt;/a&gt;では､prompt tagのみが使われている｡
-なんだか日本語が足りないが､Racketの&lt;code&gt;shift&lt;/code&gt;や&lt;code&gt;reset&lt;/code&gt;はなく､&lt;code&gt;shift-at&lt;/code&gt;や&lt;code&gt;reset-at&lt;/code&gt;のみ､という感じ｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Delimcc&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_prompt&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;push_prompt&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shift0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cons&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;`A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* returns [] *)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これは何故か｡多分answer-type polymorphismをOCamlではサポートしてないからじゃないかな｡
-詳細はdelimccに関する文献&lt;sup id=&quot;fnref5&quot; title=&quot;Oleg Kiselyov. “Delimited Control in OCaml, Abstractly and Concretely: System Description.” FLOPS 2010. 2010. https://link.springer.com/chapter/10.1007/978-3-642-12251-4_22 &quot;&gt;&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;を読めって話ですよ｡読んでへん｡&lt;/p&gt;&lt;p&gt;とりあえずここは &lt;strong&gt;&lt;em&gt;完全に理解した&lt;/em&gt;&lt;/strong&gt; ということで､よろしいでしょうか｡&lt;/p&gt;&lt;h1 id=&quot;4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;4. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;なんとなくつかめてきた気がします｡
-夏服の剣持力也くんがうさんくさいメガネ掛けててよかった｡&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-
-&lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/29838344/what-exactly-is-a-continuation-prompt&quot;&gt;What exactly is a “continuation prompt?”&lt;/a&gt; &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn2&quot;&gt;
-&lt;p&gt;浅井健一. “shift/reset プログラミング入門.” ACM SIGPLAN Continuation Workshop 2011. 2011. &lt;a href=&quot;http://pllab.is.ocha.ac.jp/%7Easai/cw2011tutorial/main-j.pdf&quot;&gt;http://pllab.is.ocha.ac.jp/~asai/cw2011tutorial/main-j.pdf&lt;/a&gt; &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn3&quot;&gt;
-&lt;p&gt;Shan, Chung-chieh. “Shift to control.” Proceedings of the 5th workshop on Scheme and Functional Programming. 2004. &lt;a href=&quot;ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103&quot;&gt;ftp://cs.indiana.edu/pub/techreports/TR600.pdf#page=103&lt;/a&gt; &lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn4&quot;&gt;
-&lt;p&gt;racket/controlの&lt;code&gt;shift&lt;/code&gt;はマクロ! はいごもっとも! &lt;a href=&quot;#fnref4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn5&quot;&gt;
-&lt;p&gt;Oleg Kiselyov. “Delimited Control in OCaml, Abstractly and Concretely: System Description.” FLOPS 2010. 2010. &lt;a href=&quot;https://link.springer.com/chapter/10.1007/978-3-642-12251-4_22&quot;&gt;https://link.springer.com/chapter/10.1007/978-3-642-12251-4_22&lt;/a&gt; &lt;a href=&quot;#fnref5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-        <pubDate>Thu, 19 Jul 2018 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html</guid>
-        
-        <category>Delimited Continuation</category>
-        
-        <category>Racket</category>
-        
-        <category>OCaml</category>
         
         
       </item>
