@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>ScalaMatsuri2019いってきた - lilyum ensemble</title>
+    <meta itemprop="name" content="ScalaMatsuri2019いってきた - lilyum ensemble"/>
+    <meta name="keywords" content="Scala,雑感"/>
+    <meta name="thumbnail" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta itemprop="image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="ScalaMatsuri2019いってきた - lilyum ensemble"/>
+    <meta name="twitter:url" content="https://nymphium.github.io/2019/06/30/ScalaMatsuri2019%E3%81%84%E3%81%A3%E3%81%A6%E3%81%8D%E3%81%9F.html"/> 
+    <meta name="twitter:text:description" content="はじめにこんにちは､びしょ〜じょです｡ScalaMatsuri2019にいってきました｡Scalaはちょっとしか書いてないうえにだいぶ前ですが､論文やコードはぼちぼち読んでるので興味は依然として..."/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="ScalaMatsuri2019いってきた" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="はじめに こんにちは､びしょ〜じょです｡ ScalaMatsuri2019にいってきました｡ Scalaはちょっとしか書いてないうえにだいぶ前ですが､論文やコードはぼちぼち読んでるので興味は依然としてだいぶある､という感じの人間です｡" />
+<meta property="og:description" content="はじめに こんにちは､びしょ〜じょです｡ ScalaMatsuri2019にいってきました｡ Scalaはちょっとしか書いてないうえにだいぶ前ですが､論文やコードはぼちぼち読んでるので興味は依然としてだいぶある､という感じの人間です｡" />
+<link rel="canonical" href="https://nymphium.github.io/2019/06/30/ScalaMatsuri2019%E3%81%84%E3%81%A3%E3%81%A6%E3%81%8D%E3%81%9F.html" />
+<meta property="og:url" content="https://nymphium.github.io/2019/06/30/ScalaMatsuri2019%E3%81%84%E3%81%A3%E3%81%A6%E3%81%8D%E3%81%9F.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-06-30T00:00:00+09:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"はじめに こんにちは､びしょ〜じょです｡ ScalaMatsuri2019にいってきました｡ Scalaはちょっとしか書いてないうえにだいぶ前ですが､論文やコードはぼちぼち読んでるので興味は依然としてだいぶある､という感じの人間です｡","@type":"BlogPosting","dateModified":"2019-06-30T00:00:00+09:00","datePublished":"2019-06-30T00:00:00+09:00","headline":"ScalaMatsuri2019いってきた","url":"https://nymphium.github.io/2019/06/30/ScalaMatsuri2019%E3%81%84%E3%81%A3%E3%81%A6%E3%81%8D%E3%81%9F.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2019/06/30/ScalaMatsuri2019%E3%81%84%E3%81%A3%E3%81%A6%E3%81%8D%E3%81%9F.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">ScalaMatsuri2019いってきた</h1>
+            <span class="post-meta">
+              <time datetime="2019-06-30T00:00:00+09:00" itemprop="datePublished">Jun 30, 2019</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2019-06-30-ScalaMatsuri2019%E3%81%84%E3%81%A3%E3%81%A6%E3%81%8D%E3%81%9F.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<a href="/tags.html#Scala-ref">Scala</a>, <a href="/tags.html#%E9%9B%91%E6%84%9F-ref">雑感</a>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">はじめに</a></h1>
+<p>こんにちは､びしょ〜じょです｡
+ScalaMatsuri2019にいってきました｡
+Scalaはちょっとしか書いてないうえにだいぶ前ですが､論文やコードはぼちぼち読んでるので興味は依然としてだいぶある､という感じの人間です｡</p>
+<div class="enclosed-tweet" align="center">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">頑張ってる感を出したんでスカラマツリに大学の金で行けないかな〜〜</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1110532965455540224?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">March 26, 2019</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<div class="enclosed-tweet" align="center">
+<blockquote class="twitter-tweet">
+<p lang="ja" dir="ltr">ScalaMatsuriの参加費が皆さんの税金で賄われることとなりました｡ありがとうございます｡</p>— びしょ〜じょ (@Nymphium) <a href="https://twitter.com/Nymphium/status/1121697171089182735?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">April 26, 2019</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<p>良いですね!
+東京で開催なので宿泊の必要がなかったので(とはいえ茨城から東京はめんどいので宿泊したかったが……)すんなり申請できました｡
+懇親会分はレギュレーションにより自費です｡
+ボクが研究しているalgebraic effectsに類似する機能であるextensible effectsに関する複数の発表を聞くのが主な目的でした｡
+他にも面白い目標があったしよく会う人とか久しぶりに会う人とか､知り合いの知り合いと知り合いになるなど､様々な実りのある会合でした｡</p>
+<p>聞いてて特に面白いなと思ったセッションについていくつか振り返っていきます｡</p>
+<h1 id="Day1"><a class="headerlink" href="#Day1">Day1</a></h1>
+<h2 id="The+advantage+of+using+%E2%80%98Eff%E2%80%99+in+Scala+Project"><a class="headerlink" href="#The+advantage+of+using+%E2%80%98Eff%E2%80%99+in+Scala+Project">The advantage of using ‘Eff’ in Scala Project</a></h2>
+<div class="twicard">
+  <span class="image"><a href="https://speakerdeck.com/ma2k8/the-advantage-of-using-eff-in-scala-project" target="_blank" rel="noopener noreferrer"><div><img src="https://speakerd.s3.amazonaws.com/presentations/9b8316049f8748f1b4cd3f73718f43c2/slide_0.jpg?525359"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://speakerdeck.com/ma2k8/the-advantage-of-using-eff-in-scala-project" target="_blank" rel="noopener noreferrer">The advantage of using ’Eff’ in Scala Project</a></div>
+    <div class="description"></div>
+  </span>
+</div>
+<p>R社のスタディサプリではextensible effects, 通称Effをプロダクトで使っているようです｡良いですね｡
+話が前後しますが､Effはまあまあ難しいのが短所です｡
+それでも複数のエフェクトをfor式内で扱えるのがありあまる長所となっています｡</p>
+<p>発生させいエフェクトはなんだったのかというと､例えば<code>Future[A]</code>などです｡
+<code>Future[A]</code>はとにかくシンプルという長所がある一方､セマフォの制御が難しかったりエラーハンドリングが大雑把になるなどの欠点がある｡</p>
+<p>では<code>Future[Try[A]]</code>にポケモン進化! となるが､エラーハンドリングが<code>Throwable</code>どまりです｡
+Javaのライブラリをラップするときには内部で<code>Try</code>を使うようです｡インターフェースは<code>Either</code>にしてScala的に利用できるようにするようだ｡</p>
+<p><code>Future[E Either A]</code>にすることで､上記のようにScalaっぽく柔軟にエラーハンドリングができるが､<code>Either</code>を引き回す必要がある｡</p>
+<p><code>EitherT[Future, E, A]</code>でモナトラを使うことで<code>for</code>の中がシンプルになる｡
+一方モナトラの問題点がそのまま出てくるわけですね｡lift問題やモナドスタック､合成の順番､パフォーマンスなど｡</p>
+<p><code>Eff[R, A]</code>はモナトラ同様に複数のエフェクトをいちどきに使うことができる｡
+のみならず､モナトラの持つ合成順序による振る舞いの違いやパフォーマンス問題が解決されている｡
+欠点はやはり理解が難しい部分｡</p>
+<p>extensible effectsはモナトラとの比較がよくされますが､確かにモナトラ以前というものがあり､それらのpros/consがまとまっているのがEffのありがたみをもっと噛みしめるのに役立ちました｡
+Clean Architectrueと一緒にEffを使っているようですが､CAとEffの相性の良さとかは聞いておくべきだった……｡
+<code>for</code>式といえばDSL!(短絡的発想) なのでCAの例の図の層ごとにDSLが定義され､DSLの使えるエフェクトがEffでひとまとまりになっている､などで使えそうな印象があります｡</p>
+<h2 id="Making+Logic+Moand+%3Clabel+id%3D%22logicmonad%22%3E%3C%2Flabel%3E%0A"><a class="headerlink" href="#Making+Logic+Moand+%3Clabel+id%3D%22logicmonad%22%3E%3C%2Flabel%3E%0A">Making Logic Moand <label id="logicmonad"></label>
+</a></h2>
+<div class="twicard">
+  <span class="image"><a href="https://www.slideshare.net/SanshiroYoshida/making-logic-monad" target="_blank" rel="noopener noreferrer"><div><img src="https://cdn.slidesharecdn.com/ss_thumbnails/matsurihalcat-190628054808-thumbnail-4.jpg?cb=1561704714"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://www.slideshare.net/SanshiroYoshida/making-logic-monad" target="_blank" rel="noopener noreferrer">Making Logic Monad</a></div>
+    <div class="description">Making Logic Monad @halcat0x15a Recruit Marketing Partners Co., Ltd.  </div>
+  </span>
+</div>
+<p>論理プログラミングをScalaでもやろう! という話｡
+論理プログラミングといえばPrologですが､その本質はbacktrackingとunification｡
+これをScalaで実現するには……?</p>
+<p><code>filter</code>のようなcomputationはバックトラッキングと考えられる｡
+つまり<strong><em>バックトラッキングはMonadPlusである</em></strong>｡</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">backtracking</th>
+<th style="text-align: center">monadplus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><code>\/</code></td>
+<td style="text-align: center"><code>plus</code></td>
+</tr>
+<tr>
+<td style="text-align: center"><code>/\</code></td>
+<td style="text-align: center"><code>flatMap</code></td>
+</tr>
+<tr>
+<td style="text-align: center">成功</td>
+<td style="text-align: center"><code>pure</code></td>
+</tr>
+<tr>
+<td style="text-align: center">失敗</td>
+<td style="text-align: center"><code>empty</code></td>
+</tr>
+</tbody>
+</table>
+<p>MonadPlusとしてListを使う｡</p>
+<p>unificationは変数と値を表す適当なデータ構造でうまくやる｡
+また変数に対応する値を保つ状態を持つ｡
+ところでbacktrackingとmutable dataは相性が悪い｡
+なので状態をimmutableに表したい､つまりStateモナドを使う｡
+ということで論理プログラミングをおこなうLogiモナド(List + State)を構築する｡</p>
+<p>よっしゃOKや! というわけではなく､問題点がある｡
+スタックセーフでない点と､データ構造がListに依存してる点｡
+これらを解決するために､Freerモナドを利用する｡</p>
+<p>Freerモナドの継続を持つ部分でType-aligned Sequenceを利用する｡
+簡単にいうと<code>TASeq(A =&gt; B, B =&gt; C) === A =&gt; C</code> みたいな感じで関数合成がリストで表現される｡
+これによって<code>flatMap</code>の継続を合成するところがスタックセーフになる｡
+トランポリンなどを使わなくてもスタックセーフになるのが良いですね｡</p>
+<p>そしてFreerからalgebraic effectsを作る｡
+各プリミティブをエフェクトとして追加していく｡
+そしてalgebraic effectsによりLogicモナドを構成して､Listへの依存がなくなる｡
+Freerの<code>run</code>を書くことで､<code>Vector</code>の戻り値にして有限個の解を得たり､<code>Stream</code>にして無限の解をいっぱいとってきたり､などなど｡
+また各プリミティブが個別に定義されているので探索アルゴリズムをカスタマイズしたり追加できる｡
+例えばカットを定義するなど｡</p>
+<p>なかなか聴きごたえのある内容でした｡
+パフォーマンスに関する質問はやはり(やはり?)でてきて､どうすればパフォーマンス良くなるんでしょうね｡
+静的になんとかなる部分をなんとかするとだいぶパフォーマンスがよくなるので､今はとりあえずcompilationしておきましょう｡
+『Efficient Compilation of Algebraic Effects and Handlers』を読んでください｡</p>
+<h2 id="CPS+or+DI"><a class="headerlink" href="#CPS+or+DI">CPS or DI</a></h2>
+<p></p>
+<center>
+  <a href="https://gakuzzzz.github.io/slides/cps_or_di/#1" target="_blank" rel="noopener noreferrer">CPS or DI Scala Matsuri 2019 2019/06/28</a>
+</center>
+<p>コンポーネントの分割と合成の方法として､DIを使う方法とCPSを使う方法の比較でした｡
+複数の関連する処理内容を渡したいときにはDI､そうでなければCPS､アドホックに処理を合成する場合はCPS､という使い分けをすると良いということでした｡
+CPSはcontinuation monadでサラッと書けるのが良い｡
+FPとOOPができるScalaならではの使い分けですねえ｡</p>
+<p>CPSといえばコントロールフローが使えるのが利点ですが､そこに関してあまり活きてないのと､DIとその点の比較がないのがちょっと残念でした｡
+みなさんご存知ですがCPSは強力なので､なんでもできてしまうからなんでもしたくなってしまうのでいけない｡</p>
+<h2 id="%E4%BB%96"><a class="headerlink" href="#%E4%BB%96">他</a></h2>
+<p>かぶっていけなかったけど興味あるやつとか</p>
+<div class="twicard">
+  <span class="image"><a href="https://speakerdeck.com/phenan/intro-to-typeclass-in-scala" target="_blank" rel="noopener noreferrer"><div><img src="https://speakerd.s3.amazonaws.com/presentations/44d8f1ad47f64c09a53d71231d5c3a4c/slide_0.jpg?525383"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://speakerdeck.com/phenan/intro-to-typeclass-in-scala" target="_blank" rel="noopener noreferrer">Intro to typeclass in Scala</a></div>
+    <div class="description"></div>
+  </span>
+</div>
+<div class="twicard">
+  <span class="image"><a href="https://speakerdeck.com/petitviolet/pure-domain-model-and-the-technology-behind-it" target="_blank" rel="noopener noreferrer"><div><img src="https://speakerd.s3.amazonaws.com/presentations/99b05b9a08014f3fbb3881785b849b06/slide_0.jpg?525398"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://speakerdeck.com/petitviolet/pure-domain-model-and-the-technology-behind-it" target="_blank" rel="noopener noreferrer">ピュアなドメインを支える技術/pure domain model and the technology behind it</a></div>
+    <div class="description">Presented at ScalaMatsuri2019 https://2019.scalamatsuri.org</div>
+  </span>
+</div>
+<div class="twicard">
+  <span class="image"><a href="https://speakerdeck.com/mshibuya/scalaraiburariwozuo-ruqian-nizhi-tuteokitaimentenansufalsekoto" target="_blank" rel="noopener noreferrer"><div><img src="https://speakerd.s3.amazonaws.com/presentations/2077a7d9ebb947e9b9647c617bd742a0/slide_0.jpg?525374"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://speakerdeck.com/mshibuya/scalaraiburariwozuo-ruqian-nizhi-tuteokitaimentenansufalsekoto" target="_blank" rel="noopener noreferrer">Scalaライブラリを作る前に知っておきたいメンテナンスのこと</a></div>
+    <div class="description">in ScalaMatsuri 2019</div>
+  </span>
+</div>
+<div class="twicard">
+  <span class="image"><a href="https://speakerdeck.com/atty303/case-of-ad-delivery-system-is-implemented-by-scala-and-ddd" target="_blank" rel="noopener noreferrer"><div><img src="https://speakerd.s3.amazonaws.com/presentations/d35ddff2c51f48cd8ce1e17cd003de80/slide_0.jpg?525430"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://speakerdeck.com/atty303/case-of-ad-delivery-system-is-implemented-by-scala-and-ddd" target="_blank" rel="noopener noreferrer">Case of Ad Delivery System is Implemented by Scala and DDD</a></div>
+    <div class="description">ScalaMatsuri 2019</div>
+  </span>
+</div>
+<div class="twicard">
+  <span class="image"><a href="https://speakerdeck.com/yoshiyoshifujii/clean-architecture-in-practice-at-scalamatsuri2019" target="_blank" rel="noopener noreferrer"><div><img src="https://speakerd.s3.amazonaws.com/presentations/201e2c6be65845599e9884bdd4526389/slide_0.jpg?525424"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://speakerdeck.com/yoshiyoshifujii/clean-architecture-in-practice-at-scalamatsuri2019" target="_blank" rel="noopener noreferrer">Clean Architecture in Practice @ScalaMatsuri2019</a></div>
+    <div class="description">実践 Clean Architecturehttp://2019.scalamatsuri.org/</div>
+  </span>
+</div>
+<h1 id="Day+2"><a class="headerlink" href="#Day+2">Day 2</a></h1>
+<p>2日目は主にアンカンファレンスでした｡
+1日目からアイデアボードに発表案を貼っていって､シールとかで聞きたい意思を表明すると､人気な案が2日目におこなわれる､というシステム｡</p>
+<h2 id="Bengal%3A+Dotty+Cats"><a class="headerlink" href="#Bengal%3A+Dotty+Cats">Bengal: Dotty Cats</a></h2>
+<p>(スライドみつからね〜〜涙)</p>
+<p>Scala3向けのCatsライクなライブラリとして開発されているBengal｡
+結局あんまりわかんなかった｡
+Bengalを作るにあたってキーになるScala3の新機能なんだろうか｡
+とはいえ知らない新機能が多くて面白かった｡</p>
+<h3 id="extension+methods"><a class="headerlink" href="#extension+methods">extension methods</a></h3>
+<p>コレはKokaのdot記法みたいなやつか｡</p>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Circle</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Double</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Double</span><span class="o">,</span> <span class="n">radius</span><span class="k">:</span> <span class="kt">Double</span><span class="o">)</span>
+
+<span class="k">def</span> <span class="o">(</span><span class="n">c</span><span class="k">:</span> <span class="kt">Circle</span><span class="o">)</span> <span class="n">circumference</span><span class="k">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">radius</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="nc">Pi</span> <span class="o">*</span> <span class="mi">2</span>
+</code></pre></div>
+<p>Scala的には､オブジェクトにメソッドを新しく生やすという感覚だろうか｡
+またextension methodsの定義の構文のおかげで二項演算子が直感的に書ける｡</p>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="o">(</span><span class="n">x</span> <span class="k">:</span> <span class="kt">A</span><span class="o">)</span> <span class="o">+</span> <span class="o">(</span><span class="n">y</span> <span class="k">:</span> <span class="kt">A</span><span class="o">)</span> <span class="k">:</span> <span class="kt">A</span> <span class="o">=</span> <span class="n">x</span> <span class="n">combine</span> <span class="n">y</span>
+</code></pre></div>
+<h3 id="%3Ccode%3Edelegate-given%3C%2Fcode%3E"><a class="headerlink" href="#%3Ccode%3Edelegate-given%3C%2Fcode%3E"><code>delegate-given</code></a></h3>
+<p>implicit parameterがいい感じに書ける</p>
+<h3 id="delegate+imports"><a class="headerlink" href="#delegate+imports">delegate imports</a></h3>
+<p>importがいい感じに書ける</p>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">importe</span> <span class="n">delegate</span> <span class="n">bengal</span><span class="o">.</span><span class="n">delegates</span><span class="o">.</span><span class="k">_</span>
+<span class="n">importe</span> <span class="n">delegate</span> <span class="n">bengal</span><span class="o">.</span><span class="n">delegates</span><span class="o">.{</span><span class="k">for</span> <span class="nc">Monad</span><span class="o">[</span><span class="k">_</span><span class="o">]}</span>
+</code></pre></div>
+<h3 id="export+clauses"><a class="headerlink" href="#export+clauses">export clauses</a></h3>
+<p>OCamlの<code>open</code>的なやつ｡
+例ではクラスかなんかのスコープにopenしていたが､OCamlの<code>let open</code>よろしく式としても書けるのだろうか?</p>
+<h3 id="type+lambdas"><a class="headerlink" href="#type+lambdas">type lambdas</a></h3>
+<p>とうとう言語標準に入った!</p>
+<h3 id="opaque+type+alias"><a class="headerlink" href="#opaque+type+alias">opaque type alias</a></h3>
+<p>type aliasを作るが､完全なaliasではなく､特定のメソッドを生やすことができるようになる｡
+余計なオブジェクトを作らないのでランタイムのコストを下げることが期待できるんじゃないでしょうか｡</p>
+<h3 id="typeclass+derivation"><a class="headerlink" href="#typeclass+derivation">typeclass derivation</a></h3>
+<p>はい神</p>
+<h3 id="local+coherence"><a class="headerlink" href="#local+coherence">local coherence</a></h3>
+<p>delegationでメソッドが衝突したときに手動で解決するやつっぽい｡</p>
+<hr>
+<p>Haskellかよ〜〜という感じでますますアツくなるな｡</p>
+<h2 id="fujitask+meets+extensible+effects"><a class="headerlink" href="#fujitask+meets+extensible+effects">fujitask meets extensible effects</a></h2>
+<p></p>
+<center>
+  <a href="https://y-yu.github.io/fujitask-eff-slide/fujitask_without_animation.pdf" target="_blank" rel="noopener noreferrer">fujitask meets extensible effects</a>
+</center>
+<p>トランザクションを型でうまく表現するfujitaskはsubtypingを利用したテクを利用している｡
+subtyping関係は半順序集合であり､特にScalaの場合は束を作る｡
+そしてトランザクションは束を作る!
+なのでこれをScalaのsubtypingで表現できる｡
+つまりトランザクションがScalaの型でエンコードできる｡</p>
+<p>そしてFujitaskはモナドだワーイワーイということでfor式でトランザクションをスッキリ書ける｡
+型クラスとsubtypingのあるScalaだからこそでき､型クラスのないJavaやsubtypingのないHaskellでは実現できない｡</p>
+<p>ところで様々なforで効果を使いたいわけですが､(中略)extensible effectsを使う｡
+extensible effectsはsubtypingを持たないHaskellを起源に持ち､antos-effもsubtypingが考慮されていない｡
+しかし<a href="#logicmonad">logic monadの発表</a>
+をしたねこはるさん作の､subtypingを考慮した<a href="https://github.com/halcat0x15a/kits-eff" target="_blank" rel="noopener noreferrer">kits-eff</a>を利用すればイケる!</p>
+<p>fujitaskひいてはトランザクションとsubtypingの話がおもしろかった(小並感)｡</p>
+<h2 id="%E4%BB%96"><a class="headerlink" href="#%E4%BB%96">他</a></h2>
+<div class="twicard">
+  <span class="image"><a href="https://speakerdeck.com/tanishiking/how-we-replaced-a-10-year-old-perl-product-using-scala" target="_blank" rel="noopener noreferrer"><div><img src="https://speakerd.s3.amazonaws.com/presentations/3eb0c03150414e2193134e2d5caa24f8/slide_0.jpg?525626"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://speakerdeck.com/tanishiking/how-we-replaced-a-10-year-old-perl-product-using-scala" target="_blank" rel="noopener noreferrer">How we replaced a 10-year-old Perl product using Scala</a></div>
+    <div class="description">ScalaMatsuri 2019http://2019.scalamatsuri.org/index_en.html</div>
+  </span>
+</div>
+<p>どっかスライドまとまってないかな……</p>
+<hr>
+<h1 id="%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">おわりに</a></h1>
+<p>Scalaおもろいしもっと面白くなる! という気持ちをゲインしたのですごく良かった｡
+ぼくのかんがえたさいきょうのプログラム言語へのモチベーションも高まってしまった〜〜研究やってる場合じゃねえ!!</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2019/05/28/%E6%8A%80%E8%A1%93%E6%9B%B8%E5%85%B86%E3%81%AB%E5%90%88%E5%90%8C%E8%AA%8C%E3%82%92%E5%87%BA%E3%81%97%E3%81%9F;-effect-system%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%92%E3%82%84%E3%81%A3%E3%81%9F.html" title="技術書典6に合同誌を出した; effect system勉強会をやった">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <span class="btn next disabled">Next →</span>
+      </div>
+    </footer>
+
+  </body>
+</html>

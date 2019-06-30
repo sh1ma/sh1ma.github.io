@@ -5,9 +5,173 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 28 May 2019 04:08:57 +0900</pubDate>
-    <lastBuildDate>Tue, 28 May 2019 04:08:57 +0900</lastBuildDate>
+    <pubDate>Mon, 01 Jul 2019 00:26:21 +0900</pubDate>
+    <lastBuildDate>Mon, 01 Jul 2019 00:26:21 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>ScalaMatsuri2019いってきた</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <description>&lt;h1 id=&quot;%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;こんにちは､びしょ〜じょです｡
+ScalaMatsuri2019にいってきました｡
+Scalaはちょっとしか書いてないうえにだいぶ前ですが､論文やコードはぼちぼち読んでるので興味は依然としてだいぶある､という感じの人間です｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;頑張ってる感を出したんでスカラマツリに大学の金で行けないかな〜〜&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1110532965455540224?ref_src=twsrc%5Etfw&quot;&gt;March 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;ScalaMatsuriの参加費が皆さんの税金で賄われることとなりました｡ありがとうございます｡&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1121697171089182735?ref_src=twsrc%5Etfw&quot;&gt;April 26, 2019&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;p&gt;良いですね!
+東京で開催なので宿泊の必要がなかったので(とはいえ茨城から東京はめんどいので宿泊したかったが……)すんなり申請できました｡
+懇親会分はレギュレーションにより自費です｡
+ボクが研究しているalgebraic effectsに類似する機能であるextensible effectsに関する複数の発表を聞くのが主な目的でした｡
+他にも面白い目標があったしよく会う人とか久しぶりに会う人とか､知り合いの知り合いと知り合いになるなど､様々な実りのある会合でした｡&lt;/p&gt;&lt;p&gt;聞いてて特に面白いなと思ったセッションについていくつか振り返っていきます｡&lt;/p&gt;&lt;h1 id=&quot;Day1&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Day1&quot;&gt;Day1&lt;/a&gt;&lt;/h1&gt;&lt;h2 id=&quot;The+advantage+of+using+%E2%80%98Eff%E2%80%99+in+Scala+Project&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#The+advantage+of+using+%E2%80%98Eff%E2%80%99+in+Scala+Project&quot;&gt;The advantage of using ‘Eff’ in Scala Project&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/ma2k8/the-advantage-of-using-eff-in-scala-project&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/9b8316049f8748f1b4cd3f73718f43c2/slide_0.jpg?525359&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/ma2k8/the-advantage-of-using-eff-in-scala-project&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;The advantage of using ’Eff’ in Scala Project&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;R社のスタディサプリではextensible effects, 通称Effをプロダクトで使っているようです｡良いですね｡
+話が前後しますが､Effはまあまあ難しいのが短所です｡
+それでも複数のエフェクトをfor式内で扱えるのがありあまる長所となっています｡&lt;/p&gt;&lt;p&gt;発生させいエフェクトはなんだったのかというと､例えば&lt;code&gt;Future[A]&lt;/code&gt;などです｡
+&lt;code&gt;Future[A]&lt;/code&gt;はとにかくシンプルという長所がある一方､セマフォの制御が難しかったりエラーハンドリングが大雑把になるなどの欠点がある｡&lt;/p&gt;&lt;p&gt;では&lt;code&gt;Future[Try[A]]&lt;/code&gt;にポケモン進化! となるが､エラーハンドリングが&lt;code&gt;Throwable&lt;/code&gt;どまりです｡
+Javaのライブラリをラップするときには内部で&lt;code&gt;Try&lt;/code&gt;を使うようです｡インターフェースは&lt;code&gt;Either&lt;/code&gt;にしてScala的に利用できるようにするようだ｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;Future[E Either A]&lt;/code&gt;にすることで､上記のようにScalaっぽく柔軟にエラーハンドリングができるが､&lt;code&gt;Either&lt;/code&gt;を引き回す必要がある｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;EitherT[Future, E, A]&lt;/code&gt;でモナトラを使うことで&lt;code&gt;for&lt;/code&gt;の中がシンプルになる｡
+一方モナトラの問題点がそのまま出てくるわけですね｡lift問題やモナドスタック､合成の順番､パフォーマンスなど｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;Eff[R, A]&lt;/code&gt;はモナトラ同様に複数のエフェクトをいちどきに使うことができる｡
+のみならず､モナトラの持つ合成順序による振る舞いの違いやパフォーマンス問題が解決されている｡
+欠点はやはり理解が難しい部分｡&lt;/p&gt;&lt;p&gt;extensible effectsはモナトラとの比較がよくされますが､確かにモナトラ以前というものがあり､それらのpros/consがまとまっているのがEffのありがたみをもっと噛みしめるのに役立ちました｡
+Clean Architectrueと一緒にEffを使っているようですが､CAとEffの相性の良さとかは聞いておくべきだった……｡
+&lt;code&gt;for&lt;/code&gt;式といえばDSL!(短絡的発想) なのでCAの例の図の層ごとにDSLが定義され､DSLの使えるエフェクトがEffでひとまとまりになっている､などで使えそうな印象があります｡&lt;/p&gt;&lt;h2 id=&quot;Making+Logic+Moand+%3Clabel+id%3D%22logicmonad%22%3E%3C%2Flabel%3E%0A&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Making+Logic+Moand+%3Clabel+id%3D%22logicmonad%22%3E%3C%2Flabel%3E%0A&quot;&gt;Making Logic Moand &lt;label id=&quot;logicmonad&quot;&gt;&lt;/label&gt;
+&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://www.slideshare.net/SanshiroYoshida/making-logic-monad&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://cdn.slidesharecdn.com/ss_thumbnails/matsurihalcat-190628054808-thumbnail-4.jpg?cb=1561704714&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://www.slideshare.net/SanshiroYoshida/making-logic-monad&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Making Logic Monad&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;Making Logic Monad @halcat0x15a Recruit Marketing Partners Co., Ltd.  &lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;論理プログラミングをScalaでもやろう! という話｡
+論理プログラミングといえばPrologですが､その本質はbacktrackingとunification｡
+これをScalaで実現するには……?&lt;/p&gt;&lt;p&gt;&lt;code&gt;filter&lt;/code&gt;のようなcomputationはバックトラッキングと考えられる｡
+つまり&lt;strong&gt;&lt;em&gt;バックトラッキングはMonadPlusである&lt;/em&gt;&lt;/strong&gt;｡&lt;/p&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align: center&quot;&gt;backtracking&lt;/th&gt;
+&lt;th style=&quot;text-align: center&quot;&gt;monadplus&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;\/&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;plus&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;/\&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;flatMap&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;成功&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;pure&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;失敗&lt;/td&gt;
+&lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;empty&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;&lt;p&gt;MonadPlusとしてListを使う｡&lt;/p&gt;&lt;p&gt;unificationは変数と値を表す適当なデータ構造でうまくやる｡
+また変数に対応する値を保つ状態を持つ｡
+ところでbacktrackingとmutable dataは相性が悪い｡
+なので状態をimmutableに表したい､つまりStateモナドを使う｡
+ということで論理プログラミングをおこなうLogiモナド(List + State)を構築する｡&lt;/p&gt;&lt;p&gt;よっしゃOKや! というわけではなく､問題点がある｡
+スタックセーフでない点と､データ構造がListに依存してる点｡
+これらを解決するために､Freerモナドを利用する｡&lt;/p&gt;&lt;p&gt;Freerモナドの継続を持つ部分でType-aligned Sequenceを利用する｡
+簡単にいうと&lt;code&gt;TASeq(A =&amp;gt; B, B =&amp;gt; C) === A =&amp;gt; C&lt;/code&gt; みたいな感じで関数合成がリストで表現される｡
+これによって&lt;code&gt;flatMap&lt;/code&gt;の継続を合成するところがスタックセーフになる｡
+トランポリンなどを使わなくてもスタックセーフになるのが良いですね｡&lt;/p&gt;&lt;p&gt;そしてFreerからalgebraic effectsを作る｡
+各プリミティブをエフェクトとして追加していく｡
+そしてalgebraic effectsによりLogicモナドを構成して､Listへの依存がなくなる｡
+Freerの&lt;code&gt;run&lt;/code&gt;を書くことで､&lt;code&gt;Vector&lt;/code&gt;の戻り値にして有限個の解を得たり､&lt;code&gt;Stream&lt;/code&gt;にして無限の解をいっぱいとってきたり､などなど｡
+また各プリミティブが個別に定義されているので探索アルゴリズムをカスタマイズしたり追加できる｡
+例えばカットを定義するなど｡&lt;/p&gt;&lt;p&gt;なかなか聴きごたえのある内容でした｡
+パフォーマンスに関する質問はやはり(やはり?)でてきて､どうすればパフォーマンス良くなるんでしょうね｡
+静的になんとかなる部分をなんとかするとだいぶパフォーマンスがよくなるので､今はとりあえずcompilationしておきましょう｡
+『Efficient Compilation of Algebraic Effects and Handlers』を読んでください｡&lt;/p&gt;&lt;h2 id=&quot;CPS+or+DI&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#CPS+or+DI&quot;&gt;CPS or DI&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+  &lt;a href=&quot;https://gakuzzzz.github.io/slides/cps_or_di/#1&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CPS or DI Scala Matsuri 2019 2019/06/28&lt;/a&gt;
+&lt;/center&gt;&lt;p&gt;コンポーネントの分割と合成の方法として､DIを使う方法とCPSを使う方法の比較でした｡
+複数の関連する処理内容を渡したいときにはDI､そうでなければCPS､アドホックに処理を合成する場合はCPS､という使い分けをすると良いということでした｡
+CPSはcontinuation monadでサラッと書けるのが良い｡
+FPとOOPができるScalaならではの使い分けですねえ｡&lt;/p&gt;&lt;p&gt;CPSといえばコントロールフローが使えるのが利点ですが､そこに関してあまり活きてないのと､DIとその点の比較がないのがちょっと残念でした｡
+みなさんご存知ですがCPSは強力なので､なんでもできてしまうからなんでもしたくなってしまうのでいけない｡&lt;/p&gt;&lt;h2 id=&quot;%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E4%BB%96&quot;&gt;他&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;かぶっていけなかったけど興味あるやつとか&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/phenan/intro-to-typeclass-in-scala&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/44d8f1ad47f64c09a53d71231d5c3a4c/slide_0.jpg?525383&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/phenan/intro-to-typeclass-in-scala&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Intro to typeclass in Scala&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/petitviolet/pure-domain-model-and-the-technology-behind-it&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/99b05b9a08014f3fbb3881785b849b06/slide_0.jpg?525398&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/petitviolet/pure-domain-model-and-the-technology-behind-it&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ピュアなドメインを支える技術/pure domain model and the technology behind it&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;Presented at ScalaMatsuri2019 https://2019.scalamatsuri.org&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/mshibuya/scalaraiburariwozuo-ruqian-nizhi-tuteokitaimentenansufalsekoto&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/2077a7d9ebb947e9b9647c617bd742a0/slide_0.jpg?525374&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/mshibuya/scalaraiburariwozuo-ruqian-nizhi-tuteokitaimentenansufalsekoto&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Scalaライブラリを作る前に知っておきたいメンテナンスのこと&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;in ScalaMatsuri 2019&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/atty303/case-of-ad-delivery-system-is-implemented-by-scala-and-ddd&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/d35ddff2c51f48cd8ce1e17cd003de80/slide_0.jpg?525430&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/atty303/case-of-ad-delivery-system-is-implemented-by-scala-and-ddd&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Case of Ad Delivery System is Implemented by Scala and DDD&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;ScalaMatsuri 2019&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/yoshiyoshifujii/clean-architecture-in-practice-at-scalamatsuri2019&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/201e2c6be65845599e9884bdd4526389/slide_0.jpg?525424&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/yoshiyoshifujii/clean-architecture-in-practice-at-scalamatsuri2019&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Clean Architecture in Practice @ScalaMatsuri2019&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;実践 Clean Architecturehttp://2019.scalamatsuri.org/&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;h1 id=&quot;Day+2&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Day+2&quot;&gt;Day 2&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;2日目は主にアンカンファレンスでした｡
+1日目からアイデアボードに発表案を貼っていって､シールとかで聞きたい意思を表明すると､人気な案が2日目におこなわれる､というシステム｡&lt;/p&gt;&lt;h2 id=&quot;Bengal%3A+Dotty+Cats&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Bengal%3A+Dotty+Cats&quot;&gt;Bengal: Dotty Cats&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;(スライドみつからね〜〜涙)&lt;/p&gt;&lt;p&gt;Scala3向けのCatsライクなライブラリとして開発されているBengal｡
+結局あんまりわかんなかった｡
+Bengalを作るにあたってキーになるScala3の新機能なんだろうか｡
+とはいえ知らない新機能が多くて面白かった｡&lt;/p&gt;&lt;h3 id=&quot;extension+methods&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#extension+methods&quot;&gt;extension methods&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;コレはKokaのdot記法みたいなやつか｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scala&quot; data-lang=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Circle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Double&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Double&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;radius&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Double&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Circle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;circumference&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Double&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;radius&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Pi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Scala的には､オブジェクトにメソッドを新しく生やすという感覚だろうか｡
+またextension methodsの定義の構文のおかげで二項演算子が直感的に書ける｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scala&quot; data-lang=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;combine&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&quot;%3Ccode%3Edelegate-given%3C%2Fcode%3E&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%3Ccode%3Edelegate-given%3C%2Fcode%3E&quot;&gt;&lt;code&gt;delegate-given&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;implicit parameterがいい感じに書ける&lt;/p&gt;&lt;h3 id=&quot;delegate+imports&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#delegate+imports&quot;&gt;delegate imports&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;importがいい感じに書ける&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scala&quot; data-lang=&quot;scala&quot;&gt;&lt;span class=&quot;n&quot;&gt;importe&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delegate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bengal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delegates&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;importe&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delegate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bengal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delegates&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Monad&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&quot;export+clauses&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#export+clauses&quot;&gt;export clauses&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;OCamlの&lt;code&gt;open&lt;/code&gt;的なやつ｡
+例ではクラスかなんかのスコープにopenしていたが､OCamlの&lt;code&gt;let open&lt;/code&gt;よろしく式としても書けるのだろうか?&lt;/p&gt;&lt;h3 id=&quot;type+lambdas&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#type+lambdas&quot;&gt;type lambdas&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;とうとう言語標準に入った!&lt;/p&gt;&lt;h3 id=&quot;opaque+type+alias&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#opaque+type+alias&quot;&gt;opaque type alias&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;type aliasを作るが､完全なaliasではなく､特定のメソッドを生やすことができるようになる｡
+余計なオブジェクトを作らないのでランタイムのコストを下げることが期待できるんじゃないでしょうか｡&lt;/p&gt;&lt;h3 id=&quot;typeclass+derivation&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#typeclass+derivation&quot;&gt;typeclass derivation&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;はい神&lt;/p&gt;&lt;h3 id=&quot;local+coherence&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#local+coherence&quot;&gt;local coherence&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;delegationでメソッドが衝突したときに手動で解決するやつっぽい｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;Haskellかよ〜〜という感じでますますアツくなるな｡&lt;/p&gt;&lt;h2 id=&quot;fujitask+meets+extensible+effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#fujitask+meets+extensible+effects&quot;&gt;fujitask meets extensible effects&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+  &lt;a href=&quot;https://y-yu.github.io/fujitask-eff-slide/fujitask_without_animation.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;fujitask meets extensible effects&lt;/a&gt;
+&lt;/center&gt;&lt;p&gt;トランザクションを型でうまく表現するfujitaskはsubtypingを利用したテクを利用している｡
+subtyping関係は半順序集合であり､特にScalaの場合は束を作る｡
+そしてトランザクションは束を作る!
+なのでこれをScalaのsubtypingで表現できる｡
+つまりトランザクションがScalaの型でエンコードできる｡&lt;/p&gt;&lt;p&gt;そしてFujitaskはモナドだワーイワーイということでfor式でトランザクションをスッキリ書ける｡
+型クラスとsubtypingのあるScalaだからこそでき､型クラスのないJavaやsubtypingのないHaskellでは実現できない｡&lt;/p&gt;&lt;p&gt;ところで様々なforで効果を使いたいわけですが､(中略)extensible effectsを使う｡
+extensible effectsはsubtypingを持たないHaskellを起源に持ち､antos-effもsubtypingが考慮されていない｡
+しかし&lt;a href=&quot;#logicmonad&quot;&gt;logic monadの発表&lt;/a&gt;
+をしたねこはるさん作の､subtypingを考慮した&lt;a href=&quot;https://github.com/halcat0x15a/kits-eff&quot;&gt;kits-eff&lt;/a&gt;を利用すればイケる!&lt;/p&gt;&lt;p&gt;fujitaskひいてはトランザクションとsubtypingの話がおもしろかった(小並感)｡&lt;/p&gt;&lt;h2 id=&quot;%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E4%BB%96&quot;&gt;他&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/tanishiking/how-we-replaced-a-10-year-old-perl-product-using-scala&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/3eb0c03150414e2193134e2d5caa24f8/slide_0.jpg?525626&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/tanishiking/how-we-replaced-a-10-year-old-perl-product-using-scala&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;How we replaced a 10-year-old Perl product using Scala&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;ScalaMatsuri 2019http://2019.scalamatsuri.org/index_en.html&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;どっかスライドまとまってないかな……&lt;/p&gt;&lt;hr&gt;&lt;h1 id=&quot;%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Scalaおもろいしもっと面白くなる! という気持ちをゲインしたのですごく良かった｡
+ぼくのかんがえたさいきょうのプログラム言語へのモチベーションも高まってしまった〜〜研究やってる場合じゃねえ!!&lt;/p&gt;</description>
+        <pubDate>Sun, 30 Jun 2019 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2019/06/30/ScalaMatsuri2019%E3%81%84%E3%81%A3%E3%81%A6%E3%81%8D%E3%81%9F.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2019/06/30/ScalaMatsuri2019%E3%81%84%E3%81%A3%E3%81%A6%E3%81%8D%E3%81%9F.html</guid>
+        
+        <category>Scala</category>
+        
+        <category>雑感</category>
+        
+        
+      </item>
     
       <item>
         <title>技術書典6に合同誌を出した; effect system勉強会をやった</title>
@@ -156,7 +320,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Frank 言語これ？ &lt;a href=&quot;https://t.co/277z76pxLr&quot;&gt;https://t.co/277z76pxLr&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— かずきに天使が舞い降りた (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132522163989204992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Frank 言語これ？ &lt;a href=&quot;https://t.co/277z76pxLr&quot;&gt;https://t.co/277z76pxLr&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— かずきとまそたん (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132522163989204992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -211,7 +375,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— Kon《remember to love &amp;amp; don’t do infinites》 (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— ᴋᴏɴ《a chilled tokyo 🌈rustacean》 (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -336,7 +500,7 @@ Idrisに詳しくないんで “型がfirst-class” というところでspace
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;h2 id=&quot;Row-based+type+systems+for+algebraic+effect+handlers&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Row-based+type+systems+for+algebraic+effect+handlers&quot;&gt;Row-based type systems for algebraic effect handlers&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;最後は&lt;a href=&quot;https://twitter.com/skymountain_&quot;&gt;@skymountain_ &lt;/a&gt;さんによる発表でした｡資料は&lt;a href=&quot;https://www.slideshare.net/TaroSekiyama/rowbased-effect-systems-for-algebraic-effect-handlers&quot;&gt;こちら&lt;/a&gt;&lt;/p&gt;&lt;p&gt;内容は､parameterized effectsを持つrow-based type systemsにおけるeffect handlerの話でした｡&lt;/p&gt;&lt;p&gt;序盤ではAlgebraic Effectsについて簡単な例から初めて丁寧な説明があり､effect systemを知らない方にも優しいintroductionでした｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;最初に聞きたい感じの発表だった &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— かずきに天使が舞い降りた (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132554009481322497?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;最初に聞きたい感じの発表だった &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— かずきとまそたん (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132554009481322497?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;これは私がミスったわね｡&lt;/p&gt;&lt;p&gt;parameterized effectsの導入から､row-based effect systemとその特徴について述べ､他のset-based onesとの比較など大変わかり易く面白い内容でした｡&lt;/p&gt;&lt;p&gt;Kokaの論文を中途半端に読んでたのでtype systemの部分をちゃんと読み直そうと思います｡
@@ -2249,162 +2413,6 @@ Scalaを使っているサーバーサイドはだいたい実装ができてい
         <guid isPermaLink="true">https://nymphium.github.io/2018/08/18/%E7%8F%BE%E5%9C%A8%E3%81%AE%E3%82%B9%E3%82%AD%E3%83%AB%E3%82%BB%E3%83%83%E3%83%88.html</guid>
         
         <category>就活目的</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Algebraic Effectsであそぼう</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;&lt;p&gt;ここしばらく20行/日くらいしかコード書いてません｡
-いやもっと少ないかも…｡
-いや研究してますんで! いや〜研究もそんなにしてないな…じゃあ何を…&lt;/p&gt;&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Algebraic effectsとは､2001年くらいに提唱されてから､爆流行らずともにわかに盛り上がりを見せつつある言語機能である｡
-極めて雑に説明すると､&lt;em&gt;継続を取ってこれる例外&lt;/em&gt;である｡
-Plotkin氏(またお前か)が代数学的アプローチによる基盤を作り､そこにハンドラが付いてプログラム言語の機能として考えられるようになった｡
-ボクの話のうち1〜10割間違っていることは確かなので､誤った情報を一切入れたくない人は&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title='Matija Prentar. &quot;An Introduction to Algebraic Effects and Handlers.” Electronic Notes in Theoretical Computer Science 319. 2015. ' id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
-を読んでください｡&lt;/p&gt;&lt;h2 id=&quot;1-1.+algebraic+effects%E5%AE%9F%E8%A3%85%E3%81%AE%E6%9C%89%E5%90%8D%E3%81%A9%E3%81%93%E3%82%8D&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1-1.+algebraic+effects%E5%AE%9F%E8%A3%85%E3%81%AE%E6%9C%89%E5%90%8D%E3%81%A9%E3%81%93%E3%82%8D&quot;&gt;1-1. algebraic effects実装の有名どころ&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;http://www.eff-lang.org/&quot;&gt;Eff&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;algebraic effectsを言語機能として初めて設計された言語｡
-MLスタイルのシンタックスでHindley-Milner型推論がある｡&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;impls&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/matijapretnar/eff&quot;&gt;matijapretnar/eff&lt;/a&gt;&lt;label id=&quot;effinterp&quot;&gt;&lt;/label&gt;&lt;/p&gt;
-
-&lt;p&gt;OCaml製Effのインタープリタ&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/atnos-org/eff&quot;&gt;athnos-org/eff&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;ScalaのDSLとして実装されている&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;http://okmij.org/ftp/continuations/Eff/&quot;&gt;『Eff Directly in OCaml』&lt;/a&gt;&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot; title=&quot;Oleg Kiselyov, K. C. Sivaramakrishnan. “Eff directly in OCaml.” ML Workshop. 2016. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Oleg氏(またお前か)によるEffを､delimited continuationライブラリを使ってOCamlのDSLとして実装したもの｡
-Effはdelimited continuationをエミュレートできるが､実はEff &lt;em&gt;を&lt;/em&gt; delimited continuationでエミュレートできることがわかる｡&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.microsoft.com/en-us/research/project/koka/&quot;&gt;Koka&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;MS Researchがやっていってる言語｡
-手続き型っぽいシンタックスと､Row-typesというeffectsが型に滲み出る､さながらモナドみがある型システムを持っている｡&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/ocamllabs/ocaml-multicore&quot;&gt;multicoreOCaml&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;OCamlに直接algebraic effects &amp;amp; handlerを追加した方言｡
-continuationがoneshotとなっており､明示的にクローンしないと2回使えない｡
-この&quot;2回使えない&quot;はlinear typeを導入して弾いてほしいが､実際はランタイムエラーである｡&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;&lt;h1 id=&quot;2.+%E3%81%95%E3%81%A3%E3%81%9D%E3%81%8F%E8%A9%A6%E3%81%99&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+%E3%81%95%E3%81%A3%E3%81%9D%E3%81%8F%E8%A9%A6%E3%81%99&quot;&gt;2. さっそく試す&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;algebraic effects界隈ではスタンダードなEff言語を例に見てみる｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(* effect definition *)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;handle&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;(* invoke *)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;print_int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* value handler *)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* continuation *)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;print_int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これを実行すると､&lt;code&gt;47&lt;/code&gt;という表示が得られる｡
-どういうことなんや｡
-素直な心を使うと､&lt;code&gt;(+)&lt;/code&gt;は&lt;code&gt;int -&amp;gt; int -&amp;gt; int&lt;/code&gt;､&lt;code&gt;3 + perform (Eff 4)&lt;/code&gt;は&lt;code&gt;int&lt;/code&gt;､&lt;code&gt;perform (Eff 4)&lt;/code&gt;も&lt;code&gt;int&lt;/code&gt;ということが考えられる｡
-なるほど&lt;code&gt;Eff&lt;/code&gt;のシグネチャ&lt;code&gt;int -&amp;gt; int&lt;/code&gt;は､矢印の左辺がeffectの引数､右辺はcontextのholeの型か｡
-&lt;code&gt;perform&lt;/code&gt;は何??? ……じゃあ&lt;code&gt;Eff&lt;/code&gt;は&lt;code&gt;int -&amp;gt; int eff&lt;/code&gt;ということにして&lt;code&gt;perform&lt;/code&gt;は&lt;code&gt;'a eff -&amp;gt; 'a&lt;/code&gt;でどうだ､これでいいだろう!!!
-という感じで推理していくと&lt;code&gt;4&lt;/code&gt;という表示は&lt;code&gt;effect (Eff x) k -&amp;gt; print_int x; k x&lt;/code&gt;という箇所で発射されたんじゃないかという感じがある｡
-&lt;code&gt;7&lt;/code&gt;は&lt;code&gt;x -&amp;gt; print_int x&lt;/code&gt;ですね｡
-&lt;a href=&quot;/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html&quot;&gt;前回の記事&lt;/a&gt;を読んでもらえると分かるが､&lt;code&gt;handle e with (handlers)&lt;/code&gt;がdelimiterで
-&lt;code&gt;k&lt;/code&gt;が切り取られた継続になる｡
-だいたいそう｡&lt;/p&gt;&lt;p&gt;わかった｡
-念のため他の例も見ておこう｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Choose&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chooseh&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;handle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;print_int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;print_int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chooseh&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;3102051020&lt;/code&gt;という表示になる｡
-継続を複製してる感ありますね｡&lt;/p&gt;&lt;p&gt;同じ&lt;code&gt;Choose&lt;/code&gt; effectでも型さえ合ってれば異なる処理が書ける､つまり定義と実装を分けることができるのが特徴となっている｡
-ここでHaskellerは｢Freeモナドやんけ!｣となるらしいですがボクはHaskellをやっていってないのでわかりませんでした｡
-型だけ定義して､interpretationはユーザに任せるということなので確かに同じようだ｡
-そもそもalgebraic effectの&lt;em&gt;algebraic&lt;/em&gt;は&quot;free &lt;em&gt;algebra&lt;/em&gt;“から来てるそう&lt;sup id=&quot;fnref3&quot; title=&quot;Andrej Bauer. “What is algebraic about algebraic effects and handlers?.” eprint arXiv:1807.05923. 2018. &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;なので､袂を分かつ存在である｡
-実際&lt;a href=&quot;#effinterp&quot;&gt;Effインタプリタ&lt;/a&gt;
-はFreeモナドを使って実装しているようだ｡&lt;/p&gt;&lt;p&gt;そしていろんなeffectsをいっぺんにハンドルするぜ!&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Choose&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;手軽だ｡
-HaskellではFreeモナドを発展させたextensible effects&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;快速のExtensible effects  – モナドとわたしとコモナド https://fumieval.hatenablog.com/entry/2017/08/02/230422 &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
-&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot; title=&quot;Oleg Kiselyov, Amr Sabry, Cameron Swords. “Extensible Effeects: An Alternative to Monad Transformers.” ACM SIGPLAN Notices. Vol. 48. No. 12. ACM, 2013. &quot; id=&quot;fnref5&quot;&gt;5&lt;/a&gt;]&lt;/span&gt;
-といったものが流行っているそうで､
-確かにモナドトランスフォーマーガン積みして爆重になるという困難から抜け出せるらしい｡&lt;/p&gt;&lt;h1 id=&quot;3.+%E5%BF%9C%E7%94%A8&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+%E5%BF%9C%E7%94%A8&quot;&gt;3. 応用&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;delimited continuationが扱えるうえにCPS的な書き方ではなくdirect-styleで記述できるため､
-syntacticにきれいに､バグらず簡単に書ける､というありがたみがある｡
-ボクの語彙が少ないので詳細は文献&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn6&quot; rel=&quot;footnote&quot; title=&quot;Anderj Bauer, Matija Prentar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming, 84(1), pp.108-123. &quot; id=&quot;fnref6&quot;&gt;6&lt;/a&gt;]&lt;/span&gt;
-&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot; title=&quot;Dolan, Stephen, Spiros Eliopoulos, Daniel Hillerström, Anil Madhavapeddy, K. C. Sivaramakrishnan, Leo White. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming, pp. 98-117. Springer, Cham, 2017. &quot; id=&quot;fnref7&quot;&gt;7&lt;/a&gt;]&lt;/span&gt;
-を読んでください｡&lt;/p&gt;&lt;h1 id=&quot;4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;4. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;また情報量が0になってしまった……!!!&lt;/p&gt;&lt;h1 id=&quot;%E8%BF%BD%E8%A8%9820181030&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%BF%BD%E8%A8%9820181030&quot;&gt;追記20181030&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ReactにHooksという機能が追加されたがこれはまさにAlgebraic Effectsということで､ReactはさておきAlgebraic Effectsに関してもう少し実例を交えて詳しいものをQiitaに発射した｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://cdn.qiita.com/assets/qiita-fb-2887e7b4aad86fd8c25cea84846f2236.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました! - Qiita&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;ReactのHooksが実質algebraic effectsなんじゃないかということでalgebraic effectsに関する怪文書が流布して鼻白んでしまう､そんな未来を阻止するため､曲がりなりにもalgebraic effect…&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;p&gt;追記おわり&lt;/p&gt;&lt;hr&gt;&lt;div class=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-
-&lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;Matija Prentar. &quot;An Introduction to Algebraic Effects and Handlers.” Electronic Notes in Theoretical Computer Science 319. 2015. &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn2&quot;&gt;
-&lt;p&gt;Oleg Kiselyov, K. C. Sivaramakrishnan. “Eff directly in OCaml.” ML Workshop. 2016. &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn3&quot;&gt;
-&lt;p&gt;Andrej Bauer. “What is algebraic about algebraic effects and handlers?.” eprint arXiv:1807.05923. 2018. &lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn4&quot;&gt;
-&lt;p&gt;快速のExtensible effects  – モナドとわたしとコモナド &lt;a href=&quot;https://fumieval.hatenablog.com/entry/2017/08/02/230422&quot;&gt;https://fumieval.hatenablog.com/entry/2017/08/02/230422&lt;/a&gt; &lt;a href=&quot;#fnref4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn5&quot;&gt;
-&lt;p&gt;Oleg Kiselyov, Amr Sabry, Cameron Swords. “Extensible Effeects: An Alternative to Monad Transformers.” ACM SIGPLAN Notices. Vol. 48. No. 12. ACM, 2013. &lt;a href=&quot;#fnref5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn6&quot;&gt;
-&lt;p&gt;Anderj Bauer, Matija Prentar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming, 84(1), pp.108-123. &lt;a href=&quot;#fnref6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn7&quot;&gt;
-&lt;p&gt;Dolan, Stephen, Spiros Eliopoulos, Daniel Hillerström, Anil Madhavapeddy, K. C. Sivaramakrishnan, Leo White. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming, pp. 98-117. Springer, Cham, 2017. &lt;a href=&quot;#fnref7&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-        <pubDate>Mon, 13 Aug 2018 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html</guid>
-        
-        <category>OCaml</category>
-        
-        <category>Algebraic Effects</category>
         
         
       </item>
