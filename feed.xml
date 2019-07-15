@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 16 Jul 2019 02:58:14 +0900</pubDate>
-    <lastBuildDate>Tue, 16 Jul 2019 02:58:14 +0900</lastBuildDate>
+    <pubDate>Tue, 16 Jul 2019 02:59:21 +0900</pubDate>
+    <lastBuildDate>Tue, 16 Jul 2019 02:59:21 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -220,12 +220,12 @@ extensible effectsはsubtypingを持たないHaskellを起源に持ち､antos-e
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; ありそうでなかなかなかったFree applicativeの紹介と、そのextensible化。途中の計算結果に依存しないという性質を利用してRPCなどの記述に使えそう&lt;/p&gt;— ふみ　🐦☀💧🌳 (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132501183875100672?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; ありそうでなかなかなかったFree applicativeの紹介と、そのextensible化。途中の計算結果に依存しないという性質を利用してRPCなどの記述に使えそう&lt;/p&gt;— 港の鳥占師、ふみ (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132501183875100672?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Free ApplicativeとFree Monadのliftを共通化するのは面白そうだ &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— ふみ　🐦☀💧🌳 (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132502512680833024?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Free ApplicativeとFree Monadのliftを共通化するのは面白そうだ &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 港の鳥占師、ふみ (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132502512680833024?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -284,7 +284,7 @@ extensible effectsはsubtypingを持たないHaskellを起源に持ち､antos-e
   &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://qiita.com/ryota-ka/items/b46f43dc18a9229feb03&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://cdn.qiita.com/assets/qiita-fb-2887e7b4aad86fd8c25cea84846f2236.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://qiita.com/ryota-ka/items/b46f43dc18a9229feb03&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Effect{ive,ful} Cycle.js - Qiita&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;# おことわり- この発表はかなり&lt;b&gt;お気持ち&lt;/b&gt;です- 他の発表とは異なり(？)なんら学術的裏付けがあるものではありません- なんと(？)まったく数式が出てきません— # 自己紹介- 亀岡 亮太- […&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;# おことわり- この発表はかなり&amp;lt;b&amp;gt;お気持ち&amp;lt;/b&amp;gt;です- 他の発表とは異なり(？)なんら学術的裏付けがあるものではありません- なんと(？)まったく数式が出てきません— # 自己紹介…&lt;/div&gt;
   &lt;/span&gt;
 &lt;/div&gt;&lt;p&gt;内容は､Webフロントエンドにおける様々な副作用をCycle.jsでうまくやっていくというものでした｡&lt;/p&gt;&lt;p&gt;副作用を分離して処理したい､まさにalgebraic effectsがやろうとしてることですね｡
 実際にHERP社さんですか?でもプロダクトですでに活用しているとのことです｡
@@ -310,12 +310,12 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Rustは副作用使い放題の素晴らしい言語 &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典6 か15 (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132520819630804992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Rustは副作用使い放題の素晴らしい言語 &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典7 (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132520819630804992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;可変な変数でStateを実装しようとすると型チェックで弾かれる。RefCellではつらい &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典6 か15 (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132521274125590528?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;可変な変数でStateを実装しようとすると型チェックで弾かれる。RefCellではつらい &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典7 (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132521274125590528?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -353,7 +353,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;/div&gt;&lt;p&gt;effect systemとはなにかから､Kokaを題材にあげ､最終的にmonadsとの関係について述べるという内容でした｡&lt;/p&gt;&lt;p&gt;Kokaの処理系の&lt;a href=&quot;https://github.com/koka-lang/koka/pull/74&quot;&gt;ビルドシステム周りで少しだけcontributionした&lt;/a&gt;ので勝手に親近感を持ってる言語です｡
 あとshift0/reset0は書けるけどshift/resetは型で弾かれた経験があるので､もう少し頑張ってトライしてみたいです｡
 &lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://gist.github.com/Nymphium/3cb574cb511a179a30390599e6e51669&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://avatars2.githubusercontent.com/u/5901180?s=400&amp;amp;v=4&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://gist.github.com/Nymphium/3cb574cb511a179a30390599e6e51669&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://github.githubassets.com/images/modules/gists/gist-og-image.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://gist.github.com/Nymphium/3cb574cb511a179a30390599e6e51669&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;typed prompt-less shift/reset in Koka language&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;typed prompt-less shift/reset in Koka language. GitHub Gist: instantly share code, notes, and snippets.&lt;/div&gt;
@@ -375,7 +375,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— ᴋᴏɴ《a chilled tokyo rustacean》 (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— ᴋᴏɴ《a curried london rustacean》 (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -424,7 +424,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 適切な場所がなかったのでconclusionの1枚手前という微妙な位置になってしまったのはかなり反省です｡
 というわけでみなさんやっていきましょう｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Algebraic Effectの実装、libhandlerの場合：longjmp, stack frame+ip &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典6 か15 (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132534088089292800?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Algebraic Effectの実装、libhandlerの場合：longjmp, stack frame+ip &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典7 (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132534088089292800?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
