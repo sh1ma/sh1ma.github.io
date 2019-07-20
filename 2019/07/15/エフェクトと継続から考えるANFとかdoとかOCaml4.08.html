@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>エフェクト､do､ANF､継続､継続 - lilyum ensemble</title>
+    <meta itemprop="name" content="エフェクト､do､ANF､継続､継続 - lilyum ensemble"/>
+    <meta name="keywords" content="continuation,ANF,effects,OCaml,Haskell"/>
+    <meta name="thumbnail" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta itemprop="image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="エフェクト､do､ANF､継続､継続 - lilyum ensemble"/>
+    <meta name="twitter:url" content="https://nymphium.github.io/2019/07/15/%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A8%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E8%80%83%E3%81%88%E3%82%8BANF%E3%81%A8%E3%81%8Bdo%E3%81%A8%E3%81%8BOCaml4.08.html"/> 
+    <meta name="twitter:text:description" content="こんにちは､びしょ〜じょです｡修士中間発表終わったのでもう研究しなくてOK!!!!!!!!1. はじめに突然ですがみなさんエフェクトを発生させていますか｡ところでエフェクトはどこで発生するのでし..."/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="エフェクト､do､ANF､継続､継続" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="lily, Aikatsu, Programming language, and more" />
+<meta property="og:description" content="lily, Aikatsu, Programming language, and more" />
+<link rel="canonical" href="https://nymphium.github.io/2019/07/15/%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A8%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E8%80%83%E3%81%88%E3%82%8BANF%E3%81%A8%E3%81%8Bdo%E3%81%A8%E3%81%8BOCaml4.08.html" />
+<meta property="og:url" content="https://nymphium.github.io/2019/07/15/%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A8%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E8%80%83%E3%81%88%E3%82%8BANF%E3%81%A8%E3%81%8Bdo%E3%81%A8%E3%81%8BOCaml4.08.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-07-15T00:00:00+09:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"lily, Aikatsu, Programming language, and more","@type":"BlogPosting","dateModified":"2019-07-15T00:00:00+09:00","datePublished":"2019-07-15T00:00:00+09:00","headline":"エフェクト､do､ANF､継続､継続","url":"https://nymphium.github.io/2019/07/15/%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A8%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E8%80%83%E3%81%88%E3%82%8BANF%E3%81%A8%E3%81%8Bdo%E3%81%A8%E3%81%8BOCaml4.08.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2019/07/15/%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A8%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E8%80%83%E3%81%88%E3%82%8BANF%E3%81%A8%E3%81%8Bdo%E3%81%A8%E3%81%8BOCaml4.08.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">エフェクト､do､ANF､継続､継続</h1>
+            <span class="post-meta">
+              <time datetime="2019-07-15T00:00:00+09:00" itemprop="datePublished">Jul 15, 2019</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2019-07-16-%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A8%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E8%80%83%E3%81%88%E3%82%8BANF%E3%81%A8%E3%81%8Bdo%E3%81%A8%E3%81%8BOCaml4.08.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<a href="/tags.html#continuation-ref">continuation</a>, <a href="/tags.html#ANF-ref">ANF</a>, <a href="/tags.html#effects-ref">effects</a>, <a href="/tags.html#OCaml-ref">OCaml</a>, <a href="/tags.html#Haskell-ref">Haskell</a>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡</p>
+<p>修士中間発表終わったのでもう研究しなくてOK!!!!!!!!</p>
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
+<p>突然ですがみなさんエフェクトを発生させていますか｡
+ところでエフェクトはどこで発生するのでしょうか｡
+あ! とりあえずcall-by-valueでいいですか｡はい｡</p>
+<p>エフェクトは値でないexpression､つまり関数呼び出しで発生する､というのはなんとなく分かるんじゃないでしょうか｡
+値を使ったり変数を参照したり<sup id="fnref1" title="変数の参照もエフェクトとして考えることができるがここでは割愛 "><a href="#fn1" rel="footnote">1</a></sup>するだけでなんかよくわからんことが起きては困る｡</p>
+<p><label id="lst:example"></label></p>
+<div class="highlight">
+<span class="listing-name">プログラム<a href="#lst:example">1.1</a>
+. 計算エフェクトの発生</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">comp</span> <span class="bp">()</span> <span class="o">=</span> <span class="p">(</span><span class="n">print_endline</span> <span class="s2">"hello"</span><span class="p">;</span> <span class="mi">3</span><span class="p">);;</span>
+<span class="k">let</span> <span class="n">f</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;;</span>
+
+<span class="k">let</span> <span class="n">v</span> <span class="o">=</span> <span class="n">comp</span> <span class="bp">()</span> <span class="k">in</span> <span class="c">(* ここで発生 *)</span>
+<span class="n">f</span> <span class="n">v</span>
+</code></pre>
+</div>
+<p>ところで計算エフェクトの発生に印を付けたいのですがOCamlでは…｡</p>
+<h1 id="2.+notion+of+computation"><a class="headerlink" href="#2.+notion+of+computation">2. notion of computation</a></h1>
+<p>effect-and-type systemを思い出してみましょう｡
+なにか<code>t</code>型の値を返すが､途中に計算エフェクト<code>T</code>が発生する場合､<code>T t</code>と書いたりします｡
+高カインド型は今回あまり触れないかもしれないですが､念の為Haskellでいきましょう｡
+Scalaもあるがエフェクトがどこでも発生させられるので今回はやめておこう｡
+自分､ <code>-XStrict</code> いいっすか</p>
+<h2 id="2-1.+%E5%80%A4%E3%81%AE%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%97%E3%81%A8%E7%B6%99%E7%B6%9A"><a class="headerlink" href="#2-1.+%E5%80%A4%E3%81%AE%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%97%E3%81%A8%E7%B6%99%E7%B6%9A">2-1. 値の取り出しと継続</a></h2>
+<p><code>T t</code>から<code>t</code>を取り出したいときはどうするんでしょうか｡
+そうだね､bind(<code>(&gt;&gt;=) :: T t -&gt; (t -&gt; T u) -&gt; T u</code>)だね(プログラム<a href="#lst:bind">2.1</a>
+)｡</p>
+<p><label id="lst:bind"></label></p>
+<div class="highlight">
+<span class="listing-name">プログラム<a href="#lst:bind">2.1</a>
+. bind</span><pre><code class="language-haskell" data-lang="haskell"><span class="n">comp</span> <span class="nb">()</span> <span class="o">&gt;&gt;=</span> <span class="p">(</span><span class="nf">\</span><span class="n">v</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="n">v</span><span class="p">)</span> <span class="c1">-- わかりやすくeta expansion</span>
+</code></pre>
+</div>
+<p>左辺で計算エフェクトが発生しつつ値が出てきて(<code>T t</code>)､値を取り出して(<code>t</code>)処理をおこなって値を返す(<code>T u</code>)｡
+ところでHaskellならdoがありますねえ(プログラム<a href="#lst:do">2.2</a>
+)</p>
+<p><label id="lst:do"></label></p>
+<div class="highlight">
+<span class="listing-name">プログラム<a href="#lst:do">2.2</a>
+. do記法</span><pre><code class="language-haskell" data-lang="haskell"><span class="kr">do</span>
+  <span class="n">v</span> <span class="o">&lt;-</span> <span class="n">comp</span> <span class="nb">()</span><span class="p">;</span> <span class="c1">-- 手続き感を出すためにケツセミコロン</span>
+  <span class="n">f</span> <span class="n">v</span>
+</code></pre>
+</div>
+<p><a href="#lst:bind">2.1</a>
+から<a href="#lst:do">2.2</a>
+への変換はみたまんまで､<code>do</code>(の一部)は<code>&gt;&gt;=</code>の糖衣構文である｡
+ところでこの変換により､bindの右辺が<code>do</code>記法における残りの計算部分､つまり<strong>継続</strong>になることが分かる｡
+<code>&gt;&gt;=</code>でチェインしまくるのがCPSを手で書くことにあたるのに対し､<code>do</code>による書き方はCPSをうまく隠蔽しています｡</p>
+<h1 id="3.+A-Normal+Form%EF%BD%A4%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFMonadic+Normal+Form"><a class="headerlink" href="#3.+A-Normal+Form%EF%BD%A4%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFMonadic+Normal+Form">3. A-Normal Form､あるいはMonadic Normal Form</a></h1>
+<p>ところでOCamlはエフェクト発生させ放題プランに加入してるのでどこでもエフェクトが発生します(プログラム<a href="#lst:effectful">3.1</a>
+)｡</p>
+<p><label id="lst:effectful"></label></p>
+<div class="highlight">
+<span class="listing-name">プログラム<a href="#lst:effectful">3.1</a>
+. 計算エフェクトの大量発生</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">comp</span> <span class="bp">()</span> <span class="o">=</span> <span class="p">(</span><span class="n">print_endline</span> <span class="s2">"hello"</span><span class="p">;</span> <span class="mi">3</span><span class="p">);;</span>
+<span class="k">let</span> <span class="n">f</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;;</span>
+
+<span class="n">print_int</span> <span class="o">@@</span> <span class="n">f</span> <span class="o">@@</span> <span class="n">comp</span> <span class="bp">()</span> <span class="o">+</span> <span class="n">comp</span> <span class="bp">()</span> <span class="c">(* prints "hello\nhello\n11" *)</span>
+</code></pre>
+</div>
+<p>計算エフェクトがどこで起きるのかよくわかんね〜〜
+<code>e1 e2</code>のような場合､先に<code>e2</code>で発生しうるエフェクトを解消してから､つまり評価をおこなって出てきた値を､<code>e1</code>を評価して出てきた関数に渡したい｡
+ではexpressionがネストしないような形にしよう(プログラム<a href="#lst:anf">3.2</a>
+)｡</p>
+<p><label id="lst:anf"></label></p>
+<div class="highlight">
+<span class="listing-name">プログラム<a href="#lst:anf">3.2</a>
+. 値を逐一取り出し太郎</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">comp</span> <span class="bp">()</span> <span class="k">in</span>
+<span class="k">let</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">comp</span> <span class="bp">()</span> <span class="k">in</span>
+<span class="k">let</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span> <span class="k">in</span>
+<span class="k">let</span> <span class="n">v4</span> <span class="o">=</span> <span class="n">f</span> <span class="n">v3</span> <span class="k">in</span>
+<span class="n">print_int</span> <span class="n">v4</span>
+</code></pre>
+</div>
+<p>このような形式は<em>A-Normal Form</em>(略してANF)と呼ばれ､<code>let</code>の右辺はredexが一つしか無い状態に制限されている｡
+それにしてもこれは<a href="#lst:do">2.2</a>
+に近いですねえ｡
+MoggiがHaskellのモナドのコンセプトとなる論文<span class="cite">[<a href="#fn2" rel="footnote" title="Moggi, Eugenio. “Notions of computation and monads.” Information and computation 93.1 (1991): 55-92. " id="fnref2">2</a>]</span>
+で計算エフェクトを扱う計算体系として提案しているものは､<code>let (x : t) &lt;= (e1 : T t) in (e2 : T u)</code>のように非常にANFに似た形の構文を持っている｡
+そしてANFは<strong>Monadic</strong> <em>Normal Form</em>ともよばれている<span class="cite">[<a href="#fn3" rel="footnote" title="Danvy, Olivier. “A new one-pass transformation into monadic normal form.” International Conference on Compiler Construction. Springer, Berlin, Heidelberg, 2003. " id="fnref3">3</a>]</span>
+｡
+<code>&gt;&gt;=</code>のシグネチャを思い出してみると､<code>let</code>をラムダ抽象でエイヤッできることと合わせれば言いたいことが分かる｡</p>
+<h1 id="4.+%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%82%8B%3Ccode%3Edo%3C%2Fcode%3E%E3%81%AE%E6%84%8F%E5%BF%97%E3%81%A8%E8%A8%88%E7%AE%97%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%EF%BD%A4%E3%81%9D%E3%81%97%E3%81%A6%E7%B6%99%E7%B6%9A%E3%81%AF%E3%81%AA%E3%81%9C%E7%8F%BE%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B"><a class="headerlink" href="#4.+%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%82%8B%3Ccode%3Edo%3C%2Fcode%3E%E3%81%AE%E6%84%8F%E5%BF%97%E3%81%A8%E8%A8%88%E7%AE%97%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%EF%BD%A4%E3%81%9D%E3%81%97%E3%81%A6%E7%B6%99%E7%B6%9A%E3%81%AF%E3%81%AA%E3%81%9C%E7%8F%BE%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B">4. 受け継がれる<code>do</code>の意志と計算エフェクト､そして継続はなぜ現れるのか</a></h1>
+<p>時は令和､現在計算エフェクトを扱う機能として代数的効果が爆流行りである<sup><em>[要出展]</em></sup>｡
+いや令和は関係ないんですが､代数的効果という概念の初出が2003年なので､計算機科学においては非常に新しいものである｡
+代数的効果とは､計算エフェクトを代数的に扱うような言語機能である｡
+代数的に､というのはソレ自体には意味がなく､ただ構造があるだけで…なんたらかんたら…｡
+では意味はどこで付くかというと､ハンドラというものによって与えられる｡
+代数的や例外というキーワードから､とりあえずOCamlの例外機構を思い出してもらえるとなんとなく分かってもらえるかもしれない｡</p>
+<p>Eff<span class="cite">[<a href="#fn4" rel="footnote" title="Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. " id="fnref4">4</a>]</span>
+ <span class="cite">[<a href="#fn5" rel="footnote" title="Eff Programming Language - https://www.eff-lang.org/ こちらの実際のプログラム言語はMLっぽい構文になっているので本文では[4]
+に従う｡ " id="fnref5">5</a>]</span>
+という言語で例を見てみよう(プログラム<a href="#lst:eff">4.1</a>
+)｡
+<span class="cite">[<a href="#fn4" rel="footnote" title="Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. " id="fnref4">4</a>]</span>
+との構文的な差分として､エフェクトの発生にはわかりやすさのため､慣習的に使われる<code>#</code>をつけるようにした｡</p>
+<p><label id="lst:eff"></label></p>
+<div class="highlight">
+<span class="listing-name">プログラム<a href="#lst:eff">4.1</a>
+. Effの例 (<span class="cite">[<a href="#fn4" rel="footnote" title="Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. " id="fnref4">4</a>]</span>
+のFig.2より引用､一部改変)</span><pre><code class="language-haskell" data-lang="haskell"><span class="kr">do</span> <span class="n">n</span> <span class="o">&lt;-</span> <span class="o">#</span><span class="n">get</span> <span class="nb">()</span> <span class="kr">in</span>
+<span class="kr">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="kr">then</span>
+  <span class="o">#</span><span class="n">print</span> <span class="s">"B"</span>
+  <span class="n">return</span> <span class="o">-</span><span class="n">n</span><span class="o">^</span><span class="mi">2</span>
+<span class="kr">else</span>
+  <span class="n">return</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+</code></pre>
+</div>
+<p>ここで<code>#get</code>と<code>#print</code>がエフェクトの発生を表している｡
+また､<span class="cite">[<a href="#fn4" rel="footnote" title="Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. " id="fnref4">4</a>]</span>
+にある通り､<code>do y &lt;- #op v in c</code>は<code>#op(v; y. c)</code>の糖衣構文となっている｡
+つまり<code>do n &lt;- #get () in e</code>は<code>#get((); n. e)</code>となる｡
+おや､<code>#get((); n. e)</code>のうち<code>n. e</code>は継続じゃないですか､
+そして<code>do</code>の右辺でエフェクトが発生しているではないか｡
+先述のとおり､エフェクトに意味を与えるのはハンドラでした｡
+ハンドラでどうにかなる様子を､desugarしながら見てみよう(プログラム<a href="#lst:effhandle">4.2</a>
+)｡
+<label id="lst:effhandle"></label></p>
+<div class="highlight">
+<span class="listing-name">プログラム<a href="#lst:effhandle">4.2</a>
+. 脱糖&amp;エフェクトのハンドル</span><pre><code class="language-haskell" data-lang="haskell"><span class="n">handle</span>
+  <span class="o">#</span><span class="n">get</span><span class="p">(</span><span class="nb">()</span><span class="p">;</span> <span class="n">n</span><span class="o">.</span>
+  <span class="kr">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="kr">then</span>
+    <span class="o">#</span><span class="n">print</span><span class="p">(</span><span class="s">"B"</span><span class="p">;</span> <span class="kr">_</span><span class="o">.</span>
+    <span class="n">return</span> <span class="o">-</span><span class="n">n</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+  <span class="kr">else</span>
+    <span class="n">return</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">with</span>
+<span class="o">|</span> <span class="o">#</span><span class="n">get</span><span class="p">(</span><span class="nb">()</span><span class="p">;</span> <span class="n">k</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">k</span> <span class="mi">10</span>
+<span class="o">|</span> <span class="o">#</span><span class="n">print</span><span class="p">(</span><span class="n">v</span><span class="p">;</span> <span class="n">k</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">write_stdout</span> <span class="n">v</span><span class="p">;</span> <span class="n">k</span> <span class="nb">()</span>
+</code></pre>
+</div>
+<p>このdesugaringを見てみると､エフェクトが<code>&gt;&gt;=</code>の左辺､継続が右辺に対応しそうだ｡
+Haskellにおける型クラスのようにimplicitに実装が与えられるのではなく､例外発生箇所をハンドラでexplicitにハンドルするというところが異なりますね｡</p>
+<p>エフェクトが発生するとハンドラにコントロールが移り､エフェクトの引数がパターンマッチ風に渡る｡
+ハンドラでは継続がファーストクラスで使える｡
+継続はつまりハンドルされている式の残りの部分なので､継続を実行するとコントロールがハンドラから元の式に戻る｡</p>
+<p>エフェクトを扱いたい場合に継続はなぜ現れるのか､分かってきたかもしれません｡
+エフェクトに意味を与えるもの(Monadのインスタンス､エフェクトハンドラ)にコントロールが移ったあと､元の式に復帰するためには継続をハンドラに渡して呼んでもらうのがシンプルである｡
+そして､<code>List</code>モナドとか､非決定計算など､継続が複数回(あるいは末尾位置以外で)呼び出されるのがそもそも計算エフェクトに織り込まれている場合もあり､継続がファーストクラスであることがそもそもエフェクトシステムには必要なのである｡</p>
+<h1 id="5.+%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%B8"><a class="headerlink" href="#5.+%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%B8">5. 継続からエフェクトへ</a></h1>
+<h2 id="5-1.+OCaml4.08%E3%81%AEbinding+operator"><a class="headerlink" href="#5-1.+OCaml4.08%E3%81%AEbinding+operator">5-1. OCaml4.08のbinding operator</a></h2>
+<p>OCaml4.08で新たな構文拡張が生まれました｡
+詳細はこちらに書いた｡</p>
+<div class="twicard">
+  <span class="image"><a href="https://qiita.com/Nymphium/items/a13ed0fe3461708fe306" target="_blank" rel="noopener noreferrer"><div><img src="https://cdn.qiita.com/assets/qiita-fb-2887e7b4aad86fd8c25cea84846f2236.png"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://qiita.com/Nymphium/items/a13ed0fe3461708fe306" target="_blank" rel="noopener noreferrer">OCaml 4.08のbinding operator - Qiita</a></div>
+    <div class="description"># はじめにOCaml 4.08よりbinding operatorというものが追加されました｡[8.24  Binding operators](http://caml.inria.fr/pub/docs/manual-ocam…</div>
+  </span>
+</div>
+<p>簡単にいうと､ただならぬ<code>let</code>が定義できる(プログラム<a href="#lst:ocamlbinding">5.1</a>
+)｡</p>
+<p><label id="lst:ocamlbinding"></label></p>
+<div class="highlight">
+<span class="listing-name">プログラム<a href="#lst:ocamlbinding">5.1</a>
+. binding operatorを使ったOptionモナド風</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* val ( let* ) : 'a option -&gt; ('a -&gt; 'b option) -&gt; 'b option *)</span>
+<span class="k">let</span> <span class="p">(</span><span class="k">let</span><span class="o">*</span><span class="p">)</span> <span class="n">x</span> <span class="n">k</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">x</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="nc">Some</span> <span class="n">v</span> <span class="o">-&gt;</span> <span class="n">k</span> <span class="n">v</span>
+  <span class="o">|</span> <span class="n">none</span>   <span class="o">-&gt;</span> <span class="n">none</span>
+
+<span class="k">let</span> <span class="n">return</span> <span class="n">x</span> <span class="o">=</span> <span class="nc">Some</span> <span class="n">x</span>
+
+<span class="k">let</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="nc">Some</span> <span class="mi">5</span> <span class="k">in</span>
+<span class="n">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>継続が使えるようになったのでeffectfulな計算を手続き的に書けるようになった､という逆の流れである｡
+流れは逆であるが､やりたかったのは上記のように<em>monadic</em>な<code>let</code>である｡</p>
+<div class="twicard">
+  <span class="image"><a href="https://github.com/ocaml/ocaml/pull/1947" target="_blank" rel="noopener noreferrer"><div><img src="https://avatars1.githubusercontent.com/u/1841483?s=400&amp;v=4"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://github.com/ocaml/ocaml/pull/1947" target="_blank" rel="noopener noreferrer">Add “monadic” let operators by lpw25 · Pull Request #1947 · ocaml/ocaml</a></div>
+    <div class="description">Based on a few recent comments and PRs, I thought it might be a good time to revive the idea of adding some support for &amp;quot;monadic&amp;quot; syntax to OCaml. I can&amp;#39;t find the last at…</div>
+  </span>
+</div>
+<p>=&lt; 4.07までは<a href="https://github.com/janestreet/ppx_let" target="_blank" rel="noopener noreferrer">ppxによる拡張</a>もあり､非常に期待されていた機能である｡</p>
+<h2 id="5-2.+%3Ccode%3EContT%3C%2Fcode%3E%0A"><a class="headerlink" href="#5-2.+%3Ccode%3EContT%3C%2Fcode%3E%0A">5-2. <code>ContT</code>
+</a></h2>
+<p>継続があれば計算エフェクトを手続き的に書けるのか! ということでcontinuationモナドになんでも突っ込みたい｡
+そこで<code>ContT</code> monad transformerです｡
+という話を読みました!!!</p>
+<p></p>
+<center>
+  <a href="https://haskell.e-bigmoon.com/posts/2018/06-26-cont-param.html" target="_blank" rel="noopener noreferrer">ContT を使ってコードを綺麗にしよう! - BIGMOON Haskeller’s BLOG</a>
+</center>
+<div class="twicard">
+  <span class="image"><a href="https://haskell.jp/blog/posts/2019/fallible.html" target="_blank" rel="noopener noreferrer"><div><img src="https://haskell.jp/blog/img/logo-square.png"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://haskell.jp/blog/posts/2019/fallible.html" target="_blank" rel="noopener noreferrer">fallibleというパッケージをリリースしました - Haskell-jp</a></div>
+    <div class="description">—タイトルの通り、fallibleというパッケージを紹介します。- [matsubara0507/fallible: interface for fallible data type like Maybe and Either. - GitHub](https://github.com/matsubara0507/fallible)ちなみに、fallibleはHaskell-jp Slackで</div>
+  </span>
+</div>
+<h1 id="6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">6. おわりに</a></h1>
+<p>継続はつよい</p>
+<p>エフェクトフルコンピュテーションはおもしろい</p>
+<p>DSLの組み立てにも継続がめっちゃ使えるやんみたいな話を書こうと思ったけど別の機会に｡</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>変数の参照もエフェクトとして考えることができるがここでは割愛 <a href="#fnref1" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn2">
+<p>Moggi, Eugenio. “Notions of computation and monads.” Information and computation 93.1 (1991): 55-92. <a href="#fnref2" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn3">
+<p>Danvy, Olivier. “A new one-pass transformation into monadic normal form.” International Conference on Compiler Construction. Springer, Berlin, Heidelberg, 2003. <a href="#fnref3" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn4">
+<p>Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. <a href="#fnref4" rev="footnote">↩</a></p>
+</li>
+
+<li id="fn5">
+<p>Eff Programming Language - <a href="https://www.eff-lang.org/" target="_blank" rel="noopener noreferrer">https://www.eff-lang.org/</a> こちらの実際のプログラム言語はMLっぽい構文になっているので本文では<span class="cite">[<a href="#fn4" rel="footnote" title="Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. " id="fnref4">4</a>]</span>
+に従う｡ <a href="#fnref5" rev="footnote">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2019/06/30/ScalaMatsuri2019%E3%81%84%E3%81%A3%E3%81%A6%E3%81%8D%E3%81%9F.html" title="ScalaMatsuri2019いってきた">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <span class="btn next disabled">Next →</span>
+      </div>
+    </footer>
+
+  </body>
+</html>

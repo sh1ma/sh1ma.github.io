@@ -5,9 +5,202 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 16 Jul 2019 02:59:21 +0900</pubDate>
-    <lastBuildDate>Tue, 16 Jul 2019 02:59:21 +0900</lastBuildDate>
+    <pubDate>Sun, 21 Jul 2019 03:54:05 +0900</pubDate>
+    <lastBuildDate>Sun, 21 Jul 2019 03:54:05 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>エフェクト､do､ANF､継続､継続</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;&lt;p&gt;修士中間発表終わったのでもう研究しなくてOK!!!!!!!!&lt;/p&gt;&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;突然ですがみなさんエフェクトを発生させていますか｡
+ところでエフェクトはどこで発生するのでしょうか｡
+あ! とりあえずcall-by-valueでいいですか｡はい｡&lt;/p&gt;&lt;p&gt;エフェクトは値でないexpression､つまり関数呼び出しで発生する､というのはなんとなく分かるんじゃないでしょうか｡
+値を使ったり変数を参照したり&lt;sup id=&quot;fnref1&quot; title=&quot;変数の参照もエフェクトとして考えることができるがここでは割愛 &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;するだけでなんかよくわからんことが起きては困る｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:example&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:example&quot;&gt;1.1&lt;/a&gt;
+. 計算エフェクトの発生&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print_endline&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* ここで発生 *)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;ところで計算エフェクトの発生に印を付けたいのですがOCamlでは…｡&lt;/p&gt;&lt;h1 id=&quot;2.+notion+of+computation&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+notion+of+computation&quot;&gt;2. notion of computation&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;effect-and-type systemを思い出してみましょう｡
+なにか&lt;code&gt;t&lt;/code&gt;型の値を返すが､途中に計算エフェクト&lt;code&gt;T&lt;/code&gt;が発生する場合､&lt;code&gt;T t&lt;/code&gt;と書いたりします｡
+高カインド型は今回あまり触れないかもしれないですが､念の為Haskellでいきましょう｡
+Scalaもあるがエフェクトがどこでも発生させられるので今回はやめておこう｡
+自分､ &lt;code&gt;-XStrict&lt;/code&gt; いいっすか&lt;/p&gt;&lt;h2 id=&quot;2-1.+%E5%80%A4%E3%81%AE%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%97%E3%81%A8%E7%B6%99%E7%B6%9A&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-1.+%E5%80%A4%E3%81%AE%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%97%E3%81%A8%E7%B6%99%E7%B6%9A&quot;&gt;2-1. 値の取り出しと継続&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;T t&lt;/code&gt;から&lt;code&gt;t&lt;/code&gt;を取り出したいときはどうするんでしょうか｡
+そうだね､bind(&lt;code&gt;(&amp;gt;&amp;gt;=) :: T t -&amp;gt; (t -&amp;gt; T u) -&amp;gt; T u&lt;/code&gt;)だね(プログラム&lt;a href=&quot;#lst:bind&quot;&gt;2.1&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:bind&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:bind&quot;&gt;2.1&lt;/a&gt;
+. bind&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;n&quot;&gt;comp&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- わかりやすくeta expansion&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;左辺で計算エフェクトが発生しつつ値が出てきて(&lt;code&gt;T t&lt;/code&gt;)､値を取り出して(&lt;code&gt;t&lt;/code&gt;)処理をおこなって値を返す(&lt;code&gt;T u&lt;/code&gt;)｡
+ところでHaskellならdoがありますねえ(プログラム&lt;a href=&quot;#lst:do&quot;&gt;2.2&lt;/a&gt;
+)&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:do&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:do&quot;&gt;2.2&lt;/a&gt;
+. do記法&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;kr&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 手続き感を出すためにケツセミコロン&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;&lt;a href=&quot;#lst:bind&quot;&gt;2.1&lt;/a&gt;
+から&lt;a href=&quot;#lst:do&quot;&gt;2.2&lt;/a&gt;
+への変換はみたまんまで､&lt;code&gt;do&lt;/code&gt;(の一部)は&lt;code&gt;&amp;gt;&amp;gt;=&lt;/code&gt;の糖衣構文である｡
+ところでこの変換により､bindの右辺が&lt;code&gt;do&lt;/code&gt;記法における残りの計算部分､つまり&lt;strong&gt;継続&lt;/strong&gt;になることが分かる｡
+&lt;code&gt;&amp;gt;&amp;gt;=&lt;/code&gt;でチェインしまくるのがCPSを手で書くことにあたるのに対し､&lt;code&gt;do&lt;/code&gt;による書き方はCPSをうまく隠蔽しています｡&lt;/p&gt;&lt;h1 id=&quot;3.+A-Normal+Form%EF%BD%A4%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFMonadic+Normal+Form&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+A-Normal+Form%EF%BD%A4%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFMonadic+Normal+Form&quot;&gt;3. A-Normal Form､あるいはMonadic Normal Form&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ところでOCamlはエフェクト発生させ放題プランに加入してるのでどこでもエフェクトが発生します(プログラム&lt;a href=&quot;#lst:effectful&quot;&gt;3.1&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:effectful&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:effectful&quot;&gt;3.1&lt;/a&gt;
+. 計算エフェクトの大量発生&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print_endline&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;print_int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* prints &quot;hello\nhello\n11&quot; *)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;計算エフェクトがどこで起きるのかよくわかんね〜〜
+&lt;code&gt;e1 e2&lt;/code&gt;のような場合､先に&lt;code&gt;e2&lt;/code&gt;で発生しうるエフェクトを解消してから､つまり評価をおこなって出てきた値を､&lt;code&gt;e1&lt;/code&gt;を評価して出てきた関数に渡したい｡
+ではexpressionがネストしないような形にしよう(プログラム&lt;a href=&quot;#lst:anf&quot;&gt;3.2&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:anf&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:anf&quot;&gt;3.2&lt;/a&gt;
+. 値を逐一取り出し太郎&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v4&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v4&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;このような形式は&lt;em&gt;A-Normal Form&lt;/em&gt;(略してANF)と呼ばれ､&lt;code&gt;let&lt;/code&gt;の右辺はredexが一つしか無い状態に制限されている｡
+それにしてもこれは&lt;a href=&quot;#lst:do&quot;&gt;2.2&lt;/a&gt;
+に近いですねえ｡
+MoggiがHaskellのモナドのコンセプトとなる論文&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot; title=&quot;Moggi, Eugenio. “Notions of computation and monads.” Information and computation 93.1 (1991): 55-92. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;
+で計算エフェクトを扱う計算体系として提案しているものは､&lt;code&gt;let (x : t) &amp;lt;= (e1 : T t) in (e2 : T u)&lt;/code&gt;のように非常にANFに似た形の構文を持っている｡
+そしてANFは&lt;strong&gt;Monadic&lt;/strong&gt; &lt;em&gt;Normal Form&lt;/em&gt;ともよばれている&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot; title=&quot;Danvy, Olivier. “A new one-pass transformation into monadic normal form.” International Conference on Compiler Construction. Springer, Berlin, Heidelberg, 2003. &quot; id=&quot;fnref3&quot;&gt;3&lt;/a&gt;]&lt;/span&gt;
+｡
+&lt;code&gt;&amp;gt;&amp;gt;=&lt;/code&gt;のシグネチャを思い出してみると､&lt;code&gt;let&lt;/code&gt;をラムダ抽象でエイヤッできることと合わせれば言いたいことが分かる｡&lt;/p&gt;&lt;h1 id=&quot;4.+%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%82%8B%3Ccode%3Edo%3C%2Fcode%3E%E3%81%AE%E6%84%8F%E5%BF%97%E3%81%A8%E8%A8%88%E7%AE%97%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%EF%BD%A4%E3%81%9D%E3%81%97%E3%81%A6%E7%B6%99%E7%B6%9A%E3%81%AF%E3%81%AA%E3%81%9C%E7%8F%BE%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%82%8B%3Ccode%3Edo%3C%2Fcode%3E%E3%81%AE%E6%84%8F%E5%BF%97%E3%81%A8%E8%A8%88%E7%AE%97%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%EF%BD%A4%E3%81%9D%E3%81%97%E3%81%A6%E7%B6%99%E7%B6%9A%E3%81%AF%E3%81%AA%E3%81%9C%E7%8F%BE%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B&quot;&gt;4. 受け継がれる&lt;code&gt;do&lt;/code&gt;の意志と計算エフェクト､そして継続はなぜ現れるのか&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;時は令和､現在計算エフェクトを扱う機能として代数的効果が爆流行りである&lt;sup&gt;&lt;em&gt;[要出展]&lt;/em&gt;&lt;/sup&gt;｡
+いや令和は関係ないんですが､代数的効果という概念の初出が2003年なので､計算機科学においては非常に新しいものである｡
+代数的効果とは､計算エフェクトを代数的に扱うような言語機能である｡
+代数的に､というのはソレ自体には意味がなく､ただ構造があるだけで…なんたらかんたら…｡
+では意味はどこで付くかというと､ハンドラというものによって与えられる｡
+代数的や例外というキーワードから､とりあえずOCamlの例外機構を思い出してもらえるとなんとなく分かってもらえるかもしれない｡&lt;/p&gt;&lt;p&gt;Eff&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
+ &lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot; title=&quot;Eff Programming Language - https://www.eff-lang.org/ こちらの実際のプログラム言語はMLっぽい構文になっているので本文では[4]
+に従う｡ &quot; id=&quot;fnref5&quot;&gt;5&lt;/a&gt;]&lt;/span&gt;
+という言語で例を見てみよう(プログラム&lt;a href=&quot;#lst:eff&quot;&gt;4.1&lt;/a&gt;
+)｡
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
+との構文的な差分として､エフェクトの発生にはわかりやすさのため､慣習的に使われる&lt;code&gt;#&lt;/code&gt;をつけるようにした｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:eff&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:eff&quot;&gt;4.1&lt;/a&gt;
+. Effの例 (&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
+のFig.2より引用､一部改変)&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;kr&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;then&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;B&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;ここで&lt;code&gt;#get&lt;/code&gt;と&lt;code&gt;#print&lt;/code&gt;がエフェクトの発生を表している｡
+また､&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
+にある通り､&lt;code&gt;do y &amp;lt;- #op v in c&lt;/code&gt;は&lt;code&gt;#op(v; y. c)&lt;/code&gt;の糖衣構文となっている｡
+つまり&lt;code&gt;do n &amp;lt;- #get () in e&lt;/code&gt;は&lt;code&gt;#get((); n. e)&lt;/code&gt;となる｡
+おや､&lt;code&gt;#get((); n. e)&lt;/code&gt;のうち&lt;code&gt;n. e&lt;/code&gt;は継続じゃないですか､
+そして&lt;code&gt;do&lt;/code&gt;の右辺でエフェクトが発生しているではないか｡
+先述のとおり､エフェクトに意味を与えるのはハンドラでした｡
+ハンドラでどうにかなる様子を､desugarしながら見てみよう(プログラム&lt;a href=&quot;#lst:effhandle&quot;&gt;4.2&lt;/a&gt;
+)｡
+&lt;label id=&quot;lst:effhandle&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:effhandle&quot;&gt;4.2&lt;/a&gt;
+. 脱糖&amp;amp;エフェクトのハンドル&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;n&quot;&gt;handle&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
+  &lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;B&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;with&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;write_stdout&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;このdesugaringを見てみると､エフェクトが&lt;code&gt;&amp;gt;&amp;gt;=&lt;/code&gt;の左辺､継続が右辺に対応しそうだ｡
+Haskellにおける型クラスのようにimplicitに実装が与えられるのではなく､例外発生箇所をハンドラでexplicitにハンドルするというところが異なりますね｡&lt;/p&gt;&lt;p&gt;エフェクトが発生するとハンドラにコントロールが移り､エフェクトの引数がパターンマッチ風に渡る｡
+ハンドラでは継続がファーストクラスで使える｡
+継続はつまりハンドルされている式の残りの部分なので､継続を実行するとコントロールがハンドラから元の式に戻る｡&lt;/p&gt;&lt;p&gt;エフェクトを扱いたい場合に継続はなぜ現れるのか､分かってきたかもしれません｡
+エフェクトに意味を与えるもの(Monadのインスタンス､エフェクトハンドラ)にコントロールが移ったあと､元の式に復帰するためには継続をハンドラに渡して呼んでもらうのがシンプルである｡
+そして､&lt;code&gt;List&lt;/code&gt;モナドとか､非決定計算など､継続が複数回(あるいは末尾位置以外で)呼び出されるのがそもそも計算エフェクトに織り込まれている場合もあり､継続がファーストクラスであることがそもそもエフェクトシステムには必要なのである｡&lt;/p&gt;&lt;h1 id=&quot;5.+%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%B8&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%B8&quot;&gt;5. 継続からエフェクトへ&lt;/a&gt;&lt;/h1&gt;&lt;h2 id=&quot;5-1.+OCaml4.08%E3%81%AEbinding+operator&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5-1.+OCaml4.08%E3%81%AEbinding+operator&quot;&gt;5-1. OCaml4.08のbinding operator&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;OCaml4.08で新たな構文拡張が生まれました｡
+詳細はこちらに書いた｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/a13ed0fe3461708fe306&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://cdn.qiita.com/assets/qiita-fb-2887e7b4aad86fd8c25cea84846f2236.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/a13ed0fe3461708fe306&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;OCaml 4.08のbinding operator - Qiita&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;# はじめにOCaml 4.08よりbinding operatorというものが追加されました｡[8.24  Binding operators](http://caml.inria.fr/pub/docs/manual-ocam…&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;簡単にいうと､ただならぬ&lt;code&gt;let&lt;/code&gt;が定義できる(プログラム&lt;a href=&quot;#lst:ocamlbinding&quot;&gt;5.1&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:ocamlbinding&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:ocamlbinding&quot;&gt;5.1&lt;/a&gt;
+. binding operatorを使ったOptionモナド風&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(* val ( let* ) : 'a option -&amp;gt; ('a -&amp;gt; 'b option) -&amp;gt; 'b option *)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;none&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;none&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;継続が使えるようになったのでeffectfulな計算を手続き的に書けるようになった､という逆の流れである｡
+流れは逆であるが､やりたかったのは上記のように&lt;em&gt;monadic&lt;/em&gt;な&lt;code&gt;let&lt;/code&gt;である｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/pull/1947&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://avatars1.githubusercontent.com/u/1841483?s=400&amp;amp;v=4&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/pull/1947&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Add “monadic” let operators by lpw25 · Pull Request #1947 · ocaml/ocaml&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;Based on a few recent comments and PRs, I thought it might be a good time to revive the idea of adding some support for &amp;amp;quot;monadic&amp;amp;quot; syntax to OCaml. I can&amp;amp;#39;t find the last at…&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;=&amp;lt; 4.07までは&lt;a href=&quot;https://github.com/janestreet/ppx_let&quot;&gt;ppxによる拡張&lt;/a&gt;もあり､非常に期待されていた機能である｡&lt;/p&gt;&lt;h2 id=&quot;5-2.+%3Ccode%3EContT%3C%2Fcode%3E%0A&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5-2.+%3Ccode%3EContT%3C%2Fcode%3E%0A&quot;&gt;5-2. &lt;code&gt;ContT&lt;/code&gt;
+&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;継続があれば計算エフェクトを手続き的に書けるのか! ということでcontinuationモナドになんでも突っ込みたい｡
+そこで&lt;code&gt;ContT&lt;/code&gt; monad transformerです｡
+という話を読みました!!!&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+  &lt;a href=&quot;https://haskell.e-bigmoon.com/posts/2018/06-26-cont-param.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ContT を使ってコードを綺麗にしよう! - BIGMOON Haskeller’s BLOG&lt;/a&gt;
+&lt;/center&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://haskell.jp/blog/posts/2019/fallible.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://haskell.jp/blog/img/logo-square.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://haskell.jp/blog/posts/2019/fallible.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;fallibleというパッケージをリリースしました - Haskell-jp&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;—タイトルの通り、fallibleというパッケージを紹介します。- [matsubara0507/fallible: interface for fallible data type like Maybe and Either. - GitHub](https://github.com/matsubara0507/fallible)ちなみに、fallibleはHaskell-jp Slackで&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;h1 id=&quot;6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;6. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;継続はつよい&lt;/p&gt;&lt;p&gt;エフェクトフルコンピュテーションはおもしろい&lt;/p&gt;&lt;p&gt;DSLの組み立てにも継続がめっちゃ使えるやんみたいな話を書こうと思ったけど別の機会に｡&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;変数の参照もエフェクトとして考えることができるがここでは割愛 &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn2&quot;&gt;
+&lt;p&gt;Moggi, Eugenio. “Notions of computation and monads.” Information and computation 93.1 (1991): 55-92. &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn3&quot;&gt;
+&lt;p&gt;Danvy, Olivier. “A new one-pass transformation into monadic normal form.” International Conference on Compiler Construction. Springer, Berlin, Heidelberg, 2003. &lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn4&quot;&gt;
+&lt;p&gt;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &lt;a href=&quot;#fnref4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn5&quot;&gt;
+&lt;p&gt;Eff Programming Language - &lt;a href=&quot;https://www.eff-lang.org/&quot;&gt;https://www.eff-lang.org/&lt;/a&gt; こちらの実際のプログラム言語はMLっぽい構文になっているので本文では&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
+に従う｡ &lt;a href=&quot;#fnref5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Mon, 15 Jul 2019 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2019/07/15/%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A8%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E8%80%83%E3%81%88%E3%82%8BANF%E3%81%A8%E3%81%8Bdo%E3%81%A8%E3%81%8BOCaml4.08.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2019/07/15/%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A8%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E8%80%83%E3%81%88%E3%82%8BANF%E3%81%A8%E3%81%8Bdo%E3%81%A8%E3%81%8BOCaml4.08.html</guid>
+        
+        <category>continuation</category>
+        
+        <category>ANF</category>
+        
+        <category>effects</category>
+        
+        <category>OCaml</category>
+        
+        <category>Haskell</category>
+        
+        
+      </item>
     
       <item>
         <title>ScalaMatsuri2019いってきた</title>
@@ -375,7 +568,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— ᴋᴏɴ《a curried london rustacean》 (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— ᴋᴏɴ《an exhausted rustacean》 (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -2327,90 +2520,6 @@ ASTからVM命令へのコンパイル規則がダラダラと書かれている
         <category>JSSST</category>
         
         <category>雑感</category>
-        
-        <category>就活目的</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>現在のスキルセット</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
-こんなことがあったんや｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;先生にインターンに面接で落ちた話をしたら「君は自己アピールが下手だからね」と言われたので､自分のスキルセットをピタリと表す何かをそのうちまとめたいと思う｡でもまず､どこまでが自分でどこまでが自分じゃない…??&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1028226226274484225?ref_src=twsrc%5Etfw&quot;&gt;August 11, 2018&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;p&gt;非常に厳しいですね｡
-仕事をしたくないという気持ちも確かですが! 無職でジリ貧になって餓死というケースはもっとしたくないので職はゲットしようと思ってます｡&lt;/p&gt;&lt;h1 id=&quot;%E5%B0%82%E9%96%80&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E5%B0%82%E9%96%80&quot;&gt;専門&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://logic.cs.tsukuba.ac.jp/&quot;&gt;プログラム論理研究室&lt;/a&gt;に在籍し､主に関数型言語を対象とした､プログラム言語に関する研究をおこなっています｡
-プログラム変換(最適化､コンパイル)や､特定の言語機能を切り出して､そこで成り立つ良い性質を考えたりそれに実装を与えたりしています｡
-最近はalgebaic effectsやdelimited continuationsの近辺で研究をおこなっています｡&lt;/p&gt;&lt;p&gt;型に関する研究もする研究室に在籍しているので､TypeScript､Scala､Haskellといった複雑な型システムを持つ言語でもそれなりには戦えると思ってます｡&lt;/p&gt;&lt;h1 id=&quot;%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83&quot;&gt;開発環境&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;NeoVim､zsh､tmux on ArchLinux&lt;/p&gt;&lt;h1 id=&quot;%E8%A8%80%E8%AA%9E&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%A8%80%E8%AA%9E&quot;&gt;言語&lt;/a&gt;&lt;/h1&gt;&lt;h2 id=&quot;Lua&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Lua&quot;&gt;Lua&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;4年くらい書いてる&lt;/li&gt;
-&lt;li&gt;Lua5.{1, 2, 3}の違いが分かる&lt;/li&gt;
-&lt;li&gt;Luaの言語処理系を作れる&lt;/li&gt;
-&lt;li&gt;Luaで言語処理系を作れる&lt;/li&gt;
-&lt;li&gt;Luaのコードを見ればどんなLua VMのバイトコードにコンパイルされるか検討が付く&lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;ボクが長所や短所を一番理解できてる言語がこれだと思います｡
-C APIはノータッチなのでわかりません…｡&lt;/p&gt;&lt;h2 id=&quot;OCaml&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#OCaml&quot;&gt;OCaml&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;2年くらい書いてる&lt;/li&gt;
-&lt;li&gt;OCamlで言語処理系を作れる&lt;/li&gt;
-&lt;li&gt;core言語まぁまぁ分かる&lt;/li&gt;
-&lt;li&gt;module言語ちょっと分かる&lt;/li&gt;
-&lt;li&gt;type systemまぁまぁ分かる&lt;/li&gt;
-&lt;li&gt;duneちょっとだけ分かる&lt;/li&gt;
-&lt;li&gt;
-&lt;code&gt;open Core&lt;/code&gt;はあまり書かない&lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;研究で使ってます｡
-表現力や型の強さがちょうどいい言語だと思う｡&lt;/p&gt;&lt;h2 id=&quot;Scala&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Scala&quot;&gt;Scala&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;2ヶ月くらい書いてる&lt;/li&gt;
-&lt;li&gt;sbtちょっと使える&lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;今年春になにか言語覚えようということで書き始めました｡
-traitやサブタイピングなどといったリッチな型システムやナウい言語機能があり､
-Javaとの接続がありながらCatsやScalazといった関数型プログラミングを支援する強力なライブラリもある､
-OOPもFPもできる良い言語だと思います｡
-sbtの起動は確かに遅い｡&lt;/p&gt;&lt;h2 id=&quot;%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E4%BB%96&quot;&gt;他&lt;/a&gt;&lt;/h2&gt;&lt;h3 id=&quot;Racket%2FScheme&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Racket%2FScheme&quot;&gt;Racket/Scheme&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;1年くらい&lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;論文のモデル言語としてSchemeのサブセットが採用されることがままあるのでちょっと分かる｡
-RacketはTyped Racketがちょっと書ける｡
-また(delimited) continuationsの調査のために度々書いたりする｡&lt;/p&gt;&lt;h3 id=&quot;JavaScript&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#JavaScript&quot;&gt;JavaScript&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;2年くらい&lt;/li&gt;
-&lt;li&gt;エコシステムは知らない&lt;/li&gt;
-&lt;li&gt;生JSしか書いてない&lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;必要最小限書く&lt;/p&gt;&lt;h3 id=&quot;Ruby&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Ruby&quot;&gt;Ruby&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;2年くらい&lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;構文がデカすぎて全容をまるで把握できてない｡
-このブログはJekyllで作られており､プラグインのいくつかは自分で書いてます｡
-他にもデータ処理ではシェルスクリプトに次いで書捨てのスクリプトを書いて使っています｡
-Onigurumaがとにかく使える｡&lt;/p&gt;&lt;h3 id=&quot;Bash%2FZsh&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Bash%2FZsh&quot;&gt;Bash/Zsh&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;6年くらい&lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;コマンドラインに日々書いてる｡
-Makefileと共にビルドや自動化でよく使っている｡&lt;/p&gt;&lt;h3 id=&quot;%E8%8B%B1%E8%AA%9E&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%8B%B1%E8%AA%9E&quot;&gt;英語&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;GitHubでコミュニケーションを取ったりドキュメントを読んだり論文を読む程度には分かる&lt;/p&gt;&lt;hr&gt;&lt;p&gt;プログラム言語は専門分野なので､上記以外の言語でも書こうと思えばそれなりの早さで書けるようになると自負しています｡&lt;/p&gt;&lt;h1 id=&quot;%E4%B8%BB%E3%81%AA%E3%83%97%E3%83%AD%E3%83%80%E3%82%AF%E3%83%84&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E4%B8%BB%E3%81%AA%E3%83%97%E3%83%AD%E3%83%80%E3%82%AF%E3%83%84&quot;&gt;主なプロダクツ&lt;/a&gt;&lt;/h1&gt;&lt;h2 id=&quot;%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2FNymphium%2Fopeth%22%3EOpeth%3C%2Fa%3E&quot;&gt;
-&lt;a class=&quot;headerlink&quot; href=&quot;#%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2FNymphium%2Fopeth%22%3EOpeth%3C%2Fa%3E&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://github.com/Nymphium/opeth&quot;&gt;Opeth&lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;Lua 5.3 VMのバイトコード最適化器｡
-副産物として､Lua 5.3 VMのバイトコードを制御フローグラフにしてビジュアライズするツールや､アセンブリ言語風にLua 5.3 VMの命令セットを書いてバイトコードにコンパイルするコンパイラ､VM命令を実行したりブレークポイントを付けてステップ実行できる､gdbみたいなデバッガを作りました｡
-ビジュアライザで使った､&lt;a href=&quot;https://github.com/Nymphium/lua-graphviz&quot;&gt;graphvizのLuaバインディング&lt;/a&gt;も自作｡
-Lua 5.3 VMのバイトコードの仕様は公開されていないため､Lua 5.1 VMのバイトコードの非公式なテキストやソースコードを読んで解析をおこなった｡&lt;/p&gt;&lt;h2 id=&quot;%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2FNymphium%2Fpnyao%22%3Epnyao%3C%2Fa%3E&quot;&gt;
-&lt;a class=&quot;headerlink&quot; href=&quot;#%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2FNymphium%2Fpnyao%22%3Epnyao%3C%2Fa%3E&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://github.com/Nymphium/pnyao&quot;&gt;pnyao&lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;文献管理ツール｡
-Scalaを習いながら作った｡
-Play frameworkを使っている｡
-Scalaを使っているサーバーサイドはだいたい実装ができているので､実はこれ以降はJSしか書かないかも｡&lt;/p&gt;&lt;h1 id=&quot;%E3%81%9D%E3%81%AE%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%81%9D%E3%81%AE%E4%BB%96&quot;&gt;その他&lt;/a&gt;&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;Linuxちょっと使える(6年)&lt;/li&gt;
-&lt;li&gt;Git使える&lt;/li&gt;
-&lt;li&gt;GitHub(issues, pull requests, CI)使える&lt;/li&gt;
-&lt;/ul&gt;&lt;hr&gt;&lt;p&gt;何書けばいいのか分からないピ…｡&lt;/p&gt;&lt;p&gt;バイト先情報もお待ちしております｡
-ご連絡は&lt;a href=&quot;https://twitter.com/Nymphium&quot;&gt;@Nymphium &lt;/a&gt;かs1311350 at gmail.comまでお願いします｡&lt;/p&gt;&lt;h1 id=&quot;%E8%BF%BD%E8%A8%9820181004&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E8%BF%BD%E8%A8%9820181004&quot;&gt;追記20181004&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ツイッター経由で&lt;a href=&quot;https://herp.co.jp/&quot;&gt;HERP&lt;/a&gt;に(多分)長期インターンとして入りました｡
-この度は誠にありがとうございました｡
-リモートでOKということで家からでなくて最高です｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;ツイッで職を探したらHERPに拾われました。写真はブレた牛タンです。 &lt;a href=&quot;https://t.co/6WHdopXHLK&quot;&gt;pic.twitter.com/6WHdopXHLK&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1047447450338742272?ref_src=twsrc%5Etfw&quot;&gt;October 3, 2018&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;p&gt;この牛タンは美味かった｡&lt;/p&gt;&lt;p&gt;2020年3月卒業後のお仕事はまだ探してますんでよろしくおねがいします｡&lt;/p&gt;&lt;p&gt;追記おわり&lt;/p&gt;&lt;hr&gt;</description>
-        <pubDate>Sat, 18 Aug 2018 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2018/08/18/%E7%8F%BE%E5%9C%A8%E3%81%AE%E3%82%B9%E3%82%AD%E3%83%AB%E3%82%BB%E3%83%83%E3%83%88.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2018/08/18/%E7%8F%BE%E5%9C%A8%E3%81%AE%E3%82%B9%E3%82%AD%E3%83%AB%E3%82%BB%E3%83%83%E3%83%88.html</guid>
         
         <category>就活目的</category>
         
