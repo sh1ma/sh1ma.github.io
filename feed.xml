@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 21 Jul 2019 04:05:56 +0900</pubDate>
-    <lastBuildDate>Sun, 21 Jul 2019 04:05:56 +0900</lastBuildDate>
+    <pubDate>Sun, 21 Jul 2019 04:29:44 +0900</pubDate>
+    <lastBuildDate>Sun, 21 Jul 2019 04:29:44 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -160,7 +160,7 @@ Haskellにおける型クラスのようにimplicitに実装が与えられる�
   &lt;/span&gt;
 &lt;/div&gt;&lt;h1 id=&quot;6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;6. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;継続はつよい&lt;/p&gt;&lt;p&gt;エフェクトフルコンピュテーションはおもしろい&lt;/p&gt;&lt;p&gt;DSLの組み立てにも継続がめっちゃ使えるやんみたいな話を書こうと思ったけど別の機会に｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;この記事はHERP労働時間に書かれた｡
 HERPは本物のcontinuationプログラマーも募集しています｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://www.wantedly.com/projects/334093&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;1440&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://www.wantedly.com/projects/334093&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://d2v9k5u4v94ulw.cloudfront.net/small_light(dw=1440,dh=1440,da=l,ds=n,cc=FFFFFF)/assets/images/3926988/original/9bd536c7-433a-4e21-ab8b-9ff26fc870aa?1563425939&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://www.wantedly.com/projects/334093&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Haskellで普通にWebサービスを開発していきたいエンジニア募集！ by 株式会社HERP&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;スクラム採用を実現する採用管理プラットフォーム『HERP ATS』の新規コンポーネントの開発をお願いします．新規のコンポーネントを…&lt;/div&gt;
@@ -490,7 +490,7 @@ extensible effectsはsubtypingを持たないHaskellを起源に持ち､antos-e
 実際にHERP社さんですか?でもプロダクトですでに活用しているとのことです｡
 HERP社さん面白いですね｡
 product-capableなCycle.jsの実装を見ていくと面白いものが見られるかも｡&lt;/p&gt;&lt;p&gt;ryotakaさんがトゥギャ(?)ってたのを引用します｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://twitter.com/i/moments/1132869165562310656&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;640&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://twitter.com/i/moments/1132869165562310656&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://pbs.twimg.com/media/D7jE_-uU0AAilKd.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://twitter.com/i/moments/1132869165562310656&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Effect{ive,ful} Cycle.js&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;2019年5月26日に行われた effect system 勉強会での “Effect{ive,ful} Cycle.js” の様子です．&lt;/div&gt;
