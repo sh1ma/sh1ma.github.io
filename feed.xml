@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 21 Jul 2019 04:01:55 +0900</pubDate>
-    <lastBuildDate>Sun, 21 Jul 2019 04:01:55 +0900</lastBuildDate>
+    <pubDate>Sun, 21 Jul 2019 04:05:56 +0900</pubDate>
+    <lastBuildDate>Sun, 21 Jul 2019 04:05:56 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -71,7 +71,7 @@ MoggiがHaskellのモナドのコンセプトとなる論文&lt;span class=&quot
 で計算エフェクトを扱う計算体系として提案しているものは､&lt;code&gt;let (x : t) &amp;lt;= (e1 : T t) in (e2 : T u)&lt;/code&gt;のように非常にANFに似た形の構文を持っている｡
 そしてANFは&lt;strong&gt;Monadic&lt;/strong&gt; &lt;em&gt;Normal Form&lt;/em&gt;ともよばれている&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot; title=&quot;Danvy, Olivier. “A new one-pass transformation into monadic normal form.” International Conference on Compiler Construction. Springer, Berlin, Heidelberg, 2003. &quot; id=&quot;fnref3&quot;&gt;3&lt;/a&gt;]&lt;/span&gt;
 ｡
-&lt;code&gt;&amp;gt;&amp;gt;=&lt;/code&gt;のシグネチャを思い出してみると､&lt;code&gt;let&lt;/code&gt;をラムダ抽象でエイヤッできることと合わせれば言いたいことが分かる｡&lt;/p&gt;&lt;h1 id=&quot;4.+%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%82%8B%3Ccode%3Edo%3C%2Fcode%3E%E3%81%AE%E6%84%8F%E5%BF%97%E3%81%A8%E8%A8%88%E7%AE%97%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%EF%BD%A4%E3%81%9D%E3%81%97%E3%81%A6%E7%B6%99%E7%B6%9A%E3%81%AF%E3%81%AA%E3%81%9C%E7%8F%BE%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%82%8B%3Ccode%3Edo%3C%2Fcode%3E%E3%81%AE%E6%84%8F%E5%BF%97%E3%81%A8%E8%A8%88%E7%AE%97%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%EF%BD%A4%E3%81%9D%E3%81%97%E3%81%A6%E7%B6%99%E7%B6%9A%E3%81%AF%E3%81%AA%E3%81%9C%E7%8F%BE%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B&quot;&gt;4. 受け継がれる&lt;code&gt;do&lt;/code&gt;の意志と計算エフェクト､そして継続はなぜ現れるのか&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;時は令和､現在計算エフェクトを扱う機能として代数的効果が爆流行りである&lt;sup&gt;&lt;em&gt;[要出展]&lt;/em&gt;&lt;/sup&gt;｡
+&lt;code&gt;&amp;gt;&amp;gt;=&lt;/code&gt;のシグネチャを思い出してみると､&lt;code&gt;let&lt;/code&gt;をラムダ抽象でエイヤッできることと合わせれば言いたいことが分かる｡&lt;/p&gt;&lt;h1 id=&quot;4.+%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%82%8B%3Ccode%3Edo%3C%2Fcode%3E%EF%BD%A4%E3%81%9D%E3%81%97%E3%81%A6%E7%B6%99%E7%B6%9A%E3%81%AF%E3%81%AA%E3%81%9C%E7%8F%BE%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%82%8B%3Ccode%3Edo%3C%2Fcode%3E%EF%BD%A4%E3%81%9D%E3%81%97%E3%81%A6%E7%B6%99%E7%B6%9A%E3%81%AF%E3%81%AA%E3%81%9C%E7%8F%BE%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B&quot;&gt;4. 受け継がれる&lt;code&gt;do&lt;/code&gt;､そして継続はなぜ現れるのか&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;時は令和､現在計算エフェクトを扱う機能として代数的効果が爆流行りである&lt;sup&gt;&lt;em&gt;[要出展]&lt;/em&gt;&lt;/sup&gt;｡
 いや令和は関係ないんですが､代数的効果という概念の初出が2003年なので､計算機科学においては非常に新しいものである｡
 代数的効果とは､計算エフェクトを代数的に扱うような言語機能である｡
 代数的に､というのはソレ自体には意味がなく､ただ構造があるだけで…なんたらかんたら…｡

@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-07-21T00:00:00+09:00" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"lily, Aikatsu, Programming language, and more","@type":"BlogPosting","dateModified":"2019-07-21T00:00:00+09:00","datePublished":"2019-07-21T00:00:00+09:00","headline":"エフェクト､do､ANF､継続､継続","url":"https://nymphium.github.io/2019/07/21/effect_cont.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2019/07/21/effect_cont.html"},"@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"lily, Aikatsu, Programming language, and more","@type":"BlogPosting","headline":"エフェクト､do､ANF､継続､継続","dateModified":"2019-07-21T00:00:00+09:00","url":"https://nymphium.github.io/2019/07/21/effect_cont.html","datePublished":"2019-07-21T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2019/07/21/effect_cont.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
@@ -172,7 +172,7 @@ MoggiがHaskellのモナドのコンセプトとなる論文<span class="cite">[
 そしてANFは<strong>Monadic</strong> <em>Normal Form</em>ともよばれている<span class="cite">[<a href="#fn3" rel="footnote" title="Danvy, Olivier. “A new one-pass transformation into monadic normal form.” International Conference on Compiler Construction. Springer, Berlin, Heidelberg, 2003. " id="fnref3">3</a>]</span>
 ｡
 <code>&gt;&gt;=</code>のシグネチャを思い出してみると､<code>let</code>をラムダ抽象でエイヤッできることと合わせれば言いたいことが分かる｡</p>
-<h1 id="4.+%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%82%8B%3Ccode%3Edo%3C%2Fcode%3E%E3%81%AE%E6%84%8F%E5%BF%97%E3%81%A8%E8%A8%88%E7%AE%97%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%EF%BD%A4%E3%81%9D%E3%81%97%E3%81%A6%E7%B6%99%E7%B6%9A%E3%81%AF%E3%81%AA%E3%81%9C%E7%8F%BE%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B"><a class="headerlink" href="#4.+%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%82%8B%3Ccode%3Edo%3C%2Fcode%3E%E3%81%AE%E6%84%8F%E5%BF%97%E3%81%A8%E8%A8%88%E7%AE%97%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%EF%BD%A4%E3%81%9D%E3%81%97%E3%81%A6%E7%B6%99%E7%B6%9A%E3%81%AF%E3%81%AA%E3%81%9C%E7%8F%BE%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B">4. 受け継がれる<code>do</code>の意志と計算エフェクト､そして継続はなぜ現れるのか</a></h1>
+<h1 id="4.+%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%82%8B%3Ccode%3Edo%3C%2Fcode%3E%EF%BD%A4%E3%81%9D%E3%81%97%E3%81%A6%E7%B6%99%E7%B6%9A%E3%81%AF%E3%81%AA%E3%81%9C%E7%8F%BE%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B"><a class="headerlink" href="#4.+%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%82%8B%3Ccode%3Edo%3C%2Fcode%3E%EF%BD%A4%E3%81%9D%E3%81%97%E3%81%A6%E7%B6%99%E7%B6%9A%E3%81%AF%E3%81%AA%E3%81%9C%E7%8F%BE%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B">4. 受け継がれる<code>do</code>､そして継続はなぜ現れるのか</a></h1>
 <p>時は令和､現在計算エフェクトを扱う機能として代数的効果が爆流行りである<sup><em>[要出展]</em></sup>｡
 いや令和は関係ないんですが､代数的効果という概念の初出が2003年なので､計算機科学においては非常に新しいものである｡
 代数的効果とは､計算エフェクトを代数的に扱うような言語機能である｡
