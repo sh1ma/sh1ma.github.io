@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 21 Jul 2019 03:54:05 +0900</pubDate>
-    <lastBuildDate>Sun, 21 Jul 2019 03:54:05 +0900</lastBuildDate>
+    <pubDate>Sun, 21 Jul 2019 04:01:55 +0900</pubDate>
+    <lastBuildDate>Sun, 21 Jul 2019 04:01:55 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -148,7 +148,7 @@ Haskellにおける型クラスのようにimplicitに実装が与えられる�
     &lt;div class=&quot;description&quot;&gt;Based on a few recent comments and PRs, I thought it might be a good time to revive the idea of adding some support for &amp;amp;quot;monadic&amp;amp;quot; syntax to OCaml. I can&amp;amp;#39;t find the last at…&lt;/div&gt;
   &lt;/span&gt;
 &lt;/div&gt;&lt;p&gt;=&amp;lt; 4.07までは&lt;a href=&quot;https://github.com/janestreet/ppx_let&quot;&gt;ppxによる拡張&lt;/a&gt;もあり､非常に期待されていた機能である｡&lt;/p&gt;&lt;h2 id=&quot;5-2.+%3Ccode%3EContT%3C%2Fcode%3E%0A&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5-2.+%3Ccode%3EContT%3C%2Fcode%3E%0A&quot;&gt;5-2. &lt;code&gt;ContT&lt;/code&gt;
-&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;継続があれば計算エフェクトを手続き的に書けるのか! ということでcontinuationモナドになんでも突っ込みたい｡
+&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;継続があれば計算エフェクトを手続き的に書けるのか! ということでcontinuationモナドになんでも突っ込めばいいんじゃないか｡
 そこで&lt;code&gt;ContT&lt;/code&gt; monad transformerです｡
 という話を読みました!!!&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
   &lt;a href=&quot;https://haskell.e-bigmoon.com/posts/2018/06-26-cont-param.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ContT を使ってコードを綺麗にしよう! - BIGMOON Haskeller’s BLOG&lt;/a&gt;
@@ -158,7 +158,14 @@ Haskellにおける型クラスのようにimplicitに実装が与えられる�
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://haskell.jp/blog/posts/2019/fallible.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;fallibleというパッケージをリリースしました - Haskell-jp&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;—タイトルの通り、fallibleというパッケージを紹介します。- [matsubara0507/fallible: interface for fallible data type like Maybe and Either. - GitHub](https://github.com/matsubara0507/fallible)ちなみに、fallibleはHaskell-jp Slackで&lt;/div&gt;
   &lt;/span&gt;
-&lt;/div&gt;&lt;h1 id=&quot;6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;6. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;継続はつよい&lt;/p&gt;&lt;p&gt;エフェクトフルコンピュテーションはおもしろい&lt;/p&gt;&lt;p&gt;DSLの組み立てにも継続がめっちゃ使えるやんみたいな話を書こうと思ったけど別の機会に｡&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
+&lt;/div&gt;&lt;h1 id=&quot;6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;6. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;継続はつよい&lt;/p&gt;&lt;p&gt;エフェクトフルコンピュテーションはおもしろい&lt;/p&gt;&lt;p&gt;DSLの組み立てにも継続がめっちゃ使えるやんみたいな話を書こうと思ったけど別の機会に｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;この記事はHERP労働時間に書かれた｡
+HERPは本物のcontinuationプログラマーも募集しています｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://www.wantedly.com/projects/334093&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;1440&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://www.wantedly.com/projects/334093&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Haskellで普通にWebサービスを開発していきたいエンジニア募集！ by 株式会社HERP&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;スクラム採用を実現する採用管理プラットフォーム『HERP ATS』の新規コンポーネントの開発をお願いします．新規のコンポーネントを…&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;div class=&quot;footnotes&quot;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
 
@@ -185,9 +192,9 @@ Haskellにおける型クラスのようにimplicitに実装が与えられる�
 
 &lt;/ol&gt;
 &lt;/div&gt;</description>
-        <pubDate>Mon, 15 Jul 2019 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2019/07/15/%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A8%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E8%80%83%E3%81%88%E3%82%8BANF%E3%81%A8%E3%81%8Bdo%E3%81%A8%E3%81%8BOCaml4.08.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2019/07/15/%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A8%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E8%80%83%E3%81%88%E3%82%8BANF%E3%81%A8%E3%81%8Bdo%E3%81%A8%E3%81%8BOCaml4.08.html</guid>
+        <pubDate>Sun, 21 Jul 2019 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2019/07/21/effect_cont.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2019/07/21/effect_cont.html</guid>
         
         <category>continuation</category>
         
