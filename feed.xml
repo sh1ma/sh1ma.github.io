@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 21 Jul 2019 04:29:44 +0900</pubDate>
-    <lastBuildDate>Sun, 21 Jul 2019 04:29:44 +0900</lastBuildDate>
+    <pubDate>Sun, 29 Sep 2019 01:48:08 +0900</pubDate>
+    <lastBuildDate>Sun, 29 Sep 2019 01:48:08 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -15,7 +15,7 @@
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;&lt;p&gt;修士中間発表終わったのでもう研究しなくてOK!!!!!!!!&lt;/p&gt;&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;突然ですがみなさんエフェクトを発生させていますか｡
 ところでエフェクトはどこで発生するのでしょうか｡
 あ! とりあえずcall-by-valueでいいですか｡はい｡&lt;/p&gt;&lt;p&gt;エフェクトは値でないexpression､つまり関数呼び出しで発生する､というのはなんとなく分かるんじゃないでしょうか｡
-値を使ったり変数を参照したり&lt;sup id=&quot;fnref1&quot; title=&quot;変数の参照もエフェクトとして考えることができるがここでは割愛 &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;するだけでなんかよくわからんことが起きては困る｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:example&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+値を使ったり変数を参照したり&lt;sup id=&quot;fnref1&quot; title=&quot;変数の参照もエフェクトとして考えることができるがここでは割愛 &quot;&gt;&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;するだけでなんかよくわからんことが起きては困る｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:example&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:example&quot;&gt;1.1&lt;/a&gt;
 . 計算エフェクトの発生&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print_endline&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);;&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
@@ -67,24 +67,24 @@ Scalaもあるがエフェクトがどこでも発生させられるので今回
 &lt;/div&gt;&lt;p&gt;このような形式は&lt;em&gt;A-Normal Form&lt;/em&gt;(略してANF)と呼ばれ､&lt;code&gt;let&lt;/code&gt;の右辺はredexが一つしか無い状態に制限されている｡
 それにしてもこれは&lt;a href=&quot;#lst:do&quot;&gt;2.2&lt;/a&gt;
 に近いですねえ｡
-MoggiがHaskellのモナドのコンセプトとなる論文&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot; title=&quot;Moggi, Eugenio. “Notions of computation and monads.” Information and computation 93.1 (1991): 55-92. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;
+MoggiがHaskellのモナドのコンセプトとなる論文&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; title=&quot;Moggi, Eugenio. “Notions of computation and monads.” Information and computation 93.1 (1991): 55-92. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;
 で計算エフェクトを扱う計算体系として提案しているものは､&lt;code&gt;let (x : t) &amp;lt;= (e1 : T t) in (e2 : T u)&lt;/code&gt;のように非常にANFに似た形の構文を持っている｡
-そしてANFは&lt;strong&gt;Monadic&lt;/strong&gt; &lt;em&gt;Normal Form&lt;/em&gt;ともよばれている&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot; title=&quot;Danvy, Olivier. “A new one-pass transformation into monadic normal form.” International Conference on Compiler Construction. Springer, Berlin, Heidelberg, 2003. &quot; id=&quot;fnref3&quot;&gt;3&lt;/a&gt;]&lt;/span&gt;
+そしてANFは&lt;strong&gt;Monadic&lt;/strong&gt; &lt;em&gt;Normal Form&lt;/em&gt;ともよばれている&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn3&quot; title=&quot;Danvy, Olivier. “A new one-pass transformation into monadic normal form.” International Conference on Compiler Construction. Springer, Berlin, Heidelberg, 2003. &quot; id=&quot;fnref3&quot;&gt;3&lt;/a&gt;]&lt;/span&gt;
 ｡
 &lt;code&gt;&amp;gt;&amp;gt;=&lt;/code&gt;のシグネチャを思い出してみると､&lt;code&gt;let&lt;/code&gt;をラムダ抽象でエイヤッできることと合わせれば言いたいことが分かる｡&lt;/p&gt;&lt;h1 id=&quot;4.+%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%82%8B%3Ccode%3Edo%3C%2Fcode%3E%EF%BD%A4%E3%81%9D%E3%81%97%E3%81%A6%E7%B6%99%E7%B6%9A%E3%81%AF%E3%81%AA%E3%81%9C%E7%8F%BE%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%82%8B%3Ccode%3Edo%3C%2Fcode%3E%EF%BD%A4%E3%81%9D%E3%81%97%E3%81%A6%E7%B6%99%E7%B6%9A%E3%81%AF%E3%81%AA%E3%81%9C%E7%8F%BE%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B&quot;&gt;4. 受け継がれる&lt;code&gt;do&lt;/code&gt;､そして継続はなぜ現れるのか&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;時は令和､現在計算エフェクトを扱う機能として代数的効果が爆流行りである&lt;sup&gt;&lt;em&gt;[要出展]&lt;/em&gt;&lt;/sup&gt;｡
 いや令和は関係ないんですが､代数的効果という概念の初出が2003年なので､計算機科学においては非常に新しいものである｡
 代数的効果とは､計算エフェクトを代数的に扱うような言語機能である｡
 代数的に､というのはソレ自体には意味がなく､ただ構造があるだけで…なんたらかんたら…｡
 では意味はどこで付くかというと､ハンドラというものによって与えられる｡
-代数的や例外というキーワードから､とりあえずOCamlの例外機構を思い出してもらえるとなんとなく分かってもらえるかもしれない｡&lt;/p&gt;&lt;p&gt;Eff&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
- &lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot; title=&quot;Eff Programming Language - https://www.eff-lang.org/ こちらの実際のプログラム言語はMLっぽい構文になっているので本文では[4]
+代数的や例外というキーワードから､とりあえずOCamlの例外機構を思い出してもらえるとなんとなく分かってもらえるかもしれない｡&lt;/p&gt;&lt;p&gt;Eff&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
+ &lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn5&quot; title=&quot;Eff Programming Language - https://www.eff-lang.org/ こちらの実際のプログラム言語はMLっぽい構文になっているので本文では[4]
 に従う｡ &quot; id=&quot;fnref5&quot;&gt;5&lt;/a&gt;]&lt;/span&gt;
 という言語で例を見てみよう(プログラム&lt;a href=&quot;#lst:eff&quot;&gt;4.1&lt;/a&gt;
 )｡
-&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
 との構文的な差分として､エフェクトの発生にはわかりやすさのため､慣習的に使われる&lt;code&gt;#&lt;/code&gt;をつけるようにした｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:eff&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lst:eff&quot;&gt;4.1&lt;/a&gt;
-. Effの例 (&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
+. Effの例 (&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
 のFig.2より引用､一部改変)&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;kr&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt;
 &lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;then&lt;/span&gt;
   &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;B&quot;&lt;/span&gt;
@@ -93,7 +93,7 @@ MoggiがHaskellのモナドのコンセプトとなる論文&lt;span class=&quot
   &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;&lt;p&gt;ここで&lt;code&gt;#get&lt;/code&gt;と&lt;code&gt;#print&lt;/code&gt;がエフェクトの発生を表している｡
-また､&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
+また､&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
 にある通り､&lt;code&gt;do y &amp;lt;- #op v in c&lt;/code&gt;は&lt;code&gt;#op(v; y. c)&lt;/code&gt;の糖衣構文となっている｡
 つまり&lt;code&gt;do n &amp;lt;- #get () in e&lt;/code&gt;は&lt;code&gt;#get((); n. e)&lt;/code&gt;となる｡
 おや､&lt;code&gt;#get((); n. e)&lt;/code&gt;のうち&lt;code&gt;n. e&lt;/code&gt;は継続じゃないですか､
@@ -170,24 +170,24 @@ HERPは本物のcontinuationプログラマーも募集しています｡&lt;/p&
 &lt;ol&gt;
 
 &lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;変数の参照もエフェクトとして考えることができるがここでは割愛 &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;変数の参照もエフェクトとして考えることができるがここでは割愛 &lt;a href=&quot;#fnref1&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn2&quot;&gt;
-&lt;p&gt;Moggi, Eugenio. “Notions of computation and monads.” Information and computation 93.1 (1991): 55-92. &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Moggi, Eugenio. “Notions of computation and monads.” Information and computation 93.1 (1991): 55-92. &lt;a href=&quot;#fnref2&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn3&quot;&gt;
-&lt;p&gt;Danvy, Olivier. “A new one-pass transformation into monadic normal form.” International Conference on Compiler Construction. Springer, Berlin, Heidelberg, 2003. &lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Danvy, Olivier. “A new one-pass transformation into monadic normal form.” International Conference on Compiler Construction. Springer, Berlin, Heidelberg, 2003. &lt;a href=&quot;#fnref3&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn4&quot;&gt;
-&lt;p&gt;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &lt;a href=&quot;#fnref4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &lt;a href=&quot;#fnref4&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn5&quot;&gt;
-&lt;p&gt;Eff Programming Language - &lt;a href=&quot;https://www.eff-lang.org/&quot;&gt;https://www.eff-lang.org/&lt;/a&gt; こちらの実際のプログラム言語はMLっぽい構文になっているので本文では&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
-に従う｡ &lt;a href=&quot;#fnref5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Eff Programming Language - &lt;a href=&quot;https://www.eff-lang.org/&quot;&gt;https://www.eff-lang.org/&lt;/a&gt; こちらの実際のプログラム言語はMLっぽい構文になっているので本文では&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; title=&quot;Pretnar, Matija. “An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
+に従う｡ &lt;a href=&quot;#fnref5&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;/ol&gt;
@@ -420,12 +420,12 @@ extensible effectsはsubtypingを持たないHaskellを起源に持ち､antos-e
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; ありそうでなかなかなかったFree applicativeの紹介と、そのextensible化。途中の計算結果に依存しないという性質を利用してRPCなどの記述に使えそう&lt;/p&gt;— 港の鳥占師、ふみ (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132501183875100672?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; ありそうでなかなかなかったFree applicativeの紹介と、そのextensible化。途中の計算結果に依存しないという性質を利用してRPCなどの記述に使えそう&lt;/p&gt;— ふみ (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132501183875100672?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Free ApplicativeとFree Monadのliftを共通化するのは面白そうだ &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 港の鳥占師、ふみ (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132502512680833024?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Free ApplicativeとFree Monadのliftを共通化するのは面白そうだ &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— ふみ (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132502512680833024?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -445,7 +445,7 @@ extensible effectsはsubtypingを持たないHaskellを起源に持ち､antos-e
 
 &lt;p&gt;ド&lt;/p&gt;
 &lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://github.com/fumieval/extensible&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://avatars2.githubusercontent.com/u/761865?s=400&amp;amp;v=4&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://github.com/fumieval/extensible&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://repository-images.githubusercontent.com/28671219/0ce84a80-cb6b-11e9-8882-b3e82c2f327d&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://github.com/fumieval/extensible&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;fumieval/extensible&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;Extensible records, variants, structs, effects, tangles - fumieval/extensible&lt;/div&gt;
@@ -467,12 +467,12 @@ extensible effectsはsubtypingを持たないHaskellを起源に持ち､antos-e
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;エフェクトをキーで指定できるの、本当に便利そう &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— ryna4c2e (@ryna4c2e) &lt;a href=&quot;https://twitter.com/ryna4c2e/status/1132505916241108992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;エフェクトをキーで指定できるの、本当に便利そう &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— ryna (@ryna4c2e) &lt;a href=&quot;https://twitter.com/ryna4c2e/status/1132505916241108992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;DataKind &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— ryna4c2e (@ryna4c2e) &lt;a href=&quot;https://twitter.com/ryna4c2e/status/1132506703084212224?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;DataKind &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— ryna (@ryna4c2e) &lt;a href=&quot;https://twitter.com/ryna4c2e/status/1132506703084212224?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -510,17 +510,17 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Rustは副作用使い放題の素晴らしい言語 &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典7 (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132520819630804992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Rustは副作用使い放題の素晴らしい言語 &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典7 し03D (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132520819630804992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;可変な変数でStateを実装しようとすると型チェックで弾かれる。RefCellではつらい &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典7 (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132521274125590528?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;可変な変数でStateを実装しようとすると型チェックで弾かれる。RefCellではつらい &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典7 し03D (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132521274125590528?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Frank 言語これ？ &lt;a href=&quot;https://t.co/277z76pxLr&quot;&gt;https://t.co/277z76pxLr&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— かずきとまそたん (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132522163989204992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Frank 言語これ？ &lt;a href=&quot;https://t.co/277z76pxLr&quot;&gt;https://t.co/277z76pxLr&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— かっくん (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132522163989204992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -575,7 +575,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— ᴋᴏɴ《an exhausted rustacean》 (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— ᴋᴏɴ《oboroduki rustacean》 (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -624,7 +624,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 適切な場所がなかったのでconclusionの1枚手前という微妙な位置になってしまったのはかなり反省です｡
 というわけでみなさんやっていきましょう｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Algebraic Effectの実装、libhandlerの場合：longjmp, stack frame+ip &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典7 (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132534088089292800?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Algebraic Effectの実装、libhandlerの場合：longjmp, stack frame+ip &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— だめぽラボ@技術書典7 し03D (@mod_poppo) &lt;a href=&quot;https://twitter.com/mod_poppo/status/1132534088089292800?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -700,7 +700,7 @@ Idrisに詳しくないんで “型がfirst-class” というところでspace
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;h2 id=&quot;Row-based+type+systems+for+algebraic+effect+handlers&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Row-based+type+systems+for+algebraic+effect+handlers&quot;&gt;Row-based type systems for algebraic effect handlers&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;最後は&lt;a href=&quot;https://twitter.com/skymountain_&quot;&gt;@skymountain_ &lt;/a&gt;さんによる発表でした｡資料は&lt;a href=&quot;https://www.slideshare.net/TaroSekiyama/rowbased-effect-systems-for-algebraic-effect-handlers&quot;&gt;こちら&lt;/a&gt;&lt;/p&gt;&lt;p&gt;内容は､parameterized effectsを持つrow-based type systemsにおけるeffect handlerの話でした｡&lt;/p&gt;&lt;p&gt;序盤ではAlgebraic Effectsについて簡単な例から初めて丁寧な説明があり､effect systemを知らない方にも優しいintroductionでした｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;最初に聞きたい感じの発表だった &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— かずきとまそたん (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132554009481322497?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;最初に聞きたい感じの発表だった &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— かっくん (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132554009481322497?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;これは私がミスったわね｡&lt;/p&gt;&lt;p&gt;parameterized effectsの導入から､row-based effect systemとその特徴について述べ､他のset-based onesとの比較など大変わかり易く面白い内容でした｡&lt;/p&gt;&lt;p&gt;Kokaの論文を中途半端に読んでたのでtype systemの部分をちゃんと読み直そうと思います｡
@@ -777,8 +777,8 @@ fumievalさんの名前付きextensible effectsとrow-based effect systemはな�
 曰く､湘南ミーティングの後にもGordon Plotkin先生がしばらく日本にいらっしゃるので講演をしていただける可能性がある､とのことでした｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
 え?!
 &lt;/center&gt;&lt;p&gt;Gordon Plotkin先生､なんか知ってる名前ですね…｡
-algebraic effectsの最初の論文&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title=&quot;Plotkin, Gordon, and John Power. “Algebraic operations and generic effects.” Applied categorical structures 11.1 (2003): 69-94. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
-とかハンドラを付けた論文とか&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot; title=&quot;Plotkin, Gordon, and Matija Pretnar. “Handlers of algebraic effects.” European Symposium on Programming. Springer, Berlin, Heidelberg, 2009. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;
+algebraic effectsの最初の論文&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; title=&quot;Plotkin, Gordon, and John Power. “Algebraic operations and generic effects.” Applied categorical structures 11.1 (2003): 69-94. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
+とかハンドラを付けた論文とか&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; title=&quot;Plotkin, Gordon, and Matija Pretnar. “Handlers of algebraic effects.” European Symposium on Programming. Springer, Berlin, Heidelberg, 2009. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;
 のfirst authorですね…｡
 というか他にもいろいろやってるcomputer scienceでブイブイいわせてる大先生じゃないですか…｡&lt;/p&gt;&lt;p&gt;なんだか大変なことになっちゃった…｡
 メールを頂いた日は外出してたので出先であうあうしてたら､同じくメールを受け取っていた&lt;a href=&quot;https://twitter.com/blackenedgold&quot;&gt;@blackenedgold &lt;/a&gt;さんが調整してくださって良い感じの勉強会が開催されることになりました｡
@@ -795,11 +795,11 @@ algebraic effectsの最初の論文&lt;span class=&quot;cite&quot;&gt;[&lt;a hre
 &lt;ol&gt;
 
 &lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;Plotkin, Gordon, and John Power. “Algebraic operations and generic effects.” Applied categorical structures 11.1 (2003): 69-94. &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Plotkin, Gordon, and John Power. “Algebraic operations and generic effects.” Applied categorical structures 11.1 (2003): 69-94. &lt;a href=&quot;#fnref1&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn2&quot;&gt;
-&lt;p&gt;Plotkin, Gordon, and Matija Pretnar. “Handlers of algebraic effects.” European Symposium on Programming. Springer, Berlin, Heidelberg, 2009. &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Plotkin, Gordon, and Matija Pretnar. “Handlers of algebraic effects.” European Symposium on Programming. Springer, Berlin, Heidelberg, 2009. &lt;a href=&quot;#fnref2&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;/ol&gt;
@@ -823,7 +823,7 @@ algebraic effectsの最初の論文&lt;span class=&quot;cite&quot;&gt;[&lt;a hre
 お前も俺も､もう終わりだ｡&lt;/p&gt;&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;研究ではコルーチンを使っている｡
 ここでひとつコルーチンについてまとめておきたい｡
 特にstackfulnessについての考察をこれまでおこなっていなかったため､そこに重点を置く｡
-本稿では文献&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
+本稿では文献&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
 を参考にする｡&lt;/p&gt;&lt;h1 id=&quot;2.+%E5%AF%BE%E7%A7%B0%E6%80%A7%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+%E5%AF%BE%E7%A7%B0%E6%80%A7%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;2. 対称性による分類&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;コルーチンとは､一時停止､再開のできるサブルーチンを指す｡
 コルーチンを呼び出した呼び出し元にコントロールを戻す操作の有無により､コルーチンを対称コルーチンと&lt;em&gt;非&lt;/em&gt;対称コルーチンの2種類に分けることができる(図&lt;a href=&quot;#tbl1&quot;&gt;2.1&lt;/a&gt;
 )｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
@@ -969,7 +969,7 @@ stackful coroutines → stackless coroutinesの変換がある場合はなんと
 &lt;ol&gt;
 
 &lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &lt;a href=&quot;#fnref1&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;/ol&gt;
@@ -1001,7 +1001,7 @@ Lua､Rubyなどの言語機能またはライブラリとして提供されて�
 変換の正しさについては証明はないため､読者への課題､あるいは筆者の研究の一環とする｡&lt;/p&gt;&lt;p&gt;本稿の実装はLuaのモジュールとして公開してある｡
 お手元にご用意したりして本稿をお楽しみください｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;repo&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;github-widget&quot; data-repo=&quot;Nymphium/eff.lua&quot;&gt;&lt;/div&gt;&lt;h1 id=&quot;2.+algebraic+effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+algebraic+effects&quot;&gt;2. algebraic effects&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;これについては直近でそこそこ話したので､&lt;a href=&quot;/2018/08/13/algebraic_effects_tutorial.html&quot;&gt;あれ&lt;/a&gt;とか&lt;a href=&quot;/pdf/mlday2.html&quot;&gt;これ&lt;/a&gt;とか&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot;&gt;それ&lt;/a&gt;とかをご参照ください｡&lt;/p&gt;&lt;h2 id=&quot;2-1.+Core+Eff&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-1.+Core+Eff&quot;&gt;2-1. Core Eff&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;今回は1つのハンドラでハンドルできるエフェクトは1つというCore Effという言語を考える(図&lt;a href=&quot;#ce-syn&quot;&gt;2.1&lt;/a&gt;
 )｡
-&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title=&quot;Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; title=&quot;Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
 を参考にした｡&lt;/p&gt;&lt;div&gt;
 &lt;center&gt;
 &lt;label id=&quot;ce-syn&quot;&gt;&lt;/label&gt;
@@ -1028,9 +1028,9 @@ Lua､Rubyなどの言語機能またはライブラリとして提供されて�
 &lt;code&gt;handler eff vh effh&lt;/code&gt;でエフェクト&lt;code&gt;eff&lt;/code&gt;のハンドラを定義する｡
 &lt;code&gt;vh&lt;/code&gt;はvalue handlerとなり､ハンドラがエフェクトをハンドルしきって値を返すときにvalue handlerによりハンドルした値を返す｡
 &lt;code&gt;effh&lt;/code&gt;はエフェクトの引数と継続を取る｡&lt;/p&gt;&lt;p&gt;ハンドルできるエフェクトが少ないため一見して弱くなったか? と思うがそんなことはない｡
-&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot; title=&quot;Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; title=&quot;Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
 ではエフェクトにADTを渡してハンドラ内でさらにパターンマッチする方法で事実上n個のエフェクトをハンルするようにしている｡&lt;/p&gt;&lt;p&gt;意味論に関してはっきりと示せる自信がない(面倒くさいとも言う)のと､後述のように継続の使用回数を制限するので省略します｡
-&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot; title=&quot;Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; title=&quot;Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;
 にあるような､よくあるcall by valueの体系を想定している｡
 次の例題で雰囲気を掴んでもらいたい｡&lt;/p&gt;&lt;h2 id=&quot;2-2.+%E4%BE%8B%E9%A1%8C&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-2.+%E4%BE%8B%E9%A1%8C&quot;&gt;2-2. 例題&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choose&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inst&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* instantiate *)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lh&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choose&lt;/span&gt;
@@ -1042,7 +1042,7 @@ Lua､Rubyなどの言語機能またはライブラリとして提供されて�
 &lt;code&gt;inst ()&lt;/code&gt;が返す値はeffect instancesの中でuniqueならなんでもいい｡
 ハンドラ&lt;code&gt;lh&lt;/code&gt;を定義する｡
 エフェクトハンドラ&lt;code&gt;((l, r), k) -&amp;gt; k l&lt;/code&gt;を見ると､&lt;code&gt;(l, r)&lt;/code&gt;というtupleを受け取って継続&lt;code&gt;k&lt;/code&gt;に&lt;code&gt;l&lt;/code&gt;だけ渡して&lt;code&gt;r&lt;/code&gt;は捨てる｡&lt;/p&gt;&lt;h2 id=&quot;2-3.+oneshot+algebraic+effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-3.+oneshot+algebraic+effects&quot;&gt;2-3. oneshot algebraic effects&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;今回はさらに､継続の使用を高々1回に制限する｡
-マイナーな言語機能でさらに制限を加えてしまっているが､例えば&lt;a href=&quot;http://ocamllabs.io/doc/multicore.html&quot;&gt;Multicore OCaml&lt;/a&gt;は原則的に継続の使用は1回に制限されている&lt;sup id=&quot;fnref3&quot; title=&quot;むしろ他に継続がワンショットのalgebraic effectsを知りませんが…｡あとMulticore OCamlにはObj.clone_continuationという継続を複製する関数が用意されており､ランタイムにコストを支払うことで継続を2回以上使うことができる｡ &quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;｡
+マイナーな言語機能でさらに制限を加えてしまっているが､例えば&lt;a href=&quot;http://ocamllabs.io/doc/multicore.html&quot;&gt;Multicore OCaml&lt;/a&gt;は原則的に継続の使用は1回に制限されている&lt;sup id=&quot;fnref3&quot; title=&quot;むしろ他に継続がワンショットのalgebraic effectsを知りませんが…｡あとMulticore OCamlにはObj.clone_continuationという継続を複製する関数が用意されており､ランタイムにコストを支払うことで継続を2回以上使うことができる｡ &quot;&gt;&lt;a href=&quot;#fn3&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;｡
 例えば次のような例(コード&lt;a href=&quot;#ng-twice&quot;&gt;2.2&lt;/a&gt;
 )はNGにしたい｡
 continuationを2回使ってはいけない(戒め)｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;ng-twice&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
@@ -1056,9 +1056,9 @@ continuationを2回使ってはいけない(戒め)｡&lt;/p&gt;&lt;p&gt;&lt;lab
 &lt;/div&gt;&lt;p&gt;Affine typesなどにより継続を2回使う箇所を検出したいが､それはまたいつかお話しましょう｡
 高級な型システムでなくても､継続に適当な型を付けてdef-use chainを使えばヒューリスティックに解決できそうですね｡&lt;/p&gt;&lt;p&gt;今回は継続を2回以上使ってはいけない&lt;em&gt;お約束&lt;/em&gt;しかないので誰も注意してくれない｡
 そのため我々が注意するしかない｡&lt;/p&gt;&lt;p&gt;継続が1回しか使えないのはmultishot(ノーマルな) algebraic effectsと比較すると真にパワーが弱くなっている｡
-とはいえ継続を2回も使う必要のない場面&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot; title=&quot;Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
-が多く､継続がワンショットであることを前提にするとパフォーマンスの良い実装ができる&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn5&quot; rel=&quot;footnote&quot; title=&quot;Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. &quot; id=&quot;fnref5&quot;&gt;5&lt;/a&gt;]&lt;/span&gt;
-&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn6&quot; rel=&quot;footnote&quot; title=&quot;Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. &quot; id=&quot;fnref6&quot;&gt;6&lt;/a&gt;]&lt;/span&gt;
+とはいえ継続を2回も使う必要のない場面&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn4&quot; title=&quot;Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. &quot; id=&quot;fnref4&quot;&gt;4&lt;/a&gt;]&lt;/span&gt;
+が多く､継続がワンショットであることを前提にするとパフォーマンスの良い実装ができる&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn5&quot; title=&quot;Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. &quot; id=&quot;fnref5&quot;&gt;5&lt;/a&gt;]&lt;/span&gt;
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn6&quot; title=&quot;Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. &quot; id=&quot;fnref6&quot;&gt;6&lt;/a&gt;]&lt;/span&gt;
 ｡&lt;/p&gt;&lt;h1 id=&quot;3.+asymmetric+coroutines&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+asymmetric+coroutines&quot;&gt;3. asymmetric coroutines&lt;/a&gt;&lt;/h1&gt;&lt;h2 id=&quot;3-1.+asymmetric%3F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-1.+asymmetric%3F&quot;&gt;3-1. asymmetric?&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;非常に簡単に説明すると､みなさんがお使いのコルーチンは概ねasymmetric coroutineです｡
 Asymmetric coroutineがあるのでsymmetric coroutineももちろん存在する｡
 Asymmetric coroutinesは対象のコルーチンへ&lt;em&gt;飛ぶ&lt;/em&gt;操作resumeと操作してるコルーチンから&lt;em&gt;戻る&lt;/em&gt;操作yieldの2つを持つ｡
@@ -1144,7 +1144,7 @@ d
 . the syntax of \(\lambda_{\text{\textit{cor}}}\)
 &lt;/center&gt;
 &lt;/div&gt;&lt;p&gt;こちらも筆者が疲れたので意味論はフィーリングで行く｡
-すまんが&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref7&quot;&gt;7&lt;/a&gt;]&lt;/span&gt;
+すまんが&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn7&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref7&quot;&gt;7&lt;/a&gt;]&lt;/span&gt;
 を参照されたし｡
 ランタイムにラベルストアなどを用意してがちゃがちゃやっていく感じ｡&lt;/p&gt;&lt;p&gt;構成員としては､ラムダ計算にくわえ､&lt;code&gt;let&lt;/code&gt;式､(相互)再帰､ADTとパターンマッチに加え､コルーチンの操作&lt;code&gt;create&lt;/code&gt; &lt;code&gt;resume&lt;/code&gt; &lt;code&gt;yield&lt;/code&gt;がある｡
 各エフェクトを一意にするために&lt;code&gt;inst ()&lt;/code&gt;もそのまま持ってきている｡
@@ -1154,7 +1154,7 @@ d
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;mutual referring(なんて言うのか?) objectをmutual recursionでなんとかできる? できない? 今の脳の稼働率ではわからん｡&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1070882855582986241?ref_src=twsrc%5Etfw&quot;&gt;December 7, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;p&gt;変換のターゲットとしてコルーチンが出てくるため､上記のようなプログラムは\(\lambda_{\text{\textit{cor}}}\)では書けなくても問題はないので問題ない｡&lt;/p&gt;&lt;h2 id=&quot;3-3.+asymmetric+coroutines+and+oneshot+continuation&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-3.+asymmetric+coroutines+and+oneshot+continuation&quot;&gt;3-3. asymmetric coroutines and oneshot continuation&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Asymmetric coroutinesは強力なコントロールオペレータであり､まずsymmetric coroutinesを模倣することができ､のみならずcall/1ccもasymmetric coroutinesにより実装することができる&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn7&quot; rel=&quot;footnote&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref7&quot;&gt;7&lt;/a&gt;]&lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;変換のターゲットとしてコルーチンが出てくるため､上記のようなプログラムは\(\lambda_{\text{\textit{cor}}}\)では書けなくても問題はないので問題ない｡&lt;/p&gt;&lt;h2 id=&quot;3-3.+asymmetric+coroutines+and+oneshot+continuation&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-3.+asymmetric+coroutines+and+oneshot+continuation&quot;&gt;3-3. asymmetric coroutines and oneshot continuation&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Asymmetric coroutinesは強力なコントロールオペレータであり､まずsymmetric coroutinesを模倣することができ､のみならずcall/1ccもasymmetric coroutinesにより実装することができる&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn7&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref7&quot;&gt;7&lt;/a&gt;]&lt;/span&gt;
 ｡
 call/1ccとは､継続の実行が高々1回に制限されているcall/ccである｡&lt;/p&gt;&lt;p&gt;オッoneshotnessが出てきた｡
 これはcontinuationがコルーチンに対応し､コルーチンは状態を複製する操作が基本的に提供されてないためである｡
@@ -1492,7 +1492,7 @@ Asymmetric coroutinesと非常に縁の深いLuaにより実装した｡
 多値については&lt;a href=&quot;/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html&quot;&gt;こちら&lt;/a&gt;を参照…とおもったけど多値を返す関数の呼び出しをそのまま関数の引数の位置に書いた場合についてはあまりふれられてませんね｡
 Lua VM的な説明をすると､引数の末尾位置に多値を返す関数の呼び出しを書かないと､1引数分､つまり1レジスタしか関数の戻り値を受けるレジスタが用意されないためである｡&lt;/p&gt;&lt;p&gt;最初期からフィーリングで突っ走っており､&lt;code&gt;UncaughtEff&lt;/code&gt;相当のことを､赤ちゃんでも思いつくような､例外処理機によって実装していた｡
 OCamlのように代数的な例外がないのも相まって散々な目にあったが､部分的にはalgebraic effectsを実装していた｡
-例外のハンドリングは一般にコストフル&lt;sup id=&quot;fnref8&quot; title=&quot;例外処理のある言語は概ねモダンであり､モダンな言語は比較的親切であり､親切な言語はエラーを吐くとスタックトレースを出してくれる｡ この新設のためにスタックトレースを記録するので遅くなる｡gotoとしての例外おおいに結構しかしパフォーマンスとしっかり勘案すること｡ &quot;&gt;&lt;a href=&quot;#fn8&quot; rel=&quot;footnote&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;であり､Luaもご多分に漏れず遅い｡
+例外のハンドリングは一般にコストフル&lt;sup id=&quot;fnref8&quot; title=&quot;例外処理のある言語は概ねモダンであり､モダンな言語は比較的親切であり､親切な言語はエラーを吐くとスタックトレースを出してくれる｡ この新設のためにスタックトレースを記録するので遅くなる｡gotoとしての例外おおいに結構しかしパフォーマンスとしっかり勘案すること｡ &quot;&gt;&lt;a href=&quot;#fn8&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;であり､Luaもご多分に漏れず遅い｡
 コントロールを全てコルーチンの操作だけでおこなった場合と例外でぴょんぴょんする場合のパフォーマンスを比較してみたいが､まぁ半分ナンセンスだし半分は筆者のやる気不足なので､多分速くなってるだろうということで終わる｡&lt;/p&gt;&lt;h2 id=&quot;5-1.+%E3%83%87%E3%83%A2&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5-1.+%E3%83%87%E3%83%A2&quot;&gt;5-1. デモ&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;皆さん大好き&lt;a href=&quot;https://github.com/Nymphium/eff.lua/blob/master/example/shiftreset.lua&quot;&gt;multiprompt shift/resetが実装できる&lt;/a&gt;｡
 ただしエフェクトハンドラの継続をそのままつかっているので､継続の使用は高々1回に制限されている｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eff&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;eff&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;
@@ -1586,7 +1586,7 @@ World?
   &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Functorっぽいものを書いてるなと思ったが&lt;code&gt;smaph&lt;/code&gt;をみると全然そんなことなく､自分でも困惑した｡
-Luaは残念ながら型のない世界なのでなんでもアリである｡&lt;/p&gt;&lt;h1 id=&quot;6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;6. 関連研究&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Koka言語などをやっていってるDaan氏によりC言語によるalgebraic effectsの実装&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn9&quot; rel=&quot;footnote&quot; title=&quot;Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. &quot; id=&quot;fnref9&quot;&gt;9&lt;/a&gt;]&lt;/span&gt;
+Luaは残念ながら型のない世界なのでなんでもアリである｡&lt;/p&gt;&lt;h1 id=&quot;6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6&quot;&gt;6. 関連研究&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Koka言語などをやっていってるDaan氏によりC言語によるalgebraic effectsの実装&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn9&quot; title=&quot;Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. &quot; id=&quot;fnref9&quot;&gt;9&lt;/a&gt;]&lt;/span&gt;
 がおこなわれている｡
 本稿と比較すると1ハンドラ1エフェクトや継続がワンショットなどの制限ががない一方､非常にユーザーアンフレンドリーな構文となっている｡
 そのためP言語などのコンパイラのターゲットという位置づけがなされている｡
@@ -1600,39 +1600,39 @@ Luaは残念ながら型のない世界なのでなんでもアリである｡&l
 &lt;ol&gt;
 
 &lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. &lt;a href=&quot;#fnref1&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn2&quot;&gt;
-&lt;p&gt;Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. &lt;a href=&quot;#fnref2&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn3&quot;&gt;
-&lt;p&gt;むしろ他に継続がワンショットのalgebraic effectsを知りませんが…｡あとMulticore OCamlには&lt;code&gt;Obj.clone_continuation&lt;/code&gt;という継続を複製する関数が用意されており､ランタイムにコストを支払うことで継続を2回以上使うことができる｡ &lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;むしろ他に継続がワンショットのalgebraic effectsを知りませんが…｡あとMulticore OCamlには&lt;code&gt;Obj.clone_continuation&lt;/code&gt;という継続を複製する関数が用意されており､ランタイムにコストを支払うことで継続を2回以上使うことができる｡ &lt;a href=&quot;#fnref3&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn4&quot;&gt;
-&lt;p&gt;Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. &lt;a href=&quot;#fnref4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. &lt;a href=&quot;#fnref4&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn5&quot;&gt;
-&lt;p&gt;Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. &lt;a href=&quot;#fnref5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. &lt;a href=&quot;#fnref5&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn6&quot;&gt;
-&lt;p&gt;Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. &lt;a href=&quot;#fnref6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. &lt;a href=&quot;#fnref6&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn7&quot;&gt;
-&lt;p&gt;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &lt;a href=&quot;#fnref7&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &lt;a href=&quot;#fnref7&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn8&quot;&gt;
-&lt;p&gt;例外処理のある言語は概ねモダンであり､モダンな言語は比較的親切であり､親切な言語はエラーを吐くとスタックトレースを出してくれる｡ この新設のためにスタックトレースを記録するので遅くなる｡gotoとしての例外おおいに結構しかしパフォーマンスとしっかり勘案すること｡ &lt;a href=&quot;#fnref8&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;例外処理のある言語は概ねモダンであり､モダンな言語は比較的親切であり､親切な言語はエラーを吐くとスタックトレースを出してくれる｡ この新設のためにスタックトレースを記録するので遅くなる｡gotoとしての例外おおいに結構しかしパフォーマンスとしっかり勘案すること｡ &lt;a href=&quot;#fnref8&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn9&quot;&gt;
-&lt;p&gt;Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. &lt;a href=&quot;#fnref9&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. &lt;a href=&quot;#fnref9&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;/ol&gt;
@@ -1689,7 +1689,7 @@ Luaは残念ながら型のない世界なのでなんでもアリである｡&l
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;前回までのラブライブ！ 逆に取り付けたので半田吸い取り機を使おうとするも半壊しているのでトーストでハンダを溶かそうとするもまたもや失敗。 &lt;a href=&quot;https://t.co/cww2frd9vB&quot;&gt;pic.twitter.com/cww2frd9vB&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1064870457642442752?ref_src=twsrc%5Etfw&quot;&gt;November 20, 2018&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;p&gt;ヘ タ ク ソ&lt;sup id=&quot;fnref1&quot; title=&quot;ビルドガイドがボクの失敗を見たためかどうか､失敗したポイントについて丁寧な解説が加えられている｡みなさんは私の屍を超えて失敗レスに作ることができます｡ &quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;&lt;p&gt;トーストによるハンダクラックは無事失敗｡
+&lt;/div&gt;&lt;p&gt;ヘ タ ク ソ&lt;sup id=&quot;fnref1&quot; title=&quot;ビルドガイドがボクの失敗を見たためかどうか､失敗したポイントについて丁寧な解説が加えられている｡みなさんは私の屍を超えて失敗レスに作ることができます｡ &quot;&gt;&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;&lt;p&gt;トーストによるハンダクラックは無事失敗｡
 部室にあったポンコツハンダ吸い取り器や､部員のハジョン氏にハンダ吸い取り線を借りるも難航｡
 rizaudo氏や部室を常時警備している&lt;a href=&quot;https://twitter.com/akkkix&quot;&gt;@akkkix&lt;/a&gt;氏の協力のもとハンダを吸いまくるも取れる気配がない｡
 &lt;a href=&quot;https://twitter.com/NTSC_J&quot;&gt;@NTSC_J&lt;/a&gt;氏にも部室にあるものよりも使えるハンダ吸い取り器を持ってきてもらい､交代しながらハンダを吸っていく｡&lt;/p&gt;&lt;p&gt;日が変わり､そして―&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -1858,7 +1858,7 @@ xmodmapによってキーマップを変更し､&lt;code&gt;AltGr&lt;/code&gt;�
 &lt;ol&gt;
 
 &lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;ビルドガイドがボクの失敗を見たためかどうか､失敗したポイントについて丁寧な解説が加えられている｡みなさんは私の屍を超えて失敗レスに作ることができます｡ &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;ビルドガイドがボクの失敗を見たためかどうか､失敗したポイントについて丁寧な解説が加えられている｡みなさんは私の屍を超えて失敗レスに作ることができます｡ &lt;a href=&quot;#fnref1&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;/ol&gt;
@@ -2069,8 +2069,8 @@ Luaのエラー処理はGoと似たような方法となる｡
 
 &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 1 2&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;冷静になると&lt;code&gt;local x, y = ...&lt;/code&gt;もたいがいやぞ｡&lt;/p&gt;&lt;h1 id=&quot;3.+Lua+VM%E3%81%A8%E5%A4%9A%E5%80%A4&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+Lua+VM%E3%81%A8%E5%A4%9A%E5%80%A4&quot;&gt;3. Lua VMと多値&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;さて､Luaは多値がGoよりも頻出しており､多値っぽいなと思ったものはだいたい多値であることが分かった｡
-Luaのランタイムとして多く採用されているLua VMについて､多値をどうさばいてるのか見てみよう｡&lt;/p&gt;&lt;h2 id=&quot;3-1.+Lua+VM%E3%81%A8%E3%81%AF&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-1.+Lua+VM%E3%81%A8%E3%81%AF&quot;&gt;3-1. Lua VMとは&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;PUC-Lua 5.0からレジスタマシンアーキテクチャを採用している&lt;sup id=&quot;fnref1&quot; title='Ierusalimschy, Roberto, Luiz Henrique de Figueiredo, and Waldemar Celes. &quot;The evolution of Lua.” Proceedings of the third ACM SIGPLAN conference on History of programming languages. ACM, 2007. '&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;｡
-Lua VM 5.3では47個の命令を持ち､5.4では四則演算に関して5.2から導入された&lt;code&gt;integer&lt;/code&gt;型を高速に処理するための命令が追加されそうだ&lt;sup id=&quot;fnref2&quot; title=&quot;https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219 &quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;｡&lt;/p&gt;&lt;p&gt;まずはバイトコードに触れてみよう｡
+Luaのランタイムとして多く採用されているLua VMについて､多値をどうさばいてるのか見てみよう｡&lt;/p&gt;&lt;h2 id=&quot;3-1.+Lua+VM%E3%81%A8%E3%81%AF&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-1.+Lua+VM%E3%81%A8%E3%81%AF&quot;&gt;3-1. Lua VMとは&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;PUC-Lua 5.0からレジスタマシンアーキテクチャを採用している&lt;sup id=&quot;fnref1&quot; title='Ierusalimschy, Roberto, Luiz Henrique de Figueiredo, and Waldemar Celes. &quot;The evolution of Lua.” Proceedings of the third ACM SIGPLAN conference on History of programming languages. ACM, 2007. '&gt;&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;｡
+Lua VM 5.3では47個の命令を持ち､5.4では四則演算に関して5.2から導入された&lt;code&gt;integer&lt;/code&gt;型を高速に処理するための命令が追加されそうだ&lt;sup id=&quot;fnref2&quot; title=&quot;https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219 &quot;&gt;&lt;a href=&quot;#fn2&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;｡&lt;/p&gt;&lt;p&gt;まずはバイトコードに触れてみよう｡
 お手元にluacをご用意ください｡
 パッケージマネージャでLuaをインストールすれば使えるはずだ｡
 &lt;code&gt;luac-5.3&lt;/code&gt;とか&lt;code&gt;luac5.3&lt;/code&gt;とか､単に&lt;code&gt;luac&lt;/code&gt;など｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;hoge.lua
@@ -2133,7 +2133,7 @@ A, B, Cは第1オペランド､第2オペランド､第3オペランドに対�
 確かに､戻り値の処理などが多値にうまく対応している｡&lt;/p&gt;&lt;p&gt;これより&lt;code&gt;CALL 0 2 1&lt;/code&gt;はレジスタ0にある&lt;code&gt;print&lt;/code&gt;にレジスタ0の&lt;code&gt;&quot;Hello&quot;&lt;/code&gt;を適用している｡
 戻り値はレジスタ(A+C-2)だから…あれ､レジスタ-1とはなんですか｡
 A+C-2 &amp;lt; 0なら戻り値を気にしない､という予想で読んでいこう｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;RETURN&lt;/code&gt;も難しい｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;OP_RETURN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/*    A B return R(A), ... ,R(A+B-2)  (see note)  */&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これも同様にA+B - 2 &amp;lt; 0はvoid&lt;sup id=&quot;fnref3&quot; title='void-unit戦争が世界の何処かでおこなわれていますが､これはまさにvoidですね｡Luaでこういった関数の戻り値を受け取るとnilが返ってきますが､これは&quot;無い値&quot;を参照しているので､nilは正しい(オタク早口)｡ '&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;のような関数ということでしょう｡&lt;/p&gt;&lt;p&gt;他の命令も､特に条件分岐あたりは面白いので1つ1つ見ていきたいが､ここでは多値が絡む部分だけ見ていこう｡
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これも同様にA+B - 2 &amp;lt; 0はvoid&lt;sup id=&quot;fnref3&quot; title='void-unit戦争が世界の何処かでおこなわれていますが､これはまさにvoidですね｡Luaでこういった関数の戻り値を受け取るとnilが返ってきますが､これは&quot;無い値&quot;を参照しているので､nilは正しい(オタク早口)｡ '&gt;&lt;a href=&quot;#fn3&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;のような関数ということでしょう｡&lt;/p&gt;&lt;p&gt;他の命令も､特に条件分岐あたりは面白いので1つ1つ見ていきたいが､ここでは多値が絡む部分だけ見ていこう｡
 気になった方はluaのソースコードをご覧ください｡&lt;/p&gt;&lt;p&gt;ほかにも例を見てみよう｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;huga.lua
 &lt;span class=&quot;go&quot;&gt;local x = 3
 local y = 5
@@ -2277,15 +2277,15 @@ VM型インタプリタ面白いなと思った方は､ぜひこちらをご覧
 &lt;ol&gt;
 
 &lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;Ierusalimschy, Roberto, Luiz Henrique de Figueiredo, and Waldemar Celes. &quot;The evolution of Lua.” Proceedings of the third ACM SIGPLAN conference on History of programming languages. ACM, 2007. &lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Ierusalimschy, Roberto, Luiz Henrique de Figueiredo, and Waldemar Celes. &quot;The evolution of Lua.” Proceedings of the third ACM SIGPLAN conference on History of programming languages. ACM, 2007. &lt;a href=&quot;#fnref1&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn2&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219&quot;&gt;https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219&lt;/a&gt; &lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219&quot;&gt;https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219&lt;/a&gt; &lt;a href=&quot;#fnref2&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;li id=&quot;fn3&quot;&gt;
-&lt;p&gt;void-unit戦争が世界の何処かでおこなわれていますが､これはまさにvoidですね｡Luaでこういった関数の戻り値を受け取るとnilが返ってきますが､これは&quot;無い値&quot;を参照しているので､nilは正しい(オタク早口)｡ &lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;void-unit戦争が世界の何処かでおこなわれていますが､これはまさにvoidですね｡Luaでこういった関数の戻り値を受け取るとnilが返ってきますが､これは&quot;無い値&quot;を参照しているので､nilは正しい(オタク早口)｡ &lt;a href=&quot;#fnref3&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 
 &lt;/ol&gt;

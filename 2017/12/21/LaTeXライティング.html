@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-12-21T00:00:00+09:00" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"lily, Aikatsu, Programming language, and more","@type":"BlogPosting","dateModified":"2017-12-21T00:00:00+09:00","datePublished":"2017-12-21T00:00:00+09:00","headline":"LaTeXライティング","url":"https://nymphium.github.io/2017/12/21/LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2017/12/21/LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.html"},"@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"lily, Aikatsu, Programming language, and more","@type":"BlogPosting","headline":"LaTeXライティング","dateModified":"2017-12-21T00:00:00+09:00","datePublished":"2017-12-21T00:00:00+09:00","url":"https://nymphium.github.io/2017/12/21/LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2017/12/21/LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
@@ -101,33 +101,33 @@ document.addEventListener("DOMContentLoaded", function(){
 </center>
 <h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
 <p>WORDは一太郎と\(\LaTeX\)で制作されており､後者が今のメインストリームとなっています｡
-WORD記事のテンプレート<sup id="fnref1" title="https://github.com/WORD-COINS/article-template "><a href="#fn1" rel="footnote">1</a></sup>を引っ張って編集してWORDのGitサーバーにpushするとJenkinsが動きヒラギノが埋め込まれたpdfファイルが出来上がる……というシステム｡素晴らしい｡</p>
+WORD記事のテンプレート<sup id="fnref1" title="https://github.com/WORD-COINS/article-template "><a href="#fn1">1</a></sup>を引っ張って編集してWORDのGitサーバーにpushするとJenkinsが動きヒラギノが埋め込まれたpdfファイルが出来上がる……というシステム｡素晴らしい｡</p>
 <p>私もWORD記事以外でもよくLaTeXを使います｡
 たとえば講義ノートを取る､Beamerでスライドを作る､ゼミ資料を作る､等々｡</p>
 <p>ではどうやってLaTeXを書いているのか?
 今回は私のLaTeX編集環境を少し紹介します｡</p>
 <h1 id="2.+%28Neo%29Vim"><a class="headerlink" href="#2.+%28Neo%29Vim">2. (Neo)Vim</a></h1>
 <p>エディターにはNeovimを使っています｡
-asynchronouslyにmakeをやってくれるNeomake<sup id="fnref2" title="https://github.com/neomake/neomake "><a href="#fn2" rel="footnote">2</a></sup>とかありますんで､でもVim 8でもasync jobsが使えるようになったとのことでどっちでもいいです｡</p>
+asynchronouslyにmakeをやってくれるNeomake<sup id="fnref2" title="https://github.com/neomake/neomake "><a href="#fn2">2</a></sup>とかありますんで､でもVim 8でもasync jobsが使えるようになったとのことでどっちでもいいです｡</p>
 <p>次のVimtexが重要｡</p>
-<h2 id="2-1.+Vimtex%3Csup+id%3D%22fnref3%22+title%3D%22https%3A%2F%2Fgithub.com%2Flervag%2Fvimtex%C2%A0%22%3E%3Ca+href%3D%22%23fn3%22+rel%3D%22footnote%22%3E3%3C%2Fa%3E%3C%2Fsup%3E%0A"><a class="headerlink" href="#2-1.+Vimtex%3Csup+id%3D%22fnref3%22+title%3D%22https%3A%2F%2Fgithub.com%2Flervag%2Fvimtex%C2%A0%22%3E%3Ca+href%3D%22%23fn3%22+rel%3D%22footnote%22%3E3%3C%2Fa%3E%3C%2Fsup%3E%0A">2-1. Vimtex<sup id="fnref3" title="https://github.com/lervag/vimtex "><a href="#fn3" rel="footnote">3</a></sup>
+<h2 id="2-1.+Vimtex%3Csup+id%3D%22fnref3%22+title%3D%22https%3A%2F%2Fgithub.com%2Flervag%2Fvimtex%C2%A0%22%3E%3Ca+href%3D%22%23fn3%22%3E3%3C%2Fa%3E%3C%2Fsup%3E%0A"><a class="headerlink" href="#2-1.+Vimtex%3Csup+id%3D%22fnref3%22+title%3D%22https%3A%2F%2Fgithub.com%2Flervag%2Fvimtex%C2%A0%22%3E%3Ca+href%3D%22%23fn3%22%3E3%3C%2Fa%3E%3C%2Fsup%3E%0A">2-1. Vimtex<sup id="fnref3" title="https://github.com/lervag/vimtex "><a href="#fn3">3</a></sup>
 </a></h2>
 <p>Vimで快適にLaTeXを編集するためのプラグイン｡
 まずSyntax highlightingがきれい｡
 偉いので､LuaLaTeXでLuaを埋め込んでいるときもちゃんとLuaをハイライトしてくれる｡</p>
 <p><img src="/pictures/2017-12-21-LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/vimtex-highlight.png" alt="syntax highlight with vimtex" title="syntax highlight with vimtex"></p>
-<p>そして大量にキーバインドを追加してくるので<sup id="fnref4" title="https://github.com/lervag/vimtex/wiki/usage#default-mappings "><a href="#fn4" rel="footnote">4</a></sup>､これを覚えると高速な編集ができる｡
+<p>そして大量にキーバインドを追加してくるので<sup id="fnref4" title="https://github.com/lervag/vimtex/wiki/usage#default-mappings "><a href="#fn4">4</a></sup>､これを覚えると高速な編集ができる｡
 他のキーバインドと競合しないように気をつけよう｡</p>
 <p>他にも環境の<code>begin</code>と<code>end</code>の対応が取れてpercentage-wiseなカーソル移動ができる｡
-コマンドの補完もしてくれるため､Neocomplete<sup id="fnref5" title="https://github.com/Shougo/neocomplete.vim completion for Vim "><a href="#fn5" rel="footnote">5</a></sup>/Deoplete<sup id="fnref6" title="https://github.com/Shougo/deoplete.nvim completion for Neovim "><a href="#fn6" rel="footnote">6</a></sup>と連携して補完を効かせると非常に高速なエディットが可能となる｡</p>
-<h2 id="2-2.+vim-surround%3Csup+id%3D%22fnref7%22+title%3D%22https%3A%2F%2Fgithub.com%2Ftpope%2Fvim-surround%C2%A0%22%3E%3Ca+href%3D%22%23fn7%22+rel%3D%22footnote%22%3E7%3C%2Fa%3E%3C%2Fsup%3E%0A"><a class="headerlink" href="#2-2.+vim-surround%3Csup+id%3D%22fnref7%22+title%3D%22https%3A%2F%2Fgithub.com%2Ftpope%2Fvim-surround%C2%A0%22%3E%3Ca+href%3D%22%23fn7%22+rel%3D%22footnote%22%3E7%3C%2Fa%3E%3C%2Fsup%3E%0A">2-2. vim-surround<sup id="fnref7" title="https://github.com/tpope/vim-surround "><a href="#fn7" rel="footnote">7</a></sup>
+コマンドの補完もしてくれるため､Neocomplete<sup id="fnref5" title="https://github.com/Shougo/neocomplete.vim completion for Vim "><a href="#fn5">5</a></sup>/Deoplete<sup id="fnref6" title="https://github.com/Shougo/deoplete.nvim completion for Neovim "><a href="#fn6">6</a></sup>と連携して補完を効かせると非常に高速なエディットが可能となる｡</p>
+<h2 id="2-2.+vim-surround%3Csup+id%3D%22fnref7%22+title%3D%22https%3A%2F%2Fgithub.com%2Ftpope%2Fvim-surround%C2%A0%22%3E%3Ca+href%3D%22%23fn7%22%3E7%3C%2Fa%3E%3C%2Fsup%3E%0A"><a class="headerlink" href="#2-2.+vim-surround%3Csup+id%3D%22fnref7%22+title%3D%22https%3A%2F%2Fgithub.com%2Ftpope%2Fvim-surround%C2%A0%22%3E%3Ca+href%3D%22%23fn7%22%3E7%3C%2Fa%3E%3C%2Fsup%3E%0A">2-2. vim-surround<sup id="fnref7" title="https://github.com/tpope/vim-surround "><a href="#fn7">7</a></sup>
 </a></h2>
 <p>visual modeで<code>S-&lt;leader&gt;</code>と入力すると環境を作ってくれる｡
 地味に便利｡</p>
 <p><img src="/pictures/2017-12-21-LaTeX%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/surround-env.gif" alt="surround environment" title="surround environment with vim-surround"></p>
 <hr>
 <p>WORD記事テンプレートにはすでにMakefileとlatexmkrcが付属されているが､これについても少し解説したい｡</p>
-<h1 id="3.+Latexmk%3Csup+id%3D%22fnref8%22+title%3D%22http%3A%2F%2Fpersonal.psu.edu%2Fjcc8%2F%2Fsoftware%2Flatexmk%C2%A0%22%3E%3Ca+href%3D%22%23fn8%22+rel%3D%22footnote%22%3E8%3C%2Fa%3E%3C%2Fsup%3E%3Csup%3E%2C%3C%2Fsup%3E%3Csup+id%3D%22fnref9%22+title%3D%22https%3A%2F%2Ftexwiki.texjp.org%2F%3FLatexmk%C2%A0%22%3E%3Ca+href%3D%22%23fn9%22+rel%3D%22footnote%22%3E9%3C%2Fa%3E%3C%2Fsup%3E%0A"><a class="headerlink" href="#3.+Latexmk%3Csup+id%3D%22fnref8%22+title%3D%22http%3A%2F%2Fpersonal.psu.edu%2Fjcc8%2F%2Fsoftware%2Flatexmk%C2%A0%22%3E%3Ca+href%3D%22%23fn8%22+rel%3D%22footnote%22%3E8%3C%2Fa%3E%3C%2Fsup%3E%3Csup%3E%2C%3C%2Fsup%3E%3Csup+id%3D%22fnref9%22+title%3D%22https%3A%2F%2Ftexwiki.texjp.org%2F%3FLatexmk%C2%A0%22%3E%3Ca+href%3D%22%23fn9%22+rel%3D%22footnote%22%3E9%3C%2Fa%3E%3C%2Fsup%3E%0A">3. Latexmk<sup id="fnref8" title="http://personal.psu.edu/jcc8//software/latexmk "><a href="#fn8" rel="footnote">8</a></sup><sup>,</sup><sup id="fnref9" title="https://texwiki.texjp.org/?Latexmk "><a href="#fn9" rel="footnote">9</a></sup>
+<h1 id="3.+Latexmk%3Csup+id%3D%22fnref8%22+title%3D%22http%3A%2F%2Fpersonal.psu.edu%2Fjcc8%2F%2Fsoftware%2Flatexmk%C2%A0%22%3E%3Ca+href%3D%22%23fn8%22%3E8%3C%2Fa%3E%3C%2Fsup%3E%3Csup%3E%2C%3C%2Fsup%3E%3Csup+id%3D%22fnref9%22+title%3D%22https%3A%2F%2Ftexwiki.texjp.org%2F%3FLatexmk%C2%A0%22%3E%3Ca+href%3D%22%23fn9%22%3E9%3C%2Fa%3E%3C%2Fsup%3E%0A"><a class="headerlink" href="#3.+Latexmk%3Csup+id%3D%22fnref8%22+title%3D%22http%3A%2F%2Fpersonal.psu.edu%2Fjcc8%2F%2Fsoftware%2Flatexmk%C2%A0%22%3E%3Ca+href%3D%22%23fn8%22%3E8%3C%2Fa%3E%3C%2Fsup%3E%3Csup%3E%2C%3C%2Fsup%3E%3Csup+id%3D%22fnref9%22+title%3D%22https%3A%2F%2Ftexwiki.texjp.org%2F%3FLatexmk%C2%A0%22%3E%3Ca+href%3D%22%23fn9%22%3E9%3C%2Fa%3E%3C%2Fsup%3E%0A">3. Latexmk<sup id="fnref8" title="http://personal.psu.edu/jcc8//software/latexmk "><a href="#fn8">8</a></sup><sup>,</sup><sup id="fnref9" title="https://texwiki.texjp.org/?Latexmk "><a href="#fn9">9</a></sup>
 </a></h1>
 <p>とにかく偉大｡
 BibTeXやrefererence関係などをエイヤッとやってくれる偉い人です｡
@@ -248,13 +248,13 @@ BibTeXやrefererence関係などをエイヤッとやってくれる偉い人で
 </div>
 <p>主にlatexmkをラップする形になります｡
 <code>make</code>でpdfができて､<code>make continue</code>で先述のノンストップモードになり<code>make clean</code>で生成されたファイルを消してくれる｡</p>
-<h1 id="5.+Detexify%3Csup+id%3D%22fnref10%22+title%3D%22http%3A%2F%2Fdetexify.kirelabs.org%2Fclassify.html%C2%A0%22%3E%3Ca+href%3D%22%23fn10%22+rel%3D%22footnote%22%3E10%3C%2Fa%3E%3C%2Fsup%3E%0A"><a class="headerlink" href="#5.+Detexify%3Csup+id%3D%22fnref10%22+title%3D%22http%3A%2F%2Fdetexify.kirelabs.org%2Fclassify.html%C2%A0%22%3E%3Ca+href%3D%22%23fn10%22+rel%3D%22footnote%22%3E10%3C%2Fa%3E%3C%2Fsup%3E%0A">5. Detexify<sup id="fnref10" title="http://detexify.kirelabs.org/classify.html "><a href="#fn10" rel="footnote">10</a></sup>
+<h1 id="5.+Detexify%3Csup+id%3D%22fnref10%22+title%3D%22http%3A%2F%2Fdetexify.kirelabs.org%2Fclassify.html%C2%A0%22%3E%3Ca+href%3D%22%23fn10%22%3E10%3C%2Fa%3E%3C%2Fsup%3E%0A"><a class="headerlink" href="#5.+Detexify%3Csup+id%3D%22fnref10%22+title%3D%22http%3A%2F%2Fdetexify.kirelabs.org%2Fclassify.html%C2%A0%22%3E%3Ca+href%3D%22%23fn10%22%3E10%3C%2Fa%3E%3C%2Fsup%3E%0A">5. Detexify<sup id="fnref10" title="http://detexify.kirelabs.org/classify.html "><a href="#fn10">10</a></sup>
 </a></h1>
 <p>こんな感じの記号を出したい､というときキャンパスにお絵かきすると､コマンド名と必要なパッケージを出してくれる非常に極めて偉大なツール｡
-バックエンドはHaskellのようです<sup id="fnref11" title="https://github.com/kirel/detexify-hs-backend "><a href="#fn11" rel="footnote">11</a></sup>｡</p>
+バックエンドはHaskellのようです<sup id="fnref11" title="https://github.com/kirel/detexify-hs-backend "><a href="#fn11">11</a></sup>｡</p>
 <h1 id="6.+WORD+Slack+%23latex+channel"><a class="headerlink" href="#6.+WORD+Slack+%23latex+channel">6. WORD Slack #latex channel</a></h1>
 <p>WORD部員達がLaTeXに関する議論をしたり[<a href="#fn1">1</a>
-]やWORDクラスファイル<sup id="fnref12" title="https://github.com/WORD-COINS/texfiles "><a href="#fn12" rel="footnote">12</a></sup>のGitHubでのアクティビティーが流れてくるWORD slackのチャンネル｡</p>
+]やWORDクラスファイル<sup id="fnref12" title="https://github.com/WORD-COINS/texfiles "><a href="#fn12">12</a></sup>のGitHubでのアクティビティーが流れてくるWORD slackのチャンネル｡</p>
 <h1 id="7.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#7.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">7. おわりに</a></h1>
 <p>WORD Advent Calendar21日目がまったく埋まる気配がないので筆を執った次第ですが､結局情報量が少ない文書になりました｡
 xmodmapで超高速記号タイピングなども書きたかったんですが余力が無いのでまた別の機会に｡</p>
@@ -266,51 +266,51 @@ xmodmapで超高速記号タイピングなども書きたかったんですが�
 <ol>
 
 <li id="fn1">
-<p><a href="https://github.com/WORD-COINS/article-template" target="_blank" rel="noopener noreferrer">https://github.com/WORD-COINS/article-template</a> <a href="#fnref1" rev="footnote">↩</a></p>
+<p><a href="https://github.com/WORD-COINS/article-template" target="_blank" rel="noopener noreferrer">https://github.com/WORD-COINS/article-template</a> <a href="#fnref1">↩</a></p>
 </li>
 
 <li id="fn2">
-<p><a href="https://github.com/neomake/neomake" target="_blank" rel="noopener noreferrer">https://github.com/neomake/neomake</a> <a href="#fnref2" rev="footnote">↩</a></p>
+<p><a href="https://github.com/neomake/neomake" target="_blank" rel="noopener noreferrer">https://github.com/neomake/neomake</a> <a href="#fnref2">↩</a></p>
 </li>
 
 <li id="fn3">
-<p><a href="https://github.com/lervag/vimtex" target="_blank" rel="noopener noreferrer">https://github.com/lervag/vimtex</a> <a href="#fnref3" rev="footnote">↩</a></p>
+<p><a href="https://github.com/lervag/vimtex" target="_blank" rel="noopener noreferrer">https://github.com/lervag/vimtex</a> <a href="#fnref3">↩</a></p>
 </li>
 
 <li id="fn4">
-<p><a href="https://github.com/lervag/vimtex/wiki/usage#default-mappings" target="_blank" rel="noopener noreferrer">https://github.com/lervag/vimtex/wiki/usage#default-mappings</a> <a href="#fnref4" rev="footnote">↩</a></p>
+<p><a href="https://github.com/lervag/vimtex/wiki/usage#default-mappings" target="_blank" rel="noopener noreferrer">https://github.com/lervag/vimtex/wiki/usage#default-mappings</a> <a href="#fnref4">↩</a></p>
 </li>
 
 <li id="fn5">
-<p><a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="noopener noreferrer">https://github.com/Shougo/neocomplete.vim</a> completion for Vim <a href="#fnref5" rev="footnote">↩</a></p>
+<p><a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="noopener noreferrer">https://github.com/Shougo/neocomplete.vim</a> completion for Vim <a href="#fnref5">↩</a></p>
 </li>
 
 <li id="fn6">
-<p><a href="https://github.com/Shougo/deoplete.nvim" target="_blank" rel="noopener noreferrer">https://github.com/Shougo/deoplete.nvim</a> completion for Neovim <a href="#fnref6" rev="footnote">↩</a></p>
+<p><a href="https://github.com/Shougo/deoplete.nvim" target="_blank" rel="noopener noreferrer">https://github.com/Shougo/deoplete.nvim</a> completion for Neovim <a href="#fnref6">↩</a></p>
 </li>
 
 <li id="fn7">
-<p><a href="https://github.com/tpope/vim-surround" target="_blank" rel="noopener noreferrer">https://github.com/tpope/vim-surround</a> <a href="#fnref7" rev="footnote">↩</a></p>
+<p><a href="https://github.com/tpope/vim-surround" target="_blank" rel="noopener noreferrer">https://github.com/tpope/vim-surround</a> <a href="#fnref7">↩</a></p>
 </li>
 
 <li id="fn8">
-<p><a href="http://personal.psu.edu/jcc8//software/latexmk" target="_blank" rel="noopener noreferrer">http://personal.psu.edu/jcc8//software/latexmk</a> <a href="#fnref8" rev="footnote">↩</a></p>
+<p><a href="http://personal.psu.edu/jcc8//software/latexmk" target="_blank" rel="noopener noreferrer">http://personal.psu.edu/jcc8//software/latexmk</a> <a href="#fnref8">↩</a></p>
 </li>
 
 <li id="fn9">
-<p><a href="https://texwiki.texjp.org/?Latexmk" target="_blank" rel="noopener noreferrer">https://texwiki.texjp.org/?Latexmk</a> <a href="#fnref9" rev="footnote">↩</a></p>
+<p><a href="https://texwiki.texjp.org/?Latexmk" target="_blank" rel="noopener noreferrer">https://texwiki.texjp.org/?Latexmk</a> <a href="#fnref9">↩</a></p>
 </li>
 
 <li id="fn10">
-<p><a href="http://detexify.kirelabs.org/classify.html" target="_blank" rel="noopener noreferrer">http://detexify.kirelabs.org/classify.html</a> <a href="#fnref10" rev="footnote">↩</a></p>
+<p><a href="http://detexify.kirelabs.org/classify.html" target="_blank" rel="noopener noreferrer">http://detexify.kirelabs.org/classify.html</a> <a href="#fnref10">↩</a></p>
 </li>
 
 <li id="fn11">
-<p><a href="https://github.com/kirel/detexify-hs-backend" target="_blank" rel="noopener noreferrer">https://github.com/kirel/detexify-hs-backend</a> <a href="#fnref11" rev="footnote">↩</a></p>
+<p><a href="https://github.com/kirel/detexify-hs-backend" target="_blank" rel="noopener noreferrer">https://github.com/kirel/detexify-hs-backend</a> <a href="#fnref11">↩</a></p>
 </li>
 
 <li id="fn12">
-<p><a href="https://github.com/WORD-COINS/texfiles" target="_blank" rel="noopener noreferrer">https://github.com/WORD-COINS/texfiles</a> <a href="#fnref12" rev="footnote">↩</a></p>
+<p><a href="https://github.com/WORD-COINS/texfiles" target="_blank" rel="noopener noreferrer">https://github.com/WORD-COINS/texfiles</a> <a href="#fnref12">↩</a></p>
 </li>
 
 </ol>

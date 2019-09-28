@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-12-09T00:00:00+09:00" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"lily, Aikatsu, Programming language, and more","@type":"BlogPosting","dateModified":"2018-12-09T00:00:00+09:00","datePublished":"2018-12-09T00:00:00+09:00","headline":"Asymmetric CoroutinesによるOneshot Algebraic Effectsの実装","url":"https://nymphium.github.io/2018/12/09/asymmetric-coroutines%E3%81%AB%E3%82%88%E3%82%8Boneshot-algebraic-effects%E3%81%AE%E5%AE%9F%E8%A3%85.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/12/09/asymmetric-coroutines%E3%81%AB%E3%82%88%E3%82%8Boneshot-algebraic-effects%E3%81%AE%E5%AE%9F%E8%A3%85.html"},"@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"lily, Aikatsu, Programming language, and more","@type":"BlogPosting","headline":"Asymmetric CoroutinesによるOneshot Algebraic Effectsの実装","dateModified":"2018-12-09T00:00:00+09:00","datePublished":"2018-12-09T00:00:00+09:00","url":"https://nymphium.github.io/2018/12/09/asymmetric-coroutines%E3%81%AB%E3%82%88%E3%82%8Boneshot-algebraic-effects%E3%81%AE%E5%AE%9F%E8%A3%85.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/12/09/asymmetric-coroutines%E3%81%AB%E3%82%88%E3%82%8Boneshot-algebraic-effects%E3%81%AE%E5%AE%9F%E8%A3%85.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/2018/12/09/asymmetric coroutinesによるoneshot algebraic effectsの実装/thumb.png"/>
@@ -114,7 +114,7 @@ Lua､Rubyなどの言語機能またはライブラリとして提供されて�
 <h2 id="2-1.+Core+Eff"><a class="headerlink" href="#2-1.+Core+Eff">2-1. Core Eff</a></h2>
 <p>今回は1つのハンドラでハンドルできるエフェクトは1つというCore Effという言語を考える(図<a href="#ce-syn">2.1</a>
 )｡
-<span class="cite">[<a href="#fn1" rel="footnote" title="Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. " id="fnref1">1</a>]</span>
+<span class="cite">[<a href="#fn1" title="Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. " id="fnref1">1</a>]</span>
 を参考にした｡</p>
 <div>
 <center>
@@ -144,10 +144,10 @@ Lua､Rubyなどの言語機能またはライブラリとして提供されて�
 <code>vh</code>はvalue handlerとなり､ハンドラがエフェクトをハンドルしきって値を返すときにvalue handlerによりハンドルした値を返す｡
 <code>effh</code>はエフェクトの引数と継続を取る｡</p>
 <p>ハンドルできるエフェクトが少ないため一見して弱くなったか? と思うがそんなことはない｡
-<span class="cite">[<a href="#fn1" rel="footnote" title="Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. " id="fnref1">1</a>]</span>
+<span class="cite">[<a href="#fn1" title="Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. " id="fnref1">1</a>]</span>
 ではエフェクトにADTを渡してハンドラ内でさらにパターンマッチする方法で事実上n個のエフェクトをハンルするようにしている｡</p>
 <p>意味論に関してはっきりと示せる自信がない(面倒くさいとも言う)のと､後述のように継続の使用回数を制限するので省略します｡
-<span class="cite">[<a href="#fn2" rel="footnote" title="Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. " id="fnref2">2</a>]</span>
+<span class="cite">[<a href="#fn2" title="Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. " id="fnref2">2</a>]</span>
 にあるような､よくあるcall by valueの体系を想定している｡
 次の例題で雰囲気を掴んでもらいたい｡</p>
 <h2 id="2-2.+%E4%BE%8B%E9%A1%8C"><a class="headerlink" href="#2-2.+%E4%BE%8B%E9%A1%8C">2-2. 例題</a></h2>
@@ -164,7 +164,7 @@ Lua､Rubyなどの言語機能またはライブラリとして提供されて�
 エフェクトハンドラ<code>((l, r), k) -&gt; k l</code>を見ると､<code>(l, r)</code>というtupleを受け取って継続<code>k</code>に<code>l</code>だけ渡して<code>r</code>は捨てる｡</p>
 <h2 id="2-3.+oneshot+algebraic+effects"><a class="headerlink" href="#2-3.+oneshot+algebraic+effects">2-3. oneshot algebraic effects</a></h2>
 <p>今回はさらに､継続の使用を高々1回に制限する｡
-マイナーな言語機能でさらに制限を加えてしまっているが､例えば<a href="http://ocamllabs.io/doc/multicore.html" target="_blank" rel="noopener noreferrer">Multicore OCaml</a>は原則的に継続の使用は1回に制限されている<sup id="fnref3" title="むしろ他に継続がワンショットのalgebraic effectsを知りませんが…｡あとMulticore OCamlにはObj.clone_continuationという継続を複製する関数が用意されており､ランタイムにコストを支払うことで継続を2回以上使うことができる｡ "><a href="#fn3" rel="footnote">3</a></sup>｡
+マイナーな言語機能でさらに制限を加えてしまっているが､例えば<a href="http://ocamllabs.io/doc/multicore.html" target="_blank" rel="noopener noreferrer">Multicore OCaml</a>は原則的に継続の使用は1回に制限されている<sup id="fnref3" title="むしろ他に継続がワンショットのalgebraic effectsを知りませんが…｡あとMulticore OCamlにはObj.clone_continuationという継続を複製する関数が用意されており､ランタイムにコストを支払うことで継続を2回以上使うことができる｡ "><a href="#fn3">3</a></sup>｡
 例えば次のような例(コード<a href="#ng-twice">2.2</a>
 )はNGにしたい｡
 continuationを2回使ってはいけない(戒め)｡</p>
@@ -183,9 +183,9 @@ continuationを2回使ってはいけない(戒め)｡</p>
 <p>今回は継続を2回以上使ってはいけない<em>お約束</em>しかないので誰も注意してくれない｡
 そのため我々が注意するしかない｡</p>
 <p>継続が1回しか使えないのはmultishot(ノーマルな) algebraic effectsと比較すると真にパワーが弱くなっている｡
-とはいえ継続を2回も使う必要のない場面<span class="cite">[<a href="#fn4" rel="footnote" title="Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. " id="fnref4">4</a>]</span>
-が多く､継続がワンショットであることを前提にするとパフォーマンスの良い実装ができる<span class="cite">[<a href="#fn5" rel="footnote" title="Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. " id="fnref5">5</a>]</span>
-<span class="cite">[<a href="#fn6" rel="footnote" title="Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. " id="fnref6">6</a>]</span>
+とはいえ継続を2回も使う必要のない場面<span class="cite">[<a href="#fn4" title="Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. " id="fnref4">4</a>]</span>
+が多く､継続がワンショットであることを前提にするとパフォーマンスの良い実装ができる<span class="cite">[<a href="#fn5" title="Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. " id="fnref5">5</a>]</span>
+<span class="cite">[<a href="#fn6" title="Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. " id="fnref6">6</a>]</span>
 ｡</p>
 <h1 id="3.+asymmetric+coroutines"><a class="headerlink" href="#3.+asymmetric+coroutines">3. asymmetric coroutines</a></h1>
 <h2 id="3-1.+asymmetric%3F"><a class="headerlink" href="#3-1.+asymmetric%3F">3-1. asymmetric?</a></h2>
@@ -283,7 +283,7 @@ d
 </center>
 </div>
 <p>こちらも筆者が疲れたので意味論はフィーリングで行く｡
-すまんが<span class="cite">[<a href="#fn7" rel="footnote" title="Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. " id="fnref7">7</a>]</span>
+すまんが<span class="cite">[<a href="#fn7" title="Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. " id="fnref7">7</a>]</span>
 を参照されたし｡
 ランタイムにラベルストアなどを用意してがちゃがちゃやっていく感じ｡</p>
 <p>構成員としては､ラムダ計算にくわえ､<code>let</code>式､(相互)再帰､ADTとパターンマッチに加え､コルーチンの操作<code>create</code> <code>resume</code> <code>yield</code>がある｡
@@ -299,7 +299,7 @@ d
 </div>
 <p>変換のターゲットとしてコルーチンが出てくるため､上記のようなプログラムは\(\lambda_{\text{\textit{cor}}}\)では書けなくても問題はないので問題ない｡</p>
 <h2 id="3-3.+asymmetric+coroutines+and+oneshot+continuation"><a class="headerlink" href="#3-3.+asymmetric+coroutines+and+oneshot+continuation">3-3. asymmetric coroutines and oneshot continuation</a></h2>
-<p>Asymmetric coroutinesは強力なコントロールオペレータであり､まずsymmetric coroutinesを模倣することができ､のみならずcall/1ccもasymmetric coroutinesにより実装することができる<span class="cite">[<a href="#fn7" rel="footnote" title="Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. " id="fnref7">7</a>]</span>
+<p>Asymmetric coroutinesは強力なコントロールオペレータであり､まずsymmetric coroutinesを模倣することができ､のみならずcall/1ccもasymmetric coroutinesにより実装することができる<span class="cite">[<a href="#fn7" title="Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. " id="fnref7">7</a>]</span>
 ｡
 call/1ccとは､継続の実行が高々1回に制限されているcall/ccである｡</p>
 <p>オッoneshotnessが出てきた｡
@@ -693,7 +693,7 @@ Asymmetric coroutinesと非常に縁の深いLuaにより実装した｡
 Lua VM的な説明をすると､引数の末尾位置に多値を返す関数の呼び出しを書かないと､1引数分､つまり1レジスタしか関数の戻り値を受けるレジスタが用意されないためである｡</p>
 <p>最初期からフィーリングで突っ走っており､<code>UncaughtEff</code>相当のことを､赤ちゃんでも思いつくような､例外処理機によって実装していた｡
 OCamlのように代数的な例外がないのも相まって散々な目にあったが､部分的にはalgebraic effectsを実装していた｡
-例外のハンドリングは一般にコストフル<sup id="fnref8" title="例外処理のある言語は概ねモダンであり､モダンな言語は比較的親切であり､親切な言語はエラーを吐くとスタックトレースを出してくれる｡ この新設のためにスタックトレースを記録するので遅くなる｡gotoとしての例外おおいに結構しかしパフォーマンスとしっかり勘案すること｡ "><a href="#fn8" rel="footnote">8</a></sup>であり､Luaもご多分に漏れず遅い｡
+例外のハンドリングは一般にコストフル<sup id="fnref8" title="例外処理のある言語は概ねモダンであり､モダンな言語は比較的親切であり､親切な言語はエラーを吐くとスタックトレースを出してくれる｡ この新設のためにスタックトレースを記録するので遅くなる｡gotoとしての例外おおいに結構しかしパフォーマンスとしっかり勘案すること｡ "><a href="#fn8">8</a></sup>であり､Luaもご多分に漏れず遅い｡
 コントロールを全てコルーチンの操作だけでおこなった場合と例外でぴょんぴょんする場合のパフォーマンスを比較してみたいが､まぁ半分ナンセンスだし半分は筆者のやる気不足なので､多分速くなってるだろうということで終わる｡</p>
 <h2 id="5-1.+%E3%83%87%E3%83%A2"><a class="headerlink" href="#5-1.+%E3%83%87%E3%83%A2">5-1. デモ</a></h2>
 <p>皆さん大好き<a href="https://github.com/Nymphium/eff.lua/blob/master/example/shiftreset.lua" target="_blank" rel="noopener noreferrer">multiprompt shift/resetが実装できる</a>｡
@@ -798,7 +798,7 @@ World?
 <p>Functorっぽいものを書いてるなと思ったが<code>smaph</code>をみると全然そんなことなく､自分でも困惑した｡
 Luaは残念ながら型のない世界なのでなんでもアリである｡</p>
 <h1 id="6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6"><a class="headerlink" href="#6.+%E9%96%A2%E9%80%A3%E7%A0%94%E7%A9%B6">6. 関連研究</a></h1>
-<p>Koka言語などをやっていってるDaan氏によりC言語によるalgebraic effectsの実装<span class="cite">[<a href="#fn9" rel="footnote" title="Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. " id="fnref9">9</a>]</span>
+<p>Koka言語などをやっていってるDaan氏によりC言語によるalgebraic effectsの実装<span class="cite">[<a href="#fn9" title="Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. " id="fnref9">9</a>]</span>
 がおこなわれている｡
 本稿と比較すると1ハンドラ1エフェクトや継続がワンショットなどの制限ががない一方､非常にユーザーアンフレンドリーな構文となっている｡
 そのためP言語などのコンパイラのターゲットという位置づけがなされている｡
@@ -816,39 +816,39 @@ Luaは残念ながら型のない世界なのでなんでもアリである｡</
 <ol>
 
 <li id="fn1">
-<p>Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. <a href="#fnref1" rev="footnote">↩</a></p>
+<p>Kiselyov, Oleg, and Kc Sivaramakrishnan. “Eff directly in OCaml.(2016).” ACM SIGPLAN Workshop on ML. 2016. <a href="#fnref1">↩</a></p>
 </li>
 
 <li id="fn2">
-<p>Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. <a href="#fnref2" rev="footnote">↩</a></p>
+<p>Bauer, Andrej, and Matija Pretnar. “Programming with algebraic effects and handlers.” Journal of Logical and Algebraic Methods in Programming 84.1 (2015): 108-123. <a href="#fnref2">↩</a></p>
 </li>
 
 <li id="fn3">
-<p>むしろ他に継続がワンショットのalgebraic effectsを知りませんが…｡あとMulticore OCamlには<code>Obj.clone_continuation</code>という継続を複製する関数が用意されており､ランタイムにコストを支払うことで継続を2回以上使うことができる｡ <a href="#fnref3" rev="footnote">↩</a></p>
+<p>むしろ他に継続がワンショットのalgebraic effectsを知りませんが…｡あとMulticore OCamlには<code>Obj.clone_continuation</code>という継続を複製する関数が用意されており､ランタイムにコストを支払うことで継続を2回以上使うことができる｡ <a href="#fnref3">↩</a></p>
 </li>
 
 <li id="fn4">
-<p>Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. <a href="#fnref4" rev="footnote">↩</a></p>
+<p>Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. <a href="#fnref4">↩</a></p>
 </li>
 
 <li id="fn5">
-<p>Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. <a href="#fnref5" rev="footnote">↩</a></p>
+<p>Bruggeman, Carl, Oscar Waddell, and R. Kent Dybvig. “Representing control in the presence of one-shot continuations.” ACM SIGPLAN Notices. Vol. 31. No. 5. ACM, 1996. <a href="#fnref5">↩</a></p>
 </li>
 
 <li id="fn6">
-<p>Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. <a href="#fnref6" rev="footnote">↩</a></p>
+<p>Dolan, Stephen, et al. “Effective concurrency through algebraic effects.” OCaml Workshop. 2015. <a href="#fnref6">↩</a></p>
 </li>
 
 <li id="fn7">
-<p>Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. <a href="#fnref7" rev="footnote">↩</a></p>
+<p>Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. <a href="#fnref7">↩</a></p>
 </li>
 
 <li id="fn8">
-<p>例外処理のある言語は概ねモダンであり､モダンな言語は比較的親切であり､親切な言語はエラーを吐くとスタックトレースを出してくれる｡ この新設のためにスタックトレースを記録するので遅くなる｡gotoとしての例外おおいに結構しかしパフォーマンスとしっかり勘案すること｡ <a href="#fnref8" rev="footnote">↩</a></p>
+<p>例外処理のある言語は概ねモダンであり､モダンな言語は比較的親切であり､親切な言語はエラーを吐くとスタックトレースを出してくれる｡ この新設のためにスタックトレースを記録するので遅くなる｡gotoとしての例外おおいに結構しかしパフォーマンスとしっかり勘案すること｡ <a href="#fnref8">↩</a></p>
 </li>
 
 <li id="fn9">
-<p>Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. <a href="#fnref9" rev="footnote">↩</a></p>
+<p>Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. <a href="#fnref9">↩</a></p>
 </li>
 
 </ol>
