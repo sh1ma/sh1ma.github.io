@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 Sep 2019 16:33:41 +0900</pubDate>
-    <lastBuildDate>Mon, 30 Sep 2019 16:33:41 +0900</lastBuildDate>
+    <pubDate>Thu, 24 Oct 2019 01:01:29 +0900</pubDate>
+    <lastBuildDate>Thu, 24 Oct 2019 01:01:29 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -2493,7 +2493,7 @@ section等のカウンタを0で初期化しているのがミソで､これを
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;途中でKoka言語の処理系Kokaのビルドシステムの改善をやってました｡&lt;/p&gt;&lt;div class=&quot;github-widget&quot; data-repo=&quot;koka-lang/koka&quot;&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/koka-lang/koka/pull/74&quot;&gt;buildable with stack ghc #74 - koka-lang/koka&lt;/a&gt;&lt;/p&gt;&lt;h1 id=&quot;ML+Day+%232%E3%81%A7%E7%99%BA%E8%A1%A8%E3%81%97%E3%81%9F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#ML+Day+%232%E3%81%A7%E7%99%BA%E8%A1%A8%E3%81%97%E3%81%9F&quot;&gt;ML Day #2で発表した&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;『Dive into algebraic effects』というタイトルで発表しました｡
-スライドは&lt;a href=&quot;http://127.0.0.1:4000/pdf/mlday2.html&quot;&gt;コチラ&lt;/a&gt;&lt;/p&gt;&lt;p&gt;内容はJSSSTで話したものを､algebraic effectsの紹介を8割くらいにして発表しました｡
+スライドは&lt;a href=&quot;/pdf/mlday2.html&quot;&gt;コチラ&lt;/a&gt;&lt;/p&gt;&lt;p&gt;内容はJSSSTで話したものを､algebraic effectsの紹介を8割くらいにして発表しました｡
 とりあえず伝道できたのでよかったです｡
 あと懇親会でいろいろ話せたのでよかった｡&lt;/p&gt;&lt;p&gt;このTシャツがウケたのでよかったです｡
 &lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
