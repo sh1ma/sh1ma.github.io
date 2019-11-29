@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 24 Oct 2019 01:01:29 +0900</pubDate>
-    <lastBuildDate>Thu, 24 Oct 2019 01:01:29 +0900</lastBuildDate>
+    <pubDate>Fri, 29 Nov 2019 18:28:38 +0900</pubDate>
+    <lastBuildDate>Fri, 29 Nov 2019 18:28:38 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -420,12 +420,12 @@ extensible effectsはsubtypingを持たないHaskellを起源に持ち､antos-e
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; ありそうでなかなかなかったFree applicativeの紹介と、そのextensible化。途中の計算結果に依存しないという性質を利用してRPCなどの記述に使えそう&lt;/p&gt;— ふみ (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132501183875100672?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; ありそうでなかなかなかったFree applicativeの紹介と、そのextensible化。途中の計算結果に依存しないという性質を利用してRPCなどの記述に使えそう&lt;/p&gt;— Fumi, Cleric of Generics　①☀💧🌳 (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132501183875100672?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Free ApplicativeとFree Monadのliftを共通化するのは面白そうだ &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— ふみ (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132502512680833024?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Free ApplicativeとFree Monadのliftを共通化するのは面白そうだ &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— Fumi, Cleric of Generics　①☀💧🌳 (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132502512680833024?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -520,7 +520,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Frank 言語これ？ &lt;a href=&quot;https://t.co/277z76pxLr&quot;&gt;https://t.co/277z76pxLr&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— かっくん (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132522163989204992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Frank 言語これ？ &lt;a href=&quot;https://t.co/277z76pxLr&quot;&gt;https://t.co/277z76pxLr&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— まちカドかずき (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132522163989204992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -575,7 +575,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— ᴋᴏɴ《oboroduki rustacean》 (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— complex unitary ᴋᴏɴ (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -700,7 +700,7 @@ Idrisに詳しくないんで “型がfirst-class” というところでspace
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;h2 id=&quot;Row-based+type+systems+for+algebraic+effect+handlers&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Row-based+type+systems+for+algebraic+effect+handlers&quot;&gt;Row-based type systems for algebraic effect handlers&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;最後は&lt;a href=&quot;https://twitter.com/skymountain_&quot;&gt;@skymountain_ &lt;/a&gt;さんによる発表でした｡資料は&lt;a href=&quot;https://www.slideshare.net/TaroSekiyama/rowbased-effect-systems-for-algebraic-effect-handlers&quot;&gt;こちら&lt;/a&gt;&lt;/p&gt;&lt;p&gt;内容は､parameterized effectsを持つrow-based type systemsにおけるeffect handlerの話でした｡&lt;/p&gt;&lt;p&gt;序盤ではAlgebraic Effectsについて簡単な例から初めて丁寧な説明があり､effect systemを知らない方にも優しいintroductionでした｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;最初に聞きたい感じの発表だった &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— かっくん (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132554009481322497?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;最初に聞きたい感じの発表だった &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— まちカドかずき (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132554009481322497?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;これは私がミスったわね｡&lt;/p&gt;&lt;p&gt;parameterized effectsの導入から､row-based effect systemとその特徴について述べ､他のset-based onesとの比較など大変わかり易く面白い内容でした｡&lt;/p&gt;&lt;p&gt;Kokaの論文を中途半端に読んでたのでtype systemの部分をちゃんと読み直そうと思います｡
