@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1576422316 "main.tex" "main.pdf" "main" 1576422321
+["pdflatex"] 1576423078 "main.tex" "main.pdf" "main" 1576423083
   "/home/nymphium/.texlive/texmf-var/luatex-cache/generic/fonts/otl/genshingothic-p-bold.luc" 1576217031 2187971 80ce7b67d80845947108d38bbe2c8b8c ""
   "/home/nymphium/.texlive/texmf-var/luatex-cache/generic/fonts/otl/genshingothic-p-normal.luc" 1576404892 2188883 22108d7cabd45bffd7b9b86b8d9bd3ab ""
   "/home/nymphium/.texlive/texmf-var/luatex-cache/generic/fonts/otl/genshingothic-p-regular.luc" 1576217027 2189979 5b29533786ccb6bc5155040cc825a029 ""
@@ -238,13 +238,13 @@
   "/usr/share/texmf-dist/tex/platex/jsclasses/jslogo.sty" 1572570309 6025 c6eb7b869bc73b37a7116f5af977422f ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1573789185 4614312 caf3e8f2cadf05684b9443655e7ce7f2 ""
   "/var/lib/texmf/web2c/luatex/lualatex.fmt" 1573789176 1400561 6baeeb28e3f6847e9b60a9ce64251e8e ""
-  "lambdaeff_macro.tex" 1576422207 1880 2577b3d750236ad642123caccc3c3b7f ""
-  "listing.tex" 1576422207 1105 c19c6efc87182d3c0537a7bf3b773fff ""
-  "main.aux" 1576422320 3121 eec8d7c3ca5078e298ecfed3abe1294b "pdflatex"
-  "main.out" 1576422320 1089 967ca316f1d6cc46369ae24be8edee6f "pdflatex"
-  "main.tex" 1576422298 18094 658ecaa91459ec3b6eec646b730591c3 ""
+  "lambdaeff_macro.tex" 1576422371 1880 2577b3d750236ad642123caccc3c3b7f ""
+  "listing.tex" 1576422371 1105 c19c6efc87182d3c0537a7bf3b773fff ""
+  "main.aux" 1576423082 3121 ea1b381b262d5c6e99e1e0141bbb0c8c "pdflatex"
+  "main.out" 1576423082 1089 967ca316f1d6cc46369ae24be8edee6f "pdflatex"
+  "main.tex" 1576423071 18369 22d110f41b145945bc1dcf8ddc28658e ""
   (generated)
-  "main.pdf"
   "main.out"
+  "main.pdf"
   "main.log"
   "main.aux"
