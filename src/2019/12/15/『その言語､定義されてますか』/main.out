@@ -1,0 +1,9 @@
+\BOOKMARK [1][-]{section.1}{はじめに}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{言語実装手順、または本記事の進み方}{section.1}% 2
+\BOOKMARK [1][-]{section.2}{作りたい言語をイメージしよう}{}% 3
+\BOOKMARK [1][-]{section.3}{イメージの具体化\(1\): 構文}{}% 4
+\BOOKMARK [1][-]{section.4}{イメージの具体化\(2\): 意味論}{}% 5
+\BOOKMARK [2][-]{subsection.4.1}{型システムとの連携}{section.4}% 6
+\BOOKMARK [1][-]{section.5}{実装}{}% 7
+\BOOKMARK [2][-]{subsection.5.1}{最適化}{section.5}% 8
+\BOOKMARK [1][-]{section.6}{おわりに}{}% 9
