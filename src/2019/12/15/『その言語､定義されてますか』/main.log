@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.10.0 (TeX Live 2019/Arch Linux)  (format=lualatex 2019.11.15)  16 DEC 2019 00:02
+This is LuaTeX, Version 1.10.0 (TeX Live 2019/Arch Linux)  (format=lualatex 2019.11.15)  16 DEC 2019 00:05
  restricted system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -56,7 +56,7 @@ Lua module: luaotfload-multiscript 2019-09-13 3.00 luaotfload submodule / multis
 cript
 Inserting `luaotfload.rewrite_fontname' at position 5 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.122 seconds
+luaotfload | main : initialization completed in 0.110 seconds
 (/usr/share/texmf-dist/tex/generic/oberdiek/ifluatex.sty
 Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX detected.
@@ -1639,10 +1639,6 @@ LaTeX Font Info:    Trying loading font information for U+stmry on input line 85
 
 (/usr/share/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
 LaTeX Font Info:    Font shape `JT3/GenShinGothicPNormal(1)/m/n' will be
-(Font)              scaled to size 8.32242pt on input line 85.
-LaTeX Font Info:    Font shape `JY3/GenShinGothicPNormal(1)/m/n' will be
-(Font)              scaled to size 8.32242pt on input line 85.
-LaTeX Font Info:    Font shape `JT3/GenShinGothicPNormal(1)/m/n' will be
 (Font)              scaled to size 13.31586pt on input line 86.
 LaTeX Font Info:    Font shape `JY3/GenShinGothicPNormal(1)/m/n' will be
 (Font)              scaled to size 13.31586pt on input line 86.
@@ -1674,6 +1670,10 @@ Inserting `ltj.process_input_buffer' at position 2 in `process_input_buffer'.
 Removing  `ltj.listings_unicode' from `process_input_buffer'.
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on in
 put line 135.
+LaTeX Font Info:    Font shape `JT3/GenShinGothicPNormal(1)/m/n' will be
+(Font)              scaled to size 8.32242pt on input line 135.
+LaTeX Font Info:    Font shape `JY3/GenShinGothicPNormal(1)/m/n' will be
+(Font)              scaled to size 8.32242pt on input line 135.
 Removing  `ltj.process_input_buffer' from `process_input_buffer'.
 Inserting `ltj.listings_unicode' at position 1 in `process_input_buffer'.
 Inserting `ltj.process_input_buffer' at position 2 in `process_input_buffer'. [
@@ -1742,11 +1742,11 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Here is how much of LuaTeX's memory you used:
  37164 strings out of 493864
- 244219,1144653 words of node,token memory allocated
+ 244195,1144653 words of node,token memory allocated
  9297 words of node memory still in use:
    12 hlist, 2 vlist, 5 rule, 5 glue, 106 kern, 1 glyph, 2822 attribute, 482 glu
 e_spec, 164 attribute_list, 2 write, 25 user_defined nodes
-   avail lists: 1:22,2:57646,3:652,4:2727,5:961,6:60,7:6598,8:67,9:2679,10:22,11
+   avail lists: 1:24,2:57646,3:652,4:2727,5:961,6:59,7:6598,8:67,9:2679,10:22,11
 :126
  40523 multiletter control sequences out of 65536+600000
  136 fonts using 135742271 bytes
@@ -1759,10 +1759,10 @@ ttf></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share
 s/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
 0.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on main.pdf (4 pages, 265543 bytes).
+Output written on main.pdf (4 pages, 265464 bytes).
 
-PDF statistics: 148 PDF objects out of 1000 (max. 8388607)
- 122 compressed objects within 2 object streams
+PDF statistics: 147 PDF objects out of 1000 (max. 8388607)
+ 121 compressed objects within 2 object streams
  28 named destinations out of 1000 (max. 131072)
  88 words of extra memory for PDF output out of 10000 (max. 100000000)
 
