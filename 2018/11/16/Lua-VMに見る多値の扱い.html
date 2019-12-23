@@ -24,7 +24,7 @@
     <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml"/>
     <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
 <!-- Begin Jekyll SEO tag v2.6.1 -->
-<meta name="generator" content="Jekyll v3.8.5" />
+<meta name="generator" content="Jekyll v3.8.6" />
 <meta property="og:title" content="Lua VMに見る多値の扱い" />
 <meta name="author" content="Satoru Kawahara" />
 <meta property="og:locale" content="en_US" />
@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-11-16T00:00:00+09:00" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"lily, Aikatsu, Programming language, and more","@type":"BlogPosting","headline":"Lua VMに見る多値の扱い","url":"https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html","dateModified":"2018-11-16T00:00:00+09:00","datePublished":"2018-11-16T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html"},"@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"lily, Aikatsu, Programming language, and more","headline":"Lua VMに見る多値の扱い","dateModified":"2018-11-16T00:00:00+09:00","datePublished":"2018-11-16T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html"},"url":"https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
@@ -116,18 +116,18 @@ document.addEventListener("DOMContentLoaded", function(){
 むしろほかを知りませんが｡
 luacはLuaをLua VMバイトコードにコンパイルしてくれるすごいやつだよ｡</p>
 <div class="highlight">
-<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="c">// 多値を返す関数minmax</span><span class="x">
-</span><span class="k">func</span><span class="x"> </span><span class="n">minmax</span><span class="p">(</span><span class="n">x</span><span class="x"> </span><span class="kt">int</span><span class="p">,</span><span class="x"> </span><span class="n">y</span><span class="x"> </span><span class="kt">int</span><span class="p">)</span><span class="x"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="x"> </span><span class="kt">int</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="k">if</span><span class="x"> </span><span class="n">x</span><span class="x"> </span><span class="o">&lt;</span><span class="x"> </span><span class="n">y</span><span class="x"> </span><span class="p">{</span><span class="x">
-        </span><span class="k">return</span><span class="x"> </span><span class="n">x</span><span class="p">,</span><span class="x"> </span><span class="n">y</span><span class="x">     </span><span class="c">// 条件演算子がないのも割り切りだとわかっていてもつらい。</span><span class="x">
-    </span><span class="p">}</span><span class="x">
-    </span><span class="k">return</span><span class="x"> </span><span class="n">y</span><span class="p">,</span><span class="x"> </span><span class="n">x</span><span class="x">
-</span><span class="p">}</span><span class="x">
+<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="c">// 多値を返す関数minmax</span>
+<span class="k">func</span> <span class="n">minmax</span><span class="p">(</span><span class="n">x</span> <span class="kt">int</span><span class="p">,</span> <span class="n">y</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>     <span class="c">// 条件演算子がないのも割り切りだとわかっていてもつらい。</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+<span class="p">}</span>
 
-</span><span class="c">// 多値の受け取り</span><span class="x">
-</span><span class="n">min</span><span class="p">,</span><span class="x"> </span><span class="n">max</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">minmax</span><span class="p">(</span><span class="m">20</span><span class="p">,</span><span class="x"> </span><span class="m">10</span><span class="p">)</span><span class="x">
-</span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"min:"</span><span class="p">,</span><span class="x"> </span><span class="n">min</span><span class="p">,</span><span class="x"> </span><span class="s">", max:"</span><span class="p">,</span><span class="x"> </span><span class="n">max</span><span class="p">)</span><span class="x"> </span><span class="c">// =&gt; min: 10, max: 20</span><span class="x">
-</span></code></pre>
+<span class="c">// 多値の受け取り</span>
+<span class="n">min</span><span class="p">,</span> <span class="n">max</span> <span class="o">:=</span> <span class="n">minmax</span><span class="p">(</span><span class="m">20</span><span class="p">,</span> <span class="m">10</span><span class="p">)</span>
+<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"min:"</span><span class="p">,</span> <span class="n">min</span><span class="p">,</span> <span class="s">", max:"</span><span class="p">,</span> <span class="n">max</span><span class="p">)</span> <span class="c">// =&gt; min: 10, max: 20</span>
+</code></pre>
 </div>
 <p>よくあるやつですね｡
 Luaで書くとこうなる｡</p>
@@ -143,8 +143,8 @@ Luaで書くとこうなる｡</p>
 <p>ありがちですね｡</p>
 <p>もう一つ｡</p>
 <div class="highlight">
-<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="n">tuple</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">minmax</span><span class="p">(</span><span class="m">20</span><span class="p">,</span><span class="x"> </span><span class="m">10</span><span class="p">)</span><span class="x"> </span><span class="c">// コンパイルエラー</span><span class="x">
-</span></code></pre>
+<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="n">tuple</span> <span class="o">:=</span> <span class="n">minmax</span><span class="p">(</span><span class="m">20</span><span class="p">,</span> <span class="m">10</span><span class="p">)</span> <span class="c">// コンパイルエラー</span>
+</code></pre>
 </div>
 <div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">tuple</span> <span class="o">=</span> <span class="n">minmax</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">tuple</span><span class="p">)</span> <span class="c1">-- 10</span>
@@ -157,10 +157,10 @@ Luaで書くとこうなる｡</p>
 <p>虚空に消えたようで､拾ってやれば出てきます｡
 call by valueなので虚空に消えても値なので特に問題ありません｡</p>
 <div class="highlight">
-<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="k">func</span><span class="x"> </span><span class="n">minmax2</span><span class="p">(</span><span class="n">x</span><span class="x"> </span><span class="kt">int</span><span class="p">,</span><span class="x"> </span><span class="n">y</span><span class="x"> </span><span class="kt">int</span><span class="p">)</span><span class="x"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="x"> </span><span class="kt">int</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="k">return</span><span class="x"> </span><span class="n">minmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="x"> </span><span class="n">y</span><span class="p">)</span><span class="x"> </span><span class="c">// そのまま返す</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span></code></pre>
+<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="k">func</span> <span class="n">minmax2</span><span class="p">(</span><span class="n">x</span> <span class="kt">int</span><span class="p">,</span> <span class="n">y</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">minmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="c">// そのまま返す</span>
+<span class="p">}</span>
+</code></pre>
 </div>
 <p>これは</p>
 <div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">minmax2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -174,11 +174,11 @@ call by valueなので虚空に消えても値なので特に問題ありませ�
 <p><a href="#kochira">1.1</a>
 では "多値っぽい構文なのに多値ではない機能"としてfor rangeが例に出されています｡</p>
 <div class="highlight">
-<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="n">ys</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="x"> </span><span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span><span class="x">
-</span><span class="k">for</span><span class="x"> </span><span class="n">i</span><span class="p">,</span><span class="x"> </span><span class="n">x</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="k">range</span><span class="x"> </span><span class="n">xs</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">x</span><span class="x"> </span><span class="o">*</span><span class="x"> </span><span class="m">2</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span></code></pre>
+<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="n">ys</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">xs</span> <span class="p">{</span>
+    <span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="m">2</span>
+<span class="p">}</span>
+</code></pre>
 </div>
 <blockquote>
 <p><code>i, x</code> の部分は多値のように見えますが、これは多値ではなく構文です。</p>
@@ -228,13 +228,13 @@ call by valueなので虚空に消えても値なので特に問題ありませ�
 <p>Go言語では、mapへのアクセスにはスライスや文字列などと同様、 [] を使います。 その結果として、値のほかにキーが存在したかどうかを表す bool 値が受け取れます。</p>
 </blockquote>
 <div class="highlight">
-<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="n">m</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="x"> </span><span class="p">{</span><span class="x"> </span><span class="s">"a"</span><span class="o">:</span><span class="x"> </span><span class="m">10</span><span class="p">,</span><span class="x"> </span><span class="s">"b"</span><span class="o">:</span><span class="x"> </span><span class="m">20</span><span class="x"> </span><span class="p">}</span><span class="x">
-</span><span class="n">n</span><span class="p">,</span><span class="x"> </span><span class="n">ok</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">m</span><span class="p">[</span><span class="s">"c"</span><span class="p">]</span><span class="x"> </span><span class="c">// 2nd valueとしてbool値が受け取れる</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="o">!</span><span class="n">ok</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">n</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="m">0</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"n:"</span><span class="p">,</span><span class="x"> </span><span class="n">n</span><span class="p">)</span><span class="x">    </span><span class="c">// =&gt; n: 0</span><span class="x">
-</span></code></pre>
+<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="n">m</span> <span class="o">:=</span> <span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span> <span class="p">{</span> <span class="s">"a"</span><span class="o">:</span> <span class="m">10</span><span class="p">,</span> <span class="s">"b"</span><span class="o">:</span> <span class="m">20</span> <span class="p">}</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">ok</span> <span class="o">:=</span> <span class="n">m</span><span class="p">[</span><span class="s">"c"</span><span class="p">]</span> <span class="c">// 2nd valueとしてbool値が受け取れる</span>
+<span class="k">if</span> <span class="o">!</span><span class="n">ok</span> <span class="p">{</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="m">0</span>
+<span class="p">}</span>
+<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"n:"</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>    <span class="c">// =&gt; n: 0</span>
+</code></pre>
 </div>
 <p>Lua唯一のデータ構造tableはmap機能を持っているが､アクセスしたキーに対応する値が無い場合は<code>nil</code>を返すため､比較はできない｡</p>
 <p>茶番になるが､metatableを使ってGoっぽいことをしてみよう｡</p>
@@ -271,13 +271,13 @@ call by valueなので虚空に消えても値なので特に問題ありませ�
 Luaのエラー処理はGoと似たような方法となる｡
 まずはGo</p>
 <div class="highlight">
-<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="n">x</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">f</span><span class="p">()</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span><span class="n">y</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="x">
-</span><span class="c">// ...</span><span class="x">
-</span></code></pre>
+<span class="listing-name">引用</span><pre><code class="language-go" data-lang="go"><span class="n">x</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">f</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="no">nil</span><span class="p">,</span> <span class="n">err</span>
+<span class="p">}</span>
+<span class="n">y</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="c">// ...</span>
+</code></pre>
 </div>
 <p>照井君､ワイもLuaでみたことあるで!!</p>
 <div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">content</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">f</span><span class="p">()</span>
@@ -354,14 +354,14 @@ Lua VM 5.3では47個の命令を持ち､5.4では四則演算に関して5.2�
 お手元にluacをご用意ください｡
 パッケージマネージャでLuaをインストールすれば使えるはずだ｡
 <code>luac-5.3</code>とか<code>luac5.3</code>とか､単に<code>luac</code>など｡</p>
-<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span> <span class="nb">cat </span>hoge.lua
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span><span class="nb">cat </span>hoge.lua
 <span class="go">print("Hello")
-</span><span class="gp">$</span> luac <span class="nt">-o</span> /dev/null <span class="nt">-l</span> <span class="nt">-l</span> hoge.lua
+</span><span class="gp">$</span><span class="w"> </span>luac <span class="nt">-o</span> /dev/null <span class="nt">-l</span> <span class="nt">-l</span> hoge.lua
 <span class="go">
-</span><span class="gp">main &lt;hoge.lua:0,0&gt;</span> <span class="o">(</span>4 instructions at 0x55f888496c70<span class="o">)</span>
+</span><span class="gp">main &lt;hoge.lua:0,0&gt;</span><span class="w"> </span><span class="o">(</span>4 instructions at 0x55f888496c70<span class="o">)</span>
 <span class="go">0+ params, 2 slots, 1 upvalue, 0 locals, 2 constants, 0 functions
-</span><span class="gp">        1       [1]     GETTABUP        0 0 -1  ;</span> _ENV <span class="s2">"print"</span>
-<span class="gp">        2       [1]     LOADK           1 -2    ;</span> <span class="s2">"Hello"</span>
+</span><span class="gp">        1       [1]     GETTABUP        0 0 -1  ;</span><span class="w"> </span>_ENV <span class="s2">"print"</span>
+<span class="gp">        2       [1]     LOADK           1 -2    ;</span><span class="w"> </span><span class="s2">"Hello"</span>
 <span class="go">        3       [1]     CALL            0 2 1
         4       [1]     RETURN          0 1
 constants (2) for 0x55f888496c70:
@@ -445,17 +445,17 @@ A+C-2 &lt; 0なら戻り値を気にしない､という予想で読んでい�
 <p>他の命令も､特に条件分岐あたりは面白いので1つ1つ見ていきたいが､ここでは多値が絡む部分だけ見ていこう｡
 気になった方はluaのソースコードをご覧ください｡</p>
 <p>ほかにも例を見てみよう｡</p>
-<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span> <span class="nb">cat </span>huga.lua
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span><span class="nb">cat </span>huga.lua
 <span class="go">local x = 3
 local y = 5
 local z = x + y
 print(z)
-</span><span class="gp">$</span> luac <span class="nt">-o</span> /dev/null <span class="nt">-l</span> <span class="nt">-l</span> huga.lua
+</span><span class="gp">$</span><span class="w"> </span>luac <span class="nt">-o</span> /dev/null <span class="nt">-l</span> <span class="nt">-l</span> huga.lua
 <span class="c">......
-</span><span class="gp">        1       [1]     LOADK           0 -1    ;</span> 3
-<span class="gp">        2       [2]     LOADK           1 -2    ;</span> 5
+</span><span class="gp">        1       [1]     LOADK           0 -1    ;</span><span class="w"> </span>3
+<span class="gp">        2       [2]     LOADK           1 -2    ;</span><span class="w"> </span>5
 <span class="go">        3       [3]     ADD             2 0 1
-</span><span class="gp">        4       [4]     GETTABUP        3 0 -3  ;</span> _ENV <span class="s2">"print"</span>
+</span><span class="gp">        4       [4]     GETTABUP        3 0 -3  ;</span><span class="w"> </span>_ENV <span class="s2">"print"</span>
 <span class="go">        5       [4]     MOVE            4 2
         6       [4]     CALL            3 2 1
         7       [4]     RETURN          0 1

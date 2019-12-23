@@ -24,7 +24,7 @@
     <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml"/>
     <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
 <!-- Begin Jekyll SEO tag v2.6.1 -->
-<meta name="generator" content="Jekyll v3.8.5" />
+<meta name="generator" content="Jekyll v3.8.6" />
 <meta property="og:title" content="LuaRocksとの戦い2" />
 <meta name="author" content="Satoru Kawahara" />
 <meta property="og:locale" content="en_US" />
@@ -36,7 +36,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2015-03-24T00:00:00+09:00" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"こんにちは､びしょ〜じょです｡クズ極まって奨学金が廃止になりましたが､とりあえず学籍は保持されました｡","@type":"BlogPosting","headline":"LuaRocksとの戦い2","url":"https://nymphium.github.io/2015/03/24/fight_luarocks_2.html","dateModified":"2015-03-24T00:00:00+09:00","datePublished":"2015-03-24T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2015/03/24/fight_luarocks_2.html"},"@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"こんにちは､びしょ〜じょです｡クズ極まって奨学金が廃止になりましたが､とりあえず学籍は保持されました｡","headline":"LuaRocksとの戦い2","dateModified":"2015-03-24T00:00:00+09:00","datePublished":"2015-03-24T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2015/03/24/fight_luarocks_2.html"},"url":"https://nymphium.github.io/2015/03/24/fight_luarocks_2.html","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
@@ -97,23 +97,23 @@ document.addEventListener("DOMContentLoaded", function(){
 <p>ぶっちゃけluarocksコマンドがショボい｡write_rockspecオプションでrockspecファイルを作るわけだが､source.urlはrockspecファイルを自力で編集する必要がある｡そのくらいオプションに追加してくれよ｡</p>
 <p>そしてdescription.detailedも､detailedオプションの記述よりもREADME.mdのよく分からない部分を優先してしまうなど色々残念感が多い｡</p>
 <p>というわけでひどく簡易的だがluarocks/write_rockspec.luaを一部書き換えた｡</p>
-<div class="highlight"><pre><code class="language-diff" data-lang="diff">89c89
-&lt;          rockspec.description.detailed = paragraph
----
-&gt;          -- rockspec.description.detailed = paragraph
-95c95
-&lt;          rockspec.description.detailed = paragraph
----
-&gt;          -- rockspec.description.detailed = paragraph
-222c222
-&lt; 
----
-&gt;    
-258c258,259
-&lt;          url = "*** please add URL for source tarball, zip or repository here ***",
----
-&gt;          url = flags["url"],
-</code></pre></div>
+<div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="p">89c89
+</span><span class="gd">&lt;          rockspec.description.detailed = paragraph
+</span><span class="p">---
+</span><span class="gi">&gt;          -- rockspec.description.detailed = paragraph
+</span><span class="p">95c95
+</span><span class="gd">&lt;          rockspec.description.detailed = paragraph
+</span><span class="p">---
+</span><span class="gi">&gt;          -- rockspec.description.detailed = paragraph
+</span><span class="p">222c222
+</span><span class="gd">&lt; 
+</span><span class="p">---
+</span><span class="gi">&gt;    
+</span><span class="p">258c258,259
+</span><span class="gd">&lt;          url = "*** please add URL for source tarball, zip or repository here ***",
+</span><span class="p">---
+</span><span class="gi">&gt;          url = flags["url"],
+</span></code></pre></div>
 <p>何もしないとdetailedはREADMEの一部を適当に引っ張ってくる｡これはwrite_rockspec.luaのdetect_description関数を見ていただければわかる｡</p>
 <p>で､luarocksコマンドはLuaで記述されており､どうやらwrite_rockspecオプションでは以後に続く<code>--hoge=huga</code>の形式のサブオプションを<code>flags["hoge"] = "huga"</code>のようにflagsというtableに突っ込んでいるようだ｡</p>
 <p>というわけでsource.urlもオプションで記述できるように<code>flags["url"]</code>を用いた｡</p>
