@@ -5,15 +5,16 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 24 Dec 2019 02:12:11 +0900</pubDate>
-    <lastBuildDate>Tue, 24 Dec 2019 02:12:11 +0900</lastBuildDate>
+    <pubDate>Tue, 24 Dec 2019 02:16:30 +0900</pubDate>
+    <lastBuildDate>Tue, 24 Dec 2019 02:16:30 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
         <title>『エフェクトに部分型のある代数的効果』</title>
         <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
-これは&lt;a href=&quot;https://qiita.com/advent-calendar/2019/type&quot;&gt;型Advent Calendar 2019&lt;/a&gt;の15日目の記事の記事です｡&lt;/p&gt;&lt;p&gt;実際の記事はこちら: &lt;a href=&quot;/src/2019/12/22/effsub/main.pdf&quot;&gt;エフェクトに部分型のある代数的効果(pdf)&lt;/a&gt;&lt;/p&gt;&lt;p&gt;実装が先立ってたものを適当に定式化しました｡&lt;/p&gt;</description>
+これは&lt;a href=&quot;https://qiita.com/advent-calendar/2019/type&quot;&gt;型Advent Calendar 2019&lt;/a&gt;の9日目の記事の記事です｡
+空いてるので9日目にタイムスリップして&lt;a href=&quot;https://qiita.com/Nymphium/items/7ec2512fe85fe7aaebf4&quot;&gt;前日&lt;/a&gt;に続いて記事を突っ込みました｡&lt;/p&gt;&lt;p&gt;実際の記事はこちら: &lt;a href=&quot;/src/2019/12/22/effsub/main.pdf&quot;&gt;エフェクトに部分型のある代数的効果(pdf)&lt;/a&gt;&lt;/p&gt;&lt;p&gt;実装が先立ってたものを適当に定式化しました｡&lt;/p&gt;</description>
         <pubDate>Sun, 22 Dec 2019 00:00:00 +0900</pubDate>
         <link>https://nymphium.github.io/2019/12/22/effsub.html</link>
         <guid isPermaLink="true">https://nymphium.github.io/2019/12/22/effsub.html</guid>
