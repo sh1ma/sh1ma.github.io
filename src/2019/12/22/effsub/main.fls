@@ -317,6 +317,16 @@ INPUT /usr/share/texmf-dist/tex/luatex/luatexbase/luatexbase-cctb.sty
 INPUT /usr/share/texmf-dist/tex/luatex/luatexbase/luatexbase-cctb.sty
 INPUT /usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
 INPUT /usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
+INPUT /usr/share/texmf-dist/tex/latex/fontawesome5/fontawesome5.sty
+INPUT /usr/share/texmf-dist/tex/latex/fontawesome5/fontawesome5.sty
+INPUT /usr/share/texmf-dist/tex/latex/fontawesome5/fontawesome5-utex-helper.sty
+INPUT /usr/share/texmf-dist/tex/latex/fontawesome5/fontawesome5-utex-helper.sty
+INPUT /usr/share/texmf-dist/tex/latex/fontawesome5/tufontawesomefree.fd
+INPUT /usr/share/texmf-dist/tex/latex/fontawesome5/tufontawesomefree.fd
+INPUT /home/nymphium/.texlive/texmf-var/luatex-cache/generic/fonts/otl/fontawesome5free-solid-900.luc
+INPUT /usr/share/texmf-dist/tex/latex/fontawesome5/tufontawesomebrands.fd
+INPUT /usr/share/texmf-dist/tex/latex/fontawesome5/tufontawesomebrands.fd
+INPUT /home/nymphium/.texlive/texmf-var/luatex-cache/generic/fonts/otl/fontawesome5brands-regular-400.luc
 INPUT /usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texmf-dist/tex/latex/listings/lstlang2.sty

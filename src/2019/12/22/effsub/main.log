@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.10.0 (TeX Live 2019/Arch Linux)  (format=lualatex 2019.11.15)  24 DEC 2019 13:35
+This is LuaTeX, Version 1.10.0 (TeX Live 2019/Arch Linux)  (format=lualatex 2019.11.15)  24 DEC 2019 13:48
  restricted system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -56,7 +56,7 @@ Lua module: luaotfload-multiscript 2019-09-13 3.00 luaotfload submodule / multis
 cript
 Inserting `luaotfload.rewrite_fontname' at position 5 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.119 seconds
+luaotfload | main : initialization completed in 0.188 seconds
 (/usr/share/texmf-dist/tex/generic/oberdiek/ifluatex.sty
 Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX detected.
@@ -1644,6 +1644,20 @@ File: lstmisc.sty 2019/09/10 1.8c (Carsten Heinz)
 \lst@WFtoken=\toks42
 \lst@WF=\write7
 ))
+(/usr/share/texmf-dist/tex/latex/fontawesome5/fontawesome5.sty
+Package: fontawesome5 2019/06/07 v5.9.0 Font Awesome 5
+
+(/usr/share/texmf-dist/tex/latex/fontawesome5/fontawesome5-utex-helper.sty
+Package: fontawesome5-utex-helper 2019/06/07 v5.9.0 uTeX helper for fontawesome5
+
+LaTeX Font Info:    Trying loading font information for TU+fontawesomefree on in
+put line 69.
+
+(/usr/share/texmf-dist/tex/latex/fontawesome5/tufontawesomefree.fd)
+LaTeX Font Info:    Trying loading font information for TU+fontawesomebrands on 
+input line 70.
+
+(/usr/share/texmf-dist/tex/latex/fontawesome5/tufontawesomebrands.fd)))
 (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2019/09/10 1.8c listings language file
 )
@@ -1660,31 +1674,31 @@ File: english.lbx 2019/08/31 v3.13a biblatex localization (PK/MW)
  (./main.aux)
 \openout1 = main.aux
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for JY3/mc/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for JT3/mc/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for JY3/mc/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for JT3/mc/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
 
 ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 82.
+LaTeX Info: Redefining \selectfont on input line 83.
  ABD: EveryShipout initializing macros
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -1716,7 +1730,7 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 
 ))
-Package hyperref Info: Link coloring OFF on input line 82.
+Package hyperref Info: Link coloring OFF on input line 83.
 
 (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -1726,9 +1740,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count460
 )
-LaTeX Info: Redefining \ref on input line 82.
-LaTeX Info: Redefining \pageref on input line 82.
-LaTeX Info: Redefining \nameref on input line 82.
+LaTeX Info: Redefining \ref on input line 83.
+LaTeX Info: Redefining \pageref on input line 83.
+LaTeX Info: Redefining \nameref on input line 83.
  (./main.out)
 (./main.out)
 \@outlinefile=\write8
@@ -1743,64 +1757,64 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
  (./main.bbl)
-Package biblatex Info: Reference section=0 on input line 82.
-Package biblatex Info: Reference segment=0 on input line 82.
+Package biblatex Info: Reference section=0 on input line 83.
+Package biblatex Info: Reference segment=0 on input line 83.
 \c@lstlisting=\count461
 LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 15.97903pt on input line 84.
+(Font)              scaled to size 15.97903pt on input line 85.
 LaTeX Font Info:    Font shape `JY3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 15.97903pt on input line 84.
+(Font)              scaled to size 15.97903pt on input line 85.
 LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 11.09656pt on input line 84.
+(Font)              scaled to size 11.09656pt on input line 85.
 LaTeX Font Info:    Font shape `JY3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 11.09656pt on input line 84.
+(Font)              scaled to size 11.09656pt on input line 85.
 LaTeX Font Info:    Font shape `JY3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 7.3977pt on input line 84.
+(Font)              scaled to size 7.3977pt on input line 85.
 LaTeX Font Info:    Font shape `JY3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 5.54828pt on input line 84.
-LaTeX Font Info:    Trying loading font information for U+msa on input line 84.
+(Font)              scaled to size 5.54828pt on input line 85.
+LaTeX Font Info:    Trying loading font information for U+msa on input line 85.
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying loading font information for U+msb on input line 84.
+LaTeX Font Info:    Trying loading font information for U+msb on input line 85.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying loading font information for U+stmry on input line 84
+LaTeX Font Info:    Trying loading font information for U+stmry on input line 85
 .
 
 (/usr/share/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
 LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 13.31586pt on input line 85.
+(Font)              scaled to size 13.31586pt on input line 86.
 LaTeX Font Info:    Font shape `JY3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 13.31586pt on input line 85.
+(Font)              scaled to size 13.31586pt on input line 86.
 LaTeX Font Info:    Font shape `JT3/GenShinGothicP(0)/m/n' will be
-(Font)              scaled to size 13.31586pt on input line 85.
+(Font)              scaled to size 13.31586pt on input line 86.
 LaTeX Font Info:    Font shape `JY3/GenShinGothicP(0)/m/n' will be
-(Font)              scaled to size 13.31586pt on input line 85.
+(Font)              scaled to size 13.31586pt on input line 86.
 LaTeX Font Info:    Font shape `JT3/GenShinGothicP(0)/m/n' will be
-(Font)              scaled to size 9.24713pt on input line 87.
+(Font)              scaled to size 9.24713pt on input line 88.
 LaTeX Font Info:    Font shape `JY3/GenShinGothicP(0)/m/n' will be
-(Font)              scaled to size 9.24713pt on input line 87.
+(Font)              scaled to size 9.24713pt on input line 88.
 LaTeX Font Info:    Font shape `JY3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 6.47299pt on input line 93.
+(Font)              scaled to size 6.47299pt on input line 94.
 LaTeX Font Info:    Font shape `JY3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 4.62357pt on input line 93.
+(Font)              scaled to size 4.62357pt on input line 94.
 LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/it' will be
-(Font)              scaled to size 9.24713pt on input line 100.
+(Font)              scaled to size 9.24713pt on input line 101.
 LaTeX Font Info:    Font shape `JY3/SourceHanSerifJP(0)/m/it' will be
-(Font)              scaled to size 9.24713pt on input line 100.
+(Font)              scaled to size 9.24713pt on input line 101.
 LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 6.47299pt on input line 100.
+(Font)              scaled to size 6.47299pt on input line 101.
 LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 7.3977pt on input line 101.
+(Font)              scaled to size 7.3977pt on input line 102.
 LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 5.54828pt on input line 101.
+(Font)              scaled to size 5.54828pt on input line 102.
 LaTeX Font Info:    Font shape `JT3/GenShinGothicP(0)/m/n' will be
-(Font)              scaled to size 7.3977pt on input line 101.
+(Font)              scaled to size 7.3977pt on input line 102.
 LaTeX Font Info:    Font shape `JY3/GenShinGothicP(0)/m/n' will be
-(Font)              scaled to size 7.3977pt on input line 101.
+(Font)              scaled to size 7.3977pt on input line 102.
 Removing  `ltj.process_input_buffer' from `process_input_buffer'.
 Inserting `ltj.listings_unicode' at position 1 in `process_input_buffer'.
 Inserting `ltj.process_input_buffer' at position 2 in `process_input_buffer'.
@@ -1929,38 +1943,38 @@ Inserting `ltj.process_input_buffer' at position 2 in `process_input_buffer'.
 Removing  `ltj.listings_unicode' from `process_input_buffer'.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 195.
+(hyperref)                removing `math shift' on input line 196.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\lambda' on input line 195.
+(hyperref)                removing `\lambda' on input line 196.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 195.
+(hyperref)                removing `subscript' on input line 196.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\sigma' on input line 195.
+(hyperref)                removing `\sigma' on input line 196.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 195.
+(hyperref)                removing `subscript' on input line 196.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 195.
+(hyperref)                removing `math shift' on input line 196.
 
 LaTeX Font Info:    Font shape `JT3/GenShinGothicP(0)/m/n' will be
-(Font)              scaled to size 11.09656pt on input line 221.
+(Font)              scaled to size 11.09656pt on input line 222.
 LaTeX Font Info:    Font shape `JY3/GenShinGothicP(0)/m/n' will be
-(Font)              scaled to size 11.09656pt on input line 221.
+(Font)              scaled to size 11.09656pt on input line 222.
 LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 4.62357pt on input line 227.
+(Font)              scaled to size 4.62357pt on input line 228.
 LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 8.32242pt on input line 245.
+(Font)              scaled to size 8.32242pt on input line 246.
 LaTeX Font Info:    Font shape `JY3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 8.32242pt on input line 245.
+(Font)              scaled to size 8.32242pt on input line 246.
 [3]
 
 Class ltjsarticle Warning: deprecated old font command `\sc' used.
@@ -1968,34 +1982,34 @@ Class ltjsarticle Warning: deprecated old font command `\sc' used.
 (ltjsarticle)              new font selection scheme called NFSS2 with several
 (ltjsarticle)              new, combinable font commands. This ltjsarticle
 (ltjsarticle)              class has defined the old font commands like
-(ltjsarticle)              `\sc' only for compatibility on input line 276.
+(ltjsarticle)              `\sc' only for compatibility on input line 277.
 
 
 LaTeX Font Warning: Font shape `JT3/SourceHanSerifJP(0)/m/sc' undefined
 (Font)              using `JT3/SourceHanSerifJP(0)/m/n' instead on input line 27
-6.
+7.
 
 LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 9.24713pt on input line 276.
+(Font)              scaled to size 9.24713pt on input line 277.
 
 LaTeX Font Warning: Font shape `JY3/SourceHanSerifJP(0)/m/sc' undefined
 (Font)              using `JY3/SourceHanSerifJP(0)/m/n' instead on input line 27
-6.
+7.
 
 LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/sc' will be
-(Font)              scaled to size 9.24713pt on input line 284.
+(Font)              scaled to size 9.24713pt on input line 285.
 LaTeX Font Info:    Font shape `JY3/SourceHanSerifJP(0)/m/sc' will be
-(Font)              scaled to size 9.24713pt on input line 284.
+(Font)              scaled to size 9.24713pt on input line 285.
 [4]
-Overfull \hbox (1.66667pt too wide) detected at line 312
+Overfull \hbox (1.66667pt too wide) detected at line 313
 [][]  
  []
 
 [5] [6]
 LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/bx/n' will be
-(Font)              scaled to size 9.24713pt on input line 521.
+(Font)              scaled to size 9.24713pt on input line 522.
 LaTeX Font Info:    Font shape `JY3/SourceHanSerifJP(0)/bx/n' will be
-(Font)              scaled to size 9.24713pt on input line 521.
+(Font)              scaled to size 9.24713pt on input line 522.
 Removing  `ltj.process_input_buffer' from `process_input_buffer'.
 Inserting `ltj.listings_unicode' at position 1 in `process_input_buffer'.
 Inserting `ltj.process_input_buffer' at position 2 in `process_input_buffer'.
@@ -2040,22 +2054,46 @@ Removing  `ltj.process_input_buffer' from `process_input_buffer'.
 Inserting `ltj.listings_unicode' at position 1 in `process_input_buffer'.
 Inserting `ltj.process_input_buffer' at position 2 in `process_input_buffer'.
 Removing  `ltj.listings_unicode' from `process_input_buffer'.
-Overfull \hbox (35.21234pt too wide) in paragraph at lines 533--536
+Overfull \hbox (35.21234pt too wide) in paragraph at lines 534--537
 \JY3/SourceHanSerifJP(0)/m/sc/10 こ の ハ ン ド ラ の も と で [][][]
 []を 発 生 さ せ た 場 合 、 [][][][]は []
  []
 
 [7]
+
+LaTeX Font Warning: Font shape `JT3/SourceHanSerifJP(0)/solid/n' undefined
+(Font)              using `JT3/SourceHanSerifJP(0)/m/n' instead on input line 54
+5.
+
+LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/n' will be
+(Font)              scaled to size 9.24713pt on input line 545.
+
+LaTeX Font Warning: Font shape `JY3/SourceHanSerifJP(0)/solid/n' undefined
+(Font)              using `JY3/SourceHanSerifJP(0)/m/n' instead on input line 54
+5.
+
+
+LaTeX Font Warning: Font shape `JT3/SourceHanSerifJP(0)/regular/n' undefined
+(Font)              using `JT3/SourceHanSerifJP(0)/m/n' instead on input line 54
+5.
+
+LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/n' will be
+(Font)              scaled to size 9.24713pt on input line 545.
+
+LaTeX Font Warning: Font shape `JY3/SourceHanSerifJP(0)/regular/n' undefined
+(Font)              using `JY3/SourceHanSerifJP(0)/m/n' instead on input line 54
+5.
+
 LaTeX Font Info:    Font shape `JT3/GenShinGothicP(0)/m/it' will be
-(Font)              scaled to size 9.24713pt on input line 543.
+(Font)              scaled to size 9.24713pt on input line 548.
 LaTeX Font Info:    Font shape `JY3/GenShinGothicP(0)/m/it' will be
-(Font)              scaled to size 9.24713pt on input line 543.
- [8]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 545.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 545.
+(Font)              scaled to size 9.24713pt on input line 548.
+[8]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 550.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 550.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 545.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 545.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 550.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 550.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 15750B43D581566C1C6125558E5BACCD;709.
 
@@ -2068,17 +2106,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 )
 
 Here is how much of LuaTeX's memory you used:
- 43683 strings out of 493864
- 476930,1373583 words of node,token memory allocated
- 13533 words of node memory still in use:
-   12 hlist, 2 vlist, 5 rule, 3 glue, 121 kern, 1 glyph, 3897 attribute, 869 glu
-e_spec, 219 attribute_list, 2 write, 20 user_defined nodes
-   avail lists: 1:29,2:80898,3:352,4:4959,5:3472,6:74,7:5685,8:66,9:6964,10:26,1
+ 46606 strings out of 493864
+ 476930,1648299 words of node,token memory allocated
+ 13683 words of node memory still in use:
+   12 hlist, 2 vlist, 5 rule, 3 glue, 123 kern, 1 glyph, 3935 attribute, 881 glu
+e_spec, 221 attribute_list, 2 write, 20 user_defined nodes
+   avail lists: 1:29,2:80858,3:352,4:4959,5:3458,6:74,7:5685,8:66,9:6964,10:26,1
 1:251
- 46948 multiletter control sequences out of 65536+600000
- 157 fonts using 120526015 bytes
+ 49836 multiletter control sequences out of 65536+600000
+ 159 fonts using 120769727 bytes
  65i,20n,92p,960b,1476s stack positions out of 5000i,500n,10000p,200000b,100000s
-</usr/share/fonts/adobe-source-han-serif/SourceHanSerifJP-Bold.otf
+</usr/share/texmf-dist/fonts/opentype/public/fontawesome5/FontAwesome5Brands-Reg
+ular-400.otf></usr/share/fonts/adobe-source-han-serif/SourceHanSerifJP-Bold.otf
 warning  (file /usr/share/fonts/adobe-source-han-serif/SourceHanSerifJP-Bold.otf
 ) (cff): charset data possibly broken (too many glyphs)
 ></usr/share/texmf-dist/fonts/opentype/public/lm/lmsans10-regular.otf></usr/shar
@@ -2103,10 +2142,10 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/m
 sam10.pfb>
-Output written on main.pdf (8 pages, 341306 bytes).
+Output written on main.pdf (8 pages, 344713 bytes).
 
-PDF statistics: 303 PDF objects out of 1000 (max. 8388607)
- 247 compressed objects within 3 object streams
- 91 named destinations out of 1000 (max. 131072)
+PDF statistics: 313 PDF objects out of 1000 (max. 8388607)
+ 254 compressed objects within 3 object streams
+ 92 named destinations out of 1000 (max. 131072)
  88 words of extra memory for PDF output out of 10000 (max. 100000000)
 
