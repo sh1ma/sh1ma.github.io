@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 21 Feb 2020 02:01:15 +0900</pubDate>
-    <lastBuildDate>Fri, 21 Feb 2020 02:01:15 +0900</lastBuildDate>
+    <pubDate>Fri, 21 Feb 2020 02:06:46 +0900</pubDate>
+    <lastBuildDate>Fri, 21 Feb 2020 02:06:46 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -18,7 +18,7 @@
 まず &lt;em&gt;shallow&lt;/em&gt; effect handlerとはなんでしょう?
 最初にalgebraic effects and handlersについておさらいします｡
 あれとかこれとかそれとかを読んでおさらいしてください｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://nymphium.github.io/pictures/github_icon.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;/pictures/github_icon.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Algebraic Effectsであそぼう - lilyum ensemble&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;こんにちは､びしょ〜じょです｡ここしばらく20行/日くらいしかコード書いてません｡いやもっと少ないかも…｡いや研究してますんで! いや〜研究もそんなにしてないな…じゃあ何を…1. はじめにAlg…&lt;/div&gt;
@@ -42,7 +42,7 @@
   &lt;/span&gt;
 &lt;/div&gt;&lt;p&gt;感覚としては､ &lt;code&gt;shift/reset&lt;/code&gt; の &lt;code&gt;shift&lt;/code&gt; が継続を切り取るときに &lt;code&gt;reset&lt;/code&gt; がくっついてくるけど､ &lt;code&gt;shift0/reset0&lt;/code&gt; ではくっついてこないという関係と同じですね｡
 &lt;code&gt;shift/reset&lt;/code&gt; などについてはコチラ&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://nymphium.github.io/pictures/github_icon.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;/pictures/github_icon.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;delimited continuationの夏 - lilyum ensemble&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;こんにちは､びしょ〜じょです｡control/promptとprompt tagへの理解が必要になったため､やっていきましょう｡1. continuation??? 継続??? is power…&lt;/div&gt;
@@ -107,7 +107,20 @@ $$&lt;/p&gt;&lt;p&gt;となっています｡
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://www.researchgate.net/publication/308969161_Eff_Directly_in_OCaml&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;(PDF) Eff Directly in OCaml&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;PDF | We present the embedding of the language Eff into OCaml, using the library of delimited continuations or the OCaml-effects branch. The embedding… | Find, read and cite all the research you need on ResearchGate&lt;/div&gt;
   &lt;/span&gt;
-&lt;/div&gt;&lt;p&gt;よし! では実装しましたはいこちら&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;perform&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;eff&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;よし! では実装しましたはいこちら&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lang&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;racket&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;racket/control&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fcontrol&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;#:tag&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;prompt-tag&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;default-continuation-prompt-tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;call-with-composable-continuation&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;abort-current-continuation&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;prompt-tag&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+   &lt;span class=&quot;nv&quot;&gt;prompt-tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Racket v7.6以前は&lt;code&gt;fcontrol/run&lt;/code&gt;をプロンプトタグを指定して使う場合にバグがあったので､最新の環境でない場合は上記のように&lt;code&gt;fcontrol&lt;/code&gt;を上書きします｡
+次こそ本題です｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;perform&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;eff&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fcontrol&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;#:tag&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new-effect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -166,8 +179,8 @@ shallow effect handlerにおいてvalue handlerが介入するタイミングは
 パフォーマンス比較とか他のコントロールオペレータとの関係は読者の皆さんの課題と勝手にさせて､ええ､いただきます｡
 夏休み最終日に絶望する小学生にならないように､日々こつこつと取り組んでください｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;エッ修論?! 俺は卒業したのか……｡&lt;/p&gt;</description>
         <pubDate>Thu, 20 Feb 2020 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2020/02/20/shallow_effec_handler_with_fcontrol.md.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2020/02/20/shallow_effec_handler_with_fcontrol.md.html</guid>
+        <link>https://nymphium.github.io/2020/02/20/shallow_effec_handler_with_fcontrol.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2020/02/20/shallow_effec_handler_with_fcontrol.html</guid>
         
         <category>Algebraic Effects</category>
         
