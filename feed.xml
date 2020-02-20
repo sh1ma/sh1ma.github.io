@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 21 Feb 2020 02:06:46 +0900</pubDate>
-    <lastBuildDate>Fri, 21 Feb 2020 02:06:46 +0900</lastBuildDate>
+    <pubDate>Fri, 21 Feb 2020 02:17:28 +0900</pubDate>
+    <lastBuildDate>Fri, 21 Feb 2020 02:17:28 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -141,10 +141,10 @@ Racketの&lt;code&gt;fcontrol&lt;/code&gt;ではオプショナル引数&lt;code
 しかし&lt;code&gt;fcontrol/run&lt;/code&gt;に足りないものがある｡なにか｡value handlerである｡
 shallow effect handlerにおいてvalue handlerが介入するタイミングはdeepな場合と同じ､値をハンドルする場合のみです｡
 そしてshallowなので一度エフェクトをハンドルしたらハンドラは撤退しなければならない｡
-なのでこういう戦略でいきます｡
-- 戻り値は常にvalue handlerで取るようにする
-- しかしエフェクトが発生したらvalue handlerを迂回する
-ベストか? と言われると自信ないですが､ハンドリングされた式を評価したときにエフェクトハンドラでハンドルされたかどうかのフラグを持っておくのはなんかダサいし状態を持ちたくないというのはピュアな感覚です｡
+なのでこういう戦略でいきます｡&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;戻り値は常にvalue handlerで取るようにする&lt;/li&gt;
+&lt;li&gt;しかしエフェクトが発生したらvalue handlerを迂回する&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;ベストか? と言われると自信ないですが､ハンドリングされた式を評価したときにエフェクトハンドラでハンドルされたかどうかのフラグを持っておくのはなんかダサいし状態を持ちたくないというのはピュアな感覚です｡
 またタグをつけたり外したりもちょっと面倒です｡
 なので今回はどうにかして迂回します｡
 幸い今回はコントロールオペレータが1つ､&lt;code&gt;fcontrol/run&lt;/code&gt;が与えられています｡
