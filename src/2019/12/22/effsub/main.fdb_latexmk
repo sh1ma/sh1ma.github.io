@@ -1,11 +1,11 @@
 # Fdb version 3
-["biber main"] 1577162875 "main.bcf" "main.bbl" "main" 1577162898
-  "main.bcf" 1577162897 99576 6a754f7c555cb34e1b9fd0672cc27bbd "pdflatex"
-  "main.bib" 1577162202 256 3785d73abd0655851853970503930bd6 ""
+["biber main"] 1578548219 "main.bcf" "main.bbl" "main" 1578548239
+  "main.bcf" 1578548238 99576 6a754f7c555cb34e1b9fd0672cc27bbd "pdflatex"
+  "main.bib" 1577162947 256 3785d73abd0655851853970503930bd6 ""
   (generated)
   "main.blg"
   "main.bbl"
-["pdflatex"] 1577162890 "main.tex" "main.pdf" "main" 1577162898
+["pdflatex"] 1578548232 "main.tex" "main.pdf" "main" 1578548239
   "/home/nymphium/.texlive/texmf-var/luatex-cache/generic/fonts/otl/fontawesome5brands-regular-400.luc" 1577162754 152372 ff7025b6c586a6ca2a4a685893533ed6 ""
   "/home/nymphium/.texlive/texmf-var/luatex-cache/generic/fonts/otl/fontawesome5free-solid-900.luc" 1577162754 324738 6f2fb98a81491199732fab232c9d15fa ""
   "/home/nymphium/.texlive/texmf-var/luatex-cache/generic/fonts/otl/genshingothic-p-bold.luc" 1576217031 2187971 80ce7b67d80845947108d38bbe2c8b8c ""
@@ -33,7 +33,6 @@
   "/usr/share/fonts/TTF/GenShinGothic-P-Regular.ttf" 1558202043 5054248 f1ad38a2469ae8ec995507228ce309fd ""
   "/usr/share/fonts/adobe-source-han-serif/SourceHanSerifJP-Bold.otf" 1541805613 6436464 3bfef2cf422a3e0006b9b1c0018969b6 ""
   "/usr/share/fonts/adobe-source-han-serif/SourceHanSerifJP-Regular.otf" 1541805613 6174524 ec17d28bc4cf0682c3c1c3b036983ae5 ""
-  "/usr/share/texmf-dist/fonts/opentype/public/fontawesome5/FontAwesome5Brands-Regular-400.otf" 1572568373 167532 8da60dfa458283cd166b74a604624c86 ""
   "/usr/share/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf" 1572595918 64684 15a2082c8e31f411875a86ea2d29a0ee ""
   "/usr/share/texmf-dist/fonts/opentype/public/lm/lmmono8-regular.otf" 1572595918 66268 9cda782e3eb1fe3b50d078d2ea7728b5 ""
   "/usr/share/texmf-dist/fonts/opentype/public/lm/lmsans10-regular.otf" 1572595918 95128 317da301f5d16ce70da8e5df556bc592 ""
@@ -282,16 +281,16 @@
   "/usr/share/texmf-dist/tex/platex/jsclasses/jslogo.sty" 1572570309 6025 c6eb7b869bc73b37a7116f5af977422f ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1573789185 4614312 caf3e8f2cadf05684b9443655e7ce7f2 ""
   "/var/lib/texmf/web2c/luatex/lualatex.fmt" 1573789176 1400561 6baeeb28e3f6847e9b60a9ce64251e8e ""
-  "lambdaeff_macro.tex" 1577162202 2030 0c813ca34750e4c02b8f4d78bbb5df7d ""
-  "main.aux" 1577162897 5621 27c8b80de8a8bc4ec9d8e3c2b62cb46b "pdflatex"
-  "main.bbl" 1577162876 1549 df56758aa7404020e8dd73c4c861c612 "biber main"
-  "main.out" 1577162897 709 15750b43d581566c1c6125558e5baccd "pdflatex"
-  "main.run.xml" 1577162897 2334 7e0c4f20985526cf631a0f99e8739206 "pdflatex"
-  "main.tex" 1577162869 26090 812cabe52e8fa9d5fe3ff164d5710e8c ""
+  "lambdaeff_macro.tex" 1577162947 2030 0c813ca34750e4c02b8f4d78bbb5df7d ""
+  "main.aux" 1578548238 5447 013c30de9fe0f6e704327aef55266658 "pdflatex"
+  "main.bbl" 1578548220 1549 df56758aa7404020e8dd73c4c861c612 "biber main"
+  "main.out" 1578548238 612 2dfe34ccc7609a7cda606fdbd66b11c9 "pdflatex"
+  "main.run.xml" 1578548238 2334 7e0c4f20985526cf631a0f99e8739206 "pdflatex"
+  "main.tex" 1578548205 26086 3db305b302fab5142e65934359fabd33 ""
   (generated)
-  "main.run.xml"
-  "main.bcf"
-  "main.aux"
-  "main.log"
-  "main.out"
   "main.pdf"
+  "main.log"
+  "main.bcf"
+  "main.out"
+  "main.run.xml"
+  "main.aux"

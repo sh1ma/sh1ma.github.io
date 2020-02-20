@@ -9,19 +9,19 @@
     <title>Lua 5.3.3 release - 変更に&quot;python rule&quot;とありますが - - lilyum ensemble</title>
     <meta itemprop="name" content="Lua 5.3.3 release - 変更に&quot;python rule&quot;とありますが - - lilyum ensemble"/>
     <meta name="keywords" content="Lua"/>
-    <meta name="thumbnail" content="https://nymphium.github.io/pictures/github_icon.png"/>
-    <meta itemprop="image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
 
     <meta name="twitter:card" content="summary"/>
     <meta name="twitter:site" content="lilyum ensemble"/>
     <meta name="twitter:title" content="Lua 5.3.3 release - 変更に"python rule"とありますが - - lilyum ensemble"/>
-    <meta name="twitter:url" content="https://nymphium.github.io/2016/06/07/lua533.html"/> 
+    <meta name="twitter:url" content="/2016/06/07/lua533.html"/> 
     <meta name="twitter:text:description" content="こんにちは､びしょ〜じょです｡イベントに複数行ったらお金がなくなりました｡1. はじめにLua 5.3.3がリリースされました｡  diffu-lua-5.3.2-lua-5.3.35.3.2か..."/>
-    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="/pictures/github_icon.png"/>
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="/css/main.css"/>
-    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="https://nymphium.github.io/feed.xml"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
     <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
 <!-- Begin Jekyll SEO tag v2.6.1 -->
 <meta name="generator" content="Jekyll v3.8.6" />
@@ -36,10 +36,10 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2016-06-07T00:00:00+09:00" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"こんにちは､びしょ〜じょです｡イベントに複数行ったらお金がなくなりました｡","headline":"Lua 5.3.3 release - 変更に&quot;python rule&quot;とありますが -","dateModified":"2016-06-07T00:00:00+09:00","datePublished":"2016-06-07T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2016/06/07/lua533.html"},"url":"https://nymphium.github.io/2016/06/07/lua533.html","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2016/06/07/lua533.html"},"@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"headline":"Lua 5.3.3 release - 変更に&quot;python rule&quot;とありますが -","dateModified":"2016-06-07T00:00:00+09:00","datePublished":"2016-06-07T00:00:00+09:00","description":"こんにちは､びしょ〜じょです｡イベントに複数行ったらお金がなくなりました｡","url":"https://nymphium.github.io/2016/06/07/lua533.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <meta property="og:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta property="og:image" content="/pictures/github_icon.png"/>
   </head>
 
   <body>
@@ -182,7 +182,7 @@ c
 <p><strong><em>よくわからないですね!!</em></strong> もすうこし見てみます｡</p>
 <h2 id="3-2.+case2%3A+gsub"><a class="headerlink" href="#3-2.+case2%3A+gsub">3-2. case2: gsub</a></h2>
 <p>置換してみます｡こんな感じ｡</p>
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">print</span><span class="p">((</span><span class="s2">"a12b3c"</span><span class="p">):</span><span class="n">gsub</span><span class="p">(</span><span class="s2">"[^0-9]*"</span><span class="p">,</span> <span class="s2">"X"</span><span class="p">))</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">print</span><span class="p">((</span><span class="s2">"a12b3c"</span><span class="p">):</span><span class="nb">gsub</span><span class="p">(</span><span class="sr">"</span><span class="se">[^</span><span class="sr">0-9</span><span class="se">]</span><span class="sr">*"</span><span class="p">,</span> <span class="sr">"X"</span><span class="p">))</span>
 </code></pre></div>
 <h3 id="3-2-1.+before+533"><a class="headerlink" href="#3-2-1.+before+533">3-2-1. before 533</a></h3>
 <p>まず､以下の結果が得られる｡</p>

@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.10.0 (TeX Live 2019/Arch Linux)  (format=lualatex 2019.11.15)  24 DEC 2019 13:48
+This is LuaTeX, Version 1.10.0 (TeX Live 2019/Arch Linux)  (format=lualatex 2019.11.15)  9 JAN 2020 14:37
  restricted system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -56,7 +56,7 @@ Lua module: luaotfload-multiscript 2019-09-13 3.00 luaotfload submodule / multis
 cript
 Inserting `luaotfload.rewrite_fontname' at position 5 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.188 seconds
+luaotfload | main : initialization completed in 0.134 seconds
 (/usr/share/texmf-dist/tex/generic/oberdiek/ifluatex.sty
 Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX detected.
@@ -2060,42 +2060,18 @@ Overfull \hbox (35.21234pt too wide) in paragraph at lines 534--537
  []
 
 [7]
-
-LaTeX Font Warning: Font shape `JT3/SourceHanSerifJP(0)/solid/n' undefined
-(Font)              using `JT3/SourceHanSerifJP(0)/m/n' instead on input line 54
-5.
-
-LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 9.24713pt on input line 545.
-
-LaTeX Font Warning: Font shape `JY3/SourceHanSerifJP(0)/solid/n' undefined
-(Font)              using `JY3/SourceHanSerifJP(0)/m/n' instead on input line 54
-5.
-
-
-LaTeX Font Warning: Font shape `JT3/SourceHanSerifJP(0)/regular/n' undefined
-(Font)              using `JT3/SourceHanSerifJP(0)/m/n' instead on input line 54
-5.
-
-LaTeX Font Info:    Font shape `JT3/SourceHanSerifJP(0)/m/n' will be
-(Font)              scaled to size 9.24713pt on input line 545.
-
-LaTeX Font Warning: Font shape `JY3/SourceHanSerifJP(0)/regular/n' undefined
-(Font)              using `JY3/SourceHanSerifJP(0)/m/n' instead on input line 54
-5.
-
 LaTeX Font Info:    Font shape `JT3/GenShinGothicP(0)/m/it' will be
 (Font)              scaled to size 9.24713pt on input line 548.
 LaTeX Font Info:    Font shape `JY3/GenShinGothicP(0)/m/it' will be
 (Font)              scaled to size 9.24713pt on input line 548.
-[8]
+ [8]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 550.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 550.
  (./main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 550.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 550.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 15750B43D581566C1C6125558E5BACCD;709.
+(rerunfilecheck)             Checksum: 2DFE34CCC7609A7CDA606FDBD66B11C9;612.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -2106,18 +2082,17 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 )
 
 Here is how much of LuaTeX's memory you used:
- 46606 strings out of 493864
+ 46595 strings out of 493864
  476930,1648299 words of node,token memory allocated
- 13683 words of node memory still in use:
-   12 hlist, 2 vlist, 5 rule, 3 glue, 123 kern, 1 glyph, 3935 attribute, 881 glu
-e_spec, 221 attribute_list, 2 write, 20 user_defined nodes
-   avail lists: 1:29,2:80858,3:352,4:4959,5:3458,6:74,7:5685,8:66,9:6964,10:26,1
+ 13478 words of node memory still in use:
+   12 hlist, 2 vlist, 5 rule, 3 glue, 121 kern, 1 glyph, 3897 attribute, 858 glu
+e_spec, 219 attribute_list, 2 write, 20 user_defined nodes
+   avail lists: 1:29,2:80898,3:352,4:4959,5:3483,6:74,7:5685,8:66,9:6964,10:26,1
 1:251
- 49836 multiletter control sequences out of 65536+600000
+ 49827 multiletter control sequences out of 65536+600000
  159 fonts using 120769727 bytes
  65i,20n,92p,960b,1476s stack positions out of 5000i,500n,10000p,200000b,100000s
-</usr/share/texmf-dist/fonts/opentype/public/fontawesome5/FontAwesome5Brands-Reg
-ular-400.otf></usr/share/fonts/adobe-source-han-serif/SourceHanSerifJP-Bold.otf
+</usr/share/fonts/adobe-source-han-serif/SourceHanSerifJP-Bold.otf
 warning  (file /usr/share/fonts/adobe-source-han-serif/SourceHanSerifJP-Bold.otf
 ) (cff): charset data possibly broken (too many glyphs)
 ></usr/share/texmf-dist/fonts/opentype/public/lm/lmsans10-regular.otf></usr/shar
@@ -2142,10 +2117,10 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/m
 sam10.pfb>
-Output written on main.pdf (8 pages, 344713 bytes).
+Output written on main.pdf (8 pages, 338770 bytes).
 
-PDF statistics: 313 PDF objects out of 1000 (max. 8388607)
- 254 compressed objects within 3 object streams
- 92 named destinations out of 1000 (max. 131072)
- 88 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 299 PDF objects out of 1000 (max. 8388607)
+ 243 compressed objects within 3 object streams
+ 90 named destinations out of 1000 (max. 131072)
+ 80 words of extra memory for PDF output out of 10000 (max. 100000000)
 

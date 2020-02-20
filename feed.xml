@@ -5,9 +5,178 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 24 Dec 2019 13:48:26 +0900</pubDate>
-    <lastBuildDate>Tue, 24 Dec 2019 13:48:26 +0900</lastBuildDate>
+    <pubDate>Fri, 21 Feb 2020 02:01:15 +0900</pubDate>
+    <lastBuildDate>Fri, 21 Feb 2020 02:01:15 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>fcontrol/runでshallow effect handler</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
+気づけば2020年になってました｡
+2020年ってなんだ? SFですか?&lt;/p&gt;&lt;hr&gt;&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB+-+Algebraic+Effects%E3%81%8A%E3%81%95%E3%82%89%E3%81%84&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB+-+Algebraic+Effects%E3%81%8A%E3%81%95%E3%82%89%E3%81%84&quot;&gt;1. はじめに - Algebraic Effectsおさらい&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;本日はshallow effect handlerを実装します｡
+まず &lt;em&gt;shallow&lt;/em&gt; effect handlerとはなんでしょう?
+最初にalgebraic effects and handlersについておさらいします｡
+あれとかこれとかそれとかを読んでおさらいしてください｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://nymphium.github.io/pictures/github_icon.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Algebraic Effectsであそぼう - lilyum ensemble&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;こんにちは､びしょ〜じょです｡ここしばらく20行/日くらいしかコード書いてません｡いやもっと少ないかも…｡いや研究してますんで! いや〜研究もそんなにしてないな…じゃあ何を…1. はじめにAlg…&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+  &lt;a href=&quot;https://nymphium.github.io/pdf/mlday2.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Dive into Algebraic Effects - lilyum ensemble&lt;/a&gt;
+&lt;/center&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://qiita-user-contents.imgix.net/https%3A%2F%2Fcdn.qiita.com%2Fassets%2Fpublic%2Fogp-background-1150d8b18a7c15795b701a55ae908f94.png?ixlib=rb-1.2.2&amp;amp;w=1200&amp;amp;mark=https%3A%2F%2Fqiita-user-contents.imgix.net%2F~text%3Fixlib%3Drb-1.2.2%26w%3D840%26h%3D380%26txt%3DAlgebraic%2520Effects%25E3%2581%25A8%25E3%2581%25AF%253F%2520%25E5%2587%25BA%25E8%25BA%25AB%25E3%2581%25AF%253F%2520%25E4%25BD%25BF%25E3%2581%2584%25E6%2596%25B9%25E3%2581%25AF%253F%2520%25E3%2581%259D%25E3%2581%25AE%25E7%2589%25B9%25E5%25BE%25B4%25E3%2581%25A8%25E3%2581%25AF%253F%2520%25E8%25AA%25BF%25E3%2581%25B9%25E3%2581%25A6%25E3%2581%25BF%25E3%2581%25BE%25E3%2581%2597%25E3%2581%259F%2521%26txt-color%3D%2523333%26txt-font%3DAvenir-Black%26txt-size%3D54%26txt-clip%3Dellipsis%26txt-align%3Dcenter%252Cmiddle%26s%3D1caabdbc9f6c0e53b796c74eee4ee35b&amp;amp;mark-align=center%2Cmiddle&amp;amp;blend=https%3A%2F%2Fqiita-user-contents.imgix.net%2F~text%3Fixlib%3Drb-1.2.2%26w%3D840%26h%3D500%26txt%3D%2540Nymphium%26txt-color%3D%2523333%26txt-font%3DAvenir-Black%26txt-size%3D45%26txt-align%3Dright%252Cbottom%26s%3Dfd6494ecf386fd4832ae2af2ec363e6c&amp;amp;blend-align=center%2Cmiddle&amp;amp;blend-mode=normal&amp;amp;s=d981ca15ae673b02388b321b0c2231ea&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました! - Qiita&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;ReactのHooksが実質algebraic effectsなんじゃないかということでalgebraic effectsに関する怪文書が流布して鼻白んでしまう､そんな未来を阻止するため､曲がりなりにもalgebraic effect…&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;なるほど､ &lt;strong&gt;復帰可能な例外&lt;/strong&gt; ですね｡承知しました｡&lt;/p&gt;&lt;h1 id=&quot;2.+shallow+effect+handler&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+shallow+effect+handler&quot;&gt;2. shallow effect handler&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;では改めて､ &lt;em&gt;shallow&lt;/em&gt; effect handlerとはなんでしょう?
+上に挙げられたシステムでは､ハンドラが取ってきた継続を起動させたときにまた発生するエフェクトが､また同じハンドラによって捕捉されています｡
+逆に &lt;em&gt;shallow&lt;/em&gt; effect handler は､ハンドラが取得した継続の中で発生するエフェクトは同じハンドラによっては捕捉されず､一つ外側のハンドラまで到達します｡
+論文はこちら:&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://link.springer.com/chapter/10.1007/978-3-030-02768-1_22&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://static-content.springer.com/cover/book/978-3-030-02768-1.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://link.springer.com/chapter/10.1007/978-3-030-02768-1_22&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Shallow Effect Handlers&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;Plotkin and Pretnar’s effect handlers offer a versatile abstraction for modular programming with user-defined effects. Traditional deep handlersare defined by folds over computation trees. In this…&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;感覚としては､ &lt;code&gt;shift/reset&lt;/code&gt; の &lt;code&gt;shift&lt;/code&gt; が継続を切り取るときに &lt;code&gt;reset&lt;/code&gt; がくっついてくるけど､ &lt;code&gt;shift0/reset0&lt;/code&gt; ではくっついてこないという関係と同じですね｡
+&lt;code&gt;shift/reset&lt;/code&gt; などについてはコチラ&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://nymphium.github.io/pictures/github_icon.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;delimited continuationの夏 - lilyum ensemble&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;こんにちは､びしょ〜じょです｡control/promptとprompt tagへの理解が必要になったため､やっていきましょう｡1. continuation??? 継続??? is power…&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;ごちゃごちゃ言ったけど&lt;a href=&quot;https://www.eff-lang.org/&quot;&gt;Eff言語&lt;/a&gt;でサクッと例を見てみましょう｡
+こんなエフェクトと関数を定義します｡
+ハンドラ&lt;code&gt;h&lt;/code&gt;で&lt;code&gt;P&lt;/code&gt;エフェクトが2回発生する式をハンドルします｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;P&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handle&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;P&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;P&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ほんで&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;P&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;うん､よさそうだ｡
+&lt;code&gt;(+)&lt;/code&gt; の評価は左辺の部分項を評価してから右辺に移る､と自然に考えると､最初に&lt;code&gt;P&lt;/code&gt;が発生したときにハンドラが取得する継続 &lt;code&gt;k&lt;/code&gt; は &lt;code&gt;with h handle □ + perform (P 3)&lt;/code&gt; となる｡
+&lt;code&gt;□&lt;/code&gt;に&lt;code&gt;(i + i)[i/2]&lt;/code&gt;を放り込むので(中略) &lt;code&gt;4 + 9 (= 13)&lt;/code&gt; という結果が得られる｡&lt;/p&gt;&lt;p&gt;続いてshallow handlerを使います｡
+ジッサイのEffにはないんですが､ &lt;code&gt;handler†&lt;/code&gt; をshallow handlerとします｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;†&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;effecf&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;P&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;†&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;P&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handle&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;フーム妙だ､妙だな……｡
+最初に&lt;code&gt;perform (P 2)&lt;/code&gt;をハンドルすると､取得する継続 &lt;code&gt;k&lt;/code&gt; は &lt;code&gt;□ + perform (P 3)&lt;/code&gt; です｡
+おや､これは&lt;code&gt;a1&lt;/code&gt;の評価と異なりますね｡
+これが &lt;strong&gt;shallow&lt;/strong&gt; です｡
+ハンドラは継続の中まで追っていきません｡
+なので2回めのエフェクトの発生は､ &lt;code&gt;P&lt;/code&gt; のマッチアーム内で新たに定義しているハンドラによってハンドルされます｡
+なので &lt;code&gt;4 + 10 (= 14)&lt;/code&gt; が返ってきます｡&lt;/p&gt;&lt;h2 id=&quot;2-1.+%E5%BD%B9%E3%81%AB%E7%AB%8B%E3%81%A4%E3%82%93%E3%81%A7%E3%81%99%E3%81%8B%3F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-1.+%E5%BD%B9%E3%81%AB%E7%AB%8B%E3%81%A4%E3%82%93%E3%81%A7%E3%81%99%E3%81%8B%3F&quot;&gt;2-1. 役に立つんですか?&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Hillerströmらの論文では､pipe/copipeのように生成と消費をおこなう相互再帰関数を例にあげている｡
+またコルーチンのようにリターンポイントをハンドラで実装するときなども､shallow handlerで事足りるだろう｡&lt;/p&gt;&lt;h1 id=&quot;3.+%3Ccode%3Efcontrol%2Frun%3C%2Fcode%3E%E3%81%A7shallow+effect+handler%E3%81%AE%E5%AE%9F%E8%A3%85&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+%3Ccode%3Efcontrol%2Frun%3C%2Fcode%3E%E3%81%A7shallow+effect+handler%E3%81%AE%E5%AE%9F%E8%A3%85&quot;&gt;3. &lt;code&gt;fcontrol/run&lt;/code&gt;でshallow effect handlerの実装&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ところでわたくし&lt;a href=&quot;http://logic.cs.tsukuba.ac.jp/%7Esat/pdf/tfp2020.pdf&quot;&gt;こういう研究&lt;/a&gt;をしてるんですが､実は先日もポーランドに行って&lt;a href=&quot;http://logic.cs.tsukuba.ac.jp/%7Esat/pdf/tfp2020-slide.pdf&quot;&gt;発表しました&lt;/a&gt;(隙自語)｡
+このコルーチンによるalgebraic effectsの実装は､ハンドラがdeepになってます｡
+&lt;a href=&quot;http://logic.cs.tsukuba.ac.jp/%7Esat/pdf/master_thesis.pdf&quot;&gt;修論&lt;/a&gt;ではshallowな方の埋め込み方法も乗せているんですが､ご覧の通りなんかぱっとしないし効率もよく無さそうだ｡&lt;/p&gt;&lt;p&gt;ところで &lt;code&gt;fcontrol/run&lt;/code&gt; というコントロールオペレータがあるのですが
+&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.22.7256&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;/images/csx_logo_front.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.22.7256&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Handling Control&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;CiteSeerX - Document Details (Isaac Councill, Lee Giles, Pradeep Teregowda): Non-local control transfer and exception handling have a long tradition in higher-order programming languages such as Common Lisp, Scheme and ML. However, each language stops short of providing a full and complementary approach — control handling is provided only  if the corresponding control operator is first-order. In this work, we describe handlers in a higher-order control setting. We invoke our earlier theoretical result that all denotational models of control languages invariably include capabilities that handle control. These capabilities, when incorporated into the language, form an elegant and powerful higher-order generalization of the first-order exception-handling mechanism.  1 Introduction  Control manipulation in applicative programming languages comes in two flavors. First-order control operators allow computations to abort to a dynamically enclosing control context, e.g., Common Lisp’s [23, 24]  throw and ML’s [9, 17] raise. They are invariably accompanied by forms th…&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;あんまりいい感じに意味論が書かれてないんで&lt;a href=&quot;https://docs.racket-lang.org/reference/cont.html#%28def._%28%28lib._racket%2Fcontrol..rkt%29._fcontrol%29%29&quot;&gt;&lt;code&gt;racket/control&lt;/code&gt; のドキュメント&lt;/a&gt;より引用すると&lt;/p&gt;&lt;p&gt;$$
+\begin{array}{rcll}
+    \left(\%\ \mathit{val}\ \mathit{proc}\right) &amp;amp; \rightarrow &amp;amp; \mathit{val} &amp;amp; \cr
+    \left(\%\ E \left[\left(\mathtt{fcontrol}\ \mathit{val}\right)\right] \mathit{proc} \right) &amp;amp; \rightarrow &amp;amp; \left(\mathit{proc}\ \mathit{val}\ \left(\lambda \left(x\right)\ E\left[x\right]\right)\right) &amp;amp; \text{$E$ has no $\%$}
+\end{array}
+$$&lt;/p&gt;&lt;p&gt;となっています｡
+&lt;code&gt;%&lt;/code&gt; は&lt;code&gt;run&lt;/code&gt;のwrapperで､&lt;code&gt;(% exp handler) === (run (λ () exp) handler)&lt;/code&gt;とのことです｡
+&lt;code&gt;%&lt;/code&gt; がdelimiterで &lt;code&gt;fcontrol&lt;/code&gt; が継続を取り出すオペレータです｡
+面白いのは &lt;code&gt;shift/reset&lt;/code&gt; や &lt;code&gt;control/prompt&lt;/code&gt; と違い､ &lt;code&gt;fcontrol&lt;/code&gt; 自体は継続を扱わずにdelimiterの &lt;code&gt;%&lt;/code&gt; の引数の &lt;code&gt;proc&lt;/code&gt; が継続を使います｡
+アレッ?! これすでに &lt;code&gt;(% □ proc)&lt;/code&gt; がハンドラで &lt;code&gt;fcontrol&lt;/code&gt; がエフェクト発生じゃん?!
+ところでRacketの &lt;code&gt;fcontrol/run&lt;/code&gt; はプロンプトタグが使えます｡
+つまり &lt;code&gt;fcontrol&lt;/code&gt; が評価されたときに､どのdelimiterまで戻ればいいかをタグにより指定することができるんですねえ｡
+ここで吉報です｡multi-prompt shift/resetによるEff言語の埋め込みはKiselyovらにより示されています｡
+&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://www.researchgate.net/publication/308969161_Eff_Directly_in_OCaml&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://i1.rgstatic.net/publication/308969161_Eff_Directly_in_OCaml/links/57fb885c08ae280dd0c4b6d3/largepreview.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://www.researchgate.net/publication/308969161_Eff_Directly_in_OCaml&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;(PDF) Eff Directly in OCaml&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;PDF | We present the embedding of the language Eff into OCaml, using the library of delimited continuations or the OCaml-effects branch. The embedding… | Find, read and cite all the research you need on ResearchGate&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;よし! では実装しましたはいこちら&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;perform&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;eff&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fcontrol&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;#:tag&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new-effect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;make-continuation-prompt-tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;エフェクト&lt;code&gt;eff&lt;/code&gt;を引数&lt;code&gt;v&lt;/code&gt;を渡して発生させるので､そのまま&lt;code&gt;fcontrol&lt;/code&gt;を使います｡
+Racketの&lt;code&gt;fcontrol&lt;/code&gt;ではオプショナル引数&lt;code&gt;#:tag&lt;/code&gt;でタグを渡せます｡&lt;/p&gt;&lt;p&gt;エフェクトはプロンプトタグに対応するのでそのままです｡&lt;/p&gt;&lt;p&gt;ハンドラの実装がメインディッシュです｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;call-with-shallow-handler&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;eff&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;vh&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;effh&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;th&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;make-continuation-prompt-tag&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;λ&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;effh~&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;λ&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                     &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fcontrol&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;effh&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;#:tag&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))]&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;%&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;th&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;effh~&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;#:tag&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;eff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))]&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;vh&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;#:tag&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;(call-with-shalow-handler effe vh effh)&lt;/code&gt;で､エフェクト&lt;code&gt;eff&lt;/code&gt;をハンドルするハンドラを作ります｡
+んでサンク&lt;code&gt;th&lt;/code&gt;をこのハンドラに渡すと､ハンドラのもとでサンクが潰れて評価が走ります｡&lt;/p&gt;&lt;p&gt;基本的な考え方は非常に簡単､&lt;code&gt;fcontrol/run&lt;/code&gt;がalgebraic effects &amp;amp; handlersであるという直感をそのまま使います｡
+&lt;code&gt;(% (th) effh #:tag eff)&lt;/code&gt; でエフェクト&lt;code&gt;eff&lt;/code&gt;が起きたときにエフェクトハンドラ&lt;code&gt;effh&lt;/code&gt;でハンドルします｡
+しかし&lt;code&gt;fcontrol/run&lt;/code&gt;に足りないものがある｡なにか｡value handlerである｡
+shallow effect handlerにおいてvalue handlerが介入するタイミングはdeepな場合と同じ､値をハンドルする場合のみです｡
+そしてshallowなので一度エフェクトをハンドルしたらハンドラは撤退しなければならない｡
+なのでこういう戦略でいきます｡
+- 戻り値は常にvalue handlerで取るようにする
+- しかしエフェクトが発生したらvalue handlerを迂回する
+ベストか? と言われると自信ないですが､ハンドリングされた式を評価したときにエフェクトハンドラでハンドルされたかどうかのフラグを持っておくのはなんかダサいし状態を持ちたくないというのはピュアな感覚です｡
+またタグをつけたり外したりもちょっと面倒です｡
+なので今回はどうにかして迂回します｡
+幸い今回はコントロールオペレータが1つ､&lt;code&gt;fcontrol/run&lt;/code&gt;が与えられています｡
+しかも今回はプロンプトタグのおまけ付きだ｡
+エフェクトハンドラの戻り値を&lt;code&gt;fcontrol&lt;/code&gt;で飛ばしてvalue handlerに渡るのを阻止しました｡
+吹っ飛んだときの継続は使わなくていいので､&lt;code&gt;const&lt;/code&gt;関数でエフェクトハンドラの戻り値だけ受け取って返します｡&lt;/p&gt;&lt;p&gt;いい感じじゃないですか｡
+それではコルーチンを実装してみます｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;coroutine&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;#:mutable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;#:extra-name&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Coroutine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Yield&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new-effect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;perform&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Yield&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;co&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;call-with-shallow-handler&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Yield&lt;/span&gt;
+                              &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;λ&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                              &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;λ&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;u&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                                 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+                                   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set-coroutine-it!&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;co&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                                   &lt;span class=&quot;nv&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;λ&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;coroutine-it&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;yield&lt;/code&gt;はエフェクトの発生､&lt;code&gt;resume&lt;/code&gt;はハンドラ､コルーチンスレッドは継続が保存されたセルです｡
+実装うまくいったかな?&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;co&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;coroutine&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;λ&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+              &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;display&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;hello,&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;displayln&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()))&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;))))]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;co&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;co&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;world&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;こいつ､動くぞ……!&lt;/p&gt;&lt;h1 id=&quot;4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;4. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;&lt;code&gt;fcontrol/run&lt;/code&gt;というおもしろいコントロールオペレータとそれを利用したshallow effect handlerの実装を紹介しました｡
+パフォーマンス比較とか他のコントロールオペレータとの関係は読者の皆さんの課題と勝手にさせて､ええ､いただきます｡
+夏休み最終日に絶望する小学生にならないように､日々こつこつと取り組んでください｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;エッ修論?! 俺は卒業したのか……｡&lt;/p&gt;</description>
+        <pubDate>Thu, 20 Feb 2020 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2020/02/20/shallow_effec_handler_with_fcontrol.md.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2020/02/20/shallow_effec_handler_with_fcontrol.md.html</guid>
+        
+        <category>Algebraic Effects</category>
+        
+        <category>Delimited Continuation</category>
+        
+        <category>Racket</category>
+        
+        
+      </item>
     
       <item>
         <title>『エフェクトに部分型のある代数的効果』</title>
@@ -230,11 +399,13 @@ HERPは本物のcontinuationプログラマーも募集しています｡&lt;/p&
         <link>https://nymphium.github.io/2019/07/21/effect_cont.html</link>
         <guid isPermaLink="true">https://nymphium.github.io/2019/07/21/effect_cont.html</guid>
         
-        <category>continuation</category>
+        <category>Continuation</category>
+        
+        <category>CPS</category>
         
         <category>ANF</category>
         
-        <category>effects</category>
+        <category>effect system</category>
         
         <category>OCaml</category>
         
@@ -454,12 +625,12 @@ extensible effectsはsubtypingを持たないHaskellを起源に持ち､antos-e
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; ありそうでなかなかなかったFree applicativeの紹介と、そのextensible化。途中の計算結果に依存しないという性質を利用してRPCなどの記述に使えそう&lt;/p&gt;— Fumi, Cleric of Generics　①☀💧🌳 (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132501183875100672?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; ありそうでなかなかなかったFree applicativeの紹介と、そのextensible化。途中の計算結果に依存しないという性質を利用してRPCなどの記述に使えそう&lt;/p&gt;— 𓅵ふみ (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132501183875100672?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Free ApplicativeとFree Monadのliftを共通化するのは面白そうだ &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— Fumi, Cleric of Generics　①☀💧🌳 (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132502512680833024?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Free ApplicativeとFree Monadのliftを共通化するのは面白そうだ &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 𓅵ふみ (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132502512680833024?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -554,7 +725,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Frank 言語これ？ &lt;a href=&quot;https://t.co/277z76pxLr&quot;&gt;https://t.co/277z76pxLr&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— まちカドかずき (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132522163989204992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Frank 言語これ？ &lt;a href=&quot;https://t.co/277z76pxLr&quot;&gt;https://t.co/277z76pxLr&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— かずき – 技術書典 8 1日目 お35 (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132522163989204992?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -569,7 +740,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;買わせてもらいました！ / Rustジェネレータ徹底解説 | 井山梃子歴史館 &lt;a href=&quot;https://t.co/KvD7oQ8BN4&quot;&gt;https://t.co/KvD7oQ8BN4&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/booth_pm?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#booth_pm&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— g $ f n (@bd_gfngfn) &lt;a href=&quot;https://twitter.com/bd_gfngfn/status/1132524127556739072?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;買わせてもらいました！ / Rustジェネレータ徹底解説 | 井山梃子歴史館 &lt;a href=&quot;https://t.co/KvD7oQ8BN4&quot;&gt;https://t.co/KvD7oQ8BN4&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/booth_pm?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#booth_pm&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 画力・博士号・油田 (@bd_gfngfn) &lt;a href=&quot;https://twitter.com/bd_gfngfn/status/1132524127556739072?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;書典6で販売したRustのジェネレータの解説本をBOOTHでも販売中とのこと｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
@@ -609,7 +780,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— ᴋᴏɴ・Tonttulakki🎅Pyrde (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— non-garbage, collected ᴋᴏɴ (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -619,17 +790,17 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;“The word ‘koka’ (or 効果) means “effect” or “effective” in Japanese” &lt;a href=&quot;https://t.co/VW4SslMsnI&quot;&gt;https://t.co/VW4SslMsnI&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— shionemo (@shionemo) &lt;a href=&quot;https://twitter.com/shionemo/status/1132528733217148928?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;“The word ‘koka’ (or 効果) means “effect” or “effective” in Japanese” &lt;a href=&quot;https://t.co/VW4SslMsnI&quot;&gt;https://t.co/VW4SslMsnI&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— zakuro (@zakurozakuro) &lt;a href=&quot;https://twitter.com/zakurozakuro/status/1132528733217148928?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; KokaはEffectをより細かく分類して制御できるようになっている。printとerrorの副作用は分類されて別物として扱われている。おお！&lt;/p&gt;— よんたくろーす (@keita44_f4) &lt;a href=&quot;https://twitter.com/keita44_f4/status/1132529327411613699?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; KokaはEffectをより細かく分類して制御できるようになっている。printとerrorの副作用は分類されて別物として扱われている。おお！&lt;/p&gt;— よんた (@keita44_f4) &lt;a href=&quot;https://twitter.com/keita44_f4/status/1132529327411613699?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; λ抽象と関数適用のeffectの答え合わせ。なるほど、λ抽象自体はeffectが推論されないけど、λ抽象のbody内に適用時に起こるeffectが内包されているのか。&lt;/p&gt;— よんたくろーす (@keita44_f4) &lt;a href=&quot;https://twitter.com/keita44_f4/status/1132530399161139200?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; λ抽象と関数適用のeffectの答え合わせ。なるほど、λ抽象自体はeffectが推論されないけど、λ抽象のbody内に適用時に起こるeffectが内包されているのか。&lt;/p&gt;— よんた (@keita44_f4) &lt;a href=&quot;https://twitter.com/keita44_f4/status/1132530399161139200?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -644,12 +815,12 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;このあたりを読むとわかりやすい話ですね： &lt;br&gt;The marriage of effects and monads [Wadler 1998]&lt;a href=&quot;https://t.co/mzP4NT5hMH&quot;&gt;https://t.co/mzP4NT5hMH&lt;/a&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— g $ f n (@bd_gfngfn) &lt;a href=&quot;https://twitter.com/bd_gfngfn/status/1132531060141506561?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;このあたりを読むとわかりやすい話ですね： &lt;br&gt;The marriage of effects and monads [Wadler 1998]&lt;a href=&quot;https://t.co/mzP4NT5hMH&quot;&gt;https://t.co/mzP4NT5hMH&lt;/a&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 画力・博士号・油田 (@bd_gfngfn) &lt;a href=&quot;https://twitter.com/bd_gfngfn/status/1132531060141506561?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Do be do be do [Lindley, McBride &amp;amp; McLaughlin 2016] &lt;a href=&quot;https://t.co/Xum448lhRL&quot;&gt;https://t.co/Xum448lhRL&lt;/a&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— g $ f n (@bd_gfngfn) &lt;a href=&quot;https://twitter.com/bd_gfngfn/status/1132533468221493248?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Do be do be do [Lindley, McBride &amp;amp; McLaughlin 2016] &lt;a href=&quot;https://t.co/Xum448lhRL&quot;&gt;https://t.co/Xum448lhRL&lt;/a&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 画力・博士号・油田 (@bd_gfngfn) &lt;a href=&quot;https://twitter.com/bd_gfngfn/status/1132533468221493248?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;↑Frankの論文のタイトルが『Do be do be do』なのってFrank Sinatraの捩りか&lt;/p&gt;&lt;h2 id=&quot;How+do+you+implement+Algebraic+Effects%3F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#How+do+you+implement+Algebraic+Effects%3F&quot;&gt;How do you implement Algebraic Effects?&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;6番目はボクが発表しました｡資料は&lt;a href=&quot;https://nymphium.github.io/pdf/effect_study.html&quot;&gt;こちら&lt;/a&gt;｡&lt;/p&gt;&lt;p&gt;内容は､Algebraic Effects and Handlersのさまざまなインプリ方法について考える｡というものでした｡&lt;/p&gt;&lt;p&gt;libhandler, eff.lua, Multicore OCaml, Effekt, Effの内部の実装方針について軽くまとめてみました｡
@@ -678,7 +849,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; 「Multiprompt shift/resetの説明をします」 &lt;br&gt;こ、これは！！名古屋の &lt;a href=&quot;https://twitter.com/hashtag/k_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#k_study&lt;/a&gt; でやったやつだ！！&lt;/p&gt;— よんたくろーす (@keita44_f4) &lt;a href=&quot;https://twitter.com/keita44_f4/status/1132535385085448193?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; 「Multiprompt shift/resetの説明をします」 &lt;br&gt;こ、これは！！名古屋の &lt;a href=&quot;https://twitter.com/hashtag/k_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#k_study&lt;/a&gt; でやったやつだ！！&lt;/p&gt;— よんた (@keita44_f4) &lt;a href=&quot;https://twitter.com/keita44_f4/status/1132535385085448193?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -734,7 +905,7 @@ Idrisに詳しくないんで “型がfirst-class” というところでspace
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;h2 id=&quot;Row-based+type+systems+for+algebraic+effect+handlers&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Row-based+type+systems+for+algebraic+effect+handlers&quot;&gt;Row-based type systems for algebraic effect handlers&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;最後は&lt;a href=&quot;https://twitter.com/skymountain_&quot;&gt;@skymountain_ &lt;/a&gt;さんによる発表でした｡資料は&lt;a href=&quot;https://www.slideshare.net/TaroSekiyama/rowbased-effect-systems-for-algebraic-effect-handlers&quot;&gt;こちら&lt;/a&gt;&lt;/p&gt;&lt;p&gt;内容は､parameterized effectsを持つrow-based type systemsにおけるeffect handlerの話でした｡&lt;/p&gt;&lt;p&gt;序盤ではAlgebraic Effectsについて簡単な例から初めて丁寧な説明があり､effect systemを知らない方にも優しいintroductionでした｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;最初に聞きたい感じの発表だった &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— まちカドかずき (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132554009481322497?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;最初に聞きたい感じの発表だった &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— かずき – 技術書典 8 1日目 お35 (@kakkun61) &lt;a href=&quot;https://twitter.com/kakkun61/status/1132554009481322497?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;p&gt;これは私がミスったわね｡&lt;/p&gt;&lt;p&gt;parameterized effectsの導入から､row-based effect systemとその特徴について述べ､他のset-based onesとの比較など大変わかり易く面白い内容でした｡&lt;/p&gt;&lt;p&gt;Kokaの論文を中途半端に読んでたのでtype systemの部分をちゃんと読み直そうと思います｡
@@ -765,7 +936,7 @@ fumievalさんの名前付きextensible effectsとrow-based effect systemはな�
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;「名前が違えは順序が入れ替えられるが名前が同じだと順序が意味をなす」はlabel-selective lambda calculusと似てる気がします &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— g $ f n (@bd_gfngfn) &lt;a href=&quot;https://twitter.com/bd_gfngfn/status/1132555193713741824?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;「名前が違えは順序が入れ替えられるが名前が同じだと順序が意味をなす」はlabel-selective lambda calculusと似てる気がします &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 画力・博士号・油田 (@bd_gfngfn) &lt;a href=&quot;https://twitter.com/bd_gfngfn/status/1132555193713741824?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;h2 id=&quot;%E3%81%93%E3%82%93%E3%81%97%E3%82%93%E3%81%8B%E3%81%84&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%81%93%E3%82%93%E3%81%97%E3%82%93%E3%81%8B%E3%81%84&quot;&gt;こんしんかい&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;(めっちゃ腹減ってたししこたま酒を飲んだんで写真などは)ないです&lt;/p&gt;&lt;p&gt;25人くらい参加してくださいました｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;開催しといてなんですがどうなるかと思ってました､が､参加者5､60人くらい+発表者8人と大きな会で無事発表もつつがなく終わって本当に良かったです｡&lt;/p&gt;&lt;h1 id=&quot;%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E4%BB%96&quot;&gt;他&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ん?&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -784,7 +955,7 @@ fumievalさんの名前付きextensible effectsとrow-based effect systemはな�
         
         <category>勉強会</category>
         
-        <category>algebraic effects</category>
+        <category>Algebraic Effects</category>
         
         
       </item>
@@ -844,7 +1015,7 @@ algebraic effectsの最初の論文&lt;span class=&quot;cite&quot;&gt;[&lt;a hre
         
         <category>雑感</category>
         
-        <category>algebraic effects</category>
+        <category>Algebraic Effects</category>
         
         
       </item>
@@ -1012,7 +1183,7 @@ stackful coroutines → stackless coroutinesの変換がある場合はなんと
         <link>https://nymphium.github.io/2019/01/27/stackfulness-of-coroutines.html</link>
         <guid isPermaLink="true">https://nymphium.github.io/2019/01/27/stackfulness-of-coroutines.html</guid>
         
-        <category>coroutines</category>
+        <category>Coroutines</category>
         
         
       </item>
@@ -1693,7 +1864,7 @@ Luaは残念ながら型のない世界なのでなんでもアリである｡&l
         <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
 これはWORDIAN Advent Calendar 2018の2日目の記事です｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://adventar.org/calendars/3536&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://adventar.org/assets/icon200-7c9a9308860c3a9cc64fa22b75f92d1401579db156cb9eb3ac39173c31e10282.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://adventar.org/calendars/3536&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://adventar.org/og_image.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://adventar.org/calendars/3536&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;WORDIAN Advent Calendar 2018 - Adventar&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;昨年大好評を博したWORDIAN Advent Calendarが今年もやってきました。編集部員、OBOG、または自分を編集部員だと思っている人などが記事を書きます。記事の内容はいつも通り自由。ただし、いつも通り学類長チェックは通るように努力しましょう。WORD編集部のサイト: https://www.word-ac.net/&lt;/div&gt;
@@ -1704,7 +1875,7 @@ Luaは残念ながら型のない世界なのでなんでもアリである｡&l
   &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://booth.pm/ja/items/1079687&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://booth.pximg.net/c/620x620/6e334015-e9eb-4311-ac3a-48e1336541e1/i/1079687/996c09f5-0458-4b58-9425-777d5d49f82c_base_resized.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://booth.pm/ja/items/1079687&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;【販売終了】Lily58 - Early Bird - liliums - BOOTH&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;※先行販売としての販売は終了致しました。冬コミにて正式版のLily58をリリース予定です。 1月12日より遊舎工房様にてLily58の委託販売を開始しました。今後は遊舎工房様での販売のみとなりますのでご了承ください。(2019/01/16追記) この商品ははんだ付けを必要とする組み立て式のキットです。 先行販売のベータ版のため予期せぬ不具合などが発生する可能性があります。また、今後販売予定の正式版と仕様が変更になる箇所が出る場合があります。御理解の上ご購入下さい。&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;※先行販売としての販売は終了致しました。以下のページにて後継モデルのLily58 Proの販売をしています。https://liliums.booth.pm/items/1175324 この商品ははんだ付けを必要とする組み立て式のキットです。 先行販売のベータ版のため予期せぬ不具合などが発生する可能性があります。また、今後販売予定の正式版と仕様が変更になる箇所が出る場合があります。御理解の上ご購入下さい。&lt;/div&gt;
   &lt;/span&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
@@ -1715,9 +1886,9 @@ Luaは残念ながら型のない世界なのでなんでもアリである｡&l
 カチカチしまくった結果､緑軸が良いな〜と思ったので緑軸にしようとしたものの､ちょうどどこを探しても8000個から仕入れ可能みたいなものしかなかった｡
 仕方がないので､遊舎工房でKailhのロープロ白軸を買った｡
 &lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://yushakobo.jp/shop/pg1350/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://yushakobo.jp/wp-content/uploads/2018/05/YKB0003S.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://yushakobo.jp/shop/pg1350/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://yushakobo.jp/wp-content/uploads/2018/05/20191227-109.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://yushakobo.jp/shop/pg1350/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kailhロープロファイルスイッチ&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://yushakobo.jp/shop/pg1350/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kailhロープロファイルスイッチ（10個）&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;1パック10個入り&lt;/div&gt;
   &lt;/span&gt;
 &lt;/div&gt;&lt;p&gt;カチカチとクリック感があり､青軸のようにうるさいのでパソコンカタカタオタク演ってる感がでて良いかな〜というのが選定理由だ｡&lt;/p&gt;&lt;h1 id=&quot;%E4%BD%9C%E3%82%8B&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E4%BD%9C%E3%82%8B&quot;&gt;作る&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;3月の引越しにつき祖父からもらったり実家からパチってきた激古はんだごてを全部捨ててしまったため､部員の&lt;a href=&quot;https://twitter.com/rizaudo&quot;&gt;@rizaudo&lt;/a&gt;氏にはんだごてを借り､ついでに編集部室で作業をおこなう｡&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/kata0510/Lily58/blob/master/doc/buildguide_jp.md&quot;&gt;ビルドガイド&lt;/a&gt;にしたがって作っていく｡&lt;/p&gt;&lt;h2 id=&quot;pro+micro%E4%BA%8B%E4%BB%B61&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#pro+micro%E4%BA%8B%E4%BB%B61&quot;&gt;pro micro事件1&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;が…&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -1912,431 +2083,6 @@ xmodmapによってキーマップを変更し､&lt;code&gt;AltGr&lt;/code&gt;�
         <category>qmk_firmware</category>
         
         <category>xmodmap</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Lua VMに見る多値の扱い</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡&lt;/p&gt;&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;さて､最近は多値に関する議論がホットだったようです｡
-ホットスポットはこちらの様子｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;http://bleis-tift.hatenablog.com/entry/multiple-values&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://cdn.blog.st-hatena.com/images/theme/og-image-1500.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;http://bleis-tift.hatenablog.com/entry/multiple-values&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;多値について本気で考えてみた - ぐるぐる～&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;先日のエントリの反応として、多値の批判をしているように受け取られた方がいました。 実際には、多値の批判をしているのではなく、Go言語の「多値とそう見えるけど違うものがある」という仕様を批判したものでした。 また、タプルにこだわっているという受け取り方をした方もいました。 このエントリでは、「タプルにこだわっているのでは…&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;p&gt;なるほど｡こちらも見ておこう｡
-&lt;label id=&quot;kochira&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;http://bleis-tift.hatenablog.com/entry/go-the-bad-parts&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://cdn.blog.st-hatena.com/images/theme/og-image-1500.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;http://bleis-tift.hatenablog.com/entry/go-the-bad-parts&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Go言語のイケてない部分 - ぐるぐる～&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;最近色々あって仕事でGo言語を使っています。 色々割り切っている言語なので、こんなこと言ってもしゃーないんですが、言語設計はミスってるんじゃなかなぁ、と思わざるを得ない点が多々あります。 使い始めて1か月くらいなので間違ったことを書いているかもしれませんので、何かあれば指摘していただけるとありがたいです。 本文ではネガ…&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;p&gt;どうやらGoは多値が使えたり使えなかったりするらしい｡
-個人的には使えるか使えない(tupleにするとか)かのどちらかのほうが良い言語デザインだと思うけど､ユーザが問題ないなら…｡&lt;/p&gt;&lt;p&gt;本稿ではLua VMが使える代表的な言語Luaを例に､Goとの多値の違いに付いて見ていき､Lua VMおよびLuaの多値の扱いが良い感じなことを確認したい｡
-拙者Goは知らない侍につき､Goに関してはご容赦｡&lt;/p&gt;&lt;h1 id=&quot;2.+Lua%E3%81%A7%E6%A7%98%E5%AD%90%E8%A6%8B&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+Lua%E3%81%A7%E6%A7%98%E5%AD%90%E8%A6%8B&quot;&gt;2. Luaで様子見&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Lua VMのバイトコードを吐き出してくれるコンパイラの代表といえばluacだと思います｡
-むしろほかを知りませんが｡
-luacはLuaをLua VMバイトコードにコンパイルしてくれるすごいやつだよ｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;引用&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;c&quot;&gt;// 多値を返す関数minmax&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;     &lt;span class=&quot;c&quot;&gt;// 条件演算子がないのも割り切りだとわかっていてもつらい。&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;// 多値の受け取り&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;min:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;, max:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// =&amp;gt; min: 10, max: 20&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;よくあるやつですね｡
-Luaで書くとこうなる｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;minmax&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ありがちですね｡&lt;/p&gt;&lt;p&gt;もう一つ｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;引用&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;n&quot;&gt;tuple&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// コンパイルエラー&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tuple&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tuple&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 10&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最初の方だけ返ってきました｡
-もう一個はどこへ行った???&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 10 20&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;虚空に消えたようで､拾ってやれば出てきます｡
-call by valueなので虚空に消えても値なので特に問題ありません｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;引用&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minmax2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// そのまま返す&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;これは&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minmax2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minmax2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 10 20&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;問題ないね｡&lt;/p&gt;&lt;h2 id=&quot;2-1.+%E2%80%9C%E5%A4%9A%E5%80%A4%E3%81%A3%E3%81%BD%E3%81%84%E6%A7%8B%E6%96%87%E3%81%AA%E3%81%AE%E3%81%AB%E5%A4%9A%E5%80%A4%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%84%E6%A9%9F%E8%83%BD%22%E3%81%AFLua%E3%81%AB%E3%81%AF%E7%84%A1%E3%81%84%E3%81%9C&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-1.+%E2%80%9C%E5%A4%9A%E5%80%A4%E3%81%A3%E3%81%BD%E3%81%84%E6%A7%8B%E6%96%87%E3%81%AA%E3%81%AE%E3%81%AB%E5%A4%9A%E5%80%A4%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%84%E6%A9%9F%E8%83%BD%22%E3%81%AFLua%E3%81%AB%E3%81%AF%E7%84%A1%E3%81%84%E3%81%9C&quot;&gt;2-1. “多値っぽい構文なのに多値ではない機能&quot;はLuaには無いぜ&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;#kochira&quot;&gt;1.1&lt;/a&gt;
-では &quot;多値っぽい構文なのに多値ではない機能&quot;としてfor rangeが例に出されています｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;引用&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;make&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;range&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;i, x&lt;/code&gt; の部分は多値のように見えますが、これは多値ではなく構文です。&lt;/p&gt;
-&lt;/blockquote&gt;&lt;p&gt;なるほど｡Luaにも&lt;code&gt;for-in&lt;/code&gt;で同じようなことがかける｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- Lua唯一のデータ構造tableにサイズ指定なんてないぜ&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ipairs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;i&lt;/code&gt;, &lt;code&gt;x&lt;/code&gt;はLuaでは&lt;strong&gt;多値&lt;/strong&gt;となる｡
-へーそうなんだ｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;ipairs&lt;/code&gt;関数は&lt;em&gt;ジェネレータ&lt;/em&gt;を作る関数であり､ジェネレータが多値を返す関数なんです｡
-へーそうなんだ｡
-ジェネレータがn個の値を返せば､for文でもn個の値を取れる｡
-ジェネレータとはいえ､実態はただの関数である｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;cm&quot;&gt;--[[
-1       0       -1      -2
-2       1       0       -1
-3       2       1       0
-4       3       2       1
-5       4       3       2
-6       5       4       3
-7       6       5       4
-8       7       6       5
-9       8       7       6
-]]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;Go言語では、mapへのアクセスにはスライスや文字列などと同様、 [] を使います。 その結果として、値のほかにキーが存在したかどうかを表す bool 値が受け取れます。&lt;/p&gt;
-&lt;/blockquote&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;引用&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;a&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;b&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ok&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;c&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// 2nd valueとしてbool値が受け取れる&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ok&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;n:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;// =&amp;gt; n: 0&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;Lua唯一のデータ構造tableはmap機能を持っているが､アクセスしたキーに対応する値が無い場合は&lt;code&gt;nil&lt;/code&gt;を返すため､比較はできない｡&lt;/p&gt;&lt;p&gt;茶番になるが､metatableを使ってGoっぽいことをしてみよう｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;setmetatable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;__newindex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;__index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;--[[ __indexメタメソッドを経由したことを確認するため ]]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;__newindex&lt;/code&gt;で&lt;code&gt;t&lt;/code&gt;への値の格納を&lt;code&gt;store&lt;/code&gt;に回すことで､､&lt;code&gt;t&lt;/code&gt;へのアクセスは必ず&lt;code&gt;__index&lt;/code&gt;メタメソッドを経由するようになる｡
-これでいいんじゃないですか…?&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ok&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 30 nil&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;アイエエナンデニンジャ､Luaはどうやらtableへのアクセスに対して多値を返せないようになっているようだ｡
-&lt;code&gt;&quot;多値っぽい構文なのに多値ではない機能&quot;はLuaには無いぜ&lt;/code&gt; なんて啖呵切ったけどどうしますか､言い訳しますか?
-すみませんでした｡
-そもそもtableへのアクセスで多値を要求することがなかったのでこんなことになるとは上記コードを書くまで知りませんでした｡&lt;/p&gt;&lt;p&gt;茶番おわり&lt;/p&gt;&lt;h2 id=&quot;2-2.+error&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-2.+error&quot;&gt;2-2. error&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;最も述べるべきはエラー処理だろう｡
-Luaのエラー処理はGoと似たような方法となる｡
-まずはGo&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;引用&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;// ...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;照井君､ワイもLuaでみたことあるで!!&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;もっとLuaっぽく書く場合は､&lt;code&gt;pcall&lt;/code&gt;関数を使う｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pcall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;pcall&lt;/code&gt;は､第1引数の関数に第2引数以降の値を適用して実行する｡
-このとき第1引数の関数がエラーを吐いたとき､&lt;code&gt;pcall&lt;/code&gt;が&lt;code&gt;nil, error_message&lt;/code&gt;の2値を返す｡構文ではなく単に多値ですね｡
-何もなければ&lt;code&gt;f&lt;/code&gt;の戻り値をそのまま返す｡
-もちろん&lt;code&gt;f&lt;/code&gt;の戻り値は多値の可能性もある｡
-そのため､最初の戻り値が&lt;code&gt;nil&lt;/code&gt;だった場合(&lt;code&gt;not content&lt;/code&gt;で検査している)にエラーを返すようになる｡&lt;/p&gt;&lt;p&gt;Luaは再代入可能なので他は割愛&lt;/p&gt;&lt;h2 id=&quot;2-3.+Lua%E3%81%A7%E3%82%82%E3%81%86%E3%81%99%E3%81%93%E3%81%97%E5%A4%9A%E5%80%A4&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-3.+Lua%E3%81%A7%E3%82%82%E3%81%86%E3%81%99%E3%81%93%E3%81%97%E5%A4%9A%E5%80%A4&quot;&gt;2-3. Luaでもうすこし多値&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;多値はLuaでは頻出パターンである｡
-たとえばパターンマッチ(Luaでパターンというと正規表現風のアレでマッチはマッチや､これは重要なので注釈じゃなくここに記述する)&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Hello, world&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;%S+(.*)$&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[[match: &quot;%s&quot;; rest: &quot;%s&quot;]]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- match: &quot;Hello,&quot;; rest: &quot;world&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;もちろん多値&lt;/p&gt;&lt;p&gt;他にも…あまり思いつかなかった｡&lt;/p&gt;&lt;p&gt;例えばオプショナルな値を返したい時とか､なんとか､ともかくLuaで多値は非常に自然に使われるんや｡&lt;/p&gt;&lt;h2 id=&quot;2-4.+%E5%A4%9A%E5%80%A4%E3%81%8C%E5%80%A4%E3%81%AB%E3%81%AA%E3%82%8B%E7%9E%AC%E9%96%93&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-4.+%E5%A4%9A%E5%80%A4%E3%81%8C%E5%80%A4%E3%81%AB%E3%81%AA%E3%82%8B%E7%9E%AC%E9%96%93&quot;&gt;2-4. 多値が値になる瞬間&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Luaでは可変長引数が使える｡
-こういった瞬間､多値が単一の値になるような瞬間がある｡&lt;/p&gt;&lt;p&gt;とりあえず多値を返す関数を用意しておく｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可変長引数をとる関数は､関数の仮引数に&lt;code&gt;...&lt;/code&gt;と書く｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;-- ...&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;...&lt;/code&gt;は多値なのでこう書けるはずだ｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;in g&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 1 2&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;いいな｡よし｡&lt;/p&gt;&lt;p&gt;さて､他に&lt;code&gt;...&lt;/code&gt;をどうするのかというとこれをtableに突っ込む｡またtableか｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;in g&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;は??? 多値がお前…&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- Luaは1オリジン!!!!!&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 1 2&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;冷静になると&lt;code&gt;local x, y = ...&lt;/code&gt;もたいがいやぞ｡&lt;/p&gt;&lt;h1 id=&quot;3.+Lua+VM%E3%81%A8%E5%A4%9A%E5%80%A4&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+Lua+VM%E3%81%A8%E5%A4%9A%E5%80%A4&quot;&gt;3. Lua VMと多値&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;さて､Luaは多値がGoよりも頻出しており､多値っぽいなと思ったものはだいたい多値であることが分かった｡
-Luaのランタイムとして多く採用されているLua VMについて､多値をどうさばいてるのか見てみよう｡&lt;/p&gt;&lt;h2 id=&quot;3-1.+Lua+VM%E3%81%A8%E3%81%AF&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-1.+Lua+VM%E3%81%A8%E3%81%AF&quot;&gt;3-1. Lua VMとは&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;PUC-Lua 5.0からレジスタマシンアーキテクチャを採用している&lt;sup id=&quot;fnref1&quot; title='Ierusalimschy, Roberto, Luiz Henrique de Figueiredo, and Waldemar Celes. &quot;The evolution of Lua.” Proceedings of the third ACM SIGPLAN conference on History of programming languages. ACM, 2007. '&gt;&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;｡
-Lua VM 5.3では47個の命令を持ち､5.4では四則演算に関して5.2から導入された&lt;code&gt;integer&lt;/code&gt;型を高速に処理するための命令が追加されそうだ&lt;sup id=&quot;fnref2&quot; title=&quot;https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219 &quot;&gt;&lt;a href=&quot;#fn2&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;｡&lt;/p&gt;&lt;p&gt;まずはバイトコードに触れてみよう｡
-お手元にluacをご用意ください｡
-パッケージマネージャでLuaをインストールすれば使えるはずだ｡
-&lt;code&gt;luac-5.3&lt;/code&gt;とか&lt;code&gt;luac5.3&lt;/code&gt;とか､単に&lt;code&gt;luac&lt;/code&gt;など｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;hoge.lua
-&lt;span class=&quot;go&quot;&gt;print(&quot;Hello&quot;)
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;luac &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; /dev/null &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; hoge.lua
-&lt;span class=&quot;go&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;main &amp;lt;hoge.lua:0,0&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;4 instructions at 0x55f888496c70&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;go&quot;&gt;0+ params, 2 slots, 1 upvalue, 0 locals, 2 constants, 0 functions
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;        1       [1]     GETTABUP        0 0 -1  ;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;_ENV &lt;span class=&quot;s2&quot;&gt;&quot;print&quot;&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;        2       [1]     LOADK           1 -2    ;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Hello&quot;&lt;/span&gt;
-&lt;span class=&quot;go&quot;&gt;        3       [1]     CALL            0 2 1
-        4       [1]     RETURN          0 1
-constants (2) for 0x55f888496c70:
-        1       &quot;print&quot;
-        2       &quot;Hello&quot;
-locals (0) for 0x55f888496c70:
-upvalues (1) for 0x55f888496c70:
-        0       _ENV    1       0
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;-l -l&lt;/code&gt;はverboseみたいなもので､デバッグ情報を全部だしてくれる｡
-&lt;code&gt;-o /dev/null&lt;/code&gt;は生成された&lt;code&gt;luac.out&lt;/code&gt;を/dev/nullに捨てているだけである｡
-今回luac.outに興味はないのでご退場いただいた｡&lt;/p&gt;&lt;p&gt;あらためて出力を見てみる｡
-この出力にはクロージャの情報が並んで表示される｡
-&lt;a href=&quot;https://nymphium.github.io/2016/04/25/luaquiz.html&quot;&gt;Luaのトップレベルも関数&lt;/a&gt;である｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;main &amp;lt;hoge.lua:0,0&amp;gt; (4 instructions at 0x55f888496c70)
-0+ params, 2 slots, 1 upvalue, 0 locals, 2 constants, 0 functions
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;関数の情報がかかれている｡
-&lt;code&gt;1 upvalue&lt;/code&gt;は上位値の数､&lt;code&gt;2 constants&lt;/code&gt;は定数の数､&lt;code&gt;0 functions&lt;/code&gt;はクロージャの数｡
-&lt;code&gt;0+ params&lt;/code&gt;は引数の数であり､この&lt;code&gt;+&lt;/code&gt;は上記の可変長引数をとることを意味している｡
-トップレベルは可変長引数を取るようだな｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;        1       [1]     GETTABUP        0 0 -1  ; _ENV &quot;print&quot;
-        2       [1]     LOADK           1 -2    ; &quot;Hello&quot;
-        3       [1]     CALL            0 2 1
-        4       [1]     RETURN          0 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ここが命令列&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;        2       [1]     LOADK           1 -2    ; &quot;Hello&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;2&lt;/code&gt;が命令のインデックス､&lt;code&gt;[1]&lt;/code&gt;が対応するソースコードの行､&lt;code&gt;LOADK&lt;/code&gt;がニーモニック､&lt;code&gt;1 -2&lt;/code&gt;がオペランド｡
-&lt;code&gt;; &quot;Hello&quot;&lt;/code&gt;はコメントである｡
-Lua VMは三番地コードを採用している｡
-レジスタは0〜255まで用意されている｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;constants (2) for 0x55f888496c70:
-        1       &quot;print&quot;
-        2       &quot;Hello&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;定数のリスト｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;locals (0) for 0x55f888496c70:
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ローカル変数のリスト｡
-これはデバッグ情報としてのみ､スタックトレースなどに利用される｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;upvalues (1) for 0x55f888496c70:
-        0       _ENV    1       0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上位値のリスト｡
-トップレベルだと雰囲気でないが､クロージャを書く時はスコープ内に外側で定義した変数を使いますよね､ソレです｡
-&lt;code&gt;_ENV&lt;/code&gt;はグローバル変数が格納されているtable｡
-グローバル変数はtableなんですねぇ｡&lt;/p&gt;&lt;p&gt;あとはこれが関数ごとに表示される｡&lt;/p&gt;&lt;h1 id=&quot;4.+%3Ccode%3ECALL%3C%2Fcode%3E+%26amp%3B+%3Ccode%3ERETURN%3C%2Fcode%3E%0A&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%3Ccode%3ECALL%3C%2Fcode%3E+%26amp%3B+%3Ccode%3ERETURN%3C%2Fcode%3E%0A&quot;&gt;4. &lt;code&gt;CALL&lt;/code&gt; &amp;amp; &lt;code&gt;RETURN&lt;/code&gt;
-&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;命令列に戻ってみる｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;        1       [1]     GETTABUP        0 0 -1  ; _ENV &quot;print&quot;
-        2       [1]     LOADK           1 -2    ; &quot;Hello&quot;
-        3       [1]     CALL            0 2 1
-        4       [1]     RETURN          0 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;GETTABUP&lt;/code&gt;命令で&lt;code&gt;_ENV&lt;/code&gt;に格納されている&lt;code&gt;print&lt;/code&gt;をレジスタ0に引っ張っている｡
-第1レジスタで格納するレジスタを指定し､第2オペランドで上位値を指定する｡
-第3オペランドがtableへのアクセスに使う値を決めるものであり､負のときは定数リストの&lt;code&gt;第3オペランド * -1 - 1&lt;/code&gt;番目のキーを使う｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;LOADK&lt;/code&gt;で定数リストから&lt;code&gt;&quot;Hello&quot;&lt;/code&gt;を取り出し､レジスタ1に格納する｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;CALL&lt;/code&gt;で関数呼出しをおこなう｡
-&lt;label id=&quot;lopcodes.h&quot;&gt;&lt;/label&gt;
- &lt;a href=&quot;https://github.com/lua/lua/blob/v5-3-4/lopcodes.h&quot;&gt;命令の定義&lt;/a&gt;に書かれたコメントを見てみる｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;OP_CALL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/*  A B C  R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) */&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;分かる､分からない…｡
-レジスタAの関数にレジスタ(A + 1), …, レジスタ(A + B - 1)を渡して呼び出し､
-結果をレジスタA, …, レジスタ(A + C - 2)に格納する､という感じだな｡
-A, B, Cは第1オペランド､第2オペランド､第3オペランドに対応する｡
-確かに､戻り値の処理などが多値にうまく対応している｡&lt;/p&gt;&lt;p&gt;これより&lt;code&gt;CALL 0 2 1&lt;/code&gt;はレジスタ0にある&lt;code&gt;print&lt;/code&gt;にレジスタ0の&lt;code&gt;&quot;Hello&quot;&lt;/code&gt;を適用している｡
-戻り値はレジスタ(A+C-2)だから…あれ､レジスタ-1とはなんですか｡
-A+C-2 &amp;lt; 0なら戻り値を気にしない､という予想で読んでいこう｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;RETURN&lt;/code&gt;も難しい｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;OP_RETURN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/*    A B return R(A), ... ,R(A+B-2)  (see note)  */&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これも同様にA+B - 2 &amp;lt; 0はvoid&lt;sup id=&quot;fnref3&quot; title='void-unit戦争が世界の何処かでおこなわれていますが､これはまさにvoidですね｡Luaでこういった関数の戻り値を受け取るとnilが返ってきますが､これは&quot;無い値&quot;を参照しているので､nilは正しい(オタク早口)｡ '&gt;&lt;a href=&quot;#fn3&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;のような関数ということでしょう｡&lt;/p&gt;&lt;p&gt;他の命令も､特に条件分岐あたりは面白いので1つ1つ見ていきたいが､ここでは多値が絡む部分だけ見ていこう｡
-気になった方はluaのソースコードをご覧ください｡&lt;/p&gt;&lt;p&gt;ほかにも例を見てみよう｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell-session&quot; data-lang=&quot;shell-session&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;huga.lua
-&lt;span class=&quot;go&quot;&gt;local x = 3
-local y = 5
-local z = x + y
-print(z)
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;luac &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; /dev/null &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; huga.lua
-&lt;span class=&quot;c&quot;&gt;......
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;        1       [1]     LOADK           0 -1    ;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;3
-&lt;span class=&quot;gp&quot;&gt;        2       [2]     LOADK           1 -2    ;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;5
-&lt;span class=&quot;go&quot;&gt;        3       [3]     ADD             2 0 1
-&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;        4       [4]     GETTABUP        3 0 -3  ;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;_ENV &lt;span class=&quot;s2&quot;&gt;&quot;print&quot;&lt;/span&gt;
-&lt;span class=&quot;go&quot;&gt;        5       [4]     MOVE            4 2
-        6       [4]     CALL            3 2 1
-        7       [4]     RETURN          0 1
-&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;......
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;1､2行目をみると､ローカル変数もレジスタに突っ込まれることが分かる｡&lt;/p&gt;&lt;p&gt;つぎいってみよ〜&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;unpack.lua&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;table.insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;table.unpack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 1  2  3  4  5  6  7  8  9  10&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;tableを受け取り､配列部分を全て多値としてぶちまける&lt;code&gt;table.unpack&lt;/code&gt;という関数を使う｡
-ちょっと待てよ､&lt;code&gt;f&lt;/code&gt;は何個値を返すんだ､まさか処理系が&lt;code&gt;f&lt;/code&gt;の呼び出しする部分ごとに解析してサイズを決めるんですか?
-そんなわけない｡
-&lt;code&gt;CALL&lt;/code&gt;の引数はどうなる､俺達の未来はー&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;luac &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; /dev/null &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; unpack.lua
-
-main &amp;lt;unpack.lua:0,0&amp;gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;7 instructions at 0x55d6a2333c70&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-0+ params, 4 slots, 1 upvalue, 1 &lt;span class=&quot;nb&quot;&gt;local&lt;/span&gt;, 2 constants, 1 &lt;span class=&quot;k&quot;&gt;function
-        &lt;/span&gt;1       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;9]     CLOSURE         0 0     &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 0x55d6a2333e50
-        2       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11]    GETTABUP        1 0 &lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; _ENV &lt;span class=&quot;s2&quot;&gt;&quot;print&quot;&lt;/span&gt;
-        3       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11]    MOVE            2 0
-        4       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11]    LOADK           3 &lt;span class=&quot;nt&quot;&gt;-2&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 10
-        5       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11]    CALL            2 2 0
-        6       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11]    CALL            1 0 1
-        7       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11]    RETURN          0 1
-constants &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;0x55d6a2333c70:
-        1       &lt;span class=&quot;s2&quot;&gt;&quot;print&quot;&lt;/span&gt;
-        2       10
-locals &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;0x55d6a2333c70:
-        0       f       2       8
-upvalues &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;0x55d6a2333c70:
-        0       _ENV    1       0
-
-&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &amp;lt;unpack.lua:1,9&amp;gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;17 instructions at 0x55d6a2333e50&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-1 param, 9 slots, 1 upvalue, 6 locals, 4 constants, 0 functions
-        1       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;2]     NEWTABLE        1 0 0
-        2       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;4]     LOADK           2 &lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 1
-        3       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;4]     MOVE            3 0
-        4       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;4]     LOADK           4 &lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 1
-        5       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;4]     FORPREP         2 5     &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; to 11
-        6       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5]     GETTABUP        6 0 &lt;span class=&quot;nt&quot;&gt;-2&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; _ENV &lt;span class=&quot;s2&quot;&gt;&quot;table&quot;&lt;/span&gt;
-        7       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5]     GETTABLE        6 6 &lt;span class=&quot;nt&quot;&gt;-3&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;insert&quot;&lt;/span&gt;
-        8       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5]     MOVE            7 1
-        9       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5]     MOVE            8 5
-        10      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5]     CALL            6 3 1
-        11      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;4]     FORLOOP         2 &lt;span class=&quot;nt&quot;&gt;-6&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; to 6
-        12      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;8]     GETTABUP        2 0 &lt;span class=&quot;nt&quot;&gt;-2&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; _ENV &lt;span class=&quot;s2&quot;&gt;&quot;table&quot;&lt;/span&gt;
-        13      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;8]     GETTABLE        2 2 &lt;span class=&quot;nt&quot;&gt;-4&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;unpack&quot;&lt;/span&gt;
-        14      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;8]     MOVE            3 1
-        15      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;8]     TAILCALL        2 2 0
-        16      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;8]     RETURN          2 0
-        17      &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;9]     RETURN          0 1
-constants &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;4&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;0x55d6a2333e50:
-        1       1
-        2       &lt;span class=&quot;s2&quot;&gt;&quot;table&quot;&lt;/span&gt;
-        3       &lt;span class=&quot;s2&quot;&gt;&quot;insert&quot;&lt;/span&gt;
-        4       &lt;span class=&quot;s2&quot;&gt;&quot;unpack&quot;&lt;/span&gt;
-locals &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;6&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;0x55d6a2333e50:
-        0       x       1       18
-        1       ret     2       18
-        2       &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;index&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;     5       12
-        3       &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;limit&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;     5       12
-        4       &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;step&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;      5       12
-        5       i       6       11
-upvalues &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;0x55d6a2333e50:
-        0       _ENV    0       0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;先頭の関数情報がトップレベル､2つ目のほうが&lt;code&gt;f&lt;/code&gt;の情報である｡
-&lt;code&gt;f&lt;/code&gt;のほうをまず見てみよう｡
-一気にreturn部分を見る｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;        15      [8]     TAILCALL        2 2 0
-        16      [8]     RETURN          2 0
-        17      [9]     RETURN          0 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;TAILCALL&lt;/code&gt;ってなんですか?
-関数の末尾で関数呼出ししてその戻り値をそのまま返す場合は&lt;code&gt;TAILCALL&lt;/code&gt;になる｡
-いわゆる末尾呼び出し最適化みたいなものですね｡
-偉い｡
-なので16, 17番目の&lt;code&gt;RETURN&lt;/code&gt;は実際には使われない命令となっている｡
-最適化で消えてほしいですね｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;OP_TAILCALL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/*  A B C   return R(A)(R(A+1), ... ,R(A+B-1))      */&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第3オペランドCは便宜上あるだけで使われないようです｡
-内部的な話をすると､バイトコードの1命令は32bitである｡
-&lt;code&gt;TAILCALL&lt;/code&gt;の引数はレジスタの指定だけに使うので､各オペランドのサイズは8bitあれば十分である｡
-ABC型の命令は各オペランドは8, 9, 9bit(ニーモニックは全部等しく6bit)となっており､サイズがちょうど良さげなので､Cを無視してA,Bだけ使っている､ということだろうか｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;TAILCALL 2 2 0&lt;/code&gt;は､レジスタ2にある&lt;code&gt;table.unpkacp&lt;/code&gt;に､レジスタ3の&lt;code&gt;ret&lt;/code&gt;を適用してその戻り値(多値含む)を返す､ということですね｡
-まず&lt;code&gt;f&lt;/code&gt;と意気込んで見てみたものの､サラッとしてるのであまり多値みがないですね｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;print(f(10))&lt;/code&gt;はどうなったかを見よう｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;        1       [9]     CLOSURE         0 0     ; 0x55d6a2333e50
-        2       [11]    GETTABUP        1 0 -1  ; _ENV &quot;print&quot;
-        3       [11]    MOVE            2 0
-        4       [11]    LOADK           3 -2    ; 10
-        5       [11]    CALL            2 2 0
-        6       [11]    CALL            1 0 1
-        7       [11]    RETURN          0 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;CLOSURE&lt;/code&gt;はクロージャを作っている｡
-今回は特になにもクロージングしてないですね｡
-5つ目の&lt;code&gt;CALL 2 2 0&lt;/code&gt;が&lt;code&gt;f&lt;/code&gt;の呼び出しになっている｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;CALL&lt;/code&gt; 振り返り&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;OP_CALL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/*  A B C  R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) */&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A+C-2は0ですが､一体なにがどうなって?
-&lt;a href=&quot;#fn2&quot;&gt;lopcode.h&lt;/a&gt;
-の下の方になんかかいてあるな｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;  Notes:
-  (*) In OP_CALL, if (B == 0) then B = top. If (C == 0), then 'top' is
-  set to last_result+1, so next open instruction (OP_CALL, OP_RETURN,
-  OP_SETLIST) may use 'top'.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ホゲッ!?
-この&lt;code&gt;top&lt;/code&gt;というのは､中身が&lt;code&gt;nil&lt;/code&gt;でないレジスタの最大インデックス､という感じだろうか｡
-luacはレジスタを0から順番に使っているので､スキマがあったりなんだかよくわからない感じになったりという事故は(多分)おきないので問題ない｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;CALL 2 2 0&lt;/code&gt;は､レジスタ2に入ってる関数にレジスタ3の値を適用して､そして…?
-情報が足りてないのだが､この場合戻り値をレジスタ2から全部順番に格納する｡
-そして&lt;code&gt;top&lt;/code&gt;が更新される｡&lt;/p&gt;&lt;p&gt;次の&lt;code&gt;CALL 1 0 1&lt;/code&gt;も面白い｡&lt;code&gt;B == 0&lt;/code&gt;なので&lt;code&gt;B = top&lt;/code&gt;となる｡
-レジスタ1にある&lt;code&gt;print&lt;/code&gt;に､レジスタ2から&lt;code&gt;top&lt;/code&gt;までを適用する｡
-なるほど｡&lt;/p&gt;&lt;p&gt;Lua VMの命令は面白いことがわかった｡
-レジスタベースでも多値をガンガン扱えるぜ､Lua VMは多値をうまく扱ってるぜ､ということでした｡&lt;/p&gt;&lt;h1 id=&quot;5.+%E7%B6%99%E7%B6%9A%E3%81%A8%E5%A4%9A%E5%80%A4&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E7%B6%99%E7%B6%9A%E3%81%A8%E5%A4%9A%E5%80%A4&quot;&gt;5. 継続と多値&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;余談｡
-Luaにファーストクラスの継続はないが､だいたい継続であるところのコルーチンはある｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;co&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;init&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;coroutine.yield&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;coroutine.yield&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- init&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 1  2  3&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 4  5  6  7  8  9  10&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;はい｡&lt;/p&gt;&lt;h1 id=&quot;6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;6. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ひさしぶりにLuaに思いを馳せたので思い出したり資料をのぞいたりで執筆に結構時間がかかってしまった｡&lt;/p&gt;&lt;p&gt;ところで!
-VM型インタプリタ面白いなと思った方は､ぜひこちらをご覧ください｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://dragonuniversity.booth.pm/items/1055860&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://booth.pximg.net/c/620x620/a00fe615-aca9-4ac2-9e73-c117987944f4/i/1055860/0273cc3f-790b-4942-8b48-c406e61ec61d_base_resized.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://dragonuniversity.booth.pm/items/1055860&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Dragon University 技術書典5 - Dragon University - BOOTH&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;技術書典5で配布した「Dragon University 技術書典5」のPDF版です。 ※紙媒体を持っている場合は別場所でダウンロードできるように作業中です。お待ち下さい。 記事一覧: GLSLでリアルタイムレンダリングするカド - @rairyugo GANとの付き合い方 デプロイ編 - @rizaudo CTF 問題で学ぶcurl SSRF Hacks - @xrekkusu つくってかんたんVirtual Machine-based Interpreter - @nymphium 動作環境 Acrobat Proで互換性を確認したPDFです。EPUBは対応未定です。&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;p&gt;宣伝おわり&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-
-&lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;Ierusalimschy, Roberto, Luiz Henrique de Figueiredo, and Waldemar Celes. &quot;The evolution of Lua.” Proceedings of the third ACM SIGPLAN conference on History of programming languages. ACM, 2007. &lt;a href=&quot;#fnref1&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn2&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219&quot;&gt;https://github.com/lua/lua/blob/b43300c14f562bcdc1050f2c05e52fac3f6c99b7/lopcodes.h#L219&lt;/a&gt; &lt;a href=&quot;#fnref2&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn3&quot;&gt;
-&lt;p&gt;void-unit戦争が世界の何処かでおこなわれていますが､これはまさにvoidですね｡Luaでこういった関数の戻り値を受け取るとnilが返ってきますが､これは&quot;無い値&quot;を参照しているので､nilは正しい(オタク早口)｡ &lt;a href=&quot;#fnref3&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-        <pubDate>Fri, 16 Nov 2018 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html</guid>
-        
-        <category>Go</category>
-        
-        <category>Lua VM</category>
-        
-        <category>多値</category>
-        
-        <category>multiple value</category>
         
         
       </item>

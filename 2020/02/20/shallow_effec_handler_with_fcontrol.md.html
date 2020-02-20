@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>fcontrol/runでshallow effect handler - lilyum ensemble</title>
+    <meta itemprop="name" content="fcontrol/runでshallow effect handler - lilyum ensemble"/>
+    <meta name="keywords" content="Algebraic Effects,Delimited Continuation,Racket"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="fcontrol/runでshallow effect handler - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2020/02/20/shallow_effec_handler_with_fcontrol.md.html"/> 
+    <meta name="twitter:text:description" content="こんにちは､びしょ〜じょです｡気づけば2020年になってました｡2020年ってなんだ? SFですか?1. はじめに - Algebraic Effectsおさらい本日はshallow effec..."/>
+    <meta name="twitter:image:src" content="/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="fcontrol/runでshallow effect handler" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="lily, Aikatsu, Programming language, and more" />
+<meta property="og:description" content="lily, Aikatsu, Programming language, and more" />
+<link rel="canonical" href="https://nymphium.github.io/2020/02/20/shallow_effec_handler_with_fcontrol.md.html" />
+<meta property="og:url" content="https://nymphium.github.io/2020/02/20/shallow_effec_handler_with_fcontrol.md.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-02-20T00:00:00+09:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2020/02/20/shallow_effec_handler_with_fcontrol.md.html"},"@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"headline":"fcontrol/runでshallow effect handler","dateModified":"2020-02-20T00:00:00+09:00","datePublished":"2020-02-20T00:00:00+09:00","description":"lily, Aikatsu, Programming language, and more","url":"https://nymphium.github.io/2020/02/20/shallow_effec_handler_with_fcontrol.md.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">fcontrol/runでshallow effect handler</h1>
+            <span class="post-meta">
+              <time datetime="2020-02-20T00:00:00+09:00" itemprop="datePublished">Feb 20, 2020</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2020-02-20-shallow_effec_handler_with_fcontrol.md.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<a href="/tags.html#Algebraic%20Effects-ref">Algebraic Effects</a>, <a href="/tags.html#Delimited%20Continuation-ref">Delimited Continuation</a>, <a href="/tags.html#Racket-ref">Racket</a>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡
+気づけば2020年になってました｡
+2020年ってなんだ? SFですか?</p>
+<hr>
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB+-+Algebraic+Effects%E3%81%8A%E3%81%95%E3%82%89%E3%81%84"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB+-+Algebraic+Effects%E3%81%8A%E3%81%95%E3%82%89%E3%81%84">1. はじめに - Algebraic Effectsおさらい</a></h1>
+<p>本日はshallow effect handlerを実装します｡
+まず <em>shallow</em> effect handlerとはなんでしょう?
+最初にalgebraic effects and handlersについておさらいします｡
+あれとかこれとかそれとかを読んでおさらいしてください｡</p>
+<div class="twicard">
+  <span class="image"><a href="https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html" target="_blank" rel="noopener noreferrer"><div><img src="https://nymphium.github.io/pictures/github_icon.png"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html" target="_blank" rel="noopener noreferrer">Algebraic Effectsであそぼう - lilyum ensemble</a></div>
+    <div class="description">こんにちは､びしょ〜じょです｡ここしばらく20行/日くらいしかコード書いてません｡いやもっと少ないかも…｡いや研究してますんで! いや〜研究もそんなにしてないな…じゃあ何を…1. はじめにAlg…</div>
+  </span>
+</div>
+<p></p>
+<center>
+  <a href="https://nymphium.github.io/pdf/mlday2.html" target="_blank" rel="noopener noreferrer">Dive into Algebraic Effects - lilyum ensemble</a>
+</center>
+<div class="twicard">
+  <span class="image"><a href="https://qiita.com/Nymphium/items/e6ce580da8b87ded912b" target="_blank" rel="noopener noreferrer"><div><img src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fcdn.qiita.com%2Fassets%2Fpublic%2Fogp-background-1150d8b18a7c15795b701a55ae908f94.png?ixlib=rb-1.2.2&amp;w=1200&amp;mark=https%3A%2F%2Fqiita-user-contents.imgix.net%2F~text%3Fixlib%3Drb-1.2.2%26w%3D840%26h%3D380%26txt%3DAlgebraic%2520Effects%25E3%2581%25A8%25E3%2581%25AF%253F%2520%25E5%2587%25BA%25E8%25BA%25AB%25E3%2581%25AF%253F%2520%25E4%25BD%25BF%25E3%2581%2584%25E6%2596%25B9%25E3%2581%25AF%253F%2520%25E3%2581%259D%25E3%2581%25AE%25E7%2589%25B9%25E5%25BE%25B4%25E3%2581%25A8%25E3%2581%25AF%253F%2520%25E8%25AA%25BF%25E3%2581%25B9%25E3%2581%25A6%25E3%2581%25BF%25E3%2581%25BE%25E3%2581%2597%25E3%2581%259F%2521%26txt-color%3D%2523333%26txt-font%3DAvenir-Black%26txt-size%3D54%26txt-clip%3Dellipsis%26txt-align%3Dcenter%252Cmiddle%26s%3D1caabdbc9f6c0e53b796c74eee4ee35b&amp;mark-align=center%2Cmiddle&amp;blend=https%3A%2F%2Fqiita-user-contents.imgix.net%2F~text%3Fixlib%3Drb-1.2.2%26w%3D840%26h%3D500%26txt%3D%2540Nymphium%26txt-color%3D%2523333%26txt-font%3DAvenir-Black%26txt-size%3D45%26txt-align%3Dright%252Cbottom%26s%3Dfd6494ecf386fd4832ae2af2ec363e6c&amp;blend-align=center%2Cmiddle&amp;blend-mode=normal&amp;s=d981ca15ae673b02388b321b0c2231ea"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://qiita.com/Nymphium/items/e6ce580da8b87ded912b" target="_blank" rel="noopener noreferrer">Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました! - Qiita</a></div>
+    <div class="description">ReactのHooksが実質algebraic effectsなんじゃないかということでalgebraic effectsに関する怪文書が流布して鼻白んでしまう､そんな未来を阻止するため､曲がりなりにもalgebraic effect…</div>
+  </span>
+</div>
+<p>なるほど､ <strong>復帰可能な例外</strong> ですね｡承知しました｡</p>
+<h1 id="2.+shallow+effect+handler"><a class="headerlink" href="#2.+shallow+effect+handler">2. shallow effect handler</a></h1>
+<p>では改めて､ <em>shallow</em> effect handlerとはなんでしょう?
+上に挙げられたシステムでは､ハンドラが取ってきた継続を起動させたときにまた発生するエフェクトが､また同じハンドラによって捕捉されています｡
+逆に <em>shallow</em> effect handler は､ハンドラが取得した継続の中で発生するエフェクトは同じハンドラによっては捕捉されず､一つ外側のハンドラまで到達します｡
+論文はこちら:</p>
+<div class="twicard">
+  <span class="image"><a href="https://link.springer.com/chapter/10.1007/978-3-030-02768-1_22" target="_blank" rel="noopener noreferrer"><div><img src="https://static-content.springer.com/cover/book/978-3-030-02768-1.jpg"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://link.springer.com/chapter/10.1007/978-3-030-02768-1_22" target="_blank" rel="noopener noreferrer">Shallow Effect Handlers</a></div>
+    <div class="description">Plotkin and Pretnar’s effect handlers offer a versatile abstraction for modular programming with user-defined effects. Traditional deep handlersare defined by folds over computation trees. In this…</div>
+  </span>
+</div>
+<p>感覚としては､ <code>shift/reset</code> の <code>shift</code> が継続を切り取るときに <code>reset</code> がくっついてくるけど､ <code>shift0/reset0</code> ではくっついてこないという関係と同じですね｡
+<code>shift/reset</code> などについてはコチラ</p>
+<div class="twicard">
+  <span class="image"><a href="https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html" target="_blank" rel="noopener noreferrer"><div><img src="https://nymphium.github.io/pictures/github_icon.png"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html" target="_blank" rel="noopener noreferrer">delimited continuationの夏 - lilyum ensemble</a></div>
+    <div class="description">こんにちは､びしょ〜じょです｡control/promptとprompt tagへの理解が必要になったため､やっていきましょう｡1. continuation??? 継続??? is power…</div>
+  </span>
+</div>
+<p>ごちゃごちゃ言ったけど<a href="https://www.eff-lang.org/" target="_blank" rel="noopener noreferrer">Eff言語</a>でサクッと例を見てみましょう｡
+こんなエフェクトと関数を定義します｡
+ハンドラ<code>h</code>で<code>P</code>エフェクトが2回発生する式をハンドルします｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">effect</span> <span class="nc">P</span> <span class="o">:</span> <span class="kt">int</span> <span class="o">-&gt;</span> <span class="kt">int</span>
+
+<span class="k">let</span> <span class="n">c</span> <span class="n">h</span> <span class="o">=</span>
+  <span class="k">with</span> <span class="n">h</span> <span class="n">handle</span>
+    <span class="n">perform</span> <span class="p">(</span><span class="nc">P</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">perform</span> <span class="p">(</span><span class="nc">P</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+<p>ほんで</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">a1</span> <span class="o">=</span> <span class="n">c</span> <span class="p">(</span><span class="n">handler</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="nc">P</span> <span class="n">i</span> <span class="n">k</span> <span class="o">-&gt;</span> <span class="n">k</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
+  <span class="o">|</span> <span class="k">val</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="p">(</span><span class="n">a1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">9</span><span class="p">))</span>
+</code></pre></div>
+<p>うん､よさそうだ｡
+<code>(+)</code> の評価は左辺の部分項を評価してから右辺に移る､と自然に考えると､最初に<code>P</code>が発生したときにハンドラが取得する継続 <code>k</code> は <code>with h handle □ + perform (P 3)</code> となる｡
+<code>□</code>に<code>(i + i)[i/2]</code>を放り込むので(中略) <code>4 + 9 (= 13)</code> という結果が得られる｡</p>
+<p>続いてshallow handlerを使います｡
+ジッサイのEffにはないんですが､ <code>handler†</code> をshallow handlerとします｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">a2</span> <span class="o">=</span> <span class="n">c</span> <span class="p">(</span><span class="n">handler</span><span class="err">†</span>
+  <span class="o">|</span> <span class="n">effecf</span> <span class="nc">P</span> <span class="n">i</span> <span class="n">k</span> <span class="o">-&gt;</span>
+    <span class="k">with</span> <span class="p">(</span><span class="n">handler</span><span class="err">†</span>
+      <span class="o">|</span> <span class="n">effect</span> <span class="nc">P</span> <span class="n">i</span> <span class="n">k</span> <span class="o">-&gt;</span> <span class="n">k</span> <span class="mi">10</span>
+      <span class="o">|</span> <span class="k">val</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span>
+    <span class="p">)</span> <span class="n">handle</span>
+    <span class="n">k</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
+  <span class="o">|</span> <span class="k">val</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="p">(</span><span class="n">a2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">10</span><span class="p">))</span>
+</code></pre></div>
+<p>フーム妙だ､妙だな……｡
+最初に<code>perform (P 2)</code>をハンドルすると､取得する継続 <code>k</code> は <code>□ + perform (P 3)</code> です｡
+おや､これは<code>a1</code>の評価と異なりますね｡
+これが <strong>shallow</strong> です｡
+ハンドラは継続の中まで追っていきません｡
+なので2回めのエフェクトの発生は､ <code>P</code> のマッチアーム内で新たに定義しているハンドラによってハンドルされます｡
+なので <code>4 + 10 (= 14)</code> が返ってきます｡</p>
+<h2 id="2-1.+%E5%BD%B9%E3%81%AB%E7%AB%8B%E3%81%A4%E3%82%93%E3%81%A7%E3%81%99%E3%81%8B%3F"><a class="headerlink" href="#2-1.+%E5%BD%B9%E3%81%AB%E7%AB%8B%E3%81%A4%E3%82%93%E3%81%A7%E3%81%99%E3%81%8B%3F">2-1. 役に立つんですか?</a></h2>
+<p>Hillerströmらの論文では､pipe/copipeのように生成と消費をおこなう相互再帰関数を例にあげている｡
+またコルーチンのようにリターンポイントをハンドラで実装するときなども､shallow handlerで事足りるだろう｡</p>
+<h1 id="3.+%3Ccode%3Efcontrol%2Frun%3C%2Fcode%3E%E3%81%A7shallow+effect+handler%E3%81%AE%E5%AE%9F%E8%A3%85"><a class="headerlink" href="#3.+%3Ccode%3Efcontrol%2Frun%3C%2Fcode%3E%E3%81%A7shallow+effect+handler%E3%81%AE%E5%AE%9F%E8%A3%85">3. <code>fcontrol/run</code>でshallow effect handlerの実装</a></h1>
+<p>ところでわたくし<a href="http://logic.cs.tsukuba.ac.jp/%7Esat/pdf/tfp2020.pdf" target="_blank" rel="noopener noreferrer">こういう研究</a>をしてるんですが､実は先日もポーランドに行って<a href="http://logic.cs.tsukuba.ac.jp/%7Esat/pdf/tfp2020-slide.pdf" target="_blank" rel="noopener noreferrer">発表しました</a>(隙自語)｡
+このコルーチンによるalgebraic effectsの実装は､ハンドラがdeepになってます｡
+<a href="http://logic.cs.tsukuba.ac.jp/%7Esat/pdf/master_thesis.pdf" target="_blank" rel="noopener noreferrer">修論</a>ではshallowな方の埋め込み方法も乗せているんですが､ご覧の通りなんかぱっとしないし効率もよく無さそうだ｡</p>
+<p>ところで <code>fcontrol/run</code> というコントロールオペレータがあるのですが
+</p>
+<div class="twicard">
+  <span class="image"><a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.22.7256" target="_blank" rel="noopener noreferrer"><div><img src="/images/csx_logo_front.png"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.22.7256" target="_blank" rel="noopener noreferrer">Handling Control</a></div>
+    <div class="description">CiteSeerX - Document Details (Isaac Councill, Lee Giles, Pradeep Teregowda): Non-local control transfer and exception handling have a long tradition in higher-order programming languages such as Common Lisp, Scheme and ML. However, each language stops short of providing a full and complementary approach — control handling is provided only  if the corresponding control operator is first-order. In this work, we describe handlers in a higher-order control setting. We invoke our earlier theoretical result that all denotational models of control languages invariably include capabilities that handle control. These capabilities, when incorporated into the language, form an elegant and powerful higher-order generalization of the first-order exception-handling mechanism.  1 Introduction  Control manipulation in applicative programming languages comes in two flavors. First-order control operators allow computations to abort to a dynamically enclosing control context, e.g., Common Lisp’s [23, 24]  throw and ML’s [9, 17] raise. They are invariably accompanied by forms th…</div>
+  </span>
+</div>
+<p>あんまりいい感じに意味論が書かれてないんで<a href="https://docs.racket-lang.org/reference/cont.html#%28def._%28%28lib._racket%2Fcontrol..rkt%29._fcontrol%29%29" target="_blank" rel="noopener noreferrer"><code>racket/control</code> のドキュメント</a>より引用すると</p>
+<p>$$
+\begin{array}{rcll}
+    \left(\%\ \mathit{val}\ \mathit{proc}\right) &amp; \rightarrow &amp; \mathit{val} &amp; \cr
+    \left(\%\ E \left[\left(\mathtt{fcontrol}\ \mathit{val}\right)\right] \mathit{proc} \right) &amp; \rightarrow &amp; \left(\mathit{proc}\ \mathit{val}\ \left(\lambda \left(x\right)\ E\left[x\right]\right)\right) &amp; \text{$E$ has no $\%$}
+\end{array}
+$$</p>
+<p>となっています｡
+<code>%</code> は<code>run</code>のwrapperで､<code>(% exp handler) === (run (λ () exp) handler)</code>とのことです｡
+<code>%</code> がdelimiterで <code>fcontrol</code> が継続を取り出すオペレータです｡
+面白いのは <code>shift/reset</code> や <code>control/prompt</code> と違い､ <code>fcontrol</code> 自体は継続を扱わずにdelimiterの <code>%</code> の引数の <code>proc</code> が継続を使います｡
+アレッ?! これすでに <code>(% □ proc)</code> がハンドラで <code>fcontrol</code> がエフェクト発生じゃん?!
+ところでRacketの <code>fcontrol/run</code> はプロンプトタグが使えます｡
+つまり <code>fcontrol</code> が評価されたときに､どのdelimiterまで戻ればいいかをタグにより指定することができるんですねえ｡
+ここで吉報です｡multi-prompt shift/resetによるEff言語の埋め込みはKiselyovらにより示されています｡
+</p>
+<div class="twicard">
+  <span class="image"><a href="https://www.researchgate.net/publication/308969161_Eff_Directly_in_OCaml" target="_blank" rel="noopener noreferrer"><div><img src="https://i1.rgstatic.net/publication/308969161_Eff_Directly_in_OCaml/links/57fb885c08ae280dd0c4b6d3/largepreview.png"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://www.researchgate.net/publication/308969161_Eff_Directly_in_OCaml" target="_blank" rel="noopener noreferrer">(PDF) Eff Directly in OCaml</a></div>
+    <div class="description">PDF | We present the embedding of the language Eff into OCaml, using the library of delimited continuations or the OCaml-effects branch. The embedding… | Find, read and cite all the research you need on ResearchGate</div>
+  </span>
+</div>
+<p>よし! では実装しましたはいこちら</p>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">perform</span> <span class="nv">eff</span> <span class="nv">v</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">fcontrol</span> <span class="nv">v</span> <span class="nt">#:tag</span> <span class="nv">eff</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">new-effect</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">make-continuation-prompt-tag</span><span class="p">))</span>
+</code></pre></div>
+<p>エフェクト<code>eff</code>を引数<code>v</code>を渡して発生させるので､そのまま<code>fcontrol</code>を使います｡
+Racketの<code>fcontrol</code>ではオプショナル引数<code>#:tag</code>でタグを渡せます｡</p>
+<p>エフェクトはプロンプトタグに対応するのでそのままです｡</p>
+<p>ハンドラの実装がメインディッシュです｡</p>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="k">define</span> <span class="p">((</span><span class="nf">call-with-shallow-handler</span> <span class="nv">eff</span> <span class="nv">vh</span> <span class="nv">effh</span><span class="p">)</span> <span class="nv">th</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">let*</span> <span class="p">[(</span><span class="nf">p</span> <span class="p">(</span><span class="nb">make-continuation-prompt-tag</span> <span class="ss">'return</span><span class="p">))</span>
+           <span class="p">(</span><span class="nf">const</span> <span class="p">(</span><span class="k">λ</span> <span class="p">(</span><span class="nf">x</span> <span class="nv">_</span><span class="p">)</span> <span class="nv">x</span><span class="p">))</span>
+           <span class="p">(</span><span class="nf">effh~</span> <span class="p">(</span><span class="k">λ</span> <span class="p">(</span><span class="nf">x</span> <span class="nv">k</span><span class="p">)</span>
+                     <span class="p">(</span><span class="nf">fcontrol</span> <span class="p">(</span><span class="nf">effh</span> <span class="nv">x</span> <span class="nv">k</span><span class="p">)</span> <span class="nt">#:tag</span> <span class="nv">p</span><span class="p">)))]</span>
+      <span class="p">(</span><span class="nf">%</span>
+        <span class="p">(</span><span class="k">let</span> <span class="p">[(</span><span class="nf">r</span> <span class="p">(</span><span class="nf">%</span> <span class="p">(</span><span class="nf">th</span><span class="p">)</span> <span class="nv">effh~</span> <span class="nt">#:tag</span> <span class="nv">eff</span><span class="p">))]</span>
+          <span class="p">(</span><span class="nf">vh</span> <span class="nv">r</span><span class="p">))</span>
+        <span class="nv">const</span> <span class="nt">#:tag</span> <span class="nv">p</span><span class="p">)))</span>
+</code></pre></div>
+<p><code>(call-with-shalow-handler effe vh effh)</code>で､エフェクト<code>eff</code>をハンドルするハンドラを作ります｡
+んでサンク<code>th</code>をこのハンドラに渡すと､ハンドラのもとでサンクが潰れて評価が走ります｡</p>
+<p>基本的な考え方は非常に簡単､<code>fcontrol/run</code>がalgebraic effects &amp; handlersであるという直感をそのまま使います｡
+<code>(% (th) effh #:tag eff)</code> でエフェクト<code>eff</code>が起きたときにエフェクトハンドラ<code>effh</code>でハンドルします｡
+しかし<code>fcontrol/run</code>に足りないものがある｡なにか｡value handlerである｡
+shallow effect handlerにおいてvalue handlerが介入するタイミングはdeepな場合と同じ､値をハンドルする場合のみです｡
+そしてshallowなので一度エフェクトをハンドルしたらハンドラは撤退しなければならない｡
+なのでこういう戦略でいきます｡
+- 戻り値は常にvalue handlerで取るようにする
+- しかしエフェクトが発生したらvalue handlerを迂回する
+ベストか? と言われると自信ないですが､ハンドリングされた式を評価したときにエフェクトハンドラでハンドルされたかどうかのフラグを持っておくのはなんかダサいし状態を持ちたくないというのはピュアな感覚です｡
+またタグをつけたり外したりもちょっと面倒です｡
+なので今回はどうにかして迂回します｡
+幸い今回はコントロールオペレータが1つ､<code>fcontrol/run</code>が与えられています｡
+しかも今回はプロンプトタグのおまけ付きだ｡
+エフェクトハンドラの戻り値を<code>fcontrol</code>で飛ばしてvalue handlerに渡るのを阻止しました｡
+吹っ飛んだときの継続は使わなくていいので､<code>const</code>関数でエフェクトハンドラの戻り値だけ受け取って返します｡</p>
+<p>いい感じじゃないですか｡
+それではコルーチンを実装してみます｡</p>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">struct</span> <span class="nv">coroutine</span> <span class="p">([</span><span class="nf">it</span> <span class="nt">#:mutable</span><span class="p">])</span> <span class="nt">#:extra-name</span> <span class="nv">Coroutine</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">define</span> <span class="nv">Yield</span> <span class="p">(</span><span class="nf">new-effect</span><span class="p">))</span>
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">yield</span> <span class="nv">v</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">perform</span> <span class="nv">Yield</span> <span class="nv">v</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">resume</span> <span class="nv">co</span> <span class="nv">v</span><span class="p">)</span>
+  <span class="p">((</span><span class="nf">call-with-shallow-handler</span> <span class="nv">Yield</span>
+                              <span class="p">(</span><span class="k">λ</span> <span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span>
+                              <span class="p">(</span><span class="k">λ</span> <span class="p">(</span><span class="nf">u</span> <span class="nv">k</span><span class="p">)</span>
+                                 <span class="p">(</span><span class="k">begin</span>
+                                   <span class="p">(</span><span class="nf">set-coroutine-it!</span> <span class="nv">co</span> <span class="nv">k</span><span class="p">)</span>
+                                   <span class="nv">u</span><span class="p">)))</span>
+   <span class="p">(</span><span class="k">λ</span> <span class="p">()</span> <span class="p">((</span><span class="nf">coroutine-it</span> <span class="nv">co</span><span class="p">)</span> <span class="nv">v</span><span class="p">))))</span>
+</code></pre></div>
+<p><code>yield</code>はエフェクトの発生､<code>resume</code>はハンドラ､コルーチンスレッドは継続が保存されたセルです｡
+実装うまくいったかな?</p>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="k">let</span> <span class="p">[(</span><span class="nf">co</span> <span class="p">(</span><span class="nf">coroutine</span>
+           <span class="p">(</span><span class="k">λ</span> <span class="p">(</span><span class="nf">_</span><span class="p">)</span>
+              <span class="p">(</span><span class="k">begin</span>
+                <span class="p">(</span><span class="nb">display</span> <span class="s">"hello,"</span><span class="p">)</span>
+                <span class="p">(</span><span class="nb">displayln</span> <span class="p">(</span><span class="nf">yield</span> <span class="o">'</span><span class="p">()))</span>
+                <span class="p">))))]</span>
+  <span class="p">(</span><span class="k">begin</span>
+    <span class="p">(</span><span class="nf">resume</span> <span class="nv">co</span> <span class="o">'</span><span class="p">())</span>
+    <span class="p">(</span><span class="nf">resume</span> <span class="nv">co</span> <span class="s">"world"</span><span class="p">)))</span>
+</code></pre></div>
+<p>こいつ､動くぞ……!</p>
+<h1 id="4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">4. おわりに</a></h1>
+<p><code>fcontrol/run</code>というおもしろいコントロールオペレータとそれを利用したshallow effect handlerの実装を紹介しました｡
+パフォーマンス比較とか他のコントロールオペレータとの関係は読者の皆さんの課題と勝手にさせて､ええ､いただきます｡
+夏休み最終日に絶望する小学生にならないように､日々こつこつと取り組んでください｡</p>
+<hr>
+<p>エッ修論?! 俺は卒業したのか……｡</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2019/12/22/effsub.html" title="『エフェクトに部分型のある代数的効果』">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <span class="btn next disabled">Next →</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
