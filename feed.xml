@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 09 Mar 2020 00:09:18 +0900</pubDate>
-    <lastBuildDate>Mon, 09 Mar 2020 00:09:18 +0900</lastBuildDate>
+    <pubDate>Mon, 09 Mar 2020 00:19:24 +0900</pubDate>
+    <lastBuildDate>Mon, 09 Mar 2020 00:19:24 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -23,9 +23,13 @@
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Algebraic Effectsであそぼう - lilyum ensemble&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;こんにちは､びしょ〜じょです｡ここしばらく20行/日くらいしかコード書いてません｡いやもっと少ないかも…｡いや研究してますんで! いや〜研究もそんなにしてないな…じゃあ何を…1. はじめにAlg…&lt;/div&gt;
   &lt;/span&gt;
-&lt;/div&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
-  &lt;a href=&quot;https://nymphium.github.io/pdf/mlday2.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Dive into Algebraic Effects - lilyum ensemble&lt;/a&gt;
-&lt;/center&gt;&lt;div class=&quot;twicard&quot;&gt;
+&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/pdf/mlday2.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://nymphium.github.io/pdf/mlday2.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/pdf/mlday2.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Dive into Algebraic Effects - lilyum ensemble&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;mlday2&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
   &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://qiita-user-contents.imgix.net/https%3A%2F%2Fcdn.qiita.com%2Fassets%2Fpublic%2Fogp-background-1150d8b18a7c15795b701a55ae908f94.png?ixlib=rb-1.2.2&amp;amp;w=1200&amp;amp;mark=https%3A%2F%2Fqiita-user-contents.imgix.net%2F~text%3Fixlib%3Drb-1.2.2%26w%3D840%26h%3D380%26txt%3DAlgebraic%2520Effects%25E3%2581%25A8%25E3%2581%25AF%253F%2520%25E5%2587%25BA%25E8%25BA%25AB%25E3%2581%25AF%253F%2520%25E4%25BD%25BF%25E3%2581%2584%25E6%2596%25B9%25E3%2581%25AF%253F%2520%25E3%2581%259D%25E3%2581%25AE%25E7%2589%25B9%25E5%25BE%25B4%25E3%2581%25A8%25E3%2581%25AF%253F%2520%25E8%25AA%25BF%25E3%2581%25B9%25E3%2581%25A6%25E3%2581%25BF%25E3%2581%25BE%25E3%2581%2597%25E3%2581%259F%2521%26txt-color%3D%2523333%26txt-font%3DAvenir-Black%26txt-size%3D54%26txt-clip%3Dellipsis%26txt-align%3Dcenter%252Cmiddle%26s%3D1caabdbc9f6c0e53b796c74eee4ee35b&amp;amp;mark-align=center%2Cmiddle&amp;amp;blend=https%3A%2F%2Fqiita-user-contents.imgix.net%2F~text%3Fixlib%3Drb-1.2.2%26w%3D840%26h%3D500%26txt%3D%2540Nymphium%26txt-color%3D%2523333%26txt-font%3DAvenir-Black%26txt-size%3D45%26txt-align%3Dright%252Cbottom%26s%3Dfd6494ecf386fd4832ae2af2ec363e6c&amp;amp;blend-align=center%2Cmiddle&amp;amp;blend-mode=normal&amp;amp;s=d981ca15ae673b02388b321b0c2231ea&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました! - Qiita&lt;/a&gt;&lt;/div&gt;
