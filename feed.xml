@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 21 Feb 2020 02:43:19 +0900</pubDate>
-    <lastBuildDate>Fri, 21 Feb 2020 02:43:19 +0900</lastBuildDate>
+    <pubDate>Sun, 08 Mar 2020 16:33:08 +0900</pubDate>
+    <lastBuildDate>Sun, 08 Mar 2020 16:33:08 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -638,12 +638,12 @@ extensible effectsはsubtypingを持たないHaskellを起源に持ち､antos-e
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; ありそうでなかなかなかったFree applicativeの紹介と、そのextensible化。途中の計算結果に依存しないという性質を利用してRPCなどの記述に使えそう&lt;/p&gt;— 𓅵ふみ (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132501183875100672?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; ありそうでなかなかなかったFree applicativeの紹介と、そのextensible化。途中の計算結果に依存しないという性質を利用してRPCなどの記述に使えそう&lt;/p&gt;— 𓆑𓅱 𓅓𓏭𓇌𓅱𓄿𓂋 (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132501183875100672?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Free ApplicativeとFree Monadのliftを共通化するのは面白そうだ &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 𓅵ふみ (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132502512680833024?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Free ApplicativeとFree Monadのliftを共通化するのは面白そうだ &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— 𓆑𓅱 𓅓𓏭𓇌𓅱𓄿𓂋 (@fumieval) &lt;a href=&quot;https://twitter.com/fumieval/status/1132502512680833024?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
