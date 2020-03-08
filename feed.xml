@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 08 Mar 2020 16:57:03 +0900</pubDate>
-    <lastBuildDate>Sun, 08 Mar 2020 16:57:03 +0900</lastBuildDate>
+    <pubDate>Mon, 09 Mar 2020 00:09:18 +0900</pubDate>
+    <lastBuildDate>Mon, 09 Mar 2020 00:09:18 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -18,7 +18,7 @@
 まず &lt;em&gt;shallow&lt;/em&gt; effect handlerとはなんでしょう?
 最初にalgebraic effects and handlersについておさらいします｡
 あれとかこれとかそれとかを読んでおさらいしてください｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;/pictures/github_icon.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://nymphium.github.io/pictures/github_icon.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Algebraic Effectsであそぼう - lilyum ensemble&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;こんにちは､びしょ〜じょです｡ここしばらく20行/日くらいしかコード書いてません｡いやもっと少ないかも…｡いや研究してますんで! いや〜研究もそんなにしてないな…じゃあ何を…1. はじめにAlg…&lt;/div&gt;
@@ -42,7 +42,7 @@
   &lt;/span&gt;
 &lt;/div&gt;&lt;p&gt;感覚としては､ &lt;code&gt;shift/reset&lt;/code&gt; の &lt;code&gt;shift&lt;/code&gt; が継続を切り取るときに &lt;code&gt;reset&lt;/code&gt; がくっついてくるけど､ &lt;code&gt;shift0/reset0&lt;/code&gt; ではくっついてこないという関係と同じですね｡
 &lt;code&gt;shift/reset&lt;/code&gt; などについてはコチラ&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;/pictures/github_icon.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://nymphium.github.io/pictures/github_icon.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;delimited continuationの夏 - lilyum ensemble&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;こんにちは､びしょ〜じょです｡control/promptとprompt tagへの理解が必要になったため､やっていきましょう｡1. continuation??? 継続??? is power…&lt;/div&gt;
