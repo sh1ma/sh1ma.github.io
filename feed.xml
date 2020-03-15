@@ -5,14 +5,14 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 15 Mar 2020 20:51:36 +0900</pubDate>
-    <lastBuildDate>Sun, 15 Mar 2020 20:51:36 +0900</lastBuildDate>
+    <pubDate>Sun, 15 Mar 2020 21:01:13 +0900</pubDate>
+    <lastBuildDate>Sun, 15 Mar 2020 21:01:13 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
         <title>Algebraic EffectsとExtensible Effectsの違いってなんや? 関係あんの?</title>
         <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
-        <description>&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;最近のエフェクトシステム2大ホットトピックといえばAlgebraic EffectsとExtensible Effectsだろう &lt;em&gt;[要出典]&lt;/em&gt;｡&lt;/p&gt;&lt;p&gt;度々この2つの違いは何なのかという質問を見ます｡&lt;/p&gt;&lt;p&gt;比較というわけでも無いんですが､今回はこの2つを並べて見比べてみましょう｡&lt;/p&gt;&lt;p&gt;そいうえばだいぶ前の&lt;a href=&quot;/pdf/ae_from_0.html&quot;&gt;発表&lt;/a&gt;でこんなこと言ってましたけど&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/pictures//2020/03/04/ae-ee/%E3%81%93%E3%82%93%E3%81%AA%E3%81%93%E3%81%A8.png&quot; alt=&quot;/pictures/2020/03/04/ae-ee/こんなこと.png&quot;&gt;
+        <description>&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;最近のエフェクトシステム2大ホットトピックといえばAlgebraic EffectsとExtensible Effectsだろう &lt;em&gt;[要出典]&lt;/em&gt;｡&lt;/p&gt;&lt;p&gt;度々この2つの違いは何なのかという質問を見ます｡&lt;/p&gt;&lt;p&gt;比較というわけでも無いんですが､今回はこの2つを並べて見比べてみましょう｡&lt;/p&gt;&lt;p&gt;そいうえばだいぶ前の&lt;a href=&quot;/pdf/ae_from_0.html&quot;&gt;発表&lt;/a&gt;でこんなこと言ってましたけど&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/pictures//2020/03/15/ae-ee/%E3%81%93%E3%82%93%E3%81%AA%E3%81%93%E3%81%A8.png&quot; alt=&quot;/pictures/2020/03/15/ae-ee/こんなこと.png&quot;&gt;
 &lt;/p&gt;&lt;center&gt;図&lt;a href=&quot;#fig:compare&quot;&gt;1.1&lt;/a&gt;
 . 雑な比較&lt;/center&gt;&lt;label id=&quot;fig:compare&quot;&gt;&lt;/label&gt;&lt;p&gt;本当かしら&lt;/p&gt;&lt;h1 id=&quot;2.+Algebraic+Effects+and+Handlers&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+Algebraic+Effects+and+Handlers&quot;&gt;2. Algebraic Effects and Handlers&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;PlotkinとPowerによりもたらされた､計算エフェクトを代数的に表現するという考え方&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; title=&quot;Plotkin, Gordon, and John Power. “Adequacy for algebraic effects.” International Conference on Foundations of Software Science and Computation Structures. Springer, Berlin, Heidelberg, 2001. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
 に､PlotkinとPretnarがハンドラを追加したもの&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; title=&quot;Plotkin, Gordon, and Matija Pretnar. “Handlers of algebraic effects.” European Symposium on Programming. Springer, Berlin, Heidelberg, 2009. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;
@@ -177,9 +177,9 @@ Iが違う 星が違う 違うだろ すべてが&lt;/p&gt;&lt;h2 id=&quot;4-1.+
 
 &lt;/ol&gt;
 &lt;/div&gt;</description>
-        <pubDate>Wed, 04 Mar 2020 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2020/03/04/ae-ee.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2020/03/04/ae-ee.html</guid>
+        <pubDate>Sun, 15 Mar 2020 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2020/03/15/ae-ee.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2020/03/15/ae-ee.html</guid>
         
         <category>Algebraic Effects</category>
         
