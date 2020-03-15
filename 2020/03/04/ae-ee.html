@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>Algebraic EffectsとExtensible Effectsの違いってなんや? 関係あんの? - lilyum ensemble</title>
+    <meta itemprop="name" content="Algebraic EffectsとExtensible Effectsの違いってなんや? 関係あんの? - lilyum ensemble"/>
+    <meta name="keywords" content="Algebraic Effects,Extensible Effects"/>
+    <meta name="thumbnail" content="/pictures/2020/03/04/ae-ee/thumb.png"/>
+    <meta itemprop="image" content="/pictures/2020/03/04/ae-ee/thumb.png"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="Algebraic EffectsとExtensible Effectsの違いってなんや? 関係あんの? - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2020/03/04/ae-ee.html"/> 
+    <meta name="twitter:text:description" content="1. はじめに最近のエフェクトシステム2大ホットトピックといえばAlgebraic EffectsとExtensible Effectsだろう [要出典]｡度々この2つの違いは何なのかという質問..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/2020/03/04/ae-ee/thumb.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/2020/03/04/ae-ee/thumb.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Algebraic EffectsとExtensible Effectsの違いってなんや? 関係あんの?" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="lily, Aikatsu, Programming language, and more" />
+<meta property="og:description" content="lily, Aikatsu, Programming language, and more" />
+<link rel="canonical" href="https://nymphium.github.io/2020/03/04/ae-ee.html" />
+<meta property="og:url" content="https://nymphium.github.io/2020/03/04/ae-ee.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-04T00:00:00+09:00" />
+<script type="application/ld+json">
+{"dateModified":"2020-03-04T00:00:00+09:00","datePublished":"2020-03-04T00:00:00+09:00","@type":"BlogPosting","headline":"Algebraic EffectsとExtensible Effectsの違いってなんや? 関係あんの?","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2020/03/04/ae-ee.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"lily, Aikatsu, Programming language, and more","url":"https://nymphium.github.io/2020/03/04/ae-ee.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/2020/03/04/ae-ee/thumb.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Algebraic EffectsとExtensible Effectsの違いってなんや? 関係あんの?</h1>
+            <span class="post-meta">
+              <time datetime="2020-03-04T00:00:00+09:00" itemprop="datePublished">Mar 4, 2020</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2020-03-04-ae-ee.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#Algebraic%20Effects-ref">Algebraic Effects</a></span><span></span> <span class="tag"><a href="/tags.html#Extensible%20Effects-ref">Extensible Effects</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
+<p>最近のエフェクトシステム2大ホットトピックといえばAlgebraic EffectsとExtensible Effectsだろう <em>[要出典]</em>｡</p>
+<p>度々この2つの違いは何なのかという質問を見ます｡</p>
+<p>比較というわけでも無いんですが､今回はこの2つを並べて見比べてみましょう｡</p>
+<p>そいうえばだいぶ前の<a href="/pdf/ae_from_0.html">発表</a>でこんなこと言ってましたけど</p>
+<p><img src="/pictures//2020/03/04/ae-ee/%E3%81%93%E3%82%93%E3%81%AA%E3%81%93%E3%81%A8.png" alt="/pictures/2020/03/04/ae-ee/こんなこと.png">
+</p>
+<center>図<a href="#fig:compare">1.1</a>
+. 雑な比較</center>
+<label id="fig:compare"></label><p>本当かしら</p>
+<h1 id="2.+Algebraic+Effects+and+Handlers"><a class="headerlink" href="#2.+Algebraic+Effects+and+Handlers">2. Algebraic Effects and Handlers</a></h1>
+<p>PlotkinとPowerによりもたらされた､計算エフェクトを代数的に表現するという考え方<span class="cite">[<a href="#fn1" title="Plotkin, Gordon, and John Power. “Adequacy for algebraic effects.” International Conference on Foundations of Software Science and Computation Structures. Springer, Berlin, Heidelberg, 2001. " id="fnref1">1</a>]</span>
+に､PlotkinとPretnarがハンドラを追加したもの<span class="cite">[<a href="#fn2" title="Plotkin, Gordon, and Matija Pretnar. “Handlers of algebraic effects.” European Symposium on Programming. Springer, Berlin, Heidelberg, 2009. " id="fnref2">2</a>]</span>
+である｡</p>
+<p>詳細はカツアイしますんで､本ブログをご巡回ください｡
+簡単にまとめると､</p>
+<ul>
+<li>新たな言語機能
+
+<ul>
+<li>エフェクト(仕様)とハンドラ(実装)が分離できるモジュラーな手法</li>
+<li>エフェクトシステムによって計算中にどのようなエフェクトが現れるのかが分かる</li>
+</ul>
+</li>
+<li>shallow/deep handler, set/row-based effect system, polymorphic/parameterized effects など様々なヴァリアントがある｡</li>
+<li>言語プリミティブやライブラリ実装がある
+
+<ul>
+<li>【余談】しばしば型(エフェクト)システムについてはないがしろにされがちな印象がある｡
+たまに見る擬似コードにはvalue handlerがなく､議論すらされていない｡
+computationの結果の型を調整したりするための重要なclauseなのに……｡
+まあ入門用にはそんなに必要な概念ではないかもしれない｡
+ボクも簡単な説明のときには省略することがある｡</li>
+</ul>
+</li>
+</ul>
+<div class="highlight">
+<span class="listing-name">Kokaの例</span><pre><code class="language-" data-lang="">effect reader&lt;a&gt; {
+  fun ask() : a
+}
+
+// `e` は起きうる他のエフェクト(の列)
+fun run&lt;s, a, e&gt;(v : s, th : () -&gt; &lt;reader&lt;s&gt; | e&gt; a) : e a {
+  handle(th) {
+    ask() -&gt; v . resume()
+  }
+}
+
+fun main() : console () {
+  run("hello, ") {
+    val e = ask()
+    // print : string -&gt; console ()
+    // なので↑のエフェクト列変数 `e` は `&lt;console&gt;` にinstantiateされる
+    print(e + "world")
+  }
+}
+</code></pre>
+</div>
+<h1 id="3.+Extensible+Effects"><a class="headerlink" href="#3.+Extensible+Effects">3. Extensible Effects</a></h1>
+<p>Kiselyovらにより考案された､Monad Transformerに代わるエフェクトをガチャガチャやる方法である<span class="cite">[<a href="#fn3" title="Kiselyov, Oleg, Amr Sabry, and Cameron Swords. “Extensible effects: an alternative to monad transformers.” ACM SIGPLAN Notices 48.12 (2013): 59-70. " id="fnref3">3</a>]</span>
+｡
+論文を読むと分かるとおり､こちらは計算体系のようなコンセプトではなく､いい感じのライブラリの実装手法である｡</p>
+<p>耳タコだと思いますが､簡単に言うと､Freeモナドのお手軽monadic interpreter作成機能にOpen Unionで型安全に拡張性をゲット(のちにFreerとかTASeqが盛られて早くなったり)という感じです｡</p>
+<p>筆者はあまり詳しくないんですがまとめてみるとこんな所感</p>
+<ul>
+<li>モナドトランスフォーマーに代わる新たなモナドの合成手法
+
+<ul>
+<li>lift地獄やインスタンス大量生成地獄からの解放</li>
+<li>Free(-er)モナド+Open Unionを使って1つのモナドに拡張的に押し込む</li>
+</ul>
+</li>
+<li>リッチな型システムを利用している
+
+<ul>
+<li>HaskellとScalaのライブラリ実装が活発ですね</li>
+<li>むしろ他に実装できる言語あるんかいな</li>
+</ul>
+</li>
+</ul>
+<p>Unionを二分探索したりするのはまあいいかな､ハンドラのあたりをちょっと論文から引用します｡
+<code>Eff e w</code>というのがエフェクト<code>e</code>が発生しうる<code>w</code>型の値です｡</p>
+<p><label id="lst:run"></label></p>
+<div class="highlight">
+<span class="listing-name">Fig<a href="#lst:run">3.1</a>
+. run</span><pre><code class="language-haskell" data-lang="haskell"><span class="n">run</span> <span class="o">::</span> <span class="kt">Eff</span> <span class="kt">Void</span> <span class="n">w</span> <span class="o">-&gt;</span> <span class="n">w</span>
+<span class="n">run</span> <span class="n">m</span> <span class="o">=</span> <span class="kr">case</span> <span class="n">admin</span> <span class="n">m</span> <span class="kr">of</span> <span class="kt">Pure</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span>
+</code></pre>
+</div>
+<p>プログラム<a href="#lst:run">3.1</a>
+は<code>Void</code>エフェクトが発生する(つまりエフェクトが発生しない)値からコンストラクタを剥がす操作です｡
+<code>admin</code>は論文のターミノロジーを使えば､コルーチンをグルグル走らせて最終的な結果まで実行する関数です｡</p>
+<p>続いて <code>Reader</code>エフェクトを追加してみましょう(図<a href="#lst:reader">3.2</a>
+)｡</p>
+<p><label id="lst:reader"></label></p>
+<div class="highlight">
+<span class="listing-name">Fig<a href="#lst:reader">3.2</a>
+. Readerエフェクト</span><pre><code class="language-haskell" data-lang="haskell"><span class="kr">newtype</span> <span class="kt">Reader</span> <span class="n">e</span> <span class="n">v</span> <span class="o">=</span> <span class="kt">Reader</span> <span class="p">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="n">v</span><span class="p">)</span>
+                     <span class="kr">deriving</span> <span class="p">(</span><span class="kt">Typeable</span><span class="p">,</span> <span class="kt">Functor</span><span class="p">)</span>
+
+<span class="n">ask</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Typeable</span> <span class="n">e</span><span class="p">,</span> <span class="kt">Member</span> <span class="p">(</span><span class="kt">Reader</span> <span class="n">e</span><span class="p">)</span> <span class="n">r</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kt">Eff</span> <span class="n">r</span> <span class="n">e</span>
+<span class="n">ask</span> <span class="o">=</span> <span class="n">send</span> <span class="p">(</span><span class="n">inj</span> <span class="o">.</span> <span class="kt">Reader</span><span class="p">)</span>
+
+<span class="c1">----</span>
+
+<span class="n">handle_relay</span> <span class="o">::</span> <span class="kt">Typeable</span> <span class="n">t</span> <span class="o">=&gt;</span> <span class="kt">Union</span> <span class="p">(</span><span class="n">t</span> <span class="o">:&gt;</span> <span class="n">r</span><span class="p">)</span> <span class="n">v</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">v</span> <span class="o">-&gt;</span> <span class="kt">Eff</span> <span class="n">r</span> <span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">t</span> <span class="n">v</span> <span class="o">-&gt;</span> <span class="kt">Eff</span> <span class="n">r</span> <span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Eff</span> <span class="n">r</span> <span class="n">a</span>
+<span class="n">handle_relay</span> <span class="n">u</span> <span class="n">loop</span> <span class="n">h</span> <span class="o">=</span>
+             <span class="kr">case</span> <span class="n">decomp</span> <span class="n">u</span> <span class="kr">of</span>
+               <span class="kt">Right</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">h</span> <span class="n">x</span>
+               <span class="kt">Left</span> <span class="n">u</span>  <span class="o">-&gt;</span> <span class="n">send</span> <span class="p">(`</span><span class="n">fmap</span><span class="p">`</span> <span class="n">u</span><span class="p">)</span> <span class="o">&gt;&gt;=</span> <span class="n">loop</span>
+
+<span class="n">runReader</span> <span class="o">::</span> <span class="kt">Typeable</span> <span class="n">e</span> <span class="o">=&gt;</span> <span class="kt">Eff</span> <span class="p">(</span><span class="kt">Reader</span> <span class="n">e</span> <span class="o">:&gt;</span> <span class="n">r</span><span class="p">)</span> <span class="n">w</span> <span class="o">-&gt;</span> <span class="n">e</span> <span class="o">-&gt;</span> <span class="kt">Eff</span> <span class="n">r</span> <span class="n">w</span>
+<span class="n">runReader</span> <span class="n">m</span> <span class="n">e</span> <span class="o">=</span> <span class="n">loop</span> <span class="p">(</span><span class="n">admin</span> <span class="n">m</span><span class="p">)</span> <span class="kr">where</span>
+    <span class="n">loop</span> <span class="p">(</span><span class="kt">Val</span> <span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">return</span> <span class="n">x</span>
+    <span class="n">loop</span> <span class="p">(</span><span class="kt">E</span> <span class="n">u</span><span class="p">)</span> <span class="o">=</span>
+        <span class="n">handle_relay</span> <span class="n">u</span> <span class="n">loop</span> <span class="p">(</span><span class="nf">\</span><span class="p">(</span><span class="kt">Reader</span> <span class="n">k</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">loop</span> <span class="p">(</span><span class="n">k</span> <span class="n">e</span><span class="p">))</span>
+</code></pre>
+</div>
+<p>まず <code>Reader</code> エフェクトを定義します｡
+<code>e -&gt; v</code> というのは継続と読めばいいのかしら｡ <code>e</code>型のholeがあるので､<code>Reader</code>っぽく何か<code>e</code>型の値を毎度渡していって最終的に<code>v</code>型の値が戻ってきます｡</p>
+<p><code>ask</code>がスマコンというかエフェクトが発生する項です｡
+<code>send</code>で<code>Reader</code>エフェクトをハンドラまで飛ばします｡</p>
+<p>ハンドラは<code>runReader</code>がハンドラです｡
+<code>admin m</code>でコルーチンを回しまくって度々suspendされるのを<code>loop</code>関数で拾う､という流れです｡
+<code>Val</code>と<code>E</code>というのが､内部で使われているFreeのようなデータ構造です｡<code>E</code>はなにかエフェクトが発生したときで､<code>handle_relay</code>で<code>u</code>が分解されて第2引数か第3引数に分解された値が渡されていきます｡
+補助関数<code>handle_relay</code>に味があって<sup id="fnref4" title="なんでこの関数だけキャメルケースなんだろう｡写経してるときにhlintにも怒られた｡ "><a href="#fn4">4</a></sup>､エフェクトをハンドルしたいけどハンドルできないエフェクトだったときに適宜上位のハンドラに再送してくれる奴です｡
+このへんで<code>Typeable</code>とかがガチャガチャやって､<code>Reader</code>エフェクトだったときに<code>decomp u</code>が<code>Right</code>を返すようになっていい感じにハンドルされます｡</p>
+<p>こんな感じでエフェクトごとのハンドラ関数を定義していって､関数合成で様々をハンドルする関数を作ります｡</p>
+<div class="highlight"><pre><code class="language-haskell" data-lang="haskell"><span class="c1">-- あんま自信ない､雰囲気ね雰囲気</span>
+<span class="n">run</span> <span class="o">::</span> <span class="kt">Eff</span> <span class="p">(</span><span class="kt">Reader</span> <span class="kt">Int</span> <span class="o">:&gt;</span> <span class="kt">Exc</span> <span class="kt">String</span> <span class="o">:&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">Either</span> <span class="kt">String</span> <span class="n">a</span>
+<span class="n">run</span> <span class="o">=</span> <span class="n">run</span> <span class="o">.</span> <span class="n">runExc</span> <span class="o">.</span> <span class="n">runReader</span> <span class="mi">42</span>
+</code></pre></div>
+<p>このハンドラに<code>Reader</code>エフェクトと<code>Exc</code>エフェクト<em>だけ</em>が発生する項を渡すと､これらエフェクトをいい感じに処理してくれて最終的に<code>Either String a</code>が出てくる｡</p>
+<div class="highlight"><pre><code class="language-haskell" data-lang="haskell"><span class="n">result</span> <span class="o">::</span> <span class="kt">Either</span> <span class="kt">String</span> <span class="kt">Int</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">run</span> <span class="o">$</span> <span class="kr">do</span>
+  <span class="n">v</span> <span class="o">&lt;-</span> <span class="n">ask</span>
+  <span class="kr">if</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="kr">then</span>
+    <span class="n">throwError</span> <span class="s">"the env should return the value more than 10"</span>
+  <span class="kr">else</span>
+    <span class="n">return</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">v</span> <span class="c1">-- 45</span>
+</code></pre></div>
+<h1 id="4.+%E4%BA%8C%E8%80%85%E3%81%AE%E9%81%95%E3%81%84"><a class="headerlink" href="#4.+%E4%BA%8C%E8%80%85%E3%81%AE%E9%81%95%E3%81%84">4. 二者の違い</a></h1>
+<p>ご覧の通り全然違うと思うんですが､では逆に <em>実現可能そうなこと</em> はだいたい同じにみえます｡</p>
+<p>いずれもエフェクトを定義してから､ハンドラを別途定義して意味を与えています｡</p>
+<p>このことはいずれもFree(-er)モナドを利用した実装方法がある(Extensible EffectsはむしろFreeが必須ですが)ことからも感じ取れると思います｡</p>
+<p>というかそこ以外は全部違うんじゃないかしら
+Iが違う 星が違う 違うだろ すべてが</p>
+<h2 id="4-1.+%E6%A6%82%E5%BF%B5%E7%9A%84%E3%81%AA%E9%81%95%E3%81%84"><a class="headerlink" href="#4-1.+%E6%A6%82%E5%BF%B5%E7%9A%84%E3%81%AA%E9%81%95%E3%81%84">4-1. 概念的な違い</a></h2>
+<p>Algebraic Effects (and Handlers)はMoggiの提唱した$\lambda_{c}$よりもいい感じに計算エフェクトを扱うための概念として考えられた｡</p>
+<p>一方Extensible EffectsはMonad Transformerに代わるモナドの合成方法として提案された実装手法である｡</p>
+<ul>
+<li>Algebraic Effectsは概念
+
+<ul>
+<li>概念なのでライブラリや言語組み込みの機能として考えることができる</li>
+</ul>
+</li>
+<li>Extensible Effectsは実装手法
+
+<ul>
+<li>ライブラリとしての実装方法にアイデンティティを持つので､言語組み込みの機能みたいなことはそもそも考えられない</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-2.+%E5%AE%9F%E8%A3%85%E3%81%AE%E9%81%95%E3%81%84"><a class="headerlink" href="#4-2.+%E5%AE%9F%E8%A3%85%E3%81%AE%E9%81%95%E3%81%84">4-2. 実装の違い</a></h2>
+<p>Extensible EffectsにはFreeが必須でした｡
+ではAlgebraic Effectsの実装はどうかというと色々考えられます｡</p>
+<p>詳細はこちらに!!!!(隙あらば我田引水)</p>
+<div class="twicard">
+  <span class="image"><a href="https://nymphium.github.io/pdf/effect_study.html" target="_blank" rel="noopener noreferrer"><div><img src="https://nymphium.github.io/pdf/effect_study.png"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://nymphium.github.io/pdf/effect_study.html" target="_blank" rel="noopener noreferrer">How do you implement Algebraic Effects? - lilyum ensemble</a></div>
+    <div class="description"></div>
+  </span>
+</div>
+<ul>
+<li>Algebraic EFfectsは実装が色々考えられる</li>
+<li>Extensible EffectsはFreeとOpen Unionを使った実装方法しかない
+
+<ul>
+<li>そもそもFreeとOpen Unionを使った実装方法を指してExtensible Effectsと呼んでるので……</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-3.+%E3%81%9D%E3%81%AE%E4%BB%96"><a class="headerlink" href="#4-3.+%E3%81%9D%E3%81%AE%E4%BB%96">4-3. その他</a></h2>
+<p>Algebraic Effectsはエフェクトハンドラおよびvalue handlerを1つのハンドラオブジェクトとして定義できる｡
+一方Extensible Effectsはそれぞれのエフェクトにたいして関数を定義し､関数合成で1つにまとめる｡
+前者は各エフェクトが協調するようなハンドラを書きやすい｡
+一方後者はハンドラをよりモジュラーに定義できる｡</p>
+<p>他にもいろいろありそうだが､本日はこの辺で……｡</p>
+<h1 id="5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">5. おわりに</a></h1>
+<p>Extensible Effectsは必須のデータ構造があるので､図<a href="#fig:compare">1.1</a>
+はまあなんとなくあたってるようなそうでもないような……｡
+ま､ユーザにとっちゃああんま関係ねえ話にゃんですが……(おわり)</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>Plotkin, Gordon, and John Power. “Adequacy for algebraic effects.” International Conference on Foundations of Software Science and Computation Structures. Springer, Berlin, Heidelberg, 2001. <a href="#fnref1">↩</a></p>
+</li>
+
+<li id="fn2">
+<p>Plotkin, Gordon, and Matija Pretnar. “Handlers of algebraic effects.” European Symposium on Programming. Springer, Berlin, Heidelberg, 2009. <a href="#fnref2">↩</a></p>
+</li>
+
+<li id="fn3">
+<p>Kiselyov, Oleg, Amr Sabry, and Cameron Swords. “Extensible effects: an alternative to monad transformers.” ACM SIGPLAN Notices 48.12 (2013): 59-70. <a href="#fnref3">↩</a></p>
+</li>
+
+<li id="fn4">
+<p>なんでこの関数だけキャメルケースなんだろう｡写経してるときにhlintにも怒られた｡ <a href="#fnref4">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2020/02/20/shallow_effec_handler_with_fcontrol.html" title="fcontrol/runでshallow effect handler">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <span class="btn next disabled">Next →</span>
+      </div>
+    </footer>
+
+  </body>
+</html>

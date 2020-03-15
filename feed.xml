@@ -5,9 +5,188 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 09 Mar 2020 00:27:34 +0900</pubDate>
-    <lastBuildDate>Mon, 09 Mar 2020 00:27:34 +0900</lastBuildDate>
+    <pubDate>Sun, 15 Mar 2020 20:51:36 +0900</pubDate>
+    <lastBuildDate>Sun, 15 Mar 2020 20:51:36 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>Algebraic EffectsとExtensible Effectsの違いってなんや? 関係あんの?</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <description>&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;最近のエフェクトシステム2大ホットトピックといえばAlgebraic EffectsとExtensible Effectsだろう &lt;em&gt;[要出典]&lt;/em&gt;｡&lt;/p&gt;&lt;p&gt;度々この2つの違いは何なのかという質問を見ます｡&lt;/p&gt;&lt;p&gt;比較というわけでも無いんですが､今回はこの2つを並べて見比べてみましょう｡&lt;/p&gt;&lt;p&gt;そいうえばだいぶ前の&lt;a href=&quot;/pdf/ae_from_0.html&quot;&gt;発表&lt;/a&gt;でこんなこと言ってましたけど&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/pictures//2020/03/04/ae-ee/%E3%81%93%E3%82%93%E3%81%AA%E3%81%93%E3%81%A8.png&quot; alt=&quot;/pictures/2020/03/04/ae-ee/こんなこと.png&quot;&gt;
+&lt;/p&gt;&lt;center&gt;図&lt;a href=&quot;#fig:compare&quot;&gt;1.1&lt;/a&gt;
+. 雑な比較&lt;/center&gt;&lt;label id=&quot;fig:compare&quot;&gt;&lt;/label&gt;&lt;p&gt;本当かしら&lt;/p&gt;&lt;h1 id=&quot;2.+Algebraic+Effects+and+Handlers&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+Algebraic+Effects+and+Handlers&quot;&gt;2. Algebraic Effects and Handlers&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;PlotkinとPowerによりもたらされた､計算エフェクトを代数的に表現するという考え方&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; title=&quot;Plotkin, Gordon, and John Power. “Adequacy for algebraic effects.” International Conference on Foundations of Software Science and Computation Structures. Springer, Berlin, Heidelberg, 2001. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
+に､PlotkinとPretnarがハンドラを追加したもの&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; title=&quot;Plotkin, Gordon, and Matija Pretnar. “Handlers of algebraic effects.” European Symposium on Programming. Springer, Berlin, Heidelberg, 2009. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;
+である｡&lt;/p&gt;&lt;p&gt;詳細はカツアイしますんで､本ブログをご巡回ください｡
+簡単にまとめると､&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;新たな言語機能
+
+&lt;ul&gt;
+&lt;li&gt;エフェクト(仕様)とハンドラ(実装)が分離できるモジュラーな手法&lt;/li&gt;
+&lt;li&gt;エフェクトシステムによって計算中にどのようなエフェクトが現れるのかが分かる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;shallow/deep handler, set/row-based effect system, polymorphic/parameterized effects など様々なヴァリアントがある｡&lt;/li&gt;
+&lt;li&gt;言語プリミティブやライブラリ実装がある
+
+&lt;ul&gt;
+&lt;li&gt;【余談】しばしば型(エフェクト)システムについてはないがしろにされがちな印象がある｡
+たまに見る擬似コードにはvalue handlerがなく､議論すらされていない｡
+computationの結果の型を調整したりするための重要なclauseなのに……｡
+まあ入門用にはそんなに必要な概念ではないかもしれない｡
+ボクも簡単な説明のときには省略することがある｡&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;Kokaの例&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;effect reader&amp;lt;a&amp;gt; {
+  fun ask() : a
+}
+
+// `e` は起きうる他のエフェクト(の列)
+fun run&amp;lt;s, a, e&amp;gt;(v : s, th : () -&amp;gt; &amp;lt;reader&amp;lt;s&amp;gt; | e&amp;gt; a) : e a {
+  handle(th) {
+    ask() -&amp;gt; v . resume()
+  }
+}
+
+fun main() : console () {
+  run(&quot;hello, &quot;) {
+    val e = ask()
+    // print : string -&amp;gt; console ()
+    // なので↑のエフェクト列変数 `e` は `&amp;lt;console&amp;gt;` にinstantiateされる
+    print(e + &quot;world&quot;)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;h1 id=&quot;3.+Extensible+Effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+Extensible+Effects&quot;&gt;3. Extensible Effects&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Kiselyovらにより考案された､Monad Transformerに代わるエフェクトをガチャガチャやる方法である&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn3&quot; title=&quot;Kiselyov, Oleg, Amr Sabry, and Cameron Swords. “Extensible effects: an alternative to monad transformers.” ACM SIGPLAN Notices 48.12 (2013): 59-70. &quot; id=&quot;fnref3&quot;&gt;3&lt;/a&gt;]&lt;/span&gt;
+｡
+論文を読むと分かるとおり､こちらは計算体系のようなコンセプトではなく､いい感じのライブラリの実装手法である｡&lt;/p&gt;&lt;p&gt;耳タコだと思いますが､簡単に言うと､Freeモナドのお手軽monadic interpreter作成機能にOpen Unionで型安全に拡張性をゲット(のちにFreerとかTASeqが盛られて早くなったり)という感じです｡&lt;/p&gt;&lt;p&gt;筆者はあまり詳しくないんですがまとめてみるとこんな所感&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;モナドトランスフォーマーに代わる新たなモナドの合成手法
+
+&lt;ul&gt;
+&lt;li&gt;lift地獄やインスタンス大量生成地獄からの解放&lt;/li&gt;
+&lt;li&gt;Free(-er)モナド+Open Unionを使って1つのモナドに拡張的に押し込む&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;リッチな型システムを利用している
+
+&lt;ul&gt;
+&lt;li&gt;HaskellとScalaのライブラリ実装が活発ですね&lt;/li&gt;
+&lt;li&gt;むしろ他に実装できる言語あるんかいな&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;Unionを二分探索したりするのはまあいいかな､ハンドラのあたりをちょっと論文から引用します｡
+&lt;code&gt;Eff e w&lt;/code&gt;というのがエフェクト&lt;code&gt;e&lt;/code&gt;が発生しうる&lt;code&gt;w&lt;/code&gt;型の値です｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:run&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;Fig&lt;a href=&quot;#lst:run&quot;&gt;3.1&lt;/a&gt;
+. run&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;admin&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Pure&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;プログラム&lt;a href=&quot;#lst:run&quot;&gt;3.1&lt;/a&gt;
+は&lt;code&gt;Void&lt;/code&gt;エフェクトが発生する(つまりエフェクトが発生しない)値からコンストラクタを剥がす操作です｡
+&lt;code&gt;admin&lt;/code&gt;は論文のターミノロジーを使えば､コルーチンをグルグル走らせて最終的な結果まで実行する関数です｡&lt;/p&gt;&lt;p&gt;続いて &lt;code&gt;Reader&lt;/code&gt;エフェクトを追加してみましょう(図&lt;a href=&quot;#lst:reader&quot;&gt;3.2&lt;/a&gt;
+)｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:reader&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;Fig&lt;a href=&quot;#lst:reader&quot;&gt;3.2&lt;/a&gt;
+. Readerエフェクト&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;kr&quot;&gt;newtype&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Reader&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Reader&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                     &lt;span class=&quot;kr&quot;&gt;deriving&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Typeable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Functor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;ask&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Typeable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Reader&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ask&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;send&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Reader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;----&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;handle_relay&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Typeable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Union&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;handle_relay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+             &lt;span class=&quot;kr&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decomp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;of&lt;/span&gt;
+               &lt;span class=&quot;kt&quot;&gt;Right&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+               &lt;span class=&quot;kt&quot;&gt;Left&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;send&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;runReader&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Typeable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Reader&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;runReader&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;admin&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;handle_relay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Reader&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;まず &lt;code&gt;Reader&lt;/code&gt; エフェクトを定義します｡
+&lt;code&gt;e -&amp;gt; v&lt;/code&gt; というのは継続と読めばいいのかしら｡ &lt;code&gt;e&lt;/code&gt;型のholeがあるので､&lt;code&gt;Reader&lt;/code&gt;っぽく何か&lt;code&gt;e&lt;/code&gt;型の値を毎度渡していって最終的に&lt;code&gt;v&lt;/code&gt;型の値が戻ってきます｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;ask&lt;/code&gt;がスマコンというかエフェクトが発生する項です｡
+&lt;code&gt;send&lt;/code&gt;で&lt;code&gt;Reader&lt;/code&gt;エフェクトをハンドラまで飛ばします｡&lt;/p&gt;&lt;p&gt;ハンドラは&lt;code&gt;runReader&lt;/code&gt;がハンドラです｡
+&lt;code&gt;admin m&lt;/code&gt;でコルーチンを回しまくって度々suspendされるのを&lt;code&gt;loop&lt;/code&gt;関数で拾う､という流れです｡
+&lt;code&gt;Val&lt;/code&gt;と&lt;code&gt;E&lt;/code&gt;というのが､内部で使われているFreeのようなデータ構造です｡&lt;code&gt;E&lt;/code&gt;はなにかエフェクトが発生したときで､&lt;code&gt;handle_relay&lt;/code&gt;で&lt;code&gt;u&lt;/code&gt;が分解されて第2引数か第3引数に分解された値が渡されていきます｡
+補助関数&lt;code&gt;handle_relay&lt;/code&gt;に味があって&lt;sup id=&quot;fnref4&quot; title=&quot;なんでこの関数だけキャメルケースなんだろう｡写経してるときにhlintにも怒られた｡ &quot;&gt;&lt;a href=&quot;#fn4&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;､エフェクトをハンドルしたいけどハンドルできないエフェクトだったときに適宜上位のハンドラに再送してくれる奴です｡
+このへんで&lt;code&gt;Typeable&lt;/code&gt;とかがガチャガチャやって､&lt;code&gt;Reader&lt;/code&gt;エフェクトだったときに&lt;code&gt;decomp u&lt;/code&gt;が&lt;code&gt;Right&lt;/code&gt;を返すようになっていい感じにハンドルされます｡&lt;/p&gt;&lt;p&gt;こんな感じでエフェクトごとのハンドラ関数を定義していって､関数合成で様々をハンドルする関数を作ります｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;c1&quot;&gt;-- あんま自信ない､雰囲気ね雰囲気&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Reader&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Exc&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Either&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;runExc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;runReader&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;このハンドラに&lt;code&gt;Reader&lt;/code&gt;エフェクトと&lt;code&gt;Exc&lt;/code&gt;エフェクト&lt;em&gt;だけ&lt;/em&gt;が発生する項を渡すと､これらエフェクトをいい感じに処理してくれて最終的に&lt;code&gt;Either String a&lt;/code&gt;が出てくる｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Either&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ask&lt;/span&gt;
+  &lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;throwError&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;the env should return the value more than 10&quot;&lt;/span&gt;
+  &lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 45&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&quot;4.+%E4%BA%8C%E8%80%85%E3%81%AE%E9%81%95%E3%81%84&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%E4%BA%8C%E8%80%85%E3%81%AE%E9%81%95%E3%81%84&quot;&gt;4. 二者の違い&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ご覧の通り全然違うと思うんですが､では逆に &lt;em&gt;実現可能そうなこと&lt;/em&gt; はだいたい同じにみえます｡&lt;/p&gt;&lt;p&gt;いずれもエフェクトを定義してから､ハンドラを別途定義して意味を与えています｡&lt;/p&gt;&lt;p&gt;このことはいずれもFree(-er)モナドを利用した実装方法がある(Extensible EffectsはむしろFreeが必須ですが)ことからも感じ取れると思います｡&lt;/p&gt;&lt;p&gt;というかそこ以外は全部違うんじゃないかしら
+Iが違う 星が違う 違うだろ すべてが&lt;/p&gt;&lt;h2 id=&quot;4-1.+%E6%A6%82%E5%BF%B5%E7%9A%84%E3%81%AA%E9%81%95%E3%81%84&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4-1.+%E6%A6%82%E5%BF%B5%E7%9A%84%E3%81%AA%E9%81%95%E3%81%84&quot;&gt;4-1. 概念的な違い&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Algebraic Effects (and Handlers)はMoggiの提唱した$\lambda_{c}$よりもいい感じに計算エフェクトを扱うための概念として考えられた｡&lt;/p&gt;&lt;p&gt;一方Extensible EffectsはMonad Transformerに代わるモナドの合成方法として提案された実装手法である｡&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;Algebraic Effectsは概念
+
+&lt;ul&gt;
+&lt;li&gt;概念なのでライブラリや言語組み込みの機能として考えることができる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Extensible Effectsは実装手法
+
+&lt;ul&gt;
+&lt;li&gt;ライブラリとしての実装方法にアイデンティティを持つので､言語組み込みの機能みたいなことはそもそも考えられない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;h2 id=&quot;4-2.+%E5%AE%9F%E8%A3%85%E3%81%AE%E9%81%95%E3%81%84&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4-2.+%E5%AE%9F%E8%A3%85%E3%81%AE%E9%81%95%E3%81%84&quot;&gt;4-2. 実装の違い&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Extensible EffectsにはFreeが必須でした｡
+ではAlgebraic Effectsの実装はどうかというと色々考えられます｡&lt;/p&gt;&lt;p&gt;詳細はこちらに!!!!(隙あらば我田引水)&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/pdf/effect_study.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://nymphium.github.io/pdf/effect_study.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/pdf/effect_study.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;How do you implement Algebraic Effects? - lilyum ensemble&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Algebraic EFfectsは実装が色々考えられる&lt;/li&gt;
+&lt;li&gt;Extensible EffectsはFreeとOpen Unionを使った実装方法しかない
+
+&lt;ul&gt;
+&lt;li&gt;そもそもFreeとOpen Unionを使った実装方法を指してExtensible Effectsと呼んでるので……&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;h2 id=&quot;4-3.+%E3%81%9D%E3%81%AE%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4-3.+%E3%81%9D%E3%81%AE%E4%BB%96&quot;&gt;4-3. その他&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Algebraic Effectsはエフェクトハンドラおよびvalue handlerを1つのハンドラオブジェクトとして定義できる｡
+一方Extensible Effectsはそれぞれのエフェクトにたいして関数を定義し､関数合成で1つにまとめる｡
+前者は各エフェクトが協調するようなハンドラを書きやすい｡
+一方後者はハンドラをよりモジュラーに定義できる｡&lt;/p&gt;&lt;p&gt;他にもいろいろありそうだが､本日はこの辺で……｡&lt;/p&gt;&lt;h1 id=&quot;5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;5. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Extensible Effectsは必須のデータ構造があるので､図&lt;a href=&quot;#fig:compare&quot;&gt;1.1&lt;/a&gt;
+はまあなんとなくあたってるようなそうでもないような……｡
+ま､ユーザにとっちゃああんま関係ねえ話にゃんですが……(おわり)&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;Plotkin, Gordon, and John Power. “Adequacy for algebraic effects.” International Conference on Foundations of Software Science and Computation Structures. Springer, Berlin, Heidelberg, 2001. &lt;a href=&quot;#fnref1&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn2&quot;&gt;
+&lt;p&gt;Plotkin, Gordon, and Matija Pretnar. “Handlers of algebraic effects.” European Symposium on Programming. Springer, Berlin, Heidelberg, 2009. &lt;a href=&quot;#fnref2&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn3&quot;&gt;
+&lt;p&gt;Kiselyov, Oleg, Amr Sabry, and Cameron Swords. “Extensible effects: an alternative to monad transformers.” ACM SIGPLAN Notices 48.12 (2013): 59-70. &lt;a href=&quot;#fnref3&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn4&quot;&gt;
+&lt;p&gt;なんでこの関数だけキャメルケースなんだろう｡写経してるときにhlintにも怒られた｡ &lt;a href=&quot;#fnref4&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Wed, 04 Mar 2020 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2020/03/04/ae-ee.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2020/03/04/ae-ee.html</guid>
+        
+        <category>Algebraic Effects</category>
+        
+        <category>Extensible Effects</category>
+        
+        
+      </item>
     
       <item>
         <title>fcontrol/runでshallow effect handler</title>
@@ -23,9 +202,13 @@
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2018/08/13/algebraic_effects_tutorial.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Algebraic Effectsであそぼう - lilyum ensemble&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;こんにちは､びしょ〜じょです｡ここしばらく20行/日くらいしかコード書いてません｡いやもっと少ないかも…｡いや研究してますんで! いや〜研究もそんなにしてないな…じゃあ何を…1. はじめにAlg…&lt;/div&gt;
   &lt;/span&gt;
-&lt;/div&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
-  &lt;a href=&quot;https://nymphium.github.io/pdf/mlday2.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Dive into Algebraic Effects - lilyum ensemble&lt;/a&gt;
-&lt;/center&gt;&lt;div class=&quot;twicard&quot;&gt;
+&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/pdf/mlday2.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://nymphium.github.io/pdf/mlday2.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/pdf/mlday2.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Dive into Algebraic Effects - lilyum ensemble&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
   &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://qiita-user-contents.imgix.net/https%3A%2F%2Fcdn.qiita.com%2Fassets%2Fpublic%2Fogp-background-1150d8b18a7c15795b701a55ae908f94.png?ixlib=rb-1.2.2&amp;amp;w=1200&amp;amp;mark=https%3A%2F%2Fqiita-user-contents.imgix.net%2F~text%3Fixlib%3Drb-1.2.2%26w%3D840%26h%3D380%26txt%3DAlgebraic%2520Effects%25E3%2581%25A8%25E3%2581%25AF%253F%2520%25E5%2587%25BA%25E8%25BA%25AB%25E3%2581%25AF%253F%2520%25E4%25BD%25BF%25E3%2581%2584%25E6%2596%25B9%25E3%2581%25AF%253F%2520%25E3%2581%259D%25E3%2581%25AE%25E7%2589%25B9%25E5%25BE%25B4%25E3%2581%25A8%25E3%2581%25AF%253F%2520%25E8%25AA%25BF%25E3%2581%25B9%25E3%2581%25A6%25E3%2581%25BF%25E3%2581%25BE%25E3%2581%2597%25E3%2581%259F%2521%26txt-color%3D%2523333%26txt-font%3DAvenir-Black%26txt-size%3D54%26txt-clip%3Dellipsis%26txt-align%3Dcenter%252Cmiddle%26s%3D1caabdbc9f6c0e53b796c74eee4ee35b&amp;amp;mark-align=center%2Cmiddle&amp;amp;blend=https%3A%2F%2Fqiita-user-contents.imgix.net%2F~text%3Fixlib%3Drb-1.2.2%26w%3D840%26h%3D500%26txt%3D%2540Nymphium%26txt-color%3D%2523333%26txt-font%3DAvenir-Black%26txt-size%3D45%26txt-align%3Dright%252Cbottom%26s%3Dfd6494ecf386fd4832ae2af2ec363e6c&amp;amp;blend-align=center%2Cmiddle&amp;amp;blend-mode=normal&amp;amp;s=d981ca15ae673b02388b321b0c2231ea&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/e6ce580da8b87ded912b&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました! - Qiita&lt;/a&gt;&lt;/div&gt;
@@ -366,9 +549,13 @@ Haskellにおける型クラスのようにimplicitに実装が与えられる�
 &lt;/div&gt;&lt;p&gt;=&amp;lt; 4.07までは&lt;a href=&quot;https://github.com/janestreet/ppx_let&quot;&gt;ppxによる拡張&lt;/a&gt;もあり､非常に期待されていた機能である｡&lt;/p&gt;&lt;h2 id=&quot;5-2.+%3Ccode%3EContT%3C%2Fcode%3E%0A&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5-2.+%3Ccode%3EContT%3C%2Fcode%3E%0A&quot;&gt;5-2. &lt;code&gt;ContT&lt;/code&gt;
 &lt;/a&gt;&lt;/h2&gt;&lt;p&gt;継続があれば計算エフェクトを手続き的に書けるのか! ということでcontinuationモナドになんでも突っ込めばいいんじゃないか｡
 そこで&lt;code&gt;ContT&lt;/code&gt; monad transformerです｡
-という話を読みました!!!&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
-  &lt;a href=&quot;https://haskell.e-bigmoon.com/posts/2018/06-26-cont-param.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ContT を使ってコードを綺麗にしよう! - BIGMOON Haskeller’s BLOG&lt;/a&gt;
-&lt;/center&gt;&lt;div class=&quot;twicard&quot;&gt;
+という話を読みました!!!&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://haskell.e-bigmoon.com/posts/2018/06-26-cont-param.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;/picture/no_image.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://haskell.e-bigmoon.com/posts/2018/06-26-cont-param.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ContT を使ってコードを綺麗にしよう！&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;はじめにContinuation (継続) について全く勉強したことが無いので Control.Monad.Cont で定義されている ContT とかいつ使うんだろうなーと思っていましたが、ついに利用機会がありました！！！僕が考えたんじゃなくて fumieval さんに相談して、教えてもらったんですけどね。&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
   &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://haskell.jp/blog/posts/2019/fallible.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://haskell.jp/blog/img/logo-square.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://haskell.jp/blog/posts/2019/fallible.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;fallibleというパッケージをリリースしました - Haskell-jp&lt;/a&gt;&lt;/div&gt;
@@ -513,9 +700,13 @@ Freerの&lt;code&gt;run&lt;/code&gt;を書くことで､&lt;code&gt;Vector&lt;/
 例えばカットを定義するなど｡&lt;/p&gt;&lt;p&gt;なかなか聴きごたえのある内容でした｡
 パフォーマンスに関する質問はやはり(やはり?)でてきて､どうすればパフォーマンス良くなるんでしょうね｡
 静的になんとかなる部分をなんとかするとだいぶパフォーマンスがよくなるので､今はとりあえずcompilationしておきましょう｡
-『Efficient Compilation of Algebraic Effects and Handlers』を読んでください｡&lt;/p&gt;&lt;h2 id=&quot;CPS+or+DI&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#CPS+or+DI&quot;&gt;CPS or DI&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
-  &lt;a href=&quot;https://gakuzzzz.github.io/slides/cps_or_di/#1&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CPS or DI Scala Matsuri 2019 2019/06/28&lt;/a&gt;
-&lt;/center&gt;&lt;p&gt;コンポーネントの分割と合成の方法として､DIを使う方法とCPSを使う方法の比較でした｡
+『Efficient Compilation of Algebraic Effects and Handlers』を読んでください｡&lt;/p&gt;&lt;h2 id=&quot;CPS+or+DI&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#CPS+or+DI&quot;&gt;CPS or DI&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://gakuzzzz.github.io/slides/cps_or_di/#1&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;/picture/no_image.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://gakuzzzz.github.io/slides/cps_or_di/#1&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;コンポーネントの分割と合成の方法として､DIを使う方法とCPSを使う方法の比較でした｡
 複数の関連する処理内容を渡したいときにはDI､そうでなければCPS､アドホックに処理を合成する場合はCPS､という使い分けをすると良いということでした｡
 CPSはcontinuation monadでサラッと書けるのが良い｡
 FPとOOPができるScalaならではの使い分けですねえ｡&lt;/p&gt;&lt;p&gt;CPSといえばコントロールフローが使えるのが利点ですが､そこに関してあまり活きてないのと､DIとその点の比較がないのがちょっと残念でした｡
@@ -562,9 +753,13 @@ Bengalを作るにあたってキーになるScala3の新機能なんだろう�
 &lt;span class=&quot;n&quot;&gt;importe&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delegate&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;bengal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;delegates&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Monad&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&quot;export+clauses&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#export+clauses&quot;&gt;export clauses&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;OCamlの&lt;code&gt;open&lt;/code&gt;的なやつ｡
 例ではクラスかなんかのスコープにopenしていたが､OCamlの&lt;code&gt;let open&lt;/code&gt;よろしく式としても書けるのだろうか?&lt;/p&gt;&lt;h3 id=&quot;type+lambdas&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#type+lambdas&quot;&gt;type lambdas&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;とうとう言語標準に入った!&lt;/p&gt;&lt;h3 id=&quot;opaque+type+alias&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#opaque+type+alias&quot;&gt;opaque type alias&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;type aliasを作るが､完全なaliasではなく､特定のメソッドを生やすことができるようになる｡
-余計なオブジェクトを作らないのでランタイムのコストを下げることが期待できるんじゃないでしょうか｡&lt;/p&gt;&lt;h3 id=&quot;typeclass+derivation&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#typeclass+derivation&quot;&gt;typeclass derivation&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;はい神&lt;/p&gt;&lt;h3 id=&quot;local+coherence&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#local+coherence&quot;&gt;local coherence&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;delegationでメソッドが衝突したときに手動で解決するやつっぽい｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;Haskellかよ〜〜という感じでますますアツくなるな｡&lt;/p&gt;&lt;h2 id=&quot;fujitask+meets+extensible+effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#fujitask+meets+extensible+effects&quot;&gt;fujitask meets extensible effects&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
-  &lt;a href=&quot;https://y-yu.github.io/fujitask-eff-slide/fujitask_without_animation.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;fujitask meets extensible effects&lt;/a&gt;
-&lt;/center&gt;&lt;p&gt;トランザクションを型でうまく表現するfujitaskはsubtypingを利用したテクを利用している｡
+余計なオブジェクトを作らないのでランタイムのコストを下げることが期待できるんじゃないでしょうか｡&lt;/p&gt;&lt;h3 id=&quot;typeclass+derivation&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#typeclass+derivation&quot;&gt;typeclass derivation&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;はい神&lt;/p&gt;&lt;h3 id=&quot;local+coherence&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#local+coherence&quot;&gt;local coherence&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;delegationでメソッドが衝突したときに手動で解決するやつっぽい｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;Haskellかよ〜〜という感じでますますアツくなるな｡&lt;/p&gt;&lt;h2 id=&quot;fujitask+meets+extensible+effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#fujitask+meets+extensible+effects&quot;&gt;fujitask meets extensible effects&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://y-yu.github.io/fujitask-eff-slide/fujitask_without_animation.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;/picture/no_image.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://y-yu.github.io/fujitask-eff-slide/fujitask_without_animation.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;トランザクションを型でうまく表現するfujitaskはsubtypingを利用したテクを利用している｡
 subtyping関係は半順序集合であり､特にScalaの場合は束を作る｡
 そしてトランザクションは束を作る!
 なのでこれをScalaのsubtypingで表現できる｡
@@ -656,12 +851,17 @@ extensible effectsはsubtypingを持たないHaskellを起源に持ち､antos-e
 モナトラの問題点とextensible effectsによる解決と､extensible effectsに残った問題点と名前付きextensible effectsによる解決と､うまく要点のまとまった発表でした｡&lt;/p&gt;&lt;p&gt;open unionをdictionaryにするのはなかなかおもしろいですね｡&lt;/p&gt;&lt;div style=&quot;font-size: 34pt;&quot;&gt;
 &lt;p&gt;今すぐダウンロー&lt;/p&gt;
 
-&lt;center&gt;
-  &lt;a href=&quot;http://hackage.haskell.org/package/extensible&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;http://hackage.haskell.org/package/extensible&lt;/a&gt;
-&lt;/center&gt;
-
+&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;http://hackage.haskell.org/package/extensible&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;/picture/no_image.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;http://hackage.haskell.org/package/extensible&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;extensible: Extensible, efficient, optics-friendly data types and effects&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;Install via `cabal install extensible`. &lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
 
 &lt;p&gt;ド&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
 &lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
   &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://github.com/fumieval/extensible&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://repository-images.githubusercontent.com/28671219/0ce84a80-cb6b-11e9-8882-b3e82c2f327d&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
@@ -793,7 +993,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— non-garbage, collected ᴋᴏɴ (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
+&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt; Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）&lt;/p&gt;— ᴋᴏɴ 1.42 (@GolDDranks) &lt;a href=&quot;https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
@@ -880,9 +1080,13 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;FSCD 2017で継続のない計算体系への変換が議論されてる&lt;br&gt; &lt;a href=&quot;https://twitter.com/hashtag/effect_study?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#effect_study&lt;/a&gt;&lt;/p&gt;— κeen (@blackenedgold) &lt;a href=&quot;https://twitter.com/blackenedgold/status/1132538873425174528?ref_src=twsrc%5Etfw&quot;&gt;May 26, 2019&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;p&gt;手前味噌で持ってきたN-Barreled CPSですが､質問で耳寄り情報をいただきましたが､すでにAlgebraic EffectsをCPS変換する研究はあるそうです(当然)&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
-  &lt;a href=&quot;https://bentnib.org/handlers-cps.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Continuation Passing Style for Effect Handlers&lt;/a&gt;
-&lt;/center&gt;&lt;p&gt;あと&lt;a href=&quot;https://twitter.com/__pandaman64__&quot;&gt;@__pandaman64__ &lt;/a&gt;さんが宣伝してたんでボクもしようと思ってそのまま忘れてたんで宣伝します｡
+&lt;/div&gt;&lt;p&gt;手前味噌で持ってきたN-Barreled CPSですが､質問で耳寄り情報をいただきましたが､すでにAlgebraic EffectsをCPS変換する研究はあるそうです(当然)&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://bentnib.org/handlers-cps.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;/picture/no_image.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://bentnib.org/handlers-cps.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Continuation Passing Style for Effect Handlers&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;あと&lt;a href=&quot;https://twitter.com/__pandaman64__&quot;&gt;@__pandaman64__ &lt;/a&gt;さんが宣伝してたんでボクもしようと思ってそのまま忘れてたんで宣伝します｡
 なんかいろいろまとめたやつです｡
 大事なことなので2回&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
   &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://dragonuniversity.booth.pm/items/1317197&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://booth.pximg.net/c/620x620/a00fe615-aca9-4ac2-9e73-c117987944f4/i/1317197/bd45f811-5cda-44ff-addf-b6306223184d_base_resized.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
@@ -1868,234 +2072,6 @@ Luaは残念ながら型のない世界なのでなんでもアリである｡&l
         <category>言語実装</category>
         
         <category>Advent Calendar</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Lily58による.xmodmapのハードウェア実装</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
-これはWORDIAN Advent Calendar 2018の2日目の記事です｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://adventar.org/calendars/3536&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://adventar.org/og_image.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://adventar.org/calendars/3536&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;WORDIAN Advent Calendar 2018 - Adventar&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;昨年大好評を博したWORDIAN Advent Calendarが今年もやってきました。編集部員、OBOG、または自分を編集部員だと思っている人などが記事を書きます。記事の内容はいつも通り自由。ただし、いつも通り学類長チェックは通るように努力しましょう。WORD編集部のサイト: https://www.word-ac.net/&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;p&gt;12月2日といえば､翌3日は冴草きいちゃんの誕生日ですね!!!!!!!!!!!
-めでたいですね｡
-何度でも言うぞ｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;さて今回はWORD部員協賛のもと､&lt;a href=&quot;https://booth.pm/ja/items/1079687&quot;&gt;Lily58&lt;/a&gt;というキーボードを作りました｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://booth.pm/ja/items/1079687&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://booth.pximg.net/c/620x620/6e334015-e9eb-4311-ac3a-48e1336541e1/i/1079687/996c09f5-0458-4b58-9425-777d5d49f82c_base_resized.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://booth.pm/ja/items/1079687&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;【販売終了】Lily58 - Early Bird - liliums - BOOTH&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;※先行販売としての販売は終了致しました。以下のページにて後継モデルのLily58 Proの販売をしています。https://liliums.booth.pm/items/1175324 この商品ははんだ付けを必要とする組み立て式のキットです。 先行販売のベータ版のため予期せぬ不具合などが発生する可能性があります。また、今後販売予定の正式版と仕様が変更になる箇所が出る場合があります。御理解の上ご購入下さい。&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;寝ぼけてLily58ポチってしまった｡&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1063171636998754304?ref_src=twsrc%5Etfw&quot;&gt;November 15, 2018&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;h1 id=&quot;%E6%9D%90%E6%96%99%E3%81%82%E3%81%A4%E3%82%81&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E6%9D%90%E6%96%99%E3%81%82%E3%81%A4%E3%82%81&quot;&gt;材料あつめ&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;上記のセットに加え､キースイッチとキーキャップを58個(とUSBケーブルとTRSケーブルを)揃える必要があります｡&lt;/p&gt;&lt;p&gt;WORD編集部室には3x3で全色異なるキースイッチのサンプルがあるので､お手元が寂しくなるとつい手を動かしてしまうW部員達には重宝されている｡
-カチカチしまくった結果､緑軸が良いな〜と思ったので緑軸にしようとしたものの､ちょうどどこを探しても8000個から仕入れ可能みたいなものしかなかった｡
-仕方がないので､遊舎工房でKailhのロープロ白軸を買った｡
-&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://yushakobo.jp/shop/pg1350/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://yushakobo.jp/wp-content/uploads/2018/05/20191227-109.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://yushakobo.jp/shop/pg1350/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kailhロープロファイルスイッチ（10個）&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;1パック10個入り&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;p&gt;カチカチとクリック感があり､青軸のようにうるさいのでパソコンカタカタオタク演ってる感がでて良いかな〜というのが選定理由だ｡&lt;/p&gt;&lt;h1 id=&quot;%E4%BD%9C%E3%82%8B&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E4%BD%9C%E3%82%8B&quot;&gt;作る&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;3月の引越しにつき祖父からもらったり実家からパチってきた激古はんだごてを全部捨ててしまったため､部員の&lt;a href=&quot;https://twitter.com/rizaudo&quot;&gt;@rizaudo&lt;/a&gt;氏にはんだごてを借り､ついでに編集部室で作業をおこなう｡&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/kata0510/Lily58/blob/master/doc/buildguide_jp.md&quot;&gt;ビルドガイド&lt;/a&gt;にしたがって作っていく｡&lt;/p&gt;&lt;h2 id=&quot;pro+micro%E4%BA%8B%E4%BB%B61&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#pro+micro%E4%BA%8B%E4%BB%B61&quot;&gt;pro micro事件1&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;が…&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;前回までのラブライブ！ 逆に取り付けたので半田吸い取り機を使おうとするも半壊しているのでトーストでハンダを溶かそうとするもまたもや失敗。 &lt;a href=&quot;https://t.co/cww2frd9vB&quot;&gt;pic.twitter.com/cww2frd9vB&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1064870457642442752?ref_src=twsrc%5Etfw&quot;&gt;November 20, 2018&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;p&gt;ヘ タ ク ソ&lt;sup id=&quot;fnref1&quot; title=&quot;ビルドガイドがボクの失敗を見たためかどうか､失敗したポイントについて丁寧な解説が加えられている｡みなさんは私の屍を超えて失敗レスに作ることができます｡ &quot;&gt;&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;&lt;p&gt;トーストによるハンダクラックは無事失敗｡
-部室にあったポンコツハンダ吸い取り器や､部員のハジョン氏にハンダ吸い取り線を借りるも難航｡
-rizaudo氏や部室を常時警備している&lt;a href=&quot;https://twitter.com/akkkix&quot;&gt;@akkkix&lt;/a&gt;氏の協力のもとハンダを吸いまくるも取れる気配がない｡
-&lt;a href=&quot;https://twitter.com/NTSC_J&quot;&gt;@NTSC_J&lt;/a&gt;氏にも部室にあるものよりも使えるハンダ吸い取り器を持ってきてもらい､交代しながらハンダを吸っていく｡&lt;/p&gt;&lt;p&gt;日が変わり､そして―&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;100年プロジェクトが完成した。 &lt;a href=&quot;https://t.co/dFbRgmX33e&quot;&gt;pic.twitter.com/dFbRgmX33e&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1064957919215538177?ref_src=twsrc%5Etfw&quot;&gt;November 20, 2018&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;p&gt;およそ5時間経過し､pro microを取り出すことに成功した｡
-作業員がこの時間で各々バイトをして発生した金で諸々買い直したほうが黒字だし早かったね､という話をした｡
-たしかにこの時点で人件費が材料費を上回ってしまっている｡&lt;/p&gt;&lt;p&gt;くぅ〜疲れましたw これにてlily58完成です!
-とはいかず…｡&lt;/p&gt;&lt;h2 id=&quot;pro+micro%E4%BA%8B%E4%BB%B62&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#pro+micro%E4%BA%8B%E4%BB%B62&quot;&gt;pro micro事件2&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;基板に全部くっつけたのでファームウェア書き込んでおわりや!!
-というところで片方に全然書き込めない｡
-オーブンで焼いたほうは特定のキー列だけ入力を受け付けたり受け付けなかったりする｡&lt;/p&gt;&lt;p&gt;後者の問題はpro microを剥がしたときにランドが1つお亡くなりになったことに起因すると推理し､rizaudo氏がハンダを盛りまくることで導通してくれた｡
-謝謝茄子｡&lt;/p&gt;&lt;p&gt;問題は前者である｡
-pro microを使う他の自作キーボードを作ってるブログなどを見てみると､なんかpro microを非対称(?)に付ける必要があるっぽいな…???&lt;/p&gt;&lt;p&gt;(&lt;strong&gt;&lt;em&gt;作ってる時には説明なかった&lt;/em&gt;&lt;/strong&gt;)&lt;a href=&quot;https://github.com/kata0510/Lily58/blob/master/doc/buildguide_jp.md#pro-micro%E3%82%92%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91%E3%81%99%E3%82%8B&quot;&gt;pro microを取り付ける部分&lt;/a&gt;はたしかになんか書いてありますねぇ!!&lt;/p&gt;&lt;p&gt;恐怖のハンダ吸いが再び始まり―&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
-&lt;label id=&quot;yaba&quot;&gt;&lt;/label&gt;
-
-&lt;p&gt;&lt;img src=&quot;/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/pinsocket.png&quot; alt=&quot;やばい&quot; title=&quot;yabai&quot;&gt;
-図&lt;a href=&quot;#yaba&quot;&gt;1&lt;/a&gt;
- ピンヘッダをなんとかしようとするrizaudoとakkkix&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-&lt;/center&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;pro micro救出に成功 &lt;a href=&quot;https://t.co/h3GMcZt1NU&quot;&gt;pic.twitter.com/h3GMcZt1NU&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065120644726054912?ref_src=twsrc%5Etfw&quot;&gt;November 21, 2018&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;pro microを救いきれなかったので破棄そして新しいのを注文して明日再開…｡&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065133627883708417?ref_src=twsrc%5Etfw&quot;&gt;November 21, 2018&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;p&gt;オワッ…&lt;/p&gt;&lt;p&gt;仕方がないのでハードウェア的に問題ない半分を完成させた｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;半分完成!!!（16時間経過） &lt;a href=&quot;https://t.co/MUhWVl3TEv&quot;&gt;pic.twitter.com/MUhWVl3TEv&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065115902633365504?ref_src=twsrc%5Etfw&quot;&gt;November 21, 2018&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;p&gt;早速&lt;a href=&quot;https://www.amazon.co.jp/gp/product/B01M6WULAO/&quot;&gt;代打&lt;/a&gt;を注文し､激戦の翌々日に届き､ネタが割れてしまえば爆速で完成｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;lily58、pro microを一つ失って完成…!!!! &lt;a href=&quot;https://t.co/ybr8uP24Lo&quot;&gt;pic.twitter.com/ybr8uP24Lo&lt;/a&gt;&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1065851007630888960?ref_src=twsrc%5Etfw&quot;&gt;November 23, 2018&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;h2 id=&quot;tips&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#tips&quot;&gt;tips&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;ロープロファイルだとアクリル板を止めるネジの頭にキーキャップが当たるので､キーキャップをちょっと削る必要がある(図&lt;a href=&quot;#kezuri&quot;&gt;2&lt;/a&gt;
-)｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
-&lt;label id=&quot;kezuri&quot;&gt;&lt;/label&gt;
-
-&lt;p&gt;&lt;img src=&quot;/pictures/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85/kezuri.png&quot; alt=&quot;削る&quot; title=&quot;削る様子&quot;&gt;
-図&lt;a href=&quot;#kezuri&quot;&gt;2&lt;/a&gt;
- 削ったキーキャップ&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-&lt;/center&gt;&lt;p&gt;そういえば昔WORDの記事でThinkPadのキートップを無刻印にすべくヤスリで削りまくった記憶がある｡
-今回はカッターでゴリゴリ削ってしまっているが､コチラのほうがはるかに作業時間が短い｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;ハードウェアの実装は18時間くらいかかってしまった｡
-ご協力大変感謝いたします｡&lt;/p&gt;&lt;h1 id=&quot;qmk+firmware&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#qmk+firmware&quot;&gt;qmk firmware&lt;/a&gt;&lt;/h1&gt;&lt;h2 id=&quot;xmodmap%E3%81%A8%E3%81%AF%E3%81%AA%E3%82%93%E3%81%A0%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%8B&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#xmodmap%E3%81%A8%E3%81%AF%E3%81%AA%E3%82%93%E3%81%A0%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%8B&quot;&gt;xmodmapとはなんだったのか&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;まずはこちらをご覧ください｡&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Nymphium/settings/blob/master/settingfiles/dots/.xmodmap&quot;&gt;settings/settingfiles/dots/.xmodmap&lt;/a&gt;&lt;/p&gt;&lt;p&gt;例えばキーボードの&lt;code&gt;3&lt;/code&gt;を押すと&lt;code&gt;3&lt;/code&gt;が入力され､&lt;code&gt;Shift&lt;/code&gt;も一緒に押すと&lt;code&gt;#&lt;/code&gt;が入力されたりする｡
-&lt;code&gt;Shift&lt;/code&gt;のように､一緒におすとキーの入力が変わるのを修飾キーと呼びます｡
-他にも&lt;code&gt;Ctrl&lt;/code&gt;も修飾キー｡
-そしてアクセント記号付き文字を入力するための&lt;code&gt;AltGr&lt;/code&gt;というキーも存在しますが､概ね皆さんが使ってるキーボードには備わってません｡
-xmodmapによってキーマップを変更し､&lt;code&gt;AltGr&lt;/code&gt;が使えるようになります｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;AltGr&lt;/code&gt;が使えるとどうなる?
-修飾ない状態､&lt;code&gt;Shift&lt;/code&gt;修飾状態､&lt;code&gt;AltGr&lt;/code&gt;修飾状態､&lt;code&gt;AltGr + Shift&lt;/code&gt;修飾状態と1つのキー入力で最大4状態もたせる､つまり&lt;strong&gt;1つのキーと2つの修飾キーによって4通りの入力をおこなうことができる&lt;/strong&gt;｡&lt;/p&gt;&lt;p&gt;上記のキーマップでは&lt;code&gt;無変換&lt;/code&gt;を&lt;code&gt;AltGr&lt;/code&gt;にしてhjklで←↓↑→を入力できるようにしてます｡
-これは&lt;em&gt;V&lt;/em&gt;の者にとっては非常に素晴らしいですね｡&lt;/p&gt;&lt;h3 id=&quot;%E5%9B%B0%E3%82%8B%E7%82%B9&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E5%9B%B0%E3%82%8B%E7%82%B9&quot;&gt;困る点&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;X11アプリケーションなのでX Window Systemが動いてないといけない｡
-なのでWindowsとかXのない状況では諦めざるを得ない｡&lt;/p&gt;&lt;p&gt;もう一つ重大な問題としては､キーコードに対するマッピングでしかないということである｡
-詳細は&lt;a href=&quot;https://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%89&quot;&gt;ウィキピージャ&lt;/a&gt;見てください｡
-なにかアプリケーションでキー入力を受け付けるとき､文字コードではなくキーコードを受け付けている場合非常に困る｡&lt;/p&gt;&lt;h2 id=&quot;%E3%81%9D%E3%81%93%E3%81%A7%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E3%82%A6%E3%82%A7%E3%82%A2&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%81%9D%E3%81%93%E3%81%A7%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E3%82%A6%E3%82%A7%E3%82%A2&quot;&gt;そこでファームウェア&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;qmk_firmwareは名前の通りファームウェアでして､こいつを使うことでキースイッチの入力に対応する&lt;em&gt;キーコード&lt;/em&gt;をプログラムすることができる｡&lt;/p&gt;&lt;div class=&quot;github-widget&quot; data-repo=&quot;qmk/qmk_firmware&quot;&gt;&lt;/div&gt;&lt;p&gt;keyboards/以下に様々なキーボードのいろいろが突っ込まれてて正気の沙汰ではないですね｡
-サブモジュールって知ってますか?&lt;/p&gt;&lt;p&gt;qmkにはレイヤという概念があり､上記の&lt;code&gt;AltGr&lt;/code&gt;のような事を､レイヤを切り替えることによって実現している｡
-このレイヤはユーザによっていっぱい作れるので､様々なレイヤを定義､しよう｡&lt;/p&gt;&lt;p&gt;そしてボクのキーマップはこんな感じになった｡&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Nymphium/qmk_firmware/blob/nymphium/keyboards/lily58/keymaps/nymphium/keymap.c&quot;&gt;https://github.com/Nymphium/qmk_firmware/blob/nymphium/keyboards/lily58/keymaps/nymphium/keymap.c&lt;/a&gt;&lt;/p&gt;&lt;p&gt;キーマップのレイヤごとにAAを書くというのが習慣らしい｡
-たしかに分かりやすい(実際の設定と一致してれば)｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cm&quot;&gt;/* DEFAULT
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |  P   |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |Enter |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |Muhen |      |
- * |------+------+------+------+------+------|  Y    |    |   B   |------+------+------+------+------+------|
- * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |      |      |      |MOUSE |
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |Super | LAlt |LOWER | / Space /       \ BSPC \  | Ctrl |MOUSE |Wdeflt|
- *                   |      |      |      |/       /         \      \ |      |      |      |
- *                   `----------------------------'           '------''--------------------'
- */&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;レイヤごとにキーコードを割り当てられる｡
-これはデフォルトレイヤーで次が上記のxmodmapのキーマップにおける&lt;code&gt;AltGr&lt;/code&gt;を押した状態になる｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lower_layer&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#lower_layer&quot;&gt;3&lt;/a&gt;
-. LOWERレイヤ&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cm&quot;&gt;/* LOWER
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      | F1  |  F2  |  F3  |  F4  |  F5   |                    |      |  [   |   ]  | F12  |      |      |
- * |------+-----+------+------+------+-------|                    |------+------+------+------+------+------|
- * |      |  @  |  +   | ESC  |  ;   |  ^    |                    |      |  .   |  ,   | HOME | END  |      |
- * |------+-----+------+------+------+-------|                    |------+------+------+------+------+------|
- * |      |  -  |   %  |  \   |  /   |  '    |-------.    ,-------| Left | Down |  Up  |Right |Henkan|      |
- * |------+-----+------+------+------+-------|       |    |       |------+------+------+------+------+------|
- * |      | F6  |  F7  |  F8  |  F9  | F10   |-------|    |-------| F11  | PgDn | PgUp |      |      |      |
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |      |      |      | /       /       \Delete\  |      |      |      |
- *                   |      |      |      |/       /         \      \ |      |      |      |
- *                   `----------------------------'           '------''--------------------'
- */&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;qmkはマウスのエミュレーションができる｡
-これはAAを用意してないんで実際の実装になっており､&lt;code&gt;LAYOUT&lt;/code&gt;マクロに渡されているのはそれぞれキーコードに対応する｡
-&lt;code&gt;_______&lt;/code&gt;は1つ前のレイヤのキーコードを参照する｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_MOUSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LAYOUT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; \
-  &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;                   &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; \
-  &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;                   &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; \
-  &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;                   &lt;span class=&quot;n&quot;&gt;KC_MS_L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_MS_D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_MS_U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_MS_R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; \
-  &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; \
-                             &lt;span class=&quot;n&quot;&gt;KC_BTN1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_BTN3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_BTN2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WHEEL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_______&lt;/span&gt; \
-&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&quot;%E3%82%AD%E3%83%BC%E5%85%A5%E5%8A%9B%E5%87%A6%E7%90%86&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%82%AD%E3%83%BC%E5%85%A5%E5%8A%9B%E5%87%A6%E7%90%86&quot;&gt;キー入力処理&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;キー入力を&lt;code&gt;process_record_user&lt;/code&gt;という関数で処理することができる｡
-レイヤ切り替えは&lt;code&gt;custom_keycode&lt;/code&gt;というenumで新しく追加したレイヤ切り替え専用のキーコードの入力を&lt;code&gt;process_record_user&lt;/code&gt;で処理する(プログラム&lt;a href=&quot;#process_record_user&quot;&gt;4&lt;/a&gt;
-)｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;process_record_user&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;プログラム&lt;a href=&quot;#process_record_user&quot;&gt;4&lt;/a&gt;
-. process_record_user&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;process_record_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;uint16_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keycode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keyrecord_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;keycode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// ......&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LOWER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;layer_on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_LOWER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;update_tri_layer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_LOWER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_SHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_LSHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;layer_off&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_LOWER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;update_tri_layer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_LOWER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_SHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_LSHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_LSFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;register_code&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;KC_LSFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;layer_on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_SHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;update_tri_layer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_LOWER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_SHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_LSHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;layer_off&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_SHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;update_tri_layer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_LOWER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_SHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_LSHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;unregister_code&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;KC_LSFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// ......&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_GRV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_EQL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KC_ASTR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;unregister_code&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;KC_LSFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;&lt;code&gt;keycode&lt;/code&gt;は文字通りキーコード､&lt;code&gt;record&lt;/code&gt;は入力してるときの状態を表し､&lt;code&gt;record-&amp;gt;event.pressed&lt;/code&gt;でキーを押下したかどうかのブールを取れる｡
-関数の中を見てみると､&lt;code&gt;keycode&lt;/code&gt;でswitchして入力内容で分岐する｡&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;#lower_layer&quot;&gt;LOWERレイヤ&lt;/a&gt;
-への切り替えは､&lt;code&gt;layer_on(_LOWER)&lt;/code&gt;と&lt;code&gt;layer_off(_LOWER)&lt;/code&gt;のあたりでおこなっている｡
-&lt;code&gt;LOWER+Shift&lt;/code&gt;の修飾では第3のレイヤ&lt;code&gt;_LSHIFT&lt;/code&gt;になる｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;KC_LSFT&lt;/code&gt;というキーコードが&lt;code&gt;Shift&lt;/code&gt;にあたる｡
-&lt;code&gt;Shift+0&lt;/code&gt;を押すと&lt;code&gt;?&lt;/code&gt;が出て欲しいなど､一部&lt;code&gt;Shift&lt;/code&gt;による修飾で送出される文字を変更したかったがお手軽な方法が一見してなさそうだった｡
-そのため､&lt;code&gt;Shift&lt;/code&gt;用に新たにレイヤを追加した｡
-また一部キーは&lt;code&gt;Shift&lt;/code&gt;修飾を外さないと意図した入力がおこなわれないため､&lt;code&gt;unregister_code(KC_LSFT)&lt;/code&gt;で&lt;code&gt;Shift&lt;/code&gt;の修飾を取り消している｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;process_record_user&lt;/code&gt;の戻り値は長押しキーリピートするかどうかである｡&lt;/p&gt;&lt;h1 id=&quot;%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E3%81%AE%E6%89%80%E6%84%9F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%A6%E3%81%AE%E6%89%80%E6%84%9F&quot;&gt;使ってみての所感&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;白軸カチャカチャして楽しい｡
-慣れるとだいぶ快適だし､Windowsでも使えるようにちょっとした工夫もしているためWindowsでも快適な入力ができる｡
-ウィンドウマネージャが変更できてフォントも綺麗に表示されてWSLがちゃんと動いてアレしてコレしたらWindowsでも快適に開発できそうですね!&lt;/p&gt;&lt;p&gt;ハードウェア的なところとしては概ね満足ですが､キーボードが格子状なのは慣れの問題なのか､なかなか打ちづらい｡
-あとパームレストがないと親指がキートップのエッジのせいでちょっと痛くなる｡
-というか上の行がちょっと打ちづらい?
-ともかくパームレストは遭ったほうが良いなこれは｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;これでボクがArchを使ってから愛用してきた秘伝の.xmodmapをファームウェアレベルでエミュレーションできたんじゃないでしょうか｡
-とはいえキーボードを持ち運ぶのはだるいので､基本的には在宅ワークするときやお家でツイッタ〜するときのみ活躍します｡&lt;/p&gt;&lt;p&gt;他にも状態のトグルなどちょっとした知見がコードに溜まってるので､qmk_firmwareを使ってなにかする人は上記のソースを見てみてください｡&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-
-&lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;ビルドガイドがボクの失敗を見たためかどうか､失敗したポイントについて丁寧な解説が加えられている｡みなさんは私の屍を超えて失敗レスに作ることができます｡ &lt;a href=&quot;#fnref1&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-        <pubDate>Sun, 02 Dec 2018 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2018/12/02/Lily58%E3%81%AB%E3%82%88%E3%82%8B.xmodmap%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E5%AE%9F%E8%A3%85.html</guid>
-        
-        <category>WORD</category>
-        
-        <category>自作キーボード</category>
-        
-        <category>lily58</category>
-        
-        <category>qmk_firmware</category>
-        
-        <category>xmodmap</category>
         
         
       </item>

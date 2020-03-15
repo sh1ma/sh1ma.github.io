@@ -37,7 +37,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-04-05T00:00:00+09:00" />
 <script type="application/ld+json">
-{"mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2017/04/05/5th.html"},"@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"headline":"5年次､Typed Racket","dateModified":"2017-04-05T00:00:00+09:00","datePublished":"2017-04-05T00:00:00+09:00","description":"こんにちは､びしょ〜じょです｡ 気づけば5年次4年生になりました｡ ようやく卒研フェーズになったので､ね｡","url":"https://nymphium.github.io/2017/04/05/5th.html","@context":"https://schema.org"}</script>
+{"dateModified":"2017-04-05T00:00:00+09:00","datePublished":"2017-04-05T00:00:00+09:00","@type":"BlogPosting","headline":"5年次､Typed Racket","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2017/04/05/5th.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"こんにちは､びしょ〜じょです｡ 気づけば5年次4年生になりました｡ ようやく卒研フェーズになったので､ね｡","url":"https://nymphium.github.io/2017/04/05/5th.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="/pictures/github_icon.png"/>
@@ -65,7 +65,7 @@
             <span class="post-meta">
               <time datetime="2017-04-05T00:00:00+09:00" itemprop="datePublished">Apr 5, 2017</time>
               <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2017-04-05-5th.md" target="_blank" rel="noopener noreferrer">src</a>
-              <p class="tags">tag: {<a href="/tags.html#%E9%9B%91%E6%84%9F-ref">雑感</a>, <a href="/tags.html#Racket-ref">Racket</a>, <a href="/tags.html#Typed%20Racket-ref">Typed Racket</a>, <a href="/tags.html#Vim-ref">Vim</a>}</p>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#%E9%9B%91%E6%84%9F-ref">雑感</a></span><span></span> <span class="tag"><a href="/tags.html#Racket-ref">Racket</a></span><span></span> <span class="tag"><a href="/tags.html#Typed%20Racket-ref">Typed Racket</a></span><span></span> <span class="tag"><a href="/tags.html#Vim-ref">Vim</a></span>}</p>
               <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
             </span>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -140,10 +140,13 @@ OCamlやHaskellと比べるとあまりにも…という感じですが､Typed
 やはりデータ型を定義するときは<code>define-datatype</code>みたいなマクロを作ってstructureの定義は隠蔽したいものです｡</p>
 <h3 id="%E8%BF%BD%E8%A8%98+2017%2F04%2F16"><a class="headerlink" href="#%E8%BF%BD%E8%A8%98+2017%2F04%2F16">追記 2017/04/16</a></h3>
 <p>ずばりなものを実装している人がおりました｡</p>
-<p></p>
-<center>
-  <a href="https://lexi-lambda.github.io/blog/2015/12/21/adts-in-typed-racket-with-macros/" target="_blank" rel="noopener noreferrer">ADTs in Typed Racket with macros</a>
-</center>
+<div class="twicard">
+  <span class="image"><a href="https://lexi-lambda.github.io/blog/2015/12/21/adts-in-typed-racket-with-macros/" target="_blank" rel="noopener noreferrer"><div><img src="/picture/no_image.png"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://lexi-lambda.github.io/blog/2015/12/21/adts-in-typed-racket-with-macros/" target="_blank" rel="noopener noreferrer">ADTs in Typed Racket with macros</a></div>
+    <div class="description">Macros are one of Racket’s flagship features, and its macro system really is state of the art. Of course, it can sometimes be difficult to demonstrate _why_ macros are so highly esteemed, in part because it can be hard to find self-contained examples of u…</div>
+  </span>
+</div>
 <p>これにより良い感じになる｡</p>
 <div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="nf">define-datatype</span> <span class="p">(</span><span class="nf">Optional</span> <span class="nv">A</span><span class="p">)</span>
                  <span class="p">(</span><span class="nf">Some</span> <span class="nv">A</span><span class="p">)</span>
