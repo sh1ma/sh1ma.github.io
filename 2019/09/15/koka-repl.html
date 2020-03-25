@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>koka-lang/koka REPL超入門 - lilyum ensemble</title>
+    <meta itemprop="name" content="koka-lang/koka REPL超入門 - lilyum ensemble"/>
+    <meta name="keywords" content="Algebraic Effects,Koka"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="koka-lang/koka REPL超入門 - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2019/09/15/koka-repl.html"/> 
+    <meta name="twitter:text:description" content="こんにちは､びしょ〜じょです｡さて､Koka言語というものがある｡そして主要な処理系にkokaがある｡kokaは主にHaskellで書かれており､REPLはJSが使われている｡この記事はKoka..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="koka-lang/koka REPL超入門" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="こんにちは､びしょ〜じょです｡" />
+<meta property="og:description" content="こんにちは､びしょ〜じょです｡" />
+<link rel="canonical" href="https://nymphium.github.io/2019/09/15/koka-repl.html" />
+<meta property="og:url" content="https://nymphium.github.io/2019/09/15/koka-repl.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-09-15T00:00:00+09:00" />
+<script type="application/ld+json">
+{"dateModified":"2019-09-15T00:00:00+09:00","datePublished":"2019-09-15T00:00:00+09:00","@type":"BlogPosting","headline":"koka-lang/koka REPL超入門","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2019/09/15/koka-repl.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"こんにちは､びしょ〜じょです｡","url":"https://nymphium.github.io/2019/09/15/koka-repl.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">koka-lang/koka REPL超入門</h1>
+            <span class="post-meta">
+              <time datetime="2019-09-15T00:00:00+09:00" itemprop="datePublished">Sep 15, 2019</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2019-09-15-koka-repl.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#Algebraic%20Effects-ref">Algebraic Effects</a></span><span></span> <span class="tag"><a href="/tags.html#Koka-ref">Koka</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡</p>
+<p>さて､<a href="research.microsoft.com/en-us/projects/koka">Koka言語</a>というものがある｡そして主要な処理系に<a href="https://github.com/koka-lang/koka" target="_blank" rel="noopener noreferrer">koka</a>がある｡
+kokaは主にHaskellで書かれており､REPLはJSが使われている｡
+この記事はKoka言語ではなくkoka-lang/kokaのREPLの入門記事である｡Kokaを知りたい方は<a href="https://koka-lang.github.io/koka/doc/kokaspec.html" target="_blank" rel="noopener noreferrer">The Koka Book</a>を参照のこと｡</p>
+<h1 id="%E5%87%A6%E7%90%86%E7%B3%BB%E3%81%AE%E3%83%93%E3%83%AB%E3%83%89"><a class="headerlink" href="#%E5%87%A6%E7%90%86%E7%B3%BB%E3%81%AE%E3%83%93%E3%83%AB%E3%83%89">処理系のビルド</a></h1>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>git clone https://github.com/koka-lang/koka.git
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>koka
+<span class="gp">$</span><span class="w"> </span>yarn <span class="c"># REPLを使うために必要</span>
+</code></pre></div>
+<p>ここからHaskell関連のものをビルドする､特にalexをインストールしたりする｡cabalとstackの2通りがある｡
+いずれかでalexをインストールする｡</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>cabal <span class="nb">install </span>alex
+<span class="gp">#</span><span class="w"> </span>または
+<span class="gp">$</span><span class="w"> </span>stack <span class="nb">install </span>alex
+</code></pre></div>
+<p>これでOK｡
+<code>jake</code>でKoka REPLが起動する､が､stackを利用した場合には<code>build_with_stack=true</code>を毎度渡す必要がある｡めんどいね｡
+またreadlineやlinenoiseなどをREPL内部で利用してないのでrlwrapを利用したほうが良いだろう｡</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>rlwrap jake <span class="c"># ビルド時にstackを利用してたら`jake build_with_stack=true`</span>
+<span class="go">check for packages: text parsec
+build: koka 0.9.0-dev (debug version)
+build ok.
+</span><span class="gp">&gt;</span><span class="w"> </span>out/debug/koka-0.9.0-dev  <span class="nt">--outdir</span><span class="o">=</span>out/lib <span class="nt">-ilib</span> <span class="nt">-itest</span>/algeff <span class="nt">-itest</span>/implicits <span class="nt">-itest</span>/ambients <span class="nt">-itest</span>/instance <span class="nt">-itest</span>/lib <span class="nt">--core</span> <span class="nt">--checkcore</span>
+<span class="go"> _          _
+| |        | |
+| | __ ___ | | __ __ _
+| |/ // _ \| |/ // _` | welcome to the koka interpreter
+|   &lt;| (_) |   &lt;| (_| | version 0.9.0-dev (debug), Sep  8 2019
+|_|\_\\___/|_|\_\\__,_| type :? for help
+
+loading: std/core
+</span><span class="gp">&gt;</span><span class="w"> </span>print<span class="o">(</span><span class="s2">"hello, world"</span><span class="o">)</span>
+<span class="go">hello, world
+</span><span class="gp">&gt;</span><span class="w">
+</span></code></pre></div>
+<p>あるいはビルドで生成されたkokaバイナリを叩けばいい｡この場合謎の引数を渡す必要はない｡</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>out/debug/koka-0.9.0-dev
+<span class="go"> _          _
+| |        | |
+| | __ ___ | | __ __ _
+| |/ // _ \| |/ // _` | welcome to the koka interpreter
+|   &lt;| (_) |   &lt;| (_| | version 0.9.0-dev (debug), Sep  8 2019
+|_|\_\\___/|_|\_\\__,_| type :? for help
+
+loading: std/core
+</span><span class="gp">&gt;</span><span class="w"> </span>print<span class="o">(</span><span class="s2">"hello, world"</span><span class="o">)</span>
+<span class="go">hello, world
+</span><span class="gp">&gt;</span><span class="w">
+</span></code></pre></div>
+<p>詳細は各ヘルプを見てほしい｡</p>
+<h1 id="%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E5%AE%9A%E7%BE%A9"><a class="headerlink" href="#%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E5%AE%9A%E7%BE%A9">エフェクトの定義</a></h1>
+<p>Koka言語といえばAlgebraic Effects and Handlersが特筆すべき機能だが､実はREPLではエフェクトの定義ができない｡ここはかなりのハマりポイントなので書いておく｡</p>
+<div class="highlight">
+<span class="listing-name">なんでやねん</span><pre><code class="language-" data-lang="">&gt; effect foo { fun foo(v : int): int } // REPLでは複数行にまたがる定義ができない…
+interactive(1, 1): error: invalid syntax
+ unexpected keyword effect
+ expecting expression
+&gt;
+</code></pre>
+</div>
+<p>Koka言語はファイルをモジュールという単位で利用する｡そしてkoka REPLは<code>lib/</code>以下のファイルをモジュールとして読み込める｡
+モジュールは <code>path/to/mod</code> という､ライブラリディレクトリから相対パスのファイル名から拡張子 <code>.kk</code> を除いたものを識別子とする｡
+<code>lib/path/to/mod.kk</code> というファイルの先頭に <code>module path/to/mod</code> と書けばよい｡
+とりあえず <code>lib/mod.kk</code> というファイルに書いてみる｡</p>
+<div class="highlight"><pre><code class="language-lib/mod.kk" data-lang="lib/mod.kk">module mod
+
+public effect foo { // Kokaにはアクセス制御もあるよ
+  fun foo(v : int) : int
+}
+</code></pre></div>
+<p>そしてkoka REPLでモジュールを読み込む｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">&gt; :l mod
+compile: lib/mod.kk
+loading: std/core
+check  : mod
+modules:
+  mod
+
+&gt; :t foo
+(v : int) -&gt; foo int
+
+&gt;
+</code></pre></div>
+<p>OK｡ハンドラはもちろんfirst-class valueなので特に問題なく定義できる｡</p>
+<div class="highlight"><pre><code class="language-" data-lang="">&gt; val h = handler { foo(v) -&gt; { println(v) ; resume(v + 1) } }
+operator branch (h) foo: resume tail
+h : forall&lt;a,e&gt; (action : () -&gt; &lt;foo,console|e&gt; a) -&gt; &lt;console|e&gt; a
+
+&gt; h { foo(3) }
+operator branch (h) foo: resume tail
+operator branch (h) foo: resume tail
+3
+4
+
+&gt;
+</code></pre></div>
+<p>OK2｡</p>
+<h2 id="%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E5%86%85%E3%81%A7%E3%81%AE%E6%BC%94%E7%AE%97%E5%AD%90%E3%81%AE%E5%AE%9A%E7%BE%A9%E3%81%A8REPL%E3%81%A7%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF"><a class="headerlink" href="#%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E5%86%85%E3%81%A7%E3%81%AE%E6%BC%94%E7%AE%97%E5%AD%90%E3%81%AE%E5%AE%9A%E7%BE%A9%E3%81%A8REPL%E3%81%A7%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF">モジュール内での演算子の定義とREPLでの読み込み</a></h2>
+<p>KokaはScalaやHaskell､OCamlなどのように演算子を定義できる｡
+しかしモジュールで演算子を定義､利用すると怒られが発生する場合がある｡
+多分バグなので<a href="https://github.com/koka-lang/koka/issues/83" target="_blank" rel="noopener noreferrer">報告した</a>｡インターフェースファイルのパーザが記号に対応してないっぽい｡
+この怒られはインターフェースファイルを消去することで回避できる｡</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span><span class="nb">rm </span>out/op.kki
+</code></pre></div>
+<p>コントリビューションチャンスです｡</p>
+<hr>
+<p>これで皆さんも快適にKokaが書けるようになったかもしれません｡
+メチャクチャ雑なVim syntax highlightがあるので､Vimmerはカラフルな世界でKokaを見ることができます｡
+<a href="https://github.com/Nymphium/vim-koka" target="_blank" rel="noopener noreferrer">Nymphium/vim-koka: vim utilities for koka language</a></p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2019/08/10/ae-type-system.html" title="Algebraic Effectsの型システム入門">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2019/12/07/ruby-ae.html" title="Rubyでもalgebraic effectsがしたい!">Next →</a>
+      </div>
+    </footer>
+
+  </body>
+</html>

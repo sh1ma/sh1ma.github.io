@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>Algebraic Effectsの型システム入門 - lilyum ensemble</title>
+    <meta itemprop="name" content="Algebraic Effectsの型システム入門 - lilyum ensemble"/>
+    <meta name="keywords" content="型システム,Algebraic Effects"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="Algebraic Effectsの型システム入門 - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2019/08/10/ae-type-system.html"/> 
+    <meta name="twitter:text:description" content="はじめにAlgebraic Effectsは計算エフェクトを扱う言語機能である｡エフェクトとハンドラから成り､エフェクトの発生をハンドラが捕捉し､なんらかの値を返してエフェクト発生部分からの計算..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Algebraic Effectsの型システム入門" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="はじめに Algebraic Effectsは計算エフェクトを扱う言語機能である｡エフェクトとハンドラから成り､エフェクトの発生をハンドラが捕捉し､なんらかの値を返してエフェクト発生部分からの計算を再開する｡エフェクト自体は何もせず､ハンドラが具体的な計算をおこないという部分が重要である｡例えばDependency Injectionにおいては､インターフェースで定義されたメソッドがエフェクトの定義､メソッドを呼び出すのがエフェクトの発生､インターフェースの具体的な実装がハンドラ､と対応づけることができる｡ Eff言語で実際に例をみてみる｡" />
+<meta property="og:description" content="はじめに Algebraic Effectsは計算エフェクトを扱う言語機能である｡エフェクトとハンドラから成り､エフェクトの発生をハンドラが捕捉し､なんらかの値を返してエフェクト発生部分からの計算を再開する｡エフェクト自体は何もせず､ハンドラが具体的な計算をおこないという部分が重要である｡例えばDependency Injectionにおいては､インターフェースで定義されたメソッドがエフェクトの定義､メソッドを呼び出すのがエフェクトの発生､インターフェースの具体的な実装がハンドラ､と対応づけることができる｡ Eff言語で実際に例をみてみる｡" />
+<link rel="canonical" href="https://nymphium.github.io/2019/08/10/ae-type-system.html" />
+<meta property="og:url" content="https://nymphium.github.io/2019/08/10/ae-type-system.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-08-10T00:00:00+09:00" />
+<script type="application/ld+json">
+{"dateModified":"2019-08-10T00:00:00+09:00","datePublished":"2019-08-10T00:00:00+09:00","@type":"BlogPosting","headline":"Algebraic Effectsの型システム入門","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2019/08/10/ae-type-system.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"はじめに Algebraic Effectsは計算エフェクトを扱う言語機能である｡エフェクトとハンドラから成り､エフェクトの発生をハンドラが捕捉し､なんらかの値を返してエフェクト発生部分からの計算を再開する｡エフェクト自体は何もせず､ハンドラが具体的な計算をおこないという部分が重要である｡例えばDependency Injectionにおいては､インターフェースで定義されたメソッドがエフェクトの定義､メソッドを呼び出すのがエフェクトの発生､インターフェースの具体的な実装がハンドラ､と対応づけることができる｡ Eff言語で実際に例をみてみる｡","url":"https://nymphium.github.io/2019/08/10/ae-type-system.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Algebraic Effectsの型システム入門</h1>
+            <span class="post-meta">
+              <time datetime="2019-08-10T00:00:00+09:00" itemprop="datePublished">Aug 10, 2019</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2019-08-10-ae-type-system.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#%E5%9E%8B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0-ref">型システム</a></span><span></span> <span class="tag"><a href="/tags.html#Algebraic%20Effects-ref">Algebraic Effects</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">はじめに</a></h1>
+<p>Algebraic Effectsは計算エフェクトを扱う言語機能である｡エフェクトとハンドラから成り､エフェクトの発生をハンドラが捕捉し､なんらかの値を返してエフェクト発生部分からの計算を再開する｡エフェクト自体は何もせず､ハンドラが具体的な計算をおこないという部分が重要である｡例えばDependency Injectionにおいては､インターフェースで定義されたメソッドがエフェクトの<em>定義</em>､メソッドを呼び出すのがエフェクトの<em>発生</em>､インターフェースの具体的な実装が<em>ハンドラ</em>､と対応づけることができる｡
+<a href="https://www.eff-lang.org" target="_blank" rel="noopener noreferrer">Eff言語</a>で実際に例をみてみる｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">effect</span> <span class="nc">Random</span> <span class="o">:</span> <span class="kt">int</span>
+</code></pre></div>
+<p><code>Random</code> というエフェクトを定義した｡このエフェクトを発生させると適当な<code>int</code>型の値が得られる｡
+そしてハンドラは次のようになる｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">always_zero</span> <span class="o">=</span> <span class="n">handler</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="nc">Random</span> <span class="n">k</span> <span class="o">-&gt;</span> <span class="n">continue</span> <span class="n">k</span> <span class="mi">0</span>
+  <span class="o">|</span> <span class="k">val</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span>
+
+<span class="k">let</span> <span class="n">native_random</span> <span class="o">=</span> <span class="n">handler</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="nc">Random</span> <span class="n">k</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">r</span> <span class="o">=</span> <span class="n">get_random</span> <span class="bp">()</span> <span class="k">in</span> <span class="c">(* なんか都合のいいビルトイン関数 *)</span>
+    <span class="n">continue</span> <span class="n">k</span> <span class="n">r</span>
+  <span class="o">|</span> <span class="k">val</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span>
+</code></pre></div>
+<p>常に<code>0</code>を返すハンドラと言語組み込みの乱数生成器を利用するハンドラの2つを用意した｡<code>effect Random k -&gt; ...</code> というマッチアームで<code>Random</code>エフェクトを捕捉し､<code>continue k</code>に値を渡すことで計算を再開する｡<code>k</code>ってなんやねんとかは今回は省略する｡計算を再開できるんや｡
+そしてハンドラを受け取って計算をおこなう関数を定義する｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">rand_with</span> <span class="n">h</span> <span class="o">=</span> <span class="k">with</span> <span class="n">h</span> <span class="n">handle</span>
+  <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">perform</span> <span class="nc">Random</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">perform</span> <span class="nc">Random</span> <span class="k">in</span>
+  <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+</code></pre></div>
+<p>ハンドラが第1級オブジェクトなおかげでハンドラを受け取る関数が書ける｡適当なハンドラが<code>Random</code>の発生をキャッチしてくれると計算ができる｡
+では実際に使ってみる｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">print_int</span> <span class="p">(</span><span class="n">rand_with</span> <span class="n">always_zero</span><span class="p">)</span> <span class="c">(* prints "0" *)</span>
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">print_int</span> <span class="p">(</span><span class="n">rand_with</span> <span class="n">native_random</span><span class="p">)</span> <span class="c">(* prints RANDOM number *)</span>
+</code></pre></div>
+<p>いいですね｡<code>Random</code>エフェクトが発生したときにどんな値が返ってくるのかがハンドラによって切り替えられるのがとにかく重要です｡</p>
+<p>もう少し丁寧な解説は<a href="https://qiita.com/Nymphium/items/e6ce580da8b87ded912b" target="_blank" rel="noopener noreferrer">こちら</a>を参照されたし｡</p>
+<h1 id="%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E5%9E%8B"><a class="headerlink" href="#%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E5%9E%8B">エフェクトの型</a></h1>
+<p>ところで<code>Random</code>エフェクトが発生すると必ずハンドラに捕捉されるという保証はあるのでしょうか? Javaの<code>throws HogeException</code>みたいになってると嬉しいんですが…｡
+とりあえずエフェクトが発生した位置の残りの計算部分にエフェクトが発生したことが分かるようにマークを付けてみます｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">rand_with</span> <span class="n">h</span> <span class="o">=</span> <span class="k">with</span> <span class="n">h</span> <span class="n">handle</span>
+  <span class="o">&lt;</span><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">perform</span> <span class="nc">Random</span> <span class="k">in</span> <span class="c">(* 1 *)</span>
+  <span class="o">&lt;</span><span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">perform</span> <span class="nc">Random</span> <span class="k">in</span> <span class="c">(* 2 *)</span>
+   <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">&gt;</span> <span class="c">(* Random(1)が起きた *)</span> <span class="o">&gt;</span> <span class="c">(* Random(2)が起きた *)</span>
+</code></pre></div>
+<p>テキストの限界を感じています､今</p>
+<p><code>&lt;マークが付けられた計算部分&gt;</code> といった感じでマークを付けてみました｡幸いにしてEffは式指向な言語なのでearly returnがなく末尾位置の式を見ればどういった値を返すのかが分かります｡返す値にマークが付いているので､<code>rand_with</code> は<code>Random</code>エフェクトが発生することが分かるようになりました｡したがって <code>rand_with</code> 内の計算は <code>intを返すがRandomが発生する</code> という型になります｡これを <code>int!{Random}</code> と表現しましょう｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">rand_with</span> <span class="n">h</span> <span class="o">=</span> <span class="k">with</span> <span class="n">h</span> <span class="n">handle</span>
+  <span class="k">let</span> <span class="n">x</span> <span class="o">:</span> <span class="kt">int</span><span class="o">!</span><span class="p">{</span><span class="nc">Random</span><span class="p">}</span> <span class="o">=</span> <span class="n">perform</span> <span class="nc">Random</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">y</span> <span class="o">:</span> <span class="kt">int</span><span class="o">!</span><span class="p">{</span><span class="nc">Random</span><span class="p">}</span> <span class="o">=</span> <span class="n">perform</span> <span class="nc">Random</span> <span class="k">in</span>
+  <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">:</span> <span class="kt">int</span><span class="o">!</span><span class="p">{</span><span class="nc">Random</span><span class="p">}</span>
+</code></pre></div>
+<p>では<code>h</code>の型は <code>int!{Random} -&gt; int!{}</code> とかでしょうか｡<code>t!{}</code>は<code>t</code>を返しつつ何もエフェクトを発生しないということを表しています｡つまり<code>{}</code>というのは<strong>エフェクトの集合</strong>を表すことになります｡Javaの<code>T throws HogeException, FugaException</code> というのは<code>t!{HogeException, HugaException}</code>といったように表現されます｡ハンドラの型についてはもう少しあとで真面目に考えてみましょう｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">val</span> <span class="n">rand_with</span> <span class="o">:</span> <span class="p">(</span><span class="kt">int</span><span class="o">!</span><span class="p">{</span><span class="nc">Random</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="kt">int</span><span class="o">!</span><span class="p">{}</span> <span class="o">...?</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">int</span><span class="o">!</span><span class="p">{}</span>
+</code></pre></div>
+<h2 id="%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%84%E3%81%A3%E3%81%B1%E3%81%84"><a class="headerlink" href="#%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%84%E3%81%A3%E3%81%B1%E3%81%84">エフェクトいっぱい</a></h2>
+<p>とりあえずエフェクトを増やしてみましょう｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">key</span> <span class="o">=</span> <span class="kt">string</span>
+<span class="k">type</span> <span class="n">value</span> <span class="o">=</span> <span class="kt">int</span>
+
+<span class="n">effect</span> <span class="nc">Read</span> <span class="o">:</span> <span class="n">key</span> <span class="o">-&gt;</span> <span class="n">value</span>
+<span class="n">effect</span> <span class="nc">Write</span> <span class="o">:</span> <span class="p">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">unit</span>
+</code></pre></div>
+<p><code>(key, value) environment</code> みたいなデータ構造を仮定して<code>Read</code>/<code>Write</code>エフェクトを定義しました｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">env_with</span> <span class="n">h</span> <span class="o">=</span> <span class="k">with</span> <span class="n">h</span> <span class="n">handle</span>
+  <span class="k">let</span> <span class="n">x</span> <span class="o">:</span> <span class="n">value</span><span class="o">!</span><span class="p">{</span><span class="nc">Read</span><span class="p">}</span> <span class="o">=</span> <span class="n">perform</span> <span class="p">(</span><span class="nc">Read</span> <span class="s2">"x"</span><span class="p">)</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">y</span> <span class="o">:</span> <span class="n">value</span><span class="o">!</span><span class="p">{</span><span class="nc">Read</span><span class="p">}</span> <span class="o">=</span> <span class="n">perform</span> <span class="p">(</span><span class="nc">Read</span> <span class="s2">"y"</span><span class="p">)</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="bp">()</span> <span class="o">:</span> <span class="kt">unit</span><span class="o">!</span><span class="p">{</span><span class="nc">Read</span><span class="o">,</span> <span class="nc">Write</span><span class="p">}</span> <span class="o">=</span> <span class="n">perform</span> <span class="p">(</span><span class="nc">Write</span> <span class="p">(</span><span class="s2">"z"</span><span class="o">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">))</span> <span class="k">in</span>
+  <span class="p">(</span><span class="n">perfofm</span> <span class="p">(</span><span class="nc">Read</span> <span class="s2">"z"</span><span class="p">))</span> <span class="o">:</span> <span class="kt">int</span><span class="o">!</span><span class="p">{</span><span class="nc">Read</span><span class="o">,</span> <span class="nc">Write</span><span class="p">}</span>
+</code></pre></div>
+<p>なんか変な型になりましたがこうなってほしいはずです｡4行目に注目してください｡<code>let</code>右辺では<code>Write</code>エフェクトだけ発生していますが残りの計算部分は<code>{Read, Write}</code>になっています｡やりたかったことは式全体の型にエフェクトが発生することを伝搬することだったので､<code>Write</code>エフェクトが発生する部分でもそれまでに発生した<code>Read</code>エフェクトを引き継いでいるのです｡
+サブタイピングのにおいがしますね｡<code>{}</code>がtopで､<code>{定義されているすべてのエフェクト}</code>がbottomとしてその間にtransitiveなサブタイピング関係がスパッとできそうです｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">val</span> <span class="n">env_with</span> <span class="o">:</span> <span class="p">(</span><span class="kt">int</span><span class="o">!</span><span class="p">{</span><span class="nc">Read</span><span class="o">,</span> <span class="nc">Write</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="kt">int</span><span class="o">!</span><span class="p">{}</span> <span class="o">...?</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">int</span><span class="o">!</span><span class="p">{}</span>
+</code></pre></div>
+<h2 id="%E5%A4%9A%E7%9B%B8%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%28%E6%9C%AA%E5%AE%8C%29"><a class="headerlink" href="#%E5%A4%9A%E7%9B%B8%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%28%E6%9C%AA%E5%AE%8C%29">多相エフェクト(未完)</a></h2>
+<p>難しいので割愛</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">option</span> <span class="o">=</span> <span class="nc">Some</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="o">|</span> <span class="nc">None</span>
+<span class="n">effect</span> <span class="nc">Option</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="n">option</span> <span class="o">-&gt;</span> <span class="k">'</span><span class="n">a</span>
+
+<span class="k">let</span> <span class="n">with_option</span> <span class="n">th</span> <span class="o">=</span>
+  <span class="n">handle</span> <span class="n">th</span> <span class="bp">()</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="p">(</span><span class="nc">Option</span> <span class="p">(</span><span class="nc">Some</span> <span class="n">v</span><span class="p">))</span> <span class="n">k</span> <span class="o">-&gt;</span> <span class="n">k</span> <span class="n">v</span> <span class="c">(* `v`の型に関して具体的な操作(`v : int`として `v * 3`とか)はキツいカモ… *)</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="p">(</span><span class="nc">Option</span> <span class="nc">None</span><span class="p">)</span>     <span class="n">_</span> <span class="o">-&gt;</span> <span class="nc">None</span>
+  <span class="o">|</span> <span class="k">val</span> <span class="n">v</span> <span class="o">-&gt;</span> <span class="n">v</span>
+</code></pre></div>
+<h1 id="%E3%83%8F%E3%83%B3%E3%83%89%E3%83%A9%E3%81%AE%E5%9E%8B"><a class="headerlink" href="#%E3%83%8F%E3%83%B3%E3%83%89%E3%83%A9%E3%81%AE%E5%9E%8B">ハンドラの型</a></h1>
+<p>ハンドラは式の型からエフェクトを取り除いていくものと考えられます｡またハンドラにはvalue handlerがあり､関数のように<code>a -&gt; b</code>と受け取った値の型を変更することができます｡ではハンドラの型は <code>a!e =&gt; b!e'</code> としましょう｡ここで<code>e</code>と<code>e'</code>の間にはサイズに関する関係は定義する必要がありません｡というのもトップレベルで<code>a!{}</code>となれば良いわけですから､実はハンドラを適用する前後でエフェクトの集合のサイズは必ずしも縮小していなくていいからです｡
+<code>Random</code>エフェクトをハンドルするハンドラを思い出してみましょう｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">always_zero</span> <span class="o">=</span> <span class="n">handler</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="nc">Random</span> <span class="n">k</span> <span class="o">-&gt;</span> <span class="n">continue</span> <span class="n">k</span> <span class="mi">0</span>
+  <span class="o">|</span> <span class="k">val</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span>
+
+<span class="k">let</span> <span class="n">native_random</span> <span class="o">=</span> <span class="n">handler</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="nc">Random</span> <span class="n">k</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">r</span> <span class="o">=</span> <span class="n">get_random</span> <span class="bp">()</span> <span class="k">in</span>
+    <span class="n">continue</span> <span class="n">k</span> <span class="n">r</span>
+  <span class="o">|</span> <span class="k">val</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span>
+</code></pre></div>
+<p>これはvalue handlerがidのように受け取った値をそのまま返すので型の変更がありません｡したがってどちらも<code>'a!{Random} =&gt; 'a!{}</code>と考えられます｡
+…いや本当ですか? すべてのハンドラはキャッチできないエフェクトを素通しします｡なので<code>effect e k -&gt; perform e |&gt; continue k</code> のようなマッチアームが暗に付属しています｡なのでこのエフェクトをして<code>'a!({Random} ∪ e) =&gt; 'a!e</code>のようになります｡
+ハンドラ内部の型を見てみましょう｡
+<code>continue k</code>の型は<code>int -&gt; 'a!e</code>になります｡<code>int</code>は<code>Random</code>エフェクトの型に対応し､<code>'a!e</code>は <em>ハンドラ全体の戻り値</em> と同じになります｡ハンドルされる式と同じ型じゃないんですか? 違います｡<code>continue k hoge</code>が表すものは､ハンドルされる式が評価されきって､更に値がvalue handlerに渡されるところまでのコントロールとなります｡なので<code>continue k hoge</code>が返す値はvalue handlerの返す値であり､型も同様にvalue handlerの返す値の型になるのです｡value handlerの引数の型は<code>'a!e</code>､ボディの型もこの場合は同じく<code>'a!e</code>となります｡いい感じですね｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">val</span> <span class="n">always_zero</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span><span class="o">!</span><span class="p">({</span><span class="nc">Random</span><span class="p">}</span> <span class="err">∪</span> <span class="n">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">'</span><span class="n">a</span><span class="o">!</span><span class="n">e</span>
+<span class="k">val</span> <span class="n">native_random</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span><span class="o">!</span><span class="p">({</span><span class="nc">Random</span><span class="p">}</span> <span class="err">∪</span> <span class="n">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">'</span><span class="n">a</span><span class="o">!</span><span class="n">e</span>
+</code></pre></div>
+<p><code>Read</code>/<code>Write</code>エフェクトのハンドラも書いてみます｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="p">(</span><span class="k">'</span><span class="n">l</span><span class="o">,</span> <span class="k">'</span><span class="n">r</span><span class="p">)</span> <span class="n">either</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="nc">Left</span> <span class="k">of</span> <span class="k">'</span><span class="n">l</span>
+  <span class="o">|</span> <span class="nc">Right</span> <span class="k">of</span> <span class="k">'</span><span class="n">r</span>
+
+<span class="k">let</span> <span class="n">with_fresh_hash</span> <span class="bp">()</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">env</span> <span class="o">=</span> <span class="nn">Hash</span><span class="p">.</span><span class="n">new</span> <span class="bp">()</span> <span class="k">in</span> <span class="c">(* なんか都合のいいデータ構造 *)</span>
+  <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">modify</span> <span class="n">env</span> <span class="s2">"x"</span> <span class="mi">4</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">modify</span> <span class="n">env</span> <span class="s2">"y"</span> <span class="mi">7</span> <span class="k">in</span>
+  <span class="n">handler</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="p">(</span><span class="nc">Read</span> <span class="n">key</span><span class="p">)</span> <span class="n">k</span> <span class="o">-&gt;</span>
+    <span class="k">begin</span>
+       <span class="k">match</span> <span class="n">lookup</span> <span class="n">key</span> <span class="n">env</span> <span class="k">with</span>
+       <span class="o">|</span> <span class="nc">Some</span> <span class="n">value</span> <span class="o">-&gt;</span> <span class="n">continue</span> <span class="n">k</span> <span class="n">value</span>
+       <span class="o">|</span> <span class="nc">None</span> <span class="o">-&gt;</span> <span class="nc">Left</span> <span class="p">(</span><span class="s2">"key "</span> <span class="o">^</span> <span class="n">key</span> <span class="o">^</span> <span class="s2">" not found"</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="p">(</span><span class="nc">Write</span> <span class="p">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="p">))</span> <span class="n">k</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">modify</span> <span class="n">env</span> <span class="n">key</span> <span class="n">value</span> <span class="k">in</span> <span class="n">continue</span> <span class="n">k</span> <span class="bp">()</span>
+  <span class="o">|</span> <span class="k">val</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="nc">Right</span> <span class="n">x</span>
+</code></pre></div>
+<p>まあまあ大きな実装になりました｡環境<code>env</code>を作ってclosingしたいので <code>unit -&gt; (ハンドラ)</code>という関数の形になっています｡<code>Hash</code>のあたりはなんかいい感じに各位読み替えてください｡注目してほしいのは<code>Read</code>エフェクトで環境からの読み取りに失敗した場合(<code>None</code> マッチアームのところ)で<code>Left</code>を返すところです｡今更ですがエフェクトハンドラは計算を再開せずにやめることもできるんや! ということで<code>Read</code>エフェクトのハンドルでは<code>either</code>型を返してます｡<code>Random</code>エフェクトをキャッチしたときのことを思い出してみると､<code>with_fresh_hash</code>の返すハンドラの戻り値の型も<code>either</code>になってほしいわけです｡value handlerを見てみると､確かに<code>Right</code>コンストラクタに<code>x</code>を渡しているので<code>either</code>です｡ヤッタネ!
+<code>continue k hoge</code>の型は先程話したとおり､value handlerの返す型と同じになります｡なので<code>Read</code>に成功した場合も<code>Write</code>した場合も型がいい感じに合いますね｡以上より､<code>with_fresh_hash</code>の型は<code>unit -&gt; ( 'a!({Read, Write} ∪ e) =&gt; ((string, 'a) either)!e )</code>となります｡あるいは<code>either</code>を返す式をハンドルしてvalue handlerは受け取った値をそのまま返す実装にして <code>( ((string, 'a) either)!({Read, Write} ∪ e) =&gt; ((string, 'a) either)!e )</code>となるハンドラも良さそうですね｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">val</span> <span class="n">with_fresh_hash</span> <span class="o">:</span> <span class="kt">unit</span> <span class="o">-&gt;</span> <span class="p">(</span> <span class="k">'</span><span class="n">a</span><span class="o">!</span><span class="p">({</span><span class="nc">Read</span><span class="o">,</span> <span class="nc">Write</span><span class="p">}</span> <span class="err">∪</span> <span class="n">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">((</span><span class="kt">string</span><span class="o">,</span> <span class="k">'</span><span class="n">a</span><span class="p">)</span> <span class="n">either</span><span class="p">)</span><span class="o">!</span><span class="n">e</span> <span class="p">)</span>
+</code></pre></div>
+<h2 id="%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E6%8C%81%E3%81%A4%E5%BC%8F%E3%81%AE%E5%9E%8B+%E5%86%8D%E8%80%83"><a class="headerlink" href="#%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E6%8C%81%E3%81%A4%E5%BC%8F%E3%81%AE%E5%9E%8B+%E5%86%8D%E8%80%83">エフェクトを持つ式の型 再考</a></h2>
+<p>さて､ハンドラの型が分かったところでこれまで定義してきた<code>rand_with</code>や<code>env_with</code>の型を明らかにしましょう｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">val</span> <span class="n">rand_with</span> <span class="o">:</span> <span class="p">(</span><span class="kt">int</span><span class="o">!</span><span class="p">{</span><span class="nc">Random</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="kt">int</span><span class="o">!</span><span class="p">{}</span> <span class="o">...?</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">int</span><span class="o">!</span><span class="p">{}</span>
+</code></pre></div>
+<p>ハンドラは<code>int!({Rand}) =&gt; 'a!{}</code>となります｡<code>rand_with</code>では<code>Random</code>エフェクトだけ起こることが明らかなので他のエフェクトを考慮する必要はありません｡またvalue handlerによりintが何らかの型に変わる可能性があるので､ハンドラの戻り値の型は<code>'a</code>と多相になっています｡
+したがって<code>rand_with</code>の返す値もvalue handlerの返す値の型になるため､次のようになるのが正しそうです｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">val</span> <span class="n">rand_with</span> <span class="o">:</span> <span class="p">(</span><span class="kt">int</span><span class="o">!</span><span class="p">{</span><span class="nc">Rand</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">'</span><span class="n">a</span><span class="o">!</span><span class="p">{})</span> <span class="o">-&gt;</span> <span class="k">'</span><span class="n">a</span><span class="o">!</span><span class="p">{}</span>
+</code></pre></div>
+<p><code>env_with</code>も見てみましょう｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">val</span> <span class="n">env_with</span> <span class="o">:</span> <span class="p">(</span><span class="kt">int</span><span class="o">!</span><span class="p">{</span><span class="nc">Read</span><span class="o">,</span> <span class="nc">Write</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="kt">int</span><span class="o">!</span><span class="p">{}</span> <span class="o">...?</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">int</span><span class="o">!</span><span class="p">{}</span>
+</code></pre></div>
+<p>これも同様に</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">val</span> <span class="n">env_with</span> <span class="o">:</span> <span class="p">(</span><span class="kt">int</span><span class="o">!</span><span class="p">{</span><span class="nc">Read</span><span class="o">,</span> <span class="nc">Write</span><span class="p">}</span> <span class="o">=&gt;</span> <span class="k">'</span><span class="n">a</span><span class="o">!</span><span class="p">{})</span> <span class="o">-&gt;</span> <span class="k">'</span><span class="n">a</span><span class="o">!</span><span class="p">{}</span>
+</code></pre></div>
+<h1 id="%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E3%83%8F%E3%83%B3%E3%83%89%E3%83%AB"><a class="headerlink" href="#%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E3%83%8F%E3%83%B3%E3%83%89%E3%83%AB">エフェクトのハンドル</a></h1>
+<p>エフェクトの型とハンドラの型が明らかになったので､実際にエフェクトを発生する式からハンドラはエフェクトの型をとりのぞいてくれるのかを見てみましょう｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">env_with</span> <span class="p">(</span><span class="n">with_fresh_hash</span> <span class="bp">()</span><span class="p">)</span> <span class="o">:</span> <span class="o">???</span>
+</code></pre></div>
+<p>型だけ見てみましょう｡<code>with_fresh_hash ()</code> は<code>'a!({Read, Write} ∪ e) =&gt; ((string, 'a) either)!e</code>という型を持ちます｡これを<code>env_with</code>に渡す｡
+<code>env_with</code>が欲しているハンドラの型は<code>(int!{Read, Write} =&gt; 'b!{})</code>です(型変数の衝突を避けるため､こちらを<code>'b</code>としました)｡<code>'a</code>を<code>int</code>に特殊化すると<code>int!({Read, Write} ∪ e) =&gt; ((string, int) either)!e</code>となります｡
+<code>int!{Read, Write}</code>は<code>int!({Read, Write} ∪ e)</code>のスーパータイプとなり､<code>'b</code>を<code>(string, int) either</code>で特殊化した<code>((string, int) either)!{}</code>は<code>((string, int) either)!e</code>のスーパータイプなので受け入れOKです｡<code>env_with</code>の戻り値は<code>'b</code>が特殊化されたので<code>((string, int) either)!{}</code>となります｡
+したがって<code>env_with (with_fresh_hash ())</code>は<code>((string, int) either)!{}</code>になりました｡いい感じですね｡</p>
+<h1 id="%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB%28%E6%9C%AA%E5%AE%8C%29"><a class="headerlink" href="#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB%28%E6%9C%AA%E5%AE%8C%29">おわりに(未完)</a></h1>
+<p>だいぶ大雑把な説明になりました｡また筆者の知識不足により多相エフェクトの詳細には踏み込めなかったので悲しい｡ハンドルされないエフェクト､ハンドラ内で発生するエフェクトやエフェクト集合に関するサブタイピングなど､抑えておきたいトピックはまだあります｡
+もっとまともな説明が欲しい方はこちら<sup id="fnref1" title="Bauer, Andrej, and Matija Pretnar. “An effect system for algebraic effects and handlers.” International Conference on Algebra and Coalgebra in Computer Science. Springer, Berlin, Heidelberg, 2013. "><a href="#fn1">1</a></sup> <sup id="fnref2" title="Pretnar, Matija, et al. “Efficient compilation of algebraic effects and handlers.” CW Reports (2017). "><a href="#fn2">2</a></sup>とか､今回は説明しなかったrow typesを用いた型システム<sup id="fnref3" title="Leijen, Daan. Algebraic Effects for Functional Programming. Technical Report. 15 pages. https://www.microsoft.com/en-us/research/publication/algebraic-effects-for-functional-programming, 2016. "><a href="#fn3">3</a></sup>などを参照されたし｡
+気が向いたら多相エフェクトの話も書きたいですが､今すぐ知りたいという方は<sup id="fnref4" title="Sekiyama, Taro, and Atsushi Igarashi. “Handling polymorphic algebraic effects.” European Symposium on Programming. Springer, Cham, 2019. "><a href="#fn4">4</a></sup> <sup id="fnref5" title="Kammar, Ohad, and Matija Pretnar. “No value restriction is needed for algebraic effects and handlers.” Journal of Functional Programming 27 (2017). "><a href="#fn5">5</a></sup>あたりを読んで私にご教授お願いします｡</p>
+<h2 id="%E8%BF%BD%E8%A8%98"><a class="headerlink" href="#%E8%BF%BD%E8%A8%98">追記</a></h2>
+<p>続編: <a href="https://qiita.com/Nymphium/items/7ec2512fe85fe7aaebf4" target="_blank" rel="noopener noreferrer">Algebraic Effectsの型システム入門(2) 多相エフェクト - Qiita</a></p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>Bauer, Andrej, and Matija Pretnar. “An effect system for algebraic effects and handlers.” International Conference on Algebra and Coalgebra in Computer Science. Springer, Berlin, Heidelberg, 2013. <a href="#fnref1">↩</a></p>
+</li>
+
+<li id="fn2">
+<p>Pretnar, Matija, et al. “Efficient compilation of algebraic effects and handlers.” CW Reports (2017). <a href="#fnref2">↩</a></p>
+</li>
+
+<li id="fn3">
+<p>Leijen, Daan. Algebraic Effects for Functional Programming. Technical Report. 15 pages. <a href="https://www.microsoft.com/en-us/research/publication/algebraic-effects-for-functional-programming" target="_blank" rel="noopener noreferrer">https://www.microsoft.com/en-us/research/publication/algebraic-effects-for-functional-programming</a>, 2016. <a href="#fnref3">↩</a></p>
+</li>
+
+<li id="fn4">
+<p>Sekiyama, Taro, and Atsushi Igarashi. “Handling polymorphic algebraic effects.” European Symposium on Programming. Springer, Cham, 2019. <a href="#fnref4">↩</a></p>
+</li>
+
+<li id="fn5">
+<p>Kammar, Ohad, and Matija Pretnar. “No value restriction is needed for algebraic effects and handlers.” Journal of Functional Programming 27 (2017). <a href="#fnref5">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2019/07/21/effect_cont.html" title="エフェクト､do､ANF､継続､継続">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2019/09/15/koka-repl.html" title="koka-lang/koka REPL超入門">Next →</a>
+      </div>
+    </footer>
+
+  </body>
+</html>

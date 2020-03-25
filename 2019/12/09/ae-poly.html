@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>Algebraic Effectsの型システム入門(2) 多相エフェクト - lilyum ensemble</title>
+    <meta itemprop="name" content="Algebraic Effectsの型システム入門(2) 多相エフェクト - lilyum ensemble"/>
+    <meta name="keywords" content="OCaml,型システム,Algebraic Effects,Koka"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="Algebraic Effectsの型システム入門(2) 多相エフェクト - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2019/12/09/ae-poly.html"/> 
+    <meta name="twitter:text:description" content="はじめにこれは前回の続きであり､型 Advent Calendar 2019の8日目の記事で､触れられなかった多相なエフェクトについてです｡一瞬出てきた多相なエフェクトの例を見てみましょう｡ty..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Algebraic Effectsの型システム入門(2) 多相エフェクト" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="はじめに これは前回の続きであり､型 Advent Calendar 2019の8日目の記事で､触れられなかった多相なエフェクトについてです｡" />
+<meta property="og:description" content="はじめに これは前回の続きであり､型 Advent Calendar 2019の8日目の記事で､触れられなかった多相なエフェクトについてです｡" />
+<link rel="canonical" href="https://nymphium.github.io/2019/12/09/ae-poly.html" />
+<meta property="og:url" content="https://nymphium.github.io/2019/12/09/ae-poly.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-12-09T00:00:00+09:00" />
+<script type="application/ld+json">
+{"dateModified":"2019-12-09T00:00:00+09:00","datePublished":"2019-12-09T00:00:00+09:00","@type":"BlogPosting","headline":"Algebraic Effectsの型システム入門(2) 多相エフェクト","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2019/12/09/ae-poly.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"はじめに これは前回の続きであり､型 Advent Calendar 2019の8日目の記事で､触れられなかった多相なエフェクトについてです｡","url":"https://nymphium.github.io/2019/12/09/ae-poly.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Algebraic Effectsの型システム入門(2) 多相エフェクト</h1>
+            <span class="post-meta">
+              <time datetime="2019-12-09T00:00:00+09:00" itemprop="datePublished">Dec 9, 2019</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2019-12-09-ae-poly.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#OCaml-ref">OCaml</a></span><span></span> <span class="tag"><a href="/tags.html#%E5%9E%8B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0-ref">型システム</a></span><span></span> <span class="tag"><a href="/tags.html#Algebraic%20Effects-ref">Algebraic Effects</a></span><span></span> <span class="tag"><a href="/tags.html#Koka-ref">Koka</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">はじめに</a></h1>
+<p>これは<a href="https://qiita.com/Nymphium/items/6e9a8bb8d10b8ee145b3" target="_blank" rel="noopener noreferrer">前回</a>の続きであり､<a href="https://qiita.com/advent-calendar/2019/type" target="_blank" rel="noopener noreferrer">型 Advent Calendar 2019</a>の8日目の記事で､触れられなかった多相なエフェクトについてです｡</p>
+<hr>
+<p>一瞬出てきた多相なエフェクトの例を見てみましょう｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">option</span> <span class="o">=</span> <span class="nc">Some</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="o">|</span> <span class="nc">None</span>
+
+<span class="n">effect</span> <span class="nc">Option</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="n">option</span> <span class="o">-&gt;</span> <span class="k">'</span><span class="n">a</span>
+
+<span class="k">let</span> <span class="n">with_option</span> <span class="o">=</span> <span class="n">handler</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="p">(</span><span class="nc">Option</span> <span class="p">(</span><span class="nc">Some</span> <span class="n">v</span><span class="p">))</span> <span class="n">k</span> <span class="o">-&gt;</span> <span class="n">k</span> <span class="n">v</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="p">(</span><span class="nc">Option</span> <span class="nc">None</span><span class="p">)</span>     <span class="n">_</span> <span class="o">-&gt;</span> <span class="nc">None</span>
+  <span class="o">|</span> <span class="k">val</span> <span class="n">v</span> <span class="o">-&gt;</span> <span class="n">v</span>
+</code></pre></div>
+<p>まずはエフェクトの定義をじっと眺める｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">effect</span> <span class="nc">Option</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="n">option</span> <span class="o">-&gt;</span> <span class="k">'</span><span class="n">a</span>
+</code></pre></div>
+<p><code>'a option</code>を受け取って継続に<code>'a</code>を渡すという型である｡<code>'a</code>という型変数で全称量化されているので多相エフェクト｡</p>
+<p>ハンドラ<code>with_option</code>は<code>'a option -&gt; ('a -&gt; 'b) -&gt; 'b</code> のようにコンストラクタを剥がしてくれる｡
+そして<code>None</code>が渡された場合には<code>None</code>をそのまま返す｡
+前回の内容に沿うと､ハンドラの型は</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">val</span> <span class="n">with_option</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span><span class="o">!</span><span class="p">{</span><span class="nc">Option</span><span class="p">}</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="k">'</span><span class="n">a</span> <span class="n">option</span><span class="p">)</span><span class="o">!</span><span class="p">{}</span>
+</code></pre></div>
+<p>となる｡
+すなわち､</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">return</span> <span class="n">v</span> <span class="o">=</span> <span class="nc">Some</span> <span class="n">v</span> <span class="k">in</span>
+<span class="k">let</span> <span class="n">op</span> <span class="n">v</span> <span class="o">=</span> <span class="n">perform</span> <span class="p">(</span><span class="nc">Option</span> <span class="n">v</span><span class="p">)</span> <span class="k">in</span>
+<span class="n">with_option</span>
+  <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">return</span> <span class="mi">3</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">return</span> <span class="mi">5</span> <span class="k">in</span>
+  <span class="n">return</span> <span class="p">(</span><span class="n">string_of_int</span> <span class="p">(</span><span class="n">op</span> <span class="n">x</span> <span class="o">+</span> <span class="n">op</span> <span class="n">y</span><span class="p">))</span>
+  <span class="c">(* ==&gt; Some "8" *)</span>
+</code></pre></div>
+<p>Option Monadライクなことができる｡</p>
+<p>ところで<code>int option</code>の中身の<code>int</code>をどうにかすることを考える｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">with_add5_option</span> <span class="o">=</span> <span class="n">handler</span>
+  <span class="o">|</span> <span class="n">effect</span> <span class="p">(</span><span class="nc">Option</span> <span class="p">(</span><span class="nc">Some</span> <span class="n">v</span><span class="p">))</span> <span class="n">k</span> <span class="o">-&gt;</span> <span class="n">k</span> <span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span>
+  <span class="c">(* ... *)</span>
+</code></pre></div>
+<p>実はこのコードは問題がある｡
+たとえば<code>t</code>を返しつつ<code>Option</code>エフェクトが発生する式の型は<code>t!{Option}</code>となり､実際に<code>Option</code>エフェクトに渡される<code>'a option</code>の<code>'a</code>は何型なのか情報がない｡
+つまりハンドラでは<code>'a option</code>の<code>'a</code>に放り込まれる型情報を使えないため､上記のように具体的な型(<code>int</code>)を使ったコードは書けない｡
+お手元のMulticore OCamlやEffで<code>with_add5_option</code>のような関数を書くとコンパイラが怒ってくる｡</p>
+<div class="highlight">
+<span class="listing-name">4.06.1+multicoreに起こられる例</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="o">#</span> <span class="k">let</span> <span class="n">with_add5_option</span> <span class="n">th</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">th</span> <span class="bp">()</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="n">effect</span> <span class="p">(</span><span class="nc">Option</span> <span class="p">(</span><span class="nc">Some</span> <span class="n">v</span><span class="p">))</span> <span class="n">k</span> <span class="o">-&gt;</span> <span class="n">continue</span> <span class="n">k</span> <span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="c">(* ... *)</span>
+<span class="nc">Error</span><span class="o">:</span> <span class="nc">This</span> <span class="n">expression</span> <span class="n">has</span> <span class="k">type</span> <span class="n">effect</span> <span class="n">but</span> <span class="n">an</span> <span class="n">expression</span> <span class="n">was</span> <span class="n">expected</span> <span class="k">of</span> <span class="k">type</span>
+         <span class="kt">int</span>
+<span class="c">(* `'a` が `effect` という型名にunifyされている *)</span>
+</code></pre>
+</div>
+<h1 id="polymorphic+effects+and+parameterized+effects"><a class="headerlink" href="#polymorphic+effects+and+parameterized+effects">polymorphic effects and parameterized effects</a></h1>
+<p>他にも多相なエフェクトのデザイン方法がある｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">effect</span> <span class="k">'</span><span class="n">a</span> <span class="nc">Option</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="n">option</span> <span class="o">-&gt;</span> <span class="k">'</span><span class="n">a</span>
+</code></pre></div>
+<p>KokaやLinksなどではこのように､型変数がエフェクトの引数の外側にある､つまり<code>'a</code>でパラメタライズされている｡
+このような多相なエフェクトの表現方法を <strong>parameterized effects</strong> と呼ぶ｡
+一方､これまでに紹介してきた､Effなどの多相なエフェクトの定義を <strong>polymorphic effects</strong> と呼ぶ｡</p>
+<p>parameterized effectsなら上記のようなハンドラ内で具体的な型の実装ができそうだ｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">val</span> <span class="n">with_add5_option</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span><span class="o">!</span><span class="p">{</span><span class="kt">int</span> <span class="nc">Option</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="k">'</span><span class="n">a</span> <span class="n">option</span><span class="p">)</span><span class="o">!</span><span class="p">{}</span>
+</code></pre></div>
+<p>たとえばparameterized effectsを採用しているKoka言語ならOK</p>
+<div class="highlight"><pre><code class="language-" data-lang="">effect option&lt;a&gt; {
+  fun option(v : maybe&lt;a&gt;): a
+}
+
+val with_add5_option : forall &lt;a&gt; (() -&gt; &lt;option&lt;int&gt;&gt; maybe&lt;a&gt;) -&gt; maybe&lt;a&gt;
+= handler {
+  option(m) -&gt; match(m) {
+    Just(v) -&gt; resume(v + 5)
+    Nothing -&gt; Nothing
+  }
+  return x -&gt; x
+}
+</code></pre></div>
+<p>他にも､continuation monadのエミュレーションはparameterized effectsではできますがpolymorphic effectsではできません｡</p>
+<ul>
+<li>Multicore OCamlによる実装(RTEする) <a href="https://gist.github.com/Nymphium/01619c1c63595afef20ae35984680358" target="_blank" rel="noopener noreferrer">https://gist.github.com/Nymphium/01619c1c63595afef20ae35984680358</a>
+</li>
+<li>Kokaによる実装(well-typed) <a href="https://gist.github.com/Nymphium/3632858aa979d97a07f113ec0a7f629f" target="_blank" rel="noopener noreferrer">https://gist.github.com/Nymphium/3632858aa979d97a07f113ec0a7f629f</a>
+</li>
+</ul>
+<h1 id="%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB%28%E6%9C%AA%E5%AE%8C%29"><a class="headerlink" href="#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB%28%E6%9C%AA%E5%AE%8C%29">おわりに(未完)</a></h1>
+<p>row-based effect systemとかに話をつなげていきたかったが筆者の認識が間違いまくってたので文献を見直す必要があるのでまた今度…｡</p>
+<h1 id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><a class="headerlink" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">参考文献</a></h1>
+<p>このあたりを読むと本記事で本来書かれるはずだった内容が分かります｡</p>
+<ul>
+<li>Sekiyama, Taro, and Atsushi Igarashi. “Handling polymorphic algebraic effects.” European Symposium on Programming. Springer, Cham, 2019.</li>
+<li>Kammar, Ohad, and Matija Pretnar. “No value restriction is needed for algebraic effects and handlers.” Journal of Functional Programming 27 (2017).</li>
+<li>Leijen, Daan. Algebraic Effects for Functional Programming. Technical Report. 15 pages. <a href="https://www.microsoft.com/en-us/research/publication/algebraic-effects-for-functional-programming" target="_blank" rel="noopener noreferrer">https://www.microsoft.com/en-us/research/publication/algebraic-effects-for-functional-programming</a>, 2016.</li>
+</ul>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2019/12/07/ruby-ae.html" title="Rubyでもalgebraic effectsがしたい!">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2019/12/15/%E3%81%9D%E3%81%AE%E8%A8%80%E8%AA%9E-%E5%AE%9A%E7%BE%A9%E3%81%95%E3%82%8C%E3%81%A6%E3%81%BE%E3%81%99%E3%81%8B.html" title="『その言語､定義されてますか』">Next →</a>
+      </div>
+    </footer>
+
+  </body>
+</html>

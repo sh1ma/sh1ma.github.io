@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました! - lilyum ensemble</title>
+    <meta itemprop="name" content="Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました! - lilyum ensemble"/>
+    <meta name="keywords" content="Algebraic Effects,JavaScript"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました! - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2018/10/30/what-is-algebraic-effects.html"/> 
+    <meta name="twitter:text:description" content="ReactのHooksが実質algebraic effectsなんじゃないかということでalgebraic effectsに関する怪文書が流布して鼻白んでしまう､そんな未来を阻止するため､曲がり..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました!" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="ReactのHooksが実質algebraic effectsなんじゃないかということでalgebraic effectsに関する怪文書が流布して鼻白んでしまう､そんな未来を阻止するため､曲がりなりにもalgebraic effectsを研究している者としてalgebraic effectsについて書こうと思います｡" />
+<meta property="og:description" content="ReactのHooksが実質algebraic effectsなんじゃないかということでalgebraic effectsに関する怪文書が流布して鼻白んでしまう､そんな未来を阻止するため､曲がりなりにもalgebraic effectsを研究している者としてalgebraic effectsについて書こうと思います｡" />
+<link rel="canonical" href="https://nymphium.github.io/2018/10/30/what-is-algebraic-effects.html" />
+<meta property="og:url" content="https://nymphium.github.io/2018/10/30/what-is-algebraic-effects.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-10-30T00:00:00+09:00" />
+<script type="application/ld+json">
+{"dateModified":"2018-10-30T00:00:00+09:00","datePublished":"2018-10-30T00:00:00+09:00","@type":"BlogPosting","headline":"Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました!","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/10/30/what-is-algebraic-effects.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"ReactのHooksが実質algebraic effectsなんじゃないかということでalgebraic effectsに関する怪文書が流布して鼻白んでしまう､そんな未来を阻止するため､曲がりなりにもalgebraic effectsを研究している者としてalgebraic effectsについて書こうと思います｡","url":"https://nymphium.github.io/2018/10/30/what-is-algebraic-effects.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました!</h1>
+            <span class="post-meta">
+              <time datetime="2018-10-30T00:00:00+09:00" itemprop="datePublished">Oct 30, 2018</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2018-10-30-what-is-algebraic-effects.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#Algebraic%20Effects-ref">Algebraic Effects</a></span><span></span> <span class="tag"><a href="/tags.html#JavaScript-ref">JavaScript</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>ReactのHooksが実質algebraic effectsなんじゃないかということでalgebraic effectsに関する怪文書が流布して鼻白んでしまう､そんな未来を阻止するため､曲がりなりにもalgebraic effectsを研究している者としてalgebraic effectsについて書こうと思います｡</p>
+<p>当方React全く知らないしJSにも明るくない侍ですが､プログラム片にはJSっぽいシンタックスを使っていこうと思います｡</p>
+<h1 id="%E3%82%A4%E3%83%B3%E3%83%88%E3%83%AD"><a class="headerlink" href="#%E3%82%A4%E3%83%B3%E3%83%88%E3%83%AD">イントロ</a></h1>
+<p>Algebraic Effectsとは､Plotkinらによって提唱された､computational effectsを代数的に扱おうという試みである｡それにeffect handlerが後付けされ､現在はalgebraic effects <em>and handlers</em> を略してalgebraic effectsと呼んでいることが多い｡非常に直感的な説明としては､<em>継続を取ってこれる例外</em>である｡
+チュートリアルとしては､こちらの論文<sup id="fnref1" title='Pretnar, Matija. "An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. '><a href="#fn1">1</a></sup>の内容に尽きるわけですが……｡</p>
+<p>algebraic effectsは､エフェクトの定義､発生､そしてハンドラに分かれる｡</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// effect definition</span>
+<span class="nx">effect</span> <span class="nx">Foo</span> <span class="cm">/* : int -&gt; int */</span><span class="p">;</span>
+
+<span class="c1">// handler</span>
+<span class="nx">handle</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">perform</span><span class="cm">/* invocation */</span> <span class="nx">Foo</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">x</span><span class="p">:</span> <span class="p">{</span>
+       <span class="nx">x</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">case</span> <span class="nx">Foo</span><span class="p">(</span><span class="nx">x</span><span class="p">),</span> <span class="nx">k</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nx">k</span><span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">//==&gt; prints `19`</span>
+</code></pre></div>
+<p>うそうそシンタックスですが大丈夫ですか?</p>
+<p><code>Foo</code>という名前の<code>int -&gt; int</code>というシグネチャを持つエフェクトを定義します｡JSは型がないので雰囲気出ないですが､一般にエフェクトは名前とシグネチャ(型)を持ちます｡</p>
+<p>エフェクトの発生は<code>perform エフェクト(引数...)</code>というシンタックスです｡エフェクトの引数の型は､シグネチャの矢印<code>-&gt;</code>の左辺に対応します｡ここでは<code>int</code>の引数に<code>3</code>を渡してるので､確かに型は一致します｡</p>
+<p>ハンドラは<code>handle(exp){ case エフェクト(仮引数), 継続: {...}... }</code>という感じ｡<code>exp</code>内で発生したエフェクトをハンドルします｡
+例では<code>Foo</code>エフェクトが発生したので､<code>case Foo(x), k: ...</code>という部分でキャッチされます｡<code>x</code>に<code>3</code>が渡されそうですが､<code>k</code>とは一体…?
+ここがalgebraic effectsのミソで､<code>k</code>には<strong><em>継続</em></strong>が渡されます｡出､出〜www継続奴という感じですがJSerの皆さんにはおなじみのはずです｡継続とは"<em>残りの計算</em> “であり､Promiseで<code>then</code>に渡してる関数はまさに継続といって差し支えありません｡具体的に<code>k</code>に入るものは､この場合<code>(h) =&gt; console.log(h + 10)</code>となります｡なるほど確かに残りの計算だ｡
+したがって､このハンドラによって<code>console.log(perform Foo(3) + 10)</code>は<code>console.log(3 * 3 + 10)</code>となります｡
+限定継続が分かる方は､この<code>handle(exp){...}</code>が継続のdelimiterといえばイメージが湧くかと思います｡限定継続に関して一筆したためているので､詳細は<a href="https://nymphium.github.io/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html">こちら</a>をご覧ください｡</p>
+<p><code>case x: x;</code>は何やねんということですが､これはvalue handlerと呼ばれる部分です｡今回は<code>console.log</code>の戻り値が<code>void</code>なので雰囲気出ませんが､<code>exp</code>部分が値になるまで評価されきったあとに､その値をハンドルする部分です｡value handlerはエフェクトのハンドル部分と異なり継続を取りません｡</p>
+<p>かなり雰囲気はつかめたんじゃないでしょうか｡</p>
+<h1 id="%E7%89%B9%E5%BE%B4"><a class="headerlink" href="#%E7%89%B9%E5%BE%B4">特徴</a></h1>
+<p>algebraic effectsの特徴としては､</p>
+<ul>
+<li>エフェクトの抽象化, 実装の分離</li>
+<li>コントロール操作</li>
+</ul>
+<p>が挙げられる｡</p>
+<h2 id="%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E6%8A%BD%E8%B1%A1%E5%8C%96%EF%BD%A4%E5%AE%9F%E8%A3%85%E3%81%AE%E5%88%86%E9%9B%A2"><a class="headerlink" href="#%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E6%8A%BD%E8%B1%A1%E5%8C%96%EF%BD%A4%E5%AE%9F%E8%A3%85%E3%81%AE%E5%88%86%E9%9B%A2">エフェクトの抽象化､実装の分離</a></h2>
+<p>エフェクトの抽象化はまさにalgebraic effectsのやりたいことである｡エフェクトの抽象化は即ちインタフェースと実装を分離することになる｡</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">effect</span> <span class="nx">Write</span> <span class="cm">/* : string -&gt; void */</span><span class="p">;</span>
+
+<span class="c1">// 標準出力に書き込む</span>
+<span class="kd">const</span> <span class="nx">print_handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">th</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">handle</span><span class="p">(</span><span class="nx">th</span><span class="p">()){</span>
+        <span class="k">case</span> <span class="na">x</span><span class="p">:</span> <span class="nx">x</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nx">Write</span><span class="p">(</span><span class="nx">str</span><span class="p">),</span> <span class="na">k</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nx">k</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// ファイルに書き込む</span>
+<span class="kd">const</span> <span class="nx">write_file_handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">th</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">handle</span><span class="p">(</span><span class="nx">th</span><span class="p">()){</span>
+        <span class="k">case</span> <span class="na">x</span><span class="p">:</span> <span class="nx">x</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nx">Write</span><span class="p">(</span><span class="nx">str</span><span class="p">),</span> <span class="na">k</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">str</span><span class="p">,</span> <span class="nx">k</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="nx">print_handler</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">perform</span> <span class="nx">Write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">perform</span> <span class="nx">Write</span><span class="p">(</span><span class="dl">"</span><span class="s2">World</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="c1">// ==&gt; prints `Hello\nWorld`</span>
+
+<span class="nx">write_file_handler</span><span class="p">(</span><span class="dl">"</span><span class="s2">hoge.txt</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">perform</span> <span class="nx">Write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">perform</span> <span class="nx">Write</span><span class="p">(</span><span class="dl">"</span><span class="s2">World</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="c1">// ==&gt; write "Hello" and "World" to hoge.txt</span>
+</code></pre></div>
+<p>なるほどね｡</p>
+<p>ハンドラの変更がそのまま実装の差し替えになる｡例えばDI注入にも使えるのではないだろうか｡
+例えばなにかの顧客DBを取ってくるエフェクト<code>GetAccountList</code>を考えてみる｡<code>filter</code>は述語<code>p</code>を取ってDBをフィルタする関数であり､内部で<code>GetAccountList</code>エフェクトを発生している｡</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">effect</span> <span class="nx">GetAccountList</span> <span class="cm">/* : void -&gt; DB */</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">filter</span> <span class="o">=</span> <span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="nx">perform</span> <span class="nx">GetAccountList</span><span class="p">();</span>
+    <span class="nx">list</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">p</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>例えばテスト用DBのためのハンドラは</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">const</span> <span class="nx">test_handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">th</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">handle</span><span class="p">(</span><span class="nx">th</span><span class="p">()){</span>
+        <span class="k">case</span> <span class="na">x</span><span class="p">:</span> <span class="nx">x</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nx">GetAccountList</span><span class="p">(),</span> <span class="na">k</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nx">k</span><span class="p">(</span><span class="nx">db_for_test</span><span class="p">());</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>また本番のDBを返すハンドラは</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">const</span> <span class="nx">production_handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">th</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">handle</span><span class="p">(</span><span class="nx">th</span><span class="p">()){</span>
+        <span class="k">case</span> <span class="na">x</span><span class="p">:</span> <span class="nx">x</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nx">GetAccountList</span><span class="p">(),</span> <span class="na">k</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nx">k</span><span class="p">(</span><span class="nx">db_for_production</span><span class="p">());</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>あとは実際に<code>filter</code>関数を使うシチュエーションごとにハンドラを変えればいい｡</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">const</span> <span class="nx">test_main</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">......</span>
+    <span class="kd">const</span> <span class="nx">filtered_accounts</span> <span class="o">=</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">p</span><span class="p">);</span>
+    <span class="p">......</span>
+<span class="p">}</span>
+
+<span class="nx">assert</span><span class="p">(</span><span class="nx">test_handler</span><span class="p">(</span><span class="nx">test_main</span><span class="p">))</span>
+</code></pre></div>
+<h2 id="%E3%83%8F%E3%83%B3%E3%83%89%E3%83%A9%E3%81%AE%E5%90%88%E6%88%90"><a class="headerlink" href="#%E3%83%8F%E3%83%B3%E3%83%89%E3%83%A9%E3%81%AE%E5%90%88%E6%88%90">ハンドラの合成</a></h2>
+<p>エフェクトハンドラは例外ハンドラと同様に､unhandledなエフェクトはより上位のハンドラに捕捉されます(あるいはされずにランタイムエラー)｡この性質を利用することでハンドラを合成することができます｡
+先程の<code>Write</code>を引っ張ってみます｡</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">effect</span> <span class="nx">Write</span> <span class="cm">/* : string -&gt; void */</span><span class="p">;</span>
+
+<span class="c1">// 標準出力に書き込む</span>
+<span class="kd">const</span> <span class="nx">print_handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">th</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">handle</span><span class="p">(</span><span class="nx">th</span><span class="p">()){</span>
+        <span class="k">case</span> <span class="na">x</span><span class="p">:</span> <span class="nx">x</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nx">Write</span><span class="p">(</span><span class="nx">str</span><span class="p">),</span> <span class="na">k</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nx">k</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// ファイルに書き込む</span>
+<span class="kd">const</span> <span class="nx">write_file_handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">th</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">handle</span><span class="p">(</span><span class="nx">th</span><span class="p">()){</span>
+        <span class="k">case</span> <span class="na">x</span><span class="p">:</span> <span class="nx">x</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nx">Write</span><span class="p">(</span><span class="nx">str</span><span class="p">),</span> <span class="na">k</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">str</span><span class="p">,</span> <span class="nx">k</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>Write</code>があるなら<code>Read</code>もしたいのが人間の性です｡</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">effect</span> <span class="nx">Read</span> <span class="cm">/* : void -&gt; string */</span><span class="p">;</span>
+</code></pre></div>
+<p>そしてやるだけ｡</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">const</span> <span class="nx">scan_handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">th</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">handle</span><span class="p">(</span><span class="nx">th</span><span class="p">()){</span>
+        <span class="k">case</span> <span class="na">x</span><span class="p">:</span> <span class="nx">x</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nx">Read</span><span class="p">(),</span> <span class="na">k</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nx">k</span><span class="p">(</span><span class="nx">readline</span><span class="p">())</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">scan_file_handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">th</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">handle</span><span class="p">(</span><span class="nx">th</span><span class="p">()){</span>
+        <span class="k">case</span> <span class="na">x</span><span class="p">:</span> <span class="nx">x</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nx">Read</span><span class="p">(),</span> <span class="na">k</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nx">readFileAsync</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">k</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>標準入出力とファイルの入出力をごっちゃにするシーンはあまり多くないので1つのハンドラにしたいと思います｡せっかくハンドラをそれぞれ書いたのでこれを使ってみます｡</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">const</span> <span class="nx">stdio_handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">th</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">print_handler</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">scan_handler</span><span class="p">(</span><span class="nx">th</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">fileio_handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">th</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">write_file_handler</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">scan_file_handler</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">th</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>オッええやん｡<code>stdio_handler</code>の受け取るサンクの中で<code>Write</code>が発生した場合､<code>scan_handler</code>を突き抜けて<code>print_handler</code>によりハンドルされます｡これが合成だ､花京院｡
+もちろんいちどきに一つのハンドラも実装できます｡</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">const</span> <span class="nx">stdio</span> <span class="o">=</span> <span class="p">(</span><span class="nx">th</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">handle</span><span class="p">(</span><span class="nx">th</span><span class="p">()){</span>
+        <span class="k">case</span> <span class="na">x</span><span class="p">:</span> <span class="nx">x</span><span class="p">;</span>
+
+        <span class="k">case</span> <span class="nx">Write</span><span class="p">(</span><span class="nx">str</span><span class="p">),</span> <span class="na">k</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nx">k</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">));</span>
+        <span class="p">}</span>
+
+        <span class="k">case</span> <span class="nx">Read</span><span class="p">(),</span> <span class="na">k</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nx">k</span><span class="p">(</span><span class="nx">readline</span><span class="p">())</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// fileも同様に(略)</span>
+</code></pre></div>
+<p>また､同じエフェクトのハンドラをネストすることで､<em>部分的に実装を変える</em>ことができる｡</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">fileio_handler</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">perform</span> <span class="nx">Write</span><span class="p">(</span><span class="dl">"</span><span class="s2">hoge</span><span class="dl">"</span><span class="p">);</span>  <span class="c1">// fileに"hoge"を書き込む</span>
+    <span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">perform</span> <span class="nx">Read</span><span class="p">();</span>  <span class="c1">// fileから読む</span>
+    <span class="nx">print_handler</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">perform</span> <span class="nx">Write</span><span class="p">(</span><span class="nx">str</span><span class="p">));</span>  <span class="c1">// *標準出力に*書き込む</span>
+<span class="p">})</span>
+</code></pre></div>
+<p>同じ<code>Write</code>を<code>fileio_handler</code>内で発生させているが､2つ目の<code>Write</code>はさらに<code>print_handler</code>に包んで発生させている｡このエフェクトの発生を最初に捕捉するハンドラは<code>print_handler</code>になるため､<code>str</code>はファイルではなく標準出力に書き込まれる｡</p>
+<p>ちなみに､サンク1行目の<code>Write</code>がハンドラによって捕捉されるので､2行目以降はハンドラ内の継続として実行されます｡2行目の<code>Read</code>もしっかり<code>fileio_handler</code>により捕捉されるが､これはつまり継続も<code>fileio_handler</code>によりハンドルされていることになる｡このように継続も追随してハンドルしてくれるハンドラをdeep handler､明示的に継続をハンドルしないといけないハンドラはshallow handlerと呼ばれる｡deep handlerのほうが一般的だが､shallow handlerのほうが動作が軽量(のはず)である｡</p>
+<h2 id="%E3%82%B3%E3%83%B3%E3%83%88%E3%83%AD%E3%83%BC%E3%83%AB%E6%93%8D%E4%BD%9C"><a class="headerlink" href="#%E3%82%B3%E3%83%B3%E3%83%88%E3%83%AD%E3%83%BC%E3%83%AB%E6%93%8D%E4%BD%9C">コントロール操作</a></h2>
+<p>継続を取ってこれるのが例外処理と決定的に異なる｡このおかげで例外の発生から復帰することができる<sup id="fnref2" title="Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. "><a href="#fn2">2</a></sup>｡
+また継続はハンドラ側でよしなにしてくれるので､記述自体は直接形式で記述できる｡このためcallback hellが解消される｡例えば<code>scan_file_handler</code>関数はまさにコールバックを取る関数をラップすることで直接形式にしている｡</p>
+<p>簡単のため､ファイル名と文字列を受け取るエフェクト<code>WriteToFile</code>を定義して様子を見る｡</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">effect</span> <span class="nx">WriteToFile</span> <span class="cm">/* : (string, string) -&gt; void */</span><span class="p">;</span>
+
+<span class="nx">handle</span><span class="p">((()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">......</span>
+    <span class="nx">perform</span> <span class="nx">WriteToFile</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="dl">"</span><span class="s2">hogehoge</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">......</span>
+<span class="p">})()){</span>
+    <span class="k">case</span> <span class="nx">x</span><span class="p">:</span> <span class="nx">x</span><span class="p">;</span>
+    <span class="k">case</span> <span class="nx">WriteToFile</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">str</span><span class="p">),</span> <span class="nx">k</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nx">writeFile</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">str</span><span class="p">,</span> <span class="nx">k</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>なるほど確かに､ファイルに書き込んで残りの処理はコールバックにやらせる<code>writeFile</code>をラップして､見かけ上は直接形式で記述することに成功している｡</p>
+<p>継続が取ってこれるので､<sup id="fnref2" title="Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. "><a href="#fn2">2</a></sup>にあるように､<strong><em>async/awaitをalgebraic effectsで実装することができる</em></strong>!!
+これはコントロールオペレータのヒエラルキーとしてalgebraic effectsがasync/awaitと等価､またはそれ以上の表現力であることを示唆しています｡
+実際algebraic effectsはあるがasync/awaitのない言語ではうれしい…のかもしれません｡</p>
+<h1 id="Algebraic+Effects%E3%81%AE%E3%81%82%E3%82%8B%E8%A8%80%E8%AA%9E%E3%82%84%E5%AE%9F%E8%A3%85"><a class="headerlink" href="#Algebraic+Effects%E3%81%AE%E3%81%82%E3%82%8B%E8%A8%80%E8%AA%9E%E3%82%84%E5%AE%9F%E8%A3%85">Algebraic Effectsのある言語や実装</a></h1>
+<p>algebraic effectsにはいくつか実装が存在する｡たとえば言語機能にalgebraic effectsを組み込んだ言語､あるいはライブラリ｡フレームワークを自称しつつ実際は言語を拡張しているReactなど｡</p>
+<ul>
+<li>
+<p>Eff</p>
+
+<p>algebraic effectsの計算モデルとしてよく使われる言語｡MLスタイルのシンタックスでHindley-Milner型推論がある｡</p>
+
+<ul>
+<li>
+<p><a href="https://github.com/matijapretnar/eff" target="_blank" rel="noopener noreferrer">matijapretnar/eff</a></p>
+
+<p>OCaml製Effインタプリタ｡エフェクトが単相なのが惜しい以外はopamで簡単に導入できてシンタックスもOCamlに毛が生えた感じで様々な面でコストが低い｡</p>
+</li>
+<li>
+<p><a href="https://github.com/atnos-org/eff" target="_blank" rel="noopener noreferrer">atnos-org/eff</a></p>
+
+<p>ScalaのDSL実装</p>
+</li>
+<li>
+<p>『Eff Directly in OCaml』<sup id="fnref3" title="Oleg Kiselyov, K. C. Sivaramakrishnan. “Eff directly in OCaml.” ML Workshop. 2016. "><a href="#fn3">3</a></sup></p>
+
+<p>OCaml+delimccライブラリによるEffの実装｡shift/resetとalgebraic effectsの関係が分かる｡
+この論文を元に､<a href="https://gist.github.com/Nymphium/60d4e2b5888f3e04b9b98c562854f143" target="_blank" rel="noopener noreferrer">Racketによる実装</a>をおこなってみた｡</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Koka<sup id="fnref4" title="Leijen, Daan. “Algebraic Effects for Functional Programming. Technical Report.” 15 pages. https://www.microsoft.com/en-us/research/publication/algebraic-effects-for-functional-programming, 2016. "><a href="#fn4">4</a></sup></p>
+
+<p>Microsoft Researchが作っている言語｡エフェクトの型が明示されておりモナドみがある｡</p>
+
+<ul>
+<li>
+<p><a href="https://github.com/koka-lang/koka" target="_blank" rel="noopener noreferrer">koka-lang/koka</a></p>
+
+<p>Haskell製｡ランタイムにJSまたはC#にコンパイルされて実行される｡
+stackによるビルドをできるようにしたのでぜひ使ってください｡</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Multicore OCaml</p>
+
+<p>OCamlにalgebraic effectsをぶっこんだOCaml方言｡継続がワンショットなことが特徴となっている｡</p>
+
+<ul>
+<li>
+<p><a href="https://github.com/ocamllabs/ocaml-multicore" target="_blank" rel="noopener noreferrer">ocamllabs/ocaml-multicore</a></p>
+
+<p>OCaml labsが<a href="https://github.com/ocaml/ocaml" target="_blank" rel="noopener noreferrer">ocaml/ocaml</a>からフォークしているOCaml方言｡</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>他にもC言語による実装<sup id="fnref5" title="Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. "><a href="#fn5">5</a></sup>などがあり､確かにコールスタックなどをバコッといければなんとかなりそう｡</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>Pretnar, Matija. "An introduction to algebraic effects and handlers. invited tutorial paper.” Electronic Notes in Theoretical Computer Science 319 (2015): 19-35. <a href="#fnref1">↩</a></p>
+</li>
+
+<li id="fn2">
+<p>Dolan, Stephen, et al. “Concurrent system programming with effect handlers.” International Symposium on Trends in Functional Programming. Springer, Cham, 2017. <a href="#fnref2">↩</a></p>
+</li>
+
+<li id="fn3">
+<p>Oleg Kiselyov, K. C. Sivaramakrishnan. “Eff directly in OCaml.” ML Workshop. 2016. <a href="#fnref3">↩</a></p>
+</li>
+
+<li id="fn4">
+<p>Leijen, Daan. “Algebraic Effects for Functional Programming. Technical Report.” 15 pages. <a href="https://www.microsoft.com/en-us/research/publication/algebraic-effects-for-functional-programming" target="_blank" rel="noopener noreferrer">https://www.microsoft.com/en-us/research/publication/algebraic-effects-for-functional-programming</a>, 2016. <a href="#fnref4">↩</a></p>
+</li>
+
+<li id="fn5">
+<p>Leijen, Daan. “Implementing Algebraic Effects in C.” Asian Symposium on Programming Languages and Systems. Springer, Cham, 2017. <a href="#fnref5">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2018/10/23/neovim-intro-hie.html" title="Neovimへのhaskell-ide-engineの導入">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2018/11/16/Lua-VM%E3%81%AB%E8%A6%8B%E3%82%8B%E5%A4%9A%E5%80%A4%E3%81%AE%E6%89%B1%E3%81%84.html" title="Lua VMに見る多値の扱い">Next →</a>
+      </div>
+    </footer>
+
+  </body>
+</html>

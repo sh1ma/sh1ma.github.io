@@ -1,0 +1,70 @@
+<p>様々なエディタ､IDEをまたいで言語ごとの補完や定義へのジャンプなどの機能を提供してくれる仕組みとして､<em>Language Server Protocol</em> (LSP) というものが盛り上がっています｡
+現在はエディタによるプログラミングの支援が､エディタの数×言語の数となっていますが､LSPによって､Language Server = プログラム言語の数となり､エディタはLSPのクライアント機能だけもっていればよくなります｡
+エディタ自作勢にとっても､LSPを喋れるようになればモダンなIDEの機能が使えるようになるので嬉しいですね｡</p><p>さて本題</p><hr><p><a href="https://github.com/haskell/haskell-ide-engine" target="_blank" rel="noopener noreferrer">haskell-ide-engine</a>を導入し､NeovimのLSP Clientプラグインの<a href="https://github.com/autozimu/LanguageClient-neovim" target="_blank" rel="noopener noreferrer">LanguaceClient-neovim</a>を使ってLSPによる恩恵を与りたいと思います｡</p><h1 id="LanguageClient-neovim%E3%81%AE%E5%B0%8E%E5%85%A5"><a class="headerlink" href="#LanguageClient-neovim%E3%81%AE%E5%B0%8E%E5%85%A5">LanguageClient-neovimの導入</a></h1><p>LanguageClient-neovimのnextブランチでinstall.shを叩くことで<code>bin/languageclient</code>が爆誕します｡
+そして<code>plugin/LanguageClient.vim</code>を呼べばOK｡
+もはやプラグインはプラグインマネージャに任せてるのでそんな感じのことを彼らに任せる｡</p><p>neobundleなら</p><div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">" NeoBundleLazyだと動かなかったので注意</span>
+NeoBundle <span class="s1">'autozimu/LanguageClient-neovim'</span><span class="p">,</span> <span class="p">{</span>
+<span class="se">  \</span> <span class="s1">'branch'</span><span class="p">:</span> <span class="s1">'next'</span><span class="p">,</span>
+<span class="se">  \</span> <span class="s1">'build'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'linux'</span><span class="p">:</span> <span class="s1">'bash install.sh'</span><span class="p">},</span>
+<span class="se">  \</span> <span class="p">}</span>
+</code></pre></div><p>deinなら</p><div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="k">call</span> dein#add<span class="p">(</span><span class="s1">'autozimu/LanguageClient-neovim'</span><span class="p">,</span> <span class="p">{</span>
+<span class="se">  \</span> <span class="s1">'rev'</span><span class="p">:</span> <span class="s1">'next'</span><span class="p">,</span>
+<span class="se">  \</span> <span class="s1">'build'</span><span class="p">:</span> <span class="s1">'bash install.sh'</span><span class="p">,</span>
+<span class="se">  \</span> <span class="p">})</span>
+</code></pre></div><p>tomlに書くなら</p><div class="highlight"><pre><code class="language-toml" data-lang="toml"><span class="nn">[[plugins]]</span>
+<span class="py">repo</span> <span class="p">=</span> <span class="s">"autozimu/LanguageClient-neovim"</span>
+<span class="py">rev</span> <span class="p">=</span> <span class="s">"next"</span>
+<span class="py">build</span> <span class="p">=</span> <span class="s">"bash install.sh"</span>
+</code></pre></div><p>そして以下を書く</p><div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="k">let</span> <span class="nv">g:LanguageClient_rootMakers</span> <span class="p">=</span> <span class="p">{</span>
+<span class="se">  \</span> <span class="s1">'haskell'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'*.cabal'</span><span class="p">,</span> <span class="s1">'stack.yaml'</span><span class="p">],</span>
+<span class="se">  \</span> <span class="p">}</span> 
+<span class="k">let</span> <span class="nv">g:LanguageClient_serverCommands</span> <span class="p">=</span> <span class="p">{</span>
+<span class="se">  \</span> <span class="s1">'haskell'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'hie-wrapper'</span><span class="p">],</span>
+<span class="se">  \</span> <span class="p">}</span>
+
+<span class="c">" LanguageClientの機能のショートカットを登録</span>
+<span class="k">function</span> LC_maps<span class="p">()</span>
+  <span class="k">if</span> has_key<span class="p">(</span><span class="nv">g:LanguageClient_serverCommands</span><span class="p">,</span> &amp;<span class="k">filetype</span><span class="p">)</span>
+    nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>F5<span class="p">&gt;</span> <span class="p">:</span><span class="k">call</span> LanguageClient_contextMenu<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+    map <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>Leader<span class="p">&gt;</span><span class="k">lt</span> <span class="p">:</span><span class="k">call</span> LanguageClient#textDocument_hover<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+    map <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>Leader<span class="p">&gt;</span><span class="k">lg</span> <span class="p">:</span><span class="k">call</span> LanguageClient#textDocument_definition<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+    map <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>Leader<span class="p">&gt;</span><span class="k">lr</span> <span class="p">:</span><span class="k">call</span> LanguageClient#textDocument_rename<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+    map <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>Leader<span class="p">&gt;</span><span class="k">lf</span> <span class="p">:</span><span class="k">call</span> LanguageClient#textDocument_formatting<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+    map <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>Leader<span class="p">&gt;</span><span class="k">lb</span> <span class="p">:</span><span class="k">call</span> LanguageClient#textDocument_references<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+    map <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>Leader<span class="p">&gt;</span><span class="k">la</span> <span class="p">:</span><span class="k">call</span> LanguageClient#textDocument_codeAction<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+    map <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>Leader<span class="p">&gt;</span><span class="k">ls</span> <span class="p">:</span><span class="k">call</span> LanguageClient#textDocument_documentSymbol<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+  <span class="k">endif</span>
+<span class="k">endfunction</span>
+
+augroup LanguageClientKeyconfig
+  autocmd<span class="p">!</span>
+  autocmd Filetype * <span class="k">call</span> LC_maps<span class="p">()</span>
+augroup END
+</code></pre></div><h1 id="Haskell-IDE-Engine%E3%81%AE%E5%B0%8E%E5%85%A5"><a class="headerlink" href="#Haskell-IDE-Engine%E3%81%AE%E5%B0%8E%E5%85%A5">Haskell-IDE-Engineの導入</a></h1><p>stackをまず用意します｡</p><div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>pacman <span class="nt">-S</span> stack
+</code></pre></div><p>引っ張ってインストールする｡
+stack ghcのバージョンによるので詳細はREADMEよんで</p><div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>git clone https://github.com/haskell/haskell-ide-engine <span class="nt">--recursive</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>haskell-ide-engine
+<span class="gp">$</span><span class="w"> </span>git submodule update <span class="nt">--init</span>
+<span class="gp">$</span><span class="w"> </span>stack <span class="nb">install </span>cabal-install
+<span class="gp">$</span><span class="w"> </span>cabal update
+<span class="gp">$</span><span class="w"> </span>stack <span class="nb">install</span>
+<span class="gp">$</span><span class="w"> </span>stack <span class="nb">exec </span>hoogle generate <span class="c"># hoogleのDBを作る</span>
+</code></pre></div><p>完了だ!!
+しかし実際に使う前にプロジェクトで以下を実行</p><div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>path/to/your/project
+<span class="gp">$</span><span class="w"> </span>stack haddock <span class="nt">--keep-going</span> <span class="c"># プロジェクトの補完/ドキュメント用DBを作る</span>
+</code></pre></div><p>適当な場所でF5を押す(<code>call LanguageClient_contextMenu()</code>)と</p><div class="highlight"><pre><code class="language-" data-lang="">1) Type Definition
+2) Code Action
+3) Workspace Symbol
+4) Rename
+5) Definition
+6) References
+7) Formatting
+8) Range Formatting
+9) Document Highlight
+10) Signature Help
+11) Hover
+12) Document Symbol
+13) Implementation
+Type number and &lt;Enter&gt; or click with mouse (empty cancels):
+</code></pre></div><p>のようなものが出てくればOK｡</p><h1 id="%E5%95%8F%E9%A1%8C%E7%82%B9"><a class="headerlink" href="#%E5%95%8F%E9%A1%8C%E7%82%B9">問題点</a></h1><p>Docker上でプロジェクトをビルドする場合､補完やドキュメントなどが動作しない｡
+なんとかならんか｡</p>

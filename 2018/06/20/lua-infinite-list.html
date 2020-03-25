@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>Luaで無限リスト - lilyum ensemble</title>
+    <meta itemprop="name" content="Luaで無限リスト - lilyum ensemble"/>
+    <meta name="keywords" content="Lua"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="Luaで無限リスト - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2018/06/20/lua-infinite-list.html"/> 
+    <meta name="twitter:text:description" content="こんにちは､びしょ〜じょです｡さて､Luaでも無限リストを作っていきます｡無限リスト無限リストは､例えばフィボナッチ数列のように､漸化式が与えられてそれにならってindexとvalueが無限に並..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Luaで無限リスト" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="こんにちは､びしょ〜じょです｡ さて､Luaでも無限リストを作っていきます｡" />
+<meta property="og:description" content="こんにちは､びしょ〜じょです｡ さて､Luaでも無限リストを作っていきます｡" />
+<link rel="canonical" href="https://nymphium.github.io/2018/06/20/lua-infinite-list.html" />
+<meta property="og:url" content="https://nymphium.github.io/2018/06/20/lua-infinite-list.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-06-20T00:00:00+09:00" />
+<script type="application/ld+json">
+{"dateModified":"2018-06-20T00:00:00+09:00","datePublished":"2018-06-20T00:00:00+09:00","@type":"BlogPosting","headline":"Luaで無限リスト","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/06/20/lua-infinite-list.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"こんにちは､びしょ〜じょです｡ さて､Luaでも無限リストを作っていきます｡","url":"https://nymphium.github.io/2018/06/20/lua-infinite-list.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Luaで無限リスト</h1>
+            <span class="post-meta">
+              <time datetime="2018-06-20T00:00:00+09:00" itemprop="datePublished">Jun 20, 2018</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2018-06-20-lua-infinite-list.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#Lua-ref">Lua</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡
+さて､Luaでも無限リストを作っていきます｡</p>
+<h1 id="%E7%84%A1%E9%99%90%E3%83%AA%E3%82%B9%E3%83%88"><a class="headerlink" href="#%E7%84%A1%E9%99%90%E3%83%AA%E3%82%B9%E3%83%88">無限リスト</a></h1>
+<p>無限リストは､例えばフィボナッチ数列のように､漸化式が与えられてそれにならってindexとvalueが無限に並んでいるリスト､という考えを持ってます｡
+詳細はWikipediaなどに問い合わせてください｡</p>
+<h1 id="Lua%E3%81%AE%E3%83%AA%E3%82%B9%E3%83%88"><a class="headerlink" href="#Lua%E3%81%AE%E3%83%AA%E3%82%B9%E3%83%88">Luaのリスト</a></h1>
+<p>Luaの持つデータ構造はtableただ一つです｡
+tableは長さが動的な､<em>成長する</em> arrayのように使えます｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">t</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="nb">print</span><span class="p">(</span><span class="o">#</span><span class="n">t</span><span class="p">)</span> <span class="c1">-- prints "0"</span>
+<span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="nb">print</span><span class="p">(</span><span class="o">#</span><span class="n">t</span><span class="p">)</span> <span class="c1">-- prints "1"</span>
+<span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">t</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="o">#</span><span class="n">t</span><span class="p">)</span> <span class="c1">-- prints "4"</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="c1">-- prints "100"</span>
+</code></pre></div>
+<p>内部的な話をすると､tableはarray部分とhash map部分に分かれており､さらにはarrayとして扱いたい場合にもarrayの要素が疎な場合はhash map扱いだったり…などいろいろある｡
+ここはそんなことは置いといてarrayとして扱っていこう｡</p>
+<h1 id="metatable"><a class="headerlink" href="#metatable">metatable</a></h1>
+<p>さて､無限リストの実装方法だが､metatableを使う｡tableに対する操作をmetatableで上書きすることができる｡
+今回は<code>__index</code>メタメソッドを使う｡ <em>未定義の</em> keyにアクセスした場合の挙動を変更できる｡
+<code>__index</code>メタ<em>メソッド</em> とは言ったが､tableを渡すこともでき､その場合は渡したtableをフォールバック先のように使うことができる｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">t</span> <span class="o">=</span> <span class="nb">setmetatable</span><span class="p">({</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="n">__index</span> <span class="o">=</span> <span class="p">{</span><span class="kc">nil</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1">-- prints "1", which is the element of the  table</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="c1">-- prints "2", which is the element of __index table</span>
+
+<span class="kd">local</span> <span class="n">t2</span> <span class="o">=</span> <span class="nb">setmetatable</span><span class="p">({</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span>
+  <span class="n">__index</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"access"</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span> <span class="c1">-- assign k as kth element</span>
+    <span class="k">return</span> <span class="n">k</span>
+  <span class="k">end</span>
+<span class="p">})</span>
+
+<span class="kd">local</span> <span class="n">_</span> <span class="o">=</span> <span class="n">t2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1">-- do nothing</span>
+<span class="kd">local</span> <span class="n">_</span> <span class="o">=</span> <span class="n">t2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="c1">-- prints "access 3", assigning 3 as 3rd element</span>
+<span class="kd">local</span> <span class="n">_</span> <span class="o">=</span> <span class="n">t2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="c1">-- do NOTHING</span>
+</code></pre></div>
+<p><code>self</code>というのは予約語でもなんでもなく､<code>__index</code>メタメソッドの第1引数にはオリジナルのtableが入るので､わかりやすい変数名として<code>self</code>がよく用いられています｡</p>
+<p>“<strong>未定義の</strong> keyにアクセスした場合の挙動を変更できる"というのが重要で､ オリジナルのtableに計算済みの値をメモできる｡
+もうなんとなく分かってくるんじゃないでしょうか｡</p>
+<h1 id="%E5%AE%9F%E8%A3%85%E3%81%99%E3%81%A3%E3%81%BA"><a class="headerlink" href="#%E5%AE%9F%E8%A3%85%E3%81%99%E3%81%A3%E3%81%BA">実装すっぺ</a></h1>
+<p>例として次のような漸化式の無限リストを考える｡
+$$
+\begin{array}{l}
+e_1 = 1\
+e_n=e_{n - 1} + n 
+\end{array}
+$$</p>
+<p><em>Luaは1オリジン</em>なんでそれに習います｡<em>Luaは1オリジン</em>です｡大事なことなので2度言いました｡<em>Luaは1オリジン</em>｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">t</span> <span class="o">=</span> <span class="nb">setmetatable</span><span class="p">({},</span> <span class="p">{</span>
+  <span class="n">__index</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">then</span>
+      <span class="n">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+      <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span>
+      <span class="kd">local</span> <span class="n">n1</span> <span class="o">=</span> <span class="n">self</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="kd">local</span> <span class="n">n</span> <span class="o">=</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">k</span>
+        <span class="n">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="k">return</span> <span class="n">n</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="p">})</span>
+</code></pre></div>
+<p>いいんじゃないでしょうか｡
+さてこれで使ってみると…｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">100</span><span class="p">])</span> <span class="c1">-- prints "5050"</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1000</span><span class="p">])</span> <span class="cm">--[[
+./test.lua:33: C stack overflow
+stack traceback:
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ...
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        ./test.lua:33: in metamethod '__index'
+        stdin:1: in main chunk
+        [C]: in ?
+]]</span>
+</code></pre></div>
+<p>ギャ〜という感じです｡<code>self[k - 1]</code>が未定義の場合､<code>__index</code>メタメソッドを再帰的に呼ぶことになるので､2行目ではメモ化が済んでない<code>self[101]</code>~<code>self[999]</code>までを再帰的に計算するためにスタックオーバーフローしてるわけです｡
+あるていどの間隔でアクセスしていくとメモ化が無理なく進み(?)スタックオーバーフローしないことがわかります｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">100</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">200</span><span class="p">])</span>
+<span class="o">......</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">900</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1000</span><span class="p">])</span> <span class="c1">-- prints "500500"</span>
+</code></pre></div>
+<p>まさかスタックオーバーフロー回避のためにいちいちこんなことを…? いやいやその必要はありません｡
+スタックオーバーフローせずに再帰を深くできる方法としてCPSが考えられます｡</p>
+<h1 id="CPS%28Continuation+Passing+Style%2C+%E7%B6%99%E7%B6%9A%E6%B8%A1%E3%81%97%E6%96%B9%E5%BC%8F%29"><a class="headerlink" href="#CPS%28Continuation+Passing+Style%2C+%E7%B6%99%E7%B6%9A%E6%B8%A1%E3%81%97%E6%96%B9%E5%BC%8F%29">CPS(Continuation Passing Style, 継続渡し方式)</a></h1>
+<p>CPSとは､残りの計算(継続)を関数として表現し､現在終わった計算の結果をその関数に渡していきます｡
+詳細はWikipediaなどを参照ください｡
+CPSに変形することにより全ての関数は末尾呼び出しになります｡嬉しいことにLua VMでは<code>TAILCALL</code>という命令があり関数呼出しの命令<code>CALL</code>とリターン命令<code>RETURN</code>を一度にやってくれます｡これによりLua VM内でコールスタックが伸びていくことなく関数を呼びまくれるわけですな｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">t</span>
+<span class="k">do</span>
+  <span class="kd">local</span> <span class="k">function</span> <span class="nf">idxk</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">then</span>
+      <span class="n">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+      <span class="k">return</span> <span class="n">k</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="c1">-- rawget関数で__indexメタメソッドを経由せず直接オリジナルのtableにアクセス</span>
+      <span class="kd">local</span> <span class="n">v</span> <span class="o">=</span> <span class="nb">rawget</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">v</span> <span class="k">then</span>
+        <span class="c1">-- self[key]が未定義の場合</span>
+        <span class="k">return</span> <span class="n">idxk</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">key</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="n">n1</span><span class="p">)</span>
+          <span class="kd">local</span> <span class="n">n</span> <span class="o">=</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">key</span>
+          <span class="n">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+          <span class="k">return</span> <span class="n">k</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="k">end</span><span class="p">)</span>
+      <span class="k">else</span>
+        <span class="k">return</span> <span class="n">k</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">t</span> <span class="o">=</span> <span class="nb">setmetatable</span><span class="p">({},</span> <span class="p">{</span>
+    <span class="n">__index</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">idxk</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">return</span> <span class="n">i</span> <span class="k">end</span><span class="p">)</span>
+   <span class="k">end</span>
+  <span class="p">})</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Luaでは<a href="http://nymphium.github.io/2016/10/20/Lua%E3%81%AE%E7%84%A1%E5%90%8D%E5%86%8D%E5%B8%B0.html">無名の再帰関数を定義する方法</a>もありますが､コストがかかるのでどうしても無名関数で再帰したいとき以外は使わないほうが良いでしょう｡
+ということで<code>idxk</code>という関数を外で定義し､<code>__index</code>メタメソッドに登録するときに恒等関数を渡しています｡</p>
+<p>これでどうや｡</p>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">10000</span><span class="p">])</span> <span class="c1">-- prints "50005000"</span>
+</code></pre></div>
+<p>いきなり10000目の要素を計算してもスタックオーバーフローしません｡良いですね｡
+100000目くらいの要素へのアクセスになると､2回アクセスすると1回計算して次はキャッシュから引っ張ってきたことが分かると思います｡</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2018/06/09/Scala%E6%9B%B8%E3%81%84%E3%81%9F.html" title="Scala書いた">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2018/07/19/delimited-continuation%E3%81%AE%E5%A4%8F.html" title="delimited continuationの夏">Next →</a>
+      </div>
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>Rubyでもalgebraic effectsがしたい! - lilyum ensemble</title>
+    <meta itemprop="name" content="Rubyでもalgebraic effectsがしたい! - lilyum ensemble"/>
+    <meta name="keywords" content="Ruby,Algebraic Effects"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="Rubyでもalgebraic effectsがしたい! - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2019/12/07/ruby-ae.html"/> 
+    <meta name="twitter:text:description" content="はじめにこれはRuby advent calendar 2019の7日目の記事です｡こんにちは､びしょ～じょです｡Ruby全然書かないけどふとした理由でRubyのライブラリを作りました｡それがこ..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Rubyでもalgebraic effectsがしたい!" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="はじめに これはRuby advent calendar 2019の7日目の記事です｡" />
+<meta property="og:description" content="はじめに これはRuby advent calendar 2019の7日目の記事です｡" />
+<link rel="canonical" href="https://nymphium.github.io/2019/12/07/ruby-ae.html" />
+<meta property="og:url" content="https://nymphium.github.io/2019/12/07/ruby-ae.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-12-07T00:00:00+09:00" />
+<script type="application/ld+json">
+{"dateModified":"2019-12-07T00:00:00+09:00","datePublished":"2019-12-07T00:00:00+09:00","@type":"BlogPosting","headline":"Rubyでもalgebraic effectsがしたい!","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2019/12/07/ruby-ae.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"はじめに これはRuby advent calendar 2019の7日目の記事です｡","url":"https://nymphium.github.io/2019/12/07/ruby-ae.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Rubyでもalgebraic effectsがしたい!</h1>
+            <span class="post-meta">
+              <time datetime="2019-12-07T00:00:00+09:00" itemprop="datePublished">Dec 7, 2019</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2019-12-07-ruby-ae.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#Ruby-ref">Ruby</a></span><span></span> <span class="tag"><a href="/tags.html#Algebraic%20Effects-ref">Algebraic Effects</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">はじめに</a></h1>
+<p>これは<a href="https://qiita.com/advent-calendar/2019/ruby" target="_blank" rel="noopener noreferrer">Ruby advent calendar 2019</a>の7日目の記事です｡</p>
+<p>こんにちは､びしょ～じょです｡
+Ruby全然書かないけどふとした理由でRubyのライブラリを作りました｡
+それがこちら｡
+<a href="https://github.com/Nymphium/ruff" target="_blank" rel="noopener noreferrer">Nymphium/ruff: ONE-SHOT Algebraic Effects for Ruby!</a>
+このライブラリはone-shot algebraic effectsを提供します｡</p>
+<p>本記事では､このライブラリの使い方､競合ライブラリとの比較､なぜRubyで書いたかについて触れたいと思います｡</p>
+<h1 id="Algebraic+Effects%E3%81%A3%E3%81%A6%E3%81%AA%E3%82%93%E3%81%A0"><a class="headerlink" href="#Algebraic+Effects%E3%81%A3%E3%81%A6%E3%81%AA%E3%82%93%E3%81%A0">Algebraic Effectsってなんだ</a></h1>
+<p>Algebraic Effects(またはAlgebraic Effects and Handlers, Algebraic effect Handlers, 和訳だと代数的効果(と勝手に筆者がつけてます))は最近流行りの言語機能です｡
+React Hooksの開発者のDan Abramovさんがツイッターやブログでalgebraic effectsについて触れているのを見たことがある人もいると思います｡</p>
+<p>機能的な側面で述べると､直感的には <em>継続を取得できる､復帰可能な例外およびハンドラ</em> です｡
+Rubyにはcall/ccあったしRubyistの皆さんに継続の説明は不要ですね｡
+…すみません､しかし継続から説明するとだいぶ話が長くなるので､algebraic effectsの説明も兼ねて､手前味噌ですみませんがこちらのスライドを御覧ください｡
+<a href="https://nymphium.github.io/pdf/ae_from_0.html">0から知った気になるAlgebraic Effects - lilyum ensemble</a></p>
+<p>せっかくQiita使ってるんで､Qiitaに投稿したこちらもどうぞ｡
+<a href="https://qiita.com/Nymphium/items/e6ce580da8b87ded912b" target="_blank" rel="noopener noreferrer">Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました! - Qiita</a></p>
+<h1 id="play+with+Ruff"><a class="headerlink" href="#play+with+Ruff">play with Ruff</a></h1>
+<p>御託はOKなんで早速コードを見ていきましょう｡
+<code>Ruff.instance</code>でエフェクトを生成し､<code>effect.perform</code>でエフェクトを発生します
+<code>Ruff.handler</code>でハンドラを生成し､<code>handler.on(effect)(&amp;proc)</code>でエフェクト<code>effect</code>に対するハンドラを設定します｡</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">'ruff'</span>
+
+<span class="no">Double</span> <span class="o">=</span> <span class="no">Ruff</span><span class="p">.</span><span class="nf">instance</span>
+
+<span class="n">with_arith</span> <span class="o">=</span> <span class="no">Ruff</span><span class="p">.</span><span class="nf">handler</span>
+                 <span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="no">Double</span><span class="p">){</span><span class="o">|</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="o">|</span> <span class="n">k</span><span class="p">[</span><span class="n">v</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]}</span>
+
+<span class="n">with_puts</span> <span class="o">=</span> <span class="no">Ruff</span><span class="p">.</span><span class="nf">handler</span>
+                <span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="no">Double</span><span class="p">){</span><span class="o">|</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">v</span><span class="p">;</span> <span class="nb">puts</span> <span class="n">v</span><span class="p">;</span> <span class="n">k</span><span class="p">[]}</span>
+
+<span class="n">with_arith</span><span class="p">.</span><span class="nf">run</span> <span class="p">{</span>
+  <span class="nb">puts</span> <span class="no">Double</span><span class="p">.</span><span class="nf">perform</span> <span class="mi">10</span> <span class="c1">#==&gt; 20</span>
+<span class="p">}</span>
+
+<span class="n">with_puts</span><span class="p">.</span><span class="nf">run</span> <span class="p">{</span>
+  <span class="no">Double</span><span class="p">.</span><span class="nf">perform</span> <span class="mi">10</span> <span class="c1">#==&gt; 10\n10</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>ウォーいい感じですね｡
+<code>k</code> は継続です｡
+他にも見てみますか｡</p>
+<p>ハンドラは<code>handler.to(&amp;proc)</code> というメソッドも持ち､ハンドルされているブロックが返す値をハンドルしてくれます｡つまりvalue handlerを設定できます｡
+ログを収集するエフェクトとハンドラを定義してさっきの<code>Double</code>も混ぜてみます｡</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Log</span> <span class="o">=</span> <span class="no">Ruff</span><span class="p">.</span><span class="nf">instance</span>
+<span class="c1"># スマートコンストラクタ的な</span>
+<span class="n">log</span> <span class="o">=</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="p">{</span> <span class="no">Log</span><span class="p">.</span><span class="nf">perform</span> <span class="n">msg</span> <span class="p">}</span>
+
+<span class="n">log_collector</span> <span class="o">=</span> <span class="nb">lambda</span> <span class="p">{</span>
+  <span class="n">msgs</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="no">Ruff</span><span class="p">.</span><span class="nf">handler</span>
+      <span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="no">Log</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">k</span><span class="p">,</span> <span class="n">msg</span><span class="o">|</span>
+    <span class="n">msgs</span><span class="p">.</span><span class="nf">push</span> <span class="s2">"log:</span><span class="si">#{</span><span class="n">msg</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">k</span><span class="p">[]</span>
+  <span class="k">end</span>
+      <span class="p">.</span><span class="nf">to</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
+    <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">msgs</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="p">}</span>
+
+<span class="n">logs</span> <span class="o">=</span>
+  <span class="n">log_collector</span><span class="p">.</span><span class="nf">call</span><span class="p">.</span><span class="nf">run</span> <span class="p">{</span>
+  <span class="n">with_arith</span><span class="p">.</span><span class="nf">run</span> <span class="p">{</span>
+    <span class="n">log</span><span class="p">[</span><span class="s1">'hello'</span><span class="p">]</span>
+    <span class="n">log</span><span class="p">[</span><span class="s1">'world'</span><span class="p">]</span>
+    <span class="no">Double</span><span class="p">.</span><span class="nf">perform</span> <span class="mi">3</span>
+<span class="p">}}</span>
+
+<span class="nb">puts</span> <span class="n">logs</span>
+<span class="c1">#==&gt;</span>
+<span class="c1"># 6</span>
+<span class="c1"># log:hello</span>
+<span class="c1"># log:world</span>
+</code></pre></div>
+<p>ウォーいいですね｡
+<a href="http://secret-garden.hatenablog.com/entry/2019/12/01/154607" target="_blank" rel="noopener noreferrer">numbered parameter</a> があればもう少し良さそうですね｡</p>
+<p>これを使うといろいろ書けて(中略)良さげなエフェクト&amp;ハンドラが<code>ruff/standard</code>に定義されています｡</p>
+<p>例えばasync/awaitがあります｡</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">'ruff/standard'</span>
+
+<span class="kp">include</span> <span class="no">Ruff</span><span class="o">::</span><span class="no">Standard</span>
+
+<span class="no">Async</span><span class="p">.</span><span class="nf">with</span> <span class="k">do</span>
+  <span class="n">task</span> <span class="o">=</span> <span class="nb">lambda</span> <span class="p">{</span><span class="o">|</span><span class="nb">name</span><span class="o">|</span>
+    <span class="nb">lambda</span> <span class="p">{</span>
+      <span class="nb">puts</span> <span class="s2">"Starting </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="no">Random</span><span class="p">.</span><span class="nf">rand</span> <span class="o">*</span> <span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="mi">3</span><span class="p">)).</span><span class="nf">floor</span>
+      <span class="nb">puts</span> <span class="s2">"Yielding </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+      <span class="no">Async</span><span class="p">.</span><span class="nf">yield</span>
+      <span class="nb">puts</span> <span class="s2">"Eidnig </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2"> with </span><span class="si">#{</span><span class="n">v</span><span class="si">}</span><span class="s2">"</span>
+
+      <span class="n">v</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">pa</span> <span class="o">=</span> <span class="no">Async</span><span class="p">.</span><span class="nf">async</span> <span class="n">task</span><span class="p">[</span><span class="s1">'a'</span><span class="p">]</span>
+  <span class="n">pb</span> <span class="o">=</span> <span class="no">Async</span><span class="p">.</span><span class="nf">async</span> <span class="n">task</span><span class="p">[</span><span class="s1">'b'</span><span class="p">]</span>
+  <span class="n">pc</span> <span class="o">=</span> <span class="no">Async</span><span class="p">.</span><span class="nf">async</span> <span class="nb">lambda</span> <span class="p">{</span>
+    <span class="no">Async</span><span class="p">.</span><span class="nf">await</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span> <span class="o">+</span> <span class="no">Async</span><span class="p">.</span><span class="nf">await</span><span class="p">(</span><span class="n">pb</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="nb">puts</span> <span class="s2">"sum is </span><span class="si">#{</span><span class="no">Async</span><span class="p">.</span><span class="nf">await</span> <span class="n">pc</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="c1">#==&gt;</span>
+<span class="c1"># Starting a</span>
+<span class="c1"># Yielding a</span>
+<span class="c1"># Eidnig a with 423</span>
+<span class="c1"># Starting b</span>
+<span class="c1"># Yielding b</span>
+<span class="c1"># Eidnig b with 793</span>
+<span class="c1"># sum is 1216</span>
+</code></pre></div>
+<p>call/ccもあります!</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Call1cc</span><span class="p">.</span><span class="nf">context</span> <span class="k">do</span>
+  <span class="n">divfail</span> <span class="o">=</span> <span class="nb">lambda</span> <span class="p">{</span><span class="o">|</span><span class="n">l</span><span class="p">,</span> <span class="n">default</span><span class="o">|</span>
+    <span class="no">Call1cc</span><span class="p">.</span><span class="nf">run</span> <span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="o">|</span>
+      <span class="n">l</span><span class="p">.</span><span class="nf">map</span><span class="p">{</span><span class="o">|</span><span class="n">e</span><span class="o">|</span>
+        <span class="k">if</span> <span class="n">e</span><span class="p">.</span><span class="nf">zero?</span>
+          <span class="n">k</span><span class="p">[</span><span class="n">default</span><span class="p">]</span>
+        <span class="k">else</span>
+          <span class="n">e</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">end</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">pp</span> <span class="n">divfail</span><span class="p">.</span><span class="nf">call</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># ==&gt; [0, 1, 2]</span>
+  <span class="n">pp</span> <span class="n">divfail</span><span class="p">.</span><span class="nf">call</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># ==&gt; [1]</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Rubyist歓喜…と言いたいところですが本ライブラリが提供するのはcall/<strong>1</strong>ccです｡
+(あとcall/1ccといっているが<code>Call1cc.context</code>という範囲の中でのみ使えるので実際は限定継続です｡ごめんね。)</p>
+<h1 id="%E7%AB%B6%E5%90%88%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%A8%E3%81%AE%E6%AF%94%E8%BC%83"><a class="headerlink" href="#%E7%AB%B6%E5%90%88%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%A8%E3%81%AE%E6%AF%94%E8%BC%83">競合ライブラリとの比較</a></h1>
+<p>rubygemウォッチャーならご存知かもしれませんが､Rubyにもalgebraic effectsのライブラリはすでに2つ存在します｡</p>
+<h2 id="%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fdry-rb%2Fdry-effects%22%3Edry-effects%3C%2Fa%3E">
+<a class="headerlink" href="#%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fdry-rb%2Fdry-effects%22%3Edry-effects%3C%2Fa%3E"></a><a href="https://github.com/dry-rb/dry-effects" target="_blank" rel="noopener noreferrer">dry-effects</a>
+</h2>
+<p>こちらはdry-rbというコミュニティの提供する1ライブラリのようです｡
+本ライブラリと比較してハンドラの定義がややデカいです｡この辺は慣れなのであまり問題ではないかもしれません｡
+しかしdry-effectsは継続が使えないようです!
+この点においては本ライブラリに軍配が上がりました｡</p>
+<h2 id="%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fdigital-fabric%2Faffect%22%3Eaffect%3C%2Fa%3E">
+<a class="headerlink" href="#%3Ca+href%3D%22https%3A%2F%2Fgithub.com%2Fdigital-fabric%2Faffect%22%3Eaffect%3C%2Fa%3E"></a><a href="https://github.com/digital-fabric/affect" target="_blank" rel="noopener noreferrer">affect</a>
+</h2>
+<p>こちらは結構文法が似てますね｡
+しかしこちらも継続が使えません｡
+dry-effects同様､我々のほうが有利です｡</p>
+<hr>
+<p>継続が使えないと上記に定義したような <code>Async</code> や <code>Call1cc</code> などが実装できません｡
+(継続を使わずに実装できるものはDIかなんかでも実装できるので､algebraic effectsライブラリと果たして言えるのか個人的には疑わしいですが､まあ何か思想があるのかもしれません｡)</p>
+<h1 id="Why+Ruby"><a class="headerlink" href="#Why+Ruby">Why Ruby</a></h1>
+<p>再び我田引水で申し訳ないですが､こちらの方法を利用しています｡
+<a href="https://nymphium.github.io/2018/12/09/asymmetric-coroutines%E3%81%AB%E3%82%88%E3%82%8Boneshot-algebraic-effects%E3%81%AE%E5%AE%9F%E8%A3%85.html">Asymmetric CoroutinesによるOneshot Algebraic Effectsの実装 - lilyum ensemble</a></p>
+<p>簡単に述べると､コルーチンでalgebraic effectsが実装できます｡
+しかしこのとき､コルーチンの残りのスレッドが継続に対応し､コルーチンの状態はコピーできないので､継続はワンショットに制限されます｡</p>
+<p>ちょうど手頃に操作できるコルーチンを持っていたのがRubyだったのでとりあえず実装しておきました!!
+実装内部を見てみるとパターンマッチなどが使われていてしんどかったッシュねえ…｡
+Rubyにパターンマッチが正式に追加されてもっと綺麗なコードベースになってるといいですねえ｡</p>
+<p>さらに､今回使ったコルーチンはasymmetric coroutineです｡
+簡単にいうと <code>Fiber.yield</code> と <code>Fiber.resume</code> です｡
+symmetric coroutineを使った実装もちょっと考えてみたいので､そのときはモダンな言語の中でもsymmetric coroutine を持つ数少ない言語のRuby(<code>Fiber.transfer</code>)のお世話にまたなろうと思います｡</p>
+<h1 id="%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">おわりに</a></h1>
+<p>だいたい宣伝になってしまって申し訳ないですが､とにかくRubyでもワンショットのalgebraic effectsが使えます!
+Rubyは謎構文もいっぱいありOOPとも協調していい感じにalgebraic effectsが埋め込めていて快適に書けます､最高</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2019/09/15/koka-repl.html" title="koka-lang/koka REPL超入門">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2019/12/09/ae-poly.html" title="Algebraic Effectsの型システム入門(2) 多相エフェクト">Next →</a>
+      </div>
+    </footer>
+
+  </body>
+</html>
