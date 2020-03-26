@@ -1,21 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>Neovimへのhaskell-ide-engineの導入 - lilyum ensemble</title>
+    <meta itemprop="name" content="Neovimへのhaskell-ide-engineの導入 - lilyum ensemble"/>
+    <meta name="keywords" content="Haskell,Neovim,LSP"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="Neovimへのhaskell-ide-engineの導入 - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2018/10/23/neovim-intro-hie.html"/> 
+    <meta name="twitter:text:description" content="様々なエディタ､IDEをまたいで言語ごとの補完や定義へのジャンプなどの機能を提供してくれる仕組みとして､Language Server Protocol (LSP) というものが盛り上がっていま..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Neovimへのhaskell-ide-engineの導入" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="様々なエディタ､IDEをまたいで言語ごとの補完や定義へのジャンプなどの機能を提供してくれる仕組みとして､Language Server Protocol (LSP) というものが盛り上がっています｡ 現在はエディタによるプログラミングの支援が､エディタの数×言語の数となっていますが､LSPによって､Language Server = プログラム言語の数となり､エディタはLSPのクライアント機能だけもっていればよくなります｡ エディタ自作勢にとっても､LSPを喋れるようになればモダンなIDEの機能が使えるようになるので嬉しいですね｡" />
+<meta property="og:description" content="様々なエディタ､IDEをまたいで言語ごとの補完や定義へのジャンプなどの機能を提供してくれる仕組みとして､Language Server Protocol (LSP) というものが盛り上がっています｡ 現在はエディタによるプログラミングの支援が､エディタの数×言語の数となっていますが､LSPによって､Language Server = プログラム言語の数となり､エディタはLSPのクライアント機能だけもっていればよくなります｡ エディタ自作勢にとっても､LSPを喋れるようになればモダンなIDEの機能が使えるようになるので嬉しいですね｡" />
+<link rel="canonical" href="https://nymphium.github.io/2018/10/23/neovim-intro-hie.html" />
+<meta property="og:url" content="https://nymphium.github.io/2018/10/23/neovim-intro-hie.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-10-23T00:00:00+09:00" />
+<script type="application/ld+json">
+{"dateModified":"2018-10-23T00:00:00+09:00","datePublished":"2018-10-23T00:00:00+09:00","@type":"BlogPosting","headline":"Neovimへのhaskell-ide-engineの導入","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/10/23/neovim-intro-hie.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"様々なエディタ､IDEをまたいで言語ごとの補完や定義へのジャンプなどの機能を提供してくれる仕組みとして､Language Server Protocol (LSP) というものが盛り上がっています｡ 現在はエディタによるプログラミングの支援が､エディタの数×言語の数となっていますが､LSPによって､Language Server = プログラム言語の数となり､エディタはLSPのクライアント機能だけもっていればよくなります｡ エディタ自作勢にとっても､LSPを喋れるようになればモダンなIDEの機能が使えるようになるので嬉しいですね｡","url":"https://nymphium.github.io/2018/10/23/neovim-intro-hie.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Neovimへのhaskell-ide-engineの導入</h1>
+            <span class="post-meta">
+              <time datetime="2018-10-23T00:00:00+09:00" itemprop="datePublished">Oct 23, 2018</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2018-10-23-neovim-intro-hie.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#Haskell-ref">Haskell</a></span><span></span> <span class="tag"><a href="/tags.html#Neovim-ref">Neovim</a></span><span></span> <span class="tag"><a href="/tags.html#LSP-ref">LSP</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
 <p>様々なエディタ､IDEをまたいで言語ごとの補完や定義へのジャンプなどの機能を提供してくれる仕組みとして､<em>Language Server Protocol</em> (LSP) というものが盛り上がっています｡
 現在はエディタによるプログラミングの支援が､エディタの数×言語の数となっていますが､LSPによって､Language Server = プログラム言語の数となり､エディタはLSPのクライアント機能だけもっていればよくなります｡
-エディタ自作勢にとっても､LSPを喋れるようになればモダンなIDEの機能が使えるようになるので嬉しいですね｡</p><p>さて本題</p><hr><p><a href="https://github.com/haskell/haskell-ide-engine" target="_blank" rel="noopener noreferrer">haskell-ide-engine</a>を導入し､NeovimのLSP Clientプラグインの<a href="https://github.com/autozimu/LanguageClient-neovim" target="_blank" rel="noopener noreferrer">LanguaceClient-neovim</a>を使ってLSPによる恩恵を与りたいと思います｡</p><h1 id="LanguageClient-neovim%E3%81%AE%E5%B0%8E%E5%85%A5"><a class="headerlink" href="#LanguageClient-neovim%E3%81%AE%E5%B0%8E%E5%85%A5">LanguageClient-neovimの導入</a></h1><p>LanguageClient-neovimのnextブランチでinstall.shを叩くことで<code>bin/languageclient</code>が爆誕します｡
+エディタ自作勢にとっても､LSPを喋れるようになればモダンなIDEの機能が使えるようになるので嬉しいですね｡</p>
+<p>さて本題</p>
+<hr>
+<p><a href="https://github.com/haskell/haskell-ide-engine" target="_blank" rel="noopener noreferrer">haskell-ide-engine</a>を導入し､NeovimのLSP Clientプラグインの<a href="https://github.com/autozimu/LanguageClient-neovim" target="_blank" rel="noopener noreferrer">LanguaceClient-neovim</a>を使ってLSPによる恩恵を与りたいと思います｡</p>
+<h1 id="LanguageClient-neovim%E3%81%AE%E5%B0%8E%E5%85%A5"><a class="headerlink" href="#LanguageClient-neovim%E3%81%AE%E5%B0%8E%E5%85%A5">LanguageClient-neovimの導入</a></h1>
+<p>LanguageClient-neovimのnextブランチでinstall.shを叩くことで<code>bin/languageclient</code>が爆誕します｡
 そして<code>plugin/LanguageClient.vim</code>を呼べばOK｡
-もはやプラグインはプラグインマネージャに任せてるのでそんな感じのことを彼らに任せる｡</p><p>neobundleなら</p><div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">" NeoBundleLazyだと動かなかったので注意</span>
+もはやプラグインはプラグインマネージャに任せてるのでそんな感じのことを彼らに任せる｡</p>
+<p>neobundleなら</p>
+<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">" NeoBundleLazyだと動かなかったので注意</span>
 NeoBundle <span class="s1">'autozimu/LanguageClient-neovim'</span><span class="p">,</span> <span class="p">{</span>
 <span class="se">  \</span> <span class="s1">'branch'</span><span class="p">:</span> <span class="s1">'next'</span><span class="p">,</span>
 <span class="se">  \</span> <span class="s1">'build'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'linux'</span><span class="p">:</span> <span class="s1">'bash install.sh'</span><span class="p">},</span>
 <span class="se">  \</span> <span class="p">}</span>
-</code></pre></div><p>deinなら</p><div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="k">call</span> dein#add<span class="p">(</span><span class="s1">'autozimu/LanguageClient-neovim'</span><span class="p">,</span> <span class="p">{</span>
+</code></pre></div>
+<p>deinなら</p>
+<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="k">call</span> dein#add<span class="p">(</span><span class="s1">'autozimu/LanguageClient-neovim'</span><span class="p">,</span> <span class="p">{</span>
 <span class="se">  \</span> <span class="s1">'rev'</span><span class="p">:</span> <span class="s1">'next'</span><span class="p">,</span>
 <span class="se">  \</span> <span class="s1">'build'</span><span class="p">:</span> <span class="s1">'bash install.sh'</span><span class="p">,</span>
 <span class="se">  \</span> <span class="p">})</span>
-</code></pre></div><p>tomlに書くなら</p><div class="highlight"><pre><code class="language-toml" data-lang="toml"><span class="nn">[[plugins]]</span>
+</code></pre></div>
+<p>tomlに書くなら</p>
+<div class="highlight"><pre><code class="language-toml" data-lang="toml"><span class="nn">[[plugins]]</span>
 <span class="py">repo</span> <span class="p">=</span> <span class="s">"autozimu/LanguageClient-neovim"</span>
 <span class="py">rev</span> <span class="p">=</span> <span class="s">"next"</span>
 <span class="py">build</span> <span class="p">=</span> <span class="s">"bash install.sh"</span>
-</code></pre></div><p>そして以下を書く</p><div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="k">let</span> <span class="nv">g:LanguageClient_rootMakers</span> <span class="p">=</span> <span class="p">{</span>
+</code></pre></div>
+<p>そして以下を書く</p>
+<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="k">let</span> <span class="nv">g:LanguageClient_rootMakers</span> <span class="p">=</span> <span class="p">{</span>
 <span class="se">  \</span> <span class="s1">'haskell'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'*.cabal'</span><span class="p">,</span> <span class="s1">'stack.yaml'</span><span class="p">],</span>
 <span class="se">  \</span> <span class="p">}</span> 
 <span class="k">let</span> <span class="nv">g:LanguageClient_serverCommands</span> <span class="p">=</span> <span class="p">{</span>
@@ -40,19 +143,28 @@ augroup LanguageClientKeyconfig
   autocmd<span class="p">!</span>
   autocmd Filetype * <span class="k">call</span> LC_maps<span class="p">()</span>
 augroup END
-</code></pre></div><h1 id="Haskell-IDE-Engine%E3%81%AE%E5%B0%8E%E5%85%A5"><a class="headerlink" href="#Haskell-IDE-Engine%E3%81%AE%E5%B0%8E%E5%85%A5">Haskell-IDE-Engineの導入</a></h1><p>stackをまず用意します｡</p><div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>pacman <span class="nt">-S</span> stack
-</code></pre></div><p>引っ張ってインストールする｡
-stack ghcのバージョンによるので詳細はREADMEよんで</p><div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>git clone https://github.com/haskell/haskell-ide-engine <span class="nt">--recursive</span>
+</code></pre></div>
+<h1 id="Haskell-IDE-Engine%E3%81%AE%E5%B0%8E%E5%85%A5"><a class="headerlink" href="#Haskell-IDE-Engine%E3%81%AE%E5%B0%8E%E5%85%A5">Haskell-IDE-Engineの導入</a></h1>
+<p>stackをまず用意します｡</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>pacman <span class="nt">-S</span> stack
+</code></pre></div>
+<p>引っ張ってインストールする｡
+stack ghcのバージョンによるので詳細はREADMEよんで</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>git clone https://github.com/haskell/haskell-ide-engine <span class="nt">--recursive</span>
 <span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>haskell-ide-engine
 <span class="gp">$</span><span class="w"> </span>git submodule update <span class="nt">--init</span>
 <span class="gp">$</span><span class="w"> </span>stack <span class="nb">install </span>cabal-install
 <span class="gp">$</span><span class="w"> </span>cabal update
 <span class="gp">$</span><span class="w"> </span>stack <span class="nb">install</span>
 <span class="gp">$</span><span class="w"> </span>stack <span class="nb">exec </span>hoogle generate <span class="c"># hoogleのDBを作る</span>
-</code></pre></div><p>完了だ!!
-しかし実際に使う前にプロジェクトで以下を実行</p><div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>path/to/your/project
+</code></pre></div>
+<p>完了だ!!
+しかし実際に使う前にプロジェクトで以下を実行</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>path/to/your/project
 <span class="gp">$</span><span class="w"> </span>stack haddock <span class="nt">--keep-going</span> <span class="c"># プロジェクトの補完/ドキュメント用DBを作る</span>
-</code></pre></div><p>適当な場所でF5を押す(<code>call LanguageClient_contextMenu()</code>)と</p><div class="highlight"><pre><code class="language-" data-lang="">1) Type Definition
+</code></pre></div>
+<p>適当な場所でF5を押す(<code>call LanguageClient_contextMenu()</code>)と</p>
+<div class="highlight"><pre><code class="language-" data-lang="">1) Type Definition
 2) Code Action
 3) Workspace Symbol
 4) Rename
@@ -66,5 +178,23 @@ stack ghcのバージョンによるので詳細はREADMEよんで</p><div class
 12) Document Symbol
 13) Implementation
 Type number and &lt;Enter&gt; or click with mouse (empty cancels):
-</code></pre></div><p>のようなものが出てくればOK｡</p><h1 id="%E5%95%8F%E9%A1%8C%E7%82%B9"><a class="headerlink" href="#%E5%95%8F%E9%A1%8C%E7%82%B9">問題点</a></h1><p>Docker上でプロジェクトをビルドする場合､補完やドキュメントなどが動作しない｡
+</code></pre></div>
+<p>のようなものが出てくればOK｡</p>
+<h1 id="%E5%95%8F%E9%A1%8C%E7%82%B9"><a class="headerlink" href="#%E5%95%8F%E9%A1%8C%E7%82%B9">問題点</a></h1>
+<p>Docker上でプロジェクトをビルドする場合､補完やドキュメントなどが動作しない｡
 なんとかならんか｡</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2018/10/17/subfiles%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%93%E3%81%AA%E3%81%A7%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%8F-%E3%81%97%E3%81%8A%E3%82%8A%E3%82%82%E5%87%BA%E3%81%99.html" title="subfilesを使ってみんなで記事を書く､しおりも出す">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2018/10/30/what-is-algebraic-effects.html" title="Algebraic Effectsとは? 出身は? 使い方は? その特徴とは? 調べてみました!">Next →</a>
+      </div>
+    </footer>
+
+  </body>
+</html>

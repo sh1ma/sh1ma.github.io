@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 26 Mar 2020 01:08:14 +0900</pubDate>
-    <lastBuildDate>Thu, 26 Mar 2020 01:08:14 +0900</lastBuildDate>
+    <pubDate>Thu, 26 Mar 2020 10:21:12 +0900</pubDate>
+    <lastBuildDate>Thu, 26 Mar 2020 10:21:12 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -484,6 +484,8 @@ val with_add5_option : forall &amp;lt;a&amp;gt; (() -&amp;gt; &amp;lt;option&amp
         
         <category>Koka</category>
         
+        <category>Advent Calendar</category>
+        
         
       </item>
     
@@ -626,6 +628,8 @@ Rubyは謎構文もいっぱいありOOPとも協調していい感じにalgebra
         <category>Ruby</category>
         
         <category>Algebraic Effects</category>
+        
+        <category>Advent Calendar</category>
         
         
       </item>
@@ -975,10 +979,10 @@ Haskellにおける型クラスのようにimplicitに実装が与えられる�
 エフェクトに意味を与えるもの(Monadのインスタンス､エフェクトハンドラ)にコントロールが移ったあと､元の式に復帰するためには継続をハンドラに渡して呼んでもらうのがシンプルである｡
 そして､&lt;code&gt;List&lt;/code&gt;モナドとか､非決定計算など､継続が複数回(あるいは末尾位置以外で)呼び出されるのがそもそも計算エフェクトに織り込まれている場合もあり､継続がファーストクラスであることがそもそもエフェクトシステムには必要なのである｡&lt;/p&gt;&lt;h1 id=&quot;5.+%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%B8&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E7%B6%99%E7%B6%9A%E3%81%8B%E3%82%89%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%B8&quot;&gt;5. 継続からエフェクトへ&lt;/a&gt;&lt;/h1&gt;&lt;h2 id=&quot;5-1.+OCaml4.08%E3%81%AEbinding+operator&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5-1.+OCaml4.08%E3%81%AEbinding+operator&quot;&gt;5-1. OCaml4.08のbinding operator&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;OCaml4.08で新たな構文拡張が生まれました｡
 詳細はこちらに書いた｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/a13ed0fe3461708fe306&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://qiita-user-contents.imgix.net/https%3A%2F%2Fcdn.qiita.com%2Fassets%2Fpublic%2Farticle-ogp-background-1150d8b18a7c15795b701a55ae908f94.png?ixlib=rb-1.2.2&amp;amp;w=1200&amp;amp;mark=https%3A%2F%2Fqiita-user-contents.imgix.net%2F~text%3Fixlib%3Drb-1.2.2%26w%3D840%26h%3D380%26txt%3DOCaml%25204.08%25E3%2581%25AEbinding%2520operator%26txt-color%3D%2523333%26txt-font%3DAvenir-Black%26txt-size%3D54%26txt-clip%3Dellipsis%26txt-align%3Dcenter%252Cmiddle%26s%3Dc4fa026ede7396b5c817d96bd051bdae&amp;amp;mark-align=center%2Cmiddle&amp;amp;blend=https%3A%2F%2Fqiita-user-contents.imgix.net%2F~text%3Fixlib%3Drb-1.2.2%26w%3D840%26h%3D500%26txt%3D%2540Nymphium%26txt-color%3D%2523333%26txt-font%3DAvenir-Black%26txt-size%3D45%26txt-align%3Dright%252Cbottom%26s%3Dfd6494ecf386fd4832ae2af2ec363e6c&amp;amp;blend-align=center%2Cmiddle&amp;amp;blend-mode=normal&amp;amp;s=edd63cfc168bb9cf9771a0669dd26256&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/a13ed0fe3461708fe306&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;/pictures/no_image.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/a13ed0fe3461708fe306&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;OCaml 4.08のbinding operator - Qiita&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;# はじめにOCaml 4.08よりbinding operatorというものが追加されました｡[8.24  Binding operators](http://caml.inria.fr/pub/docs/manual-ocam…&lt;/div&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://qiita.com/Nymphium/items/a13ed0fe3461708fe306&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
   &lt;/span&gt;
 &lt;/div&gt;&lt;p&gt;簡単にいうと､ただならぬ&lt;code&gt;let&lt;/code&gt;が定義できる(プログラム&lt;a href=&quot;#lst:ocamlbinding&quot;&gt;5.1&lt;/a&gt;
 )｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:ocamlbinding&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;

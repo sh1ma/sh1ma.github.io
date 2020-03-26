@@ -1,10 +1,111 @@
-<h1 id="%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">はじめに</a></h1><p>こんにちは､びしょ〜じょです｡今日はPUC-Luaにおいて､<code>local</code>修飾子がどういう働きを持っているのかを見ていきたいと思います｡</p><p>PUC-Luaとは､リオデジャネイロカトレア大学が開発している､いわゆる本家Lua処理系｡正式名称は"Lua"で良いと思うが､Luaというプログラム言語のみならずその言語処理系について言及している､ということを強調するためにもPUC-Luaとした｡Luaの処理系といえば他にもLaJITなんかがあるが､LuaJITの仕組みは本記事の限りではない｡ということで今回はPUC-Luaの挙動を見ていく｡
-Luaプログラムと､生成されるLua VMの命令列を比較して何がどうなってるのかを見てみましょう｡PUC-Luaといえば軽量さが売りであるため､様々なプロダクトに埋め込まれていたりする｡例えばLuaTeX､Wireshark､FreeBSD etc. であり､バイトコードコンパイラおよびVMが大改造されていなければ本記事の内容が有効であろう｡</p><p>レッツLua!!!!
-今回はLua 5.3.4を使用する｡</p><h1 id="%E4%BD%B5%E8%AA%AD%E3%81%97%E3%81%9F%E3%81%84"><a class="headerlink" href="#%E4%BD%B5%E8%AA%AD%E3%81%97%E3%81%9F%E3%81%84">併読したい</a></h1><p>プログラム言語<a href="https://github.com/dibyendumajumdar/ravi" target="_blank" rel="noopener noreferrer">Ravi</a>の開発陣が<a href="https://github.com/dibyendumajumdar/ravi/blob/master/readthedocs/lua_bytecode_reference.rst" target="_blank" rel="noopener noreferrer">LuaのVM命令についてまとめたもの</a>があるんで気になったら一緒に読んでみてください｡VM命令に関する公式ドキュメントは無し｡<a href="http://www.lua.org/source/5.3/lopcodes.h.html" target="_blank" rel="noopener noreferrer">ソースコードにコメントがある</a>程度｡</p><h1 id="%0A%3Ccode%3Elocal%3C%2Fcode%3E%E3%81%A8%E3%82%B0%E3%83%AD%E3%83%BC%E3%83%90%E3%83%AB"><a class="headerlink" href="#%0A%3Ccode%3Elocal%3C%2Fcode%3E%E3%81%A8%E3%82%B0%E3%83%AD%E3%83%BC%E3%83%90%E3%83%AB">
-<code>local</code>とグローバル</a></h1><p>“Luaは<code>local</code>修飾子をつけないで変数宣言するとグローバル変数になってしまう"という話をよく聞くかもしれない｡だいたいあってるが､もう少し詳しく見てみよう｡</p><p>さて次のようなプログラムを見てみよう｡</p><div class="highlight">
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>local修飾子の働き(PUC-Lua) - lilyum ensemble</title>
+    <meta itemprop="name" content="local修飾子の働き(PUC-Lua) - lilyum ensemble"/>
+    <meta name="keywords" content="Lua"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="local修飾子の働き(PUC-Lua) - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2018/02/22/lua-local.html"/> 
+    <meta name="twitter:text:description" content="はじめにこんにちは､びしょ〜じょです｡今日はPUC-Luaにおいて､local修飾子がどういう働きを持っているのかを見ていきたいと思います｡PUC-Luaとは､リオデジャネイロカトレア大学が開発..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="local修飾子の働き(PUC-Lua)" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="はじめに こんにちは､びしょ〜じょです｡今日はPUC-Luaにおいて､local修飾子がどういう働きを持っているのかを見ていきたいと思います｡" />
+<meta property="og:description" content="はじめに こんにちは､びしょ〜じょです｡今日はPUC-Luaにおいて､local修飾子がどういう働きを持っているのかを見ていきたいと思います｡" />
+<link rel="canonical" href="https://nymphium.github.io/2018/02/22/lua-local.html" />
+<meta property="og:url" content="https://nymphium.github.io/2018/02/22/lua-local.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-02-22T00:00:00+09:00" />
+<script type="application/ld+json">
+{"dateModified":"2018-02-22T00:00:00+09:00","datePublished":"2018-02-22T00:00:00+09:00","@type":"BlogPosting","headline":"local修飾子の働き(PUC-Lua)","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/02/22/lua-local.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"はじめに こんにちは､びしょ〜じょです｡今日はPUC-Luaにおいて､local修飾子がどういう働きを持っているのかを見ていきたいと思います｡","url":"https://nymphium.github.io/2018/02/22/lua-local.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">local修飾子の働き(PUC-Lua)</h1>
+            <span class="post-meta">
+              <time datetime="2018-02-22T00:00:00+09:00" itemprop="datePublished">Feb 22, 2018</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2018-02-22-lua-local.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#Lua-ref">Lua</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">はじめに</a></h1>
+<p>こんにちは､びしょ〜じょです｡今日はPUC-Luaにおいて､<code>local</code>修飾子がどういう働きを持っているのかを見ていきたいと思います｡</p>
+<p>PUC-Luaとは､リオデジャネイロカトレア大学が開発している､いわゆる本家Lua処理系｡正式名称は"Lua"で良いと思うが､Luaというプログラム言語のみならずその言語処理系について言及している､ということを強調するためにもPUC-Luaとした｡Luaの処理系といえば他にもLaJITなんかがあるが､LuaJITの仕組みは本記事の限りではない｡ということで今回はPUC-Luaの挙動を見ていく｡
+Luaプログラムと､生成されるLua VMの命令列を比較して何がどうなってるのかを見てみましょう｡PUC-Luaといえば軽量さが売りであるため､様々なプロダクトに埋め込まれていたりする｡例えばLuaTeX､Wireshark､FreeBSD etc. であり､バイトコードコンパイラおよびVMが大改造されていなければ本記事の内容が有効であろう｡</p>
+<p>レッツLua!!!!
+今回はLua 5.3.4を使用する｡</p>
+<h1 id="%E4%BD%B5%E8%AA%AD%E3%81%97%E3%81%9F%E3%81%84"><a class="headerlink" href="#%E4%BD%B5%E8%AA%AD%E3%81%97%E3%81%9F%E3%81%84">併読したい</a></h1>
+<p>プログラム言語<a href="https://github.com/dibyendumajumdar/ravi" target="_blank" rel="noopener noreferrer">Ravi</a>の開発陣が<a href="https://github.com/dibyendumajumdar/ravi/blob/master/readthedocs/lua_bytecode_reference.rst" target="_blank" rel="noopener noreferrer">LuaのVM命令についてまとめたもの</a>があるんで気になったら一緒に読んでみてください｡VM命令に関する公式ドキュメントは無し｡<a href="http://www.lua.org/source/5.3/lopcodes.h.html" target="_blank" rel="noopener noreferrer">ソースコードにコメントがある</a>程度｡</p>
+<h1 id="%0A%3Ccode%3Elocal%3C%2Fcode%3E%E3%81%A8%E3%82%B0%E3%83%AD%E3%83%BC%E3%83%90%E3%83%AB"><a class="headerlink" href="#%0A%3Ccode%3Elocal%3C%2Fcode%3E%E3%81%A8%E3%82%B0%E3%83%AD%E3%83%BC%E3%83%90%E3%83%AB">
+<code>local</code>とグローバル</a></h1>
+<p>“Luaは<code>local</code>修飾子をつけないで変数宣言するとグローバル変数になってしまう"という話をよく聞くかもしれない｡だいたいあってるが､もう少し詳しく見てみよう｡</p>
+<p>さて次のようなプログラムを見てみよう｡</p>
+<div class="highlight">
 <span class="listing-name">tekitou.lua</span><pre><code class="language-lua" data-lang="lua"><span class="n">x</span> <span class="o">=</span> <span class="mi">42</span>
 </code></pre>
-</div><p>これがどういった命令列になるのか見てみよう｡</p><div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">#</span><span class="w"> </span><span class="s2">"-l"</span>で命令列を表示､<span class="s2">"-l -l"</span>でデバッグ情報含め全部表示
+</div>
+<p>これがどういった命令列になるのか見てみよう｡</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">#</span><span class="w"> </span><span class="s2">"-l"</span>で命令列を表示､<span class="s2">"-l -l"</span>でデバッグ情報含め全部表示
 <span class="gp">$</span><span class="w"> </span>luac <span class="nt">-l</span> <span class="nt">-l</span> tekitou.lua <span class="nt">-o</span> /dev/null
 <span class="go">
 </span><span class="gp">main &lt;tekitou.lua:0,0&gt;</span><span class="w"> </span><span class="o">(</span>2 instructions at 0x1d33ca0<span class="o">)</span>
@@ -17,10 +118,14 @@ constants (2) for 0x1d33ca0:
 locals (0) for 0x1d33ca0:
 upvalues (1) for 0x1d33ca0:
         0       _ENV    1       0
-</span></code></pre></div><p><code>SETTABUP</code> 命令で<code>_ENV</code>というtableにキー<code>x</code>で<code>42</code>を突っ込んでいる｡</p><p>では<code>local</code>をつけると?</p><div class="highlight">
+</span></code></pre></div>
+<p><code>SETTABUP</code> 命令で<code>_ENV</code>というtableにキー<code>x</code>で<code>42</code>を突っ込んでいる｡</p>
+<p>では<code>local</code>をつけると?</p>
+<div class="highlight">
 <span class="listing-name">tekitou.lua</span><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">42</span>
 </code></pre>
-</div><div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>luac <span class="nt">-l</span> <span class="nt">-l</span> <span class="nt">-o</span> /dev/null tekitou.lua
+</div>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>luac <span class="nt">-l</span> <span class="nt">-l</span> <span class="nt">-o</span> /dev/null tekitou.lua
 <span class="go">
 </span><span class="gp">main &lt;tekitou.lua:0,0&gt;</span><span class="w"> </span><span class="o">(</span>2 instructions at 0x1c6cca0<span class="o">)</span>
 <span class="go">0+ params, 2 slots, 1 upvalue, 1 local, 1 constant, 0 functions
@@ -32,7 +137,9 @@ locals (1) for 0x1c6cca0:
         0       x       2       3
 upvalues (1) for 0x1c6cca0:
         0       _ENV    1       0
-</span></code></pre></div><p><code>LOADK</code>命令になっとる! これは定数を<em>レジスター</em>にロードする命令です｡なるほどたしかにローカルな感じあるな｡スコープを作ってローカル感を味わいましょう｡</p><div class="highlight">
+</span></code></pre></div>
+<p><code>LOADK</code>命令になっとる! これは定数を<em>レジスター</em>にロードする命令です｡なるほどたしかにローカルな感じあるな｡スコープを作ってローカル感を味わいましょう｡</p>
+<div class="highlight">
 <span class="listing-name">scoped.lua</span><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">4</span>
 
 <span class="k">do</span>
@@ -41,7 +148,8 @@ upvalues (1) for 0x1c6cca0:
 
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1">-- prints `4`</span>
 </code></pre>
-</div><div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>lua <span class="nt">-o</span> /dev/null <span class="nt">-l</span> <span class="nt">-l</span> scoped.lua
+</div>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>lua <span class="nt">-o</span> /dev/null <span class="nt">-l</span> <span class="nt">-l</span> scoped.lua
 <span class="go">
 </span><span class="gp">main &lt;scoped.lua:0,0&gt;</span><span class="w"> </span><span class="o">(</span>6 instructions at 0x1f4cca0<span class="o">)</span>
 <span class="go">0+ params, 3 slots, 1 upvalue, 2 locals, 3 constants, 0 functions
@@ -60,14 +168,17 @@ locals (2) for 0x1f4cca0:
         1       x       3       3
 upvalues (1) for 0x1f4cca0:
         0       _ENV    1       0
-</span></code></pre></div><p><code>do end</code>での<code>x</code>の定義はレジスター1に<code>5</code>を入れてますが､ブロックを抜けたあとの<code>print</code>関数もレジスター1にロードしています｡<code>do end</code>ブロック内のローカル定義を無視しています! ローカルみがありますね｡<code>print</code>に渡される<code>x</code>は､<code>do end</code>の上にある方が､つまりレジスター0につっこまれてる値が<code>MOVE</code>命令経由で渡っています｡
-なるほどね〜ではこれはどうかな</p><div class="highlight">
+</span></code></pre></div>
+<p><code>do end</code>での<code>x</code>の定義はレジスター1に<code>5</code>を入れてますが､ブロックを抜けたあとの<code>print</code>関数もレジスター1にロードしています｡<code>do end</code>ブロック内のローカル定義を無視しています! ローカルみがありますね｡<code>print</code>に渡される<code>x</code>は､<code>do end</code>の上にある方が､つまりレジスター0につっこまれてる値が<code>MOVE</code>命令経由で渡っています｡
+なるほどね〜ではこれはどうかな</p>
+<div class="highlight">
 <span class="listing-name">scoped2.lua</span><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1">-- prints `5`</span>
 </code></pre>
-</div><div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>luaco scoped.lua
+</div>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>luaco scoped.lua
 <span class="go">
 </span><span class="gp">main &lt;scoped.lua:0,0&gt;</span><span class="w"> </span><span class="o">(</span>6 instructions at 0x234bca0<span class="o">)</span>
 <span class="go">0+ params, 4 slots, 1 upvalue, 2 locals, 3 constants, 0 functions
@@ -86,25 +197,35 @@ locals (2) for 0x234bca0:
         1       x       3       7
 upvalues (1) for 0x234bca0:
         0       _ENV    1       0
-</span></code></pre></div><p>あーそうなる? 1行目の<code>x</code>の宣言でレジスター0に値を突っ込んでいますが､2行目はレジスター0にではなく新たにレジスター1に値を突っ込んどります｡1つ前の例とは異なり､レジスター2に<code>print</code>関数をロードしているのでレジスター1の値は無視されておらず､どうやら<code>local</code>修飾子は新たなレジスターを確保して値を突っ込む働きをしてくれるようだ｡</p><h1 id="%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%81%A8%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB"><a class="headerlink" href="#%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%81%A8%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB">モジュールとローカル</a></h1><p>Luaはモジュール機能を持っている｡詳細は割愛｡Luaファイルをモジュールとして読み込むというシーンを考えたい｡
-たとえばこんなファイル｡</p><div class="highlight">
+</span></code></pre></div>
+<p>あーそうなる? 1行目の<code>x</code>の宣言でレジスター0に値を突っ込んでいますが､2行目はレジスター0にではなく新たにレジスター1に値を突っ込んどります｡1つ前の例とは異なり､レジスター2に<code>print</code>関数をロードしているのでレジスター1の値は無視されておらず､どうやら<code>local</code>修飾子は新たなレジスターを確保して値を突っ込む働きをしてくれるようだ｡</p>
+<h1 id="%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%81%A8%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB"><a class="headerlink" href="#%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%81%A8%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB">モジュールとローカル</a></h1>
+<p>Luaはモジュール機能を持っている｡詳細は割愛｡Luaファイルをモジュールとして読み込むというシーンを考えたい｡
+たとえばこんなファイル｡</p>
+<div class="highlight">
 <span class="listing-name">mod.lua</span><pre><code class="language-lua" data-lang="lua"><span class="n">x</span> <span class="o">=</span> <span class="mi">42</span>
 </code></pre>
-</div><div class="highlight">
+</div>
+<div class="highlight">
 <span class="listing-name">main.lua</span><pre><code class="language-lua" data-lang="lua"><span class="nb">require</span><span class="p">(</span><span class="s2">"mod"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1">-- prints `42`</span>
 </code></pre>
-</div><p>mod.luaで<code>x</code>をグローバルに定義し､mod.luaを読み込むとmain.luaでも<code>x</code>が呼べる｡なるほど｡残念なことにLuaはOCamlのmliファイルのような､モジュールが提供しているものの情報を見せる機能がない｡したがってあまりモジュールでグローバル定義したくない｡
+</div>
+<p>mod.luaで<code>x</code>をグローバルに定義し､mod.luaを読み込むとmain.luaでも<code>x</code>が呼べる｡なるほど｡残念なことにLuaはOCamlのmliファイルのような､モジュールが提供しているものの情報を見せる機能がない｡したがってあまりモジュールでグローバル定義したくない｡
 ではどうする? <code>require</code>関数の戻り値に鍵がある｡<code>require</code>の戻り値は､渡されるLuaファイルを1チャンクとして実行したときの戻り値となる｡
-つまり??? 手を動かしてみよう｡</p><div class="highlight">
+つまり??? 手を動かしてみよう｡</p>
+<div class="highlight">
 <span class="listing-name">modx.lua</span><pre><code class="language-lua" data-lang="lua"><span class="k">return</span> <span class="mi">42</span>
 </code></pre>
-</div><div class="highlight">
+</div>
+<div class="highlight">
 <span class="listing-name">main.lua</span><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"modx"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1">-- prints `42`</span>
 </code></pre>
-</div><p>あーなるほどそういうことね完全に理解した
-モジュールが複数の関数や値を提供したいときは､そうだねtableだね｡</p><div class="highlight">
+</div>
+<p>あーなるほどそういうことね完全に理解した
+モジュールが複数の関数や値を提供したいときは､そうだねtableだね｡</p>
+<div class="highlight">
 <span class="listing-name">modsomething.lua</span><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="kd">local</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">4</span>
 
@@ -118,11 +239,34 @@ upvalues (1) for 0x234bca0:
   <span class="n">f</span> <span class="o">=</span> <span class="n">f</span>
 <span class="p">}</span>
 </code></pre>
-</div><div class="highlight">
+</div>
+<div class="highlight">
 <span class="listing-name">main.lua</span><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="kd">local</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"modsomething"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">f</span><span class="p">())</span> <span class="c1">-- prints `3`</span>
 </code></pre>
-</div><p>なるほど｡ 当然ながらmodsomething.luaで定義した関数<code>f</code>が参照する環境は当然modsomething.luaの中です｡</p><h2 id="%E8%BF%BD%E8%A8%98+2018%2F05%2F21"><a class="headerlink" href="#%E8%BF%BD%E8%A8%98+2018%2F05%2F21">追記 2018/05/21</a></h2><p>そういえばLuaはmultiple value(多値)も使えるんだった｡
-モジュールも多値を返せます｡</p><hr><p>これらについては<a href="https://nymphium.github.io/2016/04/25/luaquiz.html">こちら</a>でもう少し述べているので読んでみてください｡</p><h1 id="%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">おわりに</a></h1><p>”<code>local</code>をつけないとグローバル定義になっちゃうなんて…"なんて言ってLuaを敬遠するのはもったいない!
+</div>
+<p>なるほど｡ 当然ながらmodsomething.luaで定義した関数<code>f</code>が参照する環境は当然modsomething.luaの中です｡</p>
+<h2 id="%E8%BF%BD%E8%A8%98+2018%2F05%2F21"><a class="headerlink" href="#%E8%BF%BD%E8%A8%98+2018%2F05%2F21">追記 2018/05/21</a></h2>
+<p>そういえばLuaはmultiple value(多値)も使えるんだった｡
+モジュールも多値を返せます｡</p>
+<hr>
+<p>これらについては<a href="https://nymphium.github.io/2016/04/25/luaquiz.html">こちら</a>でもう少し述べているので読んでみてください｡</p>
+<h1 id="%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">おわりに</a></h1>
+<p>”<code>local</code>をつけないとグローバル定義になっちゃうなんて…"なんて言ってLuaを敬遠するのはもったいない!
 これからどんどん組み込みスクリプト言語として流行っていく…気がする…</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2018/02/05/thinkpad-t470s-trackpoint-linux.html" title="ThinkPad T470sのトラックポイントの感度をLinux上でも良くする">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2018/05/27/Ensime-vim%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B.html" title="Ensime-vimを入れる">Next →</a>
+      </div>
+    </footer>
+
+  </body>
+</html>

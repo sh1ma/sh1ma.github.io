@@ -1,9 +1,105 @@
-<h1 id="%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">はじめに</a></h1><p>ThinkPadは何台か持っており､いずれもArchLinuxを突っ込んで遊んでいた｡
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>ThinkPad T470sのトラックポイントの感度をLinux上でも良くする - lilyum ensemble</title>
+    <meta itemprop="name" content="ThinkPad T470sのトラックポイントの感度をLinux上でも良くする - lilyum ensemble"/>
+    <meta name="keywords" content="Linux,ThinkPad"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="ThinkPad T470sのトラックポイントの感度をLinux上でも良くする - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2018/02/05/thinkpad-t470s-trackpoint-linux.html"/> 
+    <meta name="twitter:text:description" content="はじめにThinkPadは何台か持っており､いずれもArchLinuxを突っ込んで遊んでいた｡トラックポイントの調節もxsetとかでなんとかなったんだけどT470sだけ全然設定できなくない?しか..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="ThinkPad T470sのトラックポイントの感度をLinux上でも良くする" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="はじめに ThinkPadは何台か持っており､いずれもArchLinuxを突っ込んで遊んでいた｡ トラックポイントの調節もxsetとかでなんとかなったんだけどT470sだけ全然設定できなくない? しかも愛用していたソフトリムキャップと非互換にしやがってお前Lenovoふざけんなよ…｡ ということでなんとかしたる!" />
+<meta property="og:description" content="はじめに ThinkPadは何台か持っており､いずれもArchLinuxを突っ込んで遊んでいた｡ トラックポイントの調節もxsetとかでなんとかなったんだけどT470sだけ全然設定できなくない? しかも愛用していたソフトリムキャップと非互換にしやがってお前Lenovoふざけんなよ…｡ ということでなんとかしたる!" />
+<link rel="canonical" href="https://nymphium.github.io/2018/02/05/thinkpad-t470s-trackpoint-linux.html" />
+<meta property="og:url" content="https://nymphium.github.io/2018/02/05/thinkpad-t470s-trackpoint-linux.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-02-05T00:00:00+09:00" />
+<script type="application/ld+json">
+{"dateModified":"2018-02-05T00:00:00+09:00","datePublished":"2018-02-05T00:00:00+09:00","@type":"BlogPosting","headline":"ThinkPad T470sのトラックポイントの感度をLinux上でも良くする","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2018/02/05/thinkpad-t470s-trackpoint-linux.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"はじめに ThinkPadは何台か持っており､いずれもArchLinuxを突っ込んで遊んでいた｡ トラックポイントの調節もxsetとかでなんとかなったんだけどT470sだけ全然設定できなくない? しかも愛用していたソフトリムキャップと非互換にしやがってお前Lenovoふざけんなよ…｡ ということでなんとかしたる!","url":"https://nymphium.github.io/2018/02/05/thinkpad-t470s-trackpoint-linux.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">ThinkPad T470sのトラックポイントの感度をLinux上でも良くする</h1>
+            <span class="post-meta">
+              <time datetime="2018-02-05T00:00:00+09:00" itemprop="datePublished">Feb 5, 2018</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2018-02-05-thinkpad-t470s-trackpoint-linux.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#Linux-ref">Linux</a></span><span></span> <span class="tag"><a href="/tags.html#ThinkPad-ref">ThinkPad</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">はじめに</a></h1>
+<p>ThinkPadは何台か持っており､いずれもArchLinuxを突っ込んで遊んでいた｡
 トラックポイントの調節も<code>xset</code>とかでなんとかなったんだけどT470sだけ全然設定できなくない?
 しかも愛用していたソフトリムキャップと非互換にしやがってお前Lenovoふざけんなよ…｡
-ということでなんとかしたる!</p><h1 id="%E8%A7%A3"><a class="headerlink" href="#%E8%A7%A3">解</a></h1><div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span><span class="nb">id</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span>xinput | perl <span class="nt">-ne</span> <span class="s1">'if ($_=~/Mouse/) {s/.*id=(\d+).*/$1/; print $_}'</span><span class="si">)</span><span class="s2">"</span>
+ということでなんとかしたる!</p>
+<h1 id="%E8%A7%A3"><a class="headerlink" href="#%E8%A7%A3">解</a></h1>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span><span class="nb">id</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span>xinput | perl <span class="nt">-ne</span> <span class="s1">'if ($_=~/Mouse/) {s/.*id=(\d+).*/$1/; print $_}'</span><span class="si">)</span><span class="s2">"</span>
 <span class="gp">$</span><span class="w"> </span>xinput set-prop <span class="s2">"</span><span class="k">${</span><span class="nv">id</span><span class="k">}</span><span class="s2">"</span> <span class="s2">"</span><span class="si">$(</span>xinput list-props <span class="s2">"</span><span class="k">${</span><span class="nv">id</span><span class="k">}</span><span class="s2">"</span> | perl <span class="nt">-ne</span> <span class="s1">'if ($_ =~ /^\s*Coordinate/) { s/.*\((\d+)\).*/$1/; print $_}'</span><span class="si">)</span><span class="s2">"</span> 1 0 0 0 1 0 0 0 0.2
-</code></pre></div><h2 id="%E3%81%A9%E3%82%86%E3%81%93%E3%81%A8"><a class="headerlink" href="#%E3%81%A9%E3%82%86%E3%81%93%E3%81%A8">どゆこと</a></h2><p><code>xinput</code>コマンドでトラックポイントのidを取得します｡</p><div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>xinput
+</code></pre></div>
+<h2 id="%E3%81%A9%E3%82%86%E3%81%93%E3%81%A8"><a class="headerlink" href="#%E3%81%A9%E3%82%86%E3%81%93%E3%81%A8">どゆこと</a></h2>
+<p><code>xinput</code>コマンドでトラックポイントのidを取得します｡</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>xinput
 <span class="go">⎡ Virtual core pointer                          id=2    [master pointer  (3)]
 ⎜   ↳ Virtual core XTEST pointer                id=4    [slave  pointer  (2)]
 ⎜   ↳ PS/2 Generic Mouse                        id=10   [slave  pointer  (2)]
@@ -15,9 +111,13 @@
     ↳ AT Translated Set 2 keyboard              id=9    [slave  keyboard (3)]
     ↳ ThinkPad Extra Buttons                    id=11   [slave  keyboard (3)]
     ↳ Integrated Camera: Integrated C           id=12   [slave  keyboard (3)]
-</span></code></pre></div><p>3行目の<code>PS/2 Generic Mouse id=10   [slave  pointer  (2)]</code>がそれです｡
-いちいち目grepしたくないでしょうし､Perlでサッと値を取ります｡Perlワンライナーも使い慣れるとsedやawkよりもいい感じに使えます｡</p><p>で､id=10のデバイスのCTM(Coordinate Transformation Matrix)の値を変更します｡
-ちゃんとはわかってないですが､トラックポイントへの入力に対する割合(?)を表しており､そのうち入力をn倍にして受け付ける的な値を変更することで感度を爆上げします｡</p><p>デフォルト値は以下のように取得できます｡</p><div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>xinput list-props <span class="s2">"</span><span class="k">${</span><span class="nv">id</span><span class="k">}</span><span class="s2">"</span>
+</span></code></pre></div>
+<p>3行目の<code>PS/2 Generic Mouse id=10   [slave  pointer  (2)]</code>がそれです｡
+いちいち目grepしたくないでしょうし､Perlでサッと値を取ります｡Perlワンライナーも使い慣れるとsedやawkよりもいい感じに使えます｡</p>
+<p>で､id=10のデバイスのCTM(Coordinate Transformation Matrix)の値を変更します｡
+ちゃんとはわかってないですが､トラックポイントへの入力に対する割合(?)を表しており､そのうち入力をn倍にして受け付ける的な値を変更することで感度を爆上げします｡</p>
+<p>デフォルト値は以下のように取得できます｡</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>xinput list-props <span class="s2">"</span><span class="k">${</span><span class="nv">id</span><span class="k">}</span><span class="s2">"</span>
 <span class="go">Device 'PS/2 Generic Mouse':
         Device Enabled (140):   1
         Coordinate Transformation Matrix (142): 1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000
@@ -44,7 +144,29 @@
         Device Product ID (264):        2, 1
 </span><span class="gp">        libinput Drag Lock Buttons (291):       &lt;no items&gt;</span><span class="w">
 </span><span class="go">        libinput Horizontal Scroll Enabled (292):       1
-</span></code></pre></div><p>出力3行目の<code>Coordinate Transformation Matrix (142): 1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.00000</code>ですな｡</p><p>変更は<code>xinput set-prop (dev-id) (prop-id) (value)</code>でおこないます｡
-プロパティIDは､CTMの横に書いてある<code>142</code>がそれですね｡</p><div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>xinput set-prop <span class="s2">"</span><span class="k">${</span><span class="nv">id</span><span class="k">}</span><span class="s2">"</span> 142 1 0 0 0 1 0 0 0 0.2
-</code></pre></div><p>こちらもプロパティIDが固定なのかよく分からんのでPerlでスッと取りました｡</p><p>各パラメータをいじっていくとトラックポイントがメチャメチャな動きになって面白いんですが､そういった地道な努力の末に最後の<code>1.00000</code>がトラックポイント感度に関係していることがわかります｡
-値を小さくすると感度がよくなります｡0.2あたりがちょうどよかった｡</p><h1 id="%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">おわりに</a></h1><p>Lenovo氏〜〜T470s用にもソフトリムキャップ出してくれ〜〜〜</p>
+</span></code></pre></div>
+<p>出力3行目の<code>Coordinate Transformation Matrix (142): 1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.00000</code>ですな｡</p>
+<p>変更は<code>xinput set-prop (dev-id) (prop-id) (value)</code>でおこないます｡
+プロパティIDは､CTMの横に書いてある<code>142</code>がそれですね｡</p>
+<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span class="gp">$</span><span class="w"> </span>xinput set-prop <span class="s2">"</span><span class="k">${</span><span class="nv">id</span><span class="k">}</span><span class="s2">"</span> 142 1 0 0 0 1 0 0 0 0.2
+</code></pre></div>
+<p>こちらもプロパティIDが固定なのかよく分からんのでPerlでスッと取りました｡</p>
+<p>各パラメータをいじっていくとトラックポイントがメチャメチャな動きになって面白いんですが､そういった地道な努力の末に最後の<code>1.00000</code>がトラックポイント感度に関係していることがわかります｡
+値を小さくすると感度がよくなります｡0.2あたりがちょうどよかった｡</p>
+<h1 id="%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">おわりに</a></h1>
+<p>Lenovo氏〜〜T470s用にもソフトリムキャップ出してくれ〜〜〜</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2018/01/31/%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E4%B8%AD%E9%96%93%E8%A8%80%E8%AA%9E%E3%81%8A%E3%82%88%E3%81%B3%E3%81%9D%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AE%E5%AE%9F%E8%A3%85.html" title="コンパイラ中間言語およびその最適化の設計と実装">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2018/02/22/lua-local.html" title="local修飾子の働き(PUC-Lua)">Next →</a>
+      </div>
+    </footer>
+
+  </body>
+</html>
