@@ -5,9 +5,45 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 26 Mar 2020 10:21:12 +0900</pubDate>
-    <lastBuildDate>Thu, 26 Mar 2020 10:21:12 +0900</lastBuildDate>
+    <pubDate>Wed, 01 Apr 2020 23:31:43 +0900</pubDate>
+    <lastBuildDate>Wed, 01 Apr 2020 23:31:43 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>応援してくれている皆様へ</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
+今回は情報量無いのでお急ぎの方は最後だけお読みください｡&lt;/p&gt;&lt;p&gt;この度晴れて学部5年間+修士の2年間を過ごした筑波大学を脱出することに成功しました｡
+最近は神絵師業に圧迫されてほとんど趣味でプログラム書いたりしてないんですが､研究内容はまだ覚えてるんで詳しく聞きたい人は私を適当に捕まえてください｡
+エモやま話でもしようと思ったけど忍耐の賜物こそが修士号なので､修士号を持っていることが全てを物語っていると思います｡&lt;/p&gt;&lt;p&gt;ついでに､昨日は1年と5ヶ月くらいアルバイトしていた株式会社HERPをやめたんですが､今日は株式会社HERPに入社しました｡
+入社即拠点長です｡
+就活は大変でした｡嘘です｡エイプリルフールなので｡
+実は数社受けたんですが､ウェブテストで競プロが始まったらダルくなっちゃってやめました｡
+制限時間内になんかやる系は切羽詰まってくるとスゲーイライラする上にミスが増えるので全く向いてない｡
+で､バイト開始数ヶ月後の面談で｢就活どう? ていうかどこ住み? 内定いる?｣となって就活ターンエンドしました｡&lt;/p&gt;&lt;p&gt;一般に労働はつらいですが､その中でも弊社は労働のつらさが少ないです｡
+技術面に関しては皆さんすごくスキルが高いく､もちろん最新の情報を追っているし､計算科学に関する素養もあるのでそういった議論もできる｡
+あと人数がまだ3桁に満たないスタートアップなんで､エンジニア以外でもだいたいみんなが何者なのかが分かっているのでコミュニケーションのハードルも低い｡
+T市にオフィスができたので住居や食事に変化はないですが､特に後者は嬉しい(美味しい飯屋はT市唯一のアピールポイントなので)｡&lt;/p&gt;&lt;p&gt;以下､インターネット&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://www.amazon.jp/hz/wishlist/ls/133BSBJ4QYBSY?ref_=wl_share&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://m.media-amazon.com/images/G/01/wishlist/collablists_graphic_2x_1060x768._CB454600986_.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://www.amazon.jp/hz/wishlist/ls/133BSBJ4QYBSY?ref_=wl_share&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Amazonほしい物リストを一緒に編集しましょう&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://www.wantedly.com/projects/402071&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://d2v9k5u4v94ulw.cloudfront.net/small_light(dw=1440,dh=1440,da=l,ds=n,cc=FFFFFF)/assets/images/4436611/original/da3adce3-e564-4170-9bda-55698d25bcbc?1583224129&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://www.wantedly.com/projects/402071&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;趣味や研究以外でも関数型言語を書きたいつくばの学生インターン募集! by 株式会社HERP&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;2019年11月より筑波大学付近の天久保2丁目に開設した筑波オフィスでインターンを募集してます！東京、京都拠点とのオンラインで繋が…&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</description>
+        <pubDate>Wed, 01 Apr 2020 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2020/04/01/shaka.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2020/04/01/shaka.html</guid>
+        
+        <category>雑感</category>
+        
+        
+      </item>
     
       <item>
         <title>Algebraic EffectsとExtensible Effectsの違いってなんや? 関係あんの?</title>
@@ -1069,178 +1105,6 @@ HERPは本物のcontinuationプログラマーも募集しています｡&lt;/p&
         <category>OCaml</category>
         
         <category>Haskell</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>ScalaMatsuri2019いってきた</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
-        <description>&lt;h1 id=&quot;%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;こんにちは､びしょ〜じょです｡
-ScalaMatsuri2019にいってきました｡
-Scalaはちょっとしか書いてないうえにだいぶ前ですが､論文やコードはぼちぼち読んでるので興味は依然としてだいぶある､という感じの人間です｡&lt;/p&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;頑張ってる感を出したんでスカラマツリに大学の金で行けないかな〜〜&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1110532965455540224?ref_src=twsrc%5Etfw&quot;&gt;March 26, 2019&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;div class=&quot;enclosed-tweet&quot; align=&quot;center&quot;&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot;&gt;
-&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;ScalaMatsuriの参加費が皆さんの税金で賄われることとなりました｡ありがとうございます｡&lt;/p&gt;— びしょ〜じょ (@Nymphium) &lt;a href=&quot;https://twitter.com/Nymphium/status/1121697171089182735?ref_src=twsrc%5Etfw&quot;&gt;April 26, 2019&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;&lt;p&gt;良いですね!
-東京で開催なので宿泊の必要がなかったので(とはいえ茨城から東京はめんどいので宿泊したかったが……)すんなり申請できました｡
-懇親会分はレギュレーションにより自費です｡
-ボクが研究しているalgebraic effectsに類似する機能であるextensible effectsに関する複数の発表を聞くのが主な目的でした｡
-他にも面白い目標があったしよく会う人とか久しぶりに会う人とか､知り合いの知り合いと知り合いになるなど､様々な実りのある会合でした｡&lt;/p&gt;&lt;p&gt;聞いてて特に面白いなと思ったセッションについていくつか振り返っていきます｡&lt;/p&gt;&lt;h1 id=&quot;Day1&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Day1&quot;&gt;Day1&lt;/a&gt;&lt;/h1&gt;&lt;h2 id=&quot;The+advantage+of+using+%E2%80%98Eff%E2%80%99+in+Scala+Project&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#The+advantage+of+using+%E2%80%98Eff%E2%80%99+in+Scala+Project&quot;&gt;The advantage of using ‘Eff’ in Scala Project&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/ma2k8/the-advantage-of-using-eff-in-scala-project&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/9b8316049f8748f1b4cd3f73718f43c2/slide_0.jpg?525359&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/ma2k8/the-advantage-of-using-eff-in-scala-project&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;The advantage of using ’Eff’ in Scala Project&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;p&gt;R社のスタディサプリではextensible effects, 通称Effをプロダクトで使っているようです｡良いですね｡
-話が前後しますが､Effはまあまあ難しいのが短所です｡
-それでも複数のエフェクトをfor式内で扱えるのがありあまる長所となっています｡&lt;/p&gt;&lt;p&gt;発生させいエフェクトはなんだったのかというと､例えば&lt;code&gt;Future[A]&lt;/code&gt;などです｡
-&lt;code&gt;Future[A]&lt;/code&gt;はとにかくシンプルという長所がある一方､セマフォの制御が難しかったりエラーハンドリングが大雑把になるなどの欠点がある｡&lt;/p&gt;&lt;p&gt;では&lt;code&gt;Future[Try[A]]&lt;/code&gt;にポケモン進化! となるが､エラーハンドリングが&lt;code&gt;Throwable&lt;/code&gt;どまりです｡
-Javaのライブラリをラップするときには内部で&lt;code&gt;Try&lt;/code&gt;を使うようです｡インターフェースは&lt;code&gt;Either&lt;/code&gt;にしてScala的に利用できるようにするようだ｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;Future[E Either A]&lt;/code&gt;にすることで､上記のようにScalaっぽく柔軟にエラーハンドリングができるが､&lt;code&gt;Either&lt;/code&gt;を引き回す必要がある｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;EitherT[Future, E, A]&lt;/code&gt;でモナトラを使うことで&lt;code&gt;for&lt;/code&gt;の中がシンプルになる｡
-一方モナトラの問題点がそのまま出てくるわけですね｡lift問題やモナドスタック､合成の順番､パフォーマンスなど｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;Eff[R, A]&lt;/code&gt;はモナトラ同様に複数のエフェクトをいちどきに使うことができる｡
-のみならず､モナトラの持つ合成順序による振る舞いの違いやパフォーマンス問題が解決されている｡
-欠点はやはり理解が難しい部分｡&lt;/p&gt;&lt;p&gt;extensible effectsはモナトラとの比較がよくされますが､確かにモナトラ以前というものがあり､それらのpros/consがまとまっているのがEffのありがたみをもっと噛みしめるのに役立ちました｡
-Clean Architectrueと一緒にEffを使っているようですが､CAとEffの相性の良さとかは聞いておくべきだった……｡
-&lt;code&gt;for&lt;/code&gt;式といえばDSL!(短絡的発想) なのでCAの例の図の層ごとにDSLが定義され､DSLの使えるエフェクトがEffでひとまとまりになっている､などで使えそうな印象があります｡&lt;/p&gt;&lt;h2 id=&quot;Making+Logic+Moand+%3Clabel+id%3D%22logicmonad%22%3E%3C%2Flabel%3E%0A&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Making+Logic+Moand+%3Clabel+id%3D%22logicmonad%22%3E%3C%2Flabel%3E%0A&quot;&gt;Making Logic Moand &lt;label id=&quot;logicmonad&quot;&gt;&lt;/label&gt;
-&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://www.slideshare.net/SanshiroYoshida/making-logic-monad&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://cdn.slidesharecdn.com/ss_thumbnails/matsurihalcat-190628054808-thumbnail-4.jpg?cb=1561704714&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://www.slideshare.net/SanshiroYoshida/making-logic-monad&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Making Logic Monad&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;Making Logic Monad @halcat0x15a Recruit Marketing Partners Co., Ltd.  &lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;p&gt;論理プログラミングをScalaでもやろう! という話｡
-論理プログラミングといえばPrologですが､その本質はbacktrackingとunification｡
-これをScalaで実現するには……?&lt;/p&gt;&lt;p&gt;&lt;code&gt;filter&lt;/code&gt;のようなcomputationはバックトラッキングと考えられる｡
-つまり&lt;strong&gt;&lt;em&gt;バックトラッキングはMonadPlusである&lt;/em&gt;&lt;/strong&gt;｡&lt;/p&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style=&quot;text-align: center&quot;&gt;backtracking&lt;/th&gt;
-&lt;th style=&quot;text-align: center&quot;&gt;monadplus&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;\/&lt;/code&gt;&lt;/td&gt;
-&lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;plus&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;/\&lt;/code&gt;&lt;/td&gt;
-&lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;flatMap&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;text-align: center&quot;&gt;成功&lt;/td&gt;
-&lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;pure&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&quot;text-align: center&quot;&gt;失敗&lt;/td&gt;
-&lt;td style=&quot;text-align: center&quot;&gt;&lt;code&gt;empty&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;&lt;p&gt;MonadPlusとしてListを使う｡&lt;/p&gt;&lt;p&gt;unificationは変数と値を表す適当なデータ構造でうまくやる｡
-また変数に対応する値を保つ状態を持つ｡
-ところでbacktrackingとmutable dataは相性が悪い｡
-なので状態をimmutableに表したい､つまりStateモナドを使う｡
-ということで論理プログラミングをおこなうLogiモナド(List + State)を構築する｡&lt;/p&gt;&lt;p&gt;よっしゃOKや! というわけではなく､問題点がある｡
-スタックセーフでない点と､データ構造がListに依存してる点｡
-これらを解決するために､Freerモナドを利用する｡&lt;/p&gt;&lt;p&gt;Freerモナドの継続を持つ部分でType-aligned Sequenceを利用する｡
-簡単にいうと&lt;code&gt;TASeq(A =&amp;gt; B, B =&amp;gt; C) === A =&amp;gt; C&lt;/code&gt; みたいな感じで関数合成がリストで表現される｡
-これによって&lt;code&gt;flatMap&lt;/code&gt;の継続を合成するところがスタックセーフになる｡
-トランポリンなどを使わなくてもスタックセーフになるのが良いですね｡&lt;/p&gt;&lt;p&gt;そしてFreerからalgebraic effectsを作る｡
-各プリミティブをエフェクトとして追加していく｡
-そしてalgebraic effectsによりLogicモナドを構成して､Listへの依存がなくなる｡
-Freerの&lt;code&gt;run&lt;/code&gt;を書くことで､&lt;code&gt;Vector&lt;/code&gt;の戻り値にして有限個の解を得たり､&lt;code&gt;Stream&lt;/code&gt;にして無限の解をいっぱいとってきたり､などなど｡
-また各プリミティブが個別に定義されているので探索アルゴリズムをカスタマイズしたり追加できる｡
-例えばカットを定義するなど｡&lt;/p&gt;&lt;p&gt;なかなか聴きごたえのある内容でした｡
-パフォーマンスに関する質問はやはり(やはり?)でてきて､どうすればパフォーマンス良くなるんでしょうね｡
-静的になんとかなる部分をなんとかするとだいぶパフォーマンスがよくなるので､今はとりあえずcompilationしておきましょう｡
-『Efficient Compilation of Algebraic Effects and Handlers』を読んでください｡&lt;/p&gt;&lt;h2 id=&quot;CPS+or+DI&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#CPS+or+DI&quot;&gt;CPS or DI&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://gakuzzzz.github.io/slides/cps_or_di/#1&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;/pictures/no_image.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://gakuzzzz.github.io/slides/cps_or_di/#1&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CPS or DI Scala Matsuri 2019 2019/06/28&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;p&gt;コンポーネントの分割と合成の方法として､DIを使う方法とCPSを使う方法の比較でした｡
-複数の関連する処理内容を渡したいときにはDI､そうでなければCPS､アドホックに処理を合成する場合はCPS､という使い分けをすると良いということでした｡
-CPSはcontinuation monadでサラッと書けるのが良い｡
-FPとOOPができるScalaならではの使い分けですねえ｡&lt;/p&gt;&lt;p&gt;CPSといえばコントロールフローが使えるのが利点ですが､そこに関してあまり活きてないのと､DIとその点の比較がないのがちょっと残念でした｡
-みなさんご存知ですがCPSは強力なので､なんでもできてしまうからなんでもしたくなってしまうのでいけない｡&lt;/p&gt;&lt;h2 id=&quot;%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E4%BB%96&quot;&gt;他&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;かぶっていけなかったけど興味あるやつとか&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/phenan/intro-to-typeclass-in-scala&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/44d8f1ad47f64c09a53d71231d5c3a4c/slide_0.jpg?525383&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/phenan/intro-to-typeclass-in-scala&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Intro to typeclass in Scala&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/petitviolet/pure-domain-model-and-the-technology-behind-it&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/99b05b9a08014f3fbb3881785b849b06/slide_0.jpg?525398&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/petitviolet/pure-domain-model-and-the-technology-behind-it&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ピュアなドメインを支える技術/pure domain model and the technology behind it&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;Presented at ScalaMatsuri2019 https://2019.scalamatsuri.org&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/mshibuya/scalaraiburariwozuo-ruqian-nizhi-tuteokitaimentenansufalsekoto&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/2077a7d9ebb947e9b9647c617bd742a0/slide_0.jpg?525374&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/mshibuya/scalaraiburariwozuo-ruqian-nizhi-tuteokitaimentenansufalsekoto&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Scalaライブラリを作る前に知っておきたいメンテナンスのこと&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;in ScalaMatsuri 2019&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/atty303/case-of-ad-delivery-system-is-implemented-by-scala-and-ddd&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/d35ddff2c51f48cd8ce1e17cd003de80/slide_0.jpg?525430&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/atty303/case-of-ad-delivery-system-is-implemented-by-scala-and-ddd&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Case of Ad Delivery System is Implemented by Scala and DDD&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;ScalaMatsuri 2019&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/yoshiyoshifujii/clean-architecture-in-practice-at-scalamatsuri2019&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/201e2c6be65845599e9884bdd4526389/slide_0.jpg?525424&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/yoshiyoshifujii/clean-architecture-in-practice-at-scalamatsuri2019&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Clean Architecture in Practice @ScalaMatsuri2019&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;実践 Clean Architecturehttp://2019.scalamatsuri.org/&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;h1 id=&quot;Day+2&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Day+2&quot;&gt;Day 2&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;2日目は主にアンカンファレンスでした｡
-1日目からアイデアボードに発表案を貼っていって､シールとかで聞きたい意思を表明すると､人気な案が2日目におこなわれる､というシステム｡&lt;/p&gt;&lt;h2 id=&quot;Bengal%3A+Dotty+Cats&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Bengal%3A+Dotty+Cats&quot;&gt;Bengal: Dotty Cats&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;(スライドみつからね〜〜涙)&lt;/p&gt;&lt;p&gt;Scala3向けのCatsライクなライブラリとして開発されているBengal｡
-結局あんまりわかんなかった｡
-Bengalを作るにあたってキーになるScala3の新機能なんだろうか｡
-とはいえ知らない新機能が多くて面白かった｡&lt;/p&gt;&lt;h3 id=&quot;extension+methods&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#extension+methods&quot;&gt;extension methods&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;コレはKokaのdot記法みたいなやつか｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scala&quot; data-lang=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Circle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Double&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Double&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;radius&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Double&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;nf&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Circle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;circumference&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Double&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;radius&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;Pi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Scala的には､オブジェクトにメソッドを新しく生やすという感覚だろうか｡
-またextension methodsの定義の構文のおかげで二項演算子が直感的に書ける｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scala&quot; data-lang=&quot;scala&quot;&gt;&lt;span class=&quot;nf&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;combine&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&quot;%3Ccode%3Edelegate-given%3C%2Fcode%3E&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%3Ccode%3Edelegate-given%3C%2Fcode%3E&quot;&gt;&lt;code&gt;delegate-given&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;implicit parameterがいい感じに書ける&lt;/p&gt;&lt;h3 id=&quot;delegate+imports&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#delegate+imports&quot;&gt;delegate imports&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;importがいい感じに書ける&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scala&quot; data-lang=&quot;scala&quot;&gt;&lt;span class=&quot;n&quot;&gt;importe&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delegate&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;bengal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;delegates&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;_&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;importe&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delegate&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;bengal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;delegates&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Monad&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&quot;export+clauses&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#export+clauses&quot;&gt;export clauses&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;OCamlの&lt;code&gt;open&lt;/code&gt;的なやつ｡
-例ではクラスかなんかのスコープにopenしていたが､OCamlの&lt;code&gt;let open&lt;/code&gt;よろしく式としても書けるのだろうか?&lt;/p&gt;&lt;h3 id=&quot;type+lambdas&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#type+lambdas&quot;&gt;type lambdas&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;とうとう言語標準に入った!&lt;/p&gt;&lt;h3 id=&quot;opaque+type+alias&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#opaque+type+alias&quot;&gt;opaque type alias&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;type aliasを作るが､完全なaliasではなく､特定のメソッドを生やすことができるようになる｡
-余計なオブジェクトを作らないのでランタイムのコストを下げることが期待できるんじゃないでしょうか｡&lt;/p&gt;&lt;h3 id=&quot;typeclass+derivation&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#typeclass+derivation&quot;&gt;typeclass derivation&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;はい神&lt;/p&gt;&lt;h3 id=&quot;local+coherence&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#local+coherence&quot;&gt;local coherence&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;delegationでメソッドが衝突したときに手動で解決するやつっぽい｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;Haskellかよ〜〜という感じでますますアツくなるな｡&lt;/p&gt;&lt;h2 id=&quot;fujitask+meets+extensible+effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#fujitask+meets+extensible+effects&quot;&gt;fujitask meets extensible effects&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://y-yu.github.io/fujitask-eff-slide/fujitask_without_animation.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;/pictures/no_image.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://y-yu.github.io/fujitask-eff-slide/fujitask_without_animation.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;fujitask meets extensible effects&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;p&gt;トランザクションを型でうまく表現するfujitaskはsubtypingを利用したテクを利用している｡
-subtyping関係は半順序集合であり､特にScalaの場合は束を作る｡
-そしてトランザクションは束を作る!
-なのでこれをScalaのsubtypingで表現できる｡
-つまりトランザクションがScalaの型でエンコードできる｡&lt;/p&gt;&lt;p&gt;そしてFujitaskはモナドだワーイワーイということでfor式でトランザクションをスッキリ書ける｡
-型クラスとsubtypingのあるScalaだからこそでき､型クラスのないJavaやsubtypingのないHaskellでは実現できない｡&lt;/p&gt;&lt;p&gt;ところで様々なforで効果を使いたいわけですが､(中略)extensible effectsを使う｡
-extensible effectsはsubtypingを持たないHaskellを起源に持ち､antos-effもsubtypingが考慮されていない｡
-しかし&lt;a href=&quot;#logicmonad&quot;&gt;logic monadの発表&lt;/a&gt;
-をしたねこはるさん作の､subtypingを考慮した&lt;a href=&quot;https://github.com/halcat0x15a/kits-eff&quot;&gt;kits-eff&lt;/a&gt;を利用すればイケる!&lt;/p&gt;&lt;p&gt;fujitaskひいてはトランザクションとsubtypingの話がおもしろかった(小並感)｡&lt;/p&gt;&lt;h2 id=&quot;%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E4%BB%96&quot;&gt;他&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/tanishiking/how-we-replaced-a-10-year-old-perl-product-using-scala&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://speakerd.s3.amazonaws.com/presentations/3eb0c03150414e2193134e2d5caa24f8/slide_0.jpg?525626&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://speakerdeck.com/tanishiking/how-we-replaced-a-10-year-old-perl-product-using-scala&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;How we replaced a 10-year-old Perl product using Scala&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;ScalaMatsuri 2019http://2019.scalamatsuri.org/index_en.html&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;p&gt;どっかスライドまとまってないかな……&lt;/p&gt;&lt;hr&gt;&lt;h1 id=&quot;%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Scalaおもろいしもっと面白くなる! という気持ちをゲインしたのですごく良かった｡
-ぼくのかんがえたさいきょうのプログラム言語へのモチベーションも高まってしまった〜〜研究やってる場合じゃねえ!!&lt;/p&gt;</description>
-        <pubDate>Sun, 30 Jun 2019 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2019/06/30/ScalaMatsuri2019%E3%81%84%E3%81%A3%E3%81%A6%E3%81%8D%E3%81%9F.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2019/06/30/ScalaMatsuri2019%E3%81%84%E3%81%A3%E3%81%A6%E3%81%8D%E3%81%9F.html</guid>
-        
-        <category>Scala</category>
-        
-        <category>雑感</category>
         
         
       </item>
