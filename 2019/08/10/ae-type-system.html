@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function(){
 <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">print_int</span> <span class="p">(</span><span class="n">rand_with</span> <span class="n">native_random</span><span class="p">)</span> <span class="c">(* prints RANDOM number *)</span>
 </code></pre></div>
 <p>いいですね｡<code>Random</code>エフェクトが発生したときにどんな値が返ってくるのかがハンドラによって切り替えられるのがとにかく重要です｡</p>
-<p>もう少し丁寧な解説は<a href="https://qiita.com/Nymphium/items/e6ce580da8b87ded912b" target="_blank" rel="noopener noreferrer">こちら</a>を参照されたし｡</p>
+<p>もう少し丁寧な解説は<a href="https://nymphium.github.io/2018/10/30/what-is-algebraic-effects.html">こちら</a>を参照されたし｡</p>
 <h1 id="%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E5%9E%8B"><a class="headerlink" href="#%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E5%9E%8B">エフェクトの型</a></h1>
 <p>ところで<code>Random</code>エフェクトが発生すると必ずハンドラに捕捉されるという保証はあるのでしょうか? Javaの<code>throws HogeException</code>みたいになってると嬉しいんですが…｡
 とりあえずエフェクトが発生した位置の残りの計算部分にエフェクトが発生したことが分かるようにマークを付けてみます｡</p>
@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", function(){
 もっとまともな説明が欲しい方はこちら<sup id="fnref1" title="Bauer, Andrej, and Matija Pretnar. “An effect system for algebraic effects and handlers.” International Conference on Algebra and Coalgebra in Computer Science. Springer, Berlin, Heidelberg, 2013. "><a href="#fn1">1</a></sup> <sup id="fnref2" title="Pretnar, Matija, et al. “Efficient compilation of algebraic effects and handlers.” CW Reports (2017). "><a href="#fn2">2</a></sup>とか､今回は説明しなかったrow typesを用いた型システム<sup id="fnref3" title="Leijen, Daan. Algebraic Effects for Functional Programming. Technical Report. 15 pages. https://www.microsoft.com/en-us/research/publication/algebraic-effects-for-functional-programming, 2016. "><a href="#fn3">3</a></sup>などを参照されたし｡
 気が向いたら多相エフェクトの話も書きたいですが､今すぐ知りたいという方は<sup id="fnref4" title="Sekiyama, Taro, and Atsushi Igarashi. “Handling polymorphic algebraic effects.” European Symposium on Programming. Springer, Cham, 2019. "><a href="#fn4">4</a></sup> <sup id="fnref5" title="Kammar, Ohad, and Matija Pretnar. “No value restriction is needed for algebraic effects and handlers.” Journal of Functional Programming 27 (2017). "><a href="#fn5">5</a></sup>あたりを読んで私にご教授お願いします｡</p>
 <h2 id="%E8%BF%BD%E8%A8%98"><a class="headerlink" href="#%E8%BF%BD%E8%A8%98">追記</a></h2>
-<p>続編: <a href="https://qiita.com/Nymphium/items/7ec2512fe85fe7aaebf4" target="_blank" rel="noopener noreferrer">Algebraic Effectsの型システム入門(2) 多相エフェクト - Qiita</a></p>
+<p>続編: <a href="https://nymphium.github.io/2019/12/09/ae-poly.html">Algebraic Effectsの型システム入門(2) 多相エフェクト - Qiita</a></p>
 <div class="footnotes">
 <hr>
 <ol>
