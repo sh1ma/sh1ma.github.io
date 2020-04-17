@@ -1,6 +1,0 @@
-PWD /home/nymphium/works/github/blog/src/2019/12/22/effsub
-INPUT /usr/share/texmf-dist/web2c/texmf.cnf
-INPUT /usr/share/texmf-dist/web2c/texmf.cnf
-INPUT /var/lib/texmf/web2c/euptex/uplatex.fmt
-INPUT lambdaeff_macro.tex
-OUTPUT lambdaeff_macro.log
