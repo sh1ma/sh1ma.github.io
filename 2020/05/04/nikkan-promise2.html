@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>日刊Promise(2) とりあえずPromiseを置いてけぼりにして評価器を実装する - lilyum ensemble</title>
+    <meta itemprop="name" content="日刊Promise(2) とりあえずPromiseを置いてけぼりにして評価器を実装する - lilyum ensemble"/>
+    <meta name="keywords" content="日刊Promise,JavaScript"/>
+    <meta name="thumbnail" content="/pictures/2020/05/04/nikkan-promise2/thumb.png"/>
+    <meta itemprop="image" content="/pictures/2020/05/04/nikkan-promise2/thumb.png"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="日刊Promise(2) とりあえずPromiseを置いてけぼりにして評価器を実装する - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2020/05/04/nikkan-promise2.html"/> 
+    <meta name="twitter:text:description" content="1. はじめにこんにちは､びしょ〜じょです｡昨日の続きから､とりあえず評価器を実装します｡statement-basedの言語を実装したことがあまりないので､とりあえずPromiseのことを考え..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/2020/05/04/nikkan-promise2/thumb.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/2020/05/04/nikkan-promise2/thumb.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="日刊Promise(2) とりあえずPromiseを置いてけぼりにして評価器を実装する" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="lily, Aikatsu, Programming language, and more" />
+<meta property="og:description" content="lily, Aikatsu, Programming language, and more" />
+<link rel="canonical" href="https://nymphium.github.io/2020/05/04/nikkan-promise2.html" />
+<meta property="og:url" content="https://nymphium.github.io/2020/05/04/nikkan-promise2.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-04T00:00:00+09:00" />
+<script type="application/ld+json">
+{"url":"https://nymphium.github.io/2020/05/04/nikkan-promise2.html","headline":"日刊Promise(2) とりあえずPromiseを置いてけぼりにして評価器を実装する","dateModified":"2020-05-04T00:00:00+09:00","datePublished":"2020-05-04T00:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2020/05/04/nikkan-promise2.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"lily, Aikatsu, Programming language, and more","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/2020/05/04/nikkan-promise2/thumb.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">日刊Promise(2) とりあえずPromiseを置いてけぼりにして評価器を実装する</h1>
+            <span class="post-meta">
+              <time datetime="2020-05-04T00:00:00+09:00" itemprop="datePublished">May 4, 2020</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2020-05-04-nikkan-promise2.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#%E6%97%A5%E5%88%8APromise-ref">日刊Promise</a></span><span></span> <span class="tag"><a href="/tags.html#JavaScript-ref">JavaScript</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
+<p>こんにちは､びしょ〜じょです｡
+昨日の続きから､とりあえず評価器を実装します｡
+statement-basedの言語を実装したことがあまりないので､とりあえずPromiseのことを考えずにいきます｡</p>
+<p>なんとなく作業を放映したので本当に暇な人しか見ないでください｡絶対に虚無感に襲われてしまいます｡
+</p>
+<div class="twicard">
+  <span class="image"><a href="https://www.youtube.com/watch?v=Omquszj_SPw" target="_blank" rel="noopener noreferrer"><div><img src="https://i.ytimg.com/vi/Omquszj_SPw/hqdefault.jpg"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://www.youtube.com/watch?v=Omquszj_SPw" target="_blank" rel="noopener noreferrer">おたくがボソボソ喋りながら言語実装する written in OCaml</a></div>
+    <div class="description">ボソボソ喋りだすのは1:11:30あたりから</div>
+  </span>
+</div>
+<h1 id="2.+%E5%AE%9F%E8%A3%85"><a class="headerlink" href="#2.+%E5%AE%9F%E8%A3%85">2. 実装</a></h1>
+<p>さっそくやっていく｡</p>
+<p>実装の全体はコチラ</p>
+<div class="github-widget" data-repo="nymphium/acom"></div>
+<p>リポジトリ名のacomは"promise"から連想しました(?)U</p>
+<p>評価器を実装する前に､syntaxにいくつか変更(追加)があったので言及スル｡</p>
+<div class="highlight">
+<span class="listing-name">前回からのdiff</span><pre><code class="language-diff" data-lang="diff"><span class="gd">-(* non-empty list *)
+-type 'a nlist =
+-  | Head of 'a
+-  | Tail of 'a * 'a nlist
+-
+</span></code></pre>
+</div>
+<p>やっぱりsyntaxを定義するファイルにこれがあるのはウケてまうんで別ファイル(モジュール)に移動した｡</p>
+<div class="highlight"><pre><code class="language-diff" data-lang="diff"> type binop =
+   | Add
+   | Minus
+<span class="p">@@ -19,18 +14,24 @@</span> type variable = string
+  * n     ∈ Numebrs
+  * x     ∈ Variables
+  * v    := n
+<span class="gi">+ *       | x
+</span>  *       | function(x* ) { stmt+ }
+<span class="gi">+ *       | null
++ *       | ()
+</span>  *)
+ type value =
+   | Num of number
+<span class="gi">+  | Var of variable
+</span>   | Builtin of builtin
+<span class="gi">+  | Null
++  | Unit
+</span></code></pre></div>
+<p>変数定義し忘れてワロてまうわ
+あと<code>null</code>に加えて<code>unit</code>を追加しておいた(OCaml脳)</p>
+<p>ヨシ! いい感じだな｡
+では次行ってみよう｡
+expressionのevalを実装して､それを呼び出すstatementsのevalを実装という流れ｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* val eval_exp : (variable * value) list -&gt; exp -&gt; value *)</span>
+<span class="k">let</span> <span class="k">rec</span> <span class="n">eval_exp</span> <span class="n">env</span> <span class="n">exp</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">exp</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Var</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">lookup</span> <span class="n">x</span> <span class="n">env</span>
+  <span class="o">|</span> <span class="nc">Value</span> <span class="n">v</span> <span class="o">-&gt;</span> <span class="n">v</span>
+  <span class="o">|</span> <span class="nc">Op</span><span class="p">(</span><span class="n">op</span><span class="o">,</span> <span class="n">e1</span><span class="o">,</span> <span class="n">e2</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">eval_exp</span> <span class="n">env</span> <span class="n">e1</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">eval_exp</span> <span class="n">env</span> <span class="n">e2</span> <span class="k">in</span>
+    <span class="n">binop</span> <span class="n">op</span> <span class="n">v1</span> <span class="n">v2</span>
+</code></pre></div>
+<p>はいマッチしました｡
+この辺は解説するまでもないですね｡
+変数がvalueなのはなんかミスったなーまあいいや｡
+<code>binop</code> 関数は適当に <code>Add | Mul | Minus</code> をそれぞれ対応する算術にmapするやつです｡</p>
+<p>関数の実装もまあナイーブな実装｡</p>
+<div class="highlight">
+<span class="listing-name">eval_expつづき</span><pre><code class="language-ocaml" data-lang="ocaml">  <span class="o">|</span> <span class="nc">Call</span><span class="p">(</span><span class="n">e1</span><span class="o">,</span> <span class="n">e2</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">fn</span> <span class="o">=</span> <span class="n">eval_exp</span> <span class="n">env</span> <span class="n">e1</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="n">args</span> <span class="o">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="p">(</span><span class="n">eval_exp</span> <span class="n">env</span><span class="p">)</span> <span class="n">e2</span> <span class="k">in</span>
+    <span class="k">begin</span> <span class="k">match</span> <span class="n">fn</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="nc">Fun</span><span class="p">(</span><span class="n">xs</span><span class="o">,</span> <span class="n">body</span><span class="p">)</span> <span class="o">-&gt;</span>
+      <span class="k">let</span> <span class="n">env'</span> <span class="o">=</span> <span class="n">bind_args</span> <span class="n">xs</span> <span class="n">args</span> <span class="o">@</span> <span class="n">env</span> <span class="k">in</span>
+      <span class="n">eval_stmts</span> <span class="n">body</span> <span class="n">env'</span>
+    <span class="o">|</span> <span class="nc">Builtin</span> <span class="n">bin</span> <span class="o">-&gt;</span>
+      <span class="n">builtin</span> <span class="n">bin</span> <span class="n">args</span>
+    <span class="o">|</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">failwith</span> <span class="s2">"this is not callable object"</span>
+    <span class="k">end</span>
+</code></pre>
+</div>
+<p>user-definedな関数と組み込み関数の呼び出しで分岐する｡
+<code>import</code>とかは今回無いんで関数のボディはトップレベルと同様statement listになっている｡</p>
+<p>ジャバスクなんでカリー化はされておらず､引数はexpression listで受け取る｡</p>
+<p><code>bind_args</code> は仮引数と実引数をassoc listにして環境に突っ込む関数｡
+ジャバスクで引数が足りないときってどうなるんやっけ?
+どうせぶっ壊れ言語なので､とりあえず<code>null</code>を埋めるようにする｡</p>
+<div class="highlight">
+<span class="listing-name">bind_argsの実装</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">bind_args</span> <span class="n">xs</span> <span class="n">vs</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">xl</span><span class="o">,</span> <span class="n">vl</span> <span class="o">=</span> <span class="nn">List</span><span class="p">.(</span><span class="n">length</span> <span class="n">xs</span><span class="o">,</span> <span class="n">length</span> <span class="n">vs</span><span class="p">)</span> <span class="k">in</span>
+  <span class="nn">List</span><span class="p">.</span><span class="n">combine</span> <span class="n">xs</span> <span class="o">@@</span>
+    <span class="k">if</span> <span class="n">xl</span> <span class="o">&gt;</span> <span class="n">vl</span> <span class="k">then</span>
+       <span class="nn">Array</span><span class="p">.(</span><span class="n">make</span> <span class="p">(</span><span class="n">xl</span> <span class="o">-</span> <span class="n">vl</span><span class="p">)</span> <span class="nc">Null</span> <span class="o">|&gt;</span> <span class="n">to_list</span><span class="p">)</span> <span class="o">@</span> <span class="n">vs</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="n">xl</span> <span class="o">&lt;</span> <span class="n">vl</span> <span class="k">then</span>
+        <span class="nn">Base</span><span class="p">.</span><span class="nn">List</span><span class="p">.</span><span class="n">take</span> <span class="n">vs</span> <span class="n">xl</span>
+      <span class="k">else</span> <span class="n">vs</span>
+</code></pre>
+</div>
+<p><code>eval_exp</code> に戻りますが､</p>
+<div class="highlight">
+<span class="listing-name">eval_expおわり</span><pre><code class="language-ocaml" data-lang="ocaml">  <span class="o">|</span> <span class="nc">Promise</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">failwith</span> <span class="s2">"undefined"</span>
+</code></pre>
+</div>
+<p>今回は本丸のpromiseを完全に無視してく男</p>
+<p>残りの <code>eval_stmts</code> は関数の実装でも利用するので <code>eval_exp</code> と相互再帰になっている｡
+この実装はstatement listが空の場合を許さない独自実装になっている｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* val eval_stmts : stmt Nlist.t -&gt; (variable * value) list -&gt; value *)</span>
+<span class="ow">and</span> <span class="n">eval_stmts</span> <span class="n">stmts</span> <span class="n">env</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">stmts</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="nc">End</span> <span class="n">stmt</span> <span class="o">-&gt;</span>
+    <span class="k">begin</span> <span class="k">match</span> <span class="n">stmt</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="nc">Expression</span> <span class="n">e</span> <span class="o">|</span> <span class="nc">Def</span><span class="p">(</span><span class="n">_</span><span class="o">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">-&gt;</span>
+      <span class="k">let</span> <span class="n">_</span> <span class="o">=</span> <span class="n">eval_exp</span> <span class="n">env</span> <span class="n">e</span> <span class="k">in</span> <span class="nc">Unit</span>
+    <span class="o">|</span> <span class="nc">Return</span> <span class="n">e</span> <span class="o">-&gt;</span> <span class="n">eval_exp</span> <span class="n">env</span> <span class="n">e</span>
+    <span class="k">end</span>
+</code></pre></div>
+<p>末尾が<code>return</code>の場合にそのexpressionの結果を返し､他はunitを返す｡</p>
+<div class="highlight">
+<span class="listing-name">eval_stmts続き</span><pre><code class="language-ocaml" data-lang="ocaml">  <span class="o">|</span> <span class="nc">Last</span><span class="p">(</span><span class="n">stmt</span><span class="o">,</span> <span class="n">tl</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">begin</span> <span class="k">match</span> <span class="n">stmt</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="nc">Expression</span> <span class="n">e</span> <span class="o">-&gt;</span>
+      <span class="k">let</span> <span class="n">_</span> <span class="o">=</span> <span class="n">eval_exp</span> <span class="n">env</span> <span class="n">e</span> <span class="k">in</span>
+      <span class="n">eval_stmts</span> <span class="n">tl</span> <span class="n">env</span>
+    <span class="o">|</span> <span class="nc">Def</span><span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">-&gt;</span>
+      <span class="k">let</span> <span class="n">env'</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">eval_exp</span> <span class="n">env</span> <span class="n">e</span><span class="p">)</span> <span class="o">::</span> <span class="n">env</span> <span class="k">in</span>
+      <span class="n">eval_stmts</span> <span class="n">tl</span> <span class="n">env'</span>
+    <span class="o">|</span> <span class="nc">Return</span> <span class="n">e</span> <span class="o">-&gt;</span>
+      <span class="n">eval_exp</span> <span class="n">env</span> <span class="n">e</span>
+    <span class="k">end</span>
+</code></pre>
+</div>
+<p>前回は｢<code>return</code>使って評価脱出するならCPSじゃなきゃジャン｣とは言ったが､実際のところは続くstatementsが実質continuationになっているため､<code>Return</code>の実装では残りのstatementsを捨てれば良い､という気付きがあった｡
+statements-basedな言語の実装も､簡単です!</p>
+<p>環境はとりあえず外から注入する予定がないんで､適当にラッパーを作っておく｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">run_program</span> <span class="n">stmts</span> <span class="o">=</span> <span class="n">eval_stmts</span> <span class="n">stmts</span> <span class="bp">[]</span>
+</code></pre></div>
+<h1 id="3.+%E3%83%86%E3%82%B9%E3%83%88"><a class="headerlink" href="#3.+%E3%83%86%E3%82%B9%E3%83%88">3. テスト</a></h1>
+<p>OCamlでテストといえばOUnitだったと思うんですが､今回は<code>ppx_inline_test</code>を使ったる｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span><span class="o">%</span><span class="n">test</span> <span class="n">_</span> <span class="o">=</span>
+  <span class="c">(**
+   * (setTimeout(5000))(() =&gt; {
+   *   console.log(100);
+   * });
+   *)</span>
+  <span class="k">let</span> <span class="n">stmts</span> <span class="o">=</span> <span class="nn">Nlist</span><span class="p">.</span><span class="n">from_list</span> <span class="p">[</span> 
+     <span class="nc">Expression</span><span class="p">(</span><span class="nc">Call</span><span class="p">(</span><span class="nc">Call</span><span class="p">(</span><span class="nc">Value</span><span class="p">(</span><span class="nc">Builtin</span><span class="p">(</span><span class="nc">SetTimeout</span><span class="p">))</span><span class="o">,</span> <span class="p">[</span><span class="nc">Value</span><span class="p">(</span><span class="nc">Num</span><span class="p">(</span><span class="mi">5000</span><span class="p">))])</span><span class="o">,</span>
+       <span class="p">[</span><span class="nc">Value</span><span class="p">(</span><span class="nc">Fun</span><span class="p">([]</span><span class="o">,</span> <span class="nn">Nlist</span><span class="p">.</span><span class="n">from_list</span> <span class="p">[</span>
+         <span class="nc">Expression</span><span class="p">(</span><span class="nc">Call</span><span class="p">(</span><span class="nc">Value</span><span class="p">(</span><span class="nc">Builtin</span><span class="p">(</span><span class="nc">ConsoleLog</span><span class="p">))</span><span class="o">,</span> <span class="p">[</span><span class="nc">Value</span><span class="p">(</span><span class="nc">Num</span><span class="p">(</span><span class="mi">100</span><span class="p">))]))]))]))]</span>
+  <span class="k">in</span>
+  <span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="n">run_program</span> <span class="n">stmts</span> <span class="k">in</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="nc">Unit</span>
+</code></pre></div>
+<p>勝手に<code>setTimeout</code>を高階にしたけど特に良いことなかったぜ｡
+なんか動いてるっぽいんでヨシ! ですが実際はあまりよくない｡
+組み込み関数をどうにかする実装はこちらなんですが､</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">builtin</span> <span class="n">bin</span> <span class="n">vs</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">bin</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="nc">SetTimeout</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">n</span> <span class="o">=</span> <span class="n">coerce_number</span> <span class="o">@@</span> <span class="nn">List</span><span class="p">.</span><span class="n">nth</span> <span class="n">vs</span> <span class="mi">0</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">Unix</span><span class="p">.</span><span class="n">sleepf</span> <span class="o">@@</span> <span class="p">(</span><span class="n">float_of_int</span> <span class="n">n</span><span class="p">)</span> <span class="o">/.</span> <span class="mi">1000</span><span class="o">.</span> <span class="k">in</span>
+    <span class="c">(* (f) =&gt; { f(); } *)</span>
+    <span class="nc">Fun</span><span class="p">([</span><span class="s2">"f"</span><span class="p">]</span><span class="o">,</span> <span class="nn">Nlist</span><span class="p">.</span><span class="n">from_list</span> <span class="p">[</span>
+      <span class="nc">Expression</span><span class="p">(</span><span class="nc">Call</span><span class="p">(</span><span class="nc">Value</span><span class="p">(</span><span class="nc">Var</span><span class="p">(</span><span class="s2">"f"</span><span class="p">))</span><span class="o">,</span> <span class="bp">[]</span><span class="p">))</span>
+    <span class="p">])</span>
+  <span class="o">|</span> <span class="nc">ConsoleLog</span> <span class="o">-&gt;</span>
+    <span class="o">......</span>
+</code></pre></div>
+<p>なんかちゃうよな……｡
+これだと同期的にsleepしてまうんで何か対策を講じたい｡
+Lwtかなんか使っちゃいますか? でもそれはちょっと違うじゃないですか｡
+睡眠時間を細切れにしてスレッドマネージャが度々問い合わせるみたいな感じでやるか｡
+これは次回ということで､今回はこの辺で｡</p>
+<h1 id="4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">4. おわりに</a></h1>
+<p>とりあえず言語の実装の体裁は取れてきたが､肝心のpromiseにはまだまだ届いていません｡
+これから私どうなっちゃうの〜〜?</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2020/05/03/nikkan-promise1.html" title="日刊Promise(1) 初回は嬉しいASTの定義付き">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <span class="btn next disabled">Next →</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
