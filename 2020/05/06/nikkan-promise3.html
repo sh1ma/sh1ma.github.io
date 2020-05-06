@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>日刊Promise(3) スレッドプールっぽいものを作ってsetTimeoutを改修 - lilyum ensemble</title>
+    <meta itemprop="name" content="日刊Promise(3) スレッドプールっぽいものを作ってsetTimeoutを改修 - lilyum ensemble"/>
+    <meta name="keywords" content="日刊Promise,JavaScript"/>
+    <meta name="thumbnail" content="/pictures/2020/05/06/nikkan-promise3/thumb.png"/>
+    <meta itemprop="image" content="/pictures/2020/05/06/nikkan-promise3/thumb.png"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="日刊Promise(3) スレッドプールっぽいものを作ってsetTimeoutを改修 - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2020/05/06/nikkan-promise3.html"/> 
+    <meta name="twitter:text:description" content="1. はじめにこんにちは､びしょ〜じょです｡“日刊"ですが昨日は神絵師活動のためお休みをいただいたため､ほぼ日になってしまいました｡今回は､前回の課題であったsetTimeoutがなんかおかしい..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/2020/05/06/nikkan-promise3/thumb.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/2020/05/06/nikkan-promise3/thumb.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="日刊Promise(3) スレッドプールっぽいものを作ってsetTimeoutを改修" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="lily, Aikatsu, Programming language, and more" />
+<meta property="og:description" content="lily, Aikatsu, Programming language, and more" />
+<link rel="canonical" href="https://nymphium.github.io/2020/05/06/nikkan-promise3.html" />
+<meta property="og:url" content="https://nymphium.github.io/2020/05/06/nikkan-promise3.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-06T00:00:00+09:00" />
+<script type="application/ld+json">
+{"url":"https://nymphium.github.io/2020/05/06/nikkan-promise3.html","headline":"日刊Promise(3) スレッドプールっぽいものを作ってsetTimeoutを改修","dateModified":"2020-05-06T00:00:00+09:00","datePublished":"2020-05-06T00:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2020/05/06/nikkan-promise3.html"},"author":{"@type":"Person","name":"Satoru Kawahara"},"description":"lily, Aikatsu, Programming language, and more","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/2020/05/06/nikkan-promise3/thumb.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">日刊Promise(3) スレッドプールっぽいものを作ってsetTimeoutを改修</h1>
+            <span class="post-meta">
+              <time datetime="2020-05-06T00:00:00+09:00" itemprop="datePublished">May 6, 2020</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2020-05-06-nikkan-promise3.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#%E6%97%A5%E5%88%8APromise-ref">日刊Promise</a></span><span></span> <span class="tag"><a href="/tags.html#JavaScript-ref">JavaScript</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
+<p>こんにちは､びしょ〜じょです｡
+“日刊"ですが昨日は神絵師活動のためお休みをいただいたため､ほぼ日になってしまいました｡</p>
+<p>今回は､前回の課題であった<code>setTimeout</code>がなんかおかしいのを直しました｡
+本当は<code>Promise</code>までイッキにいきたかったが､もう一発大改修が必要そうだったので今回は諦めました｡</p>
+<p>今回も放映した</p>
+<div class="twicard">
+  <span class="image"><a href="https://www.youtube.com/watch?v=D5ZkCvEomm4" target="_blank" rel="noopener noreferrer"><div><img src="https://i.ytimg.com/vi/D5ZkCvEomm4/maxresdefault_live.jpg"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://www.youtube.com/watch?v=D5ZkCvEomm4" target="_blank" rel="noopener noreferrer">おたくがボソボソ喋りながら言語実装する written in OCaml 2</a></div>
+    <div class="description">これの実装続き サムネも1つ前のやつ https://nymphium.github.io/2020/05/03/nikkan-promise2.html</div>
+  </span>
+</div>
+<p>ところで中途半端に<code>Base</code>を使っていたが､いよいよ<code>open Base</code>した｡</p>
+<h1 id="2.+closure"><a class="headerlink" href="#2.+closure">2. closure</a></h1>
+<p>クロージャ実装してなくてﾜﾛﾀなので実装した｡
+クロージャというのはですねえ変数環境をclosingしている関数のことです｡</p>
+<div class="highlight">
+<span class="listing-name">fが環境[{name: "x”; value: 3}]をclosingしている</span><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">f</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">x</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">f</span><span class="p">());</span> <span class="c1">// ==&gt; 3</span>
+</code></pre>
+</div>
+<p><code>let</code>にした場合(内部的に)reference cellになるので外側から書き換えができますが､今回の実装はJSのサブセットになっており<code>let</code>はomitしているので考えません｡</p>
+<p>クロージャを実装するために､まず<em>実行時の値</em>を定義する｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* 確かに環境は束縛されている変数と 実行時の値 のペアのリストですね *)</span>
+<span class="k">type</span> <span class="n">env</span> <span class="o">=</span> <span class="p">(</span><span class="n">variable</span> <span class="o">*</span> <span class="n">runtime_value</span><span class="p">)</span> <span class="kt">list</span>
+
+<span class="ow">and</span> <span class="n">runtime_value</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="nc">RNull</span>
+  <span class="o">|</span> <span class="nc">RUnit</span>
+  <span class="o">|</span> <span class="nc">RNum</span> <span class="k">of</span> <span class="n">number</span>
+  <span class="o">|</span> <span class="nc">RBuiltin</span> <span class="k">of</span> <span class="n">builtin</span>
+  <span class="o">|</span> <span class="nc">Closure</span> <span class="k">of</span> <span class="n">env</span> <span class="o">*</span> <span class="n">variable</span> <span class="kt">list</span> <span class="o">*</span> <span class="n">stmts</span>
+</code></pre></div>
+<p><code>Closure</code> 以外はかなり作者都合によるものですね｡キツい｡
+そしてそれらと<code>value</code>を相互に変換するための<code>value_of_rtv</code>と<code>rtv_of_value</code>を定義した｡
+後者は関数からクロージャを作るときに環境を注入したいので<code>env</code>を同時に受け取る｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">eval_exp</span> <span class="n">env</span> <span class="n">exp</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">exp</span> <span class="k">with</span>
+  <span class="c">(* Value(Var(x)) -&gt; lookup x env が要らなくなったんでｳﾚｼ *)</span>
+  <span class="o">|</span> <span class="nc">Value</span> <span class="n">v</span> <span class="o">-&gt;</span> <span class="n">rtv_of_value</span> <span class="n">v</span>
+  <span class="o">......</span>
+  <span class="o">|</span> <span class="nc">Call</span> <span class="p">(</span><span class="n">e1</span><span class="o">,</span> <span class="n">e2</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">fn</span> <span class="o">=</span> <span class="n">eval_exp</span> <span class="n">env</span> <span class="n">e1</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="n">args</span> <span class="o">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="o">~</span><span class="n">f</span><span class="o">:</span><span class="p">(</span><span class="n">eval_exp</span> <span class="n">env</span><span class="p">)</span> <span class="n">e2</span> <span class="k">in</span>
+    <span class="p">(</span><span class="k">match</span> <span class="n">fn</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="nc">Closure</span> <span class="p">(</span><span class="n">env'</span><span class="o">,</span> <span class="n">xs</span><span class="o">,</span> <span class="n">body</span><span class="p">)</span> <span class="o">-&gt;</span>
+      <span class="k">let</span> <span class="n">env''</span> <span class="o">=</span> <span class="n">bind_args</span> <span class="n">xs</span> <span class="n">args</span> <span class="o">@</span> <span class="n">env'</span> <span class="k">in</span>
+      <span class="n">eval_stmts</span> <span class="n">env''</span> <span class="n">body</span> <span class="o">|&gt;</span> <span class="n">rtv_of_value</span> <span class="n">env''</span>
+    <span class="o">......</span><span class="p">)</span>
+</code></pre></div>
+<p>closingした環境だけでやっていくので､現在の評価環境は使いません｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span><span class="o">%</span><span class="n">test</span> <span class="s2">"fun"</span> <span class="o">=</span>
+  <span class="c">(**
+   * const x = 5;
+   * const f = (y) =&gt; x + y;
+   * const x = 10; // そもそもsyntax errorだが念のため
+   * return f(12)
+   *)</span>
+  <span class="k">let</span> <span class="n">stmts</span> <span class="o">=</span>
+    <span class="nn">Nlist</span><span class="p">.</span><span class="n">from_list</span>
+      <span class="p">[</span> <span class="nc">Def</span> <span class="p">(</span><span class="s2">"x"</span><span class="o">,</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Num</span> <span class="mi">5</span><span class="p">))</span>
+      <span class="p">;</span> <span class="nc">Def</span>
+          <span class="p">(</span> <span class="s2">"f"</span>
+          <span class="o">,</span> <span class="nc">Value</span>
+              <span class="p">(</span><span class="nc">Fun</span>
+                 <span class="p">(</span> <span class="p">[</span> <span class="s2">"y"</span> <span class="p">]</span>
+                 <span class="o">,</span> <span class="nn">Nlist</span><span class="p">.</span><span class="n">from_list</span> <span class="p">[</span> <span class="nc">Return</span> <span class="p">(</span><span class="nc">Op</span> <span class="p">(</span><span class="nc">Add</span><span class="o">,</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Var</span> <span class="s2">"x"</span><span class="p">)</span><span class="o">,</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Var</span> <span class="s2">"y"</span><span class="p">)))</span> <span class="p">]</span>
+                 <span class="p">))</span> <span class="p">)</span>
+      <span class="p">;</span> <span class="nc">Def</span> <span class="p">(</span><span class="s2">"x"</span><span class="o">,</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Num</span> <span class="mi">10</span><span class="p">))</span>
+      <span class="p">;</span> <span class="nc">Return</span> <span class="p">(</span><span class="nc">Call</span> <span class="p">(</span><span class="nc">Value</span> <span class="p">(</span><span class="nc">Var</span> <span class="s2">"f"</span><span class="p">)</span><span class="o">,</span> <span class="p">[</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Num</span> <span class="mi">12</span><span class="p">)</span> <span class="p">]))</span>
+      <span class="p">]</span>
+  <span class="k">in</span>
+  <span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="n">run_program</span> <span class="n">stmts</span> <span class="k">in</span>
+  <span class="n">equal_value</span> <span class="n">result</span> <span class="o">@@</span> <span class="nc">Num</span> <span class="mi">17</span>
+<span class="p">;;</span>
+</code></pre></div>
+<p>ヨシ!
+……そういえば再帰関数が定義できない｡</p>
+<p>closingしている環境に関数自身を参照できるようにしなければならない｡
+自身が束縛される変数名を持っておく必要もある｡</p>
+<p>ま､まあ今回はJSのサブセットなんで再帰関数は実装しないという逃げの一手でいきます｡</p>
+<p><code>let-rec in</code>のように環境を作る変数束縛だったらシュッといけたのに……｡</p>
+<h1 id="3.+%3Ccode%3EsetTimeout%3C%2Fcode%3E+%E3%82%92%E3%82%84%E3%82%8A%E3%81%AA%E3%81%8A%E3%81%97%E3%81%BE%E3%81%97%E3%82%87%E3%81%86%E3%83%BC%EF%BD%BD%EF%BE%9A%EF%BE%8C%EF%BE%9F%E3%81%A3%E3%81%BD%E3%81%84%E3%82%84%E3%81%A4"><a class="headerlink" href="#3.+%3Ccode%3EsetTimeout%3C%2Fcode%3E+%E3%82%92%E3%82%84%E3%82%8A%E3%81%AA%E3%81%8A%E3%81%97%E3%81%BE%E3%81%97%E3%82%87%E3%81%86%E3%83%BC%EF%BD%BD%EF%BE%9A%EF%BE%8C%EF%BE%9F%E3%81%A3%E3%81%BD%E3%81%84%E3%82%84%E3%81%A4">3. <code>setTimeout</code> をやりなおしましょうーｽﾚﾌﾟっぽいやつ</a></h1>
+<p>前回問題として残ったものは<code>setTimeout</code>が同期的にsleepするためになんもいいことがない､ということであった｡</p>
+<p>では､こうしましょう｡</p>
+<p>まずスレッドプールを作る｡
+<code>setTimeout</code>に渡された関数をスレプに突っ込む｡
+nマイクロ秒ずつsleepしてからpending､nマイクロ秒ずつsleepしてからpendingを繰り返す｡
+pendingしたらもとの実行に戻る｡
+合計して<code>setTimeout</code>に渡された時間だけsleepしたら､渡された関数を実行し､終了｡</p>
+<p>スレプにツッコまれる"スレッド"は以下の値を返すthunkである｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">thread_status</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="nc">Pending</span> <span class="k">of</span> <span class="p">(</span><span class="kt">unit</span> <span class="o">-&gt;</span> <span class="n">thread_status</span><span class="p">)</span>
+  <span class="o">|</span> <span class="nc">Done</span> <span class="k">of</span> <span class="n">runtime_value</span>
+</code></pre></div>
+<p><code>Pending</code>にOCamlレベルの関数を渡すことで､いい感じにsleepを走らせられるようにする｡
+スレプはこのthunkがツッコまれたキューになっている｡
+<code>Thread_pool</code>がスレプを実装したモジュールである｡
+キュー自体は隠蔽されている｡</p>
+<p>前回定義した<code>builtin</code>を拡張し､以下のように関数をキューイングする｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* 睡眠時間の最小単位 20ms *)</span>
+<span class="k">let</span> <span class="n">wait_unit</span> <span class="o">:</span> <span class="nn">Float</span><span class="p">.</span><span class="n">t</span> <span class="o">=</span> <span class="mi">20</span><span class="o">.</span> <span class="o">/.</span> <span class="mi">1000</span><span class="o">.</span>
+
+<span class="k">let</span> <span class="k">rec</span> <span class="n">builtin</span> <span class="n">bin</span> <span class="n">rtvs</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">bin</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="nc">SetTimeout</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">n</span> <span class="o">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">nth_exn</span> <span class="n">rtvs</span> <span class="mi">0</span> <span class="o">|&gt;</span> <span class="n">value_of_rtv</span> <span class="o">|&gt;</span> <span class="n">number_of_value</span> <span class="k">in</span>
+    <span class="c">(* やはりカリー化をやめた｡第2引数に関数を受け取る｡ *)</span>
+    <span class="p">(</span><span class="k">match</span> <span class="nn">List</span><span class="p">.</span><span class="n">nth_exn</span> <span class="n">rtvs</span> <span class="mi">1</span> <span class="k">with</span>
+    <span class="c">(* クロージャが役に立った😃 とりあえず引数は捨てる｡ *)</span>
+    <span class="o">|</span> <span class="nc">Closure</span> <span class="p">(</span><span class="n">env</span><span class="o">,</span> <span class="n">_</span><span class="o">,</span> <span class="n">stmts</span><span class="p">)</span> <span class="o">-&gt;</span>
+      <span class="c">(* refにつっこむ *)</span>
+      <span class="k">let</span> <span class="n">time</span> <span class="o">=</span> <span class="n">ref</span> <span class="o">@@</span> <span class="p">(</span><span class="nn">Float</span><span class="p">.</span><span class="n">of_int</span> <span class="n">n</span> <span class="o">/.</span> <span class="mi">1000</span><span class="o">.</span><span class="p">)</span> <span class="k">in</span>
+      <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span>
+        <span class="n">ignore</span>
+        <span class="o">@@</span> <span class="nn">Thread_pool</span><span class="p">.</span><span class="n">enqueue</span>
+        <span class="o">@@</span>
+        <span class="c">(* トランポリン化のような形になって面白い｡この関数をスレプに突っ込む｡ *)</span>
+        <span class="k">let</span> <span class="k">rec</span> <span class="n">it</span> <span class="bp">()</span> <span class="o">=</span>
+          <span class="c">(* wait_unit秒sleepする *)</span>
+          <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">Unix</span><span class="p">.</span><span class="n">sleepf</span> <span class="n">wait_unit</span> <span class="k">in</span>
+          <span class="c">(* 最悪19ms余計にsleepするが､精度はそんなに精密である必要はない *)</span>
+          <span class="k">let</span> <span class="n">rest</span> <span class="o">=</span> <span class="o">!</span><span class="n">time</span> <span class="o">-.</span> <span class="n">wait_unit</span> <span class="k">in</span>
+          <span class="k">if</span> <span class="nn">Float</span><span class="p">.(</span><span class="n">rest</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">.</span><span class="p">)</span>
+          <span class="k">then</span> <span class="p">(</span>
+            <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">eval_stmts</span> <span class="n">env</span> <span class="n">stmts</span> <span class="o">|&gt;</span> <span class="n">ignore</span> <span class="k">in</span>
+            <span class="nc">Done</span> <span class="nc">RUnit</span><span class="p">)</span>
+          <span class="k">else</span> <span class="p">(</span>
+            <span class="n">time</span> <span class="o">:=</span> <span class="n">rest</span><span class="p">;</span>
+            <span class="nc">Pending</span> <span class="n">it</span><span class="p">)</span>
+        <span class="k">in</span>
+        <span class="n">it</span>
+      <span class="k">in</span>
+      <span class="nc">RUnit</span>
+    <span class="o">|</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">failwith</span> <span class="s2">"second value of setTimeout should be a function"</span><span class="p">)</span>
+  <span class="o">......</span>
+</code></pre></div>
+<p>スレプからスレッドを1つ取り出して実行し､pendingしたらまたスレプに戻す､という操作を<code>eval_exp</code>1回ごとにおこなう｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="ow">and</span> <span class="n">eval_exp</span> <span class="n">env</span> <span class="n">exp</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">Thread_pool</span><span class="p">.</span><span class="n">run</span> <span class="bp">()</span> <span class="o">|&gt;</span> <span class="n">ignore</span> <span class="k">in</span>
+  <span class="k">match</span> <span class="n">exp</span> <span class="k">with</span>
+  <span class="o">......</span>
+</code></pre></div>
+<p><code>eval_exp</code>1回あたりの評価時間を無視しているが､無視している実行時間によりsleepがどんどんズレていくことになるが､まあこの方法では仕方ない｡</p>
+<p><code>Thread_pool.run</code>はこんな感じにoptionalに<code>Done</code>の持つ値を返す｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">run</span> <span class="bp">()</span> <span class="o">=</span>
+  <span class="c">(* キューの先頭を取り出し､ *)</span>
+  <span class="k">let</span> <span class="n">top</span> <span class="o">=</span> <span class="nn">Queue</span><span class="p">.</span><span class="n">dequeue</span> <span class="n">q</span> <span class="k">in</span>
+  <span class="k">match</span> <span class="n">top</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="nc">None</span> <span class="o">-&gt;</span> <span class="nc">None</span>
+  <span class="o">|</span> <span class="nc">Some</span> <span class="n">ts</span> <span class="o">-&gt;</span>
+    <span class="p">(</span><span class="k">match</span> <span class="n">ts</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="nc">Done</span> <span class="n">rtv</span> <span class="o">-&gt;</span> <span class="nc">Some</span> <span class="n">rtv</span>
+    <span class="c">(* pendingしていたらそのスレッドを走らせて結果をキューイングする｡ *)</span>
+    <span class="o">|</span> <span class="nc">Pending</span> <span class="n">thread</span> <span class="o">-&gt;</span> <span class="nn">Fn</span><span class="p">.</span><span class="n">const</span> <span class="nc">None</span> <span class="o">@@</span> <span class="nn">Queue</span><span class="p">.</span><span class="n">enqueue</span> <span class="n">q</span> <span class="o">@@</span> <span class="n">thread</span> <span class="bp">()</span><span class="p">)</span>
+<span class="p">;;</span>
+</code></pre></div>
+<p>しかしこれだけだと､</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">world</span><span class="dl">"</span><span class="p">)</span>
+<span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div>
+<p>というプログラムを実行したときに､(500/20=)25回も式を評価しないため､<code>setTimeout</code>に渡さされた関数が実行されない｡
+ではどうするか?</p>
+<p>プログラムを実行してから､スレッドプールに入っているスレッドが全て<code>Done</code>になるまで走らせれば良いでしょう｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">run_program</span> <span class="n">stmts</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">eval_stmts</span> <span class="bp">[]</span> <span class="n">stmts</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">Thread_pool</span><span class="p">.</span><span class="n">run_all</span> <span class="bp">()</span> <span class="k">in</span>
+  <span class="c">(* 実行世界から帰るのでとりあえず変換しているが…… *)</span>
+  <span class="n">value_of_rtv</span> <span class="n">ret</span>
+<span class="p">;;</span>
+</code></pre></div>
+<p><code>Thread_pool.run_all</code>はこんなかんじ</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">run_all</span> <span class="bp">()</span> <span class="o">=</span> <span class="k">if</span> <span class="nn">Queue</span><span class="p">.</span><span class="n">is_empty</span> <span class="n">q</span> <span class="k">then</span> <span class="bp">()</span> <span class="k">else</span> <span class="n">run</span> <span class="bp">()</span> <span class="o">|&gt;</span> <span class="n">ignore</span> <span class="o">|&gt;</span> <span class="n">run_all</span>
+</code></pre></div>
+<p>テストしますよーテスト</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span><span class="o">%</span><span class="n">expect_test</span> <span class="n">_</span> <span class="o">=</span>
+  <span class="c">(**
+   * const x = 100;
+   * setTimeout(() =&gt; console.log(x), 2000);
+   * console.log(500);
+   * setTimeout(() =&gt; console.log(40), 500);
+   *)</span>
+  <span class="k">let</span> <span class="n">stmts</span> <span class="o">=</span>
+    <span class="nn">Nlist</span><span class="p">.</span><span class="n">from_list</span>
+      <span class="p">[</span> <span class="nc">Def</span> <span class="p">(</span><span class="s2">"x"</span><span class="o">,</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Num</span> <span class="mi">100</span><span class="p">))</span>
+      <span class="p">;</span> <span class="nc">Expression</span>
+          <span class="p">(</span><span class="nc">Call</span>
+             <span class="p">(</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Builtin</span> <span class="nc">SetTimeout</span><span class="p">)</span>
+             <span class="o">,</span> <span class="p">[</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Num</span> <span class="mi">2000</span><span class="p">)</span>
+               <span class="p">;</span> <span class="nc">Value</span>
+                   <span class="p">(</span><span class="nc">Fun</span>
+                      <span class="p">(</span> <span class="bp">[]</span>
+                      <span class="o">,</span> <span class="nn">Nlist</span><span class="p">.</span><span class="n">from_list</span>
+                          <span class="p">[</span> <span class="nc">Expression</span>
+                              <span class="p">(</span><span class="nc">Call</span> <span class="p">(</span><span class="nc">Value</span> <span class="p">(</span><span class="nc">Builtin</span> <span class="nc">ConsoleLog</span><span class="p">)</span><span class="o">,</span> <span class="p">[</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Var</span> <span class="s2">"x"</span><span class="p">)</span> <span class="p">]))</span>
+                          <span class="p">]</span> <span class="p">))</span>
+               <span class="p">]</span> <span class="p">))</span>
+      <span class="p">;</span> <span class="nc">Expression</span> <span class="p">(</span><span class="nc">Call</span> <span class="p">(</span><span class="nc">Value</span> <span class="p">(</span><span class="nc">Builtin</span> <span class="nc">ConsoleLog</span><span class="p">)</span><span class="o">,</span> <span class="p">[</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Num</span> <span class="mi">500</span><span class="p">)</span> <span class="p">]))</span>
+      <span class="p">;</span> <span class="nc">Expression</span>
+          <span class="p">(</span><span class="nc">Call</span>
+             <span class="p">(</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Builtin</span> <span class="nc">SetTimeout</span><span class="p">)</span>
+             <span class="o">,</span> <span class="p">[</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Num</span> <span class="mi">500</span><span class="p">)</span>
+               <span class="p">;</span> <span class="nc">Value</span>
+                   <span class="p">(</span><span class="nc">Fun</span>
+                      <span class="p">(</span> <span class="bp">[]</span>
+                      <span class="o">,</span> <span class="nn">Nlist</span><span class="p">.</span><span class="n">from_list</span>
+                          <span class="p">[</span> <span class="nc">Expression</span>
+                              <span class="p">(</span><span class="nc">Call</span> <span class="p">(</span><span class="nc">Value</span> <span class="p">(</span><span class="nc">Builtin</span> <span class="nc">ConsoleLog</span><span class="p">)</span><span class="o">,</span> <span class="p">[</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Num</span> <span class="mi">40</span><span class="p">)</span> <span class="p">]))</span>
+                          <span class="p">]</span> <span class="p">))</span>
+               <span class="p">]</span> <span class="p">))</span>
+      <span class="p">]</span>
+  <span class="k">in</span>
+  <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">run_program</span> <span class="n">stmts</span> <span class="o">|&gt;</span> <span class="n">ignore</span> <span class="k">in</span>
+  <span class="p">[</span><span class="o">%</span><span class="n">expect</span> <span class="p">{</span><span class="o">|</span>
+    <span class="mi">500</span>
+    <span class="mi">40</span>
+    <span class="mi">100</span>
+    <span class="o">|</span><span class="p">}]</span>
+<span class="p">;;</span>
+</code></pre></div>
+<p>標準出力のテストのために<a href="https://github.com/janestreet/ppx_expect" target="_blank" rel="noopener noreferrer"><code>ppx_expect</code></a>を使った｡
+こいつぁすげえや｡</p>
+<h1 id="4.+Promise%EF%BD%A4%E3%82%86%EF%BD%A4%E5%8F%8B%E3%81%98%E3%82%87%E2%80%A6%E2%80%A6"><a class="headerlink" href="#4.+Promise%EF%BD%A4%E3%82%86%EF%BD%A4%E5%8F%8B%E3%81%98%E3%82%87%E2%80%A6%E2%80%A6">4. Promise､ゆ､友じょ……</a></h1>
+<p>スレプできたしもう勢いで<code>Promise</code>実装やっちゃうかー!!
+と思ったんですがダメそうなことが分かりました｡</p>
+<p><code>new Promise</code>が返す実行時の値として<code>RPromise</code>を追加します｡
+<code>Promise</code>がスレプにツッコまれるので､スレッドに対応するUUIDを返す｡
+ところでUUIDは内部で<code>core_kernel</code>を使っている｡</p>
+<div class="highlight">
+<span class="listing-name">runtime_repr.ml</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="ow">and</span> <span class="n">runtime_value</span> <span class="o">=</span>
+  <span class="o">......</span>
+  <span class="o">|</span> <span class="nc">RPromise</span> <span class="k">of</span> <span class="nn">Uuid</span><span class="p">.</span><span class="n">t</span>
+</code></pre>
+</div>
+<p>逆にスレプにはスレッドとそれのUUIDのtupleを突っ込む｡
+対応するUUIDを返すことで､<code>await</code>でスレプから対応するスレッドを一気に走らせられるようにする｡</p>
+<div class="highlight">
+<span class="listing-name">thread_pool.ml</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="nn">Uuid</span><span class="p">.</span><span class="n">t</span> <span class="o">*</span> <span class="n">thread_status</span><span class="p">)</span> <span class="nn">Queue</span><span class="p">.</span><span class="n">t</span>
+
+<span class="k">let</span> <span class="n">enqueue</span> <span class="n">th</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">uuid</span> <span class="o">=</span> <span class="nn">Uuid</span><span class="p">.</span><span class="n">create</span> <span class="bp">()</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">Queue</span><span class="p">.</span><span class="n">enqueue</span> <span class="n">q</span> <span class="p">(</span><span class="n">uuid</span><span class="o">,</span> <span class="nc">Pending</span> <span class="n">th</span><span class="p">)</span> <span class="k">in</span>
+  <span class="n">uuid</span>
+<span class="p">;;</span>
+
+<span class="k">let</span> <span class="n">wait</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">go</span> <span class="n">th</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">th</span> <span class="bp">()</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="nc">Pending</span> <span class="n">th'</span> <span class="o">-&gt;</span> <span class="n">go</span> <span class="n">th'</span>
+    <span class="o">|</span> <span class="nc">Done</span> <span class="n">r</span> <span class="o">-&gt;</span> <span class="n">r</span>
+  <span class="k">in</span>
+  <span class="k">fun</span> <span class="n">id</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">o_th</span> <span class="o">=</span> <span class="nn">Queue</span><span class="p">.</span><span class="n">find</span> <span class="o">~</span><span class="n">f</span><span class="o">:</span><span class="p">(</span><span class="k">fun</span> <span class="p">(</span><span class="n">id'</span><span class="o">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nn">Uuid</span><span class="p">.</span><span class="n">equal</span> <span class="n">id</span> <span class="n">id'</span><span class="p">)</span> <span class="n">q</span> <span class="k">in</span>
+    <span class="k">match</span> <span class="n">o_th</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="nc">Some</span> <span class="p">(</span><span class="n">_</span><span class="o">,</span> <span class="n">ts</span><span class="p">)</span> <span class="o">-&gt;</span>
+      <span class="p">(</span><span class="k">match</span> <span class="n">ts</span> <span class="k">with</span>
+      <span class="o">|</span> <span class="nc">Done</span> <span class="n">rtv</span> <span class="o">-&gt;</span> <span class="n">rtv</span>
+      <span class="o">|</span> <span class="nc">Pending</span> <span class="n">thread</span> <span class="o">-&gt;</span> <span class="n">go</span> <span class="n">thread</span><span class="p">)</span>
+    <span class="o">|</span> <span class="nc">None</span> <span class="o">-&gt;</span> <span class="n">failwith</span> <span class="s2">"no such id"</span>
+<span class="p">;;</span>
+</code></pre>
+</div>
+<p>あとはやるだけ!w
+と思ったのですが……</p>
+<div class="highlight">
+<span class="listing-name">eval_exp</span><pre><code class="language-ocaml" data-lang="ocaml">  <span class="o">......</span>
+  <span class="o">|</span> <span class="nc">Promise</span> <span class="n">p</span> <span class="o">-&gt;</span>
+    <span class="p">(</span><span class="k">match</span> <span class="n">p</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="nc">Constructor</span> <span class="n">exp</span> <span class="o">-&gt;</span>
+      <span class="p">(</span><span class="k">match</span> <span class="n">exp</span> <span class="k">with</span>
+      <span class="o">|</span> <span class="nc">Value</span> <span class="p">(</span><span class="nc">Fun</span> <span class="p">(</span><span class="n">_</span><span class="o">,</span> <span class="n">_</span><span class="p">)</span> <span class="k">as</span> <span class="n">fn</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="n">exp'</span> <span class="o">=</span> <span class="nc">Call</span> <span class="p">(</span><span class="nc">Value</span> <span class="n">fn</span><span class="o">,</span> <span class="p">[</span> <span class="nc">Value</span> <span class="nc">Unit</span> <span class="p">])</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">uuid</span> <span class="o">=</span> <span class="nn">Thread_pool</span><span class="p">.</span><span class="n">enqueue</span> <span class="o">@@</span> <span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span> <span class="nc">Done</span> <span class="p">(</span><span class="n">eval_exp</span> <span class="n">env</span> <span class="n">exp'</span><span class="p">)</span> <span class="k">in</span>
+        <span class="nc">RPromise</span> <span class="n">uuid</span>
+      <span class="o">|</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">failwith</span> <span class="s2">"this is not callable object"</span><span class="p">)</span>
+    <span class="o">|</span> <span class="nc">Wait</span> <span class="n">exp</span> <span class="o">-&gt;</span>
+      <span class="k">let</span> <span class="n">rtv</span> <span class="o">=</span> <span class="n">eval_exp</span> <span class="n">env</span> <span class="n">exp</span> <span class="k">in</span>
+      <span class="p">(</span><span class="k">match</span> <span class="n">rtv</span> <span class="k">with</span>
+      <span class="o">|</span> <span class="nc">RPromise</span> <span class="n">uuid</span> <span class="o">-&gt;</span> <span class="nn">Thread_pool</span><span class="p">.</span><span class="n">wait</span> <span class="n">uuid</span>
+      <span class="o">|</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">rtv</span><span class="p">))</span>
+</code></pre>
+</div>
+<p>うまくいかない｡
+とりあえず､<code>Promise(Constructor(-))</code>に渡されるものが関数ーさらに今回は手抜きで関数<em>リテラル</em>に制限しているーの場合にそれをスレッドにしてスレプに突っ込み､対応するUUIDを<code>RPromise</code>に包んで実行時の値にして返す｡
+<code>Wait</code>はそのまま<code>Thread_pool.wait</code>のラッパーになっている｡
+<code>Promise</code>以外を<code>await</code>するときはJSと同じようにサッと流す｡
+そういえばこのサブセットには配列がないので<code>Promise(All(-))</code>はしれっと消した｡</p>
+<p>しかしこれではうまくいかない｡
+<code>Wait</code>がうまくproimiseを待ってくれない｡
+これはまあまあ検討がついている｡</p>
+<p>JSの<code>Promise</code>を思い出してみると､</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">promise</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="o">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">resolve</span><span class="p">();</span>
+  <span class="p">},</span> <span class="mi">500</span><span class="p">));</span>
+  <span class="k">await</span> <span class="nx">promise</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">world</span><span class="dl">"</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">f</span><span class="p">();</span>
+</code></pre></div>
+<p>そういえば<code>resolve</code>とかいうやつあったな｡
+上記のJSプログラムで<code>resolve</code>を<code>setTimeout</code>内で呼ばないと結構面白い結果が得られる｡
+……どうですか? 結果は500ミリ秒の沈黙ののちに<code>hello</code>が出力されるのみである｡
+<code>await</code>は何なのかを思い出してみると､<code>await</code>を使わなければ上記のプログラムは以下のように変形できる｡</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">promise</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="o">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">resolve</span><span class="p">();</span>
+  <span class="p">},</span> <span class="mi">500</span><span class="p">))</span>
+  <span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">world</span><span class="dl">"</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="nx">f</span><span class="p">();</span>
+</code></pre></div>
+<p>まるで<code>call/cc</code>だな｡
+実際のところは現在のscope内の限定継続を利用しているのだが｡</p>
+<p>ふーむ､振り返るまでもなくこのような挙動にはなってない｡
+前回は｢statementの残りこそが継続である｣と言ったが､まさにこれを利用すべきで､<code>Promise</code>内で<code>resolve</code>のようなものを呼んだら"この残りのstatement"を評価すればよい｡</p>
+<p>これは次回だな｡
+木曜は有給取ってないんですが今って木曜の午前4時……</p>
+<h1 id="5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">5. おわりに</a></h1>
+<p>pending</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2020/05/04/nikkan-promise2.html" title="日刊Promise(2) とりあえずPromiseを置いてけぼりにして評価器を実装する">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <span class="btn next disabled">Next →</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
