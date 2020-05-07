@@ -5,17 +5,17 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 07 May 2020 04:19:09 +0900</pubDate>
-    <lastBuildDate>Thu, 07 May 2020 04:19:09 +0900</lastBuildDate>
+    <pubDate>Thu, 07 May 2020 11:50:14 +0900</pubDate>
+    <lastBuildDate>Thu, 07 May 2020 11:50:14 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
         <title>日刊Promise(3) スレッドプールっぽいものを作ってsetTimeoutを改修</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <enclosure type="image/png" length="0" url="/pictures/github_icon.png"></enclosure>
         <description>&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;こんにちは､びしょ〜じょです｡
 “日刊&quot;ですが昨日は神絵師活動のためお休みをいただいたため､ほぼ日になってしまいました｡&lt;/p&gt;&lt;p&gt;今回は､前回の課題であった&lt;code&gt;setTimeout&lt;/code&gt;がなんかおかしいのを直しました｡
 本当は&lt;code&gt;Promise&lt;/code&gt;までイッキにいきたかったが､もう一発大改修が必要そうだったので今回は諦めました｡&lt;/p&gt;&lt;p&gt;今回も放映した&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=D5ZkCvEomm4&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://i.ytimg.com/vi/D5ZkCvEomm4/maxresdefault_live.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=D5ZkCvEomm4&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://i.ytimg.com/vi/D5ZkCvEomm4/maxresdefault.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=D5ZkCvEomm4&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;おたくがボソボソ喋りながら言語実装する written in OCaml 2&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;これの実装続き サムネも1つ前のやつ https://nymphium.github.io/2020/05/03/nikkan-promise2.html&lt;/div&gt;
@@ -293,7 +293,7 @@ pendingしたらもとの実行に戻る｡
     
       <item>
         <title>日刊Promise(2) とりあえずPromiseを置いてけぼりにして評価器を実装する</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <enclosure type="image/png" length="0" url="/pictures/github_icon.png"></enclosure>
         <description>&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;こんにちは､びしょ〜じょです｡
 昨日の続きから､とりあえず評価器を実装します｡
 statement-basedの言語を実装したことがあまりないので､とりあえずPromiseのことを考えずにいきます｡&lt;/p&gt;&lt;p&gt;なんとなく作業を放映したので本当に暇な人しか見ないでください｡絶対に虚無感に襲われてしまいます｡
@@ -442,7 +442,7 @@ Lwtかなんか使っちゃいますか? でもそれはちょっと違うじゃ
     
       <item>
         <title>日刊Promise(1) 初回は嬉しいASTの定義付き</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <enclosure type="image/png" length="0" url="/pictures/github_icon.png"></enclosure>
         <description>&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;こんにちは､びしょ〜じょです｡
 最近は神絵師になってしまいプログラマ性が薄れてきてマズいので手慣らしになんかやろうと思ってゴールデンウィークなんで脳をしっかり使える知育玩具ということでPromiseを含むJavaScriptのサブセットを実装しようかなと思います(おたく早口)｡&lt;/p&gt;&lt;p&gt;とりあえず勘でやってみようと思います｡&lt;/p&gt;&lt;h1 id=&quot;2.+Promise%E3%81%AF%E3%81%A9%E3%81%86%E3%81%84%E3%81%A3%E3%81%9F%E9%9B%B0%E5%9B%B2%E6%B0%97%E3%81%A7%E3%81%97%E3%82%87%E3%81%86%E3%81%8B%3F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+Promise%E3%81%AF%E3%81%A9%E3%81%86%E3%81%84%E3%81%A3%E3%81%9F%E9%9B%B0%E5%9B%B2%E6%B0%97%E3%81%A7%E3%81%97%E3%82%87%E3%81%86%E3%81%8B%3F&quot;&gt;2. Promiseはどういった雰囲気でしょうか?&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;とりあえず勘で進めるんで､勘で考えます｡
 Promiseは並行･非同期処理のための機能ですね｡
@@ -521,7 +521,7 @@ Promiseは並行･非同期処理のための機能ですね｡
     
       <item>
         <title>応援してくれている皆様へ</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <enclosure type="image/png" length="0" url="/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
 今回は情報量無いのでお急ぎの方は最後だけお読みください｡&lt;/p&gt;&lt;p&gt;この度晴れて学部5年間+修士の2年間を過ごした筑波大学を脱出することに成功しました｡
 最近は神絵師業に圧迫されてほとんど趣味でプログラム書いたりしてないんですが､研究内容はまだ覚えてるんで詳しく聞きたい人は私を適当に捕まえてください｡
@@ -557,7 +557,7 @@ T市にオフィスができたので住居や食事に変化はないですが�
     
       <item>
         <title>Algebraic EffectsとExtensible Effectsの違いってなんや? 関係あんの?</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <enclosure type="image/png" length="0" url="/pictures/github_icon.png"></enclosure>
         <description>&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;最近のエフェクトシステム2大ホットトピックといえばAlgebraic EffectsとExtensible Effectsだろう &lt;em&gt;[要出典]&lt;/em&gt;｡&lt;/p&gt;&lt;p&gt;度々この2つの違いは何なのかという質問を見ます｡&lt;/p&gt;&lt;p&gt;比較というわけでも無いんですが､今回はこの2つを並べて見比べてみましょう｡&lt;/p&gt;&lt;p&gt;そいうえばだいぶ前の&lt;a href=&quot;/pdf/ae_from_0.html&quot;&gt;発表&lt;/a&gt;でこんなこと言ってましたけど&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/pictures//2020/03/15/ae-ee/%E3%81%93%E3%82%93%E3%81%AA%E3%81%93%E3%81%A8.png&quot; alt=&quot;/pictures/2020/03/15/ae-ee/こんなこと.png&quot;&gt;
 &lt;/p&gt;&lt;center&gt;図&lt;a href=&quot;#fig:compare&quot;&gt;1.1&lt;/a&gt;
 . 雑な比較&lt;/center&gt;&lt;label id=&quot;fig:compare&quot;&gt;&lt;/label&gt;&lt;p&gt;本当かしら&lt;/p&gt;&lt;h1 id=&quot;2.+Algebraic+Effects+and+Handlers&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+Algebraic+Effects+and+Handlers&quot;&gt;2. Algebraic Effects and Handlers&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;PlotkinとPowerによりもたらされた､計算エフェクトを代数的に表現するという考え方&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; title=&quot;Plotkin, Gordon, and John Power. “Adequacy for algebraic effects.” International Conference on Foundations of Software Science and Computation Structures. Springer, Berlin, Heidelberg, 2001. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
@@ -736,7 +736,7 @@ Iが違う 星が違う 違うだろ すべてが&lt;/p&gt;&lt;h2 id=&quot;4-1.+
     
       <item>
         <title>fcontrol/runでshallow effect handler</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <enclosure type="image/png" length="0" url="/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
 気づけば2020年になってました｡
 2020年ってなんだ? SFですか?&lt;/p&gt;&lt;hr&gt;&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB+-+Algebraic+Effects%E3%81%8A%E3%81%95%E3%82%89%E3%81%84&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB+-+Algebraic+Effects%E3%81%8A%E3%81%95%E3%82%89%E3%81%84&quot;&gt;1. はじめに - Algebraic Effectsおさらい&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;本日はshallow effect handlerを実装します｡
@@ -922,7 +922,7 @@ shallow effect handlerにおいてvalue handlerが介入するタイミングは
     
       <item>
         <title>『エフェクトに部分型のある代数的効果』</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <enclosure type="image/png" length="0" url="/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
 これは&lt;a href=&quot;https://qiita.com/advent-calendar/2019/type&quot;&gt;型Advent Calendar 2019&lt;/a&gt;の9日目の記事の記事です｡
 空いてるので9日目にタイムスリップして&lt;a href=&quot;https://nymphium.github.io/2019/12/09/ae-poly.html&quot;&gt;前日&lt;/a&gt;に続いて記事を突っ込みました｡&lt;/p&gt;&lt;p&gt;実際の記事はこちら: &lt;a href=&quot;/src/2019/12/22/effsub/main.pdf&quot;&gt;エフェクトに部分型のある代数的効果(pdf)&lt;/a&gt;&lt;/p&gt;&lt;p&gt;実装が先立ってたものを適当に定式化しました｡&lt;/p&gt;</description>
@@ -939,7 +939,7 @@ shallow effect handlerにおいてvalue handlerが介入するタイミングは
     
       <item>
         <title>『その言語､定義されてますか』</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <enclosure type="image/png" length="0" url="/pictures/github_icon.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
 これは&lt;a href=&quot;https://qiita.com/advent-calendar/2019/lang_dev&quot;&gt;言語実装Advent Calendar 2019&lt;/a&gt;の15日目の記事の記事です｡&lt;/p&gt;&lt;p&gt;実際の記事はこちら: &lt;a href=&quot;/src/2019/12/15/%E3%80%8E%E3%81%9D%E3%81%AE%E8%A8%80%E8%AA%9E%EF%BD%A4%E5%AE%9A%E7%BE%A9%E3%81%95%E3%82%8C%E3%81%A6%E3%81%BE%E3%81%99%E3%81%8B%E3%80%8F/main.pdf&quot;&gt;その言語､定義されてますか(pdf)&lt;/a&gt;&lt;/p&gt;&lt;p&gt;\(\LaTeX\)記法をバンバン使うため\(\KaTeX\)はイライラして台パンしちゃうと思うんで､素直に\(\LaTeX\)使わせていただきます｡
 本記事は『その言語､定義されてますか』のポインタです｡&lt;/p&gt;</description>
@@ -956,7 +956,7 @@ shallow effect handlerにおいてvalue handlerが介入するタイミングは
     
       <item>
         <title>Algebraic Effectsの型システム入門(2) 多相エフェクト</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <enclosure type="image/png" length="0" url="/pictures/github_icon.png"></enclosure>
         <description>&lt;h1 id=&quot;%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;これは&lt;a href=&quot;https://nymphium.github.io/2019/08/10/ae-type-system.html&quot;&gt;前回&lt;/a&gt;の続きであり､&lt;a href=&quot;https://qiita.com/advent-calendar/2019/type&quot;&gt;型 Advent Calendar 2019&lt;/a&gt;の8日目の記事で､触れられなかった多相なエフェクトについてです｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;一瞬出てきた多相なエフェクトの例を見てみましょう｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;effect&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Option&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
@@ -1037,7 +1037,7 @@ val with_add5_option : forall &amp;lt;a&amp;gt; (() -&amp;gt; &amp;lt;option&amp
     
       <item>
         <title>Rubyでもalgebraic effectsがしたい!</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <enclosure type="image/png" length="0" url="/pictures/github_icon.png"></enclosure>
         <description>&lt;h1 id=&quot;%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;これは&lt;a href=&quot;https://qiita.com/advent-calendar/2019/ruby&quot;&gt;Ruby advent calendar 2019&lt;/a&gt;の7日目の記事です｡&lt;/p&gt;&lt;p&gt;こんにちは､びしょ～じょです｡
 Ruby全然書かないけどふとした理由でRubyのライブラリを作りました｡
 それがこちら｡
