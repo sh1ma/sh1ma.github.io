@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>Unsound TypeScript&amp;#58; spread syntax - lilyum ensemble</title>
+    <meta itemprop="name" content="Unsound TypeScript&amp;#58; spread syntax - lilyum ensemble"/>
+    <meta name="keywords" content="TypeScript,型システム"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="Unsound TypeScript&#58; spread syntax - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2020/08/25/tswara.html"/> 
+    <meta name="twitter:text:description" content="こんにちは､びしょ〜じょです｡最近は脳を全く使っておらずなんたらかんたら｡Promose の話はなんかムリそうだったので､今度は勘ではなく文献等にあたって実装するかもしれません｡でもそれってオレ..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Unsound TypeScript: spread syntax" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="こんにちは､びしょ〜じょです｡ 最近は脳を全く使っておらずなんたらかんたら｡" />
+<meta property="og:description" content="こんにちは､びしょ〜じょです｡ 最近は脳を全く使っておらずなんたらかんたら｡" />
+<link rel="canonical" href="https://nymphium.github.io/2020/08/25/tswara.html" />
+<meta property="og:url" content="https://nymphium.github.io/2020/08/25/tswara.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-25T00:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"こんにちは､びしょ〜じょです｡ 最近は脳を全く使っておらずなんたらかんたら｡","url":"https://nymphium.github.io/2020/08/25/tswara.html","headline":"Unsound TypeScript: spread syntax","dateModified":"2020-08-25T00:00:00+09:00","datePublished":"2020-08-25T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2020/08/25/tswara.html"},"@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Unsound TypeScript: spread syntax</h1>
+            <span class="post-meta">
+              <time datetime="2020-08-25T00:00:00+09:00" itemprop="datePublished">Aug 25, 2020</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2020-08-25-tswara.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#TypeScript-ref">TypeScript</a></span><span></span> <span class="tag"><a href="/tags.html#%E5%9E%8B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0-ref">型システム</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ〜じょです｡
+最近は脳を全く使っておらずなんたらかんたら｡</p>
+<p><code>Promose</code> の話はなんかムリそうだったので､今度は勘ではなく文献等にあたって実装するかもしれません｡
+でもそれってオレやる必要ある?</p>
+<p>とにかく今回は別の話をします｡</p>
+<h1 id="%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">はじめに</a></h1>
+<p>TypeScriptの利用を積極的に避けている人､賢い｡
+TypeScriptは漸進的型付けを採用しており､よくわからない型に <code>any</code> を付けることができます｡
+そしてTypeScriptは(gradural) subtypingを採用しており､さらに <code>any</code> があらゆる型のtop typeとなっております｡
+このことは､文献<span class="cite">[<a href="#fn1" title="Siek, Jeremy and Taha, Walid. “Gradual Typing for Objects”. " id="fnref1">1</a>]</span>
+を読んでいただくと分かるとおり(読むまでもなく直感的にも分かりますが)､型システムはunsoundになります｡</p>
+<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">x</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">hoge</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="c1">// string &lt;: any</span>
+<span class="kd">const</span> <span class="nx">y</span><span class="p">:</span> <span class="nx">any</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
+
+<span class="nx">type</span> <span class="nx">T</span> <span class="o">=</span> <span class="p">{</span> <span class="na">t</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">number</span> <span class="p">};</span>
+<span class="kd">const</span> <span class="nx">strip</span> <span class="o">=</span> <span class="p">(</span><span class="nx">t</span><span class="p">:</span> <span class="nx">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">t</span><span class="p">;</span>
+
+<span class="c1">// T &lt;: any</span>
+<span class="c1">// typed but raising RTE</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">strip</span><span class="p">(</span><span class="nx">y</span><span class="p">)());</span>
+</code></pre></div>
+<p><code>any</code> は嘘とかなんとかありますが､とにかく人間に気をつけさせる運用になり､typed languagesの世界に住んでいる人々が発狂して明日から職場に来なくなるので絶対にやめましょう｡</p>
+<p>Gradual typing + subtypingでは星型をobjectのtop typeにするとどうなるかを文献<span class="cite">[<a href="#fn1" title="Siek, Jeremy and Taha, Walid. “Gradual Typing for Objects”. " id="fnref1">1</a>]</span>
+に基づいて解説しようと思ったのですが､上に示したとおり自明ではあり､面白い場所まで踏み込むには今は私のﾌﾟﾛｸﾞﾗﾐﾝ能力が低下してるのであきらめます｡</p>
+<h1 id="spread+syntax+is+unsound"><a class="headerlink" href="#spread+syntax+is+unsound">spread syntax is unsound</a></h1>
+<p>続きましてはstructural subtypingとspread syntaxです｡
+<code>any</code> は一旦置いておきます｡ <code>any</code> のことは忘れましたか? OK.</p>
+<p>ではこちらをご覧ください｡</p>
+<div class="twicard">
+  <span class="image"><a href="https://github.com/microsoft/TypeScript/issues/15454" target="_blank" rel="noopener noreferrer"><div><img src="https://avatars2.githubusercontent.com/u/6154722?s=400&amp;v=4"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://github.com/microsoft/TypeScript/issues/15454" target="_blank" rel="noopener noreferrer">Object spread unsound w.r.t. width subtyping of object types · Issue #15454 · microsoft/TypeScript</a></div>
+    <div class="description">TypeScript Version: Whatever is running on TypeScript Playground Code var o1: { p: string, q: number } = { p: &amp;quot;&amp;quot;, q: 0 }; var o2: { p: string } = o1; var o3: { p: string, q: strin…</div>
+  </span>
+</div>
+<p>2017年に報告されているものですが､TSの最新バージョンの4.02でも依然再現できます｡</p>
+<p>一般的なstructural subtypingにおいては､一度upcastすると型情報が一部失われてしまう､という問題があります｡
+例えば､あるレコード型 <code>T = { l1: L1, l2: L2, ..., ln: Ln }</code> があって <code>T &lt;: S where S = { l1: L1, ..., lm: Lm } (m &lt; n)</code> という関係があるときに､ <code>S</code> 上の恒等関数 <code>idS : S -&gt; S</code> に <code>T</code> を渡すと(subtyping relation により渡せる)､ <code>idS</code> の返す値のプロパティ <code>l(m+1)</code>､ …､ <code>ln</code> が参照できなくなる､または <code>idS</code> の中で <code>T</code> の型情報を一部損失してしまう<span class="cite">[<a href="#fn2" title="大堀淳, “新装版 プログラミング言語の基礎理論” ほか " id="fnref2">2</a>]</span>
+｡</p>
+<p>しかし､いくらかの(あるいは多くの)人々は､この問題をうまいこと制約付として利用しています｡
+つまり､ある関数にオブジェクトを渡すなどすると､不要な情報を排除し､使われてほしい情報だけを持つ(参照できる)ようなオブジェクトに生まれ変わらせる､という使い方です｡</p>
+<p>ところが､上記のissueによれば､TSは型情報の(またはruntime valueの)損失が無いようです｡
+structural subtypingの問題点を克服しました! すばらしいですね!</p>
+<p>じゃあ問題点ではなく性質として利用していた人はどうなる?
+そもそも持ってない(失われた)プロパティの値が湧き出てくるのはそれこそ問題じゃないですか?</p>
+<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">type</span> <span class="nx">Obj</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="na">t</span><span class="p">:</span> <span class="nx">T</span> <span class="p">};</span>
+<span class="nx">type</span> <span class="nx">Secret</span> <span class="o">=</span> <span class="nx">string</span><span class="p">;</span>
+<span class="nx">type</span> <span class="nx">ObjWithSecret</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">Obj</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="p">{</span> <span class="na">secret</span><span class="p">:</span> <span class="nx">Secret</span> <span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">o</span><span class="p">:</span> <span class="nx">ObjWithSecret</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="na">t</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="na">secret</span><span class="p">:</span> <span class="dl">"</span><span class="s2">secret</span><span class="dl">"</span> <span class="p">}</span>
+<span class="c1">// const u: Obj&lt;number&gt; = { t: o.t, secret: o.secret } //  *TS 4.0 以降は* type error</span>
+<span class="kd">const</span> <span class="nx">u</span><span class="p">:</span> <span class="nx">Obj</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">o</span> <span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">stealSecret</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">o</span><span class="p">:</span> <span class="nx">Obj</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">):</span> <span class="nx">ObjWithSecret</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="na">secret</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span> <span class="p">...</span><span class="nx">o</span> <span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">stealSecret</span><span class="p">(</span><span class="nx">u</span><span class="p">).</span><span class="nx">secret</span><span class="p">);</span>
+</code></pre></div>
+<p>何か <code>t: T</code> なるラベルを持つレコード <code>Obj&lt;T&gt;</code> ､ および <code>type ObjWithSecret&lt;T&gt; = {t: T, secret: Secret}</code> を定義しました｡
+<code>o: ObiWithSecret&lt;number&gt;</code> を定義してから､ <code>u: Obj&lt;number&gt;</code> を spread syntax で定義します｡
+このとき <code>u</code> の <strong>値は</strong> <code>{t: 3, secret: "secret"}</code> となり､本来持っていてほしくない <code>secret</code> も持っています｡
+まあ <strong>型は</strong> <code>Obj&lt;number&gt;</code> なので参照できなければいいでしょ､とそれなりの妥協や納得があります｡
+しかし､ <code>as any</code> などのメチャクチャな型の操作をおこなわずとも値を参照できたら…どうする…｡</p>
+<p>注目すべきは <code>stealSecret</code> です｡
+<code>stealSecret</code> が <code>ObjWithSecret&lt;T&gt;</code> を返すために､戻り値のrecordに <code>secret: ''</code> を渡しています｡
+spread syntaxによって <code>o</code> の中身がぶち巻かれるのですが､ここで <code>o</code> が <code>secret</code> を持っていると(!) <code>secret</code> の値を上書きします｡
+これで無事 <code>secret</code> をリークすることに成功しました｡
+問題っぽいですねえ｡</p>
+<p>というのを書いてから実際にgo wrongする例を思いついたんでぺたり｡</p>
+<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">type</span> <span class="nx">T</span> <span class="o">=</span> <span class="p">{</span> <span class="na">y</span><span class="p">:</span> <span class="nx">number</span> <span class="p">};</span>
+<span class="nx">type</span> <span class="nx">U</span> <span class="o">=</span> <span class="p">{</span> <span class="na">y</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">number</span> <span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">t</span><span class="p">:</span> <span class="nx">T</span> <span class="o">=</span> <span class="p">{</span> <span class="na">y</span><span class="p">:</span> <span class="mi">5</span> <span class="p">};</span>
+<span class="kd">const</span> <span class="nx">m</span><span class="p">:</span> <span class="p">{}</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">t</span> <span class="p">};</span>
+<span class="kd">const</span> <span class="nx">u</span><span class="p">:</span> <span class="nx">U</span> <span class="o">=</span> <span class="p">{</span> <span class="na">y</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="p">...</span><span class="nx">m</span> <span class="p">};</span>
+<span class="nx">u</span><span class="p">.</span><span class="nx">y</span><span class="p">();</span>
+</code></pre></div>
+<p>空のレコード <code>m: {}</code> として <code>{ ...t }</code> を定義してから､ <code>U</code> 型の値に <code>m</code> の中身をぶちまけた結果､ <code>y: () =&gt; number</code> の <strong>値</strong>が上書きされてしまいました｡
+JSでRTEするなら､概ねの演算子はだいたい <code>NaN</code> になるしdot accessは <code>undefined</code> を返すので､関数呼出しが簡単でオススメです｡</p>
+<h1 id="%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">おわりに</a></h1>
+<p>TypeScript､というかJSやめたいけどウェブブラウザの目が黒いうちは…</p>
+<hr>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p><a href="https://link.springer.com/chapter/10.1007/978-3-540-73589-2_2" target="_blank" rel="noopener noreferrer">Siek, Jeremy and Taha, Walid. “Gradual Typing for Objects”.</a> <a href="#fnref1">↩</a></p>
+</li>
+
+<li id="fn2">
+<p>大堀淳, “新装版 プログラミング言語の基礎理論” ほか <a href="#fnref2">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2020/05/08/nikkan-promise4.html" title="日刊Promise(4) 継続モナドで明日への布石">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <span class="btn next disabled">Next →</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
