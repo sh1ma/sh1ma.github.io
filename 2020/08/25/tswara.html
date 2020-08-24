@@ -133,6 +133,7 @@ TypeScriptは漸進的型付けを採用しており､よくわからない型�
 つまり､ある関数にオブジェクトを渡すなどすると､不要な情報を排除し､使われてほしい情報だけを持つ(参照できる)ようなオブジェクトに生まれ変わらせる､という使い方です｡</p>
 <p>ところが､上記のissueによれば､TSは型情報の(またはruntime valueの)損失が無いようです｡
 structural subtypingの問題点を克服しました! すばらしいですね!</p>
+<hr>
 <p>じゃあ問題点ではなく性質として利用していた人はどうなる?
 そもそも持ってない(失われた)プロパティの値が湧き出てくるのはそれこそ問題じゃないですか?</p>
 <div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">type</span> <span class="nx">Obj</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="na">t</span><span class="p">:</span> <span class="nx">T</span> <span class="p">};</span>
@@ -153,9 +154,10 @@ structural subtypingの問題点を克服しました! すばらしいですね!
 しかし､ <code>as any</code> などのメチャクチャな型の操作をおこなわずとも値を参照できたら…どうする…｡</p>
 <p>注目すべきは <code>stealSecret</code> です｡
 <code>stealSecret</code> が <code>ObjWithSecret&lt;T&gt;</code> を返すために､戻り値のrecordに <code>secret: ''</code> を渡しています｡
-spread syntaxによって <code>o</code> の中身がぶち巻かれるのですが､ここで <code>o</code> が <code>secret</code> を持っていると(!) <code>secret</code> の値を上書きします｡
+spread syntaxによって <code>o</code> の中身がぶち撒かれるのですが､ここで <code>o</code> が <code>secret</code> を持っていると(!) <code>secret</code> の値を上書きします｡
 これで無事 <code>secret</code> をリークすることに成功しました｡
 問題っぽいですねえ｡</p>
+<hr>
 <p>というのを書いてから実際にgo wrongする例を思いついたんでぺたり｡</p>
 <div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">type</span> <span class="nx">T</span> <span class="o">=</span> <span class="p">{</span> <span class="na">y</span><span class="p">:</span> <span class="nx">number</span> <span class="p">};</span>
 <span class="nx">type</span> <span class="nx">U</span> <span class="o">=</span> <span class="p">{</span> <span class="na">y</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">number</span> <span class="p">};</span>
