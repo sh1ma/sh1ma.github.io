@@ -5,15 +5,15 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 25 Aug 2020 03:10:56 +0900</pubDate>
-    <lastBuildDate>Tue, 25 Aug 2020 03:10:56 +0900</lastBuildDate>
+    <pubDate>Tue, 25 Aug 2020 11:57:04 +0900</pubDate>
+    <lastBuildDate>Tue, 25 Aug 2020 11:57:04 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
         <title>Unsound TypeScript&amp;#58; spread syntax</title>
         <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures//2020/08/25/tswara/thumb.png"></enclosure>
         <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
-最近は脳を全く使っておらずなんたらかんたら｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;Promose&lt;/code&gt; の話はなんかムリそうだったので､今度は勘ではなく文献等にあたって実装するかもしれません｡
+最近は脳を全く使っておらずなんたらかんたら｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;Promise&lt;/code&gt; の話はなんかムリそうだったので､今度は勘ではなく文献等にあたって実装するかもしれません｡
 でもそれってオレやる必要ある?&lt;/p&gt;&lt;p&gt;とにかく今回は別の話をします｡&lt;/p&gt;&lt;h1 id=&quot;%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;TypeScriptの利用を積極的に避けている人､賢い｡
 TypeScriptは漸進的型付けを採用しており､よくわからない型に &lt;code&gt;any&lt;/code&gt; を付けることができます｡
 そしてTypeScriptは(gradural) subtypingを採用しており､さらに &lt;code&gt;any&lt;/code&gt; があらゆる型のtop typeとなっております｡
