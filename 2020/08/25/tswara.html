@@ -24,8 +24,8 @@
     <link rel="stylesheet" href="/css/main.css"/>
     <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
     <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
-<!-- Begin Jekyll SEO tag v2.6.1 -->
-<meta name="generator" content="Jekyll v3.8.6" />
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.8.7" />
 <meta property="og:title" content="Unsound TypeScript: spread syntax" />
 <meta name="author" content="Satoru Kawahara" />
 <meta property="og:locale" content="en_US" />
@@ -36,8 +36,10 @@
 <meta property="og:site_name" content="lilyum ensemble" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-08-25T00:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Unsound TypeScript: spread syntax" />
 <script type="application/ld+json">
-{"description":"こんにちは､びしょ〜じょです｡ 最近は脳を全く使っておらずなんたらかんたら｡","url":"https://nymphium.github.io/2020/08/25/tswara.html","headline":"Unsound TypeScript: spread syntax","dateModified":"2020-08-25T00:00:00+09:00","datePublished":"2020-08-25T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2020/08/25/tswara.html"},"@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"https://schema.org"}</script>
+{"datePublished":"2020-08-25T00:00:00+09:00","description":"こんにちは､びしょ〜じょです｡ 最近は脳を全く使っておらずなんたらかんたら｡","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2020/08/25/tswara.html"},"url":"https://nymphium.github.io/2020/08/25/tswara.html","@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"headline":"Unsound TypeScript: spread syntax","dateModified":"2020-08-25T00:00:00+09:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="/pictures/2020/08/25/tswara/thumb.png"/>
@@ -99,12 +101,12 @@ TypeScriptは漸進的型付けを採用しており､よくわからない型�
 そしてTypeScriptは(gradural) subtypingを採用しており､さらに <code>any</code> があらゆる型のtop typeとなっております｡
 このことは､文献<span class="cite">[<a href="#fn1" title="Siek, Jeremy and Taha, Walid. “Gradual Typing for Objects”. " id="fnref1">1</a>]</span>
 を読んでいただくと分かるとおり(読むまでもなく直感的にも分かりますが)､型システムはunsoundになります｡</p>
-<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">x</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">hoge</span><span class="dl">"</span><span class="p">;</span>
+<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">x</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">hoge</span><span class="dl">"</span><span class="p">;</span>
 
 <span class="c1">// string &lt;: any</span>
-<span class="kd">const</span> <span class="nx">y</span><span class="p">:</span> <span class="nx">any</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">y</span><span class="p">:</span> <span class="kr">any</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
 
-<span class="nx">type</span> <span class="nx">T</span> <span class="o">=</span> <span class="p">{</span> <span class="na">t</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">number</span> <span class="p">};</span>
+<span class="kd">type</span> <span class="nx">T</span> <span class="o">=</span> <span class="p">{</span> <span class="na">t</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">number</span> <span class="p">};</span>
 <span class="kd">const</span> <span class="nx">strip</span> <span class="o">=</span> <span class="p">(</span><span class="nx">t</span><span class="p">:</span> <span class="nx">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">t</span><span class="p">;</span>
 
 <span class="c1">// T &lt;: any</span>
@@ -136,13 +138,13 @@ structural subtypingの問題点を克服しました! すばらしいですね!
 <hr>
 <p>じゃあ問題点ではなく性質として利用していた人はどうなる?
 そもそも持ってない(失われた)プロパティの値が湧き出てくるのはそれこそ問題じゃないですか?</p>
-<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">type</span> <span class="nx">Obj</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="na">t</span><span class="p">:</span> <span class="nx">T</span> <span class="p">};</span>
-<span class="nx">type</span> <span class="nx">Secret</span> <span class="o">=</span> <span class="nx">string</span><span class="p">;</span>
-<span class="nx">type</span> <span class="nx">ObjWithSecret</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">Obj</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="p">{</span> <span class="na">secret</span><span class="p">:</span> <span class="nx">Secret</span> <span class="p">};</span>
+<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">type</span> <span class="nx">Obj</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="na">t</span><span class="p">:</span> <span class="nx">T</span> <span class="p">};</span>
+<span class="kd">type</span> <span class="nx">Secret</span> <span class="o">=</span> <span class="kr">string</span><span class="p">;</span>
+<span class="kd">type</span> <span class="nx">ObjWithSecret</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">Obj</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="p">{</span> <span class="na">secret</span><span class="p">:</span> <span class="nx">Secret</span> <span class="p">};</span>
 
-<span class="kd">const</span> <span class="nx">o</span><span class="p">:</span> <span class="nx">ObjWithSecret</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="na">t</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="na">secret</span><span class="p">:</span> <span class="dl">"</span><span class="s2">secret</span><span class="dl">"</span> <span class="p">}</span>
+<span class="kd">const</span> <span class="nx">o</span><span class="p">:</span> <span class="nx">ObjWithSecret</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="na">t</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="na">secret</span><span class="p">:</span> <span class="dl">"</span><span class="s2">secret</span><span class="dl">"</span> <span class="p">}</span>
 <span class="c1">// const u: Obj&lt;number&gt; = { t: o.t, secret: o.secret } //  *TS 4.0 以降は* type error</span>
-<span class="kd">const</span> <span class="nx">u</span><span class="p">:</span> <span class="nx">Obj</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">o</span> <span class="p">};</span>
+<span class="kd">const</span> <span class="nx">u</span><span class="p">:</span> <span class="nx">Obj</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">o</span> <span class="p">};</span>
 
 <span class="kd">const</span> <span class="nx">stealSecret</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">o</span><span class="p">:</span> <span class="nx">Obj</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">):</span> <span class="nx">ObjWithSecret</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="na">secret</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span> <span class="p">...</span><span class="nx">o</span> <span class="p">});</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">stealSecret</span><span class="p">(</span><span class="nx">u</span><span class="p">).</span><span class="nx">secret</span><span class="p">);</span>
@@ -159,8 +161,8 @@ spread syntaxによって <code>o</code> の中身がぶち撒かれるのです
 問題っぽいですねえ｡</p>
 <hr>
 <p>というのを書いてから実際にgo wrongする例を思いついたんでぺたり｡</p>
-<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">type</span> <span class="nx">T</span> <span class="o">=</span> <span class="p">{</span> <span class="na">y</span><span class="p">:</span> <span class="nx">number</span> <span class="p">};</span>
-<span class="nx">type</span> <span class="nx">U</span> <span class="o">=</span> <span class="p">{</span> <span class="na">y</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">number</span> <span class="p">};</span>
+<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">type</span> <span class="nx">T</span> <span class="o">=</span> <span class="p">{</span> <span class="na">y</span><span class="p">:</span> <span class="kr">number</span> <span class="p">};</span>
+<span class="kd">type</span> <span class="nx">U</span> <span class="o">=</span> <span class="p">{</span> <span class="na">y</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kr">number</span> <span class="p">};</span>
 
 <span class="kd">const</span> <span class="nx">t</span><span class="p">:</span> <span class="nx">T</span> <span class="o">=</span> <span class="p">{</span> <span class="na">y</span><span class="p">:</span> <span class="mi">5</span> <span class="p">};</span>
 <span class="kd">const</span> <span class="nx">m</span><span class="p">:</span> <span class="p">{}</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">t</span> <span class="p">};</span>
@@ -195,7 +197,7 @@ JSでRTEするなら､概ねの演算子はだいたい <code>NaN</code> にな
       <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
         <a class="btn prev" href="/2020/05/08/nikkan-promise4.html" title="日刊Promise(4) 継続モナドで明日への布石">← Prev</a>
         /<a class="btn" href="/">Top</a>/
-        <span class="btn next disabled">Next →</span>
+        <a class="btn next" href="/2020/12/03/%E8%B2%A7%E8%80%85%E3%81%AE-Algebraic-Data-Types-%E3%81%A8(%E6%B5%85%E3%81%84)%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A.html" title="貧者の Algebraic Data Types と(浅い)網羅性判定">Next →</a>
       </div>
     </footer>
 

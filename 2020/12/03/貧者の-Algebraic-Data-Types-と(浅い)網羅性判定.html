@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>貧者の Algebraic Data Types と(浅い)網羅性判定 - lilyum ensemble</title>
+    <meta itemprop="name" content="貧者の Algebraic Data Types と(浅い)網羅性判定 - lilyum ensemble"/>
+    <meta name="keywords" content="TypeScript,Scala,Advent Calendar"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="貧者の Algebraic Data Types と(浅い)網羅性判定 - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2020/12/03/%E8%B2%A7%E8%80%85%E3%81%AE-Algebraic-Data-Types-%E3%81%A8(%E6%B5%85%E3%81%84)%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A.html"/> 
+    <meta name="twitter:text:description" content="こんにちは､びしょ～じょです｡これは TypeScript アドベントカレンダー 2020 の3日目の記事です｡ちなみに12月3日は冴草きいちゃんの誕生日です｡大変めでたいですね｡1. はじめに..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="貧者の Algebraic Data Types と(浅い)網羅性判定" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="lily, Aikatsu, Programming language, and more" />
+<meta property="og:description" content="lily, Aikatsu, Programming language, and more" />
+<link rel="canonical" href="https://nymphium.github.io/2020/12/03/%E8%B2%A7%E8%80%85%E3%81%AE-Algebraic-Data-Types-%E3%81%A8(%E6%B5%85%E3%81%84)%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A.html" />
+<meta property="og:url" content="https://nymphium.github.io/2020/12/03/%E8%B2%A7%E8%80%85%E3%81%AE-Algebraic-Data-Types-%E3%81%A8(%E6%B5%85%E3%81%84)%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-03T00:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="貧者の Algebraic Data Types と(浅い)網羅性判定" />
+<script type="application/ld+json">
+{"datePublished":"2020-12-03T00:00:00+09:00","description":"lily, Aikatsu, Programming language, and more","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2020/12/03/%E8%B2%A7%E8%80%85%E3%81%AE-Algebraic-Data-Types-%E3%81%A8(%E6%B5%85%E3%81%84)%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A.html"},"url":"https://nymphium.github.io/2020/12/03/%E8%B2%A7%E8%80%85%E3%81%AE-Algebraic-Data-Types-%E3%81%A8(%E6%B5%85%E3%81%84)%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A.html","@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"headline":"貧者の Algebraic Data Types と(浅い)網羅性判定","dateModified":"2020-12-03T00:00:00+09:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">貧者の Algebraic Data Types と(浅い)網羅性判定</h1>
+            <span class="post-meta">
+              <time datetime="2020-12-03T00:00:00+09:00" itemprop="datePublished">Dec 3, 2020</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2020-12-03-%E8%B2%A7%E8%80%85%E3%81%AE%20Algebraic%20Data%20Types%20%E3%81%A8%28%E6%B5%85%E3%81%84%29%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#TypeScript-ref">TypeScript</a></span><span></span> <span class="tag"><a href="/tags.html#Scala-ref">Scala</a></span><span></span> <span class="tag"><a href="/tags.html#Advent%20Calendar-ref">Advent Calendar</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<p>こんにちは､びしょ～じょです｡
+これは <a href="https://qiita.com/advent-calendar/2020/typescript" target="_blank" rel="noopener noreferrer">TypeScript アドベントカレンダー 2020</a> の3日目の記事です｡
+ちなみに12月3日は冴草きいちゃんの誕生日です｡大変めでたいですね｡</p>
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
+<p>関数型プログラミングといえばなんですか? はい円楽さん早かった! はいはい､ <strong>パターンマッチング</strong>､いいですね｡
+パターンマッチングといえばプリミティブな数値や文字列のリテラルのみならず､ユーザが定義した型もその構造によってマッチできます｡回りくどい言い方をしましたが代数的データ型(Algebraic Data Types, ADTs)です｡</p>
+<div class="highlight">
+<span class="listing-name"><label id="ocaml1"></label>
+ listing <a href="#ocaml1">1.1</a>
+. 例えば OCaml</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">option</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="nc">None</span>
+  <span class="o">|</span> <span class="nc">Some</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span>
+
+<span class="k">let</span> <span class="n">to_default</span> <span class="n">default</span> <span class="n">o</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">o</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="nc">None</span> <span class="o">-&gt;</span> <span class="n">default</span>
+  <span class="o">|</span> <span class="nc">Some</span> <span class="n">v</span> <span class="o">-&gt;</span> <span class="n">v</span>
+
+<span class="k">type</span> <span class="p">(</span><span class="k">'</span><span class="n">key</span><span class="o">,</span> <span class="k">'val</span><span class="p">)</span> <span class="n">map_internal</span> <span class="o">=</span> <span class="p">(</span><span class="k">'</span><span class="n">key</span> <span class="o">*</span> <span class="k">'val</span><span class="p">)</span> <span class="kt">list</span>
+
+<span class="k">let</span> <span class="k">rec</span> <span class="n">find</span> <span class="n">key</span> <span class="n">map</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">map</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="nc">None</span>
+  <span class="c">(* 表層 (list) だけなじゃくて内部 (tuple) もマッチできるぞい *)</span>
+  <span class="o">|</span> <span class="p">(</span><span class="n">key'</span><span class="o">,</span> <span class="k">val</span><span class="p">)</span> <span class="o">::</span> <span class="n">_</span> <span class="k">when</span> <span class="n">key</span> <span class="o">=</span> <span class="n">key'</span> <span class="o">-&gt;</span> <span class="nc">Some</span><span class="p">(</span><span class="k">val</span><span class="p">)</span>
+  <span class="o">|</span> <span class="n">hd</span> <span class="o">::</span> <span class="n">map'</span> <span class="o">-&gt;</span> <span class="n">find</span> <span class="n">key</span> <span class="n">map'</span>
+</code></pre>
+</div>
+<h1 id="2.+emulating+ADTs+in+TypeScript"><a class="headerlink" href="#2.+emulating+ADTs+in+TypeScript">2. emulating ADTs in TypeScript</a></h1>
+<p>ところで TypeScript ってェ言語があるんですが<sup id="fnref1" title="TypeScript 言語およびその参照実装であるコンパイラ tsc (v4.1.2) を指す｡以降これに倣う｡ "><a href="#fn1">1</a></sup>､この言語にはパターンマッチング～以前に ADTs がサポートされてません! 息ができん!!
+でも TypeScript には Union という強力な型がある｡</p>
+<div class="highlight">
+<span class="listing-name">TS の Union</span><pre><code class="language-typescript" data-lang="typescript"><span class="kd">type</span> <span class="nx">BakaString</span> <span class="o">=</span> <span class="kr">string</span> <span class="o">|</span> <span class="kc">undefined</span>
+</code></pre>
+</div>
+<p>これを使いましょう｡</p>
+<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">type</span> <span class="nx">Some</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="na">value</span><span class="p">:</span> <span class="nx">T</span> <span class="p">}</span>
+<span class="kd">type</span> <span class="nx">None</span><span class="o">&lt;</span><span class="nx">_</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="p">}</span> <span class="c1">// TypeScript は頭がおかしいのでこれが object 型になるんですが目をつぶっていただいて空の record だと思ってください｡</span>
+<span class="kd">type</span> <span class="nx">Option</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">Some</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">|</span> <span class="nx">None</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span>
+</code></pre></div>
+<p>ほならねパターンマッチングで分解や! といきたいのですが…</p>
+<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">toDefault</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">default</span><span class="p">:</span> <span class="nx">T</span><span class="p">,</span> <span class="nx">o</span><span class="p">:</span> <span class="nx">Option</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">):</span> <span class="nx">T</span> <span class="o">=&gt;</span>
+  <span class="nx">o</span><span class="p">.</span><span class="nx">value</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="p">?</span> <span class="nx">o</span><span class="p">.</span><span class="nx">value</span> <span class="p">:</span> <span class="k">default</span><span class="p">;</span>
+</code></pre></div>
+<p>そんなことある??? って感じになりました｡
+nullish coalescing 使えとかそういう話ではありません｡</p>
+<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">toDefault</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span> <span class="na">value</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="na">hoge</span><span class="p">:</span> <span class="dl">"</span><span class="s2">aaa</span><span class="dl">"</span> <span class="p">});</span> <span class="c1">// ==&gt; `10` !!</span>
+</code></pre></div>
+<p>TypeScript は構造的部分型を採用しているため､ <code>Some&lt;T&gt;</code> が指すものは property に <code>value: T</code> のある object なわけですね｡つまりなんでもアリです｡
+これはマズい! という民草の嘆きに答えたのかは知りませんが､言語レベルの UUID みたいな <code>Symbol</code> という便利なものがあり､これを使います</p>
+<div class="highlight">
+<span class="listing-name"><label id="option1"></label>
+ listing <a href="#option1">2.1</a>
+. 真面目に定義した Option<t></t></span><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">someSym</span> <span class="o">=</span> <span class="nb">Symbol</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">noneSym</span> <span class="o">=</span> <span class="nb">Symbol</span><span class="p">();</span>
+<span class="c1">// someSym !== noneSym</span>
+
+<span class="kd">type</span> <span class="nx">Some</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="na">_tag</span><span class="p">:</span> <span class="k">typeof</span> <span class="nx">someSym</span><span class="p">;</span> <span class="nl">value</span><span class="p">:</span> <span class="nx">T</span> <span class="p">}</span>
+<span class="kd">type</span> <span class="nx">None</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="na">_tag</span><span class="p">:</span> <span class="k">typeof</span> <span class="nx">noneSym</span> <span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Option</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">Some</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">|</span> <span class="nx">None</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span>
+</code></pre>
+</div>
+<p>なんとかなったな｡
+パターンマッチングをいい感じにやるためのオペレータも用意します｡</p>
+<div class="highlight">
+<span class="listing-name"><label id="match1"></label>
+ listing <a href="#match1">2.2</a>
+. match</span><pre><code class="language-typescript" data-lang="typescript"><span class="cm">/**
+ * @example
+ *   match(o,
+ *     (v) =&gt; v,
+ *     ()  =&gt; default
+ *   );
+ */</span>
+<span class="kd">const</span> <span class="nx">match</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="p">,</span> <span class="nx">A</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">o</span><span class="p">:</span> <span class="nx">Option</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">onSome</span><span class="p">:</span> <span class="p">(</span><span class="nx">_</span><span class="p">:</span> <span class="nx">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">A</span><span class="p">,</span> <span class="nx">onNone</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">A</span><span class="p">):</span> <span class="nx">A</span> <span class="o">=&gt;</span>
+  <span class="nx">o</span><span class="p">.</span><span class="nx">_tag</span> <span class="o">===</span> <span class="nx">someSym</span> <span class="p">?</span> <span class="nx">onSome</span><span class="p">(</span><span class="nx">o</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">:</span> <span class="nx">onNone</span><span class="p">();</span>
+</code></pre>
+</div>
+<p>はぁ……と一瞬で関心が薄れそうな味気ない実装ですがちょっとまって!!
+<code>onSome</code> の処理で <code>o.value</code> を参照してます｡<code>None&lt;T&gt;</code> の場合もあるのにこれをコンパイラが通してくれるのは TypeScript の型システムが control-flow based type analysis というのをやってくれているからです｡
+型レベル supercompilation みたいですね｡
+Typed Racket も同様に control-flow based type analysis を組み込んだ Occurrence Typing という型システムを採用しており､こちらは論文が出ており定式化されているので気になったら読んでみてください｡
+さて戻りますと､ここでは､ <code>o._tag === someSym</code> という条件を通過したら､型付けの文脈に"<code>o._tag</code> は <code>someSym</code> である"とうのがまず追加されるわけです｡
+これから更に"<code>o</code> は <code>Option&lt;T&gt;</code> だったので､そのうち <code>o._tag === someSym</code> なのは <code>Some&lt;T&gt;</code> の場合なので <code>o.value</code> が存在する"まで推論してくれるため､ <code>o.value</code> に参照できるわけですな｡
+そして､三項演算子のもう一方の部分では､ <code>Option&lt;T&gt;</code> だが <code>Some&lt;T&gt;</code> ではないという情報が渡ってきまして､今回は <code>Some | None</code> の2つしかないのでちょっと雰囲気出ませんがとにかく <code>o</code> は <code>None&lt;T&gt;</code> ということが分かります｡</p>
+<p>……とまぁかような具合に TypeScript でもなんとか ADTs とパターンマッチングができました｡
+この <code>_tag</code> を用いた手法は TypeScript で functional programming したい人のためのライブラリ fp-ts で採用されているものでした｡
+上記で定義した <code>match</code> という名前のパターンマッチングする関数は fp-ts では慣習的に <code>fold</code> という名前で定義されています｡
+あと本記事では省略した <code>readonly</code> とかをちゃんとしているが､ <code>_tag</code> には optimistic に string literal type を利用している｡
+</p>
+<div class="github-widget" data-repo="gcanti/fp-ts"></div>
+<h1 id="3.+%E8%8B%A6%E9%9B%A3%E3%81%AE%E5%9E%8B%E6%8E%A8%E8%AB%96%E3%81%A8%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A%E3%81%AE%E3%82%B8%E3%83%AC%E3%83%B3%E3%83%9E"><a class="headerlink" href="#3.+%E8%8B%A6%E9%9B%A3%E3%81%AE%E5%9E%8B%E6%8E%A8%E8%AB%96%E3%81%A8%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A%E3%81%AE%E3%82%B8%E3%83%AC%E3%83%B3%E3%83%9E">3. 苦難の型推論と網羅性判定のジレンマ</a></h1>
+<p>さて! 帰って飯食って寝よう～といきたいところですが､ちょっと待ってよ｡
+<code>Some&lt;_&gt;</code> と <code>None&lt;_&gt;</code> の型を作るために毎度 object リテラルに <code>_tag</code> をえっさほいさするのは面倒です｡
+それにこれを乱用して野良 <code>Option&lt;_&gt;</code> 型を作ってほしくないので smart constructors を定義してそれだけユーザに見せるようにしましょう｡</p>
+<div class="highlight">
+<span class="listing-name">スマコン</span><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">Some</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">value</span><span class="p">:</span> <span class="nx">T</span><span class="p">):</span> <span class="nx">Some</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="na">_tag</span><span class="p">:</span> <span class="nx">someSym</span><span class="p">,</span> <span class="nx">value</span> <span class="p">});</span>
+<span class="kd">const</span> <span class="nx">None</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">():</span> <span class="nx">None</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">({</span> <span class="na">_tag</span><span class="p">:</span> <span class="nx">noneSym</span> <span class="p">});</span>
+</code></pre>
+</div>
+<p>よし! そしてこちらを御覧ください｡</p>
+<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">to123</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num</span><span class="p">:</span> <span class="kr">number</span><span class="p">)</span> <span class="o">=&gt;</span>
+  <span class="nx">num</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">num</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="p">?</span> <span class="nx">Some</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span> <span class="p">:</span> <span class="nx">None</span><span class="p">()</span>
+</code></pre></div>
+<p>突然ですがクイズです! <code>to123</code> の return type は何でしょう?
+はい残念または正解! <code>None&lt;number&gt; | Some&lt;unknown&gt;</code> です｡絶望しましたか? 私はしました｡
+絶望したんですが､なぜ絶望したか考えていきましょう｡
+結局私も何が起きたのか分からなかったのですが､<a href="https://twitter.com/hiroqn" target="_blank" rel="noopener noreferrer">@hiroqn </a>さんがかなりそれっぽい回答をしていたのでそれを書きます｡</p>
+<p>まず <code>None</code> のスマコンがよくない｡
+return type は <code>Option&lt;T&gt;</code> ですが､この <code>T</code> が何者によっても与えられていないので解決できません｡
+したがって､型注釈を書かないかぎりは､ TypeScript の型システムは推論できない型変数を<code>unknown</code> で埋めます｡
+よって､三項演算子の<strong>片方</strong>はまず <code>Option&lt;unknown&gt;</code> を返すことになります｡</p>
+<p>次に三項演算子の第二項では <code>Some(sum)</code> を返します｡
+<code>Some</code> のスマコンは引数の型がすなわち <code>T</code> なので､こちらは <code>Option&lt;number&gt;</code> を返します｡
+このことから､まず <code>to123</code> の return type は <code>Option&lt;number&gt; | Option&lt;unknown&gt;</code> という型を返すという計算がおこなわれます｡</p>
+<p>さて､ TypeScript における <code>type</code> declaration は単なる alias なので､<strong>特に指定がなければ</strong> 型推論の上で union types をほどいても怒られませんので､ <code>Option&lt;number&gt; | Option&lt;unknown&gt;</code> は <code>Some&lt;number&gt; | None&lt;number&gt; | Some&lt;unknown&gt; | None&lt;unknown&gt;</code> と展開できます｡
+ところで TypeScript は(構造的)部分型を採用しているのですが､builtin な型達の間でも subtyping relation が予め定義されています｡
+<code>number &lt;: unknown</code> なので､上記の展開した型のうち <code>None</code> には <strong>具体的な型</strong> である <code>number</code> が来ます ( <code>None&lt;number&gt;</code> )｡
+一方 <code>Some</code> は､ body の方ですでに <code>Some&lt;number&gt;</code> という型が定まっているが return type の上で <code>Some&lt;number&gt; | Some&lt;unknown&gt;</code> になりました｡
+これをほどいてくと <code>{ _tag: typeof someSym; value: number | unknown }</code> なのですが､ <code>number &lt;: unknown</code> より <code>number | unknown === unknown</code> と計算を進められます｡
+つまり <code>{ _tag: .....; value: unknown } === Some&lt;unknown&gt;</code> です｡</p>
+<p>以上より､ <code>to123</code> の return type は <code>None&lt;number&gt; | Some&lt;unknown&gt;</code> となるようです<sup id="fnref2" title="TypeScript の型システムの推論規則が特に示されてないんで推測の域を出ない｡実装が仕様と言われたらすみません､いつか実装読む……かも……｡ "><a href="#fn2">2</a></sup>｡
+<code>Some&lt;_&gt; | None&lt;_&gt;</code> の順番が flip してるのも香りがありますね｡</p>
+<p>………… <strong><em>グワ～～頭が痛い!!!</em></strong>
+ちょっと OCaml 吸っていいですか? ……フゥ､ OCaml で <code>None</code> のスマコンを作ったら……あぁ <code>none ()</code> は多相性を保ってくれるんで weak polymorphic variable 導入せずに <code>'a option</code> か､そうか｡</p>
+<p>よし｡
+ちなみにワーワー騒いだが､型注釈をつけると</p>
+<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">to123</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nx">Option</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span> <span class="o">=&gt;</span>
+  <span class="nx">num</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">num</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="p">?</span> <span class="nx">Some</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span> <span class="p">:</span> <span class="nx">None</span><span class="p">();</span>
+</code></pre></div>
+<h1 id="4.+Scala-like+ADTs+emulation"><a class="headerlink" href="#4.+Scala-like+ADTs+emulation">4. Scala-like ADTs emulation</a></h1>
+<p>上記でワーワーやったアホアホ推論をおこなわず､注釈にしたがいます｡
+<strong>けど!</strong> 俺たち \(\lambda_\rightarrow\) 生まれ OCaml 育ち型推論はだいたい決定可能としても注釈なんて書かずにもっと直感的で使いやすい推論結果を出してほしい｡</p>
+<p>う～ん､そういえば Scala (2.x) って言語があって～､あれも ADTs を言語機能として持っていないけどなんかいい感じにしていたな｡</p>
+<div class="highlight">
+<span class="listing-name">Scala 2.x による伝統的な ADTs の定義</span><pre><code class="language-scala" data-lang="scala"><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Option</span><span class="o">[</span><span class="k">_</span><span class="o">]</span> <span class="o">{}</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Some</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">value</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Option</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">None</span><span class="o">[</span><span class="kt">T</span><span class="o">]()</span> <span class="k">extends</span> <span class="nc">Option</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+</code></pre>
+</div>
+<p>なるほど! 小さい型を定義して､それを継承するのか｡
+先程の方法が集合を外延的に定義するのに似ているのに対して､こちらは帰属関係を要素一つずつに対して定義している感じですね｡
+こういった手法に名前が付いてるんでしょうか? 私気になります｡</p>
+<p>ともあれひとまず TypeScript でもやってみましょう｡</p>
+<div class="highlight">
+<span class="listing-name">TS でもやってみよう</span><pre><code class="language-typescript" data-lang="typescript"><span class="kr">interface</span> <span class="nx">Option</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="p">{</span> <span class="na">_tag</span><span class="p">:</span> <span class="nx">symbol</span> <span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">someSym</span> <span class="o">=</span> <span class="nb">Symbol</span><span class="p">();</span>
+<span class="kr">interface</span> <span class="nx">Some</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="nx">Option</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="na">_tag</span><span class="p">:</span> <span class="k">typeof</span> <span class="nx">someSym</span><span class="p">;</span>
+  <span class="nl">value</span><span class="p">:</span> <span class="nx">T</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">noneSym</span> <span class="o">=</span> <span class="nb">Symbol</span><span class="p">();</span>
+<span class="kr">interface</span> <span class="nx">None</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="nx">Option</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="na">_tag</span><span class="p">:</span> <span class="k">typeof</span> <span class="nx">noneSym</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>オッいい感じじゃん｡
+でもスマコンを定義するときにちょっと困ります｡</p>
+<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="c1">// return type が Option&lt;T&gt; だと型検査が通らない!</span>
+<span class="kd">const</span> <span class="nx">Some</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">value</span><span class="p">:</span> <span class="nx">T</span><span class="p">):</span> <span class="nx">Some</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="na">_tag</span><span class="p">:</span> <span class="nx">someSym</span><span class="p">,</span> <span class="nx">value</span> <span class="p">});</span>
+<span class="kd">const</span> <span class="nx">None</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">():</span> <span class="nx">None</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="na">_tag</span><span class="p">:</span> <span class="nx">noneSym</span> <span class="p">});</span>
+</code></pre></div>
+<p>そう､ <code>Some</code> の return type を <code>Option&lt;T&gt;</code> にすると <code>value</code> という余計な property があるので怒られます｡
+マジか～て感じですが <code>Some&lt;T&gt; &lt;: Option&lt;T&gt;</code> という関係がすでにあるのであんまり困らない｡</p>
+<p>では先程の <code>to123</code> は型推論でバシッと return type がいい感じになるか?
+……なりますねぇ!! 無事 <code>Option&lt;number&gt;</code> に推論してくれます｡心､つながったね｡</p>
+<p>スマコンの型をいい感じにしたから <code>to123</code> の型が合ったんじゃないか? と思い listing <a href="#option1">2.1</a>
+の方法で定義したやつのスマコンも上記と同じようにすると､ <code>to123</code> の return type は <code>Some&lt;number&gt; | None&lt;unknown&gt;</code> になりました｡
+お腹いっぱいなんでもういいです｡</p>
+<h1 id="5.+%E5%8A%9B%E3%81%AE%E4%BB%A3%E5%84%9F%3A+%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A"><a class="headerlink" href="#5.+%E5%8A%9B%E3%81%AE%E4%BB%A3%E5%84%9F%3A+%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A">5. 力の代償: 網羅性判定</a></h1>
+<p>さーて listing <a href="#match1">2.2</a>
+ の <code>match</code> も実装しておわりおわり</p>
+<div class="highlight">
+<span class="listing-name"><label id="match2"></label>
+ listing <a href="#match2">5.1</a>
+. match その2</span><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">match</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="p">,</span> <span class="nx">A</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">o</span><span class="p">:</span> <span class="nx">Option</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">onSome</span><span class="p">:</span> <span class="p">(</span><span class="nx">_</span><span class="p">:</span> <span class="nx">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">A</span><span class="p">,</span> <span class="nx">onNone</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">A</span><span class="p">)</span> <span class="o">=&gt;</span>
+    <span class="nx">o</span><span class="p">.</span><span class="nx">_tag</span> <span class="o">===</span> <span class="nx">someSym</span> <span class="p">?</span> <span class="nx">onSome</span><span class="p">(</span><span class="nx">o</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">:</span> <span class="nx">onNone</span><span class="p">();</span>
+<span class="c1">// 🤬 Property 'value' does not exist on type 'Option&lt;T&gt;'.</span>
+</code></pre>
+</div>
+<p>オワッ?! TypeScript の怒りを買いました｡
+コチラは熱弁した control-flow based type analysis やってくれへんのかいと思ったんですが､ <code>Option&lt;_&gt;</code> 側は <code>Some&lt;_&gt;</code> の supertype という情報を持ってないためどうしようもないわけです｡
+うーんこまった､困ったんで conditional type を利用します｡</p>
+<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">isSome</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">o</span><span class="p">:</span> <span class="nx">Option</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">):</span> <span class="nx">o</span> <span class="k">is</span> <span class="nx">Some</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=&gt;</span>
+  <span class="nx">o</span><span class="p">.</span><span class="nx">_tag</span> <span class="o">===</span> <span class="nx">someSym</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">isNone</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">o</span><span class="p">:</span> <span class="nx">Option</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">):</span> <span class="nx">o</span> <span class="k">is</span> <span class="nx">None</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=&gt;</span>
+  <span class="nx">o</span><span class="p">.</span><span class="nx">_tag</span> <span class="o">===</span> <span class="nx">noneSYm</span><span class="p">;</span>
+</code></pre></div>
+<p>エッ依存型!?
+これは <code>isSome(o)</code> が <code>true</code> の場合の条件分岐などに <code>o</code> は <code>Some&lt;T&gt;</code> 型ということを伝えるための型であり､実際はあまり大層なものではなくむしろちょっと危なげな型です｡</p>
+<div class="highlight">
+<span class="listing-name">これも型検査通るやで</span><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">bad</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">o</span><span class="p">:</span> <span class="nx">Option</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">):</span> <span class="nx">o</span> <span class="k">is</span> <span class="nx">None</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=&gt;</span>
+  <span class="c1">// oh ...</span>
+  <span class="nx">o</span><span class="p">.</span><span class="nx">_tag</span> <span class="o">===</span> <span class="nx">someSym</span><span class="p">;</span>
+
+<span class="c1">// こういうのは流石に通らない</span>
+<span class="c1">// (n: number): n is boolean =&gt; n !== 0</span>
+</code></pre>
+</div>
+<p>まあそれなりに根拠のある <code>as any as T</code> みたいな感じですね｡</p>
+<p>では､いきます｡</p>
+<div class="highlight">
+<span class="listing-name"><label id="match2'"></label>
+ listing <a href="#match2'">5.2</a>
+. match その2’</span><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">match</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="p">,</span> <span class="nx">A</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">o</span><span class="p">:</span> <span class="nx">Option</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">onSome</span><span class="p">:</span> <span class="p">(</span><span class="nx">_</span><span class="p">:</span> <span class="nx">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">A</span><span class="p">,</span> <span class="nx">onNone</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">A</span><span class="p">):</span> <span class="nx">A</span> <span class="o">=&gt;</span>
+  <span class="nx">isNone</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">?</span> <span class="nx">onNone</span><span class="p">()</span> <span class="p">:</span> <span class="nx">onSome</span><span class="p">(</span><span class="nx">o</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+<span class="c1">// 🤬 Property 'value' does not exist on type 'Option&lt;T&gt;'.</span>
+</code></pre>
+</div>
+<p>｢こいつ､やったな｣と思った方正解なんですが､ちょっと例が悪かったんで恣意的に <code>onSome</code> と <code>onNone</code> の位置を flip しました｡
+まずこれが何故エラーなのかというと､ listing <a href="#match2">5.1</a>
+ と同様に <code>onSome</code> 側に <code>o</code> が <code>Some&lt;T&gt;</code> という情報が渡ってないからですね｡
+<code>Option&lt;_&gt;</code> の定義からわかるとおり､<code>None&lt;T&gt;</code> でないは <code>Some&lt;T&gt;</code> である <em>ではない</em> わけです｡
+なので､ flip するとあたかも問題が解決してるようですが､例えば <code>Either&lt;E, A&gt;</code> みたいに2パラメータある型を分解するときに困る｡なのでちょっと強引にでも問題提起しました｡</p>
+<p>では <code>isSome</code> 使えばEジャンとなるんですが……</p>
+<div class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">match</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="p">,</span> <span class="nx">A</span><span class="o">&gt;</span><span class="p">(...)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isSome</span><span class="p">(</span><span class="nx">o</span><span class="p">))</span> <span class="k">return</span> <span class="nx">onSome</span><span class="p">(</span><span class="nx">o</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isNone</span><span class="p">(</span><span class="nx">o</span><span class="p">))</span> <span class="k">return</span> <span class="nx">onNone</span><span class="p">();</span>
+<span class="p">};</span>
+<span class="c1">// 🤬 Not all code paths return a value.</span>
+</code></pre></div>
+<p>実は <code>--noImplicitReturns</code> をコンパイラに渡さなければ怒られないんですが､strict に型をつけたい場合は是非怒られたい｡
+ここまで来ればなんで怒られるかも理由がつきますね｡
+そう､ <code>Option&lt;T&gt;</code> が <code>Some&lt;T&gt;</code> でも <code>None&lt;T&gt;</code> でもない場合にどうするかを書いてません｡
+んな場合無いよ! と人は思うんですが必ずしもそうではない｡
+<a href="#3.+%E8%8B%A6%E9%9B%A3%E3%81%AE%E5%9E%8B%E6%8E%A8%E8%AB%96%E3%81%A8%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A%E3%81%AE%E3%82%B8%E3%83%AC%E3%83%B3%E3%83%9E"></a>
+章で熱弁した通り､注釈をつけないととんでもない場合があるので <code>Option&lt;T&gt;</code> は <code>export</code> して他のモジュールで利用する場合があります｡
+特にこれをライブラリとして開発していたら知らんところで人が使います｡
+そして <strong><code>Option&lt;T&gt;</code> が <code>extends</code> され得るのです</strong> !
+また TypeScript も極めて賢いわけではないため､ <code>export</code> がついてるかどうかなどのアクセス制御と連携した型システムは備わっていないようです｡</p>
+<p>ところでこの場合分けが全ての場合を網羅しているかどうかの判定を網羅性判定(exhaustivity check)と呼びます(まんまやんけ)｡
+この手法では <code>match</code> が not exhaustive なので怒られました｡</p>
+<div class="highlight">
+<span class="listing-name">キモいけどしゃーなし</span><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">match</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">T</span><span class="p">,</span> <span class="nx">A</span><span class="o">&gt;</span><span class="p">(...)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isSome</span><span class="p">(</span><span class="nx">o</span><span class="p">))</span> <span class="k">return</span> <span class="nx">onSome</span><span class="p">(</span><span class="nx">o</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isNone</span><span class="p">(</span><span class="nx">o</span><span class="p">))</span> <span class="k">return</span> <span class="nx">onNone</span><span class="p">();</span>
+
+  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">may be unreachable</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="c1">// よし､通れ</span>
+</code></pre>
+</div>
+<p>え～じゃあ Scala はどうしてんのよ､となるんですが､ Scala は <code>sealed</code> という attribute でよろしくやってます<sup id="fnref3" title="A Tour of Scala: Sealed Classes | The Scala Programming Language "><a href="#fn3">3</a></sup>｡
+<code>Option[_]</code> という抽象型はこのファイル外には出ませんよということを明示することで､<code>Some(_)</code> の場合と <code>None()</code> のパターン <em>だけ</em> で全て網羅していることが言語も分かってくれるわけですね｡</p>
+<hr>
+<p>ハ～疲れたちょっと休憩します｡裏で OCaml 吸ってきます｡
+そういえば OCaml にも extensible variants とかあったな……</p>
+<div class="highlight">
+<span class="listing-name">おまけ: extensible variants</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="o">..</span>
+<span class="k">type</span> <span class="n">t</span> <span class="o">+=</span> <span class="nc">A</span> <span class="o">|</span> <span class="nc">B</span>
+
+<span class="k">let</span> <span class="n">to_int</span> <span class="o">=</span> <span class="k">function</span>
+  <span class="o">|</span> <span class="nc">A</span> <span class="o">-&gt;</span> <span class="mi">0</span>
+  <span class="o">|</span> <span class="nc">B</span> <span class="o">-&gt;</span> <span class="mi">1</span> 
+<span class="c">(*
+Warning 7: this pattern-matching is not exhaustive.
+Here is an example of a case that is not matched:
+*extension*
+Matching over values of extensible variant types (the *extension* above)
+must include a wild card pattern in order to be exhaustive.
+*)</span>
+</code></pre>
+</div>
+<p>ワー! だけどそもそも OCaml には ADTs を定義するのとは別に拡張性を残したやり方としてあるので､はい｡</p>
+<div class="highlight">
+<span class="listing-name">ふつうこうする</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">to_int</span> <span class="n">fwd</span> <span class="o">=</span> <span class="k">function</span>
+  <span class="o">|</span> <span class="nc">A</span> <span class="o">-&gt;</span> <span class="mi">0</span>
+  <span class="o">|</span> <span class="nc">B</span> <span class="o">-&gt;</span> <span class="mi">1</span>
+  <span class="o">|</span> <span class="n">other</span> <span class="o">-&gt;</span> <span class="n">fwd</span> <span class="n">other</span>
+</code></pre>
+</div>
+<p>マッチャを接ぎ木できるようにするわけですね｡
+パターンマッチングで接ぎ木の話をするとまた Egison とか MetaOCaml とか Scala の話がワーッと膨らんでしまうので､後日｡</p>
+<h1 id="6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">6. おわりに</a></h1>
+<p>TypeScript で ADTs を定義するには2通りあるけど2通りのつらさがありました｡</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right"></th>
+<th style="text-align: left">メリット</th>
+<th style="text-align: left">デメリット</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right">union type</td>
+<td style="text-align: left">パターンマッチングを網羅できる</td>
+<td style="text-align: left">型推論が終わる</td>
+</tr>
+<tr>
+<td style="text-align: right">Scala ぽいやつ</td>
+<td style="text-align: left">型推論がナイス!</td>
+<td style="text-align: left">exhaustivity check で涙をのむ</td>
+</tr>
+</tbody>
+</table>
+<p>うーん､キツいですね｡
+キツいですが面白い議論ができました｡
+突然 CM なんですが､こういった面白い議論ができる TypeScript を用いて株式会社 HERP でなんかいろいろやっています｡
+面白いね!🤬 とかゴミ!🤡 みたいな議論やその他プログラム言語に関する面白い話をしつつ TypeScript の罠を回避したり向き合いたい方はぜひいらしてください｡
+ちなみに弊社新サービスなどの実装言語には <em>Haskell が採用されがちです</em>｡</p>
+<div class="twicard">
+  <span class="image"><a href="https://herp.careers/v1/herpinc" target="_blank" rel="noopener noreferrer"><div><img src="https://v1.herp.cloud/resources/company_logos/C-464R6"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://herp.careers/v1/herpinc" target="_blank" rel="noopener noreferrer">株式会社HERP 求人一覧</a></div>
+    <div class="description">株式会社HERPの求人一覧です。</div>
+  </span>
+</div>
+<hr>
+<p>タイトルにもある通りパターンマッチングには深さがるんですが､今回は深さ1のパターンマッチングの話でした｡
+例えば OCaml では深いパターンマッチングができるので</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">hd</span> <span class="o">=</span> <span class="k">function</span>
+  <span class="o">|</span> <span class="nc">Some</span><span class="p">(</span><span class="n">hd</span>  <span class="o">::</span> <span class="n">_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hd</span>
+  <span class="c">(* いつもなら _ -&gt; failwith ... と書くが明示 *)</span>
+    <span class="o">|</span> <span class="nc">Some</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">|</span> <span class="nc">None</span> <span class="o">-&gt;</span> <span class="n">failwith</span> <span class="s2">"hoge"</span>
+</code></pre></div>
+<p>のように <code>Some(_)</code> の中のリストをさらに分解しています｡
+TypeScript で深いパターンマッチングは……未来に期待しましょう｡</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>TypeScript 言語およびその参照実装であるコンパイラ tsc (v4.1.2) を指す｡以降これに倣う｡ <a href="#fnref1">↩</a></p>
+</li>
+
+<li id="fn2">
+<p>TypeScript の型システムの推論規則が特に示されてないんで推測の域を出ない｡実装が仕様と言われたらすみません､いつか実装読む……かも……｡ <a href="#fnref2">↩</a></p>
+</li>
+
+<li id="fn3">
+<p><a href="https://www.scala-lang.org/old/node/123" target="_blank" rel="noopener noreferrer">A Tour of Scala: Sealed Classes | The Scala Programming Language</a> <a href="#fnref3">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2020/08/25/tswara.html" title="Unsound TypeScript: spread syntax">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <span class="btn next disabled">Next →</span>
+      </div>
+    </footer>
+
+  </body>
+</html>

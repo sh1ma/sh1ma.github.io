@@ -24,8 +24,8 @@
     <link rel="stylesheet" href="/css/main.css"/>
     <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
     <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
-<!-- Begin Jekyll SEO tag v2.6.1 -->
-<meta name="generator" content="Jekyll v3.8.6" />
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.8.7" />
 <meta property="og:title" content="Apriled" />
 <meta name="author" content="Satoru Kawahara" />
 <meta property="og:locale" content="en_US" />
@@ -36,8 +36,10 @@
 <meta property="og:site_name" content="lilyum ensemble" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2015-05-10T00:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Apriled" />
 <script type="application/ld+json">
-{"description":"こんにちは､びしょ～じょです｡気がつけば4月が終わっていました｡そんな感じで4月―厳密には3月中頃から―を振り返ってみました｡あまり昔のことを振り返る習慣がないのでアレなんですが､はい｡長文だし話題も分散しているので､書くなら書くでもう少しこまめに書こうと思いました｡","url":"https://nymphium.github.io/2015/05/10/apriled.html","headline":"Apriled","dateModified":"2015-05-10T00:00:00+09:00","datePublished":"2015-05-10T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2015/05/10/apriled.html"},"@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"https://schema.org"}</script>
+{"datePublished":"2015-05-10T00:00:00+09:00","description":"こんにちは､びしょ～じょです｡気がつけば4月が終わっていました｡そんな感じで4月―厳密には3月中頃から―を振り返ってみました｡あまり昔のことを振り返る習慣がないのでアレなんですが､はい｡長文だし話題も分散しているので､書くなら書くでもう少しこまめに書こうと思いました｡","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2015/05/10/apriled.html"},"url":"https://nymphium.github.io/2015/05/10/apriled.html","@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"headline":"Apriled","dateModified":"2015-05-10T00:00:00+09:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="/pictures/github_icon.png"/>
@@ -169,19 +171,19 @@ document.addEventListener("DOMContentLoaded", function(){
         <span class="k">let</span> <span class="k">l</span><span class="p">:</span>str <span class="p">=</span> <span class="nv">a:1</span> <span class="p">.</span> <span class="s1">' '</span>
     <span class="k">endif</span>
 
-    <span class="k">if</span> strlen<span class="p">(</span><span class="k">l</span><span class="p">:</span>str<span class="p">)</span> <span class="p">&gt;</span> <span class="m">2</span>
-        <span class="k">call</span> system<span class="p">(</span><span class="s2">"evince -l "</span><span class="p">.</span> <span class="k">l</span><span class="p">:</span>str <span class="p">.</span> <span class="nv">g:vimtex</span>#data<span class="p">[</span><span class="nv">b:vimtex</span><span class="p">.</span>id<span class="p">].</span>out<span class="p">()</span> <span class="p">.</span> <span class="s2">" &gt;/dev/null 2&gt;&amp;1 &amp;"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">strlen</span><span class="p">(</span><span class="k">l</span><span class="p">:</span>str<span class="p">)</span> <span class="p">&gt;</span> <span class="m">2</span>
+        <span class="k">call</span> <span class="nb">system</span><span class="p">(</span><span class="s2">"evince -l "</span><span class="p">.</span> <span class="k">l</span><span class="p">:</span>str <span class="p">.</span> <span class="nv">g:vimtex</span>#data<span class="p">[</span><span class="nv">b:vimtex</span><span class="p">.</span>id<span class="p">].</span>out<span class="p">()</span> <span class="p">.</span> <span class="s2">" &gt;/dev/null 2&gt;&amp;1 &amp;"</span><span class="p">)</span>
     <span class="k">endif</span>
 <span class="k">endfunction</span>
 
-<span class="k">if</span> <span class="p">!</span>exists<span class="p">(</span><span class="s1">'g:neocomplete#sources#omni#input_patterns'</span><span class="p">)</span>
+<span class="k">if</span> <span class="p">!</span><span class="nb">exists</span><span class="p">(</span><span class="s1">'g:neocomplete#sources#omni#input_patterns'</span><span class="p">)</span>
     <span class="k">let</span> <span class="nv">g:neocomplete</span>#sources#omni#input_patterns <span class="p">=</span> <span class="p">{}</span>
 <span class="k">endif</span>
 <span class="k">let</span> <span class="nv">g:neocomplete</span>#sources#omni#input_patterns<span class="p">.</span>tex <span class="p">=</span> <span class="s1">'\v\\\a*(ref|cite)\a*([^]]*\])?\{([^}]*,)*[^}]*'</span>
 
 augroup LatexSetup
     autocmd<span class="p">!</span>
-    autocmd <span class="nb">BufNewFile</span><span class="p">,</span><span class="nb">BufRead</span> *<span class="p">.</span>tex <span class="k">set</span> ft<span class="p">=</span>tex
+    autocmd <span class="nb">BufNewFile</span><span class="p">,</span><span class="nb">BufRead</span> *<span class="p">.</span>tex <span class="k">set</span> <span class="nb">ft</span><span class="p">=</span>tex
     autocmd <span class="nb">BufNewFile</span><span class="p">,</span>Bufread *<span class="p">.</span>tex vmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>LocalLeader<span class="p">&gt;</span><span class="k">lf</span> <span class="p">:</span><span class="k">call</span> <span class="p">&lt;</span>SID<span class="p">&gt;</span>findInPdf<span class="p">(</span>@*<span class="p">)&lt;</span>CR<span class="p">&gt;</span>
     autocmd <span class="nb">BufNewFile</span><span class="p">,</span>Bufread *<span class="p">.</span>tex nmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>LocalLeader<span class="p">&gt;</span><span class="k">lf</span> <span class="p">:</span><span class="k">call</span> <span class="p">&lt;</span>SID<span class="p">&gt;</span>findInPdf<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
 augroup END

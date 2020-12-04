@@ -24,8 +24,8 @@
     <link rel="stylesheet" href="/css/main.css"/>
     <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
     <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
-<!-- Begin Jekyll SEO tag v2.6.1 -->
-<meta name="generator" content="Jekyll v3.8.6" />
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.8.7" />
 <meta property="og:title" content="技術書典6に合同誌を出した; effect system勉強会をやった" />
 <meta name="author" content="Satoru Kawahara" />
 <meta property="og:locale" content="en_US" />
@@ -36,8 +36,10 @@
 <meta property="og:site_name" content="lilyum ensemble" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-05-28T00:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="技術書典6に合同誌を出した; effect system勉強会をやった" />
 <script type="application/ld+json">
-{"description":"こんにちは､びしょ〜じょです｡ なんか最近時間なくないですか? モンスターをハントしてる場合ではないんですが…｡","url":"https://nymphium.github.io/2019/05/28/%E6%8A%80%E8%A1%93%E6%9B%B8%E5%85%B86%E3%81%AB%E5%90%88%E5%90%8C%E8%AA%8C%E3%82%92%E5%87%BA%E3%81%97%E3%81%9F;-effect-system%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%92%E3%82%84%E3%81%A3%E3%81%9F.html","headline":"技術書典6に合同誌を出した; effect system勉強会をやった","dateModified":"2019-05-28T00:00:00+09:00","datePublished":"2019-05-28T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2019/05/28/%E6%8A%80%E8%A1%93%E6%9B%B8%E5%85%B86%E3%81%AB%E5%90%88%E5%90%8C%E8%AA%8C%E3%82%92%E5%87%BA%E3%81%97%E3%81%9F;-effect-system%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%92%E3%82%84%E3%81%A3%E3%81%9F.html"},"@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"https://schema.org"}</script>
+{"datePublished":"2019-05-28T00:00:00+09:00","description":"こんにちは､びしょ〜じょです｡ なんか最近時間なくないですか? モンスターをハントしてる場合ではないんですが…｡","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2019/05/28/%E6%8A%80%E8%A1%93%E6%9B%B8%E5%85%B86%E3%81%AB%E5%90%88%E5%90%8C%E8%AA%8C%E3%82%92%E5%87%BA%E3%81%97%E3%81%9F;-effect-system%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%92%E3%82%84%E3%81%A3%E3%81%9F.html"},"url":"https://nymphium.github.io/2019/05/28/%E6%8A%80%E8%A1%93%E6%9B%B8%E5%85%B86%E3%81%AB%E5%90%88%E5%90%8C%E8%AA%8C%E3%82%92%E5%87%BA%E3%81%97%E3%81%9F;-effect-system%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%92%E3%82%84%E3%81%A3%E3%81%9F.html","@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"headline":"技術書典6に合同誌を出した; effect system勉強会をやった","dateModified":"2019-05-28T00:00:00+09:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="/pictures/github_icon.png"/>
@@ -155,13 +157,13 @@ document.addEventListener("DOMContentLoaded", function(){
 </div>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/effect_study?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">#effect_study</a> ありそうでなかなかなかったFree applicativeの紹介と、そのextensible化。途中の計算結果に依存しないという性質を利用してRPCなどの記述に使えそう</p>— 潮流に導かれしバリスタ (@fumieval) <a href="https://twitter.com/fumieval/status/1132501183875100672?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">May 26, 2019</a>
+<p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/effect_study?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">#effect_study</a> ありそうでなかなかなかったFree applicativeの紹介と、そのextensible化。途中の計算結果に依存しないという性質を利用してRPCなどの記述に使えそう</p>— 鳥リンガル (@fumieval) <a href="https://twitter.com/fumieval/status/1132501183875100672?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">May 26, 2019</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr">Free ApplicativeとFree Monadのliftを共通化するのは面白そうだ <a href="https://twitter.com/hashtag/effect_study?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">#effect_study</a></p>— 潮流に導かれしバリスタ (@fumieval) <a href="https://twitter.com/fumieval/status/1132502512680833024?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">May 26, 2019</a>
+<p lang="ja" dir="ltr">Free ApplicativeとFree Monadのliftを共通化するのは面白そうだ <a href="https://twitter.com/hashtag/effect_study?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">#effect_study</a></p>— 鳥リンガル (@fumieval) <a href="https://twitter.com/fumieval/status/1132502512680833024?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">May 26, 2019</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
@@ -272,13 +274,13 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 </div>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr">Rustは副作用使い放題の素晴らしい言語 <a href="https://twitter.com/hashtag/effect_study?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">#effect_study</a></p>— damepo-lab-137-268-271-443.example.com (@mod_poppo) <a href="https://twitter.com/mod_poppo/status/1132520819630804992?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">May 26, 2019</a>
+<p lang="ja" dir="ltr">Rustは副作用使い放題の素晴らしい言語 <a href="https://twitter.com/hashtag/effect_study?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">#effect_study</a></p>— だめぽラボ@技術書典9 (@mod_poppo) <a href="https://twitter.com/mod_poppo/status/1132520819630804992?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">May 26, 2019</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr">可変な変数でStateを実装しようとすると型チェックで弾かれる。RefCellではつらい <a href="https://twitter.com/hashtag/effect_study?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">#effect_study</a></p>— damepo-lab-137-268-271-443.example.com (@mod_poppo) <a href="https://twitter.com/mod_poppo/status/1132521274125590528?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">May 26, 2019</a>
+<p lang="ja" dir="ltr">可変な変数でStateを実装しようとすると型チェックで弾かれる。RefCellではつらい <a href="https://twitter.com/hashtag/effect_study?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">#effect_study</a></p>— だめぽラボ@技術書典9 (@mod_poppo) <a href="https://twitter.com/mod_poppo/status/1132521274125590528?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">May 26, 2019</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
@@ -317,7 +319,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 <h2 id="Monads+and+Effects"><a class="headerlink" href="#Monads+and+Effects">Monads and Effects</a></h2>
 <p>5番目は<a href="https://twitter.com/myuon_myon" target="_blank" rel="noopener noreferrer">@myuon_myon </a>さんの発表でした｡</p>
 <div class="twicard">
-  <span class="image"><a href="https://speakerdeck.com/myuon/monads-and-effects" target="_blank" rel="noopener noreferrer"><div><img src="https://files.speakerdeck.com/presentations/32863616b9924a559e5f0c307d38e788/slide_0.jpg?518860"></div></a></span>
+  <span class="image"><a href="https://speakerdeck.com/myuon/monads-and-effects" target="_blank" rel="noopener noreferrer"><div><img src="https://files.speakerdeck.com/presentations/32863616b9924a559e5f0c307d38e788/slide_0.jpg?12661568"></div></a></span>
   <span class="txt">
     <div class="title"><a href="https://speakerdeck.com/myuon/monads-and-effects" target="_blank" rel="noopener noreferrer">Monads and Effects</a></div>
     <div class="description"></div>
@@ -355,7 +357,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 </div>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/effect_study?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">#effect_study</a> Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）</p>— ᴋᴏɴ ← tweets generated by GPT-4 (@GolDDranks) <a href="https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">May 26, 2019</a>
+<p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/effect_study?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">#effect_study</a> Kokaにdivergenceというeffectがある！（もちろん、100%の精度は期待できない）</p>— кσηтισ, ʎɹʎd (@GolDDranks) <a href="https://twitter.com/GolDDranks/status/1132528469156302849?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">May 26, 2019</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
@@ -418,7 +420,7 @@ product-capableなCycle.jsの実装を見ていくと面白いものが見られ
 というわけでみなさんやっていきましょう｡</p>
 <div class="enclosed-tweet" align="center">
 <blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr">Algebraic Effectの実装、libhandlerの場合：longjmp, stack frame+ip <a href="https://twitter.com/hashtag/effect_study?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">#effect_study</a></p>— damepo-lab-137-268-271-443.example.com (@mod_poppo) <a href="https://twitter.com/mod_poppo/status/1132534088089292800?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">May 26, 2019</a>
+<p lang="ja" dir="ltr">Algebraic Effectの実装、libhandlerの場合：longjmp, stack frame+ip <a href="https://twitter.com/hashtag/effect_study?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">#effect_study</a></p>— だめぽラボ@技術書典9 (@mod_poppo) <a href="https://twitter.com/mod_poppo/status/1132534088089292800?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">May 26, 2019</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>

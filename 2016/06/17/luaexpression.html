@@ -24,8 +24,8 @@
     <link rel="stylesheet" href="/css/main.css"/>
     <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
     <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
-<!-- Begin Jekyll SEO tag v2.6.1 -->
-<meta name="generator" content="Jekyll v3.8.6" />
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.8.7" />
 <meta property="og:title" content="Lua5.2から5.3への内部表現について💢" />
 <meta name="author" content="Satoru Kawahara" />
 <meta property="og:locale" content="en_US" />
@@ -36,8 +36,10 @@
 <meta property="og:site_name" content="lilyum ensemble" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2016-06-17T00:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lua5.2から5.3への内部表現について💢" />
 <script type="application/ld+json">
-{"description":"こんにちは､びしょ〜じょです｡極めて眠いホトトギス","url":"https://nymphium.github.io/2016/06/17/luaexpression.html","headline":"Lua5.2から5.3への内部表現について💢","dateModified":"2016-06-17T00:00:00+09:00","datePublished":"2016-06-17T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2016/06/17/luaexpression.html"},"@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"@context":"https://schema.org"}</script>
+{"datePublished":"2016-06-17T00:00:00+09:00","description":"こんにちは､びしょ〜じょです｡極めて眠いホトトギス","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2016/06/17/luaexpression.html"},"url":"https://nymphium.github.io/2016/06/17/luaexpression.html","@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"headline":"Lua5.2から5.3への内部表現について💢","dateModified":"2016-06-17T00:00:00+09:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="og:image" content="/pictures/github_icon.png"/>
@@ -174,9 +176,9 @@ $ xxd -g 1 luac.out
     <span class="k">return</span> <span class="mi">0</span>
   <span class="k">end</span>
 
-  <span class="n">mantissa</span> <span class="o">=</span> <span class="p">(</span><span class="nb">math.ldexp</span><span class="p">(</span><span class="n">mantissa</span><span class="p">,</span> <span class="o">-</span><span class="mi">52</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">input</span><span class="p">:</span><span class="n">byte</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">127</span> <span class="ow">and</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="n">mantissa</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">ldexp</span><span class="p">(</span><span class="n">mantissa</span><span class="p">,</span> <span class="o">-</span><span class="mi">52</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">input</span><span class="p">:</span><span class="n">byte</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">127</span> <span class="ow">and</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">)</span>
 
-  <span class="k">return</span> <span class="nb">math.ldexp</span><span class="p">(</span><span class="n">mantissa</span><span class="p">,</span> <span class="n">exponent</span> <span class="o">-</span> <span class="mi">1023</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">math</span><span class="p">.</span><span class="n">ldexp</span><span class="p">(</span><span class="n">mantissa</span><span class="p">,</span> <span class="n">exponent</span> <span class="o">-</span> <span class="mi">1023</span><span class="p">)</span>
 <span class="k">end</span>
 
 <span class="kd">local</span> <span class="n">ieee754</span> <span class="o">=</span> <span class="nb">string.char</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x08</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">)</span>
@@ -545,7 +547,7 @@ testsuite.lua
 
 <span class="nb">print</span><span class="p">(</span><span class="n">get_exectime</span><span class="p">(</span><span class="k">function</span><span class="p">()</span>
     <span class="kd">local</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">4</span><span class="p">.</span><span class="mi">0</span>
-    <span class="kd">local</span> <span class="n">numi</span> <span class="o">=</span> <span class="n">math</span><span class="p">.</span><span class="n">tointeger</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">numi</span> <span class="o">=</span> <span class="nb">math.tointeger</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
     <span class="kd">local</span> <span class="n">t</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">}</span>
     <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">REP</span> <span class="k">do</span>
         <span class="kd">local</span> <span class="n">_</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">numi</span><span class="p">]</span>
