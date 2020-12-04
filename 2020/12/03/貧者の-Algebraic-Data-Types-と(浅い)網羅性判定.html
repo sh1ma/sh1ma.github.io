@@ -395,7 +395,8 @@ must include a wild card pattern in order to be exhaustive.
 キツいですが面白い議論ができました｡
 突然 CM なんですが､こういった面白い議論ができる TypeScript を用いて株式会社 HERP でなんかいろいろやっています｡
 面白いね!🤬 とかゴミ!🤡 みたいな議論やその他プログラム言語に関する面白い話をしつつ TypeScript の罠を回避したり向き合いたい方はぜひいらしてください｡
-ちなみに弊社新サービスなどの実装言語には <em>Haskell が採用されがちです</em>｡</p>
+ちなみに弊社新サービスなどの実装言語には <em>Haskell が採用されがちです</em>｡
+この記事の大半は労働時間中に書かれました｡</p>
 <div class="twicard">
   <span class="image"><a href="https://herp.careers/v1/herpinc" target="_blank" rel="noopener noreferrer"><div><img src="https://v1.herp.cloud/resources/company_logos/C-464R6"></div></a></span>
   <span class="txt">
@@ -409,7 +410,7 @@ must include a wild card pattern in order to be exhaustive.
 <div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">hd</span> <span class="o">=</span> <span class="k">function</span>
   <span class="o">|</span> <span class="nc">Some</span><span class="p">(</span><span class="n">hd</span>  <span class="o">::</span> <span class="n">_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hd</span>
   <span class="c">(* いつもなら _ -&gt; failwith ... と書くが明示 *)</span>
-    <span class="o">|</span> <span class="nc">Some</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">|</span> <span class="nc">None</span> <span class="o">-&gt;</span> <span class="n">failwith</span> <span class="s2">"hoge"</span>
+  <span class="o">|</span> <span class="nc">Some</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">|</span> <span class="nc">None</span> <span class="o">-&gt;</span> <span class="n">failwith</span> <span class="s2">"hoge"</span>
 </code></pre></div>
 <p>のように <code>Some(_)</code> の中のリストをさらに分解しています｡
 TypeScript で深いパターンマッチングは……未来に期待しましょう｡</p>

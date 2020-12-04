@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 05 Dec 2020 00:55:48 +0900</pubDate>
-    <lastBuildDate>Sat, 05 Dec 2020 00:55:48 +0900</lastBuildDate>
+    <pubDate>Sat, 05 Dec 2020 00:57:37 +0900</pubDate>
+    <lastBuildDate>Sat, 05 Dec 2020 00:57:37 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
     
       <item>
@@ -246,7 +246,8 @@ must include a wild card pattern in order to be exhaustive.
 キツいですが面白い議論ができました｡
 突然 CM なんですが､こういった面白い議論ができる TypeScript を用いて株式会社 HERP でなんかいろいろやっています｡
 面白いね!🤬 とかゴミ!🤡 みたいな議論やその他プログラム言語に関する面白い話をしつつ TypeScript の罠を回避したり向き合いたい方はぜひいらしてください｡
-ちなみに弊社新サービスなどの実装言語には &lt;em&gt;Haskell が採用されがちです&lt;/em&gt;｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+ちなみに弊社新サービスなどの実装言語には &lt;em&gt;Haskell が採用されがちです&lt;/em&gt;｡
+この記事の大半は労働時間中に書かれました｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
   &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://herp.careers/v1/herpinc&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://v1.herp.cloud/resources/company_logos/C-464R6&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
   &lt;span class=&quot;txt&quot;&gt;
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://herp.careers/v1/herpinc&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;株式会社HERP 求人一覧&lt;/a&gt;&lt;/div&gt;
@@ -256,7 +257,7 @@ must include a wild card pattern in order to be exhaustive.
 例えば OCaml では深いパターンマッチングができるので&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;
   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hd&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hd&lt;/span&gt;
   &lt;span class=&quot;c&quot;&gt;(* いつもなら _ -&amp;gt; failwith ... と書くが明示 *)&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failwith&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hoge&quot;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failwith&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hoge&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;のように &lt;code&gt;Some(_)&lt;/code&gt; の中のリストをさらに分解しています｡
 TypeScript で深いパターンマッチングは……未来に期待しましょう｡&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
 &lt;hr&gt;
