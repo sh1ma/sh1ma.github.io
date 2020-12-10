@@ -5,12 +5,12 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 10 Dec 2020 22:10:53 +0900</pubDate>
-    <lastBuildDate>Thu, 10 Dec 2020 22:10:53 +0900</lastBuildDate>
+    <pubDate>Thu, 10 Dec 2020 22:14:12 +0900</pubDate>
+    <lastBuildDate>Thu, 10 Dec 2020 22:14:12 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
     
       <item>
-        <title>日刊Coroutines(0) ｢コルーチン｣とは何だったのか?</title>
+        <title>日刊Coroutines(0) コルーチンのおさらいと近年の動向(若干)</title>
         <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
         <description>&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;こんにちは､びしょ～じょです｡
 コルーチンの話したい発作が出たんで､やらせてください｡&lt;/p&gt;&lt;h1 id=&quot;2.+%E3%81%8A%E3%81%95%E3%82%89%E3%81%84&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+%E3%81%8A%E3%81%95%E3%82%89%E3%81%84&quot;&gt;2. おさらい&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;さて､お手元の『n月刊ラムダノートVo.1, No.1』を参照いただきたいんですが､&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
