@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>日刊Coroutines(0) ｢コルーチン｣とは何だったのか? - lilyum ensemble</title>
+    <meta itemprop="name" content="日刊Coroutines(0) ｢コルーチン｣とは何だったのか? - lilyum ensemble"/>
+    <meta name="keywords" content="日刊Coroutines"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="日刊Coroutines(0) ｢コルーチン｣とは何だったのか? - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2020/12/10/nikkan-coroutines-0.html"/> 
+    <meta name="twitter:text:description" content="1. はじめにこんにちは､びしょ～じょです｡コルーチンの話したい発作が出たんで､やらせてください｡2. おさらいさて､お手元の『n月刊ラムダノートVo.1, No.1』を参照いただきたいんですが..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="日刊Coroutines(0) ｢コルーチン｣とは何だったのか?" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="1. はじめに こんにちは､びしょ～じょです｡ コルーチンの話したい発作が出たんで､やらせてください｡" />
+<meta property="og:description" content="1. はじめに こんにちは､びしょ～じょです｡ コルーチンの話したい発作が出たんで､やらせてください｡" />
+<link rel="canonical" href="https://nymphium.github.io/2020/12/10/nikkan-coroutines-0.html" />
+<meta property="og:url" content="https://nymphium.github.io/2020/12/10/nikkan-coroutines-0.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-10T00:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="日刊Coroutines(0) ｢コルーチン｣とは何だったのか?" />
+<script type="application/ld+json">
+{"datePublished":"2020-12-10T00:00:00+09:00","description":"1. はじめに こんにちは､びしょ～じょです｡ コルーチンの話したい発作が出たんで､やらせてください｡","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2020/12/10/nikkan-coroutines-0.html"},"url":"https://nymphium.github.io/2020/12/10/nikkan-coroutines-0.html","@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"headline":"日刊Coroutines(0) ｢コルーチン｣とは何だったのか?","dateModified":"2020-12-10T00:00:00+09:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">日刊Coroutines(0) ｢コルーチン｣とは何だったのか?</h1>
+            <span class="post-meta">
+              <time datetime="2020-12-10T00:00:00+09:00" itemprop="datePublished">Dec 10, 2020</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2020-12-10-nikkan-coroutines-0.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#%E6%97%A5%E5%88%8ACoroutines-ref">日刊Coroutines</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
+<p>こんにちは､びしょ～じょです｡
+コルーチンの話したい発作が出たんで､やらせてください｡</p>
+<h1 id="2.+%E3%81%8A%E3%81%95%E3%82%89%E3%81%84"><a class="headerlink" href="#2.+%E3%81%8A%E3%81%95%E3%82%89%E3%81%84">2. おさらい</a></h1>
+<p>さて､お手元の『n月刊ラムダノートVo.1, No.1』を参照いただきたいんですが､</p>
+<div class="twicard">
+  <span class="image"><a href="https://www.lambdanote.com/collections/n/products/nmonthly-vol-1-no-1-2019" target="_blank" rel="noopener noreferrer"><div><img src="http://cdn.shopify.com/s/files/1/1634/7169/products/NML-book-sample-0_1024x1024.png?v=1552982889"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://www.lambdanote.com/collections/n/products/nmonthly-vol-1-no-1-2019" target="_blank" rel="noopener noreferrer">n月刊ラムダノート Vol.1, No.1(2019)</a></div>
+    <div class="description">計算機好きのための技術解説情報誌 エヌゲッカンラムダノート（不定期刊行） 80ページ A5判 紙書籍は1色刷 2019年3月14日 第1巻第1号／通巻1号 発行 目次 #1 TCPの再送制御機構（西田佳史） #2 「 コルーチン」とは何だったのか？（遠藤侑介）#3 MLOps の歩き方（有賀康顕）</div>
+  </span>
+</div>
+<p>ない人もいらっしゃるんでかいつまんで説明します｡
+最初のコルーチンは1963年にConwayらによってもたらされました｡
+コンウェイの法則のコンウェイですね｡
+どうやらCOBOLの構文解析に使うためにもたらされたようです｡
+そしてこのコルーチンは後述のように対称コルーチンで､コルーチンが提唱される論文の数年後に登場する構造化プログラミングと相性が悪いです｡
+ちょうど時代の裂け目で面白いですね｡</p>
+<p>構造化プログラミングにおいては対称コルーチンが扱いづらいため､非対称コルーチンというものが出てきます｡
+昔は"コルーチン"といったら対称コルーチンのことを指していましたが､対称性によって対称コルーチン､非対称コルーチンという分類がおこなわれるようになりました｡
+そして今日日非構造化プログラミングはなかなか使われないため対称コルーチンも活躍の機会を失ったため､"コルーチン"といえば現代では非対称コルーチンが真っ先に思い浮かばれます｡</p>
+<h1 id="3.+%E5%AF%BE%E7%A7%B0%E6%80%A7%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E"><a class="headerlink" href="#3.+%E5%AF%BE%E7%A7%B0%E6%80%A7%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E">3. 対称性による分類</a></h1>
+<p>ではこの対称性による分類とはなんでしょうか?
+それは､コルーチンスレッドに親子関係がない､つまり caller-callee のような非対称な関係がない(かどうか)です｡</p>
+<p>対称コルーチンは､コルーチン間の移動は慣習的に<code>transfer</code>という名前の操作1つしか提供されません｡
+これは､あるコルーチンスレッドから別のコルーチンに制御を移すという操作です｡
+一度制御を移したら戻ってくるという操作は与えられておらず､戻ってきたければまた元いたコルーチンに<code>transfer</code>で制御を移す､という運用です｡
+コルーチン間の関係は対称的ですね｡</p>
+<p>一方非対称コルーチンには､<code>resume</code>､<code>yield</code>という2つの操作があります｡
+これはもはや皆さんも見慣れてますね｡
+<em>親</em>コルーチンスレッド(あるいはコルーチンではなくメインスレッドなど)は<code>resume</code>で<em>子</em>スレッドに制御を一旦移します｡
+そしてその子スレッドは<code>yield</code>で実行を中断し､親スレッドに制御を<em>戻し</em>ます｡
+たしかに､非対称な関係でやっていってますね｡</p>
+<h1 id="4.+stackfulness+%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E"><a class="headerlink" href="#4.+stackfulness+%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E">4. stackfulness による分類</a></h1>
+<p>ところで皆さんはいろんなコルーチンに触ってきたと思うんですけど､JavaScriptだと<code>yield</code>できるのは<code>function*</code>内だけなのにLuaでは色んな所で<code>coroutine.yield</code>が使えることに気づいたでしょうか｡
+これはコールスタックをまたげるかどうかという違いがあるなとわかるわけですが､(中略)こちらをご覧ください｡</p>
+<div class="twicard">
+  <span class="image"><a href="https://nymphium.github.io/2019/01/27/stackfulness-of-coroutines.html" target="_blank" rel="noopener noreferrer"><div><img src="https://nymphium.github.io/pictures/github_icon.png"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://nymphium.github.io/2019/01/27/stackfulness-of-coroutines.html" target="_blank" rel="noopener noreferrer">stackfulness of coroutines - lilyum ensemble</a></div>
+    <div class="description">こんにちは､びしょ〜じょです｡気づいたら1月も終わりますね｡お前も俺も､もう終わりだ｡1. はじめに研究ではコルーチンを使っている｡ここでひとつコルーチンについてまとめておきたい｡特にstack…</div>
+  </span>
+</div>
+<h1 id="5.+%E3%81%9D%E3%81%AE%E4%BB%96"><a class="headerlink" href="#5.+%E3%81%9D%E3%81%AE%E4%BB%96">5. その他</a></h1>
+<p>対称性に関する分類はLuaの作者であるIerusalimschyらによる<sup id="fnref1" title="Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. "><a href="#fn1">1</a></sup>に拠る｡</p>
+<p>最近の研究としては､コルーチンにスナップショット機能をつけるというものがある<sup id="fnref2" title="Prokopec, Aleksandar, and Fengyun Liu. “Theory and Practice of Coroutines with Snapshots.” European Conference on Object-Oriented Programming (ECOOP) 109. (2018): 3. "><a href="#fn2">2</a></sup>｡
+かんたんに述べると､コルーチンを<code>resume</code>すると<em>ある状態にある</em>コルーチンが実行されるわけですが､この<em>ある状態</em>をコピーする機能である｡
+分かってる人にとっては､つまるところmulti-shot continuationということ｡</p>
+<p>また､<code>yield</code>オペレータ自体に着目した研究もある<sup id="fnref3" title="James, Roshan P., and Amr Saby. “Yield: Mainstream Delimited Continuations.” The Workshop on the Theory and Practice of Delimited Continuations (TDPC) 2011. "><a href="#fn3">3</a></sup>｡</p>
+<h1 id="6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">6. おわりに</a></h1>
+<p>さーて予習したし明日<sup id="fnref4" title="明日はこの記事の公開日の翌日､とは限らない｡ "><a href="#fn4">4</a></sup>にでも<sup id="fnref1" title="Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. "><a href="#fn1">1</a></sup>で定式化されているコルーチンをもつ小さな計算体系のインタプリタでも実装してみようかな｡</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. <a href="#fnref1">↩</a></p>
+</li>
+
+<li id="fn2">
+<p>Prokopec, Aleksandar, and Fengyun Liu. “Theory and Practice of Coroutines with Snapshots.” European Conference on Object-Oriented Programming (ECOOP) 109. (2018): 3. <a href="#fnref2">↩</a></p>
+</li>
+
+<li id="fn3">
+<p>James, Roshan P., and Amr Saby. “Yield: Mainstream Delimited Continuations.” The Workshop on the Theory and Practice of Delimited Continuations (TDPC) 2011. <a href="#fnref3">↩</a></p>
+</li>
+
+<li id="fn4">
+<p>明日はこの記事の公開日の翌日､とは限らない｡ <a href="#fnref4">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2020/12/03/%E8%B2%A7%E8%80%85%E3%81%AE-Algebraic-Data-Types-%E3%81%A8(%E6%B5%85%E3%81%84)%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A.html" title="貧者の Algebraic Data Types と(浅い)網羅性判定">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <span class="btn next disabled">Next →</span>
+      </div>
+    </footer>
+
+  </body>
+</html>

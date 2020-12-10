@@ -5,9 +5,74 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 05 Dec 2020 01:10:24 +0900</pubDate>
-    <lastBuildDate>Sat, 05 Dec 2020 01:10:24 +0900</lastBuildDate>
+    <pubDate>Thu, 10 Dec 2020 22:10:01 +0900</pubDate>
+    <lastBuildDate>Thu, 10 Dec 2020 22:10:01 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
+    
+      <item>
+        <title>日刊Coroutines(0) ｢コルーチン｣とは何だったのか?</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <description>&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;こんにちは､びしょ～じょです｡
+コルーチンの話したい発作が出たんで､やらせてください｡&lt;/p&gt;&lt;h1 id=&quot;2.+%E3%81%8A%E3%81%95%E3%82%89%E3%81%84&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+%E3%81%8A%E3%81%95%E3%82%89%E3%81%84&quot;&gt;2. おさらい&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;さて､お手元の『n月刊ラムダノートVo.1, No.1』を参照いただきたいんですが､&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://www.lambdanote.com/collections/n/products/nmonthly-vol-1-no-1-2019&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;http://cdn.shopify.com/s/files/1/1634/7169/products/NML-book-sample-0_1024x1024.png?v=1552982889&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://www.lambdanote.com/collections/n/products/nmonthly-vol-1-no-1-2019&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;n月刊ラムダノート Vol.1, No.1(2019)&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;計算機好きのための技術解説情報誌 エヌゲッカンラムダノート（不定期刊行） 80ページ A5判 紙書籍は1色刷 2019年3月14日 第1巻第1号／通巻1号 発行 目次 #1 TCPの再送制御機構（西田佳史） #2 「 コルーチン」とは何だったのか？（遠藤侑介）#3 MLOps の歩き方（有賀康顕）&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;p&gt;ない人もいらっしゃるんでかいつまんで説明します｡
+最初のコルーチンは1963年にConwayらによってもたらされました｡
+コンウェイの法則のコンウェイですね｡
+どうやらCOBOLの構文解析に使うためにもたらされたようです｡
+そしてこのコルーチンは後述のように対称コルーチンで､コルーチンが提唱される論文の数年後に登場する構造化プログラミングと相性が悪いです｡
+ちょうど時代の裂け目で面白いですね｡&lt;/p&gt;&lt;p&gt;構造化プログラミングにおいては対称コルーチンが扱いづらいため､非対称コルーチンというものが出てきます｡
+昔は&quot;コルーチン&quot;といったら対称コルーチンのことを指していましたが､対称性によって対称コルーチン､非対称コルーチンという分類がおこなわれるようになりました｡
+そして今日日非構造化プログラミングはなかなか使われないため対称コルーチンも活躍の機会を失ったため､&quot;コルーチン&quot;といえば現代では非対称コルーチンが真っ先に思い浮かばれます｡&lt;/p&gt;&lt;h1 id=&quot;3.+%E5%AF%BE%E7%A7%B0%E6%80%A7%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+%E5%AF%BE%E7%A7%B0%E6%80%A7%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;3. 対称性による分類&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ではこの対称性による分類とはなんでしょうか?
+それは､コルーチンスレッドに親子関係がない､つまり caller-callee のような非対称な関係がない(かどうか)です｡&lt;/p&gt;&lt;p&gt;対称コルーチンは､コルーチン間の移動は慣習的に&lt;code&gt;transfer&lt;/code&gt;という名前の操作1つしか提供されません｡
+これは､あるコルーチンスレッドから別のコルーチンに制御を移すという操作です｡
+一度制御を移したら戻ってくるという操作は与えられておらず､戻ってきたければまた元いたコルーチンに&lt;code&gt;transfer&lt;/code&gt;で制御を移す､という運用です｡
+コルーチン間の関係は対称的ですね｡&lt;/p&gt;&lt;p&gt;一方非対称コルーチンには､&lt;code&gt;resume&lt;/code&gt;､&lt;code&gt;yield&lt;/code&gt;という2つの操作があります｡
+これはもはや皆さんも見慣れてますね｡
+&lt;em&gt;親&lt;/em&gt;コルーチンスレッド(あるいはコルーチンではなくメインスレッドなど)は&lt;code&gt;resume&lt;/code&gt;で&lt;em&gt;子&lt;/em&gt;スレッドに制御を一旦移します｡
+そしてその子スレッドは&lt;code&gt;yield&lt;/code&gt;で実行を中断し､親スレッドに制御を&lt;em&gt;戻し&lt;/em&gt;ます｡
+たしかに､非対称な関係でやっていってますね｡&lt;/p&gt;&lt;h1 id=&quot;4.+stackfulness+%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+stackfulness+%E3%81%AB%E3%82%88%E3%82%8B%E5%88%86%E9%A1%9E&quot;&gt;4. stackfulness による分類&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ところで皆さんはいろんなコルーチンに触ってきたと思うんですけど､JavaScriptだと&lt;code&gt;yield&lt;/code&gt;できるのは&lt;code&gt;function*&lt;/code&gt;内だけなのにLuaでは色んな所で&lt;code&gt;coroutine.yield&lt;/code&gt;が使えることに気づいたでしょうか｡
+これはコールスタックをまたげるかどうかという違いがあるなとわかるわけですが､(中略)こちらをご覧ください｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2019/01/27/stackfulness-of-coroutines.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://nymphium.github.io/pictures/github_icon.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2019/01/27/stackfulness-of-coroutines.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;stackfulness of coroutines - lilyum ensemble&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;こんにちは､びしょ〜じょです｡気づいたら1月も終わりますね｡お前も俺も､もう終わりだ｡1. はじめに研究ではコルーチンを使っている｡ここでひとつコルーチンについてまとめておきたい｡特にstack…&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;h1 id=&quot;5.+%E3%81%9D%E3%81%AE%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E3%81%9D%E3%81%AE%E4%BB%96&quot;&gt;5. その他&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;対称性に関する分類はLuaの作者であるIerusalimschyらによる&lt;sup id=&quot;fnref1&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot;&gt;&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;に拠る｡&lt;/p&gt;&lt;p&gt;最近の研究としては､コルーチンにスナップショット機能をつけるというものがある&lt;sup id=&quot;fnref2&quot; title=&quot;Prokopec, Aleksandar, and Fengyun Liu. “Theory and Practice of Coroutines with Snapshots.” European Conference on Object-Oriented Programming (ECOOP) 109. (2018): 3. &quot;&gt;&lt;a href=&quot;#fn2&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;｡
+かんたんに述べると､コルーチンを&lt;code&gt;resume&lt;/code&gt;すると&lt;em&gt;ある状態にある&lt;/em&gt;コルーチンが実行されるわけですが､この&lt;em&gt;ある状態&lt;/em&gt;をコピーする機能である｡
+分かってる人にとっては､つまるところmulti-shot continuationということ｡&lt;/p&gt;&lt;p&gt;また､&lt;code&gt;yield&lt;/code&gt;オペレータ自体に着目した研究もある&lt;sup id=&quot;fnref3&quot; title=&quot;James, Roshan P., and Amr Saby. “Yield: Mainstream Delimited Continuations.” The Workshop on the Theory and Practice of Delimited Continuations (TDPC) 2011. &quot;&gt;&lt;a href=&quot;#fn3&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;｡&lt;/p&gt;&lt;h1 id=&quot;6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;6. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;さーて予習したし明日&lt;sup id=&quot;fnref4&quot; title=&quot;明日はこの記事の公開日の翌日､とは限らない｡ &quot;&gt;&lt;a href=&quot;#fn4&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;にでも&lt;sup id=&quot;fnref1&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot;&gt;&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;で定式化されているコルーチンをもつ小さな計算体系のインタプリタでも実装してみようかな｡&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &lt;a href=&quot;#fnref1&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn2&quot;&gt;
+&lt;p&gt;Prokopec, Aleksandar, and Fengyun Liu. “Theory and Practice of Coroutines with Snapshots.” European Conference on Object-Oriented Programming (ECOOP) 109. (2018): 3. &lt;a href=&quot;#fnref2&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn3&quot;&gt;
+&lt;p&gt;James, Roshan P., and Amr Saby. “Yield: Mainstream Delimited Continuations.” The Workshop on the Theory and Practice of Delimited Continuations (TDPC) 2011. &lt;a href=&quot;#fnref3&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn4&quot;&gt;
+&lt;p&gt;明日はこの記事の公開日の翌日､とは限らない｡ &lt;a href=&quot;#fnref4&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Thu, 10 Dec 2020 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2020/12/10/nikkan-coroutines-0.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2020/12/10/nikkan-coroutines-0.html</guid>
+        
+        <category>日刊Coroutines</category>
+        
+        
+      </item>
     
       <item>
         <title>貧者の Algebraic Data Types と(浅い)網羅性判定</title>
@@ -1401,23 +1466,6 @@ shallow effect handlerにおいてvalue handlerが介入するタイミングは
         <category>Delimited Continuation</category>
         
         <category>Racket</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>『エフェクトに部分型のある代数的効果』</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
-これは&lt;a href=&quot;https://qiita.com/advent-calendar/2019/type&quot;&gt;型Advent Calendar 2019&lt;/a&gt;の9日目の記事の記事です｡
-空いてるので9日目にタイムスリップして&lt;a href=&quot;https://nymphium.github.io/2019/12/09/ae-poly.html&quot;&gt;前日&lt;/a&gt;に続いて記事を突っ込みました｡&lt;/p&gt;&lt;p&gt;実際の記事はこちら: &lt;a href=&quot;/src/2019/12/22/effsub/main.pdf&quot;&gt;エフェクトに部分型のある代数的効果(pdf)&lt;/a&gt;&lt;/p&gt;&lt;p&gt;実装が先立ってたものを適当に定式化しました｡&lt;/p&gt;</description>
-        <pubDate>Sun, 22 Dec 2019 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2019/12/22/effsub.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2019/12/22/effsub.html</guid>
-        
-        <category>型</category>
-        
-        <category>Advent Calendar</category>
         
         
       </item>
