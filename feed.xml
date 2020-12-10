@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 10 Dec 2020 22:10:01 +0900</pubDate>
-    <lastBuildDate>Thu, 10 Dec 2020 22:10:01 +0900</lastBuildDate>
+    <pubDate>Thu, 10 Dec 2020 22:10:53 +0900</pubDate>
+    <lastBuildDate>Thu, 10 Dec 2020 22:10:53 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
     
       <item>
@@ -41,7 +41,7 @@
     &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/2019/01/27/stackfulness-of-coroutines.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;stackfulness of coroutines - lilyum ensemble&lt;/a&gt;&lt;/div&gt;
     &lt;div class=&quot;description&quot;&gt;こんにちは､びしょ〜じょです｡気づいたら1月も終わりますね｡お前も俺も､もう終わりだ｡1. はじめに研究ではコルーチンを使っている｡ここでひとつコルーチンについてまとめておきたい｡特にstack…&lt;/div&gt;
   &lt;/span&gt;
-&lt;/div&gt;&lt;h1 id=&quot;5.+%E3%81%9D%E3%81%AE%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E3%81%9D%E3%81%AE%E4%BB%96&quot;&gt;5. その他&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;対称性に関する分類はLuaの作者であるIerusalimschyらによる&lt;sup id=&quot;fnref1&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot;&gt;&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;に拠る｡&lt;/p&gt;&lt;p&gt;最近の研究としては､コルーチンにスナップショット機能をつけるというものがある&lt;sup id=&quot;fnref2&quot; title=&quot;Prokopec, Aleksandar, and Fengyun Liu. “Theory and Practice of Coroutines with Snapshots.” European Conference on Object-Oriented Programming (ECOOP) 109. (2018): 3. &quot;&gt;&lt;a href=&quot;#fn2&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;｡
+&lt;/div&gt;&lt;h1 id=&quot;5.+%E3%81%9D%E3%81%AE%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E3%81%9D%E3%81%AE%E4%BB%96&quot;&gt;5. その他&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;対称性に関する分類はLuaの作者であるde Mouraらによる&lt;sup id=&quot;fnref1&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot;&gt;&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;に拠る｡&lt;/p&gt;&lt;p&gt;最近の研究としては､コルーチンにスナップショット機能をつけるというものがある&lt;sup id=&quot;fnref2&quot; title=&quot;Prokopec, Aleksandar, and Fengyun Liu. “Theory and Practice of Coroutines with Snapshots.” European Conference on Object-Oriented Programming (ECOOP) 109. (2018): 3. &quot;&gt;&lt;a href=&quot;#fn2&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;｡
 かんたんに述べると､コルーチンを&lt;code&gt;resume&lt;/code&gt;すると&lt;em&gt;ある状態にある&lt;/em&gt;コルーチンが実行されるわけですが､この&lt;em&gt;ある状態&lt;/em&gt;をコピーする機能である｡
 分かってる人にとっては､つまるところmulti-shot continuationということ｡&lt;/p&gt;&lt;p&gt;また､&lt;code&gt;yield&lt;/code&gt;オペレータ自体に着目した研究もある&lt;sup id=&quot;fnref3&quot; title=&quot;James, Roshan P., and Amr Saby. “Yield: Mainstream Delimited Continuations.” The Workshop on the Theory and Practice of Delimited Continuations (TDPC) 2011. &quot;&gt;&lt;a href=&quot;#fn3&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;｡&lt;/p&gt;&lt;h1 id=&quot;6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#6.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;6. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;さーて予習したし明日&lt;sup id=&quot;fnref4&quot; title=&quot;明日はこの記事の公開日の翌日､とは限らない｡ &quot;&gt;&lt;a href=&quot;#fn4&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;にでも&lt;sup id=&quot;fnref1&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot;&gt;&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;で定式化されているコルーチンをもつ小さな計算体系のインタプリタでも実装してみようかな｡&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
 &lt;hr&gt;
