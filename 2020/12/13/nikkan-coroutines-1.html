@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>日刊Coroutines(1) 初回は嬉しいASTの定義付き - lilyum ensemble</title>
+    <meta itemprop="name" content="日刊Coroutines(1) 初回は嬉しいASTの定義付き - lilyum ensemble"/>
+    <meta name="keywords" content="日刊Coroutines,coroutines"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="日刊Coroutines(1) 初回は嬉しいASTの定義付き - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2020/12/13/nikkan-coroutines-1.html"/> 
+    <meta name="twitter:text:description" content="はじめにこんにちは､びしょ～じょです｡さて前回発作が出ちゃってコルーチンの話したんですが､発作に次ぐ発作でコルーチンを持つ体系を考えて実装していきます｡コンセプト今回はコルーチン以外興味ないね(..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="日刊Coroutines(1) 初回は嬉しいASTの定義付き" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="lily, Aikatsu, Programming language, and more" />
+<meta property="og:description" content="lily, Aikatsu, Programming language, and more" />
+<link rel="canonical" href="https://nymphium.github.io/2020/12/13/nikkan-coroutines-1.html" />
+<meta property="og:url" content="https://nymphium.github.io/2020/12/13/nikkan-coroutines-1.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-13T00:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="日刊Coroutines(1) 初回は嬉しいASTの定義付き" />
+<script type="application/ld+json">
+{"datePublished":"2020-12-13T00:00:00+09:00","description":"lily, Aikatsu, Programming language, and more","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2020/12/13/nikkan-coroutines-1.html"},"url":"https://nymphium.github.io/2020/12/13/nikkan-coroutines-1.html","@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"headline":"日刊Coroutines(1) 初回は嬉しいASTの定義付き","dateModified":"2020-12-13T00:00:00+09:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">日刊Coroutines(1) 初回は嬉しいASTの定義付き</h1>
+            <span class="post-meta">
+              <time datetime="2020-12-13T00:00:00+09:00" itemprop="datePublished">Dec 13, 2020</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2020-12-13-nikkan-coroutines-1.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#%E6%97%A5%E5%88%8ACoroutines-ref">日刊Coroutines</a></span><span></span> <span class="tag"><a href="/tags.html#coroutines-ref">coroutines</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">はじめに</a></h1>
+<p>こんにちは､びしょ～じょです｡
+さて前回発作が出ちゃってコルーチンの話したんですが､発作に次ぐ発作でコルーチンを持つ体系を考えて実装していきます｡</p>
+<h1 id="%E3%82%B3%E3%83%B3%E3%82%BB%E3%83%97%E3%83%88"><a class="headerlink" href="#%E3%82%B3%E3%83%B3%E3%82%BB%E3%83%97%E3%83%88">コンセプト</a></h1>
+<p>今回はコルーチン以外興味ないね(クラウド)なので作りなれたラムダ計算にコルーチンの操作を乗せるだけでいきます｡
+具体的には修論<span class="cite">[<a href="#fn1" title="河原悟 『コルーチンを用いた代数的効果の新しい実装方法の提案』 (令和元年度 筑波大学大学院 博士課程 システム情報工学研究科 修士論文) " id="fnref1">1</a>]</span>
+で定義した\(\lambda_{\mathit{ac}}\)からコルーチン的な本質だけ抜き出したサブセットを作りましょう｡
+今更修論の話するの結構こじらせてる感なくもないですが､コルーチンを持つ体系で扱いやすいものがあんまりないので許してほしい｡</p>
+<h1 id="%E6%A7%8B%E6%96%87"><a class="headerlink" href="#%E6%A7%8B%E6%96%87">構文</a></h1>
+<p>ある言語を論じるための皆さんと私の共通の道具として､なにはともあれ構文を用意します｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(**
+ *  n ∈ Numbers
+ *  x ∈ Variables
+ *  t ::=
+ *      | n | x
+ *      | let x = t in t
+ *      | fun x -&gt; t | t t
+ *      | create t | resume t t | yield t
+ *      | t b t
+ *  b ::= + | - | ...
+ *)</span>
+
+<span class="k">type</span> <span class="n">t</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="nc">Int</span> <span class="k">of</span> <span class="kt">int</span>
+  <span class="o">|</span> <span class="nc">Var</span> <span class="k">of</span> <span class="kt">string</span>
+  <span class="o">|</span> <span class="nc">Let</span> <span class="k">of</span> <span class="kt">string</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="nc">Fun</span> <span class="k">of</span> <span class="kt">string</span> <span class="o">*</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="nc">App</span> <span class="k">of</span> <span class="n">t</span> <span class="o">*</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="nc">PrimOp</span> <span class="k">of</span> <span class="kt">string</span> <span class="c">(* t1 + t2 === App(PrimOp("+"), t1, t2) *)</span>
+  <span class="o">|</span> <span class="nc">Create</span> <span class="k">of</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="nc">Resume</span> <span class="k">of</span> <span class="n">t</span> <span class="o">*</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="nc">Yield</span> <span class="k">of</span> <span class="n">t</span>
+</code></pre></div>
+<p>順当～ですね｡
+<code>create</code> には関数を渡すのを想定しています｡
+ついでに数値を出すと人は論理的だと感じるので､整数と演算ができそうな primitive を適当に突っ込める機構を追加しました｡</p>
+<h1 id="AST+builder"><a class="headerlink" href="#AST+builder">AST builder</a></h1>
+<p>ocamlyacc も menhir も 書きたくね～～!! ということで eDSL として書くためのビルディングァーを用意します｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">module</span> <span class="nc">Builder</span> <span class="o">=</span> <span class="k">struct</span>
+  <span class="k">open</span> <span class="k">struct</span>
+    <span class="k">let</span> <span class="n">gensym</span> <span class="o">=</span>
+      <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">ref</span> <span class="mi">0</span> <span class="k">in</span>
+      <span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">incr</span> <span class="n">x</span> <span class="k">in</span>
+        <span class="nn">Printf</span><span class="p">.</span><span class="n">sprintf</span> <span class="s2">"x%d"</span> <span class="o">!</span><span class="n">x</span>
+    <span class="p">;;</span>
+  <span class="k">end</span>
+
+  <span class="k">let</span> <span class="kt">int</span> <span class="n">v</span> <span class="o">=</span> <span class="nc">Int</span> <span class="n">v</span>
+  <span class="k">let</span> <span class="n">var</span> <span class="n">x</span> <span class="o">=</span> <span class="nc">Var</span> <span class="n">x</span>
+
+  <span class="k">let</span> <span class="n">fn</span> <span class="n">f</span> <span class="o">:</span> <span class="n">t</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">var</span> <span class="o">@@</span> <span class="n">gensym</span> <span class="bp">()</span> <span class="k">in</span>
+    <span class="n">f</span> <span class="n">x</span>
+  <span class="p">;;</span>
+
+  <span class="k">let</span> <span class="p">(</span> <span class="k">let</span><span class="o">@</span> <span class="p">)</span> <span class="n">v</span> <span class="n">k</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">gensym</span> <span class="bp">()</span> <span class="k">in</span>
+    <span class="nc">Let</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">v</span><span class="o">,</span> <span class="n">k</span> <span class="o">@@</span> <span class="n">var</span> <span class="n">x</span><span class="p">)</span>
+  <span class="p">;;</span>
+
+  <span class="k">let</span> <span class="p">(</span> <span class="o">@</span> <span class="p">)</span> <span class="n">f</span> <span class="n">a</span> <span class="o">=</span> <span class="nc">App</span> <span class="p">(</span><span class="n">f</span><span class="o">,</span> <span class="n">a</span><span class="p">)</span>
+  <span class="k">let</span> <span class="n">prim</span> <span class="n">s</span> <span class="o">=</span> <span class="nc">PrimOp</span> <span class="n">s</span>
+  <span class="k">let</span> <span class="n">create</span> <span class="n">f</span> <span class="o">=</span> <span class="nc">Create</span> <span class="n">f</span>
+  <span class="k">let</span> <span class="n">resume</span> <span class="n">co</span> <span class="n">a</span> <span class="o">=</span> <span class="nc">Resume</span> <span class="p">(</span><span class="n">co</span><span class="o">,</span> <span class="n">a</span><span class="p">)</span>
+  <span class="k">let</span> <span class="n">yield</span> <span class="n">v</span> <span class="o">=</span> <span class="nc">Yield</span> <span class="n">v</span>
+<span class="k">end</span>
+</code></pre></div>
+<p><code>open struct</code> で <code>Builder</code> に signature を書かなくても<code>gensym</code>を外から参照できなくしてます｡
+これについてはML Advent Calendarの小ネタ枠として書こうかなと思いますが､<span class="cite">[<a href="#fn2" title="Li, Runhang, and Jeremy Yallop. Extending OCaml’s ‘open’.“ " id="fnref2">2</a>]</span>
+を読んでいただければ多分私の駄文をまたなくてよくなります｡
+HOASで書けばイージャンみたいなところもありますが､説明すんのもダルいんでナイーブにやっていきます｡</p>
+<p>ほいでこんな具合に</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">program</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">open</span> <span class="nc">Builder</span> <span class="k">in</span>
+  <span class="k">let</span><span class="o">@</span> <span class="n">x</span> <span class="o">=</span> <span class="kt">int</span> <span class="mi">3</span> <span class="k">in</span>
+  <span class="k">let</span><span class="o">@</span> <span class="n">y</span> <span class="o">=</span> <span class="kt">int</span> <span class="mi">5</span> <span class="k">in</span>
+  <span class="k">let</span><span class="o">@</span> <span class="n">co</span> <span class="o">=</span> <span class="n">create</span> <span class="o">@@</span> <span class="n">fn</span> <span class="o">@@</span> <span class="k">fun</span> <span class="n">x'</span> <span class="o">-&gt;</span>
+    <span class="k">let</span><span class="o">@</span> <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">prim</span> <span class="s2">"+"</span> <span class="o">@</span> <span class="n">x</span><span class="p">)</span> <span class="o">@</span> <span class="n">y</span> <span class="k">in</span>
+    <span class="k">let</span><span class="o">@</span> <span class="n">r</span> <span class="o">=</span> <span class="n">yield</span> <span class="n">z</span> <span class="k">in</span>
+    <span class="n">z</span>
+  <span class="k">in</span>
+  <span class="k">let</span><span class="o">@</span> <span class="n">r</span>  <span class="o">=</span> <span class="n">resume</span> <span class="n">co</span> <span class="o">@@</span> <span class="kt">int</span> <span class="mi">2</span> <span class="k">in</span>
+  <span class="k">let</span><span class="o">@</span> <span class="n">r'</span> <span class="o">=</span> <span class="n">resume</span> <span class="n">co</span> <span class="o">@@</span> <span class="kt">int</span> <span class="mi">4</span> <span class="k">in</span>
+  <span class="n">r'</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">print_endline</span> <span class="o">@@</span> <span class="n">show</span> <span class="n">program</span><span class="p">;;</span>
+<span class="c">(** 
+ * (Let ("x1", (Int 3),
+ *    (Let ("x2", (Int 5),
+ *        (Let ("x6",
+ *           (Create
+ *             (Let ("x4", (App ((App ((PrimOp "+"), (Var "x1"))), (Var "x2"))),
+ *                (Let ("x5", (Yield (Var "x4")), (Var "x4")))))),
+ *           (Let ("x7", (Resume ((Var "x6"), (Int 2))),
+ *             (Let ("x8", (Resume ((Var "x6"), (Int 4))), (Var "x8")))))
+ *          ))
+ *        ))
+ *     ))
+ *)</span>
+</code></pre></div>
+<p>ええ感じや｡</p>
+<h1 id="%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">おわりに</a></h1>
+<p>焦らない焦らない一休み一休みということで本日はここまで｡</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p><a href="http://logic.cs.tsukuba.ac.jp/%7Esat/pdf/master_thesis.pdf" target="_blank" rel="noopener noreferrer">河原悟 『コルーチンを用いた代数的効果の新しい実装方法の提案』 (令和元年度 筑波大学大学院 博士課程 システム情報工学研究科 修士論文)</a> <a href="#fnref1">↩</a></p>
+</li>
+
+<li id="fn2">
+<p><a href="https://arxiv.org/abs/1905.06543" target="_blank" rel="noopener noreferrer">Li, Runhang, and Jeremy Yallop. Extending OCaml’s ‘open’.“</a> <a href="#fnref2">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2020/12/10/nikkan-coroutines-0.html" title="日刊Coroutines(0) コルーチンのおさらいと近年の動向(若干)">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <span class="btn next disabled">Next →</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
