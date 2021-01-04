@@ -5,18 +5,459 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 13 Dec 2020 17:48:40 +0900</pubDate>
-    <lastBuildDate>Sun, 13 Dec 2020 17:48:40 +0900</lastBuildDate>
+    <pubDate>Tue, 05 Jan 2021 00:56:48 +0900</pubDate>
+    <lastBuildDate>Tue, 05 Jan 2021 00:56:48 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
+    
+      <item>
+        <title>日刊Coroutines(2) あとはやるだけ(終)</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <description>&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;あけおめ､びしょ～じょです｡では前回からの続きです｡
+構文を定義したのであとは評価器を実装するだけです｡&lt;/p&gt;&lt;p&gt;そういえば前回オキャモーを書いてましたが全体はこちらにあります｡&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
+  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://github.com/nymphium/lambda-c&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://avatars2.githubusercontent.com/u/5901180?s=400&amp;amp;v=4&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
+  &lt;span class=&quot;txt&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://github.com/nymphium/lambda-c&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Nymphium/lambda-c&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;description&quot;&gt;lambda calculus + coroutines. Contribute to Nymphium/lambda-c development by creating an account on GitHub.&lt;/div&gt;
+  &lt;/span&gt;
+&lt;/div&gt;&lt;h1 id=&quot;2.+%E6%A7%8B%E6%96%87%E3%81%B5%E3%81%88%E3%82%8B&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+%E6%A7%8B%E6%96%87%E3%81%B5%E3%81%88%E3%82%8B&quot;&gt;2. 構文ふえる&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;といきたかったのですが構文が増えます｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;構文はこんなかんじに拡張されました&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;v ::= ... | l | nil
+t ::= ... | l:e
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;ソースのほう&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-diff&quot; data-lang=&quot;diff&quot;&gt;&lt;span class=&quot;p&quot;&gt;type t =
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+  | Nil
+&lt;/span&gt;   | Int of int
+   | Var of string
+   | Let of string * t * t
+&lt;span class=&quot;p&quot;&gt;@@ -8,3 +9,5 @@&lt;/span&gt;
+   | Create of t
+   | Resume of t * t
+   | Yield of t
+&lt;span class=&quot;gi&quot;&gt;+  | Label of string
++  | LabelE of string * t
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;基本的に評価時都合のものです｡
+話を先取りすると､コルーチンは値ではなく参照を持ちたい｡
+なので&lt;strong&gt;ラベル&lt;/strong&gt;&lt;code&gt;l&lt;/code&gt;を用いてコルーチンを指します｡
+&lt;code&gt;l:e&lt;/code&gt;はラベル式と呼び､ラベル&lt;code&gt;l&lt;/code&gt;の指すコルーチンにおり､&lt;code&gt;e&lt;/code&gt;を評価するという感じ｡
+&lt;code&gt;nil&lt;/code&gt;はその参照の初期化に使います｡ぶっちゃけなくてもいい｡&lt;/p&gt;&lt;h2 id=&quot;2-1.+%3Ccode%3EBuilder%3C%2Fcode%3E+%E3%81%AE%E5%A4%89%E6%9B%B4&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-1.+%3Ccode%3EBuilder%3C%2Fcode%3E+%E3%81%AE%E5%A4%89%E6%9B%B4&quot;&gt;2-1. &lt;code&gt;Builder&lt;/code&gt; の変更&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;関数を作る&lt;code&gt;Builder.fn&lt;/code&gt;が間違ってました｡
+とか構文追加に伴うアレソレとか｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-diff&quot; data-lang=&quot;diff&quot;&gt;&lt;span class=&quot;gi&quot;&gt;+  let nil = Nil
+&lt;/span&gt;   let int v = Int v
+   let var x = Var x
+
+   let fn f : t =
+&lt;span class=&quot;gd&quot;&gt;-    let x = var @@ gensym () in
+-    f x
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+    let x = gensym () in
++    Fun (x, f @@ var x)
+&lt;/span&gt;   ;;
+
+   let ( let@ ) v k =
+&lt;span class=&quot;p&quot;&gt;@@ -34,10 +38,42 @@&lt;/span&gt;
+     Let (x, v, k @@ var x)
+     ;;
+   (* List.append とぶつかるとエラーメッセージが分かりづらいんじゃなあ *)
+&lt;span class=&quot;gd&quot;&gt;-  let ( @ ) f a = App (f, a)
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+  let ( &amp;lt;@&amp;gt; ) f a = App (f, a)
+&lt;/span&gt;   let prim s = PrimOp s
+&lt;span class=&quot;gi&quot;&gt;+  let ( &amp;lt;+&amp;gt; ) l r = prim &quot;+&quot; &amp;lt;@&amp;gt; l &amp;lt;@&amp;gt; r
++  let ( &amp;lt;-&amp;gt; ) l r = prim &quot;-&quot; &amp;lt;@&amp;gt; l &amp;lt;@&amp;gt; r
+&lt;/span&gt;   let create f = Create f
+   let resume co a = Resume (co, a)
+   let yield v = Yield v
+&lt;span class=&quot;gi&quot;&gt;+  let label s = Label s
++  let labelE l e = LabelE (l, e)
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;値の話もちゃっかりここでやっておく｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;(* 変数は実際の値に置き換えられ､評価時に都合が悪いので除いた *)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Nil&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Label&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&quot;3.+%E6%84%8F%E5%91%B3%E8%AB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+%E6%84%8F%E5%91%B3%E8%AB%96&quot;&gt;3. 意味論&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; title=&quot;河原悟 『コルーチンを用いた代数的効果の新しい実装方法の提案』 (令和元年度 筑波大学大学院 博士課程 システム情報工学研究科 修士論文) &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
+の図3.7を参照のこと｡
+今回は再帰がないので \(\textrm{L{\small et}R{\small ec}}\) 規則は除く｡
+図3.8もパターンマッチングに関するものなので無視シャス｡
+そしてなんとミスを見つけました!!!! \(\textrm{L{\small et}}\) 規則の左辺と右辺で prime があったりなかったりします!!!!!&lt;/p&gt;&lt;h2 id=&quot;3-1.+%E8%A9%95%E4%BE%A1%E6%96%87%E8%84%88&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-1.+%E8%A9%95%E4%BE%A1%E6%96%87%E8%84%88&quot;&gt;3-1. 評価文脈&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;ところで &lt;code&gt;C[]&lt;/code&gt; とは何だ?
+これは evaluation context です｡
+まぁコールスタックというか継続みたいなもんですね｡&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;center&gt;
+&lt;img src=&quot;/pictures/2021/01/04/nikkan-coroutines-2/evaluation-context.png&quot; alt=&quot;&quot;&gt;
+&lt;label id=&quot;ec&quot;&gt;&lt;/label&gt;
+
+&lt;p&gt;図&lt;a href=&quot;#ec&quot;&gt;3.1&lt;/a&gt;
+. 超図解 評価文脈
+&lt;/p&gt;
+&lt;/center&gt;&lt;p&gt;ある項から､評価文脈と評価したい項(というか評価文脈が&lt;code&gt;[ ]&lt;/code&gt;なる項､つまり値)を分離する関数&lt;code&gt;punch&lt;/code&gt;を定義する｡
+ガボッとやるのでpunchです｡慣習などではない｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(** create evaluation context; always left-to-right *)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(** t -&amp;gt; t', C *)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;punch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Syntax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Syntax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Syntax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Syntax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bnd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bnd'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;punch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bnd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;bnd'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hole&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hole&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;(* binary operators *)&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;(* C op r *)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;PrimOp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;op&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;punch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;l'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hole&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hole&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;(* v op C *)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;PrimOp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;op&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;punch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;r'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hole&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hole&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;(* avoid to be recognized as usual function application *)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;PrimOp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Fun&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;punch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hole&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hole&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;punch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;t'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hole&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Create&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hole&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Resume&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;punch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;l'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hole&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Resume&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hole&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Yield&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;punch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;e'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hole&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Yield&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hole&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;(* don't punch `labelE` to avoid `Yield` to be &quot;top-level&quot; *)&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;(* t -&amp;gt; t, [ ] *)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Fun&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;subterms がある項は､常に左側から評価を進めたいので､必ず左側から穴をあけていきます｡
+評価したい subterm がまだ値でない場合､さらに再帰的に punch していき､ hole に context を適用することで evaluation context を重ねていきます｡
+そして､ subterms のうち1つだけ値でないものがある場合はそこで打ち切ります｡
+というのも､意味論が小ステップなのでそんなに細かく文脈区切っても意味ないんですね｡&lt;/p&gt;&lt;p&gt;&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; title=&quot;河原悟 『コルーチンを用いた代数的効果の新しい実装方法の提案』 (令和元年度 筑波大学大学院 博士課程 システム情報工学研究科 修士論文) &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
+ではラベル式も評価文脈を分解できるのですが､実際に実装してみるとここでは分解しないほうが良いということに気づきました｡
+コメントにもあるとおり､ここでラベル式の subterm に潜ってしまうと&lt;code&gt;yield&lt;/code&gt;をうまく評価できないんですねぇ｡
+評価器の実装でもう一度触れます｡
+こういったアハ体験があると初めて実装してよかったなと思いますね｡&lt;/p&gt;&lt;h2 id=&quot;3-2.+%E3%82%B9%E3%83%88%E3%82%A2&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-2.+%E3%82%B9%E3%83%88%E3%82%A2&quot;&gt;3-2. ストア&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;変数とかラベルを保持しておくのに使います｡
+&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; title=&quot;河原悟 『コルーチンを用いた代数的効果の新しい実装方法の提案』 (令和元年度 筑波大学大学院 博士課程 システム情報工学研究科 修士論文) &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
+上の\(\theta\)です｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(**
+  * environment θ for variables and labels
+  * each variables / labels is unique and global
+  *)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Store&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;M&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Make&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;OrderedType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;(** θ(x) *)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;(** θ[x &amp;lt;- v] *)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;(** θ[x &amp;lt;- nil *)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flush&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Nil&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;(* for repl *)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reflesh&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;評価器を小ステップで実装する都合上､&lt;code&gt;(term * env) -&amp;gt; (term * env)&lt;/code&gt;という型にすると毎回 tuple を deconstruct するのがめんどいんで全部グローバルにしました｡
+特にコルーチンは状態の更新が必要なため､よくある environment の型 &lt;code&gt;(string, t) list&lt;/code&gt; とは違い mutable な map にしていますが､変数の代入は構文上も用意されておらず､やりません｡&lt;/p&gt;&lt;p&gt;オッこの&lt;code&gt;M&lt;/code&gt;と ref cell をモジュール外から見えないようにするテクは&lt;a href=&quot;/2020/12/31/Extending-OCaml's-open.html&quot;&gt;先日書いたやつ&lt;/a&gt;にあったな｡&lt;/p&gt;&lt;h2 id=&quot;3-3.+%E8%A9%95%E4%BE%A1%E5%99%A8&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-3.+%E8%A9%95%E4%BE%A1%E5%99%A8&quot;&gt;3-3. 評価器&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;あとはやるだけ&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;punch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;eval1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eval1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Label&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Fun&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;(* binary-operation form: l token r = ((token l) r) *)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;PrimOp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;binop&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bnd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genlabel&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;Label&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Resume&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Label&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flush&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;nn&quot;&gt;Builder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labelE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;@&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Resume&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failwith&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sprintf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;%s is not a label&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;show&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LabelE&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;(* C[l:e] ~~&amp;gt; C[l:C'[e']] *)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;punch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Yield&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* v can be a value *)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gensym&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Fun&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Builder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LabelE&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eval1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Yield&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failwith&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;yield from top-level is not allowed&quot;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PrimOp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;failwith&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sprintf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;invalid term %s&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;show&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inv&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;アレ?! &lt;code&gt;eval1&lt;/code&gt; はワンステップなのに recursive なんですか? まあちょっと待っててください説明しますんで｡
+だいたいは意味論の通りにやっていきます｡
+ガーッと評価してくれる &lt;code&gt;eval&lt;/code&gt;を見ていただくと､ここで評価対象の term &lt;code&gt;t&lt;/code&gt;を evaluation context と更に対象の subterm に分離して､その subterm を評価します｡
+評価したら､また evaluation context に評価された項をはめ直して再評価します｡
+｢はめ直したらダメじゃない?｣と一瞬思うんですが､例えば&lt;code&gt;let x = e in e'&lt;/code&gt;を punch して&lt;code&gt;e, let x = [] in e'&lt;/code&gt;にしてから&lt;code&gt;e ~&amp;gt; v&lt;/code&gt;になったら&lt;code&gt;e'[x/v]&lt;/code&gt;を評価したくなるわけですね｡
+というときにはめ直し操作が必要になります｡
+&lt;code&gt;binop&lt;/code&gt;は適当な2引数関数(または二項演算子)を表すトークン(文字列)から&lt;code&gt;Syntax.t -&amp;gt; Syntax.t -&amp;gt; Syntax.t&lt;/code&gt;を返す関数です｡&lt;/p&gt;&lt;h3 id=&quot;3-3-1.+%E3%82%B3%E3%83%AB%E3%83%BC%E3%83%81%E3%83%B3%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%93%8D%E4%BD%9C&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3-3-1.+%E3%82%B3%E3%83%AB%E3%83%BC%E3%83%81%E3%83%B3%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%93%8D%E4%BD%9C&quot;&gt;3-3-1. コルーチンに関する操作&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;code&gt;Create&lt;/code&gt;は関数を受け取ってコルーチンを生成し､&lt;em&gt;それを指すラベル&lt;/em&gt;を返します｡
+再度申しますと､コルーチンは resume するたびに状態が更新されていくので､値ではなく参照がホシイわけですね｡なのでその参照を指すラベルを返す｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;Resume&lt;/code&gt;はラベルと項を受け取って､項をそのラベルの指すコルーチンに渡して走らせます｡
+実際はラベル&lt;code&gt;l&lt;/code&gt;と項&lt;code&gt;e&lt;/code&gt;を受け取ってラベル式&lt;code&gt;l:(θ[l] e)&lt;/code&gt;にします｡
+コルーチンは引数を受け取ることから関数のようなインタフェースを持ってることが分かりますね｡
+まぁ実際関数です｡&lt;/p&gt;&lt;p&gt;さて散々引っ張ったラベル式&lt;code&gt;labelE&lt;/code&gt;の解説です｡
+その前に &lt;code&gt;punch&lt;/code&gt; で&lt;code&gt;labelE(l, e)&lt;/code&gt;の&lt;code&gt;e&lt;/code&gt;に潜らない話ですが､なんとなく察した方もいるかもしれません｡
+&lt;code&gt;labelE&lt;/code&gt;の評価時に先んじて punch してしまうと､その中にある(かもしれない)&lt;code&gt;Yield&lt;/code&gt;を評価してしまいます｡
+そして&lt;code&gt;Yield&lt;/code&gt;を評価してコルーチンをぬけたい､となったときにそのリターンポイントが無いので書きようがない､となってしまいます｡
+CEK マシンで意味論を定義するにもラベルに対応した部分の frame を取得するのはだいぶ難易度が高そうです｡
+実装は～ &lt;code&gt;(label * Syntax.t -&amp;gt; Syntax.t)&lt;/code&gt; みたいな map でなんとかなるかもしれない｡型がないことに甘えてますねぇ!&lt;/p&gt;&lt;p&gt;…なのですぐには punch しません｡
+意味論の定義でも､ラベル式だけ evaluation context の構造を inspect する必要があるためだいぶ罠です｡
+この罠を実感できるのが実際に紙(紙ではないが…)からプログラムにおこすところの味わいですね｡&lt;/p&gt;&lt;p&gt;さて punch しない理由がつかめたところで実装見てみましょう｡
+とはいえすぐに punch します｡
+これは&lt;code&gt;labelE&lt;/code&gt;の評価という文脈(!)が分かっているので punch できるわけですね｡
+punch した結果&lt;code&gt;Yield v&lt;/code&gt;が次に評価する項だった場合､ラベルの指すコルーチンの状態を更新します｡
+これはまんま関数ですね｡evaluation context を関数にして放り込んでます｡
+punch の結果が値だった場合は､ラベル式を抜けその値を返します｡
+&lt;code&gt;Yield&lt;/code&gt; の引数がまだ評価できる subterm だった場合は先にそちらを評価することになります｡
+そういった場合も含め､新たにラベル式を作るようにします｡
+このとき評価は1回進めたいので&lt;code&gt;eval1&lt;/code&gt;を呼んでます｡
+ただ呼んだ&lt;code&gt;eval1&lt;/code&gt;は一度しか評価しないか､連続する&lt;code&gt;labelE&lt;/code&gt;を無限に潜っていくかになります｡
+とはいえ後者の場合も結局は最終的に到達する&lt;code&gt;labelE&lt;/code&gt;ではない subterm を一度評価して終わるので､やはり1ステップだけ評価が進むことになります｡
+辻褄あってますね｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;Yield&lt;/code&gt;単体の評価はすなわちコルーチンの外で呼ばれるものなので､ランタイムエラーとします｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;いい感じじゃないでしょうか｡
+動かしてみましょう｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;utop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;utop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;program&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Syntax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Builder&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;co&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;+&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;+&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;+&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* z + 7 が返ってくる *)&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;co&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* [x'(co)/2] *)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;co&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;+&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;(* [r(co)/r + 4] *)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;r'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;program&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Syntax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;長い&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;syntax&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;が見られる&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;utop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;program&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Syntax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Lib__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Syntax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Int&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;オッいい感じじゃないでしょうか｡
+DSL も相まってわかりやすい(自画自賛)｡&lt;/p&gt;&lt;h1 id=&quot;4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;4. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ウーン実装もかんたんだったな(10h弱)｡
+ただ実装しないとわからないことがあったのは面白いです｡
+あんまり深みないんですが終わりです｡
+ありがとうございました｡
+本ブログでも再三再四触れていますが､&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; title=&quot;河原悟 『コルーチンを用いた代数的効果の新しい実装方法の提案』 (令和元年度 筑波大学大学院 博士課程 システム情報工学研究科 修士論文) &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
+の\(\lambda_{\rm ac}\)の意味論を考えるにあたりベースにした論文&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; title=&quot;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;
+も面白いので読んでみてください｡&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;http://logic.cs.tsukuba.ac.jp/%7Esat/pdf/master_thesis.pdf&quot;&gt;河原悟 『コルーチンを用いた代数的効果の新しい実装方法の提案』 (令和元年度 筑波大学大学院 博士課程 システム情報工学研究科 修士論文)&lt;/a&gt; &lt;a href=&quot;#fnref1&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn2&quot;&gt;
+&lt;p&gt;Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. &lt;a href=&quot;#fnref2&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Mon, 04 Jan 2021 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2021/01/04/nikkan-coroutines-2.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2021/01/04/nikkan-coroutines-2.html</guid>
+        
+        <category>日刊Coroutines</category>
+        
+        <category>coroutines</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Extending OCaml's open</title>
+        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
+        <description>&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;こんにちは､びしょ〜じょです｡
+これは &lt;a href=&quot;https://qiita.com/advent-calendar/2020/ml&quot;&gt;ML Advent Calendar 2020&lt;/a&gt; の22日目の記事です｡
+皆さんは大晦日ですか? 私は22日にいます｡&lt;/p&gt;&lt;p&gt;さて話は OCaml 4.08 まで戻るのですが､みなさんは&lt;code&gt;open&lt;/code&gt;の次に module path のみならず module &lt;em&gt;expression&lt;/em&gt; を書けるようになっていたのをご存知でしたか?
+本日はそういった話をした論文&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; title=&quot;Li, Runhang and Yallop, Jeremy. “Extending OCaml’s “open””. arXiv. 2019. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
+の話をします｡&lt;/p&gt;&lt;p&gt;モジュールのフィールドを現在のモジュールのスコープに展開する方法として&lt;code&gt;include&lt;/code&gt;と&lt;code&gt;open&lt;/code&gt;がある｡
+&lt;code&gt;include&lt;/code&gt;はモジュールの中身を文字どおり &lt;em&gt;include&lt;/em&gt; ､つまり内容が継ぎ足されます｡
+&lt;code&gt;open&lt;/code&gt;はスコープ上で見えるようにするだけでモジュールの定義に展開されたメンバーは含まれません｡&lt;/p&gt;&lt;p&gt;さて､&lt;code&gt;include&lt;/code&gt;にはいろいろ書けるのですが､&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sig&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(** val x : t = &amp;lt;abstr&amp;gt; *)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;(**
+ *  t は opaque なので int としては扱えない
+ *  # x + 3;;
+ *  Error: This expression has type t but an expression was expected of type int
+ *)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;open&lt;/code&gt;はなんか不自由だったんですよねぇ&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(** 
+ *   # open struct end;;
+ *   Error: Syntax error
+ *)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&quot;Q.+%E3%81%AA%E3%82%93%E3%81%A7%3F&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#Q.+%E3%81%AA%E3%82%93%E3%81%A7%3F&quot;&gt;Q. なんで?&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;A.&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#A.&quot;&gt;A.&lt;/a&gt;&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;This distinction is less useful: &lt;strong&gt;there is no fundamental reason why &lt;code&gt;include&lt;/code&gt; should accept
+arbitrary module expressions, while &lt;code&gt;open&lt;/code&gt; should not.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;&lt;h1 id=&quot;2.+extending+%3Ccode%3Eopen%3C%2Fcode%3E+in+structures&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+extending+%3Ccode%3Eopen%3C%2Fcode%3E+in+structures&quot;&gt;2. extending &lt;code&gt;open&lt;/code&gt; in structures&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;さて OCaml 4.08 以降は豊かな&lt;code&gt;open&lt;/code&gt;が使えます｡やりましたね｡
+でもなにができるんですか?&lt;/p&gt;&lt;h2 id=&quot;2-1.+Unexported+top-level+values&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-1.+Unexported+top-level+values&quot;&gt;2-1. Unexported top-level values&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;signature や mli ファイルを用意しないと definitions は全てそれらが属するモジュールのフィールドになります｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;hoge.ml というファイルがあるとする&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;B&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Utils&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;(* 適当 *)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Utils&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;Utils&lt;/code&gt; モジュールは門外不出にしたいんで mli を書く&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;hoge.mli&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;B&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;または&lt;code&gt;include (M : Sig)&lt;/code&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;B&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Utils&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;......&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sig&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;B&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;えっ&lt;code&gt;t&lt;/code&gt;の定義2回書くんですか? ダル…
+&lt;code&gt;Utils&lt;/code&gt;だけ外したいのにそれ以外全部について記述するのでなんかイヤーて感じですね｡&lt;/p&gt;&lt;p&gt;というときに &lt;code&gt;open struct&lt;/code&gt; を使ってみましょう｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;hoge.ml&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;B&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Utils&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;......&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;(* なんでもいい *)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tsukawan_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tsukawan_other&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TsukawanSig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sig&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;nonrec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;(* 使う側はそのまま *)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Utils&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;open struct ... end&lt;/code&gt;でモジュール外に出したくないものを定義できます｡
+なんとなく mli を書きたくない勢にとっては大変嬉しい｡
+この便利な使い方を知らずに OCaml 4.08 以降を使っていたので皆さんにもお伝えしたかった｡&lt;/p&gt;&lt;h2 id=&quot;2-2.+%E3%81%9D%E3%81%AE%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2-2.+%E3%81%9D%E3%81%AE%E4%BB%96&quot;&gt;2-2. その他&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;詳細は論文を読んでくれい｡
+recursive な型の名前の shadowing をしたり(2.2)&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;A&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;M&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;C&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;複数の関数にまたがる変数を簡単に用意したり(2.3)&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(**
+ *  let f, g =
+ *    let aux x y = ... in
+ *    (fun p -&amp;gt; aux p true),
+ *    (fun p -&amp;gt; aux p false)
+ *)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;(* この無名モジュール外には aux は出ていかない *)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ローカルな例外を簡単に定義したり(2.4)､
+共有ステートで状態だけ隠してオペレータを提供するのを簡単に定義したり(2.5)､
+ppx などで自動生成される変数をうまく隠すだとか(2.6)､
+&lt;code&gt;open (M : S)&lt;/code&gt;も書けるようになったんで&lt;code&gt;open&lt;/code&gt;されるものを絞ったり(2.7)など､
+人生に大切なことが書かれています｡&lt;/p&gt;&lt;h1 id=&quot;3.+extending+%3Ccode%3Eopen%3C%2Fcode%3E+in+signatures&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+extending+%3Ccode%3Eopen%3C%2Fcode%3E+in+signatures&quot;&gt;3. extending &lt;code&gt;open&lt;/code&gt; in signatures&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ところで signature 内でも&lt;code&gt;open&lt;/code&gt;は使える｡
+sginature は深掘ってこなかったので､知らないことが書いてあって面白かった｡&lt;/p&gt;&lt;blockquote&gt;
+&lt;p&gt;The OCaml compiler has a feature that is often useful during development: passing the -i flag
+when compiling a module causes OCaml to display the inferred signature of the module. However,
+users are sometimes surprised to find that a signature generated by OCaml is subsequently
+rejected by OCaml, because it is incompatible with the original module, or even because it is
+invalid when considered in isolation.&lt;/p&gt;
+&lt;/blockquote&gt;&lt;p&gt;マジかい!w という感じですが例を見るとまぁしゃーなしやなぁという気にもなります｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
+&lt;span class=&quot;listing-name&quot;&gt;fuga.ml&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T1&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;M&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T2&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T2&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;(**
+ *  the signature generated by the compiler with -i flag
+ *
+ *  type t = T1
+ *  module M : sig
+ *    type t = T2
+ *    val f : t -&amp;gt; t  (* !?w *)
+ *  end
+ *)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;ファイルの成すモジュールは recursive に定義できないので､&lt;code&gt;Fuga.t&lt;/code&gt;を&lt;code&gt;Fuga.M&lt;/code&gt;内で参照できないわけですね｡
+そして&lt;code&gt;M.t&lt;/code&gt;が型引数を持つと興味深い結果になります｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;M&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;S&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;S&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;(**
+ *  type t = T
+ *  module M : sig
+ *    type 'a t = S
+ *    val f : t -&amp;gt; t (* え?! *)
+ *  end
+ *)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;型変数が虚空に消えました｡これはすごい｡
+そしてこの問題の本質は OCaml コンパイラが頑張ってくれないことではなく､人間も手で書けないということですね｡
+余計なフィールドを追加せずに書けますか? ちょいと無理そうやな〜というところで &lt;code&gt;open struct&lt;/code&gt; しますと&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T1&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;M&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sig&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T2&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ヨシ!
+ついでに OCaml 4.11 で試したところ生成するほうもいい感じになってました｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T1&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;M&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sig&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T2&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&quot;4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;4. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;面白かったんで4章の restriction と6章の alteranative designs(Standard ML の&lt;code&gt;local&lt;/code&gt;､ OOP みたいな&lt;code&gt;private&lt;/code&gt;､destructive substitution&lt;sup id=&quot;fnref2&quot; title=&quot;with type ですね｡これも用語を知らなかった｡ &quot;&gt;&lt;a href=&quot;#fn2&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;を拡張するやつ)も読んでみてください｡5章の implementation sketch は遠目で眺めました…｡&lt;/p&gt;&lt;hr&gt;&lt;p&gt;よし!
+書き終わったので大晦日に私も追いつきました｡
+みなさん良いお年を｡&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;Li, Runhang and Yallop, Jeremy. “Extending OCaml’s “open””. &lt;a href=&quot;http://dx.doi.org/10.4204/EPTCS.294.1&quot;&gt;arXiv&lt;/a&gt;. 2019. &lt;a href=&quot;#fnref1&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn2&quot;&gt;
+&lt;p&gt;&lt;code&gt;with type&lt;/code&gt; ですね｡これも用語を知らなかった｡ &lt;a href=&quot;#fnref2&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+        <pubDate>Thu, 31 Dec 2020 00:00:00 +0900</pubDate>
+        <link>https://nymphium.github.io/2020/12/31/Extending-OCaml's-open.html</link>
+        <guid isPermaLink="true">https://nymphium.github.io/2020/12/31/Extending-OCaml's-open.html</guid>
+        
+        <category>OCaml</category>
+        
+        <category>modules</category>
+        
+        <category>Advent Calendar</category>
+        
+        
+      </item>
     
       <item>
         <title>日刊Coroutines(1) 初回は嬉しいASTの定義付き</title>
         <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures/github_icon.png"></enclosure>
-        <description>&lt;h1 id=&quot;%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;こんにちは､びしょ～じょです｡
-さて前回発作が出ちゃってコルーチンの話したんですが､発作に次ぐ発作でコルーチンを持つ体系を考えて実装していきます｡&lt;/p&gt;&lt;h1 id=&quot;%E3%82%B3%E3%83%B3%E3%82%BB%E3%83%97%E3%83%88&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%82%B3%E3%83%B3%E3%82%BB%E3%83%97%E3%83%88&quot;&gt;コンセプト&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;今回はコルーチン以外興味ないね(クラウド)なので作りなれたラムダ計算にコルーチンの操作を乗せるだけでいきます｡
+        <description>&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;こんにちは､びしょ～じょです｡
+さて前回発作が出ちゃってコルーチンの話したんですが､発作に次ぐ発作でコルーチンを持つ体系を考えて実装していきます｡&lt;/p&gt;&lt;h1 id=&quot;2.+%E3%82%B3%E3%83%B3%E3%82%BB%E3%83%97%E3%83%88&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+%E3%82%B3%E3%83%B3%E3%82%BB%E3%83%97%E3%83%88&quot;&gt;2. コンセプト&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;今回はコルーチン以外興味ないね(クラウド)なので作りなれたラムダ計算にコルーチンの操作を乗せるだけでいきます｡
 具体的には修論&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; title=&quot;河原悟 『コルーチンを用いた代数的効果の新しい実装方法の提案』 (令和元年度 筑波大学大学院 博士課程 システム情報工学研究科 修士論文) &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
 で定義した\(\lambda_{\mathit{ac}}\)からコルーチン的な本質だけ抜き出したサブセットを作りましょう｡
-今更修論の話するの結構こじらせてる感なくもないですが､コルーチンを持つ体系で扱いやすいものがあんまりないので許してほしい｡&lt;/p&gt;&lt;h1 id=&quot;%E6%A7%8B%E6%96%87&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E6%A7%8B%E6%96%87&quot;&gt;構文&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ある言語を論じるための皆さんと私の共通の道具として､なにはともあれ構文を用意します｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(**
+今更修論の話するの結構こじらせてる感なくもないですが､コルーチンを持つ体系で扱いやすいものがあんまりないので許してほしい｡&lt;/p&gt;&lt;h1 id=&quot;3.+%E6%A7%8B%E6%96%87&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+%E6%A7%8B%E6%96%87&quot;&gt;3. 構文&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ある言語を論じるための皆さんと私の共通の道具として､なにはともあれ構文を用意します｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(**
  *  n ∈ Numbers
  *  x ∈ Variables
  *  t ::=
@@ -40,7 +481,7 @@
   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Yield&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;順当～ですね｡
 &lt;code&gt;create&lt;/code&gt; には関数を渡すのを想定しています｡
-ついでに数値を出すと人は論理的だと感じるので､整数と演算ができそうな primitive を適当に突っ込める機構を追加しました｡&lt;/p&gt;&lt;h1 id=&quot;AST+builder&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#AST+builder&quot;&gt;AST builder&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ocamlyacc も menhir も 書きたくね～～!! ということで eDSL として書くためのビルディングァーを用意します｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Builder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+ついでに数値を出すと人は論理的だと感じるので､整数と演算ができそうな primitive を適当に突っ込める機構を追加しました｡&lt;/p&gt;&lt;h1 id=&quot;4.+AST+builder&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+AST+builder&quot;&gt;4. AST builder&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ocamlyacc も menhir も 書きたくね～～!! ということで eDSL として書くためのビルディングァーを用意します｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Builder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gensym&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
       &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
@@ -98,7 +539,7 @@ HOASで書けばイージャンみたいなところもありますが､説明�
  *        ))
  *     ))
  *)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ええ感じや｡&lt;/p&gt;&lt;h1 id=&quot;%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;焦らない焦らない一休み一休みということで本日はここまで｡&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ええ感じや｡&lt;/p&gt;&lt;h1 id=&quot;5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;5. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;焦らない焦らない一休み一休みということで本日はここまで｡&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
 
@@ -269,7 +710,8 @@ Typed Racket も同様に control-flow based type analysis を組み込んだ Oc
 この &lt;code&gt;_tag&lt;/code&gt; を用いた手法は TypeScript で functional programming したい人のためのライブラリ fp-ts で採用されているものでした｡
 上記で定義した &lt;code&gt;match&lt;/code&gt; という名前のパターンマッチングする関数は fp-ts では慣習的に &lt;code&gt;fold&lt;/code&gt; という名前で定義されています｡
 あと本記事では省略した &lt;code&gt;readonly&lt;/code&gt; とかをちゃんとしているが､ &lt;code&gt;_tag&lt;/code&gt; には optimistic に string literal type を利用している｡
-&lt;/p&gt;&lt;div class=&quot;github-widget&quot; data-repo=&quot;gcanti/fp-ts&quot;&gt;&lt;/div&gt;&lt;h1 id=&quot;3.+%E8%8B%A6%E9%9B%A3%E3%81%AE%E5%9E%8B%E6%8E%A8%E8%AB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+%E8%8B%A6%E9%9B%A3%E3%81%AE%E5%9E%8B%E6%8E%A8%E8%AB%96&quot;&gt;3. 苦難の型推論&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;さて! 帰って飯食って寝よう～といきたいところですが､ちょっと待ってよ｡
+&lt;/p&gt;&lt;div class=&quot;github-widget&quot; data-repo=&quot;gcanti/fp-ts&quot;&gt;&lt;/div&gt;&lt;h1 id=&quot;3.+%E8%8B%A6%E9%9B%A3%E3%81%AE%E5%9E%8B%E6%8E%A8%E8%AB%96+%3Clabel+id%3D%22type-inference%22%3E%3C%2Flabel%3E%0A&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+%E8%8B%A6%E9%9B%A3%E3%81%AE%E5%9E%8B%E6%8E%A8%E8%AB%96+%3Clabel+id%3D%22type-inference%22%3E%3C%2Flabel%3E%0A&quot;&gt;3. 苦難の型推論 &lt;label id=&quot;type-inference&quot;&gt;&lt;/label&gt;
+&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;さて! 帰って飯食って寝よう～といきたいところですが､ちょっと待ってよ｡
 &lt;code&gt;Some&amp;lt;_&amp;gt;&lt;/code&gt; と &lt;code&gt;None&amp;lt;_&amp;gt;&lt;/code&gt; の型を作るために毎度 object リテラルに &lt;code&gt;_tag&lt;/code&gt; をえっさほいさするのは面倒です｡
 それにこれを乱用して野良 &lt;code&gt;Option&amp;lt;_&amp;gt;&lt;/code&gt; 型を作ってほしくないので smart constructors を定義してそれだけユーザに見せるようにしましょう｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
 &lt;span class=&quot;listing-name&quot;&gt;スマコン&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-typescript&quot; data-lang=&quot;typescript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;_tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;someSym&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
@@ -369,7 +811,7 @@ return type は &lt;code&gt;Option&amp;lt;T&amp;gt;&lt;/code&gt; ですが､こ
 ここまで来ればなんで怒られるかも理由がつきますね｡
 そう､ &lt;code&gt;Option&amp;lt;T&amp;gt;&lt;/code&gt; が &lt;code&gt;Some&amp;lt;T&amp;gt;&lt;/code&gt; でも &lt;code&gt;None&amp;lt;T&amp;gt;&lt;/code&gt; でもない場合にどうするかを書いてません｡
 んな場合無いよ! と人は思うんですが必ずしもそうではない｡
-&lt;a href=&quot;#3.+%E8%8B%A6%E9%9B%A3%E3%81%AE%E5%9E%8B%E6%8E%A8%E8%AB%96%E3%81%A8%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A%E3%81%AE%E3%82%B8%E3%83%AC%E3%83%B3%E3%83%9E&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;#type-inference&quot;&gt;3&lt;/a&gt;
 章で熱弁した通り､注釈をつけないととんでもない場合があるので &lt;code&gt;Option&amp;lt;T&amp;gt;&lt;/code&gt; は &lt;code&gt;export&lt;/code&gt; して他のモジュールで利用する場合があります｡
 特にこれをライブラリとして開発していたら知らんところで人が使います｡
 そして &lt;strong&gt;&lt;code&gt;Option&amp;lt;T&amp;gt;&lt;/code&gt; が &lt;code&gt;extends&lt;/code&gt; され得るのです&lt;/strong&gt; !
@@ -1187,221 +1629,6 @@ Promiseは並行･非同期処理のための機能ですね｡
         <category>Promise</category>
         
         <category>日刊Promise</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>応援してくれている皆様へ</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures//2020/04/01/shaka/thumb.png"></enclosure>
-        <description>&lt;p&gt;こんにちは､びしょ〜じょです｡
-今回は情報量無いのでお急ぎの方は最後だけお読みください｡&lt;/p&gt;&lt;p&gt;この度晴れて学部5年間+修士の2年間を過ごした筑波大学を脱出することに成功しました｡
-最近は神絵師業に圧迫されてほとんど趣味でプログラム書いたりしてないんですが､研究内容はまだ覚えてるんで詳しく聞きたい人は私を適当に捕まえてください｡
-エモやま話でもしようと思ったけど忍耐の賜物こそが修士号なので､修士号を持っていることが全てを物語っていると思います｡&lt;/p&gt;&lt;p&gt;ついでに､昨日は1年と5ヶ月くらいアルバイトしていた株式会社HERPをやめたんですが､今日は株式会社HERPに入社しました｡
-入社即拠点長です｡
-就活は大変でした｡嘘です｡エイプリルフールなので｡
-実は数社受けたんですが､ウェブテストで競プロが始まったらダルくなっちゃってやめました｡
-制限時間内になんかやる系は切羽詰まってくるとスゲーイライラする上にミスが増えるので全く向いてない｡
-で､バイト開始数ヶ月後の面談で｢就活どう? ていうかどこ住み? 内定いる?｣となって就活ターンエンドしました｡&lt;/p&gt;&lt;p&gt;一般に労働はつらいですが､その中でも弊社は労働のつらさが少ないです｡
-技術面に関しては皆さんすごくスキルが高いく､もちろん最新の情報を追っているし､計算科学に関する素養もあるのでそういった議論もできる｡
-あと人数がまだ3桁に満たないスタートアップなんで､エンジニア以外でもだいたいみんなが何者なのかが分かっているのでコミュニケーションのハードルも低い｡
-T市にオフィスができたので住居や食事に変化はないですが､特に後者は嬉しい(美味しい飯屋はT市唯一のアピールポイントなので)｡&lt;/p&gt;&lt;p&gt;以下､インターネット&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://www.amazon.jp/hz/wishlist/ls/133BSBJ4QYBSY?ref_=wl_share&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://m.media-amazon.com/images/G/01/wishlist/collablists_graphic_2x_1060x768._CB454600986_.jpg&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://www.amazon.jp/hz/wishlist/ls/133BSBJ4QYBSY?ref_=wl_share&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Amazonほしい物リストを一緒に編集しましょう&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://www.wantedly.com/projects/402071&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://d2v9k5u4v94ulw.cloudfront.net/small_light(dw=1440,dh=1440,da=l,ds=n,cc=FFFFFF)/assets/images/4436611/original/da3adce3-e564-4170-9bda-55698d25bcbc?1583224129&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://www.wantedly.com/projects/402071&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;趣味や研究以外でも関数型言語を書きたいつくばの学生インターン募集! by 株式会社HERP&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;2019年11月より筑波大学付近の天久保2丁目に開設した筑波オフィスでインターンを募集してます！東京、京都拠点とのオンラインで繋が…&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;</description>
-        <pubDate>Wed, 01 Apr 2020 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2020/04/01/shaka.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2020/04/01/shaka.html</guid>
-        
-        <category>雑感</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Algebraic EffectsとExtensible Effectsの違いってなんや? 関係あんの?</title>
-        <enclosure type="image/png" length="0" url="https://nymphium.github.io/pictures//2020/03/15/ae-ee/thumb.png"></enclosure>
-        <description>&lt;h1 id=&quot;1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB&quot;&gt;1. はじめに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;最近のエフェクトシステム2大ホットトピックといえばAlgebraic EffectsとExtensible Effectsだろう &lt;em&gt;[要出典]&lt;/em&gt;｡&lt;/p&gt;&lt;p&gt;度々この2つの違いは何なのかという質問を見ます｡&lt;/p&gt;&lt;p&gt;比較というわけでも無いんですが､今回はこの2つを並べて見比べてみましょう｡&lt;/p&gt;&lt;p&gt;そいうえばだいぶ前の&lt;a href=&quot;/pdf/ae_from_0.html&quot;&gt;発表&lt;/a&gt;でこんなこと言ってましたけど&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/pictures//2020/03/15/ae-ee/%E3%81%93%E3%82%93%E3%81%AA%E3%81%93%E3%81%A8.png&quot; alt=&quot;/pictures/2020/03/15/ae-ee/こんなこと.png&quot;&gt;
-&lt;/p&gt;&lt;center&gt;図&lt;a href=&quot;#fig:compare&quot;&gt;1.1&lt;/a&gt;
-. 雑な比較&lt;/center&gt;&lt;label id=&quot;fig:compare&quot;&gt;&lt;/label&gt;&lt;p&gt;本当かしら&lt;/p&gt;&lt;h1 id=&quot;2.+Algebraic+Effects+and+Handlers&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#2.+Algebraic+Effects+and+Handlers&quot;&gt;2. Algebraic Effects and Handlers&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;PlotkinとPowerによりもたらされた､計算エフェクトを代数的に表現するという考え方&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn1&quot; title=&quot;Plotkin, Gordon, and John Power. “Adequacy for algebraic effects.” International Conference on Foundations of Software Science and Computation Structures. Springer, Berlin, Heidelberg, 2001. &quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;
-に､PlotkinとPretnarがハンドラを追加したもの&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn2&quot; title=&quot;Plotkin, Gordon, and Matija Pretnar. “Handlers of algebraic effects.” European Symposium on Programming. Springer, Berlin, Heidelberg, 2009. &quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;]&lt;/span&gt;
-である｡&lt;/p&gt;&lt;p&gt;詳細はカツアイしますんで､本ブログをご巡回ください｡
-簡単にまとめると､&lt;/p&gt;&lt;ul&gt;
-&lt;li&gt;新たな言語機能
-
-&lt;ul&gt;
-&lt;li&gt;エフェクト(仕様)とハンドラ(実装)が分離できるモジュラーな手法&lt;/li&gt;
-&lt;li&gt;エフェクトシステムによって計算中にどのようなエフェクトが現れるのかが分かる&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;shallow/deep handler, set/row-based effect system, polymorphic/parameterized effects など様々なヴァリアントがある｡&lt;/li&gt;
-&lt;li&gt;言語プリミティブやライブラリ実装がある
-
-&lt;ul&gt;
-&lt;li&gt;【余談】しばしば型(エフェクト)システムについてはないがしろにされがちな印象がある｡
-たまに見る擬似コードにはvalue handlerがなく､議論すらされていない｡
-computationの結果の型を調整したりするための重要なclauseなのに……｡
-まあ入門用にはそんなに必要な概念ではないかもしれない｡
-ボクも簡単な説明のときには省略することがある｡&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;Kokaの例&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;effect reader&amp;lt;a&amp;gt; {
-  fun ask() : a
-}
-
-// `e` は起きうる他のエフェクト(の列)
-fun run&amp;lt;s, a, e&amp;gt;(v : s, th : () -&amp;gt; &amp;lt;reader&amp;lt;s&amp;gt; | e&amp;gt; a) : e a {
-  handle(th) {
-    ask() -&amp;gt; v . resume()
-  }
-}
-
-fun main() : console () {
-  run(&quot;hello, &quot;) {
-    val e = ask()
-    // print : string -&amp;gt; console ()
-    // なので↑のエフェクト列変数 `e` は `&amp;lt;console&amp;gt;` にinstantiateされる
-    print(e + &quot;world&quot;)
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;h1 id=&quot;3.+Extensible+Effects&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#3.+Extensible+Effects&quot;&gt;3. Extensible Effects&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Kiselyovらにより考案された､Monad Transformerに代わるエフェクトをガチャガチャやる方法である&lt;span class=&quot;cite&quot;&gt;[&lt;a href=&quot;#fn3&quot; title=&quot;Kiselyov, Oleg, Amr Sabry, and Cameron Swords. “Extensible effects: an alternative to monad transformers.” ACM SIGPLAN Notices 48.12 (2013): 59-70. &quot; id=&quot;fnref3&quot;&gt;3&lt;/a&gt;]&lt;/span&gt;
-｡
-論文を読むと分かるとおり､こちらは計算体系のようなコンセプトではなく､いい感じのライブラリの実装手法である｡&lt;/p&gt;&lt;p&gt;耳タコだと思いますが､簡単に言うと､Freeモナドのお手軽monadic interpreter作成機能にOpen Unionで型安全に拡張性をゲット(のちにFreerとかTASeqが盛られて早くなったり)という感じです｡&lt;/p&gt;&lt;p&gt;筆者はあまり詳しくないんですがまとめてみるとこんな所感&lt;/p&gt;&lt;ul&gt;
-&lt;li&gt;モナドトランスフォーマーに代わる新たなモナドの合成手法
-
-&lt;ul&gt;
-&lt;li&gt;lift地獄やインスタンス大量生成地獄からの解放&lt;/li&gt;
-&lt;li&gt;Free(-er)モナド+Open Unionを使って1つのモナドに拡張的に押し込む&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;リッチな型システムを利用している
-
-&lt;ul&gt;
-&lt;li&gt;HaskellとScalaのライブラリ実装が活発ですね&lt;/li&gt;
-&lt;li&gt;むしろ他に実装できる言語あるんかいな&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;Unionを二分探索したりするのはまあいいかな､ハンドラのあたりをちょっと論文から引用します｡
-&lt;code&gt;Eff e w&lt;/code&gt;というのがエフェクト&lt;code&gt;e&lt;/code&gt;が発生しうる&lt;code&gt;w&lt;/code&gt;型の値です｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:run&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;Fig&lt;a href=&quot;#lst:run&quot;&gt;3.1&lt;/a&gt;
-. run&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;admin&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Pure&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;プログラム&lt;a href=&quot;#lst:run&quot;&gt;3.1&lt;/a&gt;
-は&lt;code&gt;Void&lt;/code&gt;エフェクトが発生する(つまりエフェクトが発生しない)値からコンストラクタを剥がす操作です｡
-&lt;code&gt;admin&lt;/code&gt;は論文のターミノロジーを使えば､コルーチンをグルグル走らせて最終的な結果まで実行する関数です｡&lt;/p&gt;&lt;p&gt;続いて &lt;code&gt;Reader&lt;/code&gt;エフェクトを追加してみましょう(図&lt;a href=&quot;#lst:reader&quot;&gt;3.2&lt;/a&gt;
-)｡&lt;/p&gt;&lt;p&gt;&lt;label id=&quot;lst:reader&quot;&gt;&lt;/label&gt;&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;
-&lt;span class=&quot;listing-name&quot;&gt;Fig&lt;a href=&quot;#lst:reader&quot;&gt;3.2&lt;/a&gt;
-. Readerエフェクト&lt;/span&gt;&lt;pre&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;kr&quot;&gt;newtype&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Reader&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Reader&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                     &lt;span class=&quot;kr&quot;&gt;deriving&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Typeable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Functor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;ask&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Typeable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Reader&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ask&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;send&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Reader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;----&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;handle_relay&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Typeable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Union&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;handle_relay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-             &lt;span class=&quot;kr&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decomp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;of&lt;/span&gt;
-               &lt;span class=&quot;kt&quot;&gt;Right&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-               &lt;span class=&quot;kt&quot;&gt;Left&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;send&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;runReader&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Typeable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Reader&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;runReader&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;admin&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;handle_relay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Reader&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;p&gt;まず &lt;code&gt;Reader&lt;/code&gt; エフェクトを定義します｡
-&lt;code&gt;e -&amp;gt; v&lt;/code&gt; というのは継続と読めばいいのかしら｡ &lt;code&gt;e&lt;/code&gt;型のholeがあるので､&lt;code&gt;Reader&lt;/code&gt;っぽく何か&lt;code&gt;e&lt;/code&gt;型の値を毎度渡していって最終的に&lt;code&gt;v&lt;/code&gt;型の値が戻ってきます｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;ask&lt;/code&gt;がスマコンというかエフェクトが発生する項です｡
-&lt;code&gt;send&lt;/code&gt;で&lt;code&gt;Reader&lt;/code&gt;エフェクトをハンドラまで飛ばします｡&lt;/p&gt;&lt;p&gt;ハンドラは&lt;code&gt;runReader&lt;/code&gt;がハンドラです｡
-&lt;code&gt;admin m&lt;/code&gt;でコルーチンを回しまくって度々suspendされるのを&lt;code&gt;loop&lt;/code&gt;関数で拾う､という流れです｡
-&lt;code&gt;Val&lt;/code&gt;と&lt;code&gt;E&lt;/code&gt;というのが､内部で使われているFreeのようなデータ構造です｡&lt;code&gt;E&lt;/code&gt;はなにかエフェクトが発生したときで､&lt;code&gt;handle_relay&lt;/code&gt;で&lt;code&gt;u&lt;/code&gt;が分解されて第2引数か第3引数に分解された値が渡されていきます｡
-補助関数&lt;code&gt;handle_relay&lt;/code&gt;に味があって&lt;sup id=&quot;fnref4&quot; title=&quot;なんでこの関数だけキャメルケースなんだろう｡写経してるときにhlintにも怒られた｡ &quot;&gt;&lt;a href=&quot;#fn4&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;､エフェクトをハンドルしたいけどハンドルできないエフェクトだったときに適宜上位のハンドラに再送してくれる奴です｡
-このへんで&lt;code&gt;Typeable&lt;/code&gt;とかがガチャガチャやって､&lt;code&gt;Reader&lt;/code&gt;エフェクトだったときに&lt;code&gt;decomp u&lt;/code&gt;が&lt;code&gt;Right&lt;/code&gt;を返すようになっていい感じにハンドルされます｡&lt;/p&gt;&lt;p&gt;こんな感じでエフェクトごとのハンドラ関数を定義していって､関数合成で様々をハンドルする関数を作ります｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;c1&quot;&gt;-- あんま自信ない､雰囲気ね雰囲気&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eff&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Reader&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Exc&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Either&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;runExc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;runReader&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;このハンドラに&lt;code&gt;Reader&lt;/code&gt;エフェクトと&lt;code&gt;Exc&lt;/code&gt;エフェクト&lt;em&gt;だけ&lt;/em&gt;が発生する項を渡すと､これらエフェクトをいい感じに処理してくれて最終的に&lt;code&gt;Either String a&lt;/code&gt;が出てくる｡&lt;/p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Either&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;do&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ask&lt;/span&gt;
-  &lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;then&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;throwError&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;the env should return the value more than 10&quot;&lt;/span&gt;
-  &lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 45&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&quot;4.+%E4%BA%8C%E8%80%85%E3%81%AE%E9%81%95%E3%81%84&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4.+%E4%BA%8C%E8%80%85%E3%81%AE%E9%81%95%E3%81%84&quot;&gt;4. 二者の違い&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;ご覧の通り全然違うと思うんですが､では逆に &lt;em&gt;実現可能そうなこと&lt;/em&gt; はだいたい同じにみえます｡&lt;/p&gt;&lt;p&gt;いずれもエフェクトを定義してから､ハンドラを別途定義して意味を与えています｡&lt;/p&gt;&lt;p&gt;このことはいずれもFree(-er)モナドを利用した実装方法がある(Extensible EffectsはむしろFreeが必須ですが)ことからも感じ取れると思います｡&lt;/p&gt;&lt;p&gt;というかそこ以外は全部違うんじゃないかしら
-Iが違う 星が違う 違うだろ すべてが&lt;/p&gt;&lt;h2 id=&quot;4-1.+%E6%A6%82%E5%BF%B5%E7%9A%84%E3%81%AA%E9%81%95%E3%81%84&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4-1.+%E6%A6%82%E5%BF%B5%E7%9A%84%E3%81%AA%E9%81%95%E3%81%84&quot;&gt;4-1. 概念的な違い&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Algebraic Effects (and Handlers)はMoggiの提唱した$\lambda_{c}$よりもいい感じに計算エフェクトを扱うための概念として考えられた｡&lt;/p&gt;&lt;p&gt;一方Extensible EffectsはMonad Transformerに代わるモナドの合成方法として提案された実装手法である｡&lt;/p&gt;&lt;ul&gt;
-&lt;li&gt;Algebraic Effectsは概念
-
-&lt;ul&gt;
-&lt;li&gt;概念なのでライブラリや言語組み込みの機能として考えることができる&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Extensible Effectsは実装手法
-
-&lt;ul&gt;
-&lt;li&gt;ライブラリとしての実装方法にアイデンティティを持つので､言語組み込みの機能みたいなことはそもそも考えられない&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;&lt;h2 id=&quot;4-2.+%E5%AE%9F%E8%A3%85%E3%81%AE%E9%81%95%E3%81%84&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4-2.+%E5%AE%9F%E8%A3%85%E3%81%AE%E9%81%95%E3%81%84&quot;&gt;4-2. 実装の違い&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Extensible EffectsにはFreeが必須でした｡
-ではAlgebraic Effectsの実装はどうかというと色々考えられます｡&lt;/p&gt;&lt;p&gt;詳細はこちらに!!!!(隙あらば我田引水)&lt;/p&gt;&lt;div class=&quot;twicard&quot;&gt;
-  &lt;span class=&quot;image&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/pdf/effect_study.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;div&gt;&lt;img src=&quot;https://nymphium.github.io/pdf/effect_study.png&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/span&gt;
-  &lt;span class=&quot;txt&quot;&gt;
-    &lt;div class=&quot;title&quot;&gt;&lt;a href=&quot;https://nymphium.github.io/pdf/effect_study.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;How do you implement Algebraic Effects? - lilyum ensemble&lt;/a&gt;&lt;/div&gt;
-    &lt;div class=&quot;description&quot;&gt;&lt;/div&gt;
-  &lt;/span&gt;
-&lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;Algebraic EFfectsは実装が色々考えられる&lt;/li&gt;
-&lt;li&gt;Extensible EffectsはFreeとOpen Unionを使った実装方法しかない
-
-&lt;ul&gt;
-&lt;li&gt;そもそもFreeとOpen Unionを使った実装方法を指してExtensible Effectsと呼んでるので……&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;&lt;h2 id=&quot;4-3.+%E3%81%9D%E3%81%AE%E4%BB%96&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#4-3.+%E3%81%9D%E3%81%AE%E4%BB%96&quot;&gt;4-3. その他&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Algebraic Effectsはエフェクトハンドラおよびvalue handlerを1つのハンドラオブジェクトとして定義できる｡
-一方Extensible Effectsはそれぞれのエフェクトにたいして関数を定義し､関数合成で1つにまとめる｡
-前者は各エフェクトが協調するようなハンドラを書きやすい｡
-一方後者はハンドラをよりモジュラーに定義できる｡&lt;/p&gt;&lt;p&gt;他にもいろいろありそうだが､本日はこの辺で……｡&lt;/p&gt;&lt;h1 id=&quot;5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;&lt;a class=&quot;headerlink&quot; href=&quot;#5.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot;&gt;5. おわりに&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Extensible Effectsは必須のデータ構造があるので､図&lt;a href=&quot;#fig:compare&quot;&gt;1.1&lt;/a&gt;
-はまあなんとなくあたってるようなそうでもないような……｡
-ま､ユーザにとっちゃああんま関係ねえ話にゃんですが……(おわり)&lt;/p&gt;&lt;div class=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-
-&lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;Plotkin, Gordon, and John Power. “Adequacy for algebraic effects.” International Conference on Foundations of Software Science and Computation Structures. Springer, Berlin, Heidelberg, 2001. &lt;a href=&quot;#fnref1&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn2&quot;&gt;
-&lt;p&gt;Plotkin, Gordon, and Matija Pretnar. “Handlers of algebraic effects.” European Symposium on Programming. Springer, Berlin, Heidelberg, 2009. &lt;a href=&quot;#fnref2&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn3&quot;&gt;
-&lt;p&gt;Kiselyov, Oleg, Amr Sabry, and Cameron Swords. “Extensible effects: an alternative to monad transformers.” ACM SIGPLAN Notices 48.12 (2013): 59-70. &lt;a href=&quot;#fnref3&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn4&quot;&gt;
-&lt;p&gt;なんでこの関数だけキャメルケースなんだろう｡写経してるときにhlintにも怒られた｡ &lt;a href=&quot;#fnref4&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-        <pubDate>Sun, 15 Mar 2020 00:00:00 +0900</pubDate>
-        <link>https://nymphium.github.io/2020/03/15/ae-ee.html</link>
-        <guid isPermaLink="true">https://nymphium.github.io/2020/03/15/ae-ee.html</guid>
-        
-        <category>Algebraic Effects</category>
-        
-        <category>Extensible Effects</category>
         
         
       </item>

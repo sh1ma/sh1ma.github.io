@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>日刊Coroutines(2) あとはやるだけ(終) - lilyum ensemble</title>
+    <meta itemprop="name" content="日刊Coroutines(2) あとはやるだけ(終) - lilyum ensemble"/>
+    <meta name="keywords" content="日刊Coroutines,coroutines"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="日刊Coroutines(2) あとはやるだけ(終) - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2021/01/04/nikkan-coroutines-2.html"/> 
+    <meta name="twitter:text:description" content="1. はじめにあけおめ､びしょ～じょです｡では前回からの続きです｡構文を定義したのであとは評価器を実装するだけです｡そういえば前回オキャモーを書いてましたが全体はこちらにあります｡       ..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="日刊Coroutines(2) あとはやるだけ(終)" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="lily, Aikatsu, Programming language, and more" />
+<meta property="og:description" content="lily, Aikatsu, Programming language, and more" />
+<link rel="canonical" href="https://nymphium.github.io/2021/01/04/nikkan-coroutines-2.html" />
+<meta property="og:url" content="https://nymphium.github.io/2021/01/04/nikkan-coroutines-2.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-01-04T00:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="日刊Coroutines(2) あとはやるだけ(終)" />
+<script type="application/ld+json">
+{"datePublished":"2021-01-04T00:00:00+09:00","description":"lily, Aikatsu, Programming language, and more","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2021/01/04/nikkan-coroutines-2.html"},"url":"https://nymphium.github.io/2021/01/04/nikkan-coroutines-2.html","@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"headline":"日刊Coroutines(2) あとはやるだけ(終)","dateModified":"2021-01-04T00:00:00+09:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper" lang="ja">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">日刊Coroutines(2) あとはやるだけ(終)</h1>
+            <span class="post-meta">
+              <time datetime="2021-01-04T00:00:00+09:00" itemprop="datePublished">Jan 4, 2021</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2021-01-04-nikkan-coroutines-2.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#%E6%97%A5%E5%88%8ACoroutines-ref">日刊Coroutines</a></span><span></span> <span class="tag"><a href="/tags.html#coroutines-ref">coroutines</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
+<p>あけおめ､びしょ～じょです｡では前回からの続きです｡
+構文を定義したのであとは評価器を実装するだけです｡</p>
+<p>そういえば前回オキャモーを書いてましたが全体はこちらにあります｡</p>
+<div class="twicard">
+  <span class="image"><a href="https://github.com/nymphium/lambda-c" target="_blank" rel="noopener noreferrer"><div><img src="https://avatars2.githubusercontent.com/u/5901180?s=400&amp;v=4"></div></a></span>
+  <span class="txt">
+    <div class="title"><a href="https://github.com/nymphium/lambda-c" target="_blank" rel="noopener noreferrer">Nymphium/lambda-c</a></div>
+    <div class="description">lambda calculus + coroutines. Contribute to Nymphium/lambda-c development by creating an account on GitHub.</div>
+  </span>
+</div>
+<h1 id="2.+%E6%A7%8B%E6%96%87%E3%81%B5%E3%81%88%E3%82%8B"><a class="headerlink" href="#2.+%E6%A7%8B%E6%96%87%E3%81%B5%E3%81%88%E3%82%8B">2. 構文ふえる</a></h1>
+<p>といきたかったのですが構文が増えます｡</p>
+<div class="highlight">
+<span class="listing-name">構文はこんなかんじに拡張されました</span><pre><code class="language-" data-lang="">v ::= ... | l | nil
+t ::= ... | l:e
+</code></pre>
+</div>
+<div class="highlight">
+<span class="listing-name">ソースのほう</span><pre><code class="language-diff" data-lang="diff"><span class="p">type t =
+</span><span class="gi">+  | Nil
+</span>   | Int of int
+   | Var of string
+   | Let of string * t * t
+<span class="p">@@ -8,3 +9,5 @@</span>
+   | Create of t
+   | Resume of t * t
+   | Yield of t
+<span class="gi">+  | Label of string
++  | LabelE of string * t
+</span></code></pre>
+</div>
+<p>基本的に評価時都合のものです｡
+話を先取りすると､コルーチンは値ではなく参照を持ちたい｡
+なので<strong>ラベル</strong><code>l</code>を用いてコルーチンを指します｡
+<code>l:e</code>はラベル式と呼び､ラベル<code>l</code>の指すコルーチンにおり､<code>e</code>を評価するという感じ｡
+<code>nil</code>はその参照の初期化に使います｡ぶっちゃけなくてもいい｡</p>
+<h2 id="2-1.+%3Ccode%3EBuilder%3C%2Fcode%3E+%E3%81%AE%E5%A4%89%E6%9B%B4"><a class="headerlink" href="#2-1.+%3Ccode%3EBuilder%3C%2Fcode%3E+%E3%81%AE%E5%A4%89%E6%9B%B4">2-1. <code>Builder</code> の変更</a></h2>
+<p>関数を作る<code>Builder.fn</code>が間違ってました｡
+とか構文追加に伴うアレソレとか｡</p>
+<div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gi">+  let nil = Nil
+</span>   let int v = Int v
+   let var x = Var x
+
+   let fn f : t =
+<span class="gd">-    let x = var @@ gensym () in
+-    f x
+</span><span class="gi">+    let x = gensym () in
++    Fun (x, f @@ var x)
+</span>   ;;
+
+   let ( let@ ) v k =
+<span class="p">@@ -34,10 +38,42 @@</span>
+     Let (x, v, k @@ var x)
+     ;;
+   (* List.append とぶつかるとエラーメッセージが分かりづらいんじゃなあ *)
+<span class="gd">-  let ( @ ) f a = App (f, a)
+</span><span class="gi">+  let ( &lt;@&gt; ) f a = App (f, a)
+</span>   let prim s = PrimOp s
+<span class="gi">+  let ( &lt;+&gt; ) l r = prim "+" &lt;@&gt; l &lt;@&gt; r
++  let ( &lt;-&gt; ) l r = prim "-" &lt;@&gt; l &lt;@&gt; r
+</span>   let create f = Create f
+   let resume co a = Resume (co, a)
+   let yield v = Yield v
+<span class="gi">+  let label s = Label s
++  let labelE l e = LabelE (l, e)
+</span></code></pre></div>
+<p>値の話もちゃっかりここでやっておく｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">is_value</span> <span class="o">=</span> <span class="k">function</span>
+  <span class="c">(* 変数は実際の値に置き換えられ､評価時に都合が悪いので除いた *)</span>
+  <span class="o">|</span> <span class="nc">Nil</span> <span class="o">|</span> <span class="nc">Int</span> <span class="n">_</span> <span class="o">|</span> <span class="nc">Fun</span> <span class="n">_</span> <span class="o">|</span> <span class="nc">Label</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="bp">true</span>
+  <span class="o">|</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="bp">false</span>
+</code></pre></div>
+<h1 id="3.+%E6%84%8F%E5%91%B3%E8%AB%96"><a class="headerlink" href="#3.+%E6%84%8F%E5%91%B3%E8%AB%96">3. 意味論</a></h1>
+<p><span class="cite">[<a href="#fn1" title="河原悟 『コルーチンを用いた代数的効果の新しい実装方法の提案』 (令和元年度 筑波大学大学院 博士課程 システム情報工学研究科 修士論文) " id="fnref1">1</a>]</span>
+の図3.7を参照のこと｡
+今回は再帰がないので \(\textrm{L{\small et}R{\small ec}}\) 規則は除く｡
+図3.8もパターンマッチングに関するものなので無視シャス｡
+そしてなんとミスを見つけました!!!! \(\textrm{L{\small et}}\) 規則の左辺と右辺で prime があったりなかったりします!!!!!</p>
+<h2 id="3-1.+%E8%A9%95%E4%BE%A1%E6%96%87%E8%84%88"><a class="headerlink" href="#3-1.+%E8%A9%95%E4%BE%A1%E6%96%87%E8%84%88">3-1. 評価文脈</a></h2>
+<p>ところで <code>C[]</code> とは何だ?
+これは evaluation context です｡
+まぁコールスタックというか継続みたいなもんですね｡</p>
+<p></p>
+<center>
+<img src="/pictures/2021/01/04/nikkan-coroutines-2/evaluation-context.png" alt="">
+<label id="ec"></label>
+
+<p>図<a href="#ec">3.1</a>
+. 超図解 評価文脈
+</p>
+</center>
+<p>ある項から､評価文脈と評価したい項(というか評価文脈が<code>[ ]</code>なる項､つまり値)を分離する関数<code>punch</code>を定義する｡
+ガボッとやるのでpunchです｡慣習などではない｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(** create evaluation context; always left-to-right *)</span>
+<span class="c">(** t -&gt; t', C *)</span>
+<span class="k">let</span> <span class="k">rec</span> <span class="n">punch</span> <span class="o">:</span> <span class="nn">Syntax</span><span class="p">.</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="nn">Syntax</span><span class="p">.</span><span class="n">t</span> <span class="o">*</span> <span class="p">(</span><span class="nn">Syntax</span><span class="p">.</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="nn">Syntax</span><span class="p">.</span><span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="k">function</span>
+  <span class="o">|</span> <span class="nc">Let</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">bnd</span><span class="o">,</span> <span class="n">body</span><span class="p">)</span> <span class="k">when</span> <span class="n">not</span> <span class="o">@@</span> <span class="n">is_value</span> <span class="n">bnd</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">bnd'</span><span class="o">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">punch</span> <span class="n">bnd</span> <span class="k">in</span>
+    <span class="n">bnd'</span><span class="o">,</span> <span class="k">fun</span> <span class="n">hole</span> <span class="o">-&gt;</span> <span class="nc">Let</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">c</span> <span class="n">hole</span><span class="o">,</span> <span class="n">body</span><span class="p">)</span>
+  <span class="c">(* binary operators *)</span>
+  <span class="c">(* C op r *)</span>
+  <span class="o">|</span> <span class="nc">App</span> <span class="p">(</span><span class="nc">App</span> <span class="p">((</span><span class="nc">PrimOp</span> <span class="n">_</span> <span class="k">as</span> <span class="n">op</span><span class="p">)</span><span class="o">,</span> <span class="n">l</span><span class="p">)</span><span class="o">,</span> <span class="n">r</span><span class="p">)</span> <span class="k">when</span> <span class="n">not</span> <span class="o">@@</span> <span class="n">is_value</span> <span class="n">l</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">l'</span><span class="o">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">punch</span> <span class="n">l</span> <span class="k">in</span>
+    <span class="n">l'</span><span class="o">,</span> <span class="k">fun</span> <span class="n">hole</span> <span class="o">-&gt;</span> <span class="nc">App</span> <span class="p">(</span><span class="nc">App</span> <span class="p">(</span><span class="n">op</span><span class="o">,</span> <span class="n">c</span> <span class="n">hole</span><span class="p">)</span><span class="o">,</span> <span class="n">r</span><span class="p">)</span>
+  <span class="c">(* v op C *)</span>
+  <span class="o">|</span> <span class="nc">App</span> <span class="p">(</span><span class="nc">App</span> <span class="p">((</span><span class="nc">PrimOp</span> <span class="n">_</span> <span class="k">as</span> <span class="n">op</span><span class="p">)</span><span class="o">,</span> <span class="n">l</span><span class="p">)</span><span class="o">,</span> <span class="n">r</span><span class="p">)</span> <span class="k">when</span> <span class="n">not</span> <span class="o">@@</span> <span class="n">is_value</span> <span class="n">r</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">r'</span><span class="o">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">punch</span> <span class="n">r</span> <span class="k">in</span>
+    <span class="n">r'</span><span class="o">,</span> <span class="k">fun</span> <span class="n">hole</span> <span class="o">-&gt;</span> <span class="nc">App</span> <span class="p">(</span><span class="nc">App</span> <span class="p">(</span><span class="n">op</span><span class="o">,</span> <span class="n">l</span><span class="p">)</span><span class="o">,</span> <span class="n">c</span> <span class="n">hole</span><span class="p">)</span>
+    <span class="c">(* avoid to be recognized as usual function application *)</span>
+  <span class="o">|</span> <span class="nc">App</span> <span class="p">(</span><span class="nc">App</span> <span class="p">(</span><span class="nc">PrimOp</span> <span class="n">_</span><span class="o">,</span> <span class="n">l</span><span class="p">)</span><span class="o">,</span> <span class="n">r</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span> <span class="k">when</span> <span class="n">is_value</span> <span class="n">l</span> <span class="o">&amp;&amp;</span> <span class="n">is_value</span> <span class="n">r</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">,</span> <span class="nn">Fun</span><span class="p">.</span><span class="n">id</span>
+  <span class="o">|</span> <span class="nc">App</span> <span class="p">(</span><span class="n">f</span><span class="o">,</span> <span class="n">e</span><span class="p">)</span> <span class="k">when</span> <span class="n">not</span> <span class="o">@@</span> <span class="n">is_value</span> <span class="n">f</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">f'</span><span class="o">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">punch</span> <span class="n">f</span> <span class="k">in</span>
+    <span class="n">f'</span><span class="o">,</span> <span class="k">fun</span> <span class="n">hole</span> <span class="o">-&gt;</span> <span class="nc">App</span> <span class="p">(</span><span class="n">c</span> <span class="n">hole</span><span class="o">,</span> <span class="n">e</span><span class="p">)</span>
+  <span class="o">|</span> <span class="nc">Create</span> <span class="n">t</span> <span class="k">when</span> <span class="n">not</span> <span class="o">@@</span> <span class="n">is_value</span> <span class="n">t</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">t'</span><span class="o">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">punch</span> <span class="n">t</span> <span class="k">in</span>
+    <span class="n">t'</span><span class="o">,</span> <span class="k">fun</span> <span class="n">hole</span> <span class="o">-&gt;</span> <span class="nc">Create</span> <span class="p">(</span><span class="n">c</span> <span class="n">hole</span><span class="p">)</span>
+  <span class="o">|</span> <span class="nc">Resume</span> <span class="p">(</span><span class="n">l</span><span class="o">,</span> <span class="n">e</span><span class="p">)</span> <span class="k">when</span> <span class="n">not</span> <span class="o">@@</span> <span class="n">is_value</span> <span class="n">l</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">l'</span><span class="o">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">punch</span> <span class="n">l</span> <span class="k">in</span>
+    <span class="n">l'</span><span class="o">,</span> <span class="k">fun</span> <span class="n">hole</span> <span class="o">-&gt;</span> <span class="nc">Resume</span> <span class="p">(</span><span class="n">c</span> <span class="n">hole</span><span class="o">,</span> <span class="n">e</span><span class="p">)</span>
+  <span class="o">|</span> <span class="nc">Yield</span> <span class="n">e</span> <span class="k">when</span> <span class="n">not</span> <span class="o">@@</span> <span class="n">is_value</span> <span class="n">e</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">e'</span><span class="o">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">punch</span> <span class="n">e</span> <span class="k">in</span>
+    <span class="n">e'</span><span class="o">,</span> <span class="k">fun</span> <span class="n">hole</span> <span class="o">-&gt;</span> <span class="nc">Yield</span> <span class="p">(</span><span class="n">c</span> <span class="n">hole</span><span class="p">)</span>
+  <span class="c">(* don't punch `labelE` to avoid `Yield` to be "top-level" *)</span>
+  <span class="c">(* t -&gt; t, [ ] *)</span>
+  <span class="o">|</span> <span class="n">other</span> <span class="o">-&gt;</span> <span class="n">other</span><span class="o">,</span> <span class="nn">Fun</span><span class="p">.</span><span class="n">id</span>
+</code></pre></div>
+<p>subterms がある項は､常に左側から評価を進めたいので､必ず左側から穴をあけていきます｡
+評価したい subterm がまだ値でない場合､さらに再帰的に punch していき､ hole に context を適用することで evaluation context を重ねていきます｡
+そして､ subterms のうち1つだけ値でないものがある場合はそこで打ち切ります｡
+というのも､意味論が小ステップなのでそんなに細かく文脈区切っても意味ないんですね｡</p>
+<p><span class="cite">[<a href="#fn1" title="河原悟 『コルーチンを用いた代数的効果の新しい実装方法の提案』 (令和元年度 筑波大学大学院 博士課程 システム情報工学研究科 修士論文) " id="fnref1">1</a>]</span>
+ではラベル式も評価文脈を分解できるのですが､実際に実装してみるとここでは分解しないほうが良いということに気づきました｡
+コメントにもあるとおり､ここでラベル式の subterm に潜ってしまうと<code>yield</code>をうまく評価できないんですねぇ｡
+評価器の実装でもう一度触れます｡
+こういったアハ体験があると初めて実装してよかったなと思いますね｡</p>
+<h2 id="3-2.+%E3%82%B9%E3%83%88%E3%82%A2"><a class="headerlink" href="#3-2.+%E3%82%B9%E3%83%88%E3%82%A2">3-2. ストア</a></h2>
+<p>変数とかラベルを保持しておくのに使います｡
+<span class="cite">[<a href="#fn1" title="河原悟 『コルーチンを用いた代数的効果の新しい実装方法の提案』 (令和元年度 筑波大学大学院 博士課程 システム情報工学研究科 修士論文) " id="fnref1">1</a>]</span>
+上の\(\theta\)です｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(**
+  * environment θ for variables and labels
+  * each variables / labels is unique and global
+  *)</span>
+<span class="k">module</span> <span class="nc">Store</span> <span class="o">=</span> <span class="k">struct</span>
+  <span class="k">open</span> <span class="k">struct</span>
+    <span class="k">module</span> <span class="nc">M</span> <span class="o">=</span> <span class="nn">Map</span><span class="p">.</span><span class="nc">Make</span> <span class="p">((</span><span class="nc">String</span> <span class="o">:</span> <span class="nn">Map</span><span class="p">.</span><span class="nc">OrderedType</span><span class="p">))</span>
+
+    <span class="k">let</span> <span class="n">s</span> <span class="o">:</span> <span class="n">t</span> <span class="nn">M</span><span class="p">.</span><span class="n">t</span> <span class="n">ref</span> <span class="o">=</span> <span class="n">ref</span> <span class="nn">M</span><span class="p">.</span><span class="n">empty</span>
+  <span class="k">end</span>
+
+  <span class="c">(** θ(x) *)</span>
+  <span class="k">let</span> <span class="n">get</span> <span class="n">x</span> <span class="o">=</span> <span class="nn">M</span><span class="p">.</span><span class="n">find</span> <span class="n">x</span> <span class="o">!</span><span class="n">s</span>
+
+  <span class="c">(** θ[x &lt;- v] *)</span>
+  <span class="k">let</span> <span class="n">set</span> <span class="n">x</span> <span class="n">v</span> <span class="o">=</span> <span class="n">s</span> <span class="o">:=</span> <span class="nn">M</span><span class="p">.</span><span class="n">add</span> <span class="n">x</span> <span class="n">v</span> <span class="o">!</span><span class="n">s</span>
+
+  <span class="c">(** θ[x &lt;- nil *)</span>
+  <span class="k">let</span> <span class="n">flush</span> <span class="n">x</span> <span class="o">=</span> <span class="n">s</span> <span class="o">:=</span> <span class="nn">M</span><span class="p">.</span><span class="n">add</span> <span class="n">x</span> <span class="nc">Nil</span> <span class="o">!</span><span class="n">s</span>
+
+  <span class="c">(* for repl *)</span>
+  <span class="k">let</span> <span class="n">reflesh</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">s</span> <span class="o">:=</span> <span class="nn">M</span><span class="p">.</span><span class="n">empty</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>評価器を小ステップで実装する都合上､<code>(term * env) -&gt; (term * env)</code>という型にすると毎回 tuple を deconstruct するのがめんどいんで全部グローバルにしました｡
+特にコルーチンは状態の更新が必要なため､よくある environment の型 <code>(string, t) list</code> とは違い mutable な map にしていますが､変数の代入は構文上も用意されておらず､やりません｡</p>
+<p>オッこの<code>M</code>と ref cell をモジュール外から見えないようにするテクは<a href="/2020/12/31/Extending-OCaml's-open.html">先日書いたやつ</a>にあったな｡</p>
+<h2 id="3-3.+%E8%A9%95%E4%BE%A1%E5%99%A8"><a class="headerlink" href="#3-3.+%E8%A9%95%E4%BE%A1%E5%99%A8">3-3. 評価器</a></h2>
+<p>あとはやるだけ</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">eval</span> <span class="n">t</span> <span class="o">=</span>
+  <span class="k">if</span> <span class="n">is_value</span> <span class="n">t</span>
+  <span class="k">then</span> <span class="n">t</span>
+  <span class="k">else</span> <span class="p">(</span>
+    <span class="k">let</span> <span class="n">t'</span><span class="o">,</span> <span class="n">ctx</span> <span class="o">=</span> <span class="n">punch</span> <span class="n">t</span> <span class="k">in</span>
+    <span class="n">eval1</span> <span class="n">t'</span> <span class="o">|&gt;</span> <span class="n">ctx</span> <span class="o">|&gt;</span> <span class="n">eval</span><span class="p">)</span>
+<span class="ow">and</span> <span class="n">eval1</span> <span class="o">=</span> <span class="k">function</span>
+  <span class="o">|</span> <span class="p">(</span><span class="nc">Int</span> <span class="n">_</span> <span class="o">|</span> <span class="nc">Fun</span> <span class="n">_</span> <span class="o">|</span> <span class="nc">Nil</span><span class="p">)</span> <span class="k">as</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span>
+  <span class="o">|</span> <span class="nc">Var</span> <span class="n">x</span> <span class="o">|</span> <span class="nc">Label</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="nn">Store</span><span class="p">.</span><span class="n">get</span> <span class="n">x</span>
+  <span class="o">|</span> <span class="nc">App</span> <span class="p">(</span><span class="nc">Fun</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">body</span><span class="p">)</span><span class="o">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">Store</span><span class="p">.</span><span class="n">set</span> <span class="n">x</span> <span class="n">e</span> <span class="k">in</span>
+    <span class="n">body</span>
+  <span class="c">(* binary-operation form: l token r = ((token l) r) *)</span>
+  <span class="o">|</span> <span class="nc">App</span> <span class="p">(</span><span class="nc">App</span> <span class="p">(</span><span class="nc">PrimOp</span> <span class="n">token</span><span class="o">,</span> <span class="n">l</span><span class="p">)</span><span class="o">,</span> <span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">binop</span> <span class="n">token</span> <span class="n">l</span> <span class="n">r</span>
+  <span class="o">|</span> <span class="nc">Let</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">bnd</span><span class="o">,</span> <span class="n">body</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">Store</span><span class="p">.</span><span class="n">set</span> <span class="n">x</span> <span class="n">bnd</span> <span class="k">in</span>
+    <span class="n">body</span>
+  <span class="o">|</span> <span class="nc">Create</span> <span class="n">f</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">l</span> <span class="o">=</span> <span class="n">genlabel</span> <span class="bp">()</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">Store</span><span class="p">.</span><span class="n">set</span> <span class="n">l</span> <span class="o">@@</span> <span class="n">f</span> <span class="k">in</span>
+    <span class="nc">Label</span> <span class="n">l</span>
+  <span class="o">|</span> <span class="nc">Resume</span> <span class="p">(</span><span class="nc">Label</span> <span class="n">l</span><span class="o">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">f</span> <span class="o">=</span> <span class="nn">Store</span><span class="p">.</span><span class="n">get</span> <span class="n">l</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">Store</span><span class="p">.</span><span class="n">flush</span> <span class="n">l</span> <span class="k">in</span>
+    <span class="nn">Builder</span><span class="p">.(</span><span class="n">labelE</span> <span class="n">l</span> <span class="p">(</span><span class="n">f</span> <span class="o">&lt;@&gt;</span> <span class="n">e</span><span class="p">))</span>
+  <span class="o">|</span> <span class="nc">Resume</span> <span class="p">(</span><span class="n">l</span><span class="o">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">failwith</span> <span class="o">@@</span> <span class="nn">Printf</span><span class="p">.</span><span class="n">sprintf</span> <span class="s2">"%s is not a label"</span> <span class="o">@@</span> <span class="n">show</span> <span class="n">l</span>
+  <span class="o">|</span> <span class="nc">LabelE</span> <span class="p">(</span><span class="n">l</span><span class="o">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="c">(* C[l:e] ~~&gt; C[l:C'[e']] *)</span>
+    <span class="k">let</span> <span class="n">e'</span><span class="o">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">punch</span> <span class="n">e</span> <span class="k">in</span>
+    <span class="p">(</span><span class="k">match</span> <span class="n">e'</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="nc">Yield</span> <span class="n">v</span> <span class="c">(* v can be a value *)</span> <span class="o">-&gt;</span>
+      <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">gensym</span> <span class="bp">()</span> <span class="k">in</span>
+      <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">Store</span><span class="p">.</span><span class="n">set</span> <span class="n">l</span> <span class="o">@@</span> <span class="nc">Fun</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">c</span> <span class="o">@@</span> <span class="nn">Builder</span><span class="p">.</span><span class="n">var</span> <span class="n">x</span><span class="p">)</span> <span class="k">in</span>
+      <span class="n">v</span>
+    <span class="o">|</span> <span class="n">v</span> <span class="k">when</span> <span class="n">is_value</span> <span class="n">v</span> <span class="o">-&gt;</span> <span class="n">v</span>
+    <span class="o">|</span> <span class="n">other</span> <span class="o">-&gt;</span> <span class="nc">LabelE</span> <span class="p">(</span><span class="n">l</span><span class="o">,</span> <span class="n">c</span> <span class="o">@@</span> <span class="n">eval1</span> <span class="n">other</span><span class="p">))</span>
+  <span class="o">|</span> <span class="nc">Yield</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">failwith</span> <span class="s2">"yield from top-level is not allowed"</span>
+  <span class="o">|</span> <span class="p">(</span><span class="nc">App</span> <span class="n">_</span> <span class="o">|</span> <span class="nc">PrimOp</span> <span class="n">_</span><span class="p">)</span> <span class="k">as</span> <span class="n">inv</span> <span class="o">-&gt;</span>
+    <span class="n">failwith</span> <span class="o">@@</span> <span class="nn">Printf</span><span class="p">.</span><span class="n">sprintf</span> <span class="s2">"invalid term %s"</span> <span class="o">@@</span> <span class="n">show</span> <span class="n">inv</span>
+
+</code></pre></div>
+<p>アレ?! <code>eval1</code> はワンステップなのに recursive なんですか? まあちょっと待っててください説明しますんで｡
+だいたいは意味論の通りにやっていきます｡
+ガーッと評価してくれる <code>eval</code>を見ていただくと､ここで評価対象の term <code>t</code>を evaluation context と更に対象の subterm に分離して､その subterm を評価します｡
+評価したら､また evaluation context に評価された項をはめ直して再評価します｡
+｢はめ直したらダメじゃない?｣と一瞬思うんですが､例えば<code>let x = e in e'</code>を punch して<code>e, let x = [] in e'</code>にしてから<code>e ~&gt; v</code>になったら<code>e'[x/v]</code>を評価したくなるわけですね｡
+というときにはめ直し操作が必要になります｡
+<code>binop</code>は適当な2引数関数(または二項演算子)を表すトークン(文字列)から<code>Syntax.t -&gt; Syntax.t -&gt; Syntax.t</code>を返す関数です｡</p>
+<h3 id="3-3-1.+%E3%82%B3%E3%83%AB%E3%83%BC%E3%83%81%E3%83%B3%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%93%8D%E4%BD%9C"><a class="headerlink" href="#3-3-1.+%E3%82%B3%E3%83%AB%E3%83%BC%E3%83%81%E3%83%B3%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%93%8D%E4%BD%9C">3-3-1. コルーチンに関する操作</a></h3>
+<p><code>Create</code>は関数を受け取ってコルーチンを生成し､<em>それを指すラベル</em>を返します｡
+再度申しますと､コルーチンは resume するたびに状態が更新されていくので､値ではなく参照がホシイわけですね｡なのでその参照を指すラベルを返す｡</p>
+<p><code>Resume</code>はラベルと項を受け取って､項をそのラベルの指すコルーチンに渡して走らせます｡
+実際はラベル<code>l</code>と項<code>e</code>を受け取ってラベル式<code>l:(θ[l] e)</code>にします｡
+コルーチンは引数を受け取ることから関数のようなインタフェースを持ってることが分かりますね｡
+まぁ実際関数です｡</p>
+<p>さて散々引っ張ったラベル式<code>labelE</code>の解説です｡
+その前に <code>punch</code> で<code>labelE(l, e)</code>の<code>e</code>に潜らない話ですが､なんとなく察した方もいるかもしれません｡
+<code>labelE</code>の評価時に先んじて punch してしまうと､その中にある(かもしれない)<code>Yield</code>を評価してしまいます｡
+そして<code>Yield</code>を評価してコルーチンをぬけたい､となったときにそのリターンポイントが無いので書きようがない､となってしまいます｡
+CEK マシンで意味論を定義するにもラベルに対応した部分の frame を取得するのはだいぶ難易度が高そうです｡
+実装は～ <code>(label * Syntax.t -&gt; Syntax.t)</code> みたいな map でなんとかなるかもしれない｡型がないことに甘えてますねぇ!</p>
+<p>…なのですぐには punch しません｡
+意味論の定義でも､ラベル式だけ evaluation context の構造を inspect する必要があるためだいぶ罠です｡
+この罠を実感できるのが実際に紙(紙ではないが…)からプログラムにおこすところの味わいですね｡</p>
+<p>さて punch しない理由がつかめたところで実装見てみましょう｡
+とはいえすぐに punch します｡
+これは<code>labelE</code>の評価という文脈(!)が分かっているので punch できるわけですね｡
+punch した結果<code>Yield v</code>が次に評価する項だった場合､ラベルの指すコルーチンの状態を更新します｡
+これはまんま関数ですね｡evaluation context を関数にして放り込んでます｡
+punch の結果が値だった場合は､ラベル式を抜けその値を返します｡
+<code>Yield</code> の引数がまだ評価できる subterm だった場合は先にそちらを評価することになります｡
+そういった場合も含め､新たにラベル式を作るようにします｡
+このとき評価は1回進めたいので<code>eval1</code>を呼んでます｡
+ただ呼んだ<code>eval1</code>は一度しか評価しないか､連続する<code>labelE</code>を無限に潜っていくかになります｡
+とはいえ後者の場合も結局は最終的に到達する<code>labelE</code>ではない subterm を一度評価して終わるので､やはり1ステップだけ評価が進むことになります｡
+辻褄あってますね｡</p>
+<p><code>Yield</code>単体の評価はすなわちコルーチンの外で呼ばれるものなので､ランタイムエラーとします｡</p>
+<hr>
+<p>いい感じじゃないでしょうか｡
+動かしてみましょう｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">utop</span> <span class="o">#</span> <span class="k">open</span> <span class="nc">Lib</span><span class="p">;;</span>
+<span class="n">utop</span> <span class="o">#</span> <span class="k">let</span> <span class="n">program</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">open</span> <span class="nn">Syntax</span><span class="p">.</span><span class="nc">Builder</span> <span class="k">in</span>
+  <span class="k">let</span><span class="o">@</span> <span class="n">x</span> <span class="o">=</span> <span class="kt">int</span> <span class="mi">3</span> <span class="k">in</span>
+  <span class="k">let</span><span class="o">@</span> <span class="n">y</span> <span class="o">=</span> <span class="kt">int</span> <span class="mi">5</span> <span class="k">in</span>
+  <span class="k">let</span><span class="o">@</span> <span class="n">co</span> <span class="o">=</span> <span class="n">create</span> <span class="o">@@</span> <span class="n">fn</span> <span class="o">@@</span> <span class="k">fun</span> <span class="n">x'</span> <span class="o">-&gt;</span>
+    <span class="k">let</span><span class="o">@</span> <span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&lt;+&gt;</span> <span class="n">x'</span> <span class="o">&lt;+&gt;</span> <span class="n">y</span> <span class="k">in</span>
+    <span class="k">let</span><span class="o">@</span> <span class="n">r</span> <span class="o">=</span> <span class="n">yield</span> <span class="p">(</span><span class="n">z</span> <span class="o">&lt;+&gt;</span> <span class="kt">int</span> <span class="mi">7</span><span class="p">)</span> <span class="k">in</span>
+    <span class="n">r</span>
+  <span class="k">in</span>
+  <span class="k">let</span><span class="o">@</span> <span class="n">r</span> <span class="c">(* z + 7 が返ってくる *)</span>  <span class="o">=</span> <span class="n">resume</span> <span class="n">co</span> <span class="o">@@</span> <span class="kt">int</span> <span class="mi">2</span> <span class="c">(* [x'(co)/2] *)</span> <span class="k">in</span>
+  <span class="k">let</span><span class="o">@</span> <span class="n">r'</span> <span class="o">=</span> <span class="n">resume</span> <span class="n">co</span> <span class="o">@@</span> <span class="n">r</span> <span class="o">&lt;+&gt;</span> <span class="kt">int</span> <span class="mi">4</span> <span class="c">(* [r(co)/r + 4] *)</span> <span class="k">in</span>
+  <span class="n">r'</span><span class="p">;;</span>
+<span class="k">val</span> <span class="n">program</span> <span class="o">:</span> <span class="nn">Syntax</span><span class="p">.</span><span class="n">t</span> <span class="o">=</span>
+  <span class="p">(</span><span class="o">...</span> <span class="err">長い</span> <span class="n">syntax</span> <span class="n">tree</span> <span class="err">が見られる</span><span class="p">)</span>
+<span class="n">utop</span> <span class="o">#</span> <span class="nn">Lib</span><span class="p">.</span><span class="n">eval</span> <span class="n">program</span><span class="p">;;</span>
+<span class="o">-</span> <span class="o">:</span> <span class="nn">Syntax</span><span class="p">.</span><span class="n">t</span> <span class="o">=</span> <span class="nn">Lib__</span><span class="p">.</span><span class="nn">Syntax</span><span class="p">.</span><span class="nc">Int</span> <span class="mi">21</span>
+</code></pre></div>
+<p>オッいい感じじゃないでしょうか｡
+DSL も相まってわかりやすい(自画自賛)｡</p>
+<h1 id="4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">4. おわりに</a></h1>
+<p>ウーン実装もかんたんだったな(10h弱)｡
+ただ実装しないとわからないことがあったのは面白いです｡
+あんまり深みないんですが終わりです｡
+ありがとうございました｡
+本ブログでも再三再四触れていますが､<span class="cite">[<a href="#fn1" title="河原悟 『コルーチンを用いた代数的効果の新しい実装方法の提案』 (令和元年度 筑波大学大学院 博士課程 システム情報工学研究科 修士論文) " id="fnref1">1</a>]</span>
+の\(\lambda_{\rm ac}\)の意味論を考えるにあたりベースにした論文<span class="cite">[<a href="#fn2" title="Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. " id="fnref2">2</a>]</span>
+も面白いので読んでみてください｡</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p><a href="http://logic.cs.tsukuba.ac.jp/%7Esat/pdf/master_thesis.pdf" target="_blank" rel="noopener noreferrer">河原悟 『コルーチンを用いた代数的効果の新しい実装方法の提案』 (令和元年度 筑波大学大学院 博士課程 システム情報工学研究科 修士論文)</a> <a href="#fnref1">↩</a></p>
+</li>
+
+<li id="fn2">
+<p>Moura, Ana Lúcia De, and Roberto Ierusalimschy. “Revisiting coroutines.” ACM Transactions on Programming Languages and Systems (TOPLAS) 31.2 (2009): 6. <a href="#fnref2">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2020/12/31/Extending-OCaml's-open.html" title="Extending OCaml's open">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <span class="btn next disabled">Next →</span>
+      </div>
+    </footer>
+
+  </body>
+</html>

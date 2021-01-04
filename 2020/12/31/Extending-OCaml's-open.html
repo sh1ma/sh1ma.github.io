@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="content-type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>Extending OCaml&#39;s open - lilyum ensemble</title>
+    <meta itemprop="name" content="Extending OCaml&#39;s open - lilyum ensemble"/>
+    <meta name="keywords" content="OCaml,modules,Advent Calendar"/>
+    <meta name="thumbnail" content="/pictures/github_icon.png"/>
+    <meta itemprop="image" content="/pictures/github_icon.png"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="lilyum ensemble"/>
+    <meta name="twitter:title" content="Extending OCaml's open - lilyum ensemble"/>
+    <meta name="twitter:url" content="/2020/12/31/Extending-OCaml's-open.html"/> 
+    <meta name="twitter:text:description" content="1. はじめにこんにちは､びしょ〜じょです｡これは ML Advent Calendar 2020 の22日目の記事です｡皆さんは大晦日ですか? 私は22日にいます｡さて話は OCaml 4.0..."/>
+    <meta name="twitter:image" content="https://nymphium.github.io/pictures/github_icon.png"/>
+    <meta name="twitter:image:src" content="https://nymphium.github.io/pictures/github_icon.png"/>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="alternate" type="application/rss+xml" title="lilyum ensemble" href="/feed.xml"/>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300%7CDroid+Sans+Mono%7CCrimson+Text:400,400i" rel="stylesheet"/>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Extending OCaml’s open" />
+<meta name="author" content="Satoru Kawahara" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="lily, Aikatsu, Programming language, and more" />
+<meta property="og:description" content="lily, Aikatsu, Programming language, and more" />
+<link rel="canonical" href="https://nymphium.github.io/2020/12/31/Extending-OCaml's-open.html" />
+<meta property="og:url" content="https://nymphium.github.io/2020/12/31/Extending-OCaml's-open.html" />
+<meta property="og:site_name" content="lilyum ensemble" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-31T00:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Extending OCaml’s open" />
+<script type="application/ld+json">
+{"datePublished":"2020-12-31T00:00:00+09:00","description":"lily, Aikatsu, Programming language, and more","mainEntityOfPage":{"@type":"WebPage","@id":"https://nymphium.github.io/2020/12/31/Extending-OCaml's-open.html"},"url":"https://nymphium.github.io/2020/12/31/Extending-OCaml's-open.html","@type":"BlogPosting","author":{"@type":"Person","name":"Satoru Kawahara"},"headline":"Extending OCaml’s open","dateModified":"2020-12-31T00:00:00+09:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image" content="/pictures/github_icon.png"/>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrapper" style="font-family: 'Comfortaa';">
+        <a class="site-title" href="/">lilyum ensemble</a>
+        <nav class="site-nav">
+          <div class="trigger">
+            <a class="page-link" href="/aboutme.html">About</a>
+            <a class="page-link" href="/slide.html">Slides</a>
+            <a class="page-link" href="/tags.html">Tags</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="wrapper" lang="ja">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">Extending OCaml's open</h1>
+            <span class="post-meta">
+              <time datetime="2020-12-31T00:00:00+09:00" itemprop="datePublished">Dec 31, 2020</time>
+              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/_posts%2F2020-12-31-Extending%20OCaml%27s%20open.md" target="_blank" rel="noopener noreferrer">src</a>
+              <p class="tags">tag: {<span class="tag"><a href="/tags.html#OCaml-ref">OCaml</a></span><span></span> <span class="tag"><a href="/tags.html#modules-ref">modules</a></span><span></span> <span class="tag"><a href="/tags.html#Advent%20Calendar-ref">Advent Calendar</a></span>}</p>
+              <a class="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">Tweet</a> 
+            </span>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+            <!-- The loading of KaTeX is deferred to speed up page rendering -->
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+            <script>
+document.addEventListener("DOMContentLoaded", function(){
+  renderMathInElement
+    ( document.body
+    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
+                    , {left: "\\(", right: "\\)", display: false}
+                    , {left: "\\[", right: "\\]", display: true}
+                    , {left: "[[",  right: "]]",  display: true}
+                    , {left: "$",   right: "$",   display: false} ]
+    , })});
+            </script>
+          </header>
+          <div class="post-content" itemprop="articleBody">
+<h1 id="1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><a class="headerlink" href="#1.+%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></h1>
+<p>こんにちは､びしょ〜じょです｡
+これは <a href="https://qiita.com/advent-calendar/2020/ml" target="_blank" rel="noopener noreferrer">ML Advent Calendar 2020</a> の22日目の記事です｡
+皆さんは大晦日ですか? 私は22日にいます｡</p>
+<p>さて話は OCaml 4.08 まで戻るのですが､みなさんは<code>open</code>の次に module path のみならず module <em>expression</em> を書けるようになっていたのをご存知でしたか?
+本日はそういった話をした論文<span class="cite">[<a href="#fn1" title="Li, Runhang and Yallop, Jeremy. “Extending OCaml’s “open””. arXiv. 2019. " id="fnref1">1</a>]</span>
+の話をします｡</p>
+<p>モジュールのフィールドを現在のモジュールのスコープに展開する方法として<code>include</code>と<code>open</code>がある｡
+<code>include</code>はモジュールの中身を文字どおり <em>include</em> ､つまり内容が継ぎ足されます｡
+<code>open</code>はスコープ上で見えるようにするだけでモジュールの定義に展開されたメンバーは含まれません｡</p>
+<p>さて､<code>include</code>にはいろいろ書けるのですが､</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">include</span> <span class="p">(</span><span class="k">struct</span>
+    <span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="kt">int</span>
+    <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+  <span class="k">end</span> <span class="o">:</span> <span class="k">sig</span>
+    <span class="k">type</span> <span class="n">t</span>
+    <span class="k">val</span> <span class="n">x</span> <span class="o">:</span> <span class="n">t</span>
+  <span class="k">end</span><span class="p">)</span>
+<span class="c">(** val x : t = &lt;abstr&gt; *)</span>
+
+<span class="c">(**
+ *  t は opaque なので int としては扱えない
+ *  # x + 3;;
+ *  Error: This expression has type t but an expression was expected of type int
+ *)</span>
+</code></pre></div>
+<p><code>open</code>はなんか不自由だったんですよねぇ</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(** 
+ *   # open struct end;;
+ *   Error: Syntax error
+ *)</span>
+</code></pre></div>
+<h3 id="Q.+%E3%81%AA%E3%82%93%E3%81%A7%3F"><a class="headerlink" href="#Q.+%E3%81%AA%E3%82%93%E3%81%A7%3F">Q. なんで?</a></h3>
+<h3 id="A."><a class="headerlink" href="#A.">A.</a></h3>
+<blockquote>
+<p>This distinction is less useful: <strong>there is no fundamental reason why <code>include</code> should accept
+arbitrary module expressions, while <code>open</code> should not.</strong></p>
+</blockquote>
+<h1 id="2.+extending+%3Ccode%3Eopen%3C%2Fcode%3E+in+structures"><a class="headerlink" href="#2.+extending+%3Ccode%3Eopen%3C%2Fcode%3E+in+structures">2. extending <code>open</code> in structures</a></h1>
+<p>さて OCaml 4.08 以降は豊かな<code>open</code>が使えます｡やりましたね｡
+でもなにができるんですか?</p>
+<h2 id="2-1.+Unexported+top-level+values"><a class="headerlink" href="#2-1.+Unexported+top-level+values">2-1. Unexported top-level values</a></h2>
+<p>signature や mli ファイルを用意しないと definitions は全てそれらが属するモジュールのフィールドになります｡</p>
+<div class="highlight">
+<span class="listing-name">hoge.ml というファイルがあるとする</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">A</span> <span class="o">|</span> <span class="nc">B</span>
+<span class="k">module</span> <span class="nc">Utils</span> <span class="o">=</span> <span class="k">struct</span>
+  <span class="k">let</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">end</span>
+
+<span class="c">(* 適当 *)</span>
+<span class="k">let</span> <span class="n">add</span> <span class="n">x</span> <span class="o">=</span> <span class="k">function</span>
+  <span class="o">|</span> <span class="nc">Some</span> <span class="n">y</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+  <span class="o">|</span> <span class="nc">None</span>   <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="nn">Utils</span><span class="p">.</span><span class="n">default</span>
+</code></pre>
+</div>
+<p><code>Utils</code> モジュールは門外不出にしたいんで mli を書く</p>
+<div class="highlight">
+<span class="listing-name">hoge.mli</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">A</span> <span class="o">|</span> <span class="nc">B</span>
+<span class="k">val</span> <span class="n">add</span> <span class="o">:</span> <span class="kt">int</span> <span class="o">-&gt;</span> <span class="kt">int</span> <span class="n">option</span> <span class="o">-&gt;</span> <span class="kt">int</span>
+</code></pre>
+</div>
+<p>または<code>include (M : Sig)</code></p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">include</span> <span class="p">(</span><span class="k">struct</span>
+  <span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">A</span> <span class="o">|</span> <span class="nc">B</span>
+  <span class="k">module</span> <span class="nc">Utils</span> <span class="o">=</span> <span class="k">struct</span>
+    <span class="k">let</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">5</span>
+  <span class="k">end</span>
+
+  <span class="k">let</span> <span class="n">add</span> <span class="n">x</span> <span class="o">=</span> <span class="o">......</span>
+<span class="k">end</span> <span class="o">:</span> <span class="k">sig</span>
+  <span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">A</span> <span class="o">|</span> <span class="nc">B</span>
+  <span class="k">val</span> <span class="n">add</span> <span class="o">:</span> <span class="kt">int</span> <span class="o">-&gt;</span> <span class="kt">int</span> <span class="n">option</span> <span class="o">-&gt;</span> <span class="kt">int</span>
+<span class="k">end</span><span class="p">)</span>
+</code></pre></div>
+<p>えっ<code>t</code>の定義2回書くんですか? ダル…
+<code>Utils</code>だけ外したいのにそれ以外全部について記述するのでなんかイヤーて感じですね｡</p>
+<p>というときに <code>open struct</code> を使ってみましょう｡</p>
+<div class="highlight">
+<span class="listing-name">hoge.ml</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">A</span> <span class="o">|</span> <span class="nc">B</span>
+<span class="k">open</span> <span class="k">struct</span>
+  <span class="k">module</span> <span class="nc">Utils</span> <span class="o">=</span> <span class="k">struct</span>
+    <span class="o">......</span>
+  <span class="k">end</span>
+
+  <span class="c">(* なんでもいい *)</span>
+  <span class="k">type</span> <span class="n">tsukawan_t</span> <span class="o">=</span> <span class="kt">int</span>
+  <span class="k">let</span> <span class="n">tsukawan_other</span> <span class="o">=</span> <span class="mi">100</span>
+  <span class="k">module</span> <span class="k">type</span> <span class="nc">TsukawanSig</span> <span class="o">=</span> <span class="k">sig</span> <span class="k">type</span> <span class="k">nonrec</span> <span class="n">t</span> <span class="o">=</span> <span class="n">t</span> <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">let</span> <span class="n">add</span> <span class="n">x</span> <span class="o">=</span> <span class="k">function</span>
+  <span class="o">|</span> <span class="nc">Some</span> <span class="n">y</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+  <span class="c">(* 使う側はそのまま *)</span>
+  <span class="o">|</span> <span class="nc">None</span>   <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="nn">Utils</span><span class="p">.</span><span class="n">default</span>
+</code></pre>
+</div>
+<p><code>open struct ... end</code>でモジュール外に出したくないものを定義できます｡
+なんとなく mli を書きたくない勢にとっては大変嬉しい｡
+この便利な使い方を知らずに OCaml 4.08 以降を使っていたので皆さんにもお伝えしたかった｡</p>
+<h2 id="2-2.+%E3%81%9D%E3%81%AE%E4%BB%96"><a class="headerlink" href="#2-2.+%E3%81%9D%E3%81%AE%E4%BB%96">2-2. その他</a></h2>
+<p>詳細は論文を読んでくれい｡
+recursive な型の名前の shadowing をしたり(2.2)</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">A</span>
+<span class="k">module</span> <span class="nc">M</span> <span class="o">=</span> <span class="k">struct</span>
+  <span class="k">open</span> <span class="k">struct</span> <span class="k">type</span> <span class="n">t'</span> <span class="o">=</span> <span class="n">t</span> <span class="k">end</span>
+  <span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">B</span> <span class="k">of</span> <span class="n">t'</span> <span class="o">*</span> <span class="n">t</span> <span class="o">|</span> <span class="nc">C</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>複数の関数にまたがる変数を簡単に用意したり(2.3)</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(**
+ *  let f, g =
+ *    let aux x y = ... in
+ *    (fun p -&gt; aux p true),
+ *    (fun p -&gt; aux p false)
+ *)</span>
+
+<span class="k">include</span> <span class="k">struct</span>
+  <span class="c">(* この無名モジュール外には aux は出ていかない *)</span>
+  <span class="k">open</span> <span class="k">struct</span> <span class="k">let</span> <span class="n">aux</span> <span class="n">x</span> <span class="n">y</span> <span class="o">=</span> <span class="o">...</span>  <span class="k">end</span>
+  <span class="k">let</span> <span class="n">f</span> <span class="n">p</span> <span class="o">=</span> <span class="n">aux</span> <span class="n">p</span> <span class="bp">true</span>
+  <span class="k">let</span> <span class="n">g</span> <span class="n">p</span> <span class="o">=</span> <span class="n">aux</span> <span class="n">p</span> <span class="bp">false</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>ローカルな例外を簡単に定義したり(2.4)､
+共有ステートで状態だけ隠してオペレータを提供するのを簡単に定義したり(2.5)､
+ppx などで自動生成される変数をうまく隠すだとか(2.6)､
+<code>open (M : S)</code>も書けるようになったんで<code>open</code>されるものを絞ったり(2.7)など､
+人生に大切なことが書かれています｡</p>
+<h1 id="3.+extending+%3Ccode%3Eopen%3C%2Fcode%3E+in+signatures"><a class="headerlink" href="#3.+extending+%3Ccode%3Eopen%3C%2Fcode%3E+in+signatures">3. extending <code>open</code> in signatures</a></h1>
+<p>ところで signature 内でも<code>open</code>は使える｡
+sginature は深掘ってこなかったので､知らないことが書いてあって面白かった｡</p>
+<blockquote>
+<p>The OCaml compiler has a feature that is often useful during development: passing the -i flag
+when compiling a module causes OCaml to display the inferred signature of the module. However,
+users are sometimes surprised to find that a signature generated by OCaml is subsequently
+rejected by OCaml, because it is incompatible with the original module, or even because it is
+invalid when considered in isolation.</p>
+</blockquote>
+<p>マジかい!w という感じですが例を見るとまぁしゃーなしやなぁという気にもなります｡</p>
+<div class="highlight">
+<span class="listing-name">fuga.ml</span><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">T1</span>
+<span class="k">module</span> <span class="nc">M</span> <span class="o">=</span> <span class="k">struct</span>
+  <span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">T2</span>
+  <span class="k">let</span> <span class="n">f</span> <span class="nc">T1</span> <span class="o">=</span> <span class="nc">T2</span>
+<span class="k">end</span>
+
+<span class="c">(**
+ *  the signature generated by the compiler with -i flag
+ *
+ *  type t = T1
+ *  module M : sig
+ *    type t = T2
+ *    val f : t -&gt; t  (* !?w *)
+ *  end
+ *)</span>
+</code></pre>
+</div>
+<p>ファイルの成すモジュールは recursive に定義できないので､<code>Fuga.t</code>を<code>Fuga.M</code>内で参照できないわけですね｡
+そして<code>M.t</code>が型引数を持つと興味深い結果になります｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">T</span>
+<span class="k">module</span> <span class="nc">M</span> <span class="o">=</span> <span class="k">struct</span>
+  <span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">S</span>
+  <span class="k">let</span> <span class="n">f</span> <span class="nc">T</span> <span class="o">=</span> <span class="nc">S</span>
+<span class="k">end</span>
+
+<span class="c">(**
+ *  type t = T
+ *  module M : sig
+ *    type 'a t = S
+ *    val f : t -&gt; t (* え?! *)
+ *  end
+ *)</span>
+</code></pre></div>
+<p>型変数が虚空に消えました｡これはすごい｡
+そしてこの問題の本質は OCaml コンパイラが頑張ってくれないことではなく､人間も手で書けないということですね｡
+余計なフィールドを追加せずに書けますか? ちょいと無理そうやな〜というところで <code>open struct</code> しますと</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">T1</span>
+<span class="k">open</span> <span class="k">struct</span> <span class="k">type</span> <span class="n">t'</span> <span class="o">=</span> <span class="n">t</span> <span class="k">end</span>
+<span class="k">module</span> <span class="nc">M</span> <span class="o">:</span> <span class="k">sig</span>
+  <span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">T2</span>
+  <span class="k">val</span> <span class="n">f</span> <span class="o">:</span> <span class="n">t'</span> <span class="o">-&gt;</span> <span class="n">t</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>ヨシ!
+ついでに OCaml 4.11 で試したところ生成するほうもいい感じになってました｡</p>
+<div class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">T1</span>
+<span class="k">module</span> <span class="nc">M</span> <span class="o">:</span> <span class="k">sig</span>
+  <span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">T2</span>
+  <span class="k">val</span> <span class="n">f</span> <span class="o">:</span> <span class="n">t</span><span class="o">/</span><span class="mi">2</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">/</span><span class="mi">1</span>
+<span class="k">end</span>
+</code></pre></div>
+<h1 id="4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB"><a class="headerlink" href="#4.+%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">4. おわりに</a></h1>
+<p>面白かったんで4章の restriction と6章の alteranative designs(Standard ML の<code>local</code>､ OOP みたいな<code>private</code>､destructive substitution<sup id="fnref2" title="with type ですね｡これも用語を知らなかった｡ "><a href="#fn2">2</a></sup>を拡張するやつ)も読んでみてください｡5章の implementation sketch は遠目で眺めました…｡</p>
+<hr>
+<p>よし!
+書き終わったので大晦日に私も追いつきました｡
+みなさん良いお年を｡</p>
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>Li, Runhang and Yallop, Jeremy. “Extending OCaml’s “open””. <a href="http://dx.doi.org/10.4204/EPTCS.294.1" target="_blank" rel="noopener noreferrer">arXiv</a>. 2019. <a href="#fnref1">↩</a></p>
+</li>
+
+<li id="fn2">
+<p><code>with type</code> ですね｡これも用語を知らなかった｡ <a href="#fnref2">↩</a></p>
+</li>
+
+</ol>
+</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+    <footer>
+      <div class="pagination btn-group" style="text-align: center; font-family: 'Comfortaa';">
+        <a class="btn prev" href="/2020/12/13/nikkan-coroutines-1.html" title="日刊Coroutines(1) 初回は嬉しいASTの定義付き">← Prev</a>
+        /<a class="btn" href="/">Top</a>/
+        <a class="btn next" href="/2021/01/04/nikkan-coroutines-2.html" title="日刊Coroutines(2) あとはやるだけ(終)">Next →</a>
+      </div>
+    </footer>
+
+  </body>
+</html>

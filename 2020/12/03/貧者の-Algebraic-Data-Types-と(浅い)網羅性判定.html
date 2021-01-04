@@ -182,7 +182,8 @@ Typed Racket も同様に control-flow based type analysis を組み込んだ Oc
 あと本記事では省略した <code>readonly</code> とかをちゃんとしているが､ <code>_tag</code> には optimistic に string literal type を利用している｡
 </p>
 <div class="github-widget" data-repo="gcanti/fp-ts"></div>
-<h1 id="3.+%E8%8B%A6%E9%9B%A3%E3%81%AE%E5%9E%8B%E6%8E%A8%E8%AB%96"><a class="headerlink" href="#3.+%E8%8B%A6%E9%9B%A3%E3%81%AE%E5%9E%8B%E6%8E%A8%E8%AB%96">3. 苦難の型推論</a></h1>
+<h1 id="3.+%E8%8B%A6%E9%9B%A3%E3%81%AE%E5%9E%8B%E6%8E%A8%E8%AB%96+%3Clabel+id%3D%22type-inference%22%3E%3C%2Flabel%3E%0A"><a class="headerlink" href="#3.+%E8%8B%A6%E9%9B%A3%E3%81%AE%E5%9E%8B%E6%8E%A8%E8%AB%96+%3Clabel+id%3D%22type-inference%22%3E%3C%2Flabel%3E%0A">3. 苦難の型推論 <label id="type-inference"></label>
+</a></h1>
 <p>さて! 帰って飯食って寝よう～といきたいところですが､ちょっと待ってよ｡
 <code>Some&lt;_&gt;</code> と <code>None&lt;_&gt;</code> の型を作るために毎度 object リテラルに <code>_tag</code> をえっさほいさするのは面倒です｡
 それにこれを乱用して野良 <code>Option&lt;_&gt;</code> 型を作ってほしくないので smart constructors を定義してそれだけユーザに見せるようにしましょう｡</p>
@@ -320,7 +321,7 @@ return type は <code>Option&lt;T&gt;</code> ですが､この <code>T</code> �
 ここまで来ればなんで怒られるかも理由がつきますね｡
 そう､ <code>Option&lt;T&gt;</code> が <code>Some&lt;T&gt;</code> でも <code>None&lt;T&gt;</code> でもない場合にどうするかを書いてません｡
 んな場合無いよ! と人は思うんですが必ずしもそうではない｡
-<a href="#3.+%E8%8B%A6%E9%9B%A3%E3%81%AE%E5%9E%8B%E6%8E%A8%E8%AB%96%E3%81%A8%E7%B6%B2%E7%BE%85%E6%80%A7%E5%88%A4%E5%AE%9A%E3%81%AE%E3%82%B8%E3%83%AC%E3%83%B3%E3%83%9E"></a>
+<a href="#type-inference">3</a>
 章で熱弁した通り､注釈をつけないととんでもない場合があるので <code>Option&lt;T&gt;</code> は <code>export</code> して他のモジュールで利用する場合があります｡
 特にこれをライブラリとして開発していたら知らんところで人が使います｡
 そして <strong><code>Option&lt;T&gt;</code> が <code>extends</code> され得るのです</strong> !
