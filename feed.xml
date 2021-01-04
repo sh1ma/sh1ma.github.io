@@ -5,8 +5,8 @@
     <description>lily, Aikatsu, Programming language, and more</description>
     <link>https://nymphium.github.io/</link>
     <atom:link href="https://nymphium.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 05 Jan 2021 00:56:48 +0900</pubDate>
-    <lastBuildDate>Tue, 05 Jan 2021 00:56:48 +0900</lastBuildDate>
+    <pubDate>Tue, 05 Jan 2021 01:02:30 +0900</pubDate>
+    <lastBuildDate>Tue, 05 Jan 2021 01:02:30 +0900</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
     
       <item>
@@ -200,7 +200,9 @@ t ::= ... | l:e
 再度申しますと､コルーチンは resume するたびに状態が更新されていくので､値ではなく参照がホシイわけですね｡なのでその参照を指すラベルを返す｡&lt;/p&gt;&lt;p&gt;&lt;code&gt;Resume&lt;/code&gt;はラベルと項を受け取って､項をそのラベルの指すコルーチンに渡して走らせます｡
 実際はラベル&lt;code&gt;l&lt;/code&gt;と項&lt;code&gt;e&lt;/code&gt;を受け取ってラベル式&lt;code&gt;l:(θ[l] e)&lt;/code&gt;にします｡
 コルーチンは引数を受け取ることから関数のようなインタフェースを持ってることが分かりますね｡
-まぁ実際関数です｡&lt;/p&gt;&lt;p&gt;さて散々引っ張ったラベル式&lt;code&gt;labelE&lt;/code&gt;の解説です｡
+まぁ実際関数です｡
+コルーチン&lt;code&gt;l&lt;/code&gt;を呼んでる中でさらに&lt;code&gt;l&lt;/code&gt;を呼ぶとぶっ壊れるので､ストア内の&lt;code&gt;l&lt;/code&gt;を flush してます｡
+ちょっとしたミソですね｡&lt;/p&gt;&lt;p&gt;さて散々引っ張ったラベル式&lt;code&gt;labelE&lt;/code&gt;の解説です｡
 その前に &lt;code&gt;punch&lt;/code&gt; で&lt;code&gt;labelE(l, e)&lt;/code&gt;の&lt;code&gt;e&lt;/code&gt;に潜らない話ですが､なんとなく察した方もいるかもしれません｡
 &lt;code&gt;labelE&lt;/code&gt;の評価時に先んじて punch してしまうと､その中にある(かもしれない)&lt;code&gt;Yield&lt;/code&gt;を評価してしまいます｡
 そして&lt;code&gt;Yield&lt;/code&gt;を評価してコルーチンをぬけたい､となったときにそのリターンポイントが無いので書きようがない､となってしまいます｡
