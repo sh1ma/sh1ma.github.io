@@ -1,0 +1,35 @@
+I"�<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        &lt;style&gt; .page-header {
+padding: 1rem 1rem 1rem 1rem;
+margin: 18px 0;
+background: rgba(171, 216, 226, 0.21); }
+</code></pre></div></div>
+
+<p>.homecont {
+    list-style-type: circle;
+}</p>
+
+<p>.page-header h4 {
+    line-height: 1;
+}
+            &lt;/style&gt;
+            &lt;div class="home"&gt;
+              &lt;div class="page-header"&gt;
+                &lt;h4 style="color: #828282;"&gt;おプログラミングしていくわよ❣&lt;/h4&gt;
+                &lt;ul&gt;
+                  &lt;li class="homecont"&gt;<a href="https://twitter.com/Nymphium" target="_blank">@Nymphium</a>&lt;/li&gt;
+                  &lt;li class="homecont"&gt;<a href="https://github.com/Nymphium" target="_blank">GitHub</a>&lt;/li&gt;
+                  &lt;li class="homecont"&gt;<a href="https://idolook.aikatsu.com/idolooks/index/nDggu4fmSdESdR83/" target="_blank">アイカツ! マイルーム</a>&lt;/li&gt;
+                  &lt;li class="homecont"&gt;<a href="http://www.amazon.co.jp/registry/wishlist/17TF1JSMGF11N" target="_blank">Cotribute</a>&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/div&gt;
+              &lt;ul class="posts"&gt;
+                &lt;ul class="post-list"&gt;
+                  &lt;h3 class="post-meta"&gt;2021&lt;/h3&gt;
+                  &lt;h4 class="post-meta"&gt;February&lt;/h4&gt;
+                  &lt;ul&gt; 
+                    &lt;li&gt;<span class="post-meta"> 4 (Thu)</span> <a href="/2021/02/04/%E3%81%82.html">あ</a>&lt;/li&gt;
+                  &lt;/ul&gt; 
+                &lt;/ul&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;</p>
+:ET

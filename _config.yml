@@ -1,17 +1,12 @@
-title: lilyum ensemble
-author: Satoru Kawahara
+title: sh1ma.isLand()
+author: Kota Amasaka
 timezone: Asia/Tokyo
-description: lily, Aikatsu, Programming language, and more
-keywords: lily,百合,Aikatsu,アイカツ,Linux,Lua,MoonScript,言語処理系,プログラム言語
-image: pictures/github_icon.png
-url: "https://nymphium.github.io"
+description: おプログラミングなどしていくわよ❣
+keywords: プログラミング
+# image: pictures/github_icon.png
+url: "https://sh1ma.github.io"
 exclude:
-  - .rvmrc
-  - .rbenv-version
   - README.md
-  - Rakefile
-  - changelog.md
-  - vendor
   - Gemfile
   - Gemfile.lock
   - _bin
@@ -19,7 +14,6 @@ exclude:
   - .sass-cache
   - twicache
   - twicard_cache
-  - about/
 
 plugins:
   - jekyll-seo-tag
@@ -28,15 +22,7 @@ plugins:
   - jekyll-gist
 sass:
   style: compressed
-markdown: redcarpet
-redcarpet:
-  extensions:
-    - smart
-    - tables
-    - autolink
-    - footnotes
-    - strikethrough
-    - no_intra_emphasis
+markdown: kramdown
 
 encoding: "utf-8"
 

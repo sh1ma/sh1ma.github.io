@@ -1,6 +1,6 @@
 #!/bin/bash
 
-github_icon=$(curl -s https://api.github.com/users/nymphium  | awk '$1 ~ /avatar_url/ {gsub(/[",]/, "", $2); print $2}')
+github_icon=$(curl -s https://api.github.com/users/sh1ma  | awk '$1 ~ /avatar_url/ {gsub(/[",]/, "", $2); print $2}')
 
 curl -o pictures/github_icon.png "${github_icon}"
 

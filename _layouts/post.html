@@ -1,35 +1,49 @@
 ---
 layout: default
 ---
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-          <header class="post-header">
-            <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
-            <span class="post-meta">
-              <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time>{% if page.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>{% endif %}
-              <a class="src" href="https://github.com/nymphium/nymphium.github.io/blob/source/{{page.path | url_encode | replace: '+', '%20' }}" target="_blank" rel="noopener noreferrer">src</a>
-              <p class="tags" >tag: &#123;{% for tag in page.tags %}<span class="tag"><a href="{{BASE_PATH}}/tags.html#{{tag}}-ref">{{tag}}</a></span>{% unless forloop.last  %}<span/> {% endunless %}{% endfor %}&#125;</p>
-              <a class="twitter-share-button" href="https://twitter.com/intent/tweet">Tweet</a> 
-            </span>
-            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-            <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
-            <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
-            <!-- The loading of KaTeX is deferred to speed up page rendering -->
-            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
-            <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
-            <script>
-document.addEventListener("DOMContentLoaded", function(){
-  renderMathInElement
-    ( document.body
-    , { delimiters: [ {left: "$$",  right: "$$",  display: true}
-                    , {left: "\\(", right: "\\)", display: false}
-                    , {left: "\\[", right: "\\]", display: true}
-                    , {left: "[[",  right: "]]",  display: true}
-                    , {left: "$",   right: "$",   display: false} ]
-    , })});
-            </script>
-          </header>
-          <div class="post-content" itemprop="articleBody">
-{{ content }}
-          </div>
-        </article>
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
+    <span class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y"
+        }}</time>{% if page.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span
+          itemprop="name">{{ page.author }}</span></span>{% endif %}
+      <a class="src"
+        href="https://github.com/sh1ma/sh1ma.github.io/blob/source/{{page.path | url_encode | replace: '+', '%20' }}"
+        target="_blank" rel="noopener noreferrer">src</a>
+      <p class="tags">tag: &#123;{% for tag in page.tags %}<span class="tag"><a
+            href="{{BASE_PATH}}/tags.html#{{tag}}-ref">{{tag}}</a></span>{% unless forloop.last %}<span /> {% endunless
+        %}{% endfor %}&#125;</p>
+      <a class="twitter-share-button" href="https://twitter.com/intent/tweet">Tweet</a>
+    </span>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/GithubRepoWidget.min.js"></script>
+    <script type="text/javascript">setTimeout(GithubRepoWidget.init, 3000);</script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css"
+      integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js"
+      integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm"
+      crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js"
+      integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH"
+      crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement
+          (document.body
+            , {
+              delimiters: [{ left: "$$", right: "$$", display: true }
+                , { left: "\\(", right: "\\)", display: false }
+                , { left: "\\[", right: "\\]", display: true }
+                , { left: "[[", right: "]]", display: true }
+                , { left: "$", right: "$", display: false }]
+              ,
+            })
+      });
+    </script>
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+</article>
